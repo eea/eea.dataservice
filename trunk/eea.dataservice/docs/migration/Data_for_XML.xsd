@@ -17,17 +17,15 @@
 	<xs:element name="dataset_visible" type="xs:int"/>
 	<xs:element name="datasetgid">
 		<xs:complexType>
-			<xs:choice maxOccurs="unbounded">
+			<xs:sequence>
 				<xs:element ref="dataset_version"/>
 				<xs:element ref="dataset_title"/>
-				<xs:element ref="dataset_note"/>
-				<xs:element ref="dataset_publish_date"/>
+				<xs:element ref="dataset_note" minOccurs="0"/>
+				<xs:element ref="dataset_publish_date" minOccurs="0"/>
 				<xs:element ref="dataset_publish_level"/>
 				<xs:element ref="dataset_visible"/>
-				<xs:element ref="metadata_typelabel"/>
-				<xs:element ref="tableview_title"/>
-				<xs:element ref="tableview_publish"/>
-			</xs:choice>
+				<xs:element ref="metadata_typelabel" maxOccurs="unbounded"/>
+			</xs:sequence>
 			<xs:attribute name="datasetgid" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
@@ -50,6 +48,4 @@
 			<xs:attribute name="relatedgid" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="tableview_publish" type="xs:int"/>
-	<xs:element name="tableview_title" type="xs:string"/>
 </xs:schema>
