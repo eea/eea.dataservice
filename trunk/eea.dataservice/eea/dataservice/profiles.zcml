@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="eea.dataservice">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="EEA Dataservice"
+      directory="profiles/default"
+      description="Extension profile for EEA Dataservice."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

@@ -1,0 +1,2 @@
+EEA Dataservice TODOs:
+    - data-icon.gif to have transparent background
