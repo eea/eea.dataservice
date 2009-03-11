@@ -36,6 +36,7 @@ def _get_container(obj, *args, **kwargs):
         site.invokeFactory('Folder',
             id=DATASERVICE_CONTAINER, title=DATASERVICE_CONTAINER.title())
     dataservice = getattr(site, DATASERVICE_CONTAINER)
+    dataservice.selectViewTemplate(templateId='folder_summary_view')
     dataservice.setConstrainTypesMode(1)
     dataservice.setImmediatelyAddableTypes(DATASERVICE_SUBOBJECTS)
     dataservice.setLocallyAllowedTypes(DATASERVICE_SUBOBJECTS)
@@ -52,6 +53,11 @@ class MigrateDatasets(object):
         self.request = request
         self.xmlfile = DATASETS_XML
         
+    def add_dataset(self, context, datamodel):
+        """ Add new dataset
+        """
+        pass
+
     #
     # Browser interface
     #
@@ -59,15 +65,23 @@ class MigrateDatasets(object):
         container = _get_container(self)
         index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
-        for index, dataset in enumerate(extract_data(self.xmlfile)):
-            self.add_dataset(container, dataset)
-        msg = '%d datasets imported !' % (index + 1)
+
+        ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        ds_range = 0
+        ds_step = 10
+
+        while ds_range < ds_info:
+            ds_range += ds_step
+            ds_data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
+            for ds_group_id in ds_data.keys():
+                for ds in ds_data[ds_group_id]:
+                    self.add_dataset(container, ds)
+                    index += 1
+
+        msg = '%d datasets imported !' % index
         info(msg)
         return _redirect(self, msg)
 
-    
-    
-        
 class MigrateMapsAndGraphs(object):
     """ """
     pass

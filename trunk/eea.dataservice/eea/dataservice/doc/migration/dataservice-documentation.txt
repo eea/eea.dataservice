@@ -47,12 +47,12 @@ Other supporting content types will probably also be needed:
 Dataservice will be represented by the follwing folder structure:
   SITE/
 		figures/	(BTreeFolder for maps and graphs)
-              	mapid/
+              	        mapid/
 			graphid/
 		data/		(BTreeFolder for data sets)
 			datasetid/
 				datafileref-1
-                        datafileref-2
+                                datafileref-2
 
 
 /*********************************************************************************/
