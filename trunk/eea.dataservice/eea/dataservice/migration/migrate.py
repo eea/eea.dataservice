@@ -96,7 +96,8 @@ class MigrateDatasets(object):
         """ Update dataset properties
         """
         ds.setExcludeFromNav(True)
-        #TODO: send to processForm all datamodel
+        form = datamodel()
+        ds.processForm(data=1, metadata=1, values=form)
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -114,7 +115,9 @@ class MigrateDatasets(object):
         index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
 
-        ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        #TODO: uncomment below, temporary commented
+        #ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        ds_info = 5
         ds_range = 0
         ds_step = 10
 

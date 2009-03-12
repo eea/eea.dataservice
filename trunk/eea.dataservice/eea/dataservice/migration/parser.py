@@ -1,8 +1,12 @@
 import os
+import re
 from cStringIO import StringIO
 from xml.sax import *
 from xml.sax.handler import ContentHandler
 from types import StringType
+
+def _strip_html_tags(text):
+    return re.sub(r'<[^>]*?>', '', text)
 
 class Dataset(object):
     """ Encapsulate report
@@ -131,7 +135,7 @@ class dataservice_handler(ContentHandler):
             if name == 'datasetgid':
                 self.dataset_context = 1
                 self.dataset_current = Dataset()
-                self.dataset_current.set('group_id', self.dataset_group_current)
+                ###self.dataset_current.set('group_id', self.dataset_group_current)
                 self.dataset_current.set('id', attrs['datasetgid'])
     
             # Dataset metadata
@@ -152,20 +156,24 @@ class dataservice_handler(ContentHandler):
                 self.dataset_context = 0
                 self.dataset_current = None
     
-            if name == 'dataset_version':
-                self.dataset_current.set('version_number', self.data, 1)
+            ###if name == 'dataset_version':
+                ###self.dataset_current.set('version_number', self.data, 1)
             
             if name == 'dataset_title':
                 self.dataset_current.set('title', self.data, 1)
             
             if name == 'dataset_note':
-                self.dataset_current.set('description', self.data, 1)
+                trunc_value = 150
+                desc = u''.join(self.data).strip()
+                desc = _strip_html_tags(desc)
+                if len(desc) > trunc_value: desc = desc[:trunc_value]
+                self.dataset_current.set('description', desc)
             
-            if name == 'dataset_publish_level':
-                self.dataset_current.set('publish_level', self.data, 1)
+            ###if name == 'dataset_publish_level':
+                ###self.dataset_current.set('publish_level', self.data, 1)
             
-            if name == 'dataset_visible':
-                self.dataset_current.set('visible', self.data, 1)
+            ###if name == 'dataset_visible':
+                ###self.dataset_current.set('visible', self.data, 1)
                 
             # Dataset metadata
             if name == 'metadata_typelabel':
@@ -174,8 +182,8 @@ class dataservice_handler(ContentHandler):
                 
             if self.metadata_context:
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
-                self.dataset_current.set(field_name, self.data, 1)
-                self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
+                ###self.dataset_current.set(field_name, self.data, 1)
+                ###self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
 
         self.data = []
 

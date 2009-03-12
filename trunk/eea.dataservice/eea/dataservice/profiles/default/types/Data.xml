@@ -5,7 +5,7 @@
  <property name="title">Data</property>
  <property name="description">A dataservice data.</property>
  <property name="content_icon">data-icon.gif</property>
- <property name="content_meta_type">ATFolder</property>
+ <property name="content_meta_type">Data</property>
  <property name="product">ATContentTypes</property>
  <property name="factory">addATFolder</property>
  <property name="immediate_view">edit</property>

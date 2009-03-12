@@ -13,6 +13,7 @@ cmfutils.ProductsPath.append(dirname(package_home(globals())))
 registerDirectory('skins', globals())
 cmfutils.ProductsPath = ppath
 
+
 def initialize(context):
     """initialize product (called by zope)"""
 
