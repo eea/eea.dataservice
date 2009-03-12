@@ -1,6 +1,7 @@
 """ Migrate old dataservice to plone.
 """
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFCore.utils import getToolByName
 from parser import extract_data
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS
 from config import (
@@ -12,7 +13,9 @@ import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
-
+#
+# Tools
+#
 def _redirect(obj, msg):
     """ Set status message and redirect to context absolute_url
     """
@@ -23,6 +26,26 @@ def _redirect(obj, msg):
     IStatusMessage(obj.request).addStatusMessage(msg, type='info')
     obj.request.response.redirect(url)
 
+def _reindex(obj):
+    """ Reindex document
+    """
+    ctool = getToolByName(obj.context, 'portal_catalog')
+    ctool.reindexObject(obj)
+    
+def _publish(obj):
+    """ Try to publish given document
+    """
+    wftool = getToolByName(obj.context, 'portal_workflow')
+    state = wftool.getInfoFor(obj, 'review_state', '(Unknown)')
+    if state == 'published':
+        return
+    try:
+        wftool.doActionFor(obj, 'publish',
+                           comment='Auto published by migration script.')
+    except Exception, err:
+        logger.warn('Could not publish %s, state: %s, error: %s',
+                    obj.absolute_url(1), state, err)
+    
 #
 # Getters
 #
@@ -44,7 +67,6 @@ def _get_container(obj, *args, **kwargs):
     # Returns
     return dataservice
     
-    
 class MigrateDatasets(object):
     """ Class used to migrate datasets.
     """
@@ -56,7 +78,33 @@ class MigrateDatasets(object):
     def add_dataset(self, context, datamodel):
         """ Add new dataset
         """
-        pass
+        ds_id = datamodel.getId()
+        
+        # Add dataset if it doesn't exists
+        if ds_id not in context.objectIds():
+            info('Adding dataset id: %s', ds_id)
+            ds_id = context.invokeFactory('Data', id=ds_id)
+        
+        # Set properties
+        ds = getattr(context, ds_id)
+        self.update_properties(ds, datamodel)
+        ds.setTitle(datamodel.get('title', ''))
+
+        return ds_id
+
+    def update_properties(self, ds, datamodel):
+        """ Update dataset properties
+        """
+        ds.setExcludeFromNav(True)
+        #TODO: send to processForm all datamodel
+
+        # Publish
+        #TODO: set proper state based on -1/0/1 from XML
+        _publish(ds)
+
+        # Reindex
+        _reindex(ds)
+        _reindex(ds.getParentNode())
 
     #
     # Browser interface

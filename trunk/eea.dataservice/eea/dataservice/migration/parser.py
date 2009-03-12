@@ -9,13 +9,13 @@ class Dataset(object):
     """
     def __init__(self):
         """
-            @param group_id:    String;
-            @param uid:         String;
-            @version_number     String;
-            @title              String;
-            @description        String;
-            @publish_level      String;
-            @visible            String;
+            @param group_id:          String;
+            @param id:                String;
+            @param version_number     String;
+            @param title              String;
+            @param description        String;
+            @param publish_level      String;
+            @param visible            String;
             
             DATASET_METADATA_MAPPING
         """
@@ -132,7 +132,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_context = 1
                 self.dataset_current = Dataset()
                 self.dataset_current.set('group_id', self.dataset_group_current)
-                self.dataset_current.set('uid', attrs['datasetgid'])
+                self.dataset_current.set('id', attrs['datasetgid'])
     
             # Dataset metadata
             if name == 'metadata_typelabel':
@@ -176,7 +176,9 @@ class dataservice_handler(ContentHandler):
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
                 self.dataset_current.set(field_name, self.data, 1)
                 self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
-            
+
+        self.data = []
+
     def characters(self, content):
         if self.check_range():
             self.data.append(content)
