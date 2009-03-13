@@ -4,6 +4,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS
+from eea.themecentre.interfaces import IThemeTagging
 from config import (
     DATASERVICE_CONTAINER,
     DATASETS_XML,
@@ -89,6 +90,9 @@ class MigrateDatasets(object):
         ds = getattr(context, ds_id)
         self.update_properties(ds, datamodel)
         ds.setTitle(datamodel.get('title', ''))
+        tagging = IThemeTagging(ds)
+        tags = filter(None, datamodel.get('themes', ''))
+        tagging.tags = tags
 
         return ds_id
 
@@ -117,7 +121,7 @@ class MigrateDatasets(object):
 
         #TODO: uncomment below, temporary commented
         #ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        ds_info = 5
+        ds_info = 20
         ds_range = 0
         ds_step = 10
 

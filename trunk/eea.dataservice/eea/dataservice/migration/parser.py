@@ -5,6 +5,10 @@ from xml.sax import *
 from xml.sax.handler import ContentHandler
 from types import StringType
 
+import logging
+logger = logging.getLogger('eea.dataservice.migration')
+info = logger.info
+
 def _strip_html_tags(text):
     return re.sub(r'<[^>]*?>', '', text)
 
@@ -13,15 +17,13 @@ class Dataset(object):
     """
     def __init__(self):
         """
-            @param group_id:          String;
             @param id:                String;
-            @param version_number     String;
             @param title              String;
             @param description        String;
-            @param publish_level      String;
-            @param visible            String;
+            @param themes:            Iterator;
+            @param rights:            String;
+            @param effectiveDate      String;
             
-            DATASET_METADATA_MAPPING
         """
         pass
 
@@ -55,26 +57,26 @@ class Dataset(object):
 
 DATASET_METADATA_MAPPING = {
     'Additional information':     'information',
-    'Contact person(s) for EEA':  'contact',
-    'Disclaimer':                 'disclaimer',
+    'Contact person(s) for EEA':  'dataset_contact',
+    'Disclaimer':                 'dataset_disclaimer',
     'EEA management plan code':   'management_plan',
     'Geographic accuracy':        'geographic_accuracy',
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
     'Keyword(s)':                 'keywords',
-    'Last upload':                'last_upload',
+    'Last upload':                'effectiveDate',
     'Methodology':                'methodology',
     'Originator':                 'originator',
-    'Owner':                      'owner',
+    'Owner':                      'dataset_owner',
     'Processor':                  'processor',
     'Reference system':           'reference_system',
     'Relation':                   'relation',
     'Rights':                     'rights',
     'Scale of the data set':      'scale',
-    'Source':                     'source',
+    'Source':                     'dataset_source',
     'System folder':              'system_folder',
     'Temporal coverage':          'temporal_coverage',
-    'Theme':                      'theme',
+    'Theme':                      'themes',
     'Unit':                       'unit'
 }
 
@@ -182,8 +184,23 @@ class dataservice_handler(ContentHandler):
                 
             if self.metadata_context:
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
-                ###self.dataset_current.set(field_name, self.data, 1)
-                ###self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
+                data = u''.join(self.data).strip()
+                if name == 'metadata_text':
+                    if field_name == 'themes': 
+                        data = data.replace('airpollution', 'air')
+                        data = data.replace('assesment', 'reporting')
+                        data = data.replace(' ', '')
+                        data = data.split(',')
+                    if field_name == 'rights':
+                        data = _strip_html_tags(data)
+                    if field_name == 'effectiveDate':
+                        pass
+                    self.dataset_current.set(field_name, data)
+                if name == 'metadata_text_publish_level':
+                    self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
+
+            if name == 'data':
+                info('End parsing of datasets XML')
 
         self.data = []
 
