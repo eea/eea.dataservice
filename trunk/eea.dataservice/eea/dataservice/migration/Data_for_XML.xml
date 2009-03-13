@@ -1102,11 +1102,11 @@ international RBDs: [EU_MS] = N AND [INTERNATIONAL] = Y.]]></metadata_text>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -1322,11 +1322,11 @@ rectangular coordinates for a map projection</span></td>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -1665,7 +1665,7 @@ of hillshading.]]></dataset_note>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
-        <metadata_text><![CDATA[This data, accompanied by its metadata, is freely available subject to acknowledgement of the source(s). For EEA the acknowledgement should read: © EEA, Copenhagen, 2003.]]></metadata_text>
+        <metadata_text><![CDATA[This data, accompanied by its metadata, is freely available subject to acknowledgement of the source(s). For EEA the acknowledgement should read: Â© EEA, Copenhagen, 2003.]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="System folder">
@@ -1685,7 +1685,7 @@ grid spacing of 30 arc seconds (approximately 1 kilometer). GTOPO30
 was derived from several raster and vector sources of topographic
 information. GTOPO30, completed in late 1996, was developed over a
 three year period through a collaborative effort led by staff at
-the U.S. Geological Survey´s EROS Data Center (EDC). The following
+the U.S. Geological SurveyÂ´s EROS Data Center (EDC). The following
 organizations participated by contributing funding or source data:
 the National Aeronautics and Space Administration (NASA), the
 United Nations Environment Programme/Global Resource Information
@@ -1711,7 +1711,7 @@ policy/USGS/elevation data).]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Reference system">
-        <metadata_text><![CDATA[<table><tr><td valign="middle" colspan="2"><b>Lambert Azimutal</b></td></tr><tr><td valign="top">Longitute of Projection Center<br/><span  class="subscript">The longitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">20°00'00''</td></tr><tr><td valign="top">Latitute of Projection Center<br/><span  class="subscript">The latitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">52°00'00''</td></tr><tr><td valign="top">Ellipsoid<br/><span class="subscript">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top">Sphere: radius 6378137</td></tr><tr><td valign="top">Axis Units<br/><span class="subscript">Unit the x,y-coordinates are specified.</span></td><td valign="top">Meters</td></tr><tr><td valign="top">False Easting<br/><span class="subscript">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">5071000.0 Meters</td></tr><tr><td valign="top">False Northing<br/><span class="subscript">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">3210000.0 Meters</td></tr><tr><td valign="top">Semimajor Axis<br/><span class="subscript">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">6378137 Meters</td></tr></table>]]></metadata_text>
+        <metadata_text><![CDATA[<table><tr><td valign="middle" colspan="2"><b>Lambert Azimutal</b></td></tr><tr><td valign="top">Longitute of Projection Center<br/><span  class="subscript">The longitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">20Â°00'00''</td></tr><tr><td valign="top">Latitute of Projection Center<br/><span  class="subscript">The latitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">52Â°00'00''</td></tr><tr><td valign="top">Ellipsoid<br/><span class="subscript">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top">Sphere: radius 6378137</td></tr><tr><td valign="top">Axis Units<br/><span class="subscript">Unit the x,y-coordinates are specified.</span></td><td valign="top">Meters</td></tr><tr><td valign="top">False Easting<br/><span class="subscript">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">5071000.0 Meters</td></tr><tr><td valign="top">False Northing<br/><span class="subscript">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">3210000.0 Meters</td></tr><tr><td valign="top">Semimajor Axis<br/><span class="subscript">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">6378137 Meters</td></tr></table>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Owner">
@@ -3025,11 +3025,11 @@ href="/dataservice/metadetails.asp?id=950">Corine land cover 2000
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2005 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -3176,11 +3176,11 @@ changes (CLC1990 - CLC2000) 100 m - version 9/2007</a>]]></metadata_text>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2005 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -3539,7 +3539,7 @@ href="http://www.emep.int/grid/index.html">http://www.emep.int/grid/index.html</
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Oxygen saturation: %<br /> Conductivity: µS/cm<br /> Secchi depth transparency: m<br /> Alkalinity: meq/l<br /> Chlorophyll a: mg/l<br /> Total organic carbon: mg/l C<br /> Total nitrogen, Nitrite nitrogen, Nitrate nitrogen, Nitrate and nitrite nitrogen (oxidised nitrogen), Kjeldahl nitrogen, Ammonia nitrogen: mg/l N<br /> Oxygen concentration, COD unspecified, COD manganate method, COD chromate method, BOD7, BOD5: mg/l O2<br /> Total phosphorus, Orthophosphate: mg/l P]]></metadata_text>
+        <metadata_text><![CDATA[Oxygen saturation: %<br /> Conductivity: ÂµS/cm<br /> Secchi depth transparency: m<br /> Alkalinity: meq/l<br /> Chlorophyll a: mg/l<br /> Total organic carbon: mg/l C<br /> Total nitrogen, Nitrite nitrogen, Nitrate nitrogen, Nitrate and nitrite nitrogen (oxidised nitrogen), Kjeldahl nitrogen, Ammonia nitrogen: mg/l N<br /> Oxygen concentration, COD unspecified, COD manganate method, COD chromate method, BOD7, BOD5: mg/l O2<br /> Total phosphorus, Orthophosphate: mg/l P]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Processor">
@@ -3588,7 +3588,7 @@ href="http://www.emep.int/grid/index.html">http://www.emep.int/grid/index.html</
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Oxygen saturation: %<br />  Chlorophyll a: µg/l<br />  El. Conductivity: µS/cm<br />  Secchi depth transparency: m<br />  Alkalinity: meq/l<br />  Total organic carbon: mg/l C<br />  Nitrate and nitrite nitrogen (oxidised nitrogen), Nitrite, Kjeldahl Nitrogen, Total Nitrogen, Ammonia Nitrogen, Nitrate: mg/l N<br />  BOD7, CODCr, COD unspecified, Oxygen concentration, CODMn, BOD5: mg/l O2<br />  Orthophosphate, Total Phosphorus: mg/l P]]></metadata_text>
+        <metadata_text><![CDATA[Oxygen saturation: %<br />  Chlorophyll a: Âµg/l<br />  El. Conductivity: ÂµS/cm<br />  Secchi depth transparency: m<br />  Alkalinity: meq/l<br />  Total organic carbon: mg/l C<br />  Nitrate and nitrite nitrogen (oxidised nitrogen), Nitrite, Kjeldahl Nitrogen, Total Nitrogen, Ammonia Nitrogen, Nitrate: mg/l N<br />  BOD7, CODCr, COD unspecified, Oxygen concentration, CODMn, BOD5: mg/l O2<br />  Orthophosphate, Total Phosphorus: mg/l P]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Temporal coverage">
@@ -3625,7 +3625,7 @@ href="http://www.emep.int/grid/index.html">http://www.emep.int/grid/index.html</
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Oxygen saturation: %<br />  Chlorophyll a: µg/l<br />  El. Conductivity: µS/cm<br />  Secchi depth transparency: m<br />  Alkalinity: meq/l<br />  Total organic carbon: mg/l C<br />  Nitrate and nitrite nitrogen (oxidised nitrogen), Nitrite, Kjeldahl Nitrogen, Total Nitrogen, Ammonia Nitrogen, Nitrate: mg/l N<br />  BOD7, CODCr, COD unspecified, Oxygen concentration, CODMn, BOD5: mg/l O2<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  pH: pH]]></metadata_text>
+        <metadata_text><![CDATA[Oxygen saturation: %<br />  Chlorophyll a: Âµg/l<br />  El. Conductivity: ÂµS/cm<br />  Secchi depth transparency: m<br />  Alkalinity: meq/l<br />  Total organic carbon: mg/l C<br />  Nitrate and nitrite nitrogen (oxidised nitrogen), Nitrite, Kjeldahl Nitrogen, Total Nitrogen, Ammonia Nitrogen, Nitrate: mg/l N<br />  BOD7, CODCr, COD unspecified, Oxygen concentration, CODMn, BOD5: mg/l O2<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  pH: pH]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -3710,8 +3710,8 @@ href="http://www.emep.int/grid/index.html">http://www.emep.int/grid/index.html</
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
         <metadata_text><![CDATA[Oxygen Saturation: %<br/>
-Chlorophyll a: µg/l<br/>
-Electrical Conductivity: µS/cm<br/>
+Chlorophyll a: Âµg/l<br/>
+Electrical Conductivity: ÂµS/cm<br/>
 Secchi depth transparency: m<br/>
 Alkalinity: meq/l<br/>
 Total Organic Carbon: mg/l C<br/>
@@ -3779,9 +3779,9 @@ factsheets</a>.]]></dataset_note>
       <metadata_typelabel metadata_typelabel="Unit">
         <metadata_text><![CDATA[Alkalinity: meq/l<br/>
 BOD5, BOD7: mg/l O2<br/>
-Chlorophyll a: µg/l<br/>
+Chlorophyll a: Âµg/l<br/>
 COD, CODCr, CODMn, Dissolved Oxygen: mg/l O2<br/>
-Conductivity: µS/cm<br/>
+Conductivity: ÂµS/cm<br/>
 Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br/>
 Orthophosphate, Total Phosphorus: mg/l P<br/>
 Oxygen Saturation: %<br/>
@@ -3847,9 +3847,9 @@ factsheets</a>.]]></dataset_note>
       <metadata_typelabel metadata_typelabel="Unit">
         <metadata_text><![CDATA[Alkalinity: meq/l<br/>
 BOD5, BOD7: mg/l O2<br/>
-Chlorophyll a: µg/l<br/>
+Chlorophyll a: Âµg/l<br/>
 COD, CODCr, CODMn, Dissolved Oxygen: mg/l O2<br/>
-Conductivity, Conductivity (20  oC): µS/cm<br/>
+Conductivity, Conductivity (20  oC): ÂµS/cm<br/>
 Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen, Total Organic Nitrogen: mg/l N<br/>
 Orthophosphate, Total Phosphorus: mg/l P<br/>
 Oxygen Saturation: %<br/>
@@ -3922,7 +3922,7 @@ Total Oxidised Nitrogen, Total Organic Nitrogen: mg/l N]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Chlorophyll a: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Chlorophyll a: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
@@ -4042,7 +4042,7 @@ sub-national scales should be sought from other sources.</b>]]></metadata_text>
         <metadata_text_publish_level>-1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Conductivity, Conductivity (20 oC): µS/cm]]></metadata_text>
+        <metadata_text><![CDATA[Conductivity, Conductivity (20 oC): ÂµS/cm]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="System folder">
@@ -4091,7 +4091,7 @@ Nitrogen, Total Organic Nitrogen: mg/l N]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Chlorophyll a: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Chlorophyll a: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
@@ -5220,11 +5220,11 @@ rectangular coordinates for a map projection</span></td>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -6082,9 +6082,9 @@ based in theoretical assumptions
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2006 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2006 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -6249,9 +6249,9 @@ based in theoretical assumptions
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2006 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2006 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -6403,11 +6403,11 @@ owner for more information about their data policy.]]></metadata_text>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -9836,7 +9836,7 @@ rectangular coordinates for a map projection</span></td>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[Operator: Andres Stæhr Bastholm, andres.bastholm@eea.europa.eu]]></metadata_text>
+        <metadata_text><![CDATA[Operator: Andres StÃ¦hr Bastholm, andres.bastholm@eea.europa.eu]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Methodology">
@@ -11050,9 +11050,9 @@ information refer to the Methodology document.]]></dataset_note>
       <dataset_visible>1</dataset_visible>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2006 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2006 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -11332,9 +11332,9 @@ rectangular coordinates for a map projection</span></td>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2006 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2006 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -11668,7 +11668,7 @@ urban morphological zones (2000) - version 12/2005</a>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[DO (Dissolved Oxygen): mg/l O2<br />  Nitrate: mg/l NO3<br />  Nitrite: mg/l NO2<br />  Ammonium: mg/l NH4<br />  Atrazine, Simazine, Lindane: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[DO (Dissolved Oxygen): mg/l O2<br />  Nitrate: mg/l NO3<br />  Nitrite: mg/l NO2<br />  Ammonium: mg/l NH4<br />  Atrazine, Simazine, Lindane: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -11709,7 +11709,7 @@ urban morphological zones (2000) - version 12/2005</a>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[DO (Dissolved Oxygen): mg/l O2<br />  Nitrate: mg/l NO3<br />  Nitrite: mg/l NO2<br />  Ammonium: mg/l NH4<br />  Atrazine, Simazine, Lindane: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[DO (Dissolved Oxygen): mg/l O2<br />  Nitrate: mg/l NO3<br />  Nitrite: mg/l NO2<br />  Ammonium: mg/l NH4<br />  Atrazine, Simazine, Lindane: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Temporal coverage">
@@ -11775,7 +11775,7 @@ factsheets</a>.]]></dataset_note>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
         <metadata_text><![CDATA[DO (Dissolved Oxygen), Ammonium, Nitrite, Nitrate: mg/l<br/>
-Simazine, Lindane, Atrazine: µg/l]]></metadata_text>
+Simazine, Lindane, Atrazine: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -11847,7 +11847,7 @@ factsheets</a>.]]></dataset_note>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
         <metadata_text><![CDATA[DO (Dissolved Oxygen), Ammonium, Nitrite, Nitrate: mg/l<br/>
-Simazine, Lindane, Atrazine: µg/l]]></metadata_text>
+Simazine, Lindane, Atrazine: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -11997,7 +11997,7 @@ sub-national scales should be sought from other sources.</b>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Simazine, Lindane, Atrazine: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Simazine, Lindane, Atrazine: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Keyword(s)">
@@ -12128,7 +12128,7 @@ sub-national scales should be sought from other sources.</b>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Simazine, Lindane, Atrazine: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Simazine, Lindane, Atrazine: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Keyword(s)">
@@ -12366,7 +12366,7 @@ preliminary GIS features are managed by the European Commission,
 <span class="link-external"><span class="link-external"><a
 href="http://ec.europa.eu/environment/nature/">DG
 Environment</a></span></span>. For access, please apply to
-Ms. Angelika Rubin: <a
+Ms.Â Angelika Rubin: <a
 href="mailto:Angelika.Rubin@ec.europa.eu">Angelika.Rubin@ec.europa.eu</a>.
 <br />
 <br />
@@ -12756,11 +12756,11 @@ at regional or national level.]]></metadata_text>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -12893,11 +12893,11 @@ at regional or national level.]]></metadata_text>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -13875,7 +13875,7 @@ EEA). Acknowledgement should read: &amp;quot;Copyright EEA, Copenhagen,
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Temporal coverage">
-        <metadata_text><![CDATA[Range: 1992 – 2000]]></metadata_text>
+        <metadata_text><![CDATA[Range: 1992 â€“ 2000]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Owner">
@@ -13915,7 +13915,7 @@ EEA). Acknowledgement should read: &amp;quot;Copyright EEA, Copenhagen,
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Temporal coverage">
-        <metadata_text><![CDATA[Range: 1992–2003]]></metadata_text>
+        <metadata_text><![CDATA[Range: 1992â€“2003]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Keyword(s)">
@@ -15689,11 +15689,11 @@ rectangular coordinates for a map projection</span></td>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -15841,7 +15841,7 @@ and 100 kilometres polygon grid. <br />
 Grid collections for individual countries contain 1, 10, 50 and 100
 km grids. The grids cover country borders and marine Natura 2000
 sites (where applicable). The extent of the grid into the marine
-area does not reflect the extent of the territorial waters.]]></dataset_note>
+area does not reflect the extent of theÂ territorial waters.]]></dataset_note>
       <dataset_publish_date>2007-10-09T00:00:00</dataset_publish_date>
       <dataset_publish_level>1</dataset_publish_level>
       <dataset_visible>0</dataset_visible>
@@ -15909,8 +15909,8 @@ South bound latitude: 18,7981039480947 <br />]]></metadata_text>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Methodology">
         <metadata_text><![CDATA[This reference grid is based on ETRS89 Lambert Azimuthal Equal Area 
-projection with parameters: latitude of origin 52° N, longitude of 
-origin 10° E, false northing 3 210 000.0 m, false easting 4 321 
+projection with parameters: latitude of origin 52Â° N, longitude of 
+origin 10Â° E, false northing 3 210 000.0 m, false easting 4 321 
 000.0 m. Origin of grid is calculated from 0 m N 0 m E of 
 projection. Created with &amp;quot;EEA ETRS89_LAEA fishnet tool v1 for 
 ArcGIS 9&amp;quot;. EEA fishnet tool and EEA GIS Guideline with 
@@ -16381,9 +16381,9 @@ dataset.]]></metadata_text>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2007 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2007 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -17285,7 +17285,7 @@ were base-year corrected.]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[In-house contact: François Dejean, Francois.Dejean@eea.europa.eu]]></metadata_text>
+        <metadata_text><![CDATA[In-house contact: FranÃ§ois Dejean, Francois.Dejean@eea.europa.eu]]></metadata_text>
         <metadata_text_publish_level>-1</metadata_text_publish_level>
       </metadata_typelabel>
     </datasetgid>
@@ -17416,7 +17416,7 @@ adjustment factors is attached to the dataset.<br />
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[In-house contact: François Dejean, Francois.Dejean@eea.europa.eu]]></metadata_text>
+        <metadata_text><![CDATA[In-house contact: FranÃ§ois Dejean, Francois.Dejean@eea.europa.eu]]></metadata_text>
         <metadata_text_publish_level>-1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="System folder">
@@ -17819,7 +17819,7 @@ data within urban morphological zones (UMZ).]]></dataset_note>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[FÖMI: George Buttner. ETC/TE: Roger Milego roger.milego@uab.es. EEA: Linda Bredahl]]></metadata_text>
+        <metadata_text><![CDATA[FÃ–MI: George Buttner. ETC/TE: Roger Milego roger.milego@uab.es. EEA: Linda Bredahl]]></metadata_text>
         <metadata_text_publish_level>-1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Reference system">
@@ -18188,7 +18188,7 @@ Copyright EEA, Copenhagen, 2007.]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[Operator: Andres Stæhr Bastholm, andres.bastholm@eea.europa.eu]]></metadata_text>
+        <metadata_text><![CDATA[Operator: Andres StÃ¦hr Bastholm, andres.bastholm@eea.europa.eu]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Theme">
@@ -18654,7 +18654,7 @@ advised not to use it for geoprocessing or statistical purposes.]]></metadata_te
         <metadata_text_publish_level>-1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
-        <metadata_text><![CDATA[MONA PRO Europe© is copyrighted. A multi-posts "agency" license has been acquired for the European Commission, which makes the product available for applications developed within the European Commission. Dissemination outside the European Commission is restricted to raster representations (i.e. images) of the DTM. However, most of contour lines are copyright-free and publicly available.]]></metadata_text>
+        <metadata_text><![CDATA[MONA PRO EuropeÂ© is copyrighted. A multi-posts "agency" license has been acquired for the European Commission, which makes the product available for applications developed within the European Commission. Dissemination outside the European Commission is restricted to raster representations (i.e. images) of the DTM. However, most of contour lines are copyright-free and publicly available.]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Geographic accuracy">
@@ -19770,7 +19770,7 @@ Oceanographic Commission.</p>]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
-        <metadata_text><![CDATA[The dataset is copyrighted (BODC). Licence fees for accessing the complete database in vector format is about 250 £. It is however possible to freely disseminate GEBCO data in raster format (e.g. .bmp, .jpg, .gif). Only the mention of GEBCO copyright is then required. Contractually the BODC insists to
+        <metadata_text><![CDATA[The dataset is copyrighted (BODC). Licence fees for accessing the complete database in vector format is about 250 Â£. It is however possible to freely disseminate GEBCO data in raster format (e.g. .bmp, .jpg, .gif). Only the mention of GEBCO copyright is then required. Contractually the BODC insists to
 communicate that "Data from the GEBCO Digital Atlas are not to be used for navigation or for any other purpose relating to safety at sea".]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -19873,11 +19873,11 @@ Spain, Sweden, United Kingdom</td>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -19890,7 +19890,7 @@ the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[Outside contact: Jana Ostatnická, osta@chmi.cz]]></metadata_text>
+        <metadata_text><![CDATA[Outside contact: Jana OstatnickÃ¡, osta@chmi.cz]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Keyword(s)">
@@ -19945,7 +19945,7 @@ the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO, Oxygen Saturation: mg/l O2<br />  Chloride: mg/l Cl<br />  Chlorophyll a: µg/l<br />  Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  Oxygen Saturation: %<br />  pH: pH<br />  Sulphate: mg/l<br />  Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO, Oxygen Saturation: mg/l O2<br />  Chloride: mg/l Cl<br />  Chlorophyll a: Âµg/l<br />  Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  Oxygen Saturation: %<br />  pH: pH<br />  Sulphate: mg/l<br />  Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Keyword(s)">
@@ -19998,7 +19998,7 @@ the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO: mg/l O2<br /> Chlorophyll a: µg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO: mg/l O2<br /> Chlorophyll a: Âµg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Temporal coverage">
@@ -20047,7 +20047,7 @@ the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO: mg/l O2<br />  Chlorophyll a: µg/l<br />  Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  Oxygen Saturation: %<br />  pH: pH<br />  Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, DO: mg/l O2<br />  Chlorophyll a: Âµg/l<br />  Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Nitrogen, Total Oxidised Nitrogen: mg/l N<br />  Orthophosphate, Total Phosphorus: mg/l P<br />  Oxygen Saturation: %<br />  pH: pH<br />  Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -20092,7 +20092,7 @@ the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen: mg/l O2<br /> Chlorophyll a: µg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen: mg/l O2<br /> Chlorophyll a: Âµg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -20162,7 +20162,7 @@ factsheets</a>.]]></dataset_note>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen, CODMn: mg/l O2<br /> Chlorophyll a: µg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen, CODMn: mg/l O2<br /> Chlorophyll a: Âµg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -20236,7 +20236,7 @@ factsheets</a>.]]></dataset_note>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen, CODMn: mg/l O2<br /> Chlorophyll a: µg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
+        <metadata_text><![CDATA[BOD5, BOD7, COD, CODCr, Dissolved Oxygen, CODMn: mg/l O2<br /> Chlorophyll a: Âµg/l<br /> Kjeldahl Nitrogen, Nitrate, Nitrite, Non-ionised Ammonia, Organic Nitrogen, Total Ammonium, Total Inorganic Nitrogen, Total Oxidised Nitrogen, Total Nitrogen: mg/l N<br /> Orthophosphate, Total Phosphorus: mg/l P<br /> Oxygen Saturation: %<br /> pH: pH<br /> Total Organic Carbon: mg/l C]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
@@ -20327,7 +20327,7 @@ Kingdom</td>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Chlorophyll a: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Chlorophyll a: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
@@ -20485,7 +20485,7 @@ United Kingdom</td>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Chlorophyll a: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Chlorophyll a: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
@@ -20639,7 +20639,7 @@ Turkey, United Kingdom</td>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Unit">
-        <metadata_text><![CDATA[Chlorophyll a: µg/l]]></metadata_text>
+        <metadata_text><![CDATA[Chlorophyll a: Âµg/l]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Methodology">
@@ -20897,11 +20897,11 @@ changes (CLC1990 - CLC2000) seamless vector database - version
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -21865,7 +21865,7 @@ the coverage of the LEAC project.]]></dataset_note>
       <dataset_publish_level>1</dataset_publish_level>
       <dataset_visible>0</dataset_visible>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
-        <metadata_text><![CDATA[Outside contact: Ferran Páramo, ferran.paramo@uab.cat]]></metadata_text>
+        <metadata_text><![CDATA[Outside contact: Ferran PÃ¡ramo, ferran.paramo@uab.cat]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Contact person(s) for EEA">
@@ -21972,8 +21972,8 @@ rectangular coordinates for a map projection</span></td>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Methodology">
         <metadata_text><![CDATA[This reference grid is based on ETRS89 Lambert Azimuthal Equal Area
-projection with parameters: latitude of origin 52° N, longitude of
-origin 10° E, false northing 3 210 000.0 m, false easting 4 321
+projection with parameters: latitude of origin 52Â° N, longitude of
+origin 10Â° E, false northing 3 210 000.0 m, false easting 4 321
 000.0 m. Origin of grid is calculated from 0 m N 0 m E of
 projection. Created with EEA ETRS89_LAEA fishnet tool v1 for ArcGIS
 9. EEA fishnet tool and EEA GIS Guideline with detailed description
@@ -22061,9 +22061,9 @@ reason why in some areas the coastal strip can be wider than 10 km.]]></metadata
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
-the user agrees: · to acknowledge the source as follows: Copyright
-EEA, Copenhagen, 2006 · to display a link to the EEA web site
-http://www.eea.europa.eu · not to use the data/applications for
+the user agrees: - to acknowledge the source as follows: Copyright
+EEA, Copenhagen, 2006 - to display a link to the EEA web site
+http://www.eea.europa.eu - not to use the data/applications for
 commercial purposes unless the Agency has expressly granted the
 right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
@@ -23413,11 +23413,11 @@ rectangular coordinates for a map projection</span></td>
       <metadata_typelabel metadata_typelabel="Rights">
         <metadata_text><![CDATA[EEA grants free access to all its data/applications provided that
 the user agrees: <br />
-· to acknowledge the source as follows: Copyright EEA, Copenhagen,
+- to acknowledge the source as follows: Copyright EEA, Copenhagen,
 2007 <br />
-· to display a link to the EEA web site http://www.eea.europa.eu
+- to display a link to the EEA web site http://www.eea.europa.eu
 <br />
-· not to use the data/applications for commercial purposes unless
+- not to use the data/applications for commercial purposes unless
 the Agency has expressly granted the right to do so]]></metadata_text>
         <metadata_text_publish_level>1</metadata_text_publish_level>
       </metadata_typelabel>
@@ -23856,7 +23856,7 @@ rectangular coordinates for a map projection</span></td>
       <dataset_publish_level>0</dataset_publish_level>
       <dataset_visible>0</dataset_visible>
       <metadata_typelabel metadata_typelabel="Source">
-        <metadata_text><![CDATA[OECD-Eurostat joint questionnaire, 1996; for Austria: Ãstat and UBA, 1998; EEA]]></metadata_text>
+        <metadata_text><![CDATA[OECD-Eurostat joint questionnaire, 1996; for Austria: Ãƒstat and UBA, 1998; EEA]]></metadata_text>
         <metadata_text_publish_level>0</metadata_text_publish_level>
       </metadata_typelabel>
       <metadata_typelabel metadata_typelabel="Last upload">
