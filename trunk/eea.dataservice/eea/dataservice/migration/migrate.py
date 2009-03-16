@@ -43,9 +43,12 @@ def _publish(obj):
     try:
         wftool.doActionFor(obj, 'publish',
                            comment='Auto published by migration script.')
-    except Exception, err:
-        logger.warn('Could not publish %s, state: %s, error: %s',
-                    obj.absolute_url(1), state, err)
+    except:
+        pass
+    #TODO: fix publish
+    #except Exception, err:
+    #    logger.warn('Could not publish %s, state: %s, error: %s',
+    #                obj.absolute_url(1), state, err)
     
 #
 # Getters
@@ -120,8 +123,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        #ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        ds_info = 20
+        ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        #ds_info = 20
         ds_range = 0
         ds_step = 10
 

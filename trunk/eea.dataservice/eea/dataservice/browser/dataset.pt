@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<body>
+
+<div metal:fill-slot="main">
+    <style>
+        dd {margin-left: 3em}
+    </style>
+
+    <!-- BASIC PROPERTIES -->
+    <!-- Title -->
+    <h1 tal:content="here/pretty_title_or_id">Title of the Dataset</h1>
+    <div class="documentActions languages">
+        <tal:lang tal:condition="exists: here/global_languageselector">
+            <metal:lang use-macro="here/global_languageselector/macros/language" />
+        </tal:lang>
+    </div>
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Description -->
+    <div class="publicationDescription">
+        <strong tal:content="here/Description" />
+    </div>
+
+    <!-- Themes -->
+    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+
+
+    <!-- META DATA -->
+    <h4>Meta data</h4>
+    <div style="margin-left: 5%;">
+    <dl>
+
+    <!-- Rights -->
+    <dt i18n:translate="dataset_rights">Rights:</dt>
+    <dd tal:content="structure python:here.Rights().replace('\n', '<br />')" />
+
+    <!-- EEA management plan code -->
+    <dt i18n:translate="dataset_plan_code">Last upload:</dt>
+    <tal:moreInfo define="
+        lu_field python:here.getField('effectiveDate');
+        lu_value python:lu_field.getAccessor(here)();">
+        <dd tal:content="structure lu_value">Last upload</dd>
+    </tal:moreInfo>
+    
+    <!-- EEA management plan code -->
+    <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
+    <tal:moreInfo define="
+        mp_field python:here.getField('eea_mpcode');
+        mp_value python:mp_field.getAccessor(here)();">
+        <dd tal:content="structure mp_value">EEA management plan code</dd>
+    </tal:moreInfo>
+    
+    <!-- Additional information -->
+    <dt i18n:translate="dataset_aditional_info">Additional information:</dt>
+    <tal:moreInfo define="
+        mi_field python:here.getField('moreInfo');
+        mi_value python:mi_field.getAccessor(here)();">
+        <dd tal:content="structure mi_value">Additional information</dd>
+    </tal:moreInfo>
+    
+    <!-- Disclaimer -->
+    <dt i18n:translate="dataset_disclaimer">Disclaimer:</dt>
+    <tal:moreInfo define="
+        d_field python:here.getField('disclaimer');
+        d_value python:d_field.getAccessor(here)();">
+        <dd tal:content="structure d_value">disclaimer</dd>
+    </tal:moreInfo>
+
+    <!-- Source -->
+    <dt i18n:translate="dataset_source">Source:</dt>
+    <tal:moreInfo define="
+        s_field python:here.getField('source');
+        s_vocab python:s_field.Vocabulary(here);
+        s_values python:s_field.getAccessor(here)();
+        s_value python:here.displayValue(s_vocab, s_values)">
+        <dd tal:content="structure s_value">source</dd>
+    </tal:moreInfo>
+
+
+
+
+
+
+    </dl>
+    </div>
+    <br clear="all" />
+</div>
+
+</body>
+</html>

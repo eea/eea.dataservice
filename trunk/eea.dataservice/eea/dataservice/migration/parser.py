@@ -12,6 +12,14 @@ info = logger.info
 def _strip_html_tags(text):
     return re.sub(r'<[^>]*?>', '', text)
 
+def _check_integer(text):
+    res = 1
+    try:
+        dummy = int(text)
+    except:
+        res = 0
+    return res
+
 class Dataset(object):
     """ Encapsulate report
     """
@@ -23,6 +31,11 @@ class Dataset(object):
             @param themes:            Iterator;
             @param rights:            String;
             @param effectiveDate      String;
+            @param eea_mpcode         Integer;
+            @param moreInfo           String;
+            @param disclaimer         String;
+            @param source             Iterator;
+            @param scale              Integer;
             
         """
         pass
@@ -56,10 +69,10 @@ class Dataset(object):
         return self.id
 
 DATASET_METADATA_MAPPING = {
-    'Additional information':     'information',
+    'Additional information':     'moreInfo',
     'Contact person(s) for EEA':  'dataset_contact',
-    'Disclaimer':                 'dataset_disclaimer',
-    'EEA management plan code':   'management_plan',
+    'Disclaimer':                 'disclaimer',
+    'EEA management plan code':   'eea_mpcode',
     'Geographic accuracy':        'geographic_accuracy',
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
@@ -165,7 +178,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current.set('title', self.data, 1)
             
             if name == 'dataset_note':
-                trunc_value = 150
+                trunc_value = 1500 #TODO: set a true value to be used to trunc
                 desc = u''.join(self.data).strip()
                 desc = _strip_html_tags(desc)
                 if len(desc) > trunc_value: desc = desc[:trunc_value]
@@ -186,6 +199,14 @@ class dataservice_handler(ContentHandler):
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
                 data = u''.join(self.data).strip()
                 if name == 'metadata_text':
+                    #if field_name == 'effectiveDate': pass
+                    #if field_name == 'moreInfo': pass
+                    if field_name == 'scale':
+                        #TODO: fix/filter imported values
+                        data = '1:100000000'
+                    if field_name == 'source': 
+                        #TODO: fix/filter imported values to match vocab values
+                        data = ['EEA (European Environment Agency)']
                     if field_name == 'themes': 
                         data = data.replace('airpollution', 'air')
                         data = data.replace('assesment', 'reporting')
@@ -193,8 +214,13 @@ class dataservice_handler(ContentHandler):
                         data = data.split(',')
                     if field_name == 'rights':
                         data = _strip_html_tags(data)
-                    if field_name == 'effectiveDate':
-                        pass
+                    if field_name == 'disclaimer':
+                        data = _strip_html_tags(data)
+                    if field_name == 'eea_mpcode':
+                        if not _check_integer(data):
+                            info('DATA ERROR: %s is not integer. Dataset: %s' % \
+                                   (data, self.dataset_current.get('id')))
+                            data = ''
                     self.dataset_current.set(field_name, data)
                 if name == 'metadata_text_publish_level':
                     self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)

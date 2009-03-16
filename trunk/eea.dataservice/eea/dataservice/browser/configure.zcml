@@ -4,4 +4,12 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            i18n_domain="eea.dataservice">
 
+  <page
+      name="dataset_view"
+      template="dataset.pt"
+      class=".displays.DatasetContainerView"
+      for="eea.dataservice.interfaces.IDataset"
+      permission="zope2.View"
+      />
+
 </configure>

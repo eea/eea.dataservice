@@ -5,25 +5,27 @@ Datasets properties mapping during migration
 ==================================================================================================
 -relatedgid['relatedgid']           -                   -               -
 --------------------------------------------------------------------------------------------------
-- datasetgid['datasetgid']          - id                -  string       - (no action)
+- datasetgid['datasetgid']          - id                - string        - (no action)
 --------------------------------------------------------------------------------------------------
 - dataset_version                   -                   -               -
 --------------------------------------------------------------------------------------------------
-- dataset_title                     - title             -  string       - (no action)
+- dataset_title                     - title             - string        - (no action)
 --------------------------------------------------------------------------------------------------
-- dataset_note                      - description       -  text         - HTML striped, truncated to first 150 characters
+- dataset_note                      - description       - text          - HTML striped
+                                    -                   -               - #truncated to first 150 characters
 --------------------------------------------------------------------------------------------------
 - dataset_publish_level             -                   -               -
 --------------------------------------------------------------------------------------------------
 - dataset_visible                   -                   -               -
 --------------------------------------------------------------------------------------------------
-- MT['Additional information']      -                   -               -
+- MT['Additional information']      - moreInfo          - html          - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Contact person(s) for EEA']   -                   -               -
 --------------------------------------------------------------------------------------------------
-- MT['Disclaimer']                  -                   -               -
+- MT['Disclaimer']                  - disclaimer        - text          - HTML striped
 --------------------------------------------------------------------------------------------------
-- MT['EEA management plan code']    -                   -               -
+- MT['EEA management plan code']    - eea_mpcode        - integer       - test/filter if data is integer
+-                                   -                   -               - #data from exported XML does not contains integers, fails to be imported (watch log)
 --------------------------------------------------------------------------------------------------
 - MT['Geographic accuracy']         -                   -               -
 --------------------------------------------------------------------------------------------------
@@ -33,7 +35,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  -                   -               -
 --------------------------------------------------------------------------------------------------
-- MT['Last upload']                 - effectiveDate     -  DateWidget   - (no action) ! to check all data if is consistent
+- MT['Last upload']                 - effectiveDate     - DateWidget    - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Methodology']                 -                   -               -
 --------------------------------------------------------------------------------------------------
@@ -47,38 +49,28 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Relation']                    -                   -               -
 --------------------------------------------------------------------------------------------------
-- MT['Rights']                      - rights            -  text         - HTML striped
+- MT['Rights']                      - rights            - text          - HTML striped
+-                                   -                   -               - #some carriage returns which makes ugly output
 --------------------------------------------------------------------------------------------------
-- MT['Scale of the data set']       -                   -               -
+- MT['Scale of the data set']       - scale             - integer       - (no action)
+-                                   -                   -               - #existing data dont match yet, so not imported atm
 --------------------------------------------------------------------------------------------------
-- MT['Source']                      -                   -               -
+- MT['Source']                      - source            - KeywordWidget - mapped on vocabulary="report_creators"
+-                                   -                   -               - #existing data not imported yet as dont match vocab IDs
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                   -               -
 --------------------------------------------------------------------------------------------------
 - MT['Temporal coverage']           -                   -               -
 --------------------------------------------------------------------------------------------------
-- MT['Theme']                       - themes            -  theme-widget - (no action)
+- MT['Theme']                       - themes            - theme-widget  - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Unit']                        -                   -               -
 ==================================================================================================
+
 Legend:
 
 MT = metadata_typelabel
 
-Themes used in old datasets:
-[x] climate -> climate
-[x] natural -> natural
-?? assesment -> 
-[x] soil -> soil
-[x] water -> water
-[x] fishery -> fishery
-[x] airpollution -> air
-[x] coast_sea -> coast_sea
-[x] biodiversity -> biodiversity
-[x] landuse -> landuse
-[x] industry -> industry
-[x] urban -> urban
-[x] regions -> regions
-[x] transport -> transport
-[x] population -> population
-[x] agriculture -> agriculture
+
+
+
