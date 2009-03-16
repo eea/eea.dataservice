@@ -25,14 +25,14 @@ Datasets properties mapping during migration
 - MT['Disclaimer']                  - disclaimer        - text          - HTML striped
 --------------------------------------------------------------------------------------------------
 - MT['EEA management plan code']    - eea_mpcode        - integer       - test/filter if data is integer
--                                   -                   -               - #DAVID: data from exported XML does not contains integers, fails to be imported (watch log)
+-                                   -                   -               - #DAVID: data from exported XML does not contains integers, fails to be imported (watch log) -- look email
 --------------------------------------------------------------------------------------------------
 - MT['Geographic accuracy']         - geoAccuracy       - integer       - (no action)
--                                   -                   -               - #DAVID: existing data not imported yet as dont match
+-                                   -                   -               - #DAVID: existing data not imported yet as dont match -- Keep it text
 --------------------------------------------------------------------------------------------------
 - MT['Geographic box coordinates']  -                   -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Geographical coverage']       -                   -               - #DAVID: a list of country codes is needed here
+- MT['Geographical coverage']       -                   -               - #DAVID-todo: a list of country codes is needed here
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  -                   -               -
 --------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Processor']                   -                   - ContactWidget -
 --------------------------------------------------------------------------------------------------
-- MT['Reference system']            -                   -               - #DAVID: get the list of HTML snipets for lookup
+- MT['Reference system']            -                   -               - #DAVID: get the list of HTML snipets for lookup -- look email
 --------------------------------------------------------------------------------------------------
 - MT['Relation']                    -                   -               -
 --------------------------------------------------------------------------------------------------
@@ -56,14 +56,14 @@ Datasets properties mapping during migration
 -                                   -                   -               - # if "eea" and NOT "free" (save a log with skip list for antonio)
 --------------------------------------------------------------------------------------------------
 - MT['Scale of the data set']       - scale             - integer       - (no action)
--                                   -                   -               - #DAVID: existing data dont match yet, so not imported atm
+-                                   -                   -               - #DAVID-todo: existing data dont match yet, so not imported atm
 --------------------------------------------------------------------------------------------------
 - MT['Source']                      - source            - KeywordWidget - mapped on vocabulary="report_creators"
 -                                   -                   -               - #DAVID: existing data not imported yet as dont match vocab IDs
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                   -               - NOT IMPORTED (skipped) - maybe use during future import
 --------------------------------------------------------------------------------------------------
-- MT['Temporal coverage']           -                   -               - #DAVID: what kind of data can/should be here? (e.g. years, year period)
+- MT['Temporal coverage']           -                   -               - #DAVID: what kind of data can/should be here? (e.g. years, year period) -- multiselect yesr list
 --------------------------------------------------------------------------------------------------
 - MT['Theme']                       - themes            - theme-widget  - (no action)
 --------------------------------------------------------------------------------------------------
