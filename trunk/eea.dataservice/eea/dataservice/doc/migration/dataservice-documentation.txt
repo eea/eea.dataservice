@@ -628,36 +628,36 @@ Identified objects are basically ".asp" pages where administrator can insert met
 Below a table that shows which metadata tag can be inserted to each objects.
 
  
-Meta data label	Data set	M&G	Providers	Tableview	Max publication level	   
-Source?	Yes	Yes	Yes	No	internet level	   
-Unit    	Yes	Yes	No	No	internet level	   
-Last upload	Yes	Yes	No	No	internet level	   
-Geographical coverage     	Yes	Yes	No	No	internet level	   
-Temporal coverage	Yes	Yes	No	No	internet level	   
-Additional information	Yes	Yes	No	Yes	internet level	   
-Contact person(s) for EEA    	Yes	Yes	No	No	intranet level	   
-Relation?	Yes	Yes	No	No	internet level	   
-Reference system?	Yes	No	No	No	internet level	   
-Methodology	Yes	Yes	Yes	Yes	internet level	   
-Geographic box coordinates?	Yes	No	No	No	internet level	   
-Scale of the data set?	Yes	No	No	No	internet level	   
-Keyword(s)    	Yes	Yes	Yes	Yes	internet level	   
-Owner	Yes	Yes	Yes	Yes	internet level	   
-Type	No	Yes	No	No	internet level	   
-Rights	Yes	Yes	No	No	internet level	   
-Processor	Yes	Yes	No	Yes	internet level	   
-Geographic accuracy	Yes	No	No	No	internet level	   
-Reference ID					intranet level	   
-sourceImages					intranet level	   
-Theme    	Yes	Yes	No	No	internet level	   
-Data policy	No	No	Yes	No	internet level	   
-System folder					intranet level	   
-GID					internet level	   
-RelatedGID					internet level	   
-Disclaimer	Yes	Yes	No	No	internet level	   
-EEA management plan code	Yes	Yes	No	No	intranet level	   
-EEA Publication Id	No	Yes	No	No	intranet level	   
-Publish date	Yes	Yes	No	No	internet level	 
+Meta data label	                Data set	M&G	Providers	Tableview	Max publication level	   
+Source?	                        Yes		Yes	Yes		No		internet level	   
+Unit    	                Yes		Yes	No		No		internet level	   
+Last upload			Yes		Yes	No		No		internet level	   
+Geographical coverage     	Yes		Yes	No		No		internet level	   
+Temporal coverage		Yes		Yes	No		No		internet level	   
+Additional information		Yes		Yes	No		Yes		internet level	   
+Contact person(s) for EEA    	Yes		Yes	No		No		intranet level	   
+Relation?			Yes		Yes	No		No		internet level	   
+Reference system?		Yes		No	No		No		internet level	   
+Methodology			Yes		Yes	Yes		Yes		internet level	   
+Geographic box coordinates?	Yes		No	No		No		internet level	   
+Scale of the data set?		Yes		No	No		No		internet level	   
+Keyword(s)    			Yes		Yes	Yes		Yes		internet level	   
+Owner				Yes		Yes	Yes		Yes		internet level	   
+Type				No		Yes	No		No		internet level	   
+Rights				Yes		Yes	No		No		internet level	   
+Processor			Yes		Yes	No		Yes		internet level	   
+Geographic accuracy		Yes		No	No		No		internet level	   
+Reference ID										intranet level	   
+sourceImages										intranet level	   
+Theme    			Yes		Yes	No		No		internet level	   
+Data policy			No		No	Yes		No		internet level	   
+System folder										intranet level	   
+GID											internet level	   
+RelatedGID										internet level	   
+Disclaimer			Yes		Yes	No		No		internet level	   
+EEA management plan code	Yes		Yes	No		No		intranet level	   
+EEA Publication Id		No		Yes	No		No		intranet level	   
+Publish date			Yes		Yes	No		No		internet level	 
 
 Remarks: 
 - some meta data can only be published at administrator (intranet) level, otherwise most of the tags can be made publicly available.

@@ -36,6 +36,9 @@ class Dataset(object):
             @param disclaimer         String;
             @param source             Iterator;
             @param scale              Integer;
+            @param geoAccuracy        Integer;
+            @param methodology        String;
+            @param unit               String;
             
         """
         pass
@@ -73,7 +76,7 @@ DATASET_METADATA_MAPPING = {
     'Contact person(s) for EEA':  'dataset_contact',
     'Disclaimer':                 'disclaimer',
     'EEA management plan code':   'eea_mpcode',
-    'Geographic accuracy':        'geographic_accuracy',
+    'Geographic accuracy':        'geoAccuracy',
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
     'Keyword(s)':                 'keywords',
@@ -86,7 +89,7 @@ DATASET_METADATA_MAPPING = {
     'Relation':                   'relation',
     'Rights':                     'rights',
     'Scale of the data set':      'scale',
-    'Source':                     'dataset_source',
+    'Source':                     'source',
     'System folder':              'system_folder',
     'Temporal coverage':          'temporal_coverage',
     'Theme':                      'themes',
@@ -201,6 +204,11 @@ class dataservice_handler(ContentHandler):
                 if name == 'metadata_text':
                     #if field_name == 'effectiveDate': pass
                     #if field_name == 'moreInfo': pass
+                    #if field_name == 'methodology': pass
+                    #if field_name == 'unit':pass
+                    if field_name == 'geoAccuracy':
+                        #TODO: fix/filter imported values
+                        data = '999'
                     if field_name == 'scale':
                         #TODO: fix/filter imported values
                         data = '1:100000000'

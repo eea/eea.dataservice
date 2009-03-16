@@ -23,7 +23,7 @@ from eea.dataservice.interfaces import IDataset
 from Products.validation.validators.RegexValidator import RegexValidator
 from Products.validation import validation
 validation.register(RegexValidator('isScale',
-                                   r'1:[0-9]', 
+                                   r'^1:(\d+)$', 
                                    errmsg = 'Invalid value, must be e.g. 1:1000000.'))
     
 schema = Schema((
@@ -87,6 +87,7 @@ schema = Schema((
         name='scale',
         validators = ('isScale',),
         searchable=1,
+        default = '1:',
         label="Scale of the data set",
         widget=StringWidget(
             label="Scale of the data set",
@@ -96,9 +97,64 @@ schema = Schema((
             description_msgid='dataservice_help_scale',
             i18n_domain='eea.dataservice',
         ),
-),
+    ),
 
+    IntegerField(
+        name='geoAccuracy',
+        validators = ('isInt',),
+        widget=IntegerWidget(
+            label='Geographic accuracy',
+            label_msgid='dataservice_label_accurracy',
+            description_msgid='dataservice_help_accurracy',
+            i18n_domain='eea.dataservice',
+        )
+    ),
 
+    TextField(
+        name='methodology',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=RichWidget
+        (
+            label="Methodology",
+            description="methodology description.",
+            label_msgid="dataservice_label_methodology",
+            description_msgid="dataservice_help_methodology",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
+    ),
+    
+    TextField(
+        name='unit',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=RichWidget
+        (
+            label="Unit",
+            description="Unit description.",
+            label_msgid="dataservice_label_unit",
+            description_msgid="dataservice_help_unit",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
+    ),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -132,17 +188,7 @@ schema = Schema((
 
     
 
-    TextField(
-        name='geographic_accuracy',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Geographic accuracy",
-            description="geographic_accuracy description.",
-            label_msgid='dataservice_label_geographic_accuracy',
-            description_msgid='dataservice_help_geographic_accuracy',
-            i18n_domain='eea.dataservice',
-        )
-    ),
+
     
     TextField(
         name='geographic_coordinates',
@@ -168,18 +214,7 @@ schema = Schema((
         )
     ),
     
-    TextField(
-        name='methodology',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Methodology",
-            description="methodology description.",
-            label_msgid='dataservice_label_methodology',
-            description_msgid='dataservice_help_methodology',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
+   
     TextField(
         name='originator',
         index="ZCTextIndex|TextIndex:brains",
@@ -254,17 +289,7 @@ schema = Schema((
         )
     ),
     
-    TextField(
-        name='unit',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Unit",
-            description="Unit description.",
-            label_msgid='dataservice_label_unit',
-            description_msgid='dataservice_help_unit',
-            i18n_domain='eea.dataservice',
-        )
-    ),
+
 
 
 ),

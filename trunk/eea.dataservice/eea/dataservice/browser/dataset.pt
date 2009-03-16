@@ -45,7 +45,7 @@
         lu_value python:lu_field.getAccessor(here)();">
         <dd tal:content="structure lu_value">Last upload</dd>
     </tal:moreInfo>
-    
+
     <!-- EEA management plan code -->
     <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
     <tal:moreInfo define="
@@ -53,7 +53,7 @@
         mp_value python:mp_field.getAccessor(here)();">
         <dd tal:content="structure mp_value">EEA management plan code</dd>
     </tal:moreInfo>
-    
+
     <!-- Additional information -->
     <dt i18n:translate="dataset_aditional_info">Additional information:</dt>
     <tal:moreInfo define="
@@ -61,7 +61,7 @@
         mi_value python:mi_field.getAccessor(here)();">
         <dd tal:content="structure mi_value">Additional information</dd>
     </tal:moreInfo>
-    
+
     <!-- Disclaimer -->
     <dt i18n:translate="dataset_disclaimer">Disclaimer:</dt>
     <tal:moreInfo define="
@@ -80,6 +80,21 @@
         <dd tal:content="structure s_value">source</dd>
     </tal:moreInfo>
 
+    <!-- Methodology -->
+    <dt i18n:translate="dataset_aditional_methodology">Methodology:</dt>
+    <tal:moreInfo define="
+        met_field python:here.getField('methodology');
+        met_value python:met_field.getAccessor(here)();">
+        <dd tal:content="structure met_value">Methodology</dd>
+    </tal:moreInfo>
+
+    <!-- Unit -->
+    <dt i18n:translate="dataset_aditional_unit">Unit:</dt>
+    <tal:moreInfo define="
+        u_field python:here.getField('unit');
+        u_value python:u_field.getAccessor(here)();">
+        <dd tal:content="structure u_value">Unit</dd>
+    </tal:moreInfo>
 
 
 

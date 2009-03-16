@@ -63,11 +63,11 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                   -               - NOT IMPORTED (skipped) - maybe use during future import
 --------------------------------------------------------------------------------------------------
-- MT['Temporal coverage']           -                   -               - #DAVID: what kind of data can/should be here? (e.g. years, year period) -- multiselect yesr list
+- MT['Temporal coverage']           -                   -               -
 --------------------------------------------------------------------------------------------------
 - MT['Theme']                       - themes            - theme-widget  - (no action)
 --------------------------------------------------------------------------------------------------
-- MT['Unit']                        -                   - html          -
+- MT['Unit']                        - unit              - html          - (no action)
 ==================================================================================================
 
 Legend:
