@@ -13,6 +13,7 @@ from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
+from eea.dataservice.vocabulary import DatasetYearsVocabulary
 
 
 #def addData(self, REQUEST={}):
@@ -20,50 +21,40 @@ from eea.dataservice.interfaces import IDataset
     #"""
     #pass
 
-from Products.validation.validators.RegexValidator import RegexValidator
-from Products.validation import validation
-validation.register(RegexValidator('isScale',
-                                   r'^1:(\d+)$', 
-                                   errmsg = 'Invalid value, must be e.g. 1:1000000.'))
+#TODO: delete above if no need, is old regexp to check for 1:10000 format
+#from Products.validation.validators.RegexValidator import RegexValidator
+#from Products.validation import validation
+#validation.register(RegexValidator('isScale',
+                                   #r'^1:(\d+)$', 
+                                   #errmsg = 'Invalid value, must be e.g. 1:1000000.'))
     
 schema = Schema((
+
     IntegerField(
-        name='eea_mpcode',
+        name='scale',
         validators = ('isInt',),
         widget=IntegerWidget(
-            label='EEA management plan code',
-            label_msgid='dataservice_label_eea_mpcode',
-            description_msgid='dataservice_help_eea_mpcode',
+            macro='scale_widget',
+            label='Scale of the data set',
+            label_msgid='dataservice_label_scale',
+            description_msgid='dataservice_help_scale',
             i18n_domain='eea.dataservice',
+            size=20,
         )
     ),
-    
-    TextField(
-        name='moreInfo',
-        languageIndependent=False,
-        allowable_content_types=('text/html',),
-        default_content_type='text/html',
-        default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=RichWidget
-        (
-            label="Additional information",
-            description="Additional information description.",
-            label_msgid="dataservice_label_moreInfo",
-            description_msgid="dataservice_help_moreInfo",
-            i18n_domain="eea.dataservice",
-            rows=10,
-        ),
-    ),
 
-    TextField(
-        name='disclaimer',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Disclaimer",
-            description="Disclaimer description.",
-            label_msgid='dataservice_label_disclaimer',
-            description_msgid='dataservice_help_disclaimer',
+    LinesField(
+        name='temporal_coverage',
+        languageIndependent=True,
+        multiValued=1,
+        default=(u'Temporal coverage',),
+        vocabulary=DatasetYearsVocabulary(),
+        widget=MultiSelectionWidget(
+            macro="coverage_widget",
+            label="Temporal coverage",
+            description="Temporal coverage description.",
+            label_msgid='dataservice_label_coverage',
+            description_msgid='dataservice_help_coverage',
             i18n_domain='eea.dataservice',
         )
     ),
@@ -83,31 +74,57 @@ schema = Schema((
         )
     ),
 
-    StringField(
-        name='scale',
-        validators = ('isScale',),
-        searchable=1,
-        default = '1:',
-        label="Scale of the data set",
-        widget=StringWidget(
-            label="Scale of the data set",
-            description="Scale of the data set description.",
-            size=20,
-            label_msgid='publications_label_title',
-            description_msgid='dataservice_help_scale',
-            i18n_domain='eea.dataservice',
-        ),
-    ),
-
     IntegerField(
-        name='geoAccuracy',
+        name='eea_mpcode',
         validators = ('isInt',),
         widget=IntegerWidget(
-            label='Geographic accuracy',
+            label='EEA management plan code',
+            label_msgid='dataservice_label_eea_mpcode',
+            description_msgid='dataservice_help_eea_mpcode',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    TextField(
+        name='disclaimer',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=TextAreaWidget(
+            label="Disclaimer",
+            description="Disclaimer description.",
+            label_msgid='dataservice_label_disclaimer',
+            description_msgid='dataservice_help_disclaimer',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    TextField(
+        name='geoAccuracy',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=TextAreaWidget(
+            label="Geographic accuracy",
+            description="Geographic accuracy description.",
             label_msgid='dataservice_label_accurracy',
             description_msgid='dataservice_help_accurracy',
             i18n_domain='eea.dataservice',
         )
+    ),
+
+    TextField(
+        name='moreInfo',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=RichWidget
+        (
+            label="Additional information",
+            description="Additional information description.",
+            label_msgid="dataservice_label_moreInfo",
+            description_msgid="dataservice_help_moreInfo",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
     ),
 
     TextField(
@@ -148,6 +165,13 @@ schema = Schema((
     
     
     
+    
+    
+    
+    
+    
+    
+
     
     
     
@@ -276,22 +300,6 @@ schema = Schema((
             i18n_domain='eea.dataservice',
         )
     ),
-    
-    TextField(
-        name='temporal_coverage',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Temporal coverage",
-            description="temporal_coverage description.",
-            label_msgid='dataservice_label_temporal_coverage',
-            description_msgid='dataservice_help_temporal_coverage',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
-
-
-
 ),
 )
 
@@ -311,9 +319,38 @@ class Data(ATFolder):
 
     schema = Dataset_schema
 
-    security.declareProtected(permissions.View, 'getUnit')
-    def getUnit(self):
+    security.declareProtected(permissions.View, 'formatTempCoverage')
+    def formatTempCoverage(self):
         """ """
-        return 'unit'
+        field = self.getField('temporal_coverage')
+        data = field.getAccessor(self)()
+        data = list(data)
+        data.reverse()
+        res_list = []
+        res = ''
+        cyear = None
+
+        for year in data:
+            if len(res_list) > 0:
+                if cyear is None:
+                    tmpyear = int(res_list[-1])
+                else:
+                    tmpyear = int(cyear)
+                tmpyear = tmpyear + 1
+                if int(year) == tmpyear:
+                    cyear = year
+                else:
+                    if cyear is None:
+                        res_list.append(str(year))
+                    else:
+                        res_list.append('-%s' % str(year))
+                        cyear = None
+            else:
+                res_list.append(str(year))
+        if cyear is not None:
+            res_list.append('-%s' % str(year))
+
+        res = ', '.join(res_list)
+        return res.replace(', -', '-')
 
 registerType(Data, PROJECTNAME)

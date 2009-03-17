@@ -20,25 +20,53 @@ def _check_integer(text):
         res = 0
     return res
 
+def _filter_temporal_coverage(text, dataset_id):
+    orig_text = text
+    res = []
+    text = text.replace('Range:', '')
+    text = text.replace('Range of years available:', '')
+    text = text.replace(' and ', ',')
+    text = text.replace(' for population data.', '')
+    text = text.replace('Projections for year', '')
+    text = text.split(',')
+    for year in text:
+        year = year.strip()
+        try:
+            if year.find('-') != -1:
+                tmp = year.split('-')
+                int(tmp[0]) 
+                int(tmp[1])
+                res.extend((str(key))
+                    for key in range(int(tmp[0]), int(tmp[1])))
+            else:
+                int(year)
+                res.append(str(year))
+        except:
+            info('temporal_coverage ERROR: Dataset: %s. %s is not integer.' % \
+                     (dataset_id, orig_text))
+    return res
+
 class Dataset(object):
     """ Encapsulate report
     """
     def __init__(self):
         """
-            @param id:                String;
-            @param title              String;
-            @param description        String;
-            @param themes:            Iterator;
-            @param rights:            String;
-            @param effectiveDate      String;
-            @param eea_mpcode         Integer;
-            @param moreInfo           String;
-            @param disclaimer         String;
-            @param source             Iterator;
-            @param scale              Integer;
-            @param geoAccuracy        Integer;
-            @param methodology        String;
-            @param unit               String;
+            @param id:                         String;
+            @param title                       String;
+            @param description                 String;
+            @param themes:                     Iterator;
+            @param rights:                     String;
+            @param effectiveDate               String;
+            @param eea_mpcode                  Integer;
+            @param moreInfo                    String;
+            @param disclaimer                  String;
+            @param source                      Iterator;
+            @param scale                       Integer;
+            @param geoAccuracy                 String;
+            @param methodology                 String;
+            @param unit                        String;
+            @param subject_existing_keywords   Iterator;
+            @param temporal_coverage           Iterator;
             
         """
         pass
@@ -79,7 +107,7 @@ DATASET_METADATA_MAPPING = {
     'Geographic accuracy':        'geoAccuracy',
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
-    'Keyword(s)':                 'keywords',
+    'Keyword(s)':                 'subject_existing_keywords',
     'Last upload':                'effectiveDate',
     'Methodology':                'methodology',
     'Originator':                 'originator',
@@ -206,15 +234,19 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'moreInfo': pass
                     #if field_name == 'methodology': pass
                     #if field_name == 'unit':pass
-                    if field_name == 'geoAccuracy':
-                        #TODO: fix/filter imported values
-                        data = '999'
+                    #if field_name == 'geoAccuracy': pass
+                    if field_name == 'temporal_coverage':
+                        #exceptions = [9053EDBC-734B-4292-8A05-353A92B493D8 -> year 1854]
+                        data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
                     if field_name == 'scale':
                         #TODO: fix/filter imported values
-                        data = '1:100000000'
+                        data = '100000000'
                     if field_name == 'source': 
                         #TODO: fix/filter imported values to match vocab values
                         data = ['EEA (European Environment Agency)']
+                    if field_name == 'subject_existing_keywords':
+                        #TODO: import all keyword tags
+                        data = data.split(',')
                     if field_name == 'themes': 
                         data = data.replace('airpollution', 'air')
                         data = data.replace('assesment', 'reporting')
@@ -226,8 +258,8 @@ class dataservice_handler(ContentHandler):
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':
                         if not _check_integer(data):
-                            info('DATA ERROR: %s is not integer. Dataset: %s' % \
-                                   (data, self.dataset_current.get('id')))
+                            info('eea_mpcode ERROR: Dataset: %s. %s is not integer.' % \
+                                   (self.dataset_current.get('id'), data))
                             data = ''
                     self.dataset_current.set(field_name, data)
                 if name == 'metadata_text_publish_level':

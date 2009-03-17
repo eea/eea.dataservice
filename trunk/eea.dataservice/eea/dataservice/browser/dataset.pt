@@ -40,61 +40,87 @@
 
     <!-- EEA management plan code -->
     <dt i18n:translate="dataset_plan_code">Last upload:</dt>
-    <tal:moreInfo define="
+    <tal:block define="
         lu_field python:here.getField('effectiveDate');
         lu_value python:lu_field.getAccessor(here)();">
         <dd tal:content="structure lu_value">Last upload</dd>
-    </tal:moreInfo>
+    </tal:block>
+
+    <!-- Scale of the data set -->
+    <dt i18n:translate="dataset_scale">Scale of the data set:</dt>
+    <tal:block define="
+        sc_field python:here.getField('scale');
+        sc_value python:sc_field.getAccessor(here)();">
+        <dd><span>1:</span><tal:scale content="structure sc_value" /></dd>
+    </tal:block>
 
     <!-- EEA management plan code -->
     <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
-    <tal:moreInfo define="
+    <tal:block define="
         mp_field python:here.getField('eea_mpcode');
         mp_value python:mp_field.getAccessor(here)();">
         <dd tal:content="structure mp_value">EEA management plan code</dd>
-    </tal:moreInfo>
+    </tal:block>
 
     <!-- Additional information -->
     <dt i18n:translate="dataset_aditional_info">Additional information:</dt>
-    <tal:moreInfo define="
+    <tal:block define="
         mi_field python:here.getField('moreInfo');
         mi_value python:mi_field.getAccessor(here)();">
         <dd tal:content="structure mi_value">Additional information</dd>
-    </tal:moreInfo>
+    </tal:block>
 
     <!-- Disclaimer -->
     <dt i18n:translate="dataset_disclaimer">Disclaimer:</dt>
-    <tal:moreInfo define="
+    <tal:block define="
         d_field python:here.getField('disclaimer');
         d_value python:d_field.getAccessor(here)();">
-        <dd tal:content="structure d_value">disclaimer</dd>
-    </tal:moreInfo>
+        <dd tal:content="structure d_value">Disclaimer</dd>
+    </tal:block>
+
+    <!-- Geographic accuracy -->
+    <dt i18n:translate="dataset_accuracy">Geographic accuracy:</dt>
+    <tal:block define="
+        ac_field python:here.getField('geoAccuracy');
+        ac_value python:ac_field.getAccessor(here)();">
+        <dd tal:content="structure ac_value">Geographic accuracy</dd>
+    </tal:block>
 
     <!-- Source -->
     <dt i18n:translate="dataset_source">Source:</dt>
-    <tal:moreInfo define="
+    <tal:block define="
         s_field python:here.getField('source');
         s_vocab python:s_field.Vocabulary(here);
         s_values python:s_field.getAccessor(here)();
         s_value python:here.displayValue(s_vocab, s_values)">
         <dd tal:content="structure s_value">source</dd>
-    </tal:moreInfo>
+    </tal:block>
 
     <!-- Methodology -->
-    <dt i18n:translate="dataset_aditional_methodology">Methodology:</dt>
-    <tal:moreInfo define="
+    <dt i18n:translate="dataset_methodology">Methodology:</dt>
+    <tal:block define="
         met_field python:here.getField('methodology');
         met_value python:met_field.getAccessor(here)();">
         <dd tal:content="structure met_value">Methodology</dd>
-    </tal:moreInfo>
+    </tal:block>
 
     <!-- Unit -->
-    <dt i18n:translate="dataset_aditional_unit">Unit:</dt>
-    <tal:moreInfo define="
+    <dt i18n:translate="dataset_unit">Unit:</dt>
+    <tal:block define="
         u_field python:here.getField('unit');
         u_value python:u_field.getAccessor(here)();">
         <dd tal:content="structure u_value">Unit</dd>
-    </tal:moreInfo>
+    </tal:block>
+
+    <!-- Temporal coverage -->
+    <dt i18n:translate="dataset_temporal_coverage">Temporal coverage:</dt>
+    <dd tal:content="here/formatTempCoverage" />
+    
+    <tal:block define="
+        u_field python:here.getField('temporal_coverage');
+        u_value python:u_field.getAccessor(here)();">
+        <dd tal:content="structure u_value">Unit</dd>
+    </tal:block>
 
 
 

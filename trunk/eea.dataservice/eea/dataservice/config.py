@@ -10,3 +10,6 @@ DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 COPYRIGHTS = u'(c) Copyrights - EEA (European Environment Agency)'
 
 DATASERVICE_SUBOBJECTS = ['Folder', 'Data', 'Topic', 'RichTopic']
+
+#Dataset years vocabulary
+STARTING_YEAR = 1950
