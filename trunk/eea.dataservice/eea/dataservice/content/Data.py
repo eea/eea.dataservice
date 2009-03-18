@@ -47,7 +47,6 @@ schema = Schema((
         name='temporal_coverage',
         languageIndependent=True,
         multiValued=1,
-        default=(u'Temporal coverage',),
         vocabulary=DatasetYearsVocabulary(),
         widget=MultiSelectionWidget(
             macro="coverage_widget",
@@ -60,16 +59,16 @@ schema = Schema((
     ),
 
     LinesField(
-        name='source',
+        name='geographic_coverage',
         languageIndependent=True,
         multiValued=1,
-        default=(u'EEA (European Environment Agency)',),
-        vocabulary=NamedVocabulary("report_creators"),
-        widget=KeywordWidget(
-            label="Source",
-            description="Source description.",
-            label_msgid='dataservice_label_source',
-            description_msgid='dataservice_help_source',
+        vocabulary=NamedVocabulary("countries"),
+        widget=MultiSelectionWidget(
+            macro="geographic_widget",
+            label="Geographical coverage",
+            description="Geographical coverage description.",
+            label_msgid='dataservice_label_geographic',
+            description_msgid='dataservice_help_geographic',
             i18n_domain='eea.dataservice',
         )
     ),
@@ -98,6 +97,18 @@ schema = Schema((
     ),
 
     TextField(
+        name='contact',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=TextAreaWidget(
+            label="Contact person(s) for EEA",
+            description="dataset_contact description.",
+            label_msgid='dataservice_label_dataset_contact',
+            description_msgid='dataservice_help_dataset_contact',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    TextField(
         name='geoAccuracy',
         index="ZCTextIndex|TextIndex:brains",
         widget=TextAreaWidget(
@@ -110,14 +121,44 @@ schema = Schema((
     ),
 
     TextField(
+        name='source',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=RichWidget(
+            label="Source",
+            description="Source description.",
+            label_msgid="dataservice_label_source",
+            description_msgid="dataservice_help_source",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
+    ),
+    #LinesField(
+        #name='source',
+        #languageIndependent=True,
+        #multiValued=1,
+        #default=(u'EEA (European Environment Agency)',),
+        #vocabulary=NamedVocabulary("report_creators"),
+        #widget=KeywordWidget(
+            #label="Source",
+            #description="Source description.",
+            #label_msgid='dataservice_label_source',
+            #description_msgid='dataservice_help_source',
+            #i18n_domain='eea.dataservice',
+        #)
+    #),
+
+    TextField(
         name='moreInfo',
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
         index="ZCTextIndex|TextIndex:brains",
-        widget=RichWidget
-        (
+        widget=RichWidget(
             label="Additional information",
             description="Additional information description.",
             label_msgid="dataservice_label_moreInfo",
@@ -134,8 +175,7 @@ schema = Schema((
         default_content_type='text/html',
         default_output_type='text/html',
         index="ZCTextIndex|TextIndex:brains",
-        widget=RichWidget
-        (
+        widget=RichWidget(
             label="Methodology",
             description="methodology description.",
             label_msgid="dataservice_label_methodology",
@@ -152,8 +192,7 @@ schema = Schema((
         default_content_type='text/html',
         default_output_type='text/html',
         index="ZCTextIndex|TextIndex:brains",
-        widget=RichWidget
-        (
+        widget=RichWidget(
             label="Unit",
             description="Unit description.",
             label_msgid="dataservice_label_unit",
@@ -197,17 +236,7 @@ schema = Schema((
     
     
     
-    TextField(
-        name='dataset_contact',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Contact person(s) for EEA",
-            description="dataset_contact description.",
-            label_msgid='dataservice_label_dataset_contact',
-            description_msgid='dataservice_help_dataset_contact',
-            i18n_domain='eea.dataservice',
-        )
-    ),
+
     
 
     
@@ -226,18 +255,7 @@ schema = Schema((
         )
     ),
     
-    TextField(
-        name='geographic_coverage',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Geographical coverage",
-            description="geographic_coverage description.",
-            label_msgid='dataservice_label_geographic_coverage',
-            description_msgid='dataservice_help_geographic_coverage',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
+   
    
     TextField(
         name='originator',

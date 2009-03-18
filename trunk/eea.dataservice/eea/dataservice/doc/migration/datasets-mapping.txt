@@ -20,18 +20,19 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Additional information']      - moreInfo                  - html          - (no action)
 --------------------------------------------------------------------------------------------------
-- MT['Contact person(s) for EEA']   -                           - ContactWidget -
+- MT['Contact person(s) for EEA']   - contact                   - text          - HTML striped
 --------------------------------------------------------------------------------------------------
 - MT['Disclaimer']                  - disclaimer                - text          - HTML striped
 --------------------------------------------------------------------------------------------------
 - MT['EEA management plan code']    - eea_mpcode                - integer       - test/filter if data is integer
--                                   -                           -               - #DAVID: data from exported XML does not contains integers, fails to be imported (watch log) -- look email
+-                                   -                           -               - #look email to match data
 --------------------------------------------------------------------------------------------------
 - MT['Geographic accuracy']         - geoAccuracy               - text          - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Geographic box coordinates']  -                           -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Geographical coverage']       -                           -               - #DAVID-todo: a list of country codes is needed here
+- MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on vocabulary="countries"
+-                                   -                           -               - #DAVID-todo: to provide a country code list
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  - subject_existing_keywords - KeywordsWidget- (no action)
 --------------------------------------------------------------------------------------------------
@@ -55,16 +56,15 @@ Datasets properties mapping during migration
 -                                   -                           -               - #ANTONIO: if "eea" and NOT "free" (save a log with skip list for antonio)
 --------------------------------------------------------------------------------------------------
 - MT['Scale of the data set']       - scale                     - integer       - (no action)
--                                   -                           -               - #DAVID-todo: existing data dont match yet
+-                                   -                           -               - #DAVID-todo: SUNT GATA DATELE! + confirm or not if we need =, >, < etc in front of scale
 --------------------------------------------------------------------------------------------------
-- MT['Source']                      - source                    - KeywordWidget - mapped on vocabulary="report_creators"
--                                   -                           -               - #ANTONIO/DAVID: we should split this property to source and DB source?
--                                   -                           -               - #! should be a string
+- MT['Source']                      - source                    - html          - mapped on vocabulary="report_creators"
+-                                   -                           -               - #ANTONIO/DAVID: ???
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                           -               - NOT IMPORTED (skipped) - maybe will be use during future import
 --------------------------------------------------------------------------------------------------
 - MT['Temporal coverage']           - temporal_coverage         - TemporalWidget- (formated to a list of years to fit widget)
--                                   -                           -               - #DAVID: to give log/exception
+-                                   -                           -               - #DAVID-todo: to fix log/exception
 --------------------------------------------------------------------------------------------------
 - MT['Theme']                       - themes                    - theme-widget  - (no action)
 --------------------------------------------------------------------------------------------------

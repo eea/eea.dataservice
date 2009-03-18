@@ -44,6 +44,8 @@ def _filter_temporal_coverage(text, dataset_id):
         except:
             info('temporal_coverage ERROR: Dataset: %s. %s is not integer.' % \
                      (dataset_id, orig_text))
+            break
+    res.reverse()
     return res
 
 class Dataset(object):
@@ -67,6 +69,9 @@ class Dataset(object):
             @param unit                        String;
             @param subject_existing_keywords   Iterator;
             @param temporal_coverage           Iterator;
+            @param contact                     String;
+            @param source                      String;
+            @param geographic_coverage         Iterator;
             
         """
         pass
@@ -101,7 +106,7 @@ class Dataset(object):
 
 DATASET_METADATA_MAPPING = {
     'Additional information':     'moreInfo',
-    'Contact person(s) for EEA':  'dataset_contact',
+    'Contact person(s) for EEA':  'contact',
     'Disclaimer':                 'disclaimer',
     'EEA management plan code':   'eea_mpcode',
     'Geographic accuracy':        'geoAccuracy',
@@ -147,6 +152,9 @@ class dataservice_handler(ContentHandler):
         self.ds_to = ds_to
         self.ds_index = -1
         self.data = []
+    
+        self.data_contacts = []
+        self.data_keywords = []
 
         self.dataset_groups = {}
         self.dataset_group_context = 0
@@ -198,6 +206,11 @@ class dataservice_handler(ContentHandler):
     
             # Dataset basic
             if name == 'datasetgid':
+                self.dataset_current.set('subject_existing_keywords', self.data_keywords)
+                self.data_keywords = []
+                self.dataset_current.set('contact', '\r\n'.join(self.data_contacts))
+                self.data_contacts = []
+
                 self.dataset_groups[self.dataset_group_current].append(self.dataset_current)
                 self.dataset_context = 0
                 self.dataset_current = None
@@ -235,18 +248,21 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'methodology': pass
                     #if field_name == 'unit':pass
                     #if field_name == 'geoAccuracy': pass
+                    #if field_name == 'source': pass
                     if field_name == 'temporal_coverage':
-                        #exceptions = [9053EDBC-734B-4292-8A05-353A92B493D8 -> year 1854]
+                        #TODO: waiting for correct data
                         data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
                     if field_name == 'scale':
-                        #TODO: fix/filter imported values
+                        #TODO: waiting for correct data
                         data = '100000000'
-                    if field_name == 'source': 
-                        #TODO: fix/filter imported values to match vocab values
-                        data = ['EEA (European Environment Agency)']
+                    if field_name == 'geographic_coverage':
+                        #TODO: waiting for correct data
+                        data = ['ro', 'bg', 'it']
                     if field_name == 'subject_existing_keywords':
-                        #TODO: import all keyword tags
-                        data = data.split(',')
+                        self.data_keywords.extend(data.split(','))
+                    if field_name == 'contact':
+                        data = _strip_html_tags(data)
+                        self.data_contacts.append(data)
                     if field_name == 'themes': 
                         data = data.replace('airpollution', 'air')
                         data = data.replace('assesment', 'reporting')
@@ -262,8 +278,9 @@ class dataservice_handler(ContentHandler):
                                    (self.dataset_current.get('id'), data))
                             data = ''
                     self.dataset_current.set(field_name, data)
-                if name == 'metadata_text_publish_level':
-                    self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
+                #if name == 'metadata_text_publish_level':
+                    ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
+                    #pass
 
             if name == 'data':
                 info('End parsing of datasets XML')
