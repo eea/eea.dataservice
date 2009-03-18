@@ -12,12 +12,14 @@
 	<xs:element name="dataset_note" type="xs:string"/>
 	<xs:element name="dataset_publish_date" type="xs:string"/>
 	<xs:element name="dataset_publish_level" type="xs:int"/>
+	<xs:element name="dataset_shortID" type="xs:int"/>
 	<xs:element name="dataset_title" type="xs:string"/>
 	<xs:element name="dataset_version" type="xs:double"/>
 	<xs:element name="dataset_visible" type="xs:int"/>
 	<xs:element name="datasetgid">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="dataset_shortID"/>
 				<xs:element ref="dataset_version"/>
 				<xs:element ref="dataset_title"/>
 				<xs:element ref="dataset_note" minOccurs="0"/>
@@ -25,6 +27,7 @@
 				<xs:element ref="dataset_publish_level"/>
 				<xs:element ref="dataset_visible"/>
 				<xs:element ref="metadata_typelabel" maxOccurs="unbounded"/>
+				<xs:element ref="tableGroup" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="datasetgid" type="xs:string" use="required"/>
 		</xs:complexType>
@@ -48,4 +51,38 @@
 			<xs:attribute name="relatedgid" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="tableGroup">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tableviewgid" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tableview_publish_level" type="xs:int"/>
+	<xs:element name="tableview_subgid">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tableviewsub_title" minOccurs="0"/>
+				<xs:element ref="tableviewsub_note" minOccurs="0"/>
+				<xs:element ref="tableviewsub_publish_level"/>
+				<xs:element ref="tableviewsub_totalrecords"/>
+			</xs:sequence>
+			<xs:attribute name="tableview_subgid" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tableview_title" type="xs:string"/>
+	<xs:element name="tableviewgid">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tableview_title"/>
+				<xs:element ref="tableview_publish_level"/>
+				<xs:element ref="tableview_subgid" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="tableviewgid" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tableviewsub_note" type="xs:string"/>
+	<xs:element name="tableviewsub_publish_level" type="xs:int"/>
+	<xs:element name="tableviewsub_title" type="xs:string"/>
+	<xs:element name="tableviewsub_totalrecords" type="xs:int"/>
 </xs:schema>
