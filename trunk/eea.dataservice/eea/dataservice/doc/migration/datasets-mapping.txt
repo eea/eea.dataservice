@@ -24,15 +24,16 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Disclaimer']                  - disclaimer                - text          - HTML striped
 --------------------------------------------------------------------------------------------------
-- MT['EEA management plan code']    - eea_mpcode                - integer       - test/filter if data is integer
--                                   -                           -               - #look email to match data
+- MT['EEA management plan code']    - eea_mpcode                - integer       - (match the eea mpcode)
+-                                   -                           -               - #ALEC-todo: edit widget (lookup)
 --------------------------------------------------------------------------------------------------
 - MT['Geographic accuracy']         - geoAccuracy               - text          - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Geographic box coordinates']  -                           -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on vocabulary="countries"
+- MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on TreeVocabulary="dataservice_countries"
 -                                   -                           -               - #DAVID-todo: to provide a country code list
+-                                   -                           -               - #ALEC-todo: edit widget
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  - subject_existing_keywords - KeywordsWidget- (no action)
 --------------------------------------------------------------------------------------------------
@@ -55,10 +56,9 @@ Datasets properties mapping during migration
 -                                   -                           -               - #ANTONIO: if 'eea' in data -> SKIP 
 -                                   -                           -               - #ANTONIO: if "eea" and NOT "free" (save a log with skip list for antonio)
 --------------------------------------------------------------------------------------------------
-- MT['Scale of the data set']       - scale                     - integer       - (no action)
--                                   -                           -               - #DAVID-todo: SUNT GATA DATELE! + confirm or not if we need =, >, < etc in front of scale
+- MT['Scale of the data set']       - scale                     - integer       - (all '=', '<' , '>', '=>', '=<' were excluded from the begining)
 --------------------------------------------------------------------------------------------------
-- MT['Source']                      - source                    - html          - mapped on vocabulary="report_creators"
+- MT['Source']                      - source                    - html          - (no action)
 -                                   -                           -               - #ANTONIO/DAVID: ???
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                           -               - NOT IMPORTED (skipped) - maybe will be use during future import

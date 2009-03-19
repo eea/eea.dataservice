@@ -4,6 +4,7 @@ from cStringIO import StringIO
 from xml.sax import *
 from xml.sax.handler import ContentHandler
 from types import StringType
+from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY
 
 import logging
 logger = logging.getLogger('eea.dataservice.migration')
@@ -19,6 +20,42 @@ def _check_integer(text):
     except:
         res = 0
     return res
+
+def _map_eea_mpcode(text, datset_id):
+    mpcode = ''
+    text_data = []
+    text = text.split('-')
+    if len(text) != 2:
+        info('eea_mpcode ERROR: Dataset: %s -- bad format' % datset_id)
+        return mpcode
+    text_data.append(text[0].strip())
+    text = text[1].split(':')
+    if len(text) != 2:
+        info('eea_mpcode ERROR: Dataset: %s -- bad format' % datset_id)
+        return mpcode
+    for term in text:
+        text_data.append(term.strip())
+
+    for key in EEA_MPCODE_VOCABULARY.keys():
+        row_data = EEA_MPCODE_VOCABULARY[key]
+        detect = 0
+        for term in text_data:
+            if str(term) in row_data:
+                detect += 1
+        if detect == 3:
+            mpcode = key
+            break
+    if mpcode == '':
+        info('eea_mpcode ERROR: Dataset: %s -- lookup failed' % datset_id)
+    return mpcode
+
+def _filter_scale(text, dataset_id):
+    data = text.split('1:')
+    if len(data) == 2:
+        return data[1]
+    else:
+        info('scale ERROR: Dataset: %s --not well formated.' % dataset_id)
+        return ''
 
 def _filter_temporal_coverage(text, dataset_id):
     orig_text = text
@@ -42,8 +79,7 @@ def _filter_temporal_coverage(text, dataset_id):
                 int(year)
                 res.append(str(year))
         except:
-            info('temporal_coverage ERROR: Dataset: %s. %s is not integer.' % \
-                     (dataset_id, orig_text))
+            info('temporal_coverage ERROR: Dataset: %s -- is not integer.' % dataset_id)
             break
     res.reverse()
     return res
@@ -70,7 +106,6 @@ class Dataset(object):
             @param subject_existing_keywords   Iterator;
             @param temporal_coverage           Iterator;
             @param contact                     String;
-            @param source                      String;
             @param geographic_coverage         Iterator;
             
         """
@@ -253,8 +288,7 @@ class dataservice_handler(ContentHandler):
                         #TODO: waiting for correct data
                         data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
                     if field_name == 'scale':
-                        #TODO: waiting for correct data
-                        data = '100000000'
+                        data = _filter_scale(data, self.dataset_current.get('id'))
                     if field_name == 'geographic_coverage':
                         #TODO: waiting for correct data
                         data = ['ro', 'bg', 'it']
@@ -273,10 +307,7 @@ class dataservice_handler(ContentHandler):
                     if field_name == 'disclaimer':
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':
-                        if not _check_integer(data):
-                            info('eea_mpcode ERROR: Dataset: %s. %s is not integer.' % \
-                                   (self.dataset_current.get('id'), data))
-                            data = ''
+                        data = _map_eea_mpcode(data, self.dataset_current.get('id'))
                     self.dataset_current.set(field_name, data)
                 #if name == 'metadata_text_publish_level':
                     ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)

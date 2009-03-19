@@ -135,10 +135,18 @@
                        value python:field.getAccessor(here)()"
                condition="value">
         <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
-        <dd tal:content="structure value">Geographical coverage</dd>
+        <tal:block define="country_data here/getCountryInfo">
+            <dd><span tal:repeat="country_code value" tal:content="python:country_data['countries'][country_code] + ', '">Geographical coverage</span></dd>
+        </tal:block>
     </tal:block>
 
-
+    <!-- EEA management plan code -->
+    <tal:block define="field python:here.getField('eea_mpcode');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="dataset_mpcode">EEA management plan code:</dt>
+        <dd tal:content="structure python:here.getMpCodeName(str(value))">EEA management plan code</dd>
+    </tal:block>
 
 
     </dl>

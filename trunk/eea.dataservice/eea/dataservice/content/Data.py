@@ -10,10 +10,13 @@ from Products.CMFCore import permissions
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
 from AccessControl import ClassSecurityInfo
+from Products.CMFCore.utils import getToolByName
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
-from eea.dataservice.vocabulary import DatasetYearsVocabulary
+from eea.dataservice.vocabulary import DatasetYearsVocabulary, EEA_MPCODE_VOCABULARY
+from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 
 
 #def addData(self, REQUEST={}):
@@ -62,9 +65,10 @@ schema = Schema((
         name='geographic_coverage',
         languageIndependent=True,
         multiValued=1,
-        vocabulary=NamedVocabulary("countries"),
+        vocabulary=NamedVocabulary("dataservice_countries"),
         widget=MultiSelectionWidget(
             macro="geographic_widget",
+            size=8,
             label="Geographical coverage",
             description="Geographical coverage description.",
             label_msgid='dataservice_label_geographic',
@@ -77,6 +81,7 @@ schema = Schema((
         name='eea_mpcode',
         validators = ('isInt',),
         widget=IntegerWidget(
+            size=8,
             label='EEA management plan code',
             label_msgid='dataservice_label_eea_mpcode',
             description_msgid='dataservice_help_eea_mpcode',
@@ -336,6 +341,39 @@ class Data(ATFolder):
     _at_rename_after_creation = True
 
     schema = Dataset_schema
+
+    def getMpCodeName(self, code):
+        """  return management plan code title """
+        return EEA_MPCODE_VOCABULARY[code]
+
+    security.declareProtected(permissions.View, 'getCountryInfo')
+    def getCountryInfo(self):
+        """ """
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = atvm[COUNTRIES_DICTIONARY_ID]
+        
+        res = {'groups': {}, 'countries': {}}
+        for ob in vocab.objectValues():
+            ob_key = ob.getId()
+            ob_value = ob.Title()
+            
+            if len(ob.objectValues()) > 0:
+                res['groups'][ob_key] = ob_value
+            else:
+                res['countries'][ob_key] = ob_value
+        return res
+
+    security.declareProtected(permissions.View, 'getCountryGroups')
+    def getCountryGroups(self):
+        """ """
+        res = self.getCountryInfo()['groups']
+        return [(key, res[key]) for key in res.keys()]
+
+    security.declareProtected(permissions.View, 'getCountries')
+    def getCountries(self):
+        """ """
+        res = self.getCountryInfo()['countries']
+        return [(key, res[key]) for key in res.keys()]
 
     security.declareProtected(permissions.View, 'formatTempCoverage')
     def formatTempCoverage(self):
