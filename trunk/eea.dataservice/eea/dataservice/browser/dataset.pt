@@ -148,6 +148,13 @@
         <dd tal:content="structure python:here.getMpCodeName(str(value))">EEA management plan code</dd>
     </tal:block>
 
+    <!-- Reference system -->
+    <tal:block define="field python:here.getField('reference_system');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_unit">Reference system:</dt>
+        <dd tal:content="structure value">Reference system</dd>
+    </tal:block>
 
     </dl>
     </div>

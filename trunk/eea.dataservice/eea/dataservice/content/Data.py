@@ -157,6 +157,23 @@ schema = Schema((
     #),
 
     TextField(
+        name='reference_system',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        index="ZCTextIndex|TextIndex:brains",
+        widget=RichWidget(
+            label="Reference system",
+            description="Reference system description.",
+            label_msgid="dataservice_label_system",
+            description_msgid="dataservice_help_system",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
+    ),
+
+    TextField(
         name='moreInfo',
         languageIndependent=False,
         allowable_content_types=('text/html',),
@@ -298,17 +315,7 @@ schema = Schema((
         )
     ),
     
-    TextField(
-        name='reference_system',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Reference system",
-            description="reference_system description.",
-            label_msgid='dataservice_label_reference_system',
-            description_msgid='dataservice_help_reference_system',
-            i18n_domain='eea.dataservice',
-        )
-    ),
+
     
     
     

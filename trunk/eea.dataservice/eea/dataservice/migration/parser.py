@@ -107,6 +107,7 @@ class Dataset(object):
             @param temporal_coverage           Iterator;
             @param contact                     String;
             @param geographic_coverage         Iterator;
+            @param reference_system            String;
             
         """
         pass
@@ -284,6 +285,7 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'unit':pass
                     #if field_name == 'geoAccuracy': pass
                     #if field_name == 'source': pass
+                    #if field_name == 'reference_system': pass
                     if field_name == 'temporal_coverage':
                         #TODO: waiting for correct data
                         data = _filter_temporal_coverage(data, self.dataset_current.get('id'))

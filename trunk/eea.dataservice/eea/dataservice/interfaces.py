@@ -10,7 +10,11 @@ alsoProvides(IDatasetEnhanced, contentifaces.IContentType)
 class IDataset(Interface):
     """ Objects which have dataset information.
     """
-    
+
     def formatTempCoverage(obj):
         """ Return formated temporary coverage for display
         """
+
+class IOrganisation(Interface):
+    """ Objects which have organisation information.
+    """

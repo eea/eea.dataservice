@@ -11,5 +11,13 @@
       for="eea.dataservice.interfaces.IDataset"
       permission="zope2.View"
       />
+      
+  <page
+      name="organisation_view"
+      template="organisation.pt"
+      class=".displays.OrganisationContainerView"
+      for="eea.dataservice.interfaces.IOrganisation"
+      permission="zope2.View"
+      />
 
 </configure>
