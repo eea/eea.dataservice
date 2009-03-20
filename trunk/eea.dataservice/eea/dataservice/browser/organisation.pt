@@ -17,9 +17,7 @@
     <div class="visualClear">&nbsp;</div>
 
     <!-- Description -->
-    <div class="publicationDescription">
-        <strong tal:content="here/Description" />
-    </div>
+    <p class="publicationDescription" tal:content="here/Description" />
 
     <!-- #TODO: implement below -->
     <p>50 data set(s)</p>

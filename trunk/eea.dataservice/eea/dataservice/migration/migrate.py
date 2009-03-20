@@ -3,7 +3,7 @@
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data
-from eea.dataservice.config import DATASERVICE_SUBOBJECTS
+from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
 from data import getOrganisationsData
 from config import (
@@ -51,20 +51,23 @@ def _publish(obj):
 #
 # Getters
 #
-def _get_container(obj, *args, **kwargs):
+def _get_container(obj, container, subobjects, *args, **kwargs):
     """ Creates folder structure to import old dataservice
     """
     site = getattr(obj.context, 'SITE', obj.context)
+    new = 0
     # Add dataservice folder
-    if DATASERVICE_CONTAINER not in site.objectIds():
-        info('Create folder %s/%s', site.absolute_url(1), DATASERVICE_CONTAINER)
+    if container not in site.objectIds():
+        new = 1
+        info('Create folder %s/%s', site.absolute_url(1), container)
         site.invokeFactory('Folder',
-            id=DATASERVICE_CONTAINER, title=DATASERVICE_CONTAINER.title())
-    dataservice = getattr(site, DATASERVICE_CONTAINER)
-    dataservice.selectViewTemplate(templateId='folder_summary_view')
-    dataservice.setConstrainTypesMode(1)
-    dataservice.setImmediatelyAddableTypes(DATASERVICE_SUBOBJECTS)
-    dataservice.setLocallyAllowedTypes(DATASERVICE_SUBOBJECTS)
+            id=container, title=container.title())
+    dataservice = getattr(site, container)
+    if new:
+        dataservice.selectViewTemplate(templateId='folder_summary_view')
+        dataservice.setConstrainTypesMode(1)
+        dataservice.setImmediatelyAddableTypes(subobjects)
+        dataservice.setLocallyAllowedTypes(subobjects)
 
     # Returns
     return dataservice
@@ -75,22 +78,53 @@ class MigrateOrganisations(object):
     def __init__(self, context, request=None):
         self.context = context
         self.request = request
-        self.datamodel = getOrganisationsData()
+        self.organisations = getOrganisationsData()
         
     def add_organisation(self, context, datamodel):
         """ Add new organisation
         """
-        ds_id = datamodel.getId()
+        org_id = datamodel.getId()
         
-        # Add dataset if it doesn't exists
-        if ds_id not in context.objectIds():
-            info('Adding dataset id: %s', ds_id)
-            ds_id = context.invokeFactory('Data', id=ds_id)
-    
+        # Add organisation if it doesn't exists
+        if org_id not in context.objectIds():
+            info('Adding organisation id: %s', org_id)
+            ds_id = context.invokeFactory('Organisation', id=org_id)
+
+        # Set properties
+        org = getattr(context, org_id)
+        self.update_properties(org, datamodel)
+        org.setTitle(datamodel.get('title', ''))
+        
+        return org_id
+
+    def update_properties(self, org, datamodel):
+        """ Update organisation properties
+        """
+        org.setExcludeFromNav(True)
+        form = datamodel()
+        org.processForm(data=1, metadata=1, values=form)
+
+        # Publish
+        _publish(org)
+
+        # Reindex
+        _reindex(org)
+        _reindex(org.getParentNode())
+            
+            
     def __call__(self):
-        
-        #msg = '%d organisations imported !' % index
-        msg = 'org imported'
+        #TODO: set org folder!!!
+        container = _get_container(self, ORGANISATIONS_CONTAINER, ORGANISATION_SUBOBJECTS)
+        index = 0
+        info('Import organisations using default data.')
+
+        data = self.organisations
+        for org_id in data.keys():
+            datamodel = data[org_id]
+            self.add_organisation(container, datamodel)
+            index += 1
+
+        msg = '%d organisations imported !' % index
         info(msg)
         return _redirect(self, msg, ORGANISATIONS_CONTAINER)
 
@@ -141,7 +175,7 @@ class MigrateDatasets(object):
     # Browser interface
     #
     def __call__(self):
-        container = _get_container(self)
+        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
         index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
 
