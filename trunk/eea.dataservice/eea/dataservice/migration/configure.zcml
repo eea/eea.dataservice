@@ -12,4 +12,11 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:page
+      for="*"
+      name="migrate_organisations"
+      class=".migrate.MigrateOrganisations"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

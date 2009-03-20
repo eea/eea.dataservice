@@ -3,19 +3,36 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
-from AccessControl import ClassSecurityInfo
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore import permissions
-from zope.interface import implements
 from Products.Archetypes.atapi import *
+from AccessControl import ClassSecurityInfo
+from zope.interface import implements
 
+from eea.dataservice.vocabulary import ORGANISATION_CATEGORIES_DICTIONARY_ID
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IOrganisation
 from eea.locationwidget.locationwidget import LocationWidget
 
 
 schema = Schema((
+
+    StringField(
+        name='organisationType',
+        accessor='org_type',
+        vocabulary=NamedVocabulary("organisation_types"),
+        widget = SelectionWidget(
+            label="Organisation type",
+            description = ("Organisation category"),
+            label_msgid='dataservice_label_orgType',
+            description_msgid='dataservice_help_orgType',
+            i18n_domain='eea.dataservice',
+        )
+    ),
 
     StringField(
         name='organisationUrl',
@@ -78,6 +95,10 @@ class Organisation(ATFolder):
         field = self.getField('organisationUrl')
         return field.getAccessor(self)()
 
-
+    security.declareProtected(permissions.View, 'getOrganisationCategories')
+    def getOrganisationCategories(self):
+        """ Return organisation categories """
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        return atvm[ORGANISATION_CATEGORIES_DICTIONARY_ID]
 
 registerType(Organisation, PROJECTNAME)

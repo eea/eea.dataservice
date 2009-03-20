@@ -76,6 +76,9 @@ Legend:
 
 MT = metadata_typelabel
 
+- [-] ANTONIO: sa stabilesc care campuri sunt mandatory si care nu
+- [-] ANTONIO: sa stabilesc cares language independt si care nu
+- [-] ANTONIO: de stabilit ordinea campurilor pe edit si index
 
 
 

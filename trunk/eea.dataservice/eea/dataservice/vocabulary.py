@@ -21,6 +21,14 @@ class DatasetYearsVocabularyFactory(object):
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 
+# Organisation categories vocabulary
+ORGANISATION_CATEGORIES_DICTIONARY_ID = 'organisation_types'
+ORGANISATION_CATEGORIES_DICTIONARY = {}
+ORGANISATION_CATEGORIES_DICTIONARY[ORGANISATION_CATEGORIES_DICTIONARY_ID] = (
+    ('etc', 'EEA and European Topic Centres'),
+    ('other', 'Other external bodies')
+)
+
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'dataservice_countries'
 def getCountriesDictionary():

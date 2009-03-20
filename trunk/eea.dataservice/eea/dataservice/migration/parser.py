@@ -84,30 +84,30 @@ def _filter_temporal_coverage(text, dataset_id):
     res.reverse()
     return res
 
-class Dataset(object):
-    """ Encapsulate report
+class MigrationObject(object):
+    """ Encapsulate migration object
     """
     def __init__(self):
         """
-            @param id:                         String;
-            @param title                       String;
-            @param description                 String;
-            @param themes:                     Iterator;
-            @param rights:                     String;
-            @param effectiveDate               String;
-            @param eea_mpcode                  Integer;
-            @param moreInfo                    String;
-            @param disclaimer                  String;
-            @param source                      Iterator;
-            @param scale                       Integer;
-            @param geoAccuracy                 String;
-            @param methodology                 String;
-            @param unit                        String;
-            @param subject_existing_keywords   Iterator;
-            @param temporal_coverage           Iterator;
-            @param contact                     String;
-            @param geographic_coverage         Iterator;
-            @param reference_system            String;
+            @param id:                          String;
+            @param title:                       String;
+            @param description:                 String;
+            @param themes:                      Iterator;
+            @param rights:                      String;
+            @param effectiveDate:               String;
+            @param eea_mpcode:                  Integer;
+            @param moreInfo:                    String;
+            @param disclaimer:                  String;
+            @param source:                      Iterator;
+            @param scale:                       Integer;
+            @param geoAccuracy:                 String;
+            @param methodology:                 String;
+            @param unit:                        String;
+            @param subject_existing_keywords:   Iterator;
+            @param temporal_coverage:           Iterator;
+            @param contact:                     String;
+            @param geographic_coverage:         Iterator;
+            @param reference_system:            String;
             
         """
         pass
@@ -224,7 +224,7 @@ class dataservice_handler(ContentHandler):
             # Dataset basic
             if name == 'datasetgid':
                 self.dataset_context = 1
-                self.dataset_current = Dataset()
+                self.dataset_current = MigrationObject()
                 ###self.dataset_current.set('group_id', self.dataset_group_current)
                 self.dataset_current.set('id', attrs['datasetgid'])
     

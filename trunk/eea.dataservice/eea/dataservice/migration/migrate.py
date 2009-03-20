@@ -5,8 +5,10 @@ from Products.CMFCore.utils import getToolByName
 from parser import extract_data
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
+from data import getOrganisationsData
 from config import (
     DATASERVICE_CONTAINER,
+    ORGANISATIONS_CONTAINER,
     DATASETS_XML,
     MAPS_AND_GRAPHS_XML
 )
@@ -17,12 +19,12 @@ info = logger.info
 #
 # Tools
 #
-def _redirect(obj, msg):
+def _redirect(obj, msg, container):
     """ Set status message and redirect to context absolute_url
     """
     if not obj.request:
         return msg
-    context = getattr(obj.context, DATASERVICE_CONTAINER, obj.context)
+    context = getattr(obj.context, container, obj.context)
     url = context.absolute_url()
     IStatusMessage(obj.request).addStatusMessage(msg, type='info')
     obj.request.response.redirect(url)
@@ -45,11 +47,7 @@ def _publish(obj):
                            comment='Auto published by migration script.')
     except:
         pass
-    #TODO: fix publish
-    #except Exception, err:
-    #    logger.warn('Could not publish %s, state: %s, error: %s',
-    #                obj.absolute_url(1), state, err)
-    
+
 #
 # Getters
 #
@@ -70,7 +68,32 @@ def _get_container(obj, *args, **kwargs):
 
     # Returns
     return dataservice
+
+class MigrateOrganisations(object):
+    """ Class used to migrate organisations
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+        self.datamodel = getOrganisationsData()
+        
+    def add_organisation(self, context, datamodel):
+        """ Add new organisation
+        """
+        ds_id = datamodel.getId()
+        
+        # Add dataset if it doesn't exists
+        if ds_id not in context.objectIds():
+            info('Adding dataset id: %s', ds_id)
+            ds_id = context.invokeFactory('Data', id=ds_id)
     
+    def __call__(self):
+        
+        #msg = '%d organisations imported !' % index
+        msg = 'org imported'
+        info(msg)
+        return _redirect(self, msg, ORGANISATIONS_CONTAINER)
+
 class MigrateDatasets(object):
     """ Class used to migrate datasets.
     """
@@ -138,7 +161,7 @@ class MigrateDatasets(object):
 
         msg = '%d datasets imported !' % index
         info(msg)
-        return _redirect(self, msg)
+        return _redirect(self, msg, DATASERVICE_CONTAINER)
 
 class MigrateMapsAndGraphs(object):
     """ """
