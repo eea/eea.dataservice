@@ -26,6 +26,7 @@ schema = Schema((
         accessor='org_type',
         vocabulary=NamedVocabulary("organisation_types"),
         widget = SelectionWidget(
+            format="flex", # possible values: flex, select, radio
             label="Organisation type",
             description = ("Organisation category"),
             label_msgid='dataservice_label_orgType',
@@ -92,6 +93,12 @@ class Organisation(ATFolder):
     security.declareProtected(permissions.View, 'event_url')
     def event_url(self):
         """ Map view compatibility """
+        field = self.getField('organisationUrl')
+        return field.getAccessor(self)()
+
+    security.declareProtected(permissions.View, 'getUrl')
+    def getUrl(self):
+        """ """
         field = self.getField('organisationUrl')
         return field.getAccessor(self)()
 

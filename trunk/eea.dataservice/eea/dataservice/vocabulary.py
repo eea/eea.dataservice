@@ -1,9 +1,17 @@
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+
 from datetime import datetime
+import operator
+
+from Products.PloneLanguageTool.availablelanguages import getCountries
+from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.app.schema.vocabulary import IVocabularyFactory
-from eea.dataservice.config import *
-from Products.PloneLanguageTool.availablelanguages import getCountries
 
+from eea.dataservice.config import *
 
 # Temporal coverage vocabulary
 class DatasetYearsVocabularyFactory(object):
@@ -28,6 +36,24 @@ ORGANISATION_CATEGORIES_DICTIONARY[ORGANISATION_CATEGORIES_DICTIONARY_ID] = (
     ('etc', 'EEA and European Topic Centres'),
     ('other', 'Other external bodies')
 )
+
+# Organisations vocabulary
+class OrganisationsVocabularyFactory(object):
+    """ Organisations vocabulary
+    """
+    implements(IVocabularyFactory,)
+    
+    def __call__(self):
+        organisations = []
+        cat = getToolByName(context, 'portal_catalog')
+        res = catalog.searchResults({'portal_type' : 'Organisation'})
+
+        organisations.extend((brain.getUrl(), brain.Title())
+                             for brain in res)
+
+        return sorted(organisations, key=operator.itemgetter(1))
+
+OrganisationsVocabulary = OrganisationsVocabularyFactory()
 
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'dataservice_countries'

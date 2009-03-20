@@ -174,8 +174,8 @@ ORGANISATIONS_DATA = {
     'data_policy': '',
     'organisationType': 'other',
 },
-'SN': {
-    'id': 'SN',
+'STAN': {
+    'id': 'STAN',
     'title': 'Statistics Netherlands',
     'description': 'Statistics Netherlands is responsible for collecting, processing and publishing statistics to be used in practice, by policymakers and for scientific research. In addition to its responsibility for (official) national statistics, Statistics Netherlands also has the task of producing European (community) statistics. The legal basis for Statistics Netherlands and its work is the Act of 20 November 2003 governing the central bureau of statistics (Statistics Netherlands).',
     'organisationUrl': 'http://www.cbs.nl/en-GB/default.htm',
