@@ -21,17 +21,28 @@ def _check_integer(text):
         res = 0
     return res
 
-def _map_eea_mpcode(text, datset_id):
+def _extarct_organisation_url(text, dataset_id):
+    tmp = ''
+    try:
+        tmp = text.split('<a href="')[1]
+        tmp = tmp.split('">')[0]
+        if tmp.endswith('/'):
+            tmp = tmp[:-1]
+    except:
+        info('organisation url ERROR: Dataset: %s -- bad format' % dataset_id)
+    return tmp
+
+def _map_eea_mpcode(text, dataset_id):
     mpcode = ''
     text_data = []
     text = text.split('-')
     if len(text) != 2:
-        info('eea_mpcode ERROR: Dataset: %s -- bad format' % datset_id)
+        info('eea_mpcode ERROR: Dataset: %s -- bad format' % dataset_id)
         return mpcode
     text_data.append(text[0].strip())
     text = text[1].split(':')
     if len(text) != 2:
-        info('eea_mpcode ERROR: Dataset: %s -- bad format' % datset_id)
+        info('eea_mpcode ERROR: Dataset: %s -- bad format' % dataset_id)
         return mpcode
     for term in text:
         text_data.append(term.strip())
@@ -46,7 +57,7 @@ def _map_eea_mpcode(text, datset_id):
             mpcode = key
             break
     if mpcode == '':
-        info('eea_mpcode ERROR: Dataset: %s -- lookup failed' % datset_id)
+        info('eea_mpcode ERROR: Dataset: %s -- lookup failed' % dataset_id)
     return mpcode
 
 def _filter_scale(text, dataset_id):
@@ -90,6 +101,7 @@ class MigrationObject(object):
     def __init__(self):
         """
             @param id:                          String;
+            @param short_id:                    String;
             @param title:                       String;
             @param description:                 String;
             @param themes:                      Iterator;
@@ -108,6 +120,9 @@ class MigrationObject(object):
             @param contact:                     String;
             @param geographic_coverage:         Iterator;
             @param reference_system:            String;
+            @param dataset_owner:               String;
+            @param processor:                   String;
+            @param last_upload                  String;
             
         """
         pass
@@ -149,7 +164,7 @@ DATASET_METADATA_MAPPING = {
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
     'Keyword(s)':                 'subject_existing_keywords',
-    'Last upload':                'effectiveDate',
+    'Last upload':                'last_upload',
     'Methodology':                'methodology',
     'Originator':                 'originator',
     'Owner':                      'dataset_owner',
@@ -250,13 +265,19 @@ class dataservice_handler(ContentHandler):
                 self.dataset_groups[self.dataset_group_current].append(self.dataset_current)
                 self.dataset_context = 0
                 self.dataset_current = None
-    
+
+            if name == 'dataset_shortID':
+                self.dataset_current.set('short_id', self.data, 1)
+                
+            if name == 'dataset_publish_date':
+                self.dataset_current.set('effectiveDate', self.data, 1)
+
             ###if name == 'dataset_version':
                 ###self.dataset_current.set('version_number', self.data, 1)
             
             if name == 'dataset_title':
                 self.dataset_current.set('title', self.data, 1)
-            
+
             if name == 'dataset_note':
                 trunc_value = 1500 #TODO: set a true value to be used to trunc
                 desc = u''.join(self.data).strip()
@@ -279,13 +300,19 @@ class dataservice_handler(ContentHandler):
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
                 data = u''.join(self.data).strip()
                 if name == 'metadata_text':
-                    #if field_name == 'effectiveDate': pass
+                    #if field_name == 'last_upload': pass
                     #if field_name == 'moreInfo': pass
                     #if field_name == 'methodology': pass
                     #if field_name == 'unit':pass
                     #if field_name == 'geoAccuracy': pass
                     #if field_name == 'source': pass
                     #if field_name == 'reference_system': pass
+                    if field_name == 'dataset_owner':
+                        #TODO: parse existing data and get the URL
+                        data = _extarct_organisation_url(data, self.dataset_current.get('id'))
+                    if field_name == 'proessor':
+                        #TODO: parse existing data and get the URL
+                        data = _extarct_organisation_url(data, self.dataset_current.get('id'))
                     if field_name == 'temporal_coverage':
                         #TODO: waiting for correct data
                         data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
@@ -293,7 +320,7 @@ class dataservice_handler(ContentHandler):
                         data = _filter_scale(data, self.dataset_current.get('id'))
                     if field_name == 'geographic_coverage':
                         #TODO: waiting for correct data
-                        data = ['ro', 'bg', 'it']
+                        data = ['gw', 'gu']
                     if field_name == 'subject_existing_keywords':
                         self.data_keywords.extend(data.split(','))
                     if field_name == 'contact':

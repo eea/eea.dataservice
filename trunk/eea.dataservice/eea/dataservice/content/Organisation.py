@@ -22,6 +22,21 @@ from eea.locationwidget.locationwidget import LocationWidget
 schema = Schema((
 
     StringField(
+        name='organisationUrl',
+        accessor='org_url',
+        validators=('isURL',),
+        required=True,
+        widget = StringWidget(
+            label="Organisation url",
+            description = ("Web address with more info about this organisation. "
+                           "Add http:// for external links."),
+            label_msgid='dataservice_label_url',
+            description_msgid='dataservice_help_url',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    StringField(
         name='organisationType',
         accessor='org_type',
         vocabulary=NamedVocabulary("organisation_types"),
@@ -31,20 +46,6 @@ schema = Schema((
             description = ("Organisation category"),
             label_msgid='dataservice_label_orgType',
             description_msgid='dataservice_help_orgType',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
-    StringField(
-        name='organisationUrl',
-        accessor='org_url',
-        validators=('isURL',),
-        widget = StringWidget(
-            label="Organisation url",
-            description = ("Web address with more info about this organisation. "
-                           "Add http:// for external links."),
-            label_msgid='dataservice_label_url',
-            description_msgid='dataservice_help_url',
             i18n_domain='eea.dataservice',
         )
     ),

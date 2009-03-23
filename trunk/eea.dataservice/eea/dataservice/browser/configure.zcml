@@ -20,4 +20,24 @@
       permission="zope2.View"
       />
 
+  <page
+      name="getOrganisations"
+      class=".displays.GetOrganisations"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getOrganisationSnippet"
+      class=".displays.GetOrganisationSnippet"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getGeographicalCoverageMap"
+      class=".displays.GeographicalCoverageMap"
+      for="*"
+      permission="zope2.View"
+      />
 </configure>

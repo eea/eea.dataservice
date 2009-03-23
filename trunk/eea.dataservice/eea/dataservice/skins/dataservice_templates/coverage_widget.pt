@@ -63,11 +63,10 @@
             <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/formatTempCoverage" /><br />
             <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/formatTempCoverage" />
           </p>
-          <p id="data_info" style="border: 1px solid red">INFO ZONE</p>
           <br clear="both" />
 
           <script language="JavaScript">
-          jQuery(document).ready(function() { setCoverageInfo(); })
+          jQuery(document).ready(function() { setCoverageInfo(); });
 
           function setCoverageInfo() {
             jQuery("#temporal_coverage").click(function () { showCoverage() });
@@ -75,7 +74,7 @@
 
           function showCoverage() {
             jQuery("#info_temporal_coverage").html(jQuery("#temporal_coverage").val().reverse().join(', '));
-          }
+          };
           </script>
         </metal:fill>
       </metal:use>

@@ -1,7 +1,6 @@
 """ Migration constants
 """
-#DATASERVICE_CONTAINER = 'data'
-DATASERVICE_CONTAINER = 'datasets'
+DATASERVICE_CONTAINER = 'data'
 ORGANISATIONS_CONTAINER = 'organisations'
 
 DATASETS_XML = 'Data_for_XML.xml'

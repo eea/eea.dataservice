@@ -11,27 +11,36 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from zope.interface import implements
+from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
-from eea.dataservice.vocabulary import DatasetYearsVocabulary, EEA_MPCODE_VOCABULARY
-from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import DatasetYearsVocabulary
+#from eea.dataservice.vocabulary import OrganisationsVocabulary
+from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY, COUNTRIES_DICTIONARY_ID
 
 
 #def addData(self, REQUEST={}):
-    #""" Factory method for a Dataset object
-    #"""
-    #pass
+#    """ Factory method for a Dataset object
+#    """
+#    pass
 
-#TODO: delete above if no need, is old regexp to check for 1:10000 format
-#from Products.validation.validators.RegexValidator import RegexValidator
-#from Products.validation import validation
-#validation.register(RegexValidator('isScale',
-                                   #r'^1:(\d+)$', 
-                                   #errmsg = 'Invalid value, must be e.g. 1:1000000.'))
-    
 schema = Schema((
+    DateTimeField(
+        name='last_upload',
+        searchable=1,
+        default=DateTime(),
+        imports="from DateTime import DateTime",
+        widget=CalendarWidget(
+            show_hm=False,
+            label="Last upload",
+            description="Lst upload description.",
+            label_msgid='dataservice_label_last_upload',
+            description_msgid='dataservice_help_last_upload',
+            i18n_domain='eea.dataservice',
+        ),
+    ),
 
     IntegerField(
         name='scale',
@@ -40,9 +49,51 @@ schema = Schema((
             macro='scale_widget',
             label='Scale of the data set',
             label_msgid='dataservice_label_scale',
+            description = ("Gives a rough value of accuracy of the dataset."),
             description_msgid='dataservice_help_scale',
             i18n_domain='eea.dataservice',
             size=20,
+        )
+    ),
+
+    StringField(
+        name='dataset_owner',
+        #vocabulary=OrganisationsVocabulary(),
+        widget = SelectionWidget(
+            format="select", # possible values: flex, select, radio
+            macro="organisation_widget",
+            label="Owner",
+            description = ("Owner description."),
+            label_msgid='dataservice_label_owner',
+            description_msgid='dataservice_help_owner',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    StringField(
+        name='short_id',
+        index='FieldIndex:brains',
+        widget = StringWidget(
+            label="Short ID",
+            visible=-1,
+            description = ("Short ID description."),
+            label_msgid='dataservice_label_shortid',
+            description_msgid='dataservice_help_shortid',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    StringField(
+        name='processor',
+        #vocabulary=OrganisationsVocabulary(),
+        widget = SelectionWidget(
+            format="select", # possible values: flex, select, radio
+            macro="organisation_widget",
+            label="Processor",
+            description = ("Processor description."),
+            label_msgid='dataservice_label_processor',
+            description_msgid='dataservice_help_processor',
+            i18n_domain='eea.dataservice',
         )
     ),
 
@@ -206,7 +257,7 @@ schema = Schema((
             rows=10,
         ),
     ),
-    
+
     TextField(
         name='unit',
         languageIndependent=False,
@@ -223,114 +274,8 @@ schema = Schema((
             rows=10,
         ),
     ),
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-
-    
-
-
-    
-    TextField(
-        name='geographic_coordinates',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Geographic box coordinates",
-            description="geographic_coordinates description.",
-            label_msgid='dataservice_label_geographic_coordinates',
-            description_msgid='dataservice_help_geographic_coordinates',
-            i18n_domain='eea.dataservice',
-        )
     ),
-    
-   
-   
-    TextField(
-        name='originator',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Originator",
-            description="originator description.",
-            label_msgid='dataservice_label_originator',
-            description_msgid='dataservice_help_originator',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
-    TextField(
-        name='dataset_owner',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Owner",
-            description="dataset_owner description.",
-            label_msgid='dataservice_label_dataset_owner',
-            description_msgid='dataservice_help_dataset_owner',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
-    TextField(
-        name='processor',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="Processor",
-            description="processor description.",
-            label_msgid='dataservice_label_processor',
-            description_msgid='dataservice_help_processor',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    
-
-    
-    
-    
-    TextField(
-        name='system_folder',
-        index="ZCTextIndex|TextIndex:brains",
-        widget=TextAreaWidget(
-            label="System folder",
-            description="system_folder description.",
-            label_msgid='dataservice_label_system_folder',
-            description_msgid='dataservice_help_system_folder',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-),
 )
 
 Dataset_schema = ATFolderSchema.copy() + \
@@ -349,6 +294,17 @@ class Data(ATFolder):
 
     schema = Dataset_schema
 
+    security.declareProtected(permissions.View, 'getOrganisationName')
+    def getOrganisationName(self, url):
+        """ """
+        res = None
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : 'Organisation',
+                                 'getUrl': url})
+        if brains: res = brains[0]
+        return res
+
+    security.declareProtected(permissions.View, 'getMpCodeName')
     def getMpCodeName(self, code):
         """  return management plan code title """
         return EEA_MPCODE_VOCABULARY[code]

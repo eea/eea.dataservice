@@ -7,9 +7,13 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - datasetgid['datasetgid']          - id                        - string        - (no action)
 --------------------------------------------------------------------------------------------------
-- dataset_version                   -                           -               -
+- dataset_shortID                   - short_id                  - string        - (no action)
+--------------------------------------------------------------------------------------------------
+- dataset_version                   -                           -               - #ALEC-todo: to implement version system
 --------------------------------------------------------------------------------------------------
 - dataset_title                     - title                     - string        - (no action)
+--------------------------------------------------------------------------------------------------
+- dataset_publish_date              - effectiveDate             - DateWidget    - (no action)
 --------------------------------------------------------------------------------------------------
 - dataset_note                      - description               - text          - HTML striped
                                     -                           -               - #truncated to first 150 characters
@@ -37,15 +41,17 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  - subject_existing_keywords - KeywordsWidget- (no action)
 --------------------------------------------------------------------------------------------------
-- MT['Last upload']                 - effectiveDate             - DateWidget    - (no action)
+- MT['Last upload']                 -                           - DateWidget    - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Methodology']                 - methodology               - html          - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Originator']                  -                           -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Owner']                       -                           - ContactWidget -
+- MT['Owner']                       - dataset_owner             - OrgWidget     - (parsed to extract the org URL)
+-                                   -                           -               - #ANTONIO: update URLs
 --------------------------------------------------------------------------------------------------
-- MT['Processor']                   -                           - ContactWidget -
+- MT['Processor']                   - processor                 - OrgWidget     - (parsed to extract the org URL)
+-                                   -                           -               - #ANTONIO: update URLs
 --------------------------------------------------------------------------------------------------
 - MT['Reference system']            - reference_system          - TemplateWidget- (no action)
 -                                   -                           -               - #ALEC-todo: kupu template widget
@@ -76,9 +82,18 @@ Legend:
 
 MT = metadata_typelabel
 
-- [-] ANTONIO: sa stabilesc care campuri sunt mandatory si care nu
-- [-] ANTONIO: sa stabilesc cares language independt si care nu
-- [-] ANTONIO: de stabilit ordinea campurilor pe edit si index
+Questions:
+- [?] ANTONIO: how is generated the data udner "Geographic information quality label"?
+- [?] DAVID: which data has several entries? (owner and processor)
+- [?] ANTONIO/DAVID: on what shall I lookup Relation property? [ROD, CSI, datasets (plone), reports (plone), external URL]
 
 
+- [-] ANTONIO: update organisation URLs + search/replace in exported xml + import data
+- [-] ANTONIO: determine mandatory fields
+- [-] ANTONIO: determine language independent fields
+- [-] ANTONIO: fields order on edit/index pages
+
+
+[?] ANTONIO/DAVID: more then 200 datasets dont have a "Last upload"
+R: Last upload tre sa fie camp separat, Effective pe dataset_publish_date
 

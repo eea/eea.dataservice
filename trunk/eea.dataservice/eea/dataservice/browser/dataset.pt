@@ -34,6 +34,64 @@
     <div style="margin-left: 5%;">
     <dl>
 
+    <!-- Short ID (deprecated, used for backwards compatibility) -->
+    <!-- tal:block define="field python:here.getField('short_id');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_unit">Short ID:</dt>
+        <dd tal:content="structure value">Short ID</dd>
+    </tal:block -->
+
+    <!-- Geographical coverage -->
+    <tal:block define="field python:here.getField('geographic_coverage');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
+        <tal:block define="country_data here/getCountryInfo">
+            <dd><span tal:repeat="country_code value" tal:content="python:country_data['countries'][country_code] + ', '">Geographical coverage</span></dd>
+        </tal:block>
+
+        <!-- #TODO: temp map generator -->
+        <!-- tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
+                 content="structure map" / -->
+
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+  <script type='text/javascript'>
+   google.load('visualization', '1', {'packages': ['geomap']});
+   google.setOnLoadCallback(drawMap);
+
+    function drawMap() {
+      var data = new google.visualization.DataTable();
+      data.addRows(6);
+      data.addColumn('string', 'Country');
+      data.addColumn('number', 'Dataset coverage');
+      data.setValue(0, 0, 'Denmark');
+      data.setValue(0, 1, 1);
+      data.setValue(1, 0, 'Spain');
+      data.setValue(1, 1, 1);
+      data.setValue(2, 0, 'Italy');
+      data.setValue(2, 1, 1);
+      data.setValue(3, 0, 'Bulgary');
+      data.setValue(3, 1, 1);
+      data.setValue(4, 0, 'France');
+      data.setValue(4, 1, 1);
+      data.setValue(5, 0, 'Romania');
+      data.setValue(5, 1, 1);
+
+      var options = {};
+      options['dataMode'] = 'regions';
+      options['width'] = '500px';
+      options['height'] = '300px';
+
+      var container = document.getElementById('map_canvas');
+      var geomap = new google.visualization.GeoMap(container);
+      geomap.draw(data, options);
+  };
+  </script>
+
+        <div id='map_canvas'></div>
+    </tal:block>
+
     <!-- Rights -->
     <tal:block define="value here/Rights" condition="value">
         <dt i18n:translate="dataset_rights">Rights:</dt>
@@ -130,16 +188,6 @@
         <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact person(s) for EEA</dd>
     </tal:block>
 
-    <!-- Geographical coverage -->
-    <tal:block define="field python:here.getField('geographic_coverage');
-                       value python:field.getAccessor(here)()"
-               condition="value">
-        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
-        <tal:block define="country_data here/getCountryInfo">
-            <dd><span tal:repeat="country_code value" tal:content="python:country_data['countries'][country_code] + ', '">Geographical coverage</span></dd>
-        </tal:block>
-    </tal:block>
-
     <!-- EEA management plan code -->
     <tal:block define="field python:here.getField('eea_mpcode');
                        value python:field.getAccessor(here)()"
@@ -156,6 +204,41 @@
         <dd tal:content="structure value">Reference system</dd>
     </tal:block>
 
+    <!-- Owner -->
+    <tal:block define="field python:here.getField('dataset_owner');
+                       url python:field.getAccessor(here)();
+                       value python:here.getOrganisationName(url)"
+               condition="value">
+        <dt i18n:translate="dataset_owner">Owner:</dt>
+        <dd>
+            <span tal:content="value/Title" /><br />
+            <a href="#" title=""
+               tal:attributes="href value/getUrl; title value/Title"
+               tal:content="value/getUrl" />
+        </dd>
+    </tal:block>
+
+    <!-- Processor -->
+    <tal:block define="field python:here.getField('processor');
+                       url python:field.getAccessor(here)();
+                       value python:here.getOrganisationName(url)"
+               condition="value">
+        <dt i18n:translate="dataset_processor">Processor:</dt>
+        <dd>
+            <span tal:content="value/Title" /><br />
+            <a href="#" title=""
+               tal:attributes="href value/getUrl; title value/Title"
+               tal:content="value/getUrl" />
+        </dd>
+    </tal:block>
+
+
+    
+    
+    
+    
+    
+    
     </dl>
     </div>
     <br clear="all" />
