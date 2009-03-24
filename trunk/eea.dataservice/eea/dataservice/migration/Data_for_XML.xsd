@@ -32,6 +32,7 @@
 				<xs:element ref="metadata_typelabel" maxOccurs="unbounded"/>
 				<xs:element ref="tableGroup" minOccurs="0"/>
 				<xs:element ref="download_file" minOccurs="0"/>
+				<xs:element ref="other_services" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="datasetgid" type="xs:string" use="required"/>
 		</xs:complexType>
@@ -55,15 +56,53 @@
 	<xs:element name="download_file_title" type="xs:string"/>
 	<xs:element name="metadata_text" type="xs:string"/>
 	<xs:element name="metadata_text_publish_level" type="xs:int"/>
+	<xs:element name="metadata_type_publish_level">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:enumeration value="-1"/>
+				<xs:enumeration value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<xs:element name="metadata_typelabel">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="metadata_type_publish_level"/>
 				<xs:element ref="metadata_text" minOccurs="0"/>
 				<xs:element ref="metadata_text_publish_level"/>
 			</xs:sequence>
 			<xs:attribute name="metadata_typelabel" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="other_services">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="other_services_category" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_services_category">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="other_services_title"/>
+				<xs:element ref="other_services_note" minOccurs="0"/>
+				<xs:element ref="other_services_url"/>
+				<xs:element ref="other_services_publish_level"/>
+			</xs:sequence>
+			<xs:attribute name="other_services_category" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="other_services_note" type="xs:string"/>
+	<xs:element name="other_services_publish_level">
+		<xs:simpleType>
+			<xs:restriction base="xs:int">
+				<xs:enumeration value="-1"/>
+				<xs:enumeration value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="other_services_title" type="xs:string"/>
+	<xs:element name="other_services_url" type="xs:string"/>
 	<xs:element name="relatedgid">
 		<xs:complexType>
 			<xs:sequence>
