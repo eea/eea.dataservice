@@ -4,4 +4,8 @@
     meta_type="Factory-based Type Information with dynamic views"/>
  <object name="Organisation"
     meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="DataTable"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="DataFile"
+    meta_type="Factory-based Type Information with dynamic views"/>
 </object>

@@ -290,6 +290,7 @@ class Data(ATFolder):
     archetype_name  = 'Data'
     portal_type     = 'Data'
     meta_type       = 'Data'
+    allowed_content_types = ['ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
     _at_rename_after_creation = True
 
     schema = Dataset_schema

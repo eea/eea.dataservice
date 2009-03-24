@@ -52,43 +52,8 @@
         </tal:block>
 
         <!-- #TODO: temp map generator -->
-        <!-- tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                 content="structure map" / -->
-
-  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
-  <script type='text/javascript'>
-   google.load('visualization', '1', {'packages': ['geomap']});
-   google.setOnLoadCallback(drawMap);
-
-    function drawMap() {
-      var data = new google.visualization.DataTable();
-      data.addRows(6);
-      data.addColumn('string', 'Country');
-      data.addColumn('number', 'Dataset coverage');
-      data.setValue(0, 0, 'Denmark');
-      data.setValue(0, 1, 1);
-      data.setValue(1, 0, 'Spain');
-      data.setValue(1, 1, 1);
-      data.setValue(2, 0, 'Italy');
-      data.setValue(2, 1, 1);
-      data.setValue(3, 0, 'Bulgary');
-      data.setValue(3, 1, 1);
-      data.setValue(4, 0, 'France');
-      data.setValue(4, 1, 1);
-      data.setValue(5, 0, 'Romania');
-      data.setValue(5, 1, 1);
-
-      var options = {};
-      options['dataMode'] = 'regions';
-      options['width'] = '500px';
-      options['height'] = '300px';
-
-      var container = document.getElementById('map_canvas');
-      var geomap = new google.visualization.GeoMap(container);
-      geomap.draw(data, options);
-  };
-  </script>
-
+        <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
+                 content="structure map" />
         <div id='map_canvas'></div>
     </tal:block>
 

@@ -7,8 +7,15 @@
 
   <browser:page
       for="*"
-      name="migrate_dataservice"
+      name="migrate_datasets"
       class=".migrate.MigrateDatasets"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="migrate_datafiles"
+      class=".migrate.MigrateDatafiles"
       permission="cmf.ModifyPortalContent"
       />
 

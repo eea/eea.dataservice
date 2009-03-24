@@ -4,14 +4,20 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Data</property>
  <property name="description">A dataservice data.</property>
- <property name="content_icon">data-icon.gif</property>
+ <property name="content_icon">data-icon.png</property>
  <property name="content_meta_type">Data</property>
  <property name="product">eea.dataservice</property>
  <property name="factory">addData</property>
  <property name="immediate_view">edit</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">False</property>
- <property name="allowed_content_types"/>
+ <property name="allowed_content_types">
+  <element value="DataTable"/>
+  <element value="DataFile"/>
+  <element value="ATImage"/>
+  <element value="Folder"/>
+  <element value="File"/>
+ </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">dataset_view</property>
  <property name="view_methods">

@@ -11,7 +11,15 @@
       for="eea.dataservice.interfaces.IDataset"
       permission="zope2.View"
       />
-      
+
+  <page
+      name="datafile_view"
+      template="dataset.pt"
+      class=".displays.DatafileContainerView"
+      for="eea.dataservice.interfaces.IDatafile"
+      permission="zope2.View"
+      />
+
   <page
       name="organisation_view"
       template="organisation.pt"

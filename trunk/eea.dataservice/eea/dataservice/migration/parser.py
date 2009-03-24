@@ -95,35 +95,12 @@ def _filter_temporal_coverage(text, dataset_id):
     res.reverse()
     return res
 
+
 class MigrationObject(object):
     """ Encapsulate migration object
     """
     def __init__(self):
-        """
-            @param id:                          String;
-            @param short_id:                    String;
-            @param title:                       String;
-            @param description:                 String;
-            @param themes:                      Iterator;
-            @param rights:                      String;
-            @param effectiveDate:               String;
-            @param eea_mpcode:                  Integer;
-            @param moreInfo:                    String;
-            @param disclaimer:                  String;
-            @param source:                      Iterator;
-            @param scale:                       Integer;
-            @param geoAccuracy:                 String;
-            @param methodology:                 String;
-            @param unit:                        String;
-            @param subject_existing_keywords:   Iterator;
-            @param temporal_coverage:           Iterator;
-            @param contact:                     String;
-            @param geographic_coverage:         Iterator;
-            @param reference_system:            String;
-            @param dataset_owner:               String;
-            @param processor:                   String;
-            @param last_upload                  String;
-            
+        """ base migration object
         """
         pass
 
@@ -179,6 +156,45 @@ DATASET_METADATA_MAPPING = {
     'Theme':                      'themes',
     'Unit':                       'unit'
 }
+### Dataset:
+    #@param id:                          String;
+    #@param short_id:                    String;
+    #@param title:                       String;
+    #@param description:                 String;
+    #@param themes:                      Iterator;
+    #@param rights:                      String;
+    #@param effectiveDate:               String;
+    #@param eea_mpcode:                  Integer;
+    #@param moreInfo:                    String;
+    #@param disclaimer:                  String;
+    #@param source:                      Iterator;
+    #@param scale:                       Integer;
+    #@param geoAccuracy:                 String;
+    #@param methodology:                 String;
+    #@param unit:                        String;
+    #@param subject_existing_keywords:   Iterator;
+    #@param temporal_coverage:           Iterator;
+    #@param contact:                     String;
+    #@param geographic_coverage:         Iterator;
+    #@param reference_system:            String;
+    #@param dataset_owner:               String;
+    #@param processor:                   String;
+    #@param last_upload                  String;
+
+DATAFILE_METADATA_MAPPING = {
+    'download_file_downloadfilesgid':  'id',
+    'download_file_title':             'title',
+    'download_file_note':              'description',
+    'category':                        'category',
+    'download_file_shortID':           'short_id',
+    'download_file_name':              'filename',
+    'download_file_link':              'download_link',
+    'download_file_size':              'filesize',
+    'download_file_publish_level':     'publish_level'
+}
+### Datafile:
+#tableview_subgid['tableview_subgid'] ... 'table_id'
+#                                         'dataset_id'
 
 class dataservice_info(ContentHandler):
     """ """
@@ -214,10 +230,17 @@ class dataservice_handler(ContentHandler):
         self.dataset_current = None
         self.metadata_context = 0
         self.metadata_current = None
+        self.datafiles = {}
+        self.datafiles_context = 0
+        self.datafile_context = 0
+        self.datafile_current = None
 
     # getters
     def get_datasets(self):
         return self.dataset_groups
+    
+    def get_datafiles(self):
+        return self.datafiles
 
     def get_mapsandgraphs(self):
         pass
@@ -247,7 +270,19 @@ class dataservice_handler(ContentHandler):
             if name == 'metadata_typelabel':
                 self.metadata_context = 1
                 self.metadata_current = attrs['metadata_typelabel']
-            
+
+            # Datafile metadata
+            if name == 'download_file':
+                self.datafiles_context = 1
+            if name == 'tableview_subgid' and self.datafiles_context:
+                self.datafile_current = MigrationObject()
+                self.datafile_context = 1
+                table_id = ''
+                try: table_id = attrs['tableview_subgid']
+                except: pass
+                self.datafile_current.set('table_id', table_id)
+                self.datafile_current.set('dataset_id', self.dataset_current.get('id'))
+
     def endElement(self, name):
         if self.check_range():
             # Dataset group
@@ -342,6 +377,23 @@ class dataservice_handler(ContentHandler):
                     ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
                     #pass
 
+            # Datafile metadata
+            if self.datafiles_context:
+                if name in DATAFILE_METADATA_MAPPING.keys():
+                    field_name = DATAFILE_METADATA_MAPPING[name]
+                    data = u''.join(self.data).strip()
+                    self.datafile_current.set(field_name, data)
+            if name == 'tableview_subgid' and self.datafiles_context:
+                self.datafiles[self.datafile_current.get('id')] = self.datafile_current
+                self.datafile_current = None
+                self.datafile_context = 1
+            if name == 'download_file':
+                self.datafiles_context = 0
+
+
+
+
+            # XML ends
             if name == 'data':
                 info('End parsing of datasets XML')
 
@@ -379,18 +431,31 @@ class dataservice_parser:
         parser.parse(inputsrc)
         return chandler
 
-def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
-    """ Return data from old dataservice exported XMLs
+def extract_basic(file_id):
+    """ Read file
     """
     splitdir = os.path.split(os.path.abspath(os.path.dirname(__file__)))
     product_dir = os.path.join(*splitdir)
     file_path = os.path.join(product_dir, file_id)
     
     f = open(file_path);
-    s = f.read()
+    return f.read()
+
+def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
+    """ Return datasets from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
     return data.get_datasets()
+
+def extract_datafiles(file_id='', info=0, ds_from=0, ds_to=10000):
+    """ Return datafiles from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
+    parser = dataservice_parser(info, ds_from, ds_to)
+    data = parser.parseContent(s)
+    return data.get_datafiles()
 
 if __name__ == '__main__':
     print len(extract_data())

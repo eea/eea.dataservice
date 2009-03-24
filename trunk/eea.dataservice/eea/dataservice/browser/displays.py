@@ -9,6 +9,13 @@ class DatasetContainerView(object):
         self.context = context
         self.request = request
 
+class DatafileContainerView(object):
+    """ Default datafile view
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
 class OrganisationContainerView(object):
     """ Default organisation view
     """
@@ -70,8 +77,8 @@ class GeographicalCoverageMap(object):
             country_count = len(cc)
             for country_code in cc:
                 tmp = """
-        data.setValue(0, 0, '%s');
-        data.setValue(%s, 1, 1);""" % (country_code, cc.index(country_code))
+      data.setValue(%(cindex)s, 0, '%(cc)s');
+      data.setValue(%(cindex)s, 1, 1);""" % {'cc': country_code, 'cindex': cc.index(country_code)}
                 country_data += tmp
         return GEO_COVERAGE_MAP % (country_count, country_data)
 
