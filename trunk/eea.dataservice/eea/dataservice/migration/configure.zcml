@@ -7,8 +7,29 @@
 
   <browser:page
       for="*"
+      name="migrate_organisations"
+      class=".migrate.MigrateOrganisations"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
       name="migrate_datasets"
       class=".migrate.MigrateDatasets"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="migrate_datatables"
+      class=".migrate.MigrateDatatables"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="migrate_datasubtables"
+      class=".migrate.MigrateDatasubtables"
       permission="cmf.ModifyPortalContent"
       />
 
@@ -19,11 +40,6 @@
       permission="cmf.ModifyPortalContent"
       />
 
-  <browser:page
-      for="*"
-      name="migrate_organisations"
-      class=".migrate.MigrateOrganisations"
-      permission="cmf.ModifyPortalContent"
-      />
+
 
 </configure>

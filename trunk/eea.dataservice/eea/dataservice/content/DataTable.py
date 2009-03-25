@@ -15,8 +15,37 @@ from eea.dataservice.interfaces import IDatatable
 
 
 schema = Schema((
-
-
+    StringField(
+        name='records',
+        widget = StringWidget(
+            label="Records",
+            description = ("Records description."),
+            label_msgid='dataservice_label_records',
+            description_msgid='dataservice_help_records',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+    StringField(
+        name='category',
+        default='European data set',
+        widget = StringWidget(
+            label="Category",
+            description = ("Category description."),
+            label_msgid='dataservice_label_category',
+            description_msgid='dataservice_help_category',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+    StringField(
+        name='dataset_id',
+        widget = StringWidget(
+            label="Dataset ID",
+            description = ("Dataset ID description."),
+            label_msgid='dataservice_label_datasetid',
+            description_msgid='dataservice_help_datasetid',
+            i18n_domain='eea.dataservice',
+        )
+    ),
     ),
 )
 

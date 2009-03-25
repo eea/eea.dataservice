@@ -193,8 +193,23 @@ DATAFILE_METADATA_MAPPING = {
     'download_file_publish_level':     'publish_level'
 }
 ### Datafile:
-#tableview_subgid['tableview_subgid'] ... 'table_id'
+#tableview_subgid['tableview_subgid']     'table_id'
 #                                         'dataset_id'
+
+DATATABLE_METADATA_MAPPING = {
+    'tableview_title': 'title'
+}
+#tableview_subgid['tableview_subgid']    'id'
+#                                        'category'
+#                                        'dataset_id'
+
+DATASUBTABLE_METADATA_MAPPING = {
+    'tableviewsub_title': 'title',
+    'tableviewsub_note': 'description',
+    'tableviewsub_totalrecords': 'records'
+}
+#tableview_subgid['tableview_subgid']   'id'
+#                                       'datatable_id'
 
 class dataservice_info(ContentHandler):
     """ """
@@ -230,15 +245,31 @@ class dataservice_handler(ContentHandler):
         self.dataset_current = None
         self.metadata_context = 0
         self.metadata_current = None
+
         self.datafiles = {}
         self.datafiles_context = 0
         self.datafile_context = 0
         self.datafile_current = None
 
+        self.datatables = {}
+        self.datatables_context = 0
+        self.datatable_context = 0
+        self.datatable_current = None
+        
+        self.datasubtables = {}
+        self.datasubtable_context = 0
+        self.datasubtable_current = None
+
     # getters
     def get_datasets(self):
         return self.dataset_groups
-    
+
+    def get_datatables(self):
+        return self.datatables
+
+    def get_datasubtables(self):
+        return self.datasubtables
+
     def get_datafiles(self):
         return self.datafiles
 
@@ -282,6 +313,22 @@ class dataservice_handler(ContentHandler):
                 except: pass
                 self.datafile_current.set('table_id', table_id)
                 self.datafile_current.set('dataset_id', self.dataset_current.get('id'))
+
+            # Datatable metadata
+            if name == 'tableGroup':
+                self.datatables_context = 1
+            if name == 'tableviewgid' and self.datatables_context:
+                self.datatable_current = MigrationObject()
+                self.datatable_context = 1
+                self.datatable_current.set('id', attrs['tableviewgid'])
+                self.datatable_current.set('dataset_id', self.dataset_current.get('id'))
+
+            # Datasubtable metadata
+            if name == 'tableview_subgid' and self.datatables_context:
+                self.datasubtable_context = 1
+                self.datasubtable_current = MigrationObject()
+                self.datasubtable_current.set('id', attrs['tableview_subgid'])
+                self.datasubtable_current.set('datatable_id', self.datatable_current.get('id'))
 
     def endElement(self, name):
         if self.check_range():
@@ -390,6 +437,30 @@ class dataservice_handler(ContentHandler):
             if name == 'download_file':
                 self.datafiles_context = 0
 
+            # Datatable metadata
+            if self.datatable_context and not self.datasubtable_context:
+                if name == 'tableview_title':
+                    data = u''.join(self.data).strip()
+                    self.datatable_current.set('title', data)
+                if name == 'tableviewgid':
+                    self.datatables[self.datatable_current.get('id')] = self.datatable_current
+                    self.datatable_current = None
+                    self.datatable_context = 0
+            if name == 'tableGroup':
+                self.datatables_context = 0
+
+            # Datasubtable metadata
+            if self.datasubtable_context:
+                if name in DATASUBTABLE_METADATA_MAPPING.keys():
+                    field_name = DATAFILE_METADATA_MAPPING[name]
+                    data = u''.join(self.data).strip()
+                    self.datasubtable_current.set(field_name, data)
+                if name == 'tableview_subgid':
+                    self.datasubtables[self.datasubtable_current.get('id')] = self.datasubtable_current
+                    self.datasubtable_current = None
+                    self.datasubtable_context = 0
+
+
 
 
 
@@ -456,6 +527,14 @@ def extract_datafiles(file_id='', info=0, ds_from=0, ds_to=10000):
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
     return data.get_datafiles()
+
+def extract_datatables(file_id='', info=0, ds_from=0, ds_to=10000):
+    """ Return datatables from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
+    parser = dataservice_parser(info, ds_from, ds_to)
+    data = parser.parseContent(s)
+    return data.get_datatables()
 
 if __name__ == '__main__':
     print len(extract_data())

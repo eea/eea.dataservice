@@ -3,6 +3,7 @@
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data, extract_datafiles
+from parser import extract_datatables
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
 from data import getOrganisationsData
@@ -253,6 +254,124 @@ class MigrateDatafiles(object):
             index += 1
 
         msg = '%d datafiles imported !' % index
+        info(msg)
+        return _redirect(self, msg, DATASERVICE_CONTAINER)
+
+class MigrateDatatables(object):
+    """ Class used to migrate datatables.
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+        self.xmlfile = DATASETS_XML
+
+    def add_datatable(self, context, datamodel):
+        """ Add new datatable
+        """
+        dt_id = datamodel.getId()
+        
+        # Add datatable if it doesn't exists
+        if dt_id not in context.objectIds():
+            info('Adding datatable id: %s', dt_id)
+            dt_id = context.invokeFactory('DataTable', id=dt_id)
+        
+        # Set properties
+        dt = getattr(context, dt_id)
+        self.update_properties(dt, datamodel)
+        dt.setTitle(datamodel.get('title', ''))
+
+        return dt_id
+
+    def update_properties(self, dt, datamodel):
+        """ Update datatable properties
+        """
+        dt.setExcludeFromNav(True)
+        form = datamodel()
+        dt.processForm(data=1, metadata=1, values=form)
+
+        # Publish
+        #TODO: set proper state based on -1/0/1 from XML
+        _publish(dt)
+
+        # Reindex
+        _reindex(dt)
+        _reindex(dt.getParentNode())
+
+    #
+    # Browser interface
+    #
+    def __call__(self):
+        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
+        index = 0
+        info('Import datatables using xml file: %s', self.xmlfile)
+
+        data = extract_datatables(self.xmlfile)
+        for dt_id in data.keys():
+            dt = data[dt_id]
+            container = getattr(container, dt.get('dataset_id', ''))
+            self.add_datatable(container, dt)
+            index += 1
+
+        msg = '%d datatables imported !' % index
+        info(msg)
+        return _redirect(self, msg, DATASERVICE_CONTAINER)
+
+class MigrateDatasubtables(object):
+    """ Class used to migrate datasubtables.
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+        self.xmlfile = DATASETS_XML
+
+    def add_datasubtable(self, context, datamodel):
+        """ Add new datasubtable
+        """
+        dt_id = datamodel.getId()
+        
+        # Add datasubtable if it doesn't exists
+        if dt_id not in context.objectIds():
+            info('Adding datasubtable id: %s', dt_id)
+            dt_id = context.invokeFactory('DataSubTable', id=dt_id)
+        
+        # Set properties
+        dt = getattr(context, dt_id)
+        self.update_properties(dt, datamodel)
+        dt.setTitle(datamodel.get('title', ''))
+
+        return dt_id
+
+    def update_properties(self, dt, datamodel):
+        """ Update datasubtable properties
+        """
+        dt.setExcludeFromNav(True)
+        form = datamodel()
+        dt.processForm(data=1, metadata=1, values=form)
+
+        # Publish
+        #TODO: set proper state based on -1/0/1 from XML
+        _publish(dt)
+
+        # Reindex
+        _reindex(dt)
+        _reindex(dt.getParentNode())
+
+    #
+    # Browser interface
+    #
+    def __call__(self):
+        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
+        index = 0
+        info('Import datasubtables using xml file: %s', self.xmlfile)
+
+        data = extract_datatables(self.xmlfile)
+        for dt_id in data.keys():
+            dt = data[dt_id]
+            container = getattr(container, dt.get('dataset_id', ''))
+            self.add_datatable(container, dt)
+            index += 1
+
+        msg = '%d datatables imported !' % index
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 

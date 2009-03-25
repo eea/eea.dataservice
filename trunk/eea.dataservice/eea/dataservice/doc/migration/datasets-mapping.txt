@@ -94,6 +94,4 @@ Questions:
 - [-] ANTONIO: fields order on edit/index pages
 
 
-[?] ANTONIO/DAVID: more then 200 datasets dont have a "Last upload"
-R: Last upload tre sa fie camp separat, Effective pe dataset_publish_date
 

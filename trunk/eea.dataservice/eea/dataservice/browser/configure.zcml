@@ -14,9 +14,17 @@
 
   <page
       name="datafile_view"
-      template="dataset.pt"
+      template="datafile.pt"
       class=".displays.DatafileContainerView"
       for="eea.dataservice.interfaces.IDatafile"
+      permission="zope2.View"
+      />
+
+  <page
+      name="datatable_view"
+      template="datatable.pt"
+      class=".displays.DatatableContainerView"
+      for="eea.dataservice.interfaces.IDatatable"
       permission="zope2.View"
       />
 

@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<body>
+
+<div metal:fill-slot="main">
+
+    <!-- Title -->
+    <h1 tal:content="here/pretty_title_or_id">Title of the Dataset</h1>
+    <div class="documentActions languages">
+        <tal:lang tal:condition="exists: here/global_languageselector">
+            <metal:lang use-macro="here/global_languageselector/macros/language" />
+        </tal:lang>
+    </div>
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Description -->
+    <p class="publicationDescription" tal:content="here/Description" />
+
+    <!-- Category -->
+    <tal:block define="field python:here.getField('category');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Category</dt>
+        <dd tal:content="value" />
+    </tal:block>
+
+    <!-- Records -->
+    <tal:block define="field python:here.getField('records');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Records</dt>
+        <dd tal:content="value" />
+    </tal:block>
+
+    <!-- Dataset ID -->
+    <tal:block define="field python:here.getField('dataset_id');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
+        <dd tal:content="value" />
+    </tal:block>
+
+</div>
+
+</body>
+</html>

@@ -23,6 +23,10 @@ class IDatatable(Interface):
     """ Objects which have dataset table information.
     """
 
+class IDatasubtable(Interface):
+    """ Objects which have dataset sub-table information.
+    """
+
 class IOrganisation(Interface):
     """ Objects which have organisation information.
     """
