@@ -19,6 +19,7 @@ from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
 #from eea.dataservice.vocabulary import OrganisationsVocabulary
 from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY, COUNTRIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 
 #def addData(self, REQUEST={}):
@@ -116,7 +117,7 @@ schema = Schema((
         name='geographic_coverage',
         languageIndependent=True,
         multiValued=1,
-        vocabulary=NamedVocabulary("dataservice_countries"),
+        vocabulary=NamedVocabulary(COUNTRIES_DICTIONARY_ID),
         widget=MultiSelectionWidget(
             macro="geographic_widget",
             size=8,
@@ -294,6 +295,26 @@ class Data(ATFolder):
     _at_rename_after_creation = True
 
     schema = Dataset_schema
+
+    security.declareProtected(permissions.View, 'getTablesByCategory')
+    def getTablesByCategory(self):
+        """ Return categories and related files
+        """
+        res = {}
+        for table in self.objectValues('DataTable'):
+            cat = table.category
+            if not cat in res.keys():
+                res[cat] = []
+            res[cat].append(table)
+        return res
+
+    security.declareProtected(permissions.View, 'getCategoryName')
+    def getCategoryName(self, cat_code):
+        """ Return category name
+        """
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = atvm[CATEGORIES_DICTIONARY_ID]
+        return getattr(vocab, cat_code).Title()
 
     security.declareProtected(permissions.View, 'getOrganisationName')
     def getOrganisationName(self, url):

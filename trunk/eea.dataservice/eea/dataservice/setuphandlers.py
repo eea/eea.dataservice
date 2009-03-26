@@ -3,6 +3,7 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID, getCountriesDictionary
 from eea.dataservice.vocabulary import ORGANISATION_CATEGORIES_DICTIONARY_ID, ORGANISATION_CATEGORIES_DICTIONARY
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID, CATEGORIES_DICTIONARY
 import logging
 logger = logging.getLogger('eea.dataservice: setuphandlers')
 
@@ -41,3 +42,10 @@ def installVocabularies(context):
         atvm[ORGANISATION_CATEGORIES_DICTIONARY_ID].setTitle('Organisation categories')
     else:
         logger.warn('eea.dataservice organisation categories vocabulary already exist.')
+
+    # Create categories vocabulary
+    if not CATEGORIES_DICTIONARY_ID in atvm.contentIds():
+        createSimpleVocabs(atvm, CATEGORIES_DICTIONARY)
+        atvm[CATEGORIES_DICTIONARY_ID].setTitle('Dataservice categories')
+    else:
+        logger.warn('eea.dataservice categories vocabulary already exist.')

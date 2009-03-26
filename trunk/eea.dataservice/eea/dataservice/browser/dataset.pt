@@ -28,6 +28,19 @@
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
+    <!-- Tables -->
+    <tal:tables repeat="categ python:here.getTablesByCategory().keys()">
+        <h4 tal:content="python:here.getCategoryName(categ)" />
+        <tal:block repeat="table python:here.getTablesByCategory()[categ]">
+            <h5 tal:content="table/title" />
+            <p tal:content="table/Description" />
+            <ul>
+                <li tal:repeat="file python:table.objectValues('DataFile')">
+                  <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="file/filesize" />)
+                </li>
+            </ul>
+        </tal:block>
+    </tal:tables>
 
     <!-- META DATA -->
     <h4>Meta data</h4>

@@ -24,7 +24,7 @@
                        value python:field.getAccessor(here)()"
               condition="value">
         <dt i18n:translate="dataset_category">Category</dt>
-        <dd tal:content="value" />
+        <dd tal:content="python:here.getCategoryName(value)" />
     </tal:block>
 
     <!-- Records -->
@@ -34,14 +34,22 @@
         <dt i18n:translate="dataset_category">Records</dt>
         <dd tal:content="value" />
     </tal:block>
+    
+    <fieldset><legend>Files</legend>
+        <tal:block repeat="file python:here.objectValues('DataFile')">
+            <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="file/filesize" />)
+        </tal:block>
+    </fieldset>
 
     <!-- Dataset ID -->
+    <!--
     <tal:block define="field python:here.getField('dataset_id');
                        value python:field.getAccessor(here)()"
               condition="value">
         <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
         <dd tal:content="value" />
     </tal:block>
+    -->
 
 </div>
 

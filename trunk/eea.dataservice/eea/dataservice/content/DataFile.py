@@ -56,7 +56,7 @@ schema = Schema((
         )
     ),
     StringField(
-        name='filename',
+        name='data_filename',
         widget = StringWidget(
             label="Filename",
             description = ("Filename description."),

@@ -6,7 +6,6 @@
 <body>
 
 <div metal:fill-slot="main">
-
     <!-- Title -->
     <h1 tal:content="here/pretty_title_or_id">Title of the Dataset</h1>
     <div class="documentActions languages">
@@ -15,10 +14,10 @@
         </tal:lang>
     </div>
     <div class="visualClear">&nbsp;</div>
-
+    
     <!-- Description -->
     <p class="publicationDescription" tal:content="here/Description" />
-
+    
     <!-- Short ID -->
     <tal:block define="field python:here.getField('short_id');
                        value python:field.getAccessor(here)()"
@@ -26,7 +25,7 @@
         <dt i18n:translate="dataset_shortId">Short ID</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Table ID -->
     <tal:block define="field python:here.getField('table_id');
                        value python:field.getAccessor(here)()"
@@ -34,7 +33,7 @@
         <dt i18n:translate="dataset_tableId">Table ID</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Dataset ID -->
     <tal:block define="field python:here.getField('dataset_id');
                        value python:field.getAccessor(here)()"
@@ -42,7 +41,7 @@
         <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Category -->
     <tal:block define="field python:here.getField('category');
                        value python:field.getAccessor(here)()"
@@ -50,15 +49,15 @@
         <dt i18n:translate="dataset_category">Category</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Filename -->
-    <tal:block define="field python:here.getField('filename');
+    <tal:block define="field python:here.getField('data_filename');
                        value python:field.getAccessor(here)()"
               condition="value">
         <dt i18n:translate="dataset_filename">Filename</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Filesize -->
     <tal:block define="field python:here.getField('filesize');
                        value python:field.getAccessor(here)()"
@@ -66,7 +65,7 @@
         <dt i18n:translate="dataset_filesize">Filesize</dt>
         <dd tal:content="value" />
     </tal:block>
-
+    
     <!-- Download link -->
     <tal:block define="field python:here.getField('download_link');
                        value python:field.getAccessor(here)()"
@@ -74,8 +73,8 @@
         <dt i18n:translate="dataset_download_link">Download link</dt>
         <dd tal:content="value" />
     </tal:block>
-
 </div>
 
 </body>
 </html>
+

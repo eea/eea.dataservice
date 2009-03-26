@@ -3,7 +3,7 @@
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data, extract_datafiles
-from parser import extract_datatables
+from parser import extract_datatables, extract_tables_files
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
 from data import getOrganisationsData
@@ -316,23 +316,23 @@ class MigrateDatatables(object):
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 
-class MigrateDatasubtables(object):
-    """ Class used to migrate datasubtables.
+class MigrateTablesAndFiles(object):
+    """ Class used to migrate tables and files.
     """
     def __init__(self, context, request=None):
         self.context = context
         self.request = request
         self.xmlfile = DATASETS_XML
 
-    def add_datasubtable(self, context, datamodel):
-        """ Add new datasubtable
+    def add_object(self, context, datamodel, otype):
+        """ Add new datatable
         """
         dt_id = datamodel.getId()
         
-        # Add datasubtable if it doesn't exists
+        # Add object if it doesn't exists
         if dt_id not in context.objectIds():
-            info('Adding datasubtable id: %s', dt_id)
-            dt_id = context.invokeFactory('DataSubTable', id=dt_id)
+            info('Adding %s id: %s' % (otype, dt_id))
+            dt_id = context.invokeFactory(otype, id=dt_id)
         
         # Set properties
         dt = getattr(context, dt_id)
@@ -342,7 +342,7 @@ class MigrateDatasubtables(object):
         return dt_id
 
     def update_properties(self, dt, datamodel):
-        """ Update datasubtable properties
+        """ Update datatable properties
         """
         dt.setExcludeFromNav(True)
         form = datamodel()
@@ -361,17 +361,26 @@ class MigrateDatasubtables(object):
     #
     def __call__(self):
         container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        index = 0
-        info('Import datasubtables using xml file: %s', self.xmlfile)
+        table_index = 0
+        file_index = 0
+        info('Import datatables and files using xml file: %s', self.xmlfile)
+        data = extract_tables_files(self.xmlfile)
 
-        data = extract_datatables(self.xmlfile)
-        for dt_id in data.keys():
-            dt = data[dt_id]
-            container = getattr(container, dt.get('dataset_id', ''))
-            self.add_datatable(container, dt)
-            index += 1
+        tables = data['tables'].keys()[:50]
+        #add tables
+        for table_id in tables:
+            table, files = data['tables'][table_id]
+            ds_container = getattr(container, table.get('dataset_id', ''))
+            self.add_object(ds_container, table, 'DataTable')
+            table_index += 1
 
-        msg = '%d datatables imported !' % index
+            #add files
+            for file_ob in files:
+                container = getattr(ds_container, table.get('id', ''))
+                self.add_object(container, file_ob, 'DataFile')
+                file_index += 1
+
+        msg = '%d datatables and %s datafiles imported !' % (table_index, file_index)
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 

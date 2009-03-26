@@ -7,11 +7,13 @@ from Products.Archetypes.atapi import *
 from Products.CMFCore import permissions
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from zope.interface import implements
 from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDatatable
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 
 schema = Schema((
@@ -27,8 +29,10 @@ schema = Schema((
     ),
     StringField(
         name='category',
-        default='European data set',
-        widget = StringWidget(
+        default='edse',
+        vocabulary=NamedVocabulary(CATEGORIES_DICTIONARY_ID),
+        widget = SelectionWidget(
+            format="select", # possible values: flex, select, radio
             label="Category",
             description = ("Category description."),
             label_msgid='dataservice_label_category',

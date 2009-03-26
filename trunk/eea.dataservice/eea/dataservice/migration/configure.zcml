@@ -21,15 +21,16 @@
 
   <browser:page
       for="*"
-      name="migrate_datatables"
-      class=".migrate.MigrateDatatables"
+      name="migrate_tables_files"
+      class=".migrate.MigrateTablesAndFiles"
       permission="cmf.ModifyPortalContent"
       />
 
+  <!-- #TODO: remove below, deprecated -->
   <browser:page
       for="*"
-      name="migrate_datasubtables"
-      class=".migrate.MigrateDatasubtables"
+      name="migrate_datatables"
+      class=".migrate.MigrateDatatables"
       permission="cmf.ModifyPortalContent"
       />
 

@@ -36,6 +36,21 @@ ORGANISATION_CATEGORIES_DICTIONARY[ORGANISATION_CATEGORIES_DICTIONARY_ID] = (
     ('other', 'Other external bodies')
 )
 
+# Categories vocabulary
+CATEGORIES_DICTIONARY_ID = 'categories'
+CATEGORIES_DICTIONARY = {}
+CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
+    ('orig', 'Original work data'),
+    ('docu', 'Documents'),
+    ('gisd', 'GIS data'),
+    ('dbco', 'Data by country (including raw data)'),
+    ('edsx', 'European data set (XML format)'),
+    ('edse', 'European data set'),
+    ('meto', 'Methodology'),
+    ('stat', 'Statistics'),
+    ('adin', 'Additional information')
+)
+
 # Organisations vocabulary
 class OrganisationsVocabularyFactory(object):
     """ Organisations vocabulary

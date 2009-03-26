@@ -1,14 +1,27 @@
 import os
 import re
+import random
 from cStringIO import StringIO
 from xml.sax import *
 from xml.sax.handler import ContentHandler
 from types import StringType
 from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY
 
 import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
+
+def _get_random(size=0):
+    chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789"
+    res = ''
+    for k in range(size):
+        res += random.choice(chars)
+    return res
+
+def _generate_random_id():
+    c = _get_random
+    return '%s-%s-%s-%s-%s' % (c(8), c(4), c(4), c(4), c(12))
 
 def _strip_html_tags(text):
     return re.sub(r'<[^>]*?>', '', text)
@@ -31,6 +44,12 @@ def _extarct_organisation_url(text, dataset_id):
     except:
         info('organisation url ERROR: Dataset: %s -- bad format' % dataset_id)
     return tmp
+
+def _map_categories(text):
+    for key, val in CATEGORIES_DICTIONARY.values():
+        if text == val: return key
+    info('ERROR: category dont match %s' % text)
+    return text
 
 def _map_eea_mpcode(text, dataset_id):
     mpcode = ''
@@ -187,7 +206,7 @@ DATAFILE_METADATA_MAPPING = {
     'download_file_note':              'description',
     'category':                        'category',
     'download_file_shortID':           'short_id',
-    'download_file_name':              'filename',
+    'download_file_name':              'data_filename',
     'download_file_link':              'download_link',
     'download_file_size':              'filesize',
     'download_file_publish_level':     'publish_level'
@@ -204,12 +223,12 @@ DATATABLE_METADATA_MAPPING = {
 #                                        'dataset_id'
 
 DATASUBTABLE_METADATA_MAPPING = {
-    'tableviewsub_title': 'title',
-    'tableviewsub_note': 'description',
+    'tableviewsub_title':        'title',
+    'tableviewsub_note':         'description',
     'tableviewsub_totalrecords': 'records'
 }
 #tableview_subgid['tableview_subgid']   'id'
-#                                       'datatable_id'
+#                                       'dataset_id'
 
 class dataservice_info(ContentHandler):
     """ """
@@ -246,6 +265,7 @@ class dataservice_handler(ContentHandler):
         self.metadata_context = 0
         self.metadata_current = None
 
+        self.data_table_file_structure = {'tables': {}}
         self.datafiles = {}
         self.datafiles_context = 0
         self.datafile_context = 0
@@ -269,6 +289,9 @@ class dataservice_handler(ContentHandler):
 
     def get_datasubtables(self):
         return self.datasubtables
+
+    def get_tables_files(self):
+        return self.data_table_file_structure
 
     def get_datafiles(self):
         return self.datafiles
@@ -431,6 +454,27 @@ class dataservice_handler(ContentHandler):
                     data = u''.join(self.data).strip()
                     self.datafile_current.set(field_name, data)
             if name == 'tableview_subgid' and self.datafiles_context:
+                if self.datafile_current.get('table_id') not in self.data_table_file_structure['tables'].keys():
+                    #add table
+                    rand_id = _generate_random_id()
+                    self.datafile_current.set('table_id', rand_id)
+                    table_ob = MigrationObject()
+                    table_ob.set('id', rand_id)
+                    table_title = self.datafile_current.get('title', '')
+                    if not table_title: table_title = self.datafile_current.get('data_filename', '')
+                    if not table_title: info('ERROR: no table title %s' % self.datafile_current.get('id'))
+                    table_ob.set('title', table_title)
+                    table_ob.set('description', _strip_html_tags(self.datafile_current.get('description', '')))
+                    table_ob.set('dataset_id', self.dataset_current.get('id'))
+                    table_ob.set('category', _map_categories(self.datafile_current.get('category')))
+                    self.data_table_file_structure['tables'][rand_id] = (table_ob, [])
+                try:
+                    if not self.datafile_current.get('title'):
+                        self.datafile_current.set('title', self.datafile_current.get('data_filename').split('/')[-1])
+                    self.data_table_file_structure['tables'][self.datafile_current.get('table_id')][1].append(self.datafile_current)
+                except:
+                    info('ERROR: no associated table for this file %s' % self.datafile_current.get('id'))
+
                 self.datafiles[self.datafile_current.get('id')] = self.datafile_current
                 self.datafile_current = None
                 self.datafile_context = 1
@@ -452,10 +496,19 @@ class dataservice_handler(ContentHandler):
             # Datasubtable metadata
             if self.datasubtable_context:
                 if name in DATASUBTABLE_METADATA_MAPPING.keys():
-                    field_name = DATAFILE_METADATA_MAPPING[name]
+                    field_name = DATASUBTABLE_METADATA_MAPPING[name]
                     data = u''.join(self.data).strip()
+                    if field_name == 'description':
+                        data = _strip_html_tags(data)
                     self.datasubtable_current.set(field_name, data)
                 if name == 'tableview_subgid':
+                    # set table parent metadata
+                    self.datasubtable_current.set('category', 'edse')
+                    self.datasubtable_current.set('dataset_id', self.datatable_current.get('dataset_id'))
+                    if self.datasubtable_current.get('id') in self.data_table_file_structure['tables'].keys():
+                        info('ERROR: duplicate table IDs %s' % self.datasubtable_current.get('id'))
+                    self.data_table_file_structure['tables'][self.datasubtable_current.get('id')] = (self.datasubtable_current, [])
+
                     self.datasubtables[self.datasubtable_current.get('id')] = self.datasubtable_current
                     self.datasubtable_current = None
                     self.datasubtable_context = 0
@@ -536,5 +589,12 @@ def extract_datatables(file_id='', info=0, ds_from=0, ds_to=10000):
     data = parser.parseContent(s)
     return data.get_datatables()
 
+def extract_tables_files(file_id='', info=0, ds_from=0, ds_to=10000):
+    """ Return datatables from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
+    parser = dataservice_parser(info, ds_from, ds_to)
+    data = parser.parseContent(s)
+    return data.get_tables_files()
 if __name__ == '__main__':
     print len(extract_data())
