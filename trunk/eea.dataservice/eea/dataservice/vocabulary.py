@@ -48,7 +48,11 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
     ('edse', 'European data set'),
     ('meto', 'Methodology'),
     ('stat', 'Statistics'),
-    ('adin', 'Additional information')
+    ('adin', 'Additional information'),
+    ('repo', 'Published in the following report(s)'),
+    ('rod', 'Reporting obligation(s) (ROD)'),
+    ('invi', 'Interactive viewers'),
+    ('rews', 'Related website(s)/service(s)')
 )
 
 # Organisations vocabulary

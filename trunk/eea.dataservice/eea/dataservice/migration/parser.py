@@ -6,7 +6,7 @@ from xml.sax import *
 from xml.sax.handler import ContentHandler
 from types import StringType
 from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY
-from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY, CATEGORIES_DICTIONARY_ID
 
 import logging
 logger = logging.getLogger('eea.dataservice.migration')
@@ -46,7 +46,7 @@ def _extarct_organisation_url(text, dataset_id):
     return tmp
 
 def _map_categories(text):
-    for key, val in CATEGORIES_DICTIONARY.values():
+    for key, val in CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID]:
         if text == val: return key
     info('ERROR: category dont match %s' % text)
     return text
@@ -215,6 +215,8 @@ DATAFILE_METADATA_MAPPING = {
 #tableview_subgid['tableview_subgid']     'table_id'
 #                                         'dataset_id'
 
+#download_file_agreementform
+
 DATATABLE_METADATA_MAPPING = {
     'tableview_title': 'title'
 }
@@ -229,6 +231,13 @@ DATASUBTABLE_METADATA_MAPPING = {
 }
 #tableview_subgid['tableview_subgid']   'id'
 #                                       'dataset_id'
+
+DATARELATIONS_METADATA_MAPPING = {
+    'other_services_title':   'title',
+    'other_services_note':    'description',
+    'other_services_url':     'url'
+}
+#other_services_category['other_services_category']   'category'
 
 class dataservice_info(ContentHandler):
     """ """
@@ -280,6 +289,11 @@ class dataservice_handler(ContentHandler):
         self.datasubtable_context = 0
         self.datasubtable_current = None
 
+        self.datarelations = {}
+        self.datarelations_context = 0
+        self.datarelation_context = 0
+        self.datarelation_current = None
+
     # getters
     def get_datasets(self):
         return self.dataset_groups
@@ -295,6 +309,9 @@ class dataservice_handler(ContentHandler):
 
     def get_datafiles(self):
         return self.datafiles
+
+    def get_relations(self):
+        return self.datarelations
 
     def get_mapsandgraphs(self):
         pass
@@ -352,6 +369,15 @@ class dataservice_handler(ContentHandler):
                 self.datasubtable_current = MigrationObject()
                 self.datasubtable_current.set('id', attrs['tableview_subgid'])
                 self.datasubtable_current.set('datatable_id', self.datatable_current.get('id'))
+
+            # Datarelations metadata
+            if name == 'other_services':
+                self.datarelations_context = 1
+            if name == 'other_services_category':
+                self.datarelation_context = 1
+                self.datarelation_current = MigrationObject()
+                self.datarelation_current.set('id', _generate_random_id())
+                self.datarelation_current.set('category', _map_categories(attrs['other_services_category']))
 
     def endElement(self, name):
         if self.check_range():
@@ -466,7 +492,7 @@ class dataservice_handler(ContentHandler):
                     table_ob.set('title', table_title)
                     table_ob.set('description', _strip_html_tags(self.datafile_current.get('description', '')))
                     table_ob.set('dataset_id', self.dataset_current.get('id'))
-                    table_ob.set('category', _map_categories(self.datafile_current.get('category')))
+                    table_ob.set('category', _map_categories(self.datafile_current.get('category', '')))
                     self.data_table_file_structure['tables'][rand_id] = (table_ob, [])
                 try:
                     if not self.datafile_current.get('title'):
@@ -513,9 +539,18 @@ class dataservice_handler(ContentHandler):
                     self.datasubtable_current = None
                     self.datasubtable_context = 0
 
-
-
-
+            # Datarelations metadata
+            if self.datarelation_context:
+                if name in DATARELATIONS_METADATA_MAPPING.keys():
+                    field_name = DATARELATIONS_METADATA_MAPPING[name]
+                    data = u''.join(self.data).strip()
+                    self.datarelation_current.set(field_name, data)
+            if name == 'other_services_category':
+                self.datarelations[self.datarelation_current.get('id')] = self.datarelation_current
+                self.datarelation_context = 0
+                self.datarelation_current = None
+            if name == 'other_services':
+                self.datarelations_context = 0
 
             # XML ends
             if name == 'data':
@@ -596,5 +631,14 @@ def extract_tables_files(file_id='', info=0, ds_from=0, ds_to=10000):
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
     return data.get_tables_files()
+
+def extract_relations(file_id='', info=0, ds_from=0, ds_to=10000):
+    """ Return relations from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
+    parser = dataservice_parser(info, ds_from, ds_to)
+    data = parser.parseContent(s)
+    return data.get_relations()
+
 if __name__ == '__main__':
     print len(extract_data())

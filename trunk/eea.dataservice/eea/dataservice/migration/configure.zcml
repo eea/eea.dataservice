@@ -26,6 +26,13 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:page
+      for="*"
+      name="migrate_datarelations"
+      class=".migrate.MigrateRelations"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <!-- #TODO: remove below, deprecated -->
   <browser:page
       for="*"

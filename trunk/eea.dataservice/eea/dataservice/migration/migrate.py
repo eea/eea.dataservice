@@ -2,7 +2,7 @@
 """
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
-from parser import extract_data, extract_datafiles
+from parser import extract_data, extract_datafiles, extract_relations
 from parser import extract_datatables, extract_tables_files
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
@@ -381,6 +381,29 @@ class MigrateTablesAndFiles(object):
                 file_index += 1
 
         msg = '%d datatables and %s datafiles imported !' % (table_index, file_index)
+        info(msg)
+        return _redirect(self, msg, DATASERVICE_CONTAINER)
+
+class MigrateRelations(object):
+    """ Class used to migrate relations.
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+        self.xmlfile = DATASETS_XML
+
+    #
+    # Browser interface
+    #
+    def __call__(self):
+        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
+        index = 0
+        info('Import relations and files using xml file: %s', self.xmlfile)
+        data = extract_relations(self.xmlfile)
+
+        #TODO: add relations
+
+        msg = '%d relations found !' % len(data.keys())
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 
