@@ -2,8 +2,8 @@
 """
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
-from parser import extract_data, extract_datafiles, extract_relations
-from parser import extract_datatables, extract_tables_files
+from parser import extract_data, extract_relations
+from parser import extract_datatables
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
 from data import getOrganisationsData
@@ -181,8 +181,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        #ds_info = 20
+        #ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        ds_info = 20
         ds_range = 0
         ds_step = 10
 
@@ -195,124 +195,6 @@ class MigrateDatasets(object):
                     index += 1
 
         msg = '%d datasets imported !' % index
-        info(msg)
-        return _redirect(self, msg, DATASERVICE_CONTAINER)
-
-class MigrateDatafiles(object):
-    """ Class used to migrate datafiles.
-    """
-    def __init__(self, context, request=None):
-        self.context = context
-        self.request = request
-        self.xmlfile = DATASETS_XML
-
-    def add_datafile(self, context, datamodel):
-        """ Add new datafile
-        """
-        df_id = datamodel.getId()
-        
-        # Add datafile if it doesn't exists
-        if df_id not in context.objectIds():
-            info('Adding datafile id: %s', df_id)
-            df_id = context.invokeFactory('DataFile', id=df_id)
-        
-        # Set properties
-        df = getattr(context, df_id)
-        self.update_properties(df, datamodel)
-        df.setTitle(datamodel.get('title', ''))
-
-        return df_id
-
-    def update_properties(self, df, datamodel):
-        """ Update datafile properties
-        """
-        df.setExcludeFromNav(True)
-        form = datamodel()
-        df.processForm(data=1, metadata=1, values=form)
-
-        # Publish
-        #TODO: set proper state based on -1/0/1 from XML
-        _publish(df)
-
-        # Reindex
-        _reindex(df)
-        _reindex(df.getParentNode())
-
-    #
-    # Browser interface
-    #
-    def __call__(self):
-        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        index = 0
-        info('Import datafiles using xml file: %s', self.xmlfile)
-
-        data = extract_datafiles(self.xmlfile)
-        for ds_id in data.keys():
-            df = data[ds_id]
-            container = getattr(container, df.get('dataset_id', ''))
-            self.add_datafile(container, df)
-            index += 1
-
-        msg = '%d datafiles imported !' % index
-        info(msg)
-        return _redirect(self, msg, DATASERVICE_CONTAINER)
-
-class MigrateDatatables(object):
-    """ Class used to migrate datatables.
-    """
-    def __init__(self, context, request=None):
-        self.context = context
-        self.request = request
-        self.xmlfile = DATASETS_XML
-
-    def add_datatable(self, context, datamodel):
-        """ Add new datatable
-        """
-        dt_id = datamodel.getId()
-        
-        # Add datatable if it doesn't exists
-        if dt_id not in context.objectIds():
-            info('Adding datatable id: %s', dt_id)
-            dt_id = context.invokeFactory('DataTable', id=dt_id)
-        
-        # Set properties
-        dt = getattr(context, dt_id)
-        self.update_properties(dt, datamodel)
-        dt.setTitle(datamodel.get('title', ''))
-
-        return dt_id
-
-    def update_properties(self, dt, datamodel):
-        """ Update datatable properties
-        """
-        dt.setExcludeFromNav(True)
-        form = datamodel()
-        dt.processForm(data=1, metadata=1, values=form)
-
-        # Publish
-        #TODO: set proper state based on -1/0/1 from XML
-        _publish(dt)
-
-        # Reindex
-        _reindex(dt)
-        _reindex(dt.getParentNode())
-
-    #
-    # Browser interface
-    #
-    def __call__(self):
-        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        index = 0
-        info('Import datatables using xml file: %s', self.xmlfile)
-
-        data = extract_datatables(self.xmlfile)
-        for dt_id in data.keys():
-            dt = data[dt_id]
-            container = getattr(container, dt.get('dataset_id', ''))
-            self.add_datatable(container, dt)
-            index += 1
-
-        msg = '%d datatables imported !' % index
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 

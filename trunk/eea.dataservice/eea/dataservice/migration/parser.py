@@ -24,6 +24,7 @@ def _generate_random_id():
     return '%s-%s-%s-%s-%s' % (c(8), c(4), c(4), c(4), c(12))
 
 def _strip_html_tags(text):
+    text = text.replace('&amp;#39;', "'")
     return re.sub(r'<[^>]*?>', '', text)
 
 def _check_integer(text):
@@ -124,7 +125,9 @@ class MigrationObject(object):
         pass
 
     def set(self, key, value, process=0):
-        if process: value = u''.join(value).strip()
+        if process:
+            value = u''.join(value).strip()
+            value = value.replace('&amp;#39;', "'")
         return setattr(self, key, value)
 
     def delete(self, key):
@@ -430,6 +433,7 @@ class dataservice_handler(ContentHandler):
             if self.metadata_context:
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
                 data = u''.join(self.data).strip()
+                data = data.replace('&amp;#39;', "'")
                 if name == 'metadata_text':
                     #if field_name == 'last_upload': pass
                     #if field_name == 'moreInfo': pass
@@ -439,19 +443,15 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'source': pass
                     #if field_name == 'reference_system': pass
                     if field_name == 'dataset_owner':
-                        #TODO: parse existing data and get the URL
                         data = _extarct_organisation_url(data, self.dataset_current.get('id'))
                     if field_name == 'proessor':
-                        #TODO: parse existing data and get the URL
                         data = _extarct_organisation_url(data, self.dataset_current.get('id'))
                     if field_name == 'temporal_coverage':
-                        #TODO: waiting for correct data
                         data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
                     if field_name == 'scale':
                         data = _filter_scale(data, self.dataset_current.get('id'))
                     if field_name == 'geographic_coverage':
-                        #TODO: waiting for correct data
-                        data = ['gw', 'gu']
+                        data = ['ro', 'it', 'ru']
                     if field_name == 'subject_existing_keywords':
                         self.data_keywords.extend(data.split(','))
                     if field_name == 'contact':
@@ -478,6 +478,7 @@ class dataservice_handler(ContentHandler):
                 if name in DATAFILE_METADATA_MAPPING.keys():
                     field_name = DATAFILE_METADATA_MAPPING[name]
                     data = u''.join(self.data).strip()
+                    data = data.replace('&amp;#39;', "'")
                     self.datafile_current.set(field_name, data)
             if name == 'tableview_subgid' and self.datafiles_context:
                 if self.datafile_current.get('table_id') not in self.data_table_file_structure['tables'].keys():
@@ -511,6 +512,7 @@ class dataservice_handler(ContentHandler):
             if self.datatable_context and not self.datasubtable_context:
                 if name == 'tableview_title':
                     data = u''.join(self.data).strip()
+                    data = data.replace('&amp;#39;', "'")
                     self.datatable_current.set('title', data)
                 if name == 'tableviewgid':
                     self.datatables[self.datatable_current.get('id')] = self.datatable_current
@@ -524,6 +526,7 @@ class dataservice_handler(ContentHandler):
                 if name in DATASUBTABLE_METADATA_MAPPING.keys():
                     field_name = DATASUBTABLE_METADATA_MAPPING[name]
                     data = u''.join(self.data).strip()
+                    data = data.replace('&amp;#39;', "'")
                     if field_name == 'description':
                         data = _strip_html_tags(data)
                     self.datasubtable_current.set(field_name, data)
@@ -544,6 +547,7 @@ class dataservice_handler(ContentHandler):
                 if name in DATARELATIONS_METADATA_MAPPING.keys():
                     field_name = DATARELATIONS_METADATA_MAPPING[name]
                     data = u''.join(self.data).strip()
+                    data = data.replace('&amp;#39;', "'")
                     self.datarelation_current.set(field_name, data)
             if name == 'other_services_category':
                 self.datarelations[self.datarelation_current.get('id')] = self.datarelation_current
@@ -607,22 +611,6 @@ def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
     return data.get_datasets()
-
-def extract_datafiles(file_id='', info=0, ds_from=0, ds_to=10000):
-    """ Return datafiles from old dataservice exported XMLs
-    """
-    s = extract_basic(file_id)
-    parser = dataservice_parser(info, ds_from, ds_to)
-    data = parser.parseContent(s)
-    return data.get_datafiles()
-
-def extract_datatables(file_id='', info=0, ds_from=0, ds_to=10000):
-    """ Return datatables from old dataservice exported XMLs
-    """
-    s = extract_basic(file_id)
-    parser = dataservice_parser(info, ds_from, ds_to)
-    data = parser.parseContent(s)
-    return data.get_datatables()
 
 def extract_tables_files(file_id='', info=0, ds_from=0, ds_to=10000):
     """ Return datatables from old dataservice exported XMLs

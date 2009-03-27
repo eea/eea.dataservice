@@ -68,7 +68,6 @@
             <dd><span tal:repeat="country_code value" tal:content="python:country_data['countries'][country_code] + ', '">Geographical coverage</span></dd>
         </tal:block>
 
-        <!-- #TODO: temp map generator -->
         <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
                  content="structure map" />
         <div id='map_canvas'></div>

@@ -32,22 +32,4 @@
       class=".migrate.MigrateRelations"
       permission="cmf.ModifyPortalContent"
       />
-
-  <!-- #TODO: remove below, deprecated -->
-  <browser:page
-      for="*"
-      name="migrate_datatables"
-      class=".migrate.MigrateDatatables"
-      permission="cmf.ModifyPortalContent"
-      />
-
-  <browser:page
-      for="*"
-      name="migrate_datafiles"
-      class=".migrate.MigrateDatafiles"
-      permission="cmf.ModifyPortalContent"
-      />
-
-
-
 </configure>

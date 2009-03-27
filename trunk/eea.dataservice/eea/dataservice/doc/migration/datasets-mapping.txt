@@ -86,7 +86,7 @@ Info:
 Relation property lookup on [ROD, CSI, datasets (plone), reports (plone), external URL]
 
 Questions:
-- [?] ANTONIO: how is generated the data udner "Geographic information quality label"?
+- [?] ANTONIO: how is generated the data under "Geographic information quality label"?
 - [-] ANTONIO: update organisation URLs + search/replace in exported xml + import data
 - [-] ANTONIO: determine mandatory fields
 - [-] ANTONIO: determine language independent fields
