@@ -37,7 +37,7 @@
     
     <fieldset><legend>Files</legend>
         <tal:block repeat="file python:here.objectValues('DataFile')">
-            <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="file/filesize" />)
+            <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="python:here.getObjSize(size=file.filesize)" />)
         </tal:block>
     </fieldset>
 

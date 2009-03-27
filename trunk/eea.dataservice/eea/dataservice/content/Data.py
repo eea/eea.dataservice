@@ -29,7 +29,7 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 schema = Schema((
     DateTimeField(
-        name='last_upload',
+        name='lastUpload',
         searchable=1,
         default=DateTime(),
         imports="from DateTime import DateTime",

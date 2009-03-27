@@ -160,7 +160,7 @@ DATASET_METADATA_MAPPING = {
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
     'Keyword(s)':                 'subject_existing_keywords',
-    'Last upload':                'last_upload',
+    'Last upload':                'lastUpload',
     'Methodology':                'methodology',
     'Originator':                 'originator',
     'Owner':                      'dataset_owner',

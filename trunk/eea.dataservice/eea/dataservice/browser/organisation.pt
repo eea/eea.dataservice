@@ -22,14 +22,6 @@
     <!-- #TODO: implement below -->
     <p>50 data set(s)</p>
 
-    <!-- Organisation category -->
-    <tal:block define="field python:here.getField('organisationType');
-                       value python:field.getAccessor(here)()"
-              condition="value">
-        <dt i18n:translate="dataset_url">Organisation category</dt>
-        <dd tal:content="python:here.getOrganisationCategories()[value].Title()" />
-    </tal:block>
-
     <!-- URL -->
     <tal:block define="field python:here.getField('organisationUrl');
                        value python:field.getAccessor(here)()"

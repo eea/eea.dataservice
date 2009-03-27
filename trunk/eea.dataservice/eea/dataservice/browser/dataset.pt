@@ -25,6 +25,9 @@
         <strong tal:content="here/Description" />
     </div>
 
+    <!-- Versions -->
+    <metal:themes use-macro="here/portlet_dataservice_versions/macros/portlet" />
+
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
@@ -34,9 +37,10 @@
         <tal:block repeat="table python:here.getTablesByCategory()[categ]">
             <h5 tal:content="table/title" />
             <p tal:content="table/Description" />
+            <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
             <ul>
                 <li tal:repeat="file python:table.objectValues('DataFile')">
-                  <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="file/filesize" />)
+                  <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="python:here.getObjSize(size=file.filesize)" />)
                 </li>
             </ul>
         </tal:block>
@@ -97,7 +101,7 @@
                        value python:field.getAccessor(here)()"
                condition="value">
         <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
-        <dd tal:content="structure value">EEA management plan code</dd>
+        <dd tal:content="python:here.getMpCodeName(str(value))">EEA management plan code</dd>
     </tal:block>
 
     <!-- Additional information -->
