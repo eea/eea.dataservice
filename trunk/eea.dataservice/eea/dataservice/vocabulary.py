@@ -6,7 +6,6 @@ __docformat__ = 'plaintext'
 from datetime import datetime
 import operator
 
-from Products.PloneLanguageTool.availablelanguages import getCountries
 from zope.interface import implements
 from zope.app.schema.vocabulary import IVocabularyFactory
 
@@ -17,7 +16,7 @@ class DatasetYearsVocabularyFactory(object):
     """ Dataset years vocabulary
     """
     implements(IVocabularyFactory,)
-    
+
     def __call__(self):
         now = datetime.now()
         end_year = now.year + 3
@@ -52,13 +51,13 @@ class OrganisationsVocabularyFactory(object):
     """ Organisations vocabulary
     """
     implements(IVocabularyFactory,)
-    
+
     def __call__(self):
         organisations = []
-        #from zope.component import getUtility 
-        #from Products.CMFCore.interfaces import ICatalogTool 
-        #cat = getUtility(ICatalogTool) 
-        
+        #from zope.component import getUtility
+        #from Products.CMFCore.interfaces import ICatalogTool
+        #cat = getUtility(ICatalogTool)
+
         from Products.CMFCore.utils import getToolByName
         cat = getToolByName(self, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
@@ -73,14 +72,14 @@ class OrganisationsVocabularyFactory(object):
 #OrganisationsVocabulary = OrganisationsVocabularyFactory()
 
 # Geographical coverage vocabulary
-COUNTRIES_DICTIONARY_ID = 'dataservice_countries'
+COUNTRIES_DICTIONARY_ID = 'european_countries'
 def getCountriesDictionary():
     res = {}
+
+    #european countries
     data = getCountries()
     for key in data.keys():
-        # We skip 'ID':'Indonesia'
-        if not key in ['ID']:
-            res[(key.lower(), data[key])] = {}
+        res[(key.lower(), data[key])] = {}
 
     # country groups
     res[('eu15', 'EU15')] = EU15
@@ -88,18 +87,135 @@ def getCountriesDictionary():
     res[('eu27', 'EU27')] = EU27
     return res
 
-#TODO: fill up the groups below
 EU15 = {('at', 'Austria'): {},
-         ('be', 'Belgium'): {}
-         }
+        ('be', 'Belgium'): {},
+        ('DE', 'Germany'): {},
+        ('DK', 'Denmark'): {},
+        ('ES', 'Spain'): {},
+        ('FI', 'Finland'): {},
+        ('FR', 'France'): {},
+        ('GB', 'United Kingdom'): {},
+        ('GR', 'Greece'): {},
+        ('IE', 'Ireland'): {},
+        ('IT', 'Italy'): {},
+        ('LU', 'Luxembourg'): {},
+        ('NL', 'Netherlands'): {},
+        ('PT', 'Portugal'): {},
+        ('SE', 'Sweden'): {},
+}
 EU25 = {('at', 'Austria'): {},
-         ('be', 'Belgium'): {},
-          ('cy', 'Cyprus'): {}}
+        ('be', 'Belgium'): {},
+        ('cy', 'Cyprus'): {},
+        ('CZ', 'Czech Republic'): {},
+        ('DE', 'Germany'): {},
+        ('DK', 'Denmark'): {},
+        ('EE', 'Estonia'): {},
+        ('ES', 'Spain'): {},
+        ('FI', 'Finland'): {},
+        ('FR', 'France'): {},
+        ('GB', 'United Kingdom'): {},
+        ('GR', 'Greece'): {},
+        ('HU', 'Hungary'): {},
+        ('IE', 'Ireland'): {},
+        ('IT', 'Italy'): {},
+        ('LT', 'Lithuania'): {},
+        ('LU', 'Luxembourg'): {},
+        ('LV', 'Latvia'): {},
+        ('MT', 'Malta'): {},
+        ('NL', 'Netherlands'): {},
+        ('PL', 'Poland'): {},
+        ('PT', 'Portugal'): {},
+        ('SE', 'Sweden'): {},
+        ('SI', 'Slovenia'): {},
+        ('SK', 'Slovakia'): {},
+}
 EU27 = {('at', 'Austria'): {},
-         ('be', 'Belgium'): {},
-          ('bg', 'Bulgaria'): {},
-           ('cy', 'Cyprus'): {}
-         }
+        ('be', 'Belgium'): {},
+        ('bg', 'Bulgaria'): {},
+        ('cy', 'Cyprus'): {},
+        ('CZ', 'Czech Republic'): {},
+        ('DE', 'Germany'): {},
+        ('DK', 'Denmark'): {},
+        ('EE', 'Estonia'): {},
+        ('ES', 'Spain'): {},
+        ('FI', 'Finland'): {},
+        ('FR', 'France'): {},
+        ('GB', 'United Kingdom'): {},
+        ('GR', 'Greece'): {},
+        ('HU', 'Hungary'): {},
+        ('IE', 'Ireland'): {},
+        ('IT', 'Italy'): {},
+        ('LT', 'Lithuania'): {},
+        ('LU', 'Luxembourg'): {},
+        ('LV', 'Latvia'): {},
+        ('MT', 'Malta'): {},
+        ('NL', 'Netherlands'): {},
+        ('PL', 'Poland'): {},
+        ('PT', 'Portugal'): {},
+        ('RO', 'Romania'): {},
+        ('SE', 'Sweden'): {},
+        ('SI', 'Slovenia'): {},
+        ('SK', 'Slovakia'): {},
+}
+
+def getCountries():
+    """ return European countries """
+    # In case we need all countries:
+    #from Products.PloneLanguageTool.availablelanguages import getCountries
+    #return getCountries()
+
+    return {
+        'AD':'Andorra',
+        'AL':'Albania',
+        'AM':'Armenia',
+        'AT':'Austria',
+        'AZ':'Azerbaijan',
+        'BA':'Bosnia and Herzegovina',
+        'BE':'Belgium',
+        'BG':'Bulgaria',
+        'BY':'Belarus',
+        'CH':'Switzerland',
+        'CS':'Serbia and Montenegro',
+        'CY':'Cyprus',
+        'CZ':'Czech Republic',
+        'DE':'Germany',
+        'DK':'Denmark',
+        'EE':'Estonia',
+        'ES':'Spain',
+        'FI':'Finland',
+        'FO':'Faroe Islands',
+        'FR':'France',
+        'GB':'United Kingdom',
+        'GE':'Georgia',
+        'GR':'Greece',
+        'HR':'Croatia',
+        'HU':'Hungary',
+        'IE':'Ireland',
+        'IL':'Israel',
+        'IS':'Iceland',
+        'IT':'Italy',
+        'KZ':'Kazakhstan',
+        'LI':'Liechtenstein',
+        'LT':'Lithuania',
+        'LU':'Luxembourg',
+        'LV':'Latvia',
+        'MC':'Monaco',
+        'MD':'Moldova, Republic of',
+        'MK':'Macedonia, the former Yugoslavian Republic of',
+        'MT':'Malta',
+        'NL':'Netherlands',
+        'NO':'Norway',
+        'PL':'Poland',
+        'PT':'Portugal',
+        'RO':'Romania',
+        'RU':'Russian Federation',
+        'SE':'Sweden',
+        'SI':'Slovenia',
+        'SK':'Slovakia',
+        'SM':'San Marino',
+        'TR':'Turkey',
+        'UA':'Ukraine',
+        }
 
 # EEA management plan codes vocabulary
 EEA_MPCODE_VOCABULARY = {

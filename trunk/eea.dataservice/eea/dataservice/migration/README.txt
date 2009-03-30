@@ -2,7 +2,15 @@ Migrate old dataservice
 =======================
 
 Migration steps:
-    - install product (types and vocabularies)
+
+Under portal_setup:
+    - use 'EEA Dataservice' profile
+    - Import -> "Types Tool"
+                    (Products.CMFCore.exportimport.typeinfo.importTypesTool)
+    - Import -> "Install Vocabularies for eea.dataservice"
+                    (eea.dataservice.setuphandlers.installVocabularies)
+
+Run:
     - @@migrate_organisations
     - @@migrate_dataservice
     - @@migrate_tables_files
@@ -11,5 +19,6 @@ Migration steps:
 Plone customisations:
     -Site setup -> Kupu visual editor -> toolbar
         (http://eea.europa.eu/kupu_library_tool/zmi_toolbar)
-        Make "Subscript/Superscript group" visible to activate subscript and superscript in Kupu.
+        Make "Subscript/Superscript group" visible to activate
+          subscript and superscript in Kupu.
 

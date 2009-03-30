@@ -20,7 +20,7 @@ def installVocabularies(context):
     # Creat countries vocabulary
     if not COUNTRIES_DICTIONARY_ID in atvm.contentIds():
         hierarchicalVocab = {}
-        hierarchicalVocab[(COUNTRIES_DICTIONARY_ID, 'Dataservice Countries')] = {}
+        hierarchicalVocab[(COUNTRIES_DICTIONARY_ID, 'European Countries')] = {}
         createHierarchicalVocabs(atvm, hierarchicalVocab)
 
         countries = getCountriesDictionary()

@@ -3,7 +3,6 @@
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data, extract_relations
-from parser import extract_datatables
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
 from data import getOrganisationsData
@@ -35,7 +34,7 @@ def _reindex(obj):
     """
     ctool = getToolByName(obj.context, 'portal_catalog')
     ctool.reindexObject(obj)
-    
+
 def _publish(obj):
     """ Try to publish given document
     """
@@ -80,12 +79,12 @@ class MigrateOrganisations(object):
         self.context = context
         self.request = request
         self.organisations = getOrganisationsData()
-        
+
     def add_organisation(self, context, datamodel):
         """ Add new organisation
         """
         org_id = datamodel.getId()
-        
+
         # Add organisation if it doesn't exists
         if org_id not in context.objectIds():
             info('Adding organisation id: %s', org_id)
@@ -95,7 +94,7 @@ class MigrateOrganisations(object):
         org = getattr(context, org_id)
         self.update_properties(org, datamodel)
         org.setTitle(datamodel.get('title', ''))
-        
+
         return org_id
 
     def update_properties(self, org, datamodel):
@@ -111,8 +110,8 @@ class MigrateOrganisations(object):
         # Reindex
         _reindex(org)
         _reindex(org.getParentNode())
-            
-            
+
+
     def __call__(self):
         #TODO: set org folder!!!
         container = _get_container(self, ORGANISATIONS_CONTAINER, ORGANISATION_SUBOBJECTS)
@@ -141,12 +140,12 @@ class MigrateDatasets(object):
         """ Add new dataset
         """
         ds_id = datamodel.getId()
-        
+
         # Add dataset if it doesn't exists
         if ds_id not in context.objectIds():
             info('Adding dataset id: %s', ds_id)
             ds_id = context.invokeFactory('Data', id=ds_id)
-        
+
         # Set properties
         ds = getattr(context, ds_id)
         self.update_properties(ds, datamodel)
@@ -210,12 +209,12 @@ class MigrateTablesAndFiles(object):
         """ Add new datatable
         """
         dt_id = datamodel.getId()
-        
+
         # Add object if it doesn't exists
         if dt_id not in context.objectIds():
             info('Adding %s id: %s' % (otype, dt_id))
             dt_id = context.invokeFactory(otype, id=dt_id)
-        
+
         # Set properties
         dt = getattr(context, dt_id)
         self.update_properties(dt, datamodel)

@@ -35,7 +35,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Geographic box coordinates']  -                           -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on TreeVocabulary="dataservice_countries"
+- MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on TreeVocabulary="european_countries"
 -                                   -                           -               - #DAVID-todo: to provide a country code list
 -                                   -                           -               - #ALEC-todo: edit widget
 --------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Rights']                      - rights                    - text          - HTML striped
 -                                   -                           -               - #some carriage returns which makes ugly output
--                                   -                           -               - #ANTONIO: if 'eea' in data -> SKIP 
+-                                   -                           -               - #ANTONIO: if 'eea' in data -> SKIP
 -                                   -                           -               - #ANTONIO: if "eea" and NOT "free" (save a log with skip list for antonio)
 --------------------------------------------------------------------------------------------------
 - MT['Scale of the data set']       - scale                     - integer       - (all '=', '<' , '>', '=>', '=<' were excluded from the begining)
