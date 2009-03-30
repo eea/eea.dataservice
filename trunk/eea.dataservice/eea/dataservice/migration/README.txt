@@ -2,6 +2,7 @@ Migrate old dataservice
 =======================
 
 Migration steps:
+    - Site setup -> install "eea.dataservice" product
 
 Under portal_setup:
     - use 'EEA Dataservice' profile

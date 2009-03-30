@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+
 import os
 import re
 import random
@@ -102,7 +107,7 @@ def _filter_temporal_coverage(text, dataset_id):
         try:
             if year.find('-') != -1:
                 tmp = year.split('-')
-                int(tmp[0]) 
+                int(tmp[0])
                 int(tmp[1])
                 res.extend((str(key))
                     for key in range(int(tmp[0]), int(tmp[1])))
@@ -265,7 +270,7 @@ class dataservice_handler(ContentHandler):
         self.ds_to = ds_to
         self.ds_index = -1
         self.data = []
-    
+
         self.data_contacts = []
         self.data_keywords = []
 
@@ -287,7 +292,7 @@ class dataservice_handler(ContentHandler):
         self.datatables_context = 0
         self.datatable_context = 0
         self.datatable_current = None
-        
+
         self.datasubtables = {}
         self.datasubtable_context = 0
         self.datasubtable_current = None
@@ -318,10 +323,10 @@ class dataservice_handler(ContentHandler):
 
     def get_mapsandgraphs(self):
         pass
-    
+
     def check_range(self):
         return self.ds_index in range(self.ds_from,self.ds_to)
-        
+
     # parser
     def startElement(self, name, attrs):
         # Dataset group
@@ -339,7 +344,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current = MigrationObject()
                 ###self.dataset_current.set('group_id', self.dataset_group_current)
                 self.dataset_current.set('id', attrs['datasetgid'])
-    
+
             # Dataset metadata
             if name == 'metadata_typelabel':
                 self.metadata_context = 1
@@ -388,7 +393,7 @@ class dataservice_handler(ContentHandler):
             if name == 'relatedgid':
                 self.dataset_group_context = 0
                 self.dataset_group_current = None
-    
+
             # Dataset basic
             if name == 'datasetgid':
                 self.dataset_current.set('subject_existing_keywords', self.data_keywords)
@@ -402,13 +407,13 @@ class dataservice_handler(ContentHandler):
 
             if name == 'dataset_shortID':
                 self.dataset_current.set('short_id', self.data, 1)
-                
+
             if name == 'dataset_publish_date':
                 self.dataset_current.set('effectiveDate', self.data, 1)
 
             ###if name == 'dataset_version':
                 ###self.dataset_current.set('version_number', self.data, 1)
-            
+
             if name == 'dataset_title':
                 self.dataset_current.set('title', self.data, 1)
 
@@ -418,18 +423,18 @@ class dataservice_handler(ContentHandler):
                 desc = _strip_html_tags(desc)
                 if len(desc) > trunc_value: desc = desc[:trunc_value]
                 self.dataset_current.set('description', desc)
-            
+
             ###if name == 'dataset_publish_level':
                 ###self.dataset_current.set('publish_level', self.data, 1)
-            
+
             ###if name == 'dataset_visible':
                 ###self.dataset_current.set('visible', self.data, 1)
-                
+
             # Dataset metadata
             if name == 'metadata_typelabel':
                 self.metadata_context = 0
                 self.metadata_current = None
-                
+
             if self.metadata_context:
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
                 data = u''.join(self.data).strip()
@@ -457,7 +462,7 @@ class dataservice_handler(ContentHandler):
                     if field_name == 'contact':
                         data = _strip_html_tags(data)
                         self.data_contacts.append(data)
-                    if field_name == 'themes': 
+                    if field_name == 'themes':
                         data = data.replace('airpollution', 'air')
                         data = data.replace('assesment', 'reporting')
                         data = data.replace(' ', '')
@@ -600,7 +605,7 @@ def extract_basic(file_id):
     splitdir = os.path.split(os.path.abspath(os.path.dirname(__file__)))
     product_dir = os.path.join(*splitdir)
     file_path = os.path.join(product_dir, file_id)
-    
+
     f = open(file_path);
     return f.read()
 

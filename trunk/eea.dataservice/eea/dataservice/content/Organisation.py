@@ -37,9 +37,9 @@ schema = Schema((
         searchable=True,
         widget = LocationWidget(
             description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
-            description_msgid = "EEAContentTypes_help_location_event",
+            description_msgid = "EEAContentTypes_help_address",
             label = "Organisation address",
-            label_msgid = "dataservice_label_location",
+            label_msgid = "dataservice_label_address",
             i18n_domain = "eea.dataservice"
         )
     ),
@@ -61,7 +61,7 @@ schema = Schema((
 Organisation_schema = ATFolderSchema.copy() + schema.copy()
 
 class Organisation(ATFolder):
-    """ Dataset Content Type
+    """ Organisation Content Type
     """
     implements(IOrganisation)
     security = ClassSecurityInfo()

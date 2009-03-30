@@ -26,23 +26,23 @@
     <tal:block define="field python:here.getField('organisationUrl');
                        value python:field.getAccessor(here)()"
               condition="value">
-        <dt i18n:translate="dataset_url">URL</dt>
+        <dt i18n:translate="organisation_url">URL</dt>
         <dd><a tal:attributes="href value" title="" href="" tal:content="value" /></dd>
-    </tal:block>
-    
-    <!-- Address -->
-    <tal:block define="field python:here.getField('location');
-                       value python:field.getAccessor(here)()"
-              condition="value">
-        <dt i18n:translate="dataset_address">Address</dt>
-        <dd tal:content="structure value" />
     </tal:block>
 
     <!-- Data policy -->
     <tal:block define="field python:here.getField('data_policy');
                        value python:field.getAccessor(here)()"
               condition="value">
-        <dt i18n:translate="dataset_policy">Data policy</dt>
+        <dt i18n:translate="organisation_policy">Data policy</dt>
+        <dd tal:content="structure value" />
+    </tal:block>
+
+    <!-- Address -->
+    <tal:block define="field python:here.getField('location');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="organisation_location">Location</dt>
         <dd tal:content="structure value" />
     </tal:block>
 
@@ -50,7 +50,7 @@
     <tal:block define="field python:here.getField('location');
                        value python:field.getAccessor(here)()"
               condition="value">
-        <dt i18n:translate="dataset_map">Map location</dt>
+        <dt i18n:translate="organisation_map">Map location</dt>
         <tal:block tal:condition="here/@@geopositionMap|nothing">
             <tal:map replace="structure here/@@geopositionMap" /><br />
         </tal:block>

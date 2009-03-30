@@ -1,5 +1,8 @@
-""" Migrate old dataservice to plone.
-"""
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from parser import extract_data, extract_relations
@@ -93,7 +96,6 @@ class MigrateOrganisations(object):
         # Set properties
         org = getattr(context, org_id)
         self.update_properties(org, datamodel)
-        org.setTitle(datamodel.get('title', ''))
 
         return org_id
 
@@ -103,6 +105,7 @@ class MigrateOrganisations(object):
         org.setExcludeFromNav(True)
         form = datamodel()
         org.processForm(data=1, metadata=1, values=form)
+        org.setTitle(datamodel.get('title', ''))
 
         # Publish
         _publish(org)
@@ -149,7 +152,6 @@ class MigrateDatasets(object):
         # Set properties
         ds = getattr(context, ds_id)
         self.update_properties(ds, datamodel)
-        ds.setTitle(datamodel.get('title', ''))
         tagging = IThemeTagging(ds)
         tags = filter(None, datamodel.get('themes', ''))
         tagging.tags = tags
@@ -162,6 +164,7 @@ class MigrateDatasets(object):
         ds.setExcludeFromNav(True)
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
+        ds.setTitle(datamodel.get('title', ''))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -218,7 +221,6 @@ class MigrateTablesAndFiles(object):
         # Set properties
         dt = getattr(context, dt_id)
         self.update_properties(dt, datamodel)
-        dt.setTitle(datamodel.get('title', ''))
 
         return dt_id
 
@@ -228,6 +230,7 @@ class MigrateTablesAndFiles(object):
         dt.setExcludeFromNav(True)
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
+        dt.setTitle(datamodel.get('title', ''))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -287,7 +290,3 @@ class MigrateRelations(object):
         msg = '%d relations found !' % len(data.keys())
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
-
-class MigrateMapsAndGraphs(object):
-    """ """
-    pass
