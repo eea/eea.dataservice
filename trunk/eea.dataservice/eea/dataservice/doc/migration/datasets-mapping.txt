@@ -42,7 +42,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Geographical coverage']       - geographic_coverage       - GeoWidget     - mapped on TreeVocabulary="european_countries"
 -                                   -                           -               - #DAVID-todo: to provide a country code list
--                                   -                           -               - #ALEC-todo: edit widget
+-                                   -                           -               - #ALEC-todo: edit widget #Antonio, belongs actually to DATATABLE?
 --------------------------------------------------------------------------------------------------
 - MT['Keyword(s)']                  - subject_existing_keywords - KeywordsWidget- (no action)
 --------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ Datasets properties mapping during migration
 - MT['System folder']               -                           -               - NOT IMPORTED (skipped) - maybe will be use during future import
 --------------------------------------------------------------------------------------------------
 - MT['Temporal coverage']           - temporal_coverage         - TemporalWidget- (formated to a list of years to fit widget)
--                                   -                           -               - #DAVID-todo: to fix log/exception
+-                                   -                           -               - #DAVID-todo: to fix log/exception #Antonio, belongs actually to DATATABLE?
 --------------------------------------------------------------------------------------------------
 - MT['Theme']                       - themes                    - theme-widget  - (no action)
 --------------------------------------------------------------------------------------------------
