@@ -187,6 +187,7 @@ ORGANISATIONS_DATA = {
     'description': 'The Joint Research Centre is the scientific and technical research laboratory of the European Union and part of the European Commission. It is a directorate-general, and provides scientific advice and the technical know-how for supporting EU policies. Its status as a Commission service, which guarantees its independence from private and national interests, is crucial for pursuing its mission.',
     'organisationUrl': 'http://www.jrc.it',
     'location': 'Joint Research Centre, Institute for Environment and Sustainability, TP 262, 21020 Ispra (VA), Italy',
+    'address': 'Joint Research Centre, Institute for Environment and Sustainability, TP 262, 21020 Ispra (VA), Italy',
     'data_policy': ''
 },
 'UNECE': {

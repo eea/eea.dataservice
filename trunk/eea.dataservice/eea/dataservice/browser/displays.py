@@ -52,23 +52,6 @@ class GetOrganisationSnippet(object):
                                               'description': brain.Description}
         return res
 
-class GetOrganisations(object):
-    """ Organisations vocabulary
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self):
-        organisations = []
-        cat = getToolByName(self.context, 'portal_catalog')
-        res = cat.searchResults({'portal_type' : 'Organisation'})
-
-        organisations.extend((brain.getUrl, brain.Title)
-                             for brain in res)
-
-        return sorted(organisations, key=operator.itemgetter(1))
-
 class GeographicalCoverageMap(object):
     """ Return geographical coverage map
     """
@@ -116,7 +99,7 @@ GEO_COVERAGE_MAP = """
 
         var options = {};
         options['dataMode'] = 'regions';
-  
+
         var container = document.getElementById('map_canvas');
         var geomap = new google.visualization.GeoMap(container);
         geomap.draw(data, options);

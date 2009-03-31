@@ -171,7 +171,7 @@ DATASET_METADATA_MAPPING = {
     'Last upload':                'lastUpload',
     'Methodology':                'methodology',
     'Originator':                 'originator',
-    'Owner':                      'dataset_owner',
+    'Owner':                      'dataOwner',
     'Processor':                  'processor',
     'Reference system':           'reference_system',
     'Relation':                   'relation',
@@ -204,7 +204,7 @@ DATASET_METADATA_MAPPING = {
     #@param contact:                     String;
     #@param geographic_coverage:         Iterator;
     #@param reference_system:            String;
-    #@param dataset_owner:               String;
+    #@param dataOwner:                   String;
     #@param processor:                   String;
     #@param last_upload                  String;
 
@@ -447,7 +447,7 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'geoAccuracy': pass
                     #if field_name == 'source': pass
                     #if field_name == 'reference_system': pass
-                    if field_name == 'dataset_owner':
+                    if field_name == 'dataOwner':
                         data = _extarct_organisation_url(data, self.dataset_current.get('id'))
                     if field_name == 'proessor':
                         data = _extarct_organisation_url(data, self.dataset_current.get('id'))

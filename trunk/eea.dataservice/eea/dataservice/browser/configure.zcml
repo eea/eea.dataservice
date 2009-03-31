@@ -37,13 +37,6 @@
       />
 
   <page
-      name="getOrganisations"
-      class=".displays.GetOrganisations"
-      for="*"
-      permission="zope2.View"
-      />
-
-  <page
       name="getOrganisationSnippet"
       class=".displays.GetOrganisationSnippet"
       for="*"

@@ -6,6 +6,7 @@ __docformat__ = 'plaintext'
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore import permissions
+from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.atapi import *
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
@@ -46,7 +47,7 @@ schema = Schema((
 
     TextField(
         name='data_policy',
-        index="ZCTextIndex|TextIndex:brains",
+        searchable=True,
         widget=TextAreaWidget(
             label="Data policy",
             description="Data policy description.",
@@ -73,9 +74,23 @@ class Organisation(ATFolder):
 
     schema = Organisation_schema
 
+    # Getters
+    security.declareProtected(permissions.View, 'getDataRows')
+    def getDataRows(self):
+        """ """
+        res = []
+        field = self.getField('organisationUrl')
+        url = field.getAccessor(self)()
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : 'Data',
+                                    'getDataOwner': url})
+        if brains: res.extend(brains)
+        return res
+
+    # Map view compatibility methods
     security.declareProtected(permissions.View, 'event_url')
     def event_url(self):
-        """ Map view compatibility """
+        """ """
         field = self.getField('organisationUrl')
         return field.getAccessor(self)()
 

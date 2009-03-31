@@ -19,8 +19,11 @@
     <!-- Description -->
     <p class="publicationDescription" tal:content="here/Description" />
 
-    <!-- #TODO: implement below -->
-    <p>50 data set(s)</p>
+    <!-- Data set(s) -->
+    <p>
+        <tal:rows content="python:len(here.getDataRows())" />
+        <span i18n:translate="">data set(s)</span>
+    </p>
 
     <!-- URL -->
     <tal:block define="field python:here.getField('organisationUrl');

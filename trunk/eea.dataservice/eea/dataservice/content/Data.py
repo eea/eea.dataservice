@@ -17,7 +17,7 @@ from AccessControl import ClassSecurityInfo
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
-#from eea.dataservice.vocabulary import OrganisationsVocabulary
+from eea.dataservice.vocabulary import OrganisationsVocabulary
 from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY, COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
@@ -30,7 +30,6 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 schema = Schema((
     DateTimeField(
         name='lastUpload',
-        searchable=1,
         default=DateTime(),
         imports="from DateTime import DateTime",
         widget=CalendarWidget(
@@ -58,10 +57,10 @@ schema = Schema((
     ),
 
     StringField(
-        name='dataset_owner',
-        #vocabulary=OrganisationsVocabulary(),
+        name='dataOwner',
+        vocabulary=OrganisationsVocabulary(),
         widget = SelectionWidget(
-            format="select", # possible values: flex, select, radio
+            format="select",
             macro="organisation_widget",
             label="Owner",
             description = ("Owner description."),
@@ -72,23 +71,10 @@ schema = Schema((
     ),
 
     StringField(
-        name='short_id',
-        index='FieldIndex:brains',
-        widget = StringWidget(
-            label="Short ID",
-            visible=-1,
-            description = ("Short ID description."),
-            label_msgid='dataservice_label_shortid',
-            description_msgid='dataservice_help_shortid',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
-    StringField(
         name='processor',
-        #vocabulary=OrganisationsVocabulary(),
+        vocabulary=OrganisationsVocabulary(),
         widget = SelectionWidget(
-            format="select", # possible values: flex, select, radio
+            format="select",
             macro="organisation_widget",
             label="Processor",
             description = ("Processor description."),
@@ -143,7 +129,6 @@ schema = Schema((
 
     TextField(
         name='disclaimer',
-        index="ZCTextIndex|TextIndex:brains",
         widget=TextAreaWidget(
             label="Disclaimer",
             description="Disclaimer description.",
@@ -155,7 +140,6 @@ schema = Schema((
 
     TextField(
         name='contact',
-        index="ZCTextIndex|TextIndex:brains",
         widget=TextAreaWidget(
             label="Contact person(s) for EEA",
             description="dataset_contact description.",
@@ -167,7 +151,6 @@ schema = Schema((
 
     TextField(
         name='geoAccuracy',
-        index="ZCTextIndex|TextIndex:brains",
         widget=TextAreaWidget(
             label="Geographic accuracy",
             description="Geographic accuracy description.",
@@ -183,7 +166,6 @@ schema = Schema((
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
         widget=RichWidget(
             label="Source",
             description="Source description.",
@@ -214,7 +196,6 @@ schema = Schema((
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
         widget=RichWidget(
             label="Reference system",
             description="Reference system description.",
@@ -227,11 +208,11 @@ schema = Schema((
 
     TextField(
         name='moreInfo',
+        searchable=True,
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
         widget=RichWidget(
             label="Additional information",
             description="Additional information description.",
@@ -248,7 +229,6 @@ schema = Schema((
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
         widget=RichWidget(
             label="Methodology",
             description="methodology description.",
@@ -265,7 +245,6 @@ schema = Schema((
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
-        index="ZCTextIndex|TextIndex:brains",
         widget=RichWidget(
             label="Unit",
             description="Unit description.",
@@ -274,6 +253,18 @@ schema = Schema((
             i18n_domain="eea.dataservice",
             rows=10,
         ),
+    ),
+
+    StringField(
+        name='short_id',
+        widget = StringWidget(
+            label="Short ID",
+            visible=-1,
+            description = ("Short ID description."),
+            label_msgid='dataservice_label_shortid',
+            description_msgid='dataservice_help_shortid',
+            i18n_domain='eea.dataservice',
+        )
     ),
 
     ),
@@ -336,12 +327,12 @@ class Data(ATFolder):
         """ """
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = atvm[COUNTRIES_DICTIONARY_ID]
-        
+
         res = {'groups': {}, 'countries': {}}
         for ob in vocab.objectValues():
             ob_key = ob.getId()
             ob_value = ob.Title()
-            
+
             if len(ob.objectValues()) > 0:
                 res['groups'][ob_key] = ob_value
             else:

@@ -6,6 +6,8 @@ __docformat__ = 'plaintext'
 from datetime import datetime
 import operator
 
+from Products.Archetypes.interfaces.vocabulary import IVocabulary
+from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.app.schema.vocabulary import IVocabularyFactory
 
@@ -47,29 +49,30 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
 )
 
 # Organisations vocabulary
-class OrganisationsVocabularyFactory(object):
-    """ Organisations vocabulary
+class OrganisationsVocabulary:
+    """ Return organisations as vocabulary
     """
-    implements(IVocabularyFactory,)
+    __implements__ = (IVocabulary,)
 
-    def __call__(self):
+    def getDisplayList(self, instance):
+        """ Returns vocabulary
+        """
         organisations = []
-        #from zope.component import getUtility
-        #from Products.CMFCore.interfaces import ICatalogTool
-        #cat = getUtility(ICatalogTool)
-
-        from Products.CMFCore.utils import getToolByName
-        cat = getToolByName(self, 'portal_catalog')
+        cat = getToolByName(instance, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
 
-        organisations.extend((brain.getUrl(), brain.Title())
+        organisations.extend((brain.getUrl, brain.Title)
                              for brain in res)
-
         return sorted(organisations, key=operator.itemgetter(1))
 
-#TODO: fix get catalog in above vocabulary factory
-#      atm I use a view in widget macro instead of vocabulary
-#OrganisationsVocabulary = OrganisationsVocabularyFactory()
+    def getVocabularyDict(self, instance):
+        return {}
+
+    def isFlat(self):
+        return False
+
+    def showLeafsOnly(self):
+        return False
 
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'

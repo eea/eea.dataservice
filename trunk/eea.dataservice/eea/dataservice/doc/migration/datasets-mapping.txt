@@ -17,22 +17,21 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - dataset_note                      - description               - text          - HTML striped
                                     -                           -               - #truncated to first paragraph = first found "."
--                                   -                           -               - # if there is more after the first "." 
+-                                   -                           -               - # if there is more after the first "."
 -                                   -                           -               - # add it as original HTML in another property like moreInfo, at the beginning.
 --------------------------------------------------------------------------------------------------
 - dataset_publish_level             -                           -               - #Antonio: to specify workflow and states to be mapped
 --------------------------------------------------------------------------------------------------
 - dataset_visible                   -                           -               - # if False then set a past date to the expiration_date, like publish_date + 1 month
 --------------------------------------------------------------------------------------------------
-- MT['Additional information']      - moreInfo                  - html          - # see action taken in dataset_note. like RestFromNote+<br/>+AdditionalInformation 
+- MT['Additional information']      - moreInfo                  - html          - # see action taken in dataset_note. like RestFromNote+<br/>+AdditionalInformation
 --------------------------------------------------------------------------------------------------
 - MT['Contact person(s) for EEA']   - contact                   - text          - HTML striped
 --------------------------------------------------------------------------------------------------
 - MT['Disclaimer']                  - disclaimer                - text          - HTML striped #Antonio to be checked what it contains. maybe skip?
 --------------------------------------------------------------------------------------------------
-- MT['EEA management plan code']    - eea_mpcode                - string       - (match the eea mpcode)
--                                   -                           -               - #ALEC-todo: edit widget (lookup).
--
+- MT['EEA management plan code']    - eea_mpcode                - integer       - (match the eea mpcode)
+-                                   -                           -               - #ALEC-todo: edit widget (lookup) (string ID + year)
 --------------------------------------------------------------------------------------------------
 - MT['EEA management plan year']    - eea_mpyear                - integer       - #David: to be exported if exists. belongs to same widget as eea_mpcode
 --------------------------------------------------------------------------------------------------
@@ -48,11 +47,11 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Last upload']                 - lastUpload                - DateWidget    - (no action) # maybe belongs to DataTable?
 --------------------------------------------------------------------------------------------------
-- MT['Methodology']                 - methodology               - html          - (no action) 
+- MT['Methodology']                 - methodology               - html          - (no action)
 --------------------------------------------------------------------------------------------------
 - MT['Originator']                  -                           -               - NOT IMPORTED (skipped)
 --------------------------------------------------------------------------------------------------
-- MT['Owner']                       - dataset_owner             - OrgWidget     - (parsed to extract the org URL)
+- MT['Owner']                       - dataOwner                 - OrgWidget     - (parsed to extract the org URL)
 -                                   -                           -               - #ANTONIO: update URLs
 --------------------------------------------------------------------------------------------------
 - MT['Processor']                   - processor                 - OrgWidget     - (parsed to extract the org URL)

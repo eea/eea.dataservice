@@ -186,7 +186,7 @@
     </tal:block>
 
     <!-- Owner -->
-    <tal:block define="field python:here.getField('dataset_owner');
+    <tal:block define="field python:here.getField('dataOwner');
                        url python:field.getAccessor(here)();
                        value python:here.getOrganisationName(url)"
                condition="value">
@@ -214,12 +214,12 @@
     </tal:block>
 
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     </dl>
     </div>
     <br clear="all" />
