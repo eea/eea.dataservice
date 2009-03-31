@@ -47,9 +47,14 @@ class GetOrganisationSnippet(object):
             if res:
                 # Generate snippet
                 brain = res[0]
+                view = 'block'
+                location = brain.location
+                if not location: view = 'none'
                 res = ORGANISATION_SNIPPET % {'title': brain.Title,
                                               'url': brain.getUrl,
-                                              'description': brain.Description}
+                                              'address': location,
+                                              'description': brain.Description,
+                                              'view': view}
         return res
 
 class GeographicalCoverageMap(object):
@@ -76,11 +81,15 @@ class GeographicalCoverageMap(object):
 ORGANISATION_SNIPPET = """
   <fieldset style="padding:0 1em 1em 1em; margin: 0 1em">
     <legend>
-      <span style="cursor: pointer; margin:0.3em" title="Remove snippet" class="dummy-remove">[x]</span>Organisation snippet
+      <span style="color: red; cursor: pointer; margin:0.3em" title="Remove snippet" class="dummy-remove">[x]</span>Organisation snippet
     </legen>
     <h4>%(title)s</h4>
     <p>%(description)s</p>
     <a href="%(url)s">%(url)s</a>
+    <p style="margin-top: 1em; display: %(view)s">
+      <strong>Address:</strong>
+      <span>%(address)s</span>
+    </p>
   </fieldset>
 """
 
