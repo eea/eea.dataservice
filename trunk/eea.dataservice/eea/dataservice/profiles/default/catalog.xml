@@ -3,5 +3,9 @@
  <index name="getDataOwner" meta_type="KeywordIndex">
   <indexed_attr value="getDataOwner"/>
  </index>
+ <index name="getShortId" meta_type="FieldIndex">
+  <indexed_attr value="getShortId"/>
+ </index>
  <column value="getDataOwner"/>
+ <column value="getShortId"/>
 </object>

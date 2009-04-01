@@ -157,7 +157,7 @@ class MigrationObject(object):
         return self.__dict__.values()
 
     def getId(self):
-        return self.id
+        return self.UID
 
 DATASET_METADATA_MAPPING = {
     'Additional information':     'moreInfo',
@@ -185,7 +185,7 @@ DATASET_METADATA_MAPPING = {
 }
 ### Dataset:
     #@param id:                          String;
-    #@param short_id:                    String;
+    #@param shortId:                     String;
     #@param title:                       String;
     #@param description:                 String;
     #@param themes:                      Iterator;
@@ -343,7 +343,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_context = 1
                 self.dataset_current = MigrationObject()
                 ###self.dataset_current.set('group_id', self.dataset_group_current)
-                self.dataset_current.set('id', attrs['datasetgid'])
+                self.dataset_current.set('UID', attrs['datasetgid'])
 
             # Dataset metadata
             if name == 'metadata_typelabel':
@@ -406,7 +406,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current = None
 
             if name == 'dataset_shortID':
-                self.dataset_current.set('short_id', self.data, 1)
+                self.dataset_current.set('shortId', self.data, 1)
 
             if name == 'dataset_publish_date':
                 self.dataset_current.set('effectiveDate', self.data, 1)
@@ -418,11 +418,14 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current.set('title', self.data, 1)
 
             if name == 'dataset_note':
-                trunc_value = 1500 #TODO: set a true value to be used to trunc
                 desc = u''.join(self.data).strip()
                 desc = _strip_html_tags(desc)
-                if len(desc) > trunc_value: desc = desc[:trunc_value]
-                self.dataset_current.set('description', desc)
+                desc_split = desc.split('.')
+                more_info = ''
+                if len(desc_split) > 1:
+                    more_info = '.'.join(desc_split[1:]) + '<br />'
+                self.dataset_current.set('description', desc_split[0])
+                self.dataset_current.set('moreInfo', more_info)
 
             ###if name == 'dataset_publish_level':
                 ###self.dataset_current.set('publish_level', self.data, 1)
@@ -441,12 +444,13 @@ class dataservice_handler(ContentHandler):
                 data = data.replace('&amp;#39;', "'")
                 if name == 'metadata_text':
                     #if field_name == 'last_upload': pass
-                    #if field_name == 'moreInfo': pass
                     #if field_name == 'methodology': pass
                     #if field_name == 'unit':pass
                     #if field_name == 'geoAccuracy': pass
                     #if field_name == 'source': pass
                     #if field_name == 'reference_system': pass
+                    if field_name == 'moreInfo':
+                        data = self.dataset_current.get('moreInfo', '') + data
                     if field_name == 'dataOwner':
                         data = _extarct_organisation_url(data, self.dataset_current.get('id'))
                     if field_name == 'proessor':

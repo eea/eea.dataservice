@@ -5,6 +5,7 @@ __docformat__ = 'plaintext'
 
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.config import UUID_ATTR
 from parser import extract_data, extract_relations
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from eea.themecentre.interfaces import IThemeTagging
@@ -22,6 +23,28 @@ info = logger.info
 #
 # Tools
 #
+def _generateNewId(context, title, uid):
+    id = ''
+    plone_tool = getToolByName(context, 'plone_utils', None)
+    id = plone_tool.normalizeString(title)
+    if id in context.objectIds():
+        tmp_ds = getattr(context, id)
+        if tmp_ds.UID() != uid:
+            idx = 1
+            while idx <= 100:
+                new_id = "%s-%d" % (id, idx)
+                new_ds = getattr(context, new_id, None)
+                if new_ds:
+                    if new_ds.UID() != uid:
+                        idx += 1
+                    else:
+                        id = new_id
+                        break
+                else:
+                    id = new_id
+                    break
+    return id
+
 def _redirect(obj, msg, container):
     """ Set status message and redirect to context absolute_url
     """
@@ -142,11 +165,11 @@ class MigrateDatasets(object):
     def add_dataset(self, context, datamodel):
         """ Add new dataset
         """
-        ds_id = datamodel.getId()
+        ds_id = _generateNewId(context, datamodel.get('title'), datamodel.get('UID'))
 
         # Add dataset if it doesn't exists
         if ds_id not in context.objectIds():
-            info('Adding dataset id: %s', ds_id)
+            info('Adding dataset ID: %s', ds_id)
             ds_id = context.invokeFactory('Data', id=ds_id)
 
         # Set properties
@@ -165,6 +188,7 @@ class MigrateDatasets(object):
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
         ds.setTitle(datamodel.get('title', ''))
+        setattr(ds, UUID_ATTR, datamodel.get('UID'))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -184,7 +208,7 @@ class MigrateDatasets(object):
 
         #TODO: uncomment below, temporary commented
         #ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        ds_info = 20
+        ds_info = 10
         ds_range = 0
         ds_step = 10
 

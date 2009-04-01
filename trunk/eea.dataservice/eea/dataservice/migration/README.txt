@@ -18,7 +18,10 @@ Run:
     - @@migrate_datarelations
 
 Plone customisations:
-    -Site setup -> Kupu visual editor -> toolbar
+    - Put under portal_skins/custom/standard_error_message
+         the content of eea.dataservice/eea/dataservice/migration/standard_error_message.py
+         to make redirects work
+    - Site setup -> Kupu visual editor -> toolbar
         (http://eea.europa.eu/kupu_library_tool/zmi_toolbar)
         Make "Subscript/Superscript group" visible to activate
           subscript and superscript in Kupu.

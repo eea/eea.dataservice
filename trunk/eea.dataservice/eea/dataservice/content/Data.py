@@ -256,7 +256,7 @@ schema = Schema((
     ),
 
     StringField(
-        name='short_id',
+        name='shortId',
         widget = StringWidget(
             label="Short ID",
             visible=-1,
