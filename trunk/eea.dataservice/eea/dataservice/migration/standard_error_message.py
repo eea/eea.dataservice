@@ -15,7 +15,10 @@ if error_type == 'NotFound':
     catalog = context.portal_catalog
     requested_file = context.REQUEST.get('URL', '').split('/')[-1]
 
-    # To match dataservice shortId and UID
+    # To match old dataservice shortId and UID, e.g.
+    #     http://dataservice.eea.europa.eu/1C9124FE-E0F8-43AF-8505-0985DDB3D9F9
+    #     http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=29
+    # to new http://eea.europa.eu/data/trends-in-emissions-of-greenhouse-gases-ipcc-sector-classification
     if context.getId() == 'data':
         # UID resquest
         query = {'portal_type': 'Data',

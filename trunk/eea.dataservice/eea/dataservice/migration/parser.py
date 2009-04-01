@@ -360,7 +360,7 @@ class dataservice_handler(ContentHandler):
                 try: table_id = attrs['tableview_subgid']
                 except: pass
                 self.datafile_current.set('table_id', table_id)
-                self.datafile_current.set('dataset_id', self.dataset_current.get('id'))
+                self.datafile_current.set('dataset_id', self.dataset_current.get('UID'))
 
             # Datatable metadata
             if name == 'tableGroup':
@@ -369,7 +369,7 @@ class dataservice_handler(ContentHandler):
                 self.datatable_current = MigrationObject()
                 self.datatable_context = 1
                 self.datatable_current.set('id', attrs['tableviewgid'])
-                self.datatable_current.set('dataset_id', self.dataset_current.get('id'))
+                self.datatable_current.set('dataset_id', self.dataset_current.get('UID'))
 
             # Datasubtable metadata
             if name == 'tableview_subgid' and self.datatables_context:
@@ -452,13 +452,15 @@ class dataservice_handler(ContentHandler):
                     if field_name == 'moreInfo':
                         data = self.dataset_current.get('moreInfo', '') + data
                     if field_name == 'dataOwner':
-                        data = _extarct_organisation_url(data, self.dataset_current.get('id'))
+                        curr_value = self.dataset_current.get('dataOwner', [])
+                        curr_value.append(_extarct_organisation_url(data, self.dataset_current.get('UID')))
+                        data = curr_value
                     if field_name == 'proessor':
-                        data = _extarct_organisation_url(data, self.dataset_current.get('id'))
+                        data = _extarct_organisation_url(data, self.dataset_current.get('UID'))
                     if field_name == 'temporal_coverage':
-                        data = _filter_temporal_coverage(data, self.dataset_current.get('id'))
+                        data = _filter_temporal_coverage(data, self.dataset_current.get('UID'))
                     if field_name == 'scale':
-                        data = _filter_scale(data, self.dataset_current.get('id'))
+                        data = _filter_scale(data, self.dataset_current.get('UID'))
                     if field_name == 'geographic_coverage':
                         data = ['ro', 'it', 'ru']
                     if field_name == 'subject_existing_keywords':
@@ -476,7 +478,7 @@ class dataservice_handler(ContentHandler):
                     if field_name == 'disclaimer':
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':
-                        data = _map_eea_mpcode(data, self.dataset_current.get('id'))
+                        data = _map_eea_mpcode(data, self.dataset_current.get('UID'))
                     self.dataset_current.set(field_name, data)
                 #if name == 'metadata_text_publish_level':
                     ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
@@ -501,7 +503,7 @@ class dataservice_handler(ContentHandler):
                     if not table_title: info('ERROR: no table title %s' % self.datafile_current.get('id'))
                     table_ob.set('title', table_title)
                     table_ob.set('description', _strip_html_tags(self.datafile_current.get('description', '')))
-                    table_ob.set('dataset_id', self.dataset_current.get('id'))
+                    table_ob.set('dataset_id', self.dataset_current.get('UID'))
                     table_ob.set('category', _map_categories(self.datafile_current.get('category', '')))
                     self.data_table_file_structure['tables'][rand_id] = (table_ob, [])
                 try:

@@ -191,16 +191,17 @@
 
     <!-- Owner -->
     <tal:block define="field python:here.getField('dataOwner');
-                       url python:field.getAccessor(here)();
-                       value python:here.getOrganisationName(url)"
-               condition="value">
+                       urls python:field.getAccessor(here)()"
+               condition="urls">
         <dt i18n:translate="dataset_owner">Owner:</dt>
-        <dd>
-            <span tal:content="value/Title" /><br />
-            <a href="#" title=""
-               tal:attributes="href value/getUrl; title value/Title"
-               tal:content="value/getUrl" />
-        </dd>
+        <tal:block repeat="url urls">
+            <dd tal:define="value python:here.getOrganisationName(url)">
+                <span tal:content="value/Title" /><br />
+                <a href="#" title=""
+                   tal:attributes="href value/getUrl; title value/Title"
+                   tal:content="value/getUrl" />
+            </dd>
+        </tal:block>
     </tal:block>
 
     <!-- Processor -->
