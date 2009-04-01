@@ -208,7 +208,7 @@ class MigrateDatasets(object):
 
         #TODO: uncomment below, temporary commented
         #ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        ds_info = 10
+        ds_info = 40
         ds_range = 0
         ds_step = 10
 

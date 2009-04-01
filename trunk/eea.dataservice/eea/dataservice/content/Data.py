@@ -56,19 +56,6 @@ schema = Schema((
         )
     ),
 
-    #StringField(
-        #name='dataOwner',
-        #vocabulary=OrganisationsVocabulary(),
-        #widget = SelectionWidget(
-            #format="select",
-            #macro="organisation_widget",
-            #label="Owner",
-            #description = ("Owner description."),
-            #label_msgid='dataservice_label_owner',
-            #description_msgid='dataservice_help_owner',
-            #i18n_domain='eea.dataservice',
-        #)
-    #),
     LinesField(
         name='dataOwner',
         multiValued=1,
@@ -83,14 +70,14 @@ schema = Schema((
         )
     ),
 
-    StringField(
+    LinesField(
         name='processor',
+        multiValued=1,
         vocabulary=OrganisationsVocabulary(),
-        widget = SelectionWidget(
-            format="select",
-            macro="organisation_widget",
+        widget=MultiSelectionWidget(
+            macro="organisations_widget",
             label="Processor",
-            description = ("Processor description."),
+            description="Processor description.",
             label_msgid='dataservice_label_processor',
             description_msgid='dataservice_help_processor',
             i18n_domain='eea.dataservice',

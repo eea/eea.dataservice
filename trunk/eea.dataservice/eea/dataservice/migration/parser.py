@@ -455,8 +455,10 @@ class dataservice_handler(ContentHandler):
                         curr_value = self.dataset_current.get('dataOwner', [])
                         curr_value.append(_extarct_organisation_url(data, self.dataset_current.get('UID')))
                         data = curr_value
-                    if field_name == 'proessor':
-                        data = _extarct_organisation_url(data, self.dataset_current.get('UID'))
+                    if field_name == 'processor':
+                        curr_value = self.dataset_current.get('processor', [])
+                        curr_value.append(_extarct_organisation_url(data, self.dataset_current.get('UID')))
+                        data = curr_value
                     if field_name == 'temporal_coverage':
                         data = _filter_temporal_coverage(data, self.dataset_current.get('UID'))
                     if field_name == 'scale':
