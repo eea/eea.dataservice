@@ -111,11 +111,8 @@ for example a CM would choose dataset D1 to be based on another dataset D2 the r
   D1 <- D2 = derived
 
 Questions:
-- [?] ANTONIO: how is generated the data under "Geographic information quality label"?
-- [-] ANTONIO: update organisation URLs + search/replace in exported xml + import data
-- [-] ANTONIO: determine mandatory fields
-- [-] ANTONIO: determine language independent fields
-- [-] ANTONIO: fields order on edit/index pages
+- [-] DAVID: generate data for "Geographic information quality label"?
+
 
 
 

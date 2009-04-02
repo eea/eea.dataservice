@@ -266,6 +266,7 @@ class dataservice_handler(ContentHandler):
 
     def __init__(self, ds_from, ds_to):
         """ constructor """
+        self.debug_index = 0
         self.ds_from = ds_from
         self.ds_to = ds_to
         self.ds_index = -1
@@ -403,6 +404,9 @@ class dataservice_handler(ContentHandler):
 
                 self.dataset_groups[self.dataset_group_current].append(self.dataset_current)
                 self.dataset_context = 0
+                if self.debug_index > 1:
+                    info('DEBUG MULTI (%s): %s' % (self.debug_index, self.dataset_current.get('UID')))
+                self.debug_index = 0
                 self.dataset_current = None
 
             if name == 'dataset_shortID':
@@ -475,8 +479,13 @@ class dataservice_handler(ContentHandler):
                         data = data.replace('assesment', 'reporting')
                         data = data.replace(' ', '')
                         data = data.split(',')
+                        curr_value = self.dataset_current.get('themes', [])
+                        curr_value.extend(data)
+                        data = curr_value
                     if field_name == 'rights':
                         data = _strip_html_tags(data)
+                        if 'eea' in data.lower() and 'free' in data.lower():
+                            data = ''
                     if field_name == 'disclaimer':
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':

@@ -287,6 +287,12 @@ class Data(ATFolder):
 
     schema = Dataset_schema
 
+    security.declareProtected(permissions.View, 'getKeywords')
+    def getKeywords(self):
+        res = list(self.Subject())
+        res.sort(key=str.lower)
+        return ', '.join(res)
+
     security.declareProtected(permissions.View, 'getTablesByCategory')
     def getTablesByCategory(self):
         """ Return categories and related files

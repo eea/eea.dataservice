@@ -11,6 +11,10 @@ class IDataset(Interface):
     """ Objects which have dataset information.
     """
 
+    def getKeywords(obj):
+        """ Return formated keywords list
+        """
+
     def formatTempCoverage(obj):
         """ Return formated temporary coverage for display
         """
