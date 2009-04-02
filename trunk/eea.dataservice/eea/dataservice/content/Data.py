@@ -161,7 +161,7 @@ schema = Schema((
     ),
 
     TextField(
-        name='source',
+        name='dataSource',
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
@@ -240,7 +240,7 @@ schema = Schema((
     ),
 
     TextField(
-        name='unit',
+        name='units',
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',

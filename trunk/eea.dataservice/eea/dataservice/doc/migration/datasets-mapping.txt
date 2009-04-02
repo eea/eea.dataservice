@@ -69,7 +69,7 @@ Datasets properties mapping during migration
 --------------------------------------------------------------------------------------------------
 - MT['Scale of the data set']       - scale                     - integer       - (all '=', '<' , '>', '=>', '=<' were excluded from the begining)
 --------------------------------------------------------------------------------------------------
-- MT['Source']                      - data_source               - html          - (no action)
+- MT['Source']                      - dataSource                - html          - (no action)
 -                                   -                           -               - #ANTONIO/DAVID: ??? To be better specified/renamed and clarified in connection to owner.
 --------------------------------------------------------------------------------------------------
 - MT['System folder']               -                           -               - NOT IMPORTED (skipped) - maybe will be use during future import

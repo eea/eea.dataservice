@@ -24,6 +24,14 @@ def _get_random(size=0):
         res += random.choice(chars)
     return res
 
+def _check_last_upload(text, dataset_id):
+    if 'mmm' in text:
+        info('last_upload ERROR: Dataset: %s -- bad format' % dataset_id)
+        return ''
+    if len(text) < 9:
+        info('last_upload ERROR: Dataset: %s -- bad format' % dataset_id)
+    return text
+
 def _generate_random_id():
     c = _get_random
     return '%s-%s-%s-%s-%s' % (c(8), c(4), c(4), c(4), c(12))
@@ -177,11 +185,11 @@ DATASET_METADATA_MAPPING = {
     'Relation':                   'relation',
     'Rights':                     'rights',
     'Scale of the data set':      'scale',
-    'Source':                     'source',
+    'Source':                     'dataSource',
     'System folder':              'system_folder',
     'Temporal coverage':          'temporal_coverage',
     'Theme':                      'themes',
-    'Unit':                       'unit'
+    'Unit':                       'units'
 }
 ### Dataset:
     #@param id:                          String;
@@ -194,11 +202,11 @@ DATASET_METADATA_MAPPING = {
     #@param eea_mpcode:                  Integer;
     #@param moreInfo:                    String;
     #@param disclaimer:                  String;
-    #@param source:                      Iterator;
+    #@param dataSource:                  String;
     #@param scale:                       Integer;
     #@param geoAccuracy:                 String;
     #@param methodology:                 String;
-    #@param unit:                        String;
+    #@param units:                       String;
     #@param subject_existing_keywords:   Iterator;
     #@param temporal_coverage:           Iterator;
     #@param contact:                     String;
@@ -427,7 +435,7 @@ class dataservice_handler(ContentHandler):
                 desc_split = desc.split('.')
                 more_info = ''
                 if len(desc_split) > 1:
-                    more_info = '.'.join(desc_split[1:]) + '<br />'
+                    more_info = '.'.join(desc_split[1:])
                 self.dataset_current.set('description', desc_split[0])
                 self.dataset_current.set('moreInfo', more_info)
 
@@ -447,14 +455,32 @@ class dataservice_handler(ContentHandler):
                 data = u''.join(self.data).strip()
                 data = data.replace('&amp;#39;', "'")
                 if name == 'metadata_text':
-                    #if field_name == 'last_upload': pass
                     #if field_name == 'methodology': pass
-                    #if field_name == 'unit':pass
-                    #if field_name == 'geoAccuracy': pass
-                    #if field_name == 'source': pass
+
                     #if field_name == 'reference_system': pass
+
+                    if field_name == 'lastUpload':
+                        data = _check_last_upload(data, self.dataset_current.get('UID'))
+                    if field_name == 'geoAccuracy':
+                        curr_value = self.dataset_current.get('geoAccuracy', '')
+                        if curr_value and data: curr_value += '\r\n'
+                        curr_value += data
+                        data = curr_value
+                    if field_name == 'dataSource':
+                        curr_value = self.dataset_current.get('dataSource', '')
+                        if curr_value and data: curr_value += '<br />'
+                        curr_value += data
+                        data = curr_value
+                    if field_name == 'units':
+                        curr_value = self.dataset_current.get('units', '')
+                        if curr_value and data: curr_value += '<br />'
+                        curr_value += data
+                        data = curr_value
                     if field_name == 'moreInfo':
-                        data = self.dataset_current.get('moreInfo', '') + data
+                        curr_value = self.dataset_current.get('moreInfo', '')
+                        if curr_value and data: curr_value += '<br />'
+                        curr_value += data
+                        data = curr_value
                     if field_name == 'dataOwner':
                         curr_value = self.dataset_current.get('dataOwner', [])
                         curr_value.append(_extarct_organisation_url(data, self.dataset_current.get('UID')))
@@ -466,7 +492,8 @@ class dataservice_handler(ContentHandler):
                     if field_name == 'temporal_coverage':
                         data = _filter_temporal_coverage(data, self.dataset_current.get('UID'))
                     if field_name == 'scale':
-                        data = _filter_scale(data, self.dataset_current.get('UID'))
+                        if data:
+                            data = _filter_scale(data, self.dataset_current.get('UID'))
                     if field_name == 'geographic_coverage':
                         data = ['ro', 'it', 'ru']
                     if field_name == 'subject_existing_keywords':
@@ -487,6 +514,7 @@ class dataservice_handler(ContentHandler):
                         if 'eea' in data.lower() and 'free' in data.lower():
                             data = ''
                     if field_name == 'disclaimer':
+                        self.debug_index += 1
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':
                         data = _map_eea_mpcode(data, self.dataset_current.get('UID'))

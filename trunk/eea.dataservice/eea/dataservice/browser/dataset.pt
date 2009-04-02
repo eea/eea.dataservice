@@ -130,7 +130,7 @@
     </tal:block>
 
     <!-- Source -->
-    <tal:block define="field python:here.getField('source');
+    <tal:block define="field python:here.getField('dataSource');
                        vocab python:field.Vocabulary(here);
                        values python:field.getAccessor(here)();
                        value python:here.displayValue(vocab, values)"
@@ -148,7 +148,7 @@
     </tal:block>
 
     <!-- Unit -->
-    <tal:block define="field python:here.getField('unit');
+    <tal:block define="field python:here.getField('units');
                        value python:field.getAccessor(here)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Unit:</dt>

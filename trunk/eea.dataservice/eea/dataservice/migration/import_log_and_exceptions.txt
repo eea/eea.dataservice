@@ -2,6 +2,21 @@ Cleanup, exception and missing exported data list
 ================================================================================
 ================================================================================
 
+DAVID - last_upload
+================================================================================
+================================================================================
+last_upload ERROR: Dataset: 555F349A-8C74-4958-9BBD-8B57AD20D82B -- bad format
+last_upload ERROR: Dataset: AA49A531-0A0A-48A6-9A51-D0D9857F6EF2 -- bad format
+last_upload ERROR: Dataset: CA3A5FC7-9279-4901-9CEC-EE70D4356070 -- bad format
+last_upload ERROR: Dataset: 2E598F1A-CCC7-4973-BD44-6BF82AB02B06 -- bad format
+last_upload ERROR: Dataset: 958BEA91-3BDF-4BBC-B762-681438ABBDE6 -- bad format
+last_upload ERROR: Dataset: 1039F89A-9FDB-4858-82DE-69AFC172C55E -- bad format
+last_upload ERROR: Dataset: 1FE966AE-8878-48DF-B636-431E16CF01E6 -- bad format
+last_upload ERROR: Dataset: 8FE31B09-5319-417E-BB6A-D4FA71AE02AB -- bad format
+last_upload ERROR: Dataset: 35E7A716-C75F-4981-A0B4-8E2760B7C50F -- bad format
+last_upload ERROR: Dataset: D2672BA8-15A1-44B1-AF03-48FCFA8CBD7E -- bad format
+last_upload ERROR: Dataset: 1A736CC8-2594-4E0C-B325-A6411AF2D012 -- bad format
+last_upload ERROR: Dataset: 3631928A-32B1-426F-A85B-34757A424140 -- bad format
 
 ANTONIO - skipped rights
 ================================================================================
