@@ -12,7 +12,7 @@ class ManagementPlanWidget(TypesWidget):
     _properties = TypesWidget._properties.copy()
     _properties.update({
         'format': "flex", # possible values: flex, select, radio
-        'macro' : "management_plan_code_widget",
+        'macro' : "management_plan_widget",
         })
 
     security = ClassSecurityInfo()
@@ -35,5 +35,5 @@ registerWidget(ManagementPlanWidget,
                description=('Renders a HTML selection widget, to'
                             ' allow you enter the year and the'
                             ' EEA management plan code'),
-               used_for=('Products.Archetypes.Field.StringField')
+               used_for=('eea.dataservice.fields.ManagementPlanField.ManagementPlanField')
                )

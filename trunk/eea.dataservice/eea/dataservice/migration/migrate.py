@@ -207,8 +207,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        #ds_info = 40
+        #ds_info = extract_data(self.xmlfile, 1)['groups_index']
+        ds_info = 40
         ds_range = 0
         ds_step = 10
 
@@ -217,7 +217,7 @@ class MigrateDatasets(object):
             ds_data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
-                    #self.add_dataset(container, ds)
+                    self.add_dataset(container, ds)
                     index += 1
 
         msg = '%d datasets imported !' % index

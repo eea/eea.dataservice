@@ -65,6 +65,9 @@
 <label tal:attributes="for string:${fieldName}Code" i18n:translate="label_management_code">Code</label><br />
         </td>
     </tr>
+<tal:block define="value python:test(len(value)==2, value, ('',''));
+                   mp_year python:value[0];
+                   mp_code python:value[1];">
     <tr>
         <td>
 <!-- Management plan year -->
@@ -74,7 +77,7 @@
 
     <option tal:repeat="item vocab"
             tal:attributes="value item;
-                            selected python:here.checkSelected(item, value) and 'selected' or None"
+                            selected python:here.checkSelected(item, mp_year) and 'selected' or None"
             tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
             i18n:translate=""
             />
@@ -85,11 +88,12 @@
 <!-- Management plan code -->
 <input type="text" tal:attributes="
   id string:${fieldName}Code;
-  name string:${fieldName}Code:int;
-  value string:report_num;
+  name string:${fieldName}Code;
+  value mp_code;
   tabindex tabindex/next;" />
         </td>
     </tr>
+</tal:block>
 </table>
 
                 </tal:longVocab>

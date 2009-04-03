@@ -15,9 +15,6 @@ class ManagementPlanField(StringField):
         """
         Set management plan code and year
         """
-        mp_year = value[0]
-        mp_code = value[1]
-        value = (mp_year, mp_code)
         ObjectField.set(self, instance, value, **kwargs)
 
     def get(self, instance, **kwargs):

@@ -15,9 +15,16 @@ class IDataset(Interface):
         """ Return formated keywords list
         """
 
+    def getOrganisationName(obj):
+        """ Return organisation name
+        """
+
+
     def formatTempCoverage(obj):
         """ Return formated temporary coverage for display
         """
+
+
 
 class IDatafile(Interface):
     """ Objects which have dataset file information.

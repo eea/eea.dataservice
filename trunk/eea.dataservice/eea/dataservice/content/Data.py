@@ -20,30 +20,39 @@ from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
 from eea.dataservice.vocabulary import OrganisationsVocabulary
-from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY, COUNTRIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
+# Validators
+from Products.validation.interfaces.IValidator import IValidator
+from Products.validation import validation
+class ManagementPlanCodeValidator:
+    __implements__ = IValidator
 
-#def addData(self, REQUEST={}):
-#    """ Factory method for a Dataset object
-#    """
-#    pass
+    def __init__(self,
+                 name,
+                 title='Management plan code',
+                 description='Management plan code validator'):
+        self.name = name
+        self.title = title or name
+        self.description = description
 
+    def __call__(self, value, *args, **kwargs):
+        try:
+            nval = int(value[1])
+        except ValueError:
+            return ("Validation failed, management plan code is not integer.")
+        return 1
+
+validation.register(ManagementPlanCodeValidator('management_plan_code_validator'))
+
+# Schema
 schema = Schema((
-    #IntegerField(
-        #name='eea_mpcode',
-        #validators = ('isInt',),
-        #widget=IntegerWidget(
-            #size=8,
-            #label='EEA management plan code',
-            #label_msgid='dataservice_label_eea_mpcode',
-            #description_msgid='dataservice_help_eea_mpcode',
-            #i18n_domain='eea.dataservice',
-        #)
-    #),
     ManagementPlanField(
         name='eeaManagementPlan',
         required=True,
+        default=('', ''),
+        validators = ('management_plan_code_validator',),
         vocabulary=DatasetYearsVocabulary(),
         widget = ManagementPlanWidget(
             format="select",
@@ -309,6 +318,18 @@ class Data(ATFolder):
         res.sort(key=str.lower)
         return ', '.join(res)
 
+    security.declareProtected(permissions.View, 'getOrganisationName')
+    def getOrganisationName(self, url):
+        """ """
+        res = None
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : 'Organisation',
+                                 'getUrl': url})
+        if brains: res = brains[0]
+        return res
+
+
+
     security.declareProtected(permissions.View, 'getTablesByCategory')
     def getTablesByCategory(self):
         """ Return categories and related files
@@ -328,21 +349,6 @@ class Data(ATFolder):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = atvm[CATEGORIES_DICTIONARY_ID]
         return getattr(vocab, cat_code).Title()
-
-    security.declareProtected(permissions.View, 'getOrganisationName')
-    def getOrganisationName(self, url):
-        """ """
-        res = None
-        cat = getToolByName(self, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : 'Organisation',
-                                 'getUrl': url})
-        if brains: res = brains[0]
-        return res
-
-    security.declareProtected(permissions.View, 'getMpCodeName')
-    def getMpCodeName(self, code):
-        """  return management plan code title """
-        return EEA_MPCODE_VOCABULARY[code]
 
     security.declareProtected(permissions.View, 'getCountryInfo')
     def getCountryInfo(self):

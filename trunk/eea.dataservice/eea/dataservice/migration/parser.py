@@ -66,17 +66,18 @@ def _map_categories(text):
     return text
 
 def _map_eea_mpcode(text, dataset_id):
-    mpcode = ''
+    res = ['', '']
     text_data = []
     text = text.split('-')
     if len(text) != 2:
         info('eea_mpcode ERROR: Dataset: %s -- bad format' % dataset_id)
-        return mpcode
+        return res
+    res[0] = text[0].strip()
     text_data.append(text[0].strip())
     text = text[1].split(':')
     if len(text) != 2:
         info('eea_mpcode ERROR: Dataset: %s -- bad format' % dataset_id)
-        return mpcode
+        return res
     for term in text:
         text_data.append(term.strip())
 
@@ -87,11 +88,11 @@ def _map_eea_mpcode(text, dataset_id):
             if str(term) in row_data:
                 detect += 1
         if detect == 3:
-            mpcode = key
+            res[1] = key
             break
-    if mpcode == '':
+    if res[0] == '' or res[1] == '':
         info('eea_mpcode ERROR: Dataset: %s -- lookup failed' % dataset_id)
-    return mpcode
+    return tuple(res)
 
 def _filter_scale(text, dataset_id):
     data = text.split('1:')
@@ -171,7 +172,7 @@ DATASET_METADATA_MAPPING = {
     'Additional information':     'moreInfo',
     'Contact person(s) for EEA':  'contact',
     'Disclaimer':                 'disclaimer',
-    'EEA management plan code':   'eea_mpcode',
+    'EEA management plan code':   'eeaManagementPlan',
     'Geographic accuracy':        'geoAccuracy',
     'Geographic box coordinates': 'geographic_coordinates',
     'Geographical coverage':      'geographic_coverage',
@@ -199,7 +200,7 @@ DATASET_METADATA_MAPPING = {
     #@param themes:                      Iterator;
     #@param rights:                      String;
     #@param effectiveDate:               String;
-    #@param eea_mpcode:                  Integer;
+    #@param eeaManagementPlan:           Iterator;
     #@param moreInfo:                    String;
     #@param disclaimer:                  String;
     #@param dataSource:                  String;
@@ -414,6 +415,8 @@ class dataservice_handler(ContentHandler):
                 self.dataset_context = 0
                 if self.debug_index > 1:
                     info('DEBUG MULTI (%s): %s' % (self.debug_index, self.dataset_current.get('UID')))
+                #if self.debug_index == 0:
+                #    info('DEBUG ZERO: %s' % self.dataset_current.get('UID'))
                 self.debug_index = 0
                 self.dataset_current = None
 
@@ -515,9 +518,13 @@ class dataservice_handler(ContentHandler):
                             data = ''
                     if field_name == 'disclaimer':
                         data = _strip_html_tags(data)
-                    if field_name == 'eea_mpcode':
+                    if field_name == 'eeaManagementPlan':
                         data = _map_eea_mpcode(data, self.dataset_current.get('UID'))
-                    self.dataset_current.set(field_name, data)
+                        self.dataset_current.set('eeaManagementPlanYear', data[0])
+                        self.dataset_current.set('eeaManagementPlanCode', data[1])
+
+                    if field_name != 'eeaManagementPlan':
+                        self.dataset_current.set(field_name, data)
                 #if name == 'metadata_text_publish_level':
                     ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
                     #pass
