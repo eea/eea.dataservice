@@ -514,7 +514,6 @@ class dataservice_handler(ContentHandler):
                         if 'eea' in data.lower() and 'free' in data.lower():
                             data = ''
                     if field_name == 'disclaimer':
-                        self.debug_index += 1
                         data = _strip_html_tags(data)
                     if field_name == 'eea_mpcode':
                         data = _map_eea_mpcode(data, self.dataset_current.get('UID'))

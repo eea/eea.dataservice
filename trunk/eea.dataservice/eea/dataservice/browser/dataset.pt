@@ -63,6 +63,14 @@
     <dt>UID:</dt>
     <dd tal:content="here/UID" />
 
+    <!-- EEA management plan code -->
+    <!-- tal:block define="field python:here.getField('eea_mpcode');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
+        <dd tal:content="python:here.getMpCodeName(str(value))">EEA management plan code</dd>
+    </tal:block -->
+
     <!-- Publish date -->
     <tal:block define="value here/getEffectiveDate" condition="value">
         <dt i18n:translate="dataset_keywords">Publish date:</dt>
@@ -85,7 +93,7 @@
     <tal:block define="field python:here.getField('effectiveDate');
                        value python:field.getAccessor(here)()"
                condition="value">
-        <dt i18n:translate="dataset_plan_code">Last upload:</dt>
+        <dt i18n:translate="dataset_last_upload">Last upload:</dt>
         <dd tal:content="structure value">Last upload</dd>
     </tal:block>
 
@@ -95,14 +103,6 @@
               condition="value">
         <dt i18n:translate="dataset_scale">Scale of the data set:</dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
-    </tal:block>
-
-    <!-- EEA management plan code -->
-    <tal:block define="field python:here.getField('eea_mpcode');
-                       value python:field.getAccessor(here)()"
-               condition="value">
-        <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
-        <dd tal:content="python:here.getMpCodeName(str(value))">EEA management plan code</dd>
     </tal:block>
 
     <!-- Additional information -->

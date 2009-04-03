@@ -15,6 +15,8 @@ from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
+from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
 from eea.dataservice.vocabulary import OrganisationsVocabulary
@@ -28,6 +30,31 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 #    pass
 
 schema = Schema((
+    #IntegerField(
+        #name='eea_mpcode',
+        #validators = ('isInt',),
+        #widget=IntegerWidget(
+            #size=8,
+            #label='EEA management plan code',
+            #label_msgid='dataservice_label_eea_mpcode',
+            #description_msgid='dataservice_help_eea_mpcode',
+            #i18n_domain='eea.dataservice',
+        #)
+    #),
+    ManagementPlanField(
+        name='eeaManagementPlan',
+        required=True,
+        vocabulary=DatasetYearsVocabulary(),
+        widget = ManagementPlanWidget(
+            format="select",
+            label="EEA Management Plan",
+            description = ("EEA Management plan description."),
+            label_msgid='dataservice_label_eea_mp',
+            description_msgid='dataservice_help_eea_mp',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
     DateTimeField(
         name='lastUpload',
         default=DateTime(),
@@ -59,6 +86,7 @@ schema = Schema((
     LinesField(
         name='dataOwner',
         multiValued=1,
+        required=True,
         vocabulary=OrganisationsVocabulary(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
@@ -111,18 +139,6 @@ schema = Schema((
             description="Geographical coverage description.",
             label_msgid='dataservice_label_geographic',
             description_msgid='dataservice_help_geographic',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
-    IntegerField(
-        name='eea_mpcode',
-        validators = ('isInt',),
-        widget=IntegerWidget(
-            size=8,
-            label='EEA management plan code',
-            label_msgid='dataservice_label_eea_mpcode',
-            description_msgid='dataservice_help_eea_mpcode',
             i18n_domain='eea.dataservice',
         )
     ),
