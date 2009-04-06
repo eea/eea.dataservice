@@ -44,36 +44,48 @@
             </tal:block>
           </span>
 
+          <!-- Country groups -->
+          <select multiple="multiple"
+                  tal:condition="python:format=='select'"
+                  tal:attributes="name string:${fieldName}_groups:list;
+                  id fieldName;
+                  size widget/size;
+                  tabindex tabindex/next;"
+                  tal:define="groups here/@@getCountryGroups"
+                  style="padding: 2px; float: left; margin-right: 1em">
+
+              <option tal:repeat="item groups"
+                      selected=""
+                      tal:attributes="value python:item[0];
+                      selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
+                      tal:content="python:item[1]"
+                      style="padding:1px 8px 1px 8px"
+                      i18n:translate="" />
+          </select>
+
+          <!-- Countries -->
           <select multiple="multiple"
                   tal:condition="python:format=='select'"
                   tal:attributes="name string:${fieldName}:list;
                   id fieldName;
                   size widget/size;
                   tabindex tabindex/next;"
-                  tal:define="groups here/getCountryGroups;
-                              coutries here/getCountries"
-                  style="padding: 2px">
+                  tal:define="coutries here/@@getCountries"
+                  style="padding: 2px; float:left; margin-right: 1em">
 
-              <optgroup label="Groups">
-                <option tal:repeat="item groups"
-                        selected=""
-                        tal:attributes="value python:item[0];
-                        selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
-                        tal:content="python:item[1]"
-                        style="padding:1px 8px 1px 8px"
-                        i18n:translate="" />
-              </optgroup>
-              <optgroup label="Countries">
-                <option tal:repeat="item coutries"
-                        selected=""
-                        tal:attributes="value python:item[0];
-                        selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
-                        tal:content="python:item[1]"
-                        style="padding:1px 8px 1px 8px"
-                        i18n:translate="" />
-              </optgroup>
-
+              <option tal:repeat="item coutries"
+                      selected=""
+                      tal:attributes="value python:item[0];
+                      selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
+                      tal:content="python:item[1]"
+                      style="padding:1px 8px 1px 8px; float: left"
+                      i18n:translate="" />
           </select>
+          <p>
+            <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" /><br />
+            <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/@@formatTempCoverage" />
+          </p>
+          <br clear="all"/>
         </metal:fill>
       </metal:use>
     </metal:define>

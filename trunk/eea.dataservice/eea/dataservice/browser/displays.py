@@ -1,6 +1,13 @@
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+
 import operator
 from Products.CMFCore.utils import getToolByName
-
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.PloneLanguageTool.availablelanguages import getCountries
+from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 
 class DatasetContainerView(object):
     """ Default dataset view
@@ -29,6 +36,130 @@ class OrganisationContainerView(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+def _getCountryName(country_code):
+    """ """
+    return getCountries().get(country_code.upper(), country_code)
+
+def _getGroupCountries(context, group_code):
+    """ """
+    atvm = getToolByName(context, ATVOCABULARYTOOL)
+    vocab = atvm[COUNTRIES_DICTIONARY_ID]
+    terms = vocab.getVocabularyDict()
+    for key in terms.keys():
+        if group_code.lower() == terms[key][0].lower():
+            return [term for term, childs in terms[key][1].values()]
+    return []
+
+def _getCountryInfo(context):
+    """ """
+    atvm = getToolByName(context, ATVOCABULARYTOOL)
+    vocab = atvm[COUNTRIES_DICTIONARY_ID]
+
+    res = {'groups': {}, 'countries': {}}
+    terms = vocab.getVocabularyDict()
+    for key in terms.keys():
+        code = terms[key][0]
+        if terms[key][1].keys():
+            res['groups'][code] = code
+        else:
+            res['countries'][code] = _getCountryName(code)
+    return res
+
+class GetCountryGroups(object):
+    """ """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = _getCountryInfo(self.context)['groups']
+        return [(key, res[key]) for key in res.keys()]
+
+class GetCountries(object):
+    """ """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = _getCountryInfo(self.context)['countries']
+        return [(key, res[key]) for key in res.keys()]
+
+class GetCountriesDisplay(object):
+    """ """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, country_codes=[]):
+        res = []
+        context = self.context
+        viewGetCountryGroups = GetCountryGroups(context, self.request)
+        for group_code, group_name in viewGetCountryGroups():
+            tmp_match = _getGroupCountries(context, group_code)
+            for country_code in country_codes:
+                if country_code in tmp_match:
+                    tmp_match.remove(country_code)
+            if not len(tmp_match): res.append(group_code)
+
+        for group_code in res:
+            group_countries = _getGroupCountries(context, group_code)
+            for country_code in group_countries:
+                if country_code in country_codes:
+                    country_codes.remove(country_code)
+                    if not len(country_codes): break
+
+        res_string = ''
+        if len(res):
+            res_string = ', '.join(res)
+        if len(country_codes):
+            countries = []
+            [countries.append(_getCountryName(code)) for code in country_codes]
+            countries.sort()
+            if res_string:
+                res_string += ', '
+            res_string += ', '.join(countries)
+        return res_string
+
+class FormatTempCoverage(object):
+    """ Format temporal coverage display
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        field = self.context.getField('temporalCoverage')
+        data = field.getAccessor(self.context)()
+        data = list(data)
+        data.reverse()
+        tmp_res = []
+        res = ''
+
+        for index, year in enumerate(data):
+            if len(tmp_res) == 0:
+                tmp_res.append(str(year))
+            else:
+                if int(data[index-1]) + 1 == int(year):
+                    tmp_res.append('-%s' % str(year))
+                else:
+                    tmp_res.append(str(year))
+
+        for index, year in enumerate(tmp_res):
+            if index == 0:
+                res += year
+            elif index+1 == len(tmp_res):
+                res += ', %s' % year
+            elif not year.startswith('-'):
+                res += ', %s' % year
+            elif not tmp_res[index+1].startswith('-'):
+                res += ', %s' % year
+            elif year.startswith('-') and not tmp_res[index+1].startswith('-'):
+                res += ', %s' % year
+            elif year.startswith('-') and tmp_res[index+1].startswith('-'):
+                pass
+        return res.replace(', -', '-')
 
 class GetOrganisationSnippet(object):
     """ Organisation snippet

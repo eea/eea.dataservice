@@ -124,7 +124,7 @@ def _filter_temporal_coverage(text, dataset_id):
                 int(year)
                 res.append(str(year))
         except:
-            info('temporal_coverage ERROR: Dataset: %s -- is not integer.' % dataset_id)
+            info('temporalCoverage ERROR: Dataset: %s -- is not integer.' % dataset_id)
             break
     res.reverse()
     return res
@@ -175,7 +175,7 @@ DATASET_METADATA_MAPPING = {
     'EEA management plan code':   'eeaManagementPlan',
     'Geographic accuracy':        'geoAccuracy',
     'Geographic box coordinates': 'geographic_coordinates',
-    'Geographical coverage':      'geographic_coverage',
+    'Geographical coverage':      'geographicCoverage',
     'Keyword(s)':                 'subject_existing_keywords',
     'Last upload':                'lastUpload',
     'Methodology':                'methodology',
@@ -188,7 +188,7 @@ DATASET_METADATA_MAPPING = {
     'Scale of the data set':      'scale',
     'Source':                     'dataSource',
     'System folder':              'system_folder',
-    'Temporal coverage':          'temporal_coverage',
+    'Temporal coverage':          'temporalCoverage',
     'Theme':                      'themes',
     'Unit':                       'units'
 }
@@ -209,9 +209,9 @@ DATASET_METADATA_MAPPING = {
     #@param methodology:                 String;
     #@param units:                       String;
     #@param subject_existing_keywords:   Iterator;
-    #@param temporal_coverage:           Iterator;
+    #@param temporalCoverage:            Iterator;
     #@param contact:                     String;
-    #@param geographic_coverage:         Iterator;
+    #@param geographicCoverage:         Iterator;
     #@param reference_system:            String;
     #@param dataOwner:                   String;
     #@param processor:                   String;
@@ -492,12 +492,13 @@ class dataservice_handler(ContentHandler):
                         curr_value = self.dataset_current.get('processor', [])
                         curr_value.append(_extarct_organisation_url(data, self.dataset_current.get('UID')))
                         data = curr_value
-                    if field_name == 'temporal_coverage':
+                    if field_name == 'temporalCoverage':
+                        self.debug_index += 1
                         data = _filter_temporal_coverage(data, self.dataset_current.get('UID'))
                     if field_name == 'scale':
                         if data:
                             data = _filter_scale(data, self.dataset_current.get('UID'))
-                    if field_name == 'geographic_coverage':
+                    if field_name == 'geographicCoverage':
                         data = ['ro', 'it', 'ru']
                     if field_name == 'subject_existing_keywords':
                         self.data_keywords.extend(data.split(','))

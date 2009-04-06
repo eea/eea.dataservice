@@ -2,12 +2,55 @@ Cleanup, exception and missing exported data list
 ================================================================================
 ================================================================================
 
+DAVID - Temporal coverage (bad format) -> should be a list of years and/or period,
+e.g. '1990, 1995, 2000-2004, 2008'
+================================================================================
+================================================================================
+temporalCoverage ERROR: Dataset: E392EAC9-31E8-4A57-8CE5-EF84F1BB7F46 -- bad format.
+temporalCoverage ERROR: Dataset: BD9CA746-5018-46D7-927B-033A57DE5294 -- bad format.
+temporalCoverage ERROR: Dataset: FB9B5CEF-1154-4920-9D79-AAE83FF5513B -- bad format.
+temporalCoverage ERROR: Dataset: E7920B72-855B-4253-802A-2C5854705335 -- bad format.
+temporalCoverage ERROR: Dataset: 883389B9-177A-427C-B7A1-0E0DA808277B -- bad format.
+temporalCoverage ERROR: Dataset: C65ACBF1-756C-44FC-884D-D1C3DB7588AD -- bad format.
+temporalCoverage ERROR: Dataset: 864A55B4-3387-436D-A311-80A94352F5D6 -- bad format.
+temporalCoverage ERROR: Dataset: 6643EB8C-F833-4631-B71C-2AED59EBC129 -- bad format.
+temporalCoverage ERROR: Dataset: 7119B56A-8DA7-4F15-9326-BC98AA1BC3A9 -- bad format.
+temporalCoverage ERROR: Dataset: 2E7593C3-793B-4874-AC81-63A985524A4D -- bad format.
+temporalCoverage ERROR: Dataset: B93C1C1B-EFAB-41BE-BB08-10F180565ECE -- bad format.
+temporalCoverage ERROR: Dataset: 276F6535-707B-4865-A46D-FCD9AF7787C4 -- bad format.
+temporalCoverage ERROR: Dataset: 5436A0A0-5F2E-42E9-BAC8-E653589676F2 -- bad format.
+temporalCoverage ERROR: Dataset: 350AB2DA-AB9F-4AF5-96BD-2B6040732AA9 -- bad format.
+temporalCoverage ERROR: Dataset: BDE21699-C052-4735-A0D8-25062F25C8B9 -- bad format.
+temporalCoverage ERROR: Dataset: DDFCA543-89B9-47C2-874A-5E01206308B2 -- bad format.
+temporalCoverage ERROR: Dataset: 415AF7D8-DC0F-4787-A190-8A1F0E27A30D -- bad format.
+temporalCoverage ERROR: Dataset: 8096E91A-A47F-48C0-8128-8A184F3FE1B5 -- bad format.
+temporalCoverage ERROR: Dataset: 3B48C861-441D-4CE4-990E-80DC3086CBC4 -- bad format.
+temporalCoverage ERROR: Dataset: 57CA53B3-E922-40A9-9BD4-AC9AC2183ED3 -- bad format.
+temporalCoverage ERROR: Dataset: 41ADA175-6EA3-488B-90A4-F69D38F0B207 -- bad format.
+temporalCoverage ERROR: Dataset: C32D6418-3D10-448F-A16C-DC0F23210052 -- bad format.
+temporalCoverage ERROR: Dataset: FF95E50D-99D4-48BB-A822-DFB96DEFC28B -- bad format.
+temporalCoverage ERROR: Dataset: 623F7157-B2E7-4FF7-AD4F-B84DC659006A -- bad format.
+temporalCoverage ERROR: Dataset: 2E4DB7A0-3D3C-4E6D-81C6-6549CB87E486 -- bad format.
+temporalCoverage ERROR: Dataset: A603BDE9-6697-4891-824E-C47BEE95F2CD -- bad format.
+temporalCoverage ERROR: Dataset: 83189D58-B54A-4998-80F2-F2427EC5D93C -- bad format.
+temporalCoverage ERROR: Dataset: E6C19A1A-B878-4FFB-87BD-FF9F3CB74051 -- bad format.
+temporalCoverage ERROR: Dataset: B20BAE2F-2536-499A-A8B9-B00C44395F12 -- bad format.
+temporalCoverage ERROR: Dataset: AF733CD1-5DCC-4A5E-B41D-AFC6F60D74BF -- bad format.
+temporalCoverage ERROR: Dataset: 2A7890CC-3498-418D-8404-06A3960415EA -- bad format.
+temporalCoverage ERROR: Dataset: 5A7DACF6-0FBA-4D1C-855B-C0A14277B838 -- bad format.
+
+DAVID - Geographical coverage (missing)
+================================================================================
+================================================================================
+All "Geographical coverage" are missing, should be a list of country codes,
+e.g. 'ro, fr,it,ru'
+
 DAVID - Owner (missing)
 ================================================================================
 ================================================================================
-ERROR dataOwner: C3869970-59B9-46E1-9043-317B3BADB3F4
-ERROR dataOwner: DE92C513-F85C-4229-B036-06A8C4E63960
-ERROR dataOwner: A8685422-19F1-4FDA-BF16-AA19787073C2
+ERROR dataOwner: C3869970-59B9-46E1-9043-317B3BADB3F4 -- missing.
+ERROR dataOwner: DE92C513-F85C-4229-B036-06A8C4E63960 -- missing.
+ERROR dataOwner: A8685422-19F1-4FDA-BF16-AA19787073C2 -- missing.
 
 DAVID - Last upload (bad format)
 ================================================================================

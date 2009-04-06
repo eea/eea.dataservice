@@ -37,6 +37,34 @@
       />
 
   <page
+      name="formatTempCoverage"
+      class=".displays.FormatTempCoverage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountries"
+      class=".displays.GetCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountriesDisplay"
+      class=".displays.GetCountriesDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountryGroups"
+      class=".displays.GetCountryGroups"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getOrganisationSnippet"
       class=".displays.GetOrganisationSnippet"
       for="*"

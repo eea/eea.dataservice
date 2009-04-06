@@ -63,6 +63,22 @@
     <dt>UID:</dt>
     <dd tal:content="here/UID" />
 
+    <!-- Geographical coverage -->
+    <tal:block define="field python:here.getField('geographicCoverage');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
+
+        <tal:block define="view nocall:here/@@getCountriesDisplay">
+            <dd tal:content="python:view(list(value))" />
+        </tal:block>
+
+        <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
+                 content="structure map" />
+        <div id='map_canvas'></div>
+
+    </tal:block>
+
     <!-- EEA management plan code -->
     <tal:block define="field python:here.getField('eeaManagementPlan');
                        value python:field.getAccessor(here)()"
@@ -73,7 +89,6 @@
             <span>code:</span>&nbsp;<tal:block content="python:value[1]" />
         </dd>
     </tal:block>
-
 
     <!-- Publish date -->
     <tal:block define="value here/getEffectiveDate" condition="value">
@@ -160,11 +175,11 @@
     </tal:block>
 
     <!-- Temporal coverage -->
-    <tal:block define="field python:here.getField('temporal_coverage');
+    <tal:block define="field python:here.getField('temporalCoverage');
                        value python:field.getAccessor(here)()"
                condition="value">
-        <dt i18n:translate="dataset_temporal_coverage">Temporal coverage:</dt>
-        <dd tal:content="here/formatTempCoverage" />
+        <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
+        <dd tal:content="here/@@formatTempCoverage" />
     </tal:block>
 
     <!-- Contact person(s) for EEA -->
@@ -211,26 +226,6 @@
                tal:content="value/getUrl" />
         </dd>
     </tal:block>
-
-    <!-- Geographical coverage -->
-    <tal:block define="field python:here.getField('geographic_coverage');
-                       value python:field.getAccessor(here)()"
-               condition="value">
-        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
-        <tal:block define="country_data here/getCountryInfo">
-            <dd><span tal:repeat="country_code value" tal:content="python:country_data['countries'][country_code] + ', '">Geographical coverage</span></dd>
-        </tal:block>
-
-        <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                 content="structure map" />
-        <div id='map_canvas'></div>
-    </tal:block>
-
-
-
-
-
-
 
     </dl>
     </div>

@@ -48,6 +48,22 @@ validation.register(ManagementPlanCodeValidator('management_plan_code_validator'
 
 # Schema
 schema = Schema((
+    LinesField(
+        name='geographicCoverage',
+        languageIndependent=True,
+        multiValued=1,
+        vocabulary=NamedVocabulary(COUNTRIES_DICTIONARY_ID),
+        widget=MultiSelectionWidget(
+            macro="countries_widget",
+            size=8,
+            label="Geographical coverage",
+            description="Geographical coverage description.",
+            label_msgid='dataservice_label_geographic',
+            description_msgid='dataservice_help_geographic',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
     ManagementPlanField(
         name='eeaManagementPlan',
         required=True,
@@ -122,32 +138,16 @@ schema = Schema((
     ),
 
     LinesField(
-        name='temporal_coverage',
+        name='temporalCoverage',
         languageIndependent=True,
         multiValued=1,
         vocabulary=DatasetYearsVocabulary(),
         widget=MultiSelectionWidget(
-            macro="coverage_widget",
+            macro="temporal_widget",
             label="Temporal coverage",
             description="Temporal coverage description.",
             label_msgid='dataservice_label_coverage',
             description_msgid='dataservice_help_coverage',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
-    LinesField(
-        name='geographic_coverage',
-        languageIndependent=True,
-        multiValued=1,
-        vocabulary=NamedVocabulary(COUNTRIES_DICTIONARY_ID),
-        widget=MultiSelectionWidget(
-            macro="geographic_widget",
-            size=8,
-            label="Geographical coverage",
-            description="Geographical coverage description.",
-            label_msgid='dataservice_label_geographic',
-            description_msgid='dataservice_help_geographic',
             i18n_domain='eea.dataservice',
         )
     ),
@@ -330,6 +330,18 @@ class Data(ATFolder):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     security.declareProtected(permissions.View, 'getTablesByCategory')
     def getTablesByCategory(self):
         """ Return categories and related files
@@ -349,68 +361,5 @@ class Data(ATFolder):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = atvm[CATEGORIES_DICTIONARY_ID]
         return getattr(vocab, cat_code).Title()
-
-    security.declareProtected(permissions.View, 'getCountryInfo')
-    def getCountryInfo(self):
-        """ """
-        atvm = getToolByName(self, ATVOCABULARYTOOL)
-        vocab = atvm[COUNTRIES_DICTIONARY_ID]
-
-        res = {'groups': {}, 'countries': {}}
-        for ob in vocab.objectValues():
-            ob_key = ob.getId()
-            ob_value = ob.Title()
-
-            if len(ob.objectValues()) > 0:
-                res['groups'][ob_key] = ob_value
-            else:
-                res['countries'][ob_key] = ob_value
-        return res
-
-    security.declareProtected(permissions.View, 'getCountryGroups')
-    def getCountryGroups(self):
-        """ """
-        res = self.getCountryInfo()['groups']
-        return [(key, res[key]) for key in res.keys()]
-
-    security.declareProtected(permissions.View, 'getCountries')
-    def getCountries(self):
-        """ """
-        res = self.getCountryInfo()['countries']
-        return [(key, res[key]) for key in res.keys()]
-
-    security.declareProtected(permissions.View, 'formatTempCoverage')
-    def formatTempCoverage(self):
-        """ """
-        field = self.getField('temporal_coverage')
-        data = field.getAccessor(self)()
-        data = list(data)
-        data.reverse()
-        res_list = []
-        res = ''
-        cyear = None
-
-        for year in data:
-            if len(res_list) > 0:
-                if cyear is None:
-                    tmpyear = int(res_list[-1])
-                else:
-                    tmpyear = int(cyear)
-                tmpyear = tmpyear + 1
-                if int(year) == tmpyear:
-                    cyear = year
-                else:
-                    if cyear is None:
-                        res_list.append(str(year))
-                    else:
-                        res_list.append('-%s' % str(year))
-                        cyear = None
-            else:
-                res_list.append(str(year))
-        if cyear is not None:
-            res_list.append('-%s' % str(year))
-
-        res = ', '.join(res_list)
-        return res.replace(', -', '-')
 
 registerType(Data, PROJECTNAME)

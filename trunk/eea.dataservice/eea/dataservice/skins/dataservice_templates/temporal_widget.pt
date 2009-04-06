@@ -60,8 +60,8 @@
                     i18n:translate="" />
           </select>
           <p style="margin-left: 90px">
-            <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/formatTempCoverage" /><br />
-            <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/formatTempCoverage" />
+            <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" /><br />
+            <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/@@formatTempCoverage" />
           </p>
           <br clear="both" />
 
@@ -69,11 +69,11 @@
           jQuery(document).ready(function() { setCoverageInfo(); });
 
           function setCoverageInfo() {
-            jQuery("#temporal_coverage").click(function () { showCoverage() });
+            jQuery("#temporalCoverage").click(function () { showCoverage() });
           };
 
           function showCoverage() {
-            jQuery("#info_temporal_coverage").html(jQuery("#temporal_coverage").val().reverse().join(', '));
+            jQuery("#info_temporalCoverage").html(jQuery("#temporalCoverage").val().reverse().join(', '));
           };
           </script>
         </metal:fill>

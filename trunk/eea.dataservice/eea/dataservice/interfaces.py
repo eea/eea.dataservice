@@ -19,13 +19,6 @@ class IDataset(Interface):
         """ Return organisation name
         """
 
-
-    def formatTempCoverage(obj):
-        """ Return formated temporary coverage for display
-        """
-
-
-
 class IDatafile(Interface):
     """ Objects which have dataset file information.
     """
