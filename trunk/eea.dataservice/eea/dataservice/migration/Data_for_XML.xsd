@@ -90,6 +90,15 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
+										<xs:element name="quality_stamp" minOccurs="0">
+											<xs:complexType>
+												<xs:choice maxOccurs="unbounded">
+													<xs:element name="quality_name" type="xs:string"/>
+													<xs:element name="quality_description" type="xs:string"/>
+													<xs:element name="quality_value" type="xs:int"/>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="datasetgid" type="xs:string" use="required"/>
 								</xs:complexType>
