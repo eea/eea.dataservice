@@ -81,10 +81,10 @@
                       style="padding:1px 8px 1px 8px; float: left"
                       i18n:translate="" />
           </select>
-          <p>
+          <!-- p>
             <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" /><br />
             <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/@@formatTempCoverage" />
-          </p>
+          </p -->
           <br clear="all"/>
         </metal:fill>
       </metal:use>

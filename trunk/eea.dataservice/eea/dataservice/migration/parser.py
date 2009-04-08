@@ -17,6 +17,12 @@ import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
+def _get_data(data):
+    res = u''.join(data).strip()
+    #res = res.replace('<![CDATA[', '')
+    #res = res.replace(']]>', '')
+    return res
+
 def _get_random(size=0):
     chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789"
     res = ''
@@ -182,7 +188,7 @@ DATASET_METADATA_MAPPING = {
     'Originator':                 'originator',
     'Owner':                      'dataOwner',
     'Processor':                  'processor',
-    'Reference system':           'reference_system',
+    'Reference system':           'referenceSystem',
     'Relation':                   'relation',
     'Rights':                     'rights',
     'Scale of the data set':      'scale',
@@ -211,8 +217,8 @@ DATASET_METADATA_MAPPING = {
     #@param subject_existing_keywords:   Iterator;
     #@param temporalCoverage:            Iterator;
     #@param contact:                     String;
-    #@param geographicCoverage:         Iterator;
-    #@param reference_system:            String;
+    #@param geographicCoverage:          Iterator;
+    #@param referenceSystem:             String;
     #@param dataOwner:                   String;
     #@param processor:                   String;
     #@param last_upload                  String;
@@ -433,7 +439,7 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current.set('title', self.data, 1)
 
             if name == 'dataset_note':
-                desc = u''.join(self.data).strip()
+                desc = _get_data(self.data)
                 desc = _strip_html_tags(desc)
                 desc_split = desc.split('.')
                 more_info = ''
@@ -455,12 +461,11 @@ class dataservice_handler(ContentHandler):
 
             if self.metadata_context:
                 field_name = DATASET_METADATA_MAPPING[self.metadata_current]
-                data = u''.join(self.data).strip()
+                data = _get_data(self.data)
                 data = data.replace('&amp;#39;', "'")
                 if name == 'metadata_text':
                     #if field_name == 'methodology': pass
-
-                    #if field_name == 'reference_system': pass
+                    #if field_name == 'referenceSystem': pass
 
                     if field_name == 'lastUpload':
                         data = _check_last_upload(data, self.dataset_current.get('UID'))
@@ -534,7 +539,7 @@ class dataservice_handler(ContentHandler):
             if self.datafiles_context:
                 if name in DATAFILE_METADATA_MAPPING.keys():
                     field_name = DATAFILE_METADATA_MAPPING[name]
-                    data = u''.join(self.data).strip()
+                    data = _get_data(self.data)
                     data = data.replace('&amp;#39;', "'")
                     self.datafile_current.set(field_name, data)
             if name == 'tableview_subgid' and self.datafiles_context:
@@ -568,7 +573,7 @@ class dataservice_handler(ContentHandler):
             # Datatable metadata
             if self.datatable_context and not self.datasubtable_context:
                 if name == 'tableview_title':
-                    data = u''.join(self.data).strip()
+                    data = _get_data(self.data)
                     data = data.replace('&amp;#39;', "'")
                     self.datatable_current.set('title', data)
                 if name == 'tableviewgid':
@@ -582,7 +587,7 @@ class dataservice_handler(ContentHandler):
             if self.datasubtable_context:
                 if name in DATASUBTABLE_METADATA_MAPPING.keys():
                     field_name = DATASUBTABLE_METADATA_MAPPING[name]
-                    data = u''.join(self.data).strip()
+                    data = _get_data(self.data)
                     data = data.replace('&amp;#39;', "'")
                     if field_name == 'description':
                         data = _strip_html_tags(data)
@@ -603,7 +608,7 @@ class dataservice_handler(ContentHandler):
             if self.datarelation_context:
                 if name in DATARELATIONS_METADATA_MAPPING.keys():
                     field_name = DATARELATIONS_METADATA_MAPPING[name]
-                    data = u''.join(self.data).strip()
+                    data = _get_data(self.data)
                     data = data.replace('&amp;#39;', "'")
                     self.datarelation_current.set(field_name, data)
             if name == 'other_services_category':

@@ -77,4 +77,18 @@
       for="*"
       permission="zope2.View"
       />
+
+  <page
+      name="getReferenceSystemKupu"
+      class=".displays.GetReferenceSystemKupu"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getReferenceSystemTemplate"
+      class=".displays.GetReferenceSystemTemplate"
+      for="*"
+      permission="zope2.View"
+      />
 </configure>

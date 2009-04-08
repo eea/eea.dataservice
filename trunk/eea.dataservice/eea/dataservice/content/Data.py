@@ -216,12 +216,13 @@ schema = Schema((
     #),
 
     TextField(
-        name='reference_system',
+        name='referenceSystem',
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',
         widget=RichWidget(
+            macro="reference_system_widget",
             label="Reference system",
             description="Reference system description.",
             label_msgid="dataservice_label_system",

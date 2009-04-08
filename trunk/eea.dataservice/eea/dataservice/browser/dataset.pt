@@ -191,7 +191,7 @@
     </tal:block>
 
     <!-- Reference system -->
-    <tal:block define="field python:here.getField('reference_system');
+    <tal:block define="field python:here.getField('referenceSystem');
                        value python:field.getAccessor(here)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Reference system:</dt>
