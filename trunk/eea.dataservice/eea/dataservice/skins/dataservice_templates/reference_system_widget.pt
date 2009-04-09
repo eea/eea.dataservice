@@ -50,10 +50,10 @@ default.
             jQuery(document).ready(function() { setReferenceTemplatesInKupu(); });
 
             function setReferenceTemplatesInKupu() {
-              var kupu_bar = jQuery('#kupu-editor-referenceSystem #kupu-tb-buttons').html();
+              var kupu_bar = jQuery('#kupu-editor-referenceSystem .kupu-tb-buttons').html();
               jQuery.get('@@getReferenceSystemKupu', {},
                 function(data){
-                  jQuery('#kupu-editor-referenceSystem #kupu-tb-buttons').html(kupu_bar + data);
+                  jQuery('#kupu-editor-referenceSystem .kupu-tb-buttons').html(kupu_bar + data);
                   jQuery("select[name='reference-system-select']").change(function () { addReferenceSystemTemplate(this) });
                 });
             };

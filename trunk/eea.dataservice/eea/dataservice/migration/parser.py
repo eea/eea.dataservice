@@ -17,6 +17,20 @@ import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
+def _checkQualityData(data, dataset_id):
+    res = data
+    keys = data.keys()
+    if len(keys) != 5:
+        info('GIQ: not 5 keys %s !' % dataset_id)
+        res = None
+    multi = 0
+    for key in keys:
+        if len(data[key]) > 1: multi = 1
+    if multi:
+        info('GIQ: multi %s !' % dataset_id)
+        res = None
+    return res
+
 def _get_data(data):
     res = u''.join(data).strip()
     #res = res.replace('<![CDATA[', '')
@@ -318,6 +332,10 @@ class dataservice_handler(ContentHandler):
         self.datarelation_context = 0
         self.datarelation_current = None
 
+        self.quality = {}
+        self.quality_name = ''
+        self.quality_desc = ''
+
     # getters
     def get_datasets(self):
         return self.dataset_groups
@@ -425,6 +443,7 @@ class dataservice_handler(ContentHandler):
                 #    info('DEBUG ZERO: %s' % self.dataset_current.get('UID'))
                 self.debug_index = 0
                 self.dataset_current = None
+                self.quality = {}
 
             if name == 'dataset_shortID':
                 self.dataset_current.set('shortId', self.data, 1)
@@ -617,6 +636,41 @@ class dataservice_handler(ContentHandler):
                 self.datarelation_current = None
             if name == 'other_services':
                 self.datarelations_context = 0
+
+            # Geographic information quality
+            if name == 'quality_name':
+                self.quality_name = _get_data(self.data)
+                self.quality[self.quality_name] = self.quality.get(self.quality_name, []) #pairs of (value, description)
+            if name == 'quality_description':
+                self.quality_desc = _get_data(self.data)
+            if name == 'quality_value':
+                self.quality[self.quality_name].append((_get_data(self.data), self.quality_desc))
+            if name == 'quality_stamp':
+                data = _checkQualityData(self.quality, self.dataset_current.get('UID'))
+                if data:
+                    # add data to current dataset
+                    for key in self.quality.keys():
+                        if key == 'Completness':
+                            self.dataset_current.set('geoQualityComVal', data)
+                            self.dataset_current.set('geoQualityComDesc', data)
+                        if key == 'Logical consistency':
+                            self.dataset_current.set('geoQualityLogVal', data)
+                            self.dataset_current.set('geoQualityLogDesc', data)
+                        if key == 'Position accuracy':
+                            self.dataset_current.set('geoQualityPosVal', data)
+                            self.dataset_current.set('geoQualityPos', data)
+                        if key == 'Temporal accuracy':
+                            self.dataset_current.set('geoQualityTemVal', data)
+                            self.dataset_current.set('geoQualityTemDesc', data)
+                        if key == 'Thematic accuracy':
+                            self.dataset_current.set('geoQualityTheVal', data)
+                            self.dataset_current.set('geoQualityTheDesc', data)
+
+
+
+
+
+
 
             # XML ends
             if name == 'data':
