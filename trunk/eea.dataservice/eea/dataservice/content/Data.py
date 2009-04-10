@@ -52,7 +52,6 @@ validation.register(ManagementPlanCodeValidator('management_plan_code_validator'
 schema = Schema((
     GeoQualityField(
         name='geoQuality',
-        required=True,
         default=('-1', '-1', '-1', '-1', '-1'),
         vocabulary=NamedVocabulary("quality"),
         widget = GeoQualityWidget(

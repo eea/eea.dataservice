@@ -63,6 +63,16 @@
     <dt>UID:</dt>
     <dd tal:content="here/UID" />
 
+    <!-- Geographic information quality -->
+    <tal:block define="field python:here.getField('geoQuality');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
+        <dd>
+            <span tal:content="value" />
+        </dd>
+    </tal:block>
+
     <!-- Geographical coverage -->
     <tal:block define="field python:here.getField('geographicCoverage');
                        value python:field.getAccessor(here)()"

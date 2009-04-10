@@ -13,9 +13,9 @@ Under portal_setup:
 
 Run:
     - @@migrate_organisations
-    - @@migrate_dataservice
-    - @@migrate_tables_files
-    - @@migrate_datarelations
+    - @@migrate_datasets
+    - //@@migrate_tables_files
+    - //@@migrate_datarelations
 
 Plone customisations:
     - Put under portal_skins/custom/standard_error_message
