@@ -648,23 +648,22 @@ class dataservice_handler(ContentHandler):
             if name == 'quality_stamp':
                 data = _checkQualityData(self.quality, self.dataset_current.get('UID'))
                 if data:
-                    # add data to current dataset
                     for key in self.quality.keys():
                         if key == 'Completness':
-                            self.dataset_current.set('geoQualityComVal', data)
-                            self.dataset_current.set('geoQualityComDesc', data)
+                            self.dataset_current.set('geoQualityCom', data)
+                            #self.dataset_current.set('geoQualityComDesc', data)
                         if key == 'Logical consistency':
-                            self.dataset_current.set('geoQualityLogVal', data)
-                            self.dataset_current.set('geoQualityLogDesc', data)
+                            self.dataset_current.set('geoQualityLog', data)
+                            #self.dataset_current.set('geoQualityLogDesc', data)
                         if key == 'Position accuracy':
-                            self.dataset_current.set('geoQualityPosVal', data)
                             self.dataset_current.set('geoQualityPos', data)
+                            #self.dataset_current.set('geoQualityPosDesc', data)
                         if key == 'Temporal accuracy':
-                            self.dataset_current.set('geoQualityTemVal', data)
-                            self.dataset_current.set('geoQualityTemDesc', data)
+                            self.dataset_current.set('geoQualityTem', data)
+                            #self.dataset_current.set('geoQualityTemDesc', data)
                         if key == 'Thematic accuracy':
-                            self.dataset_current.set('geoQualityTheVal', data)
-                            self.dataset_current.set('geoQualityTheDesc', data)
+                            self.dataset_current.set('geoQualityThe', data)
+                            #self.dataset_current.set('geoQualityTheDesc', data)
 
 
 

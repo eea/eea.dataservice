@@ -29,6 +29,17 @@ class DatasetYearsVocabularyFactory(object):
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 
+# Geographic quality
+QUALITY_DICTIONARY_ID = 'quality'
+QUALITY_DICTIONARY = {}
+QUALITY_DICTIONARY[QUALITY_DICTIONARY_ID] = (
+    ('Not-defined', '-1'),
+    ('Undefined', '0'),
+    ('Poor', '1'),
+    ('Good', '2'),
+    ('Excellent', '3')
+)
+
 # Categories vocabulary
 CATEGORIES_DICTIONARY_ID = 'categories'
 CATEGORIES_DICTIONARY = {}

@@ -16,7 +16,9 @@ from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
 from eea.dataservice.vocabulary import OrganisationsVocabulary
@@ -48,6 +50,21 @@ validation.register(ManagementPlanCodeValidator('management_plan_code_validator'
 
 # Schema
 schema = Schema((
+    GeoQualityField(
+        name='geoQuality',
+        required=True,
+        default=('-1', '-1', '-1', '-1', '-1'),
+        vocabulary=NamedVocabulary("quality"),
+        widget = GeoQualityWidget(
+            format="select",
+            label="Geographic information quality",
+            description = ("Geographic information quality description."),
+            label_msgid='dataservice_label_geoQuality',
+            description_msgid='dataservice_help_geoQuality',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
     LinesField(
         name='geographicCoverage',
         languageIndependent=True,

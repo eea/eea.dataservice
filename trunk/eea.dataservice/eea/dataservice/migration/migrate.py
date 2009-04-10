@@ -109,12 +109,13 @@ class MigrateOrganisations(object):
     def add_organisation(self, context, datamodel):
         """ Add new organisation
         """
-        org_id = datamodel.getId()
+        #org_id = datamodel.getId()
+        org_id = _generateNewId(context, datamodel.get('title'), datamodel.get('UID'))
 
         # Add organisation if it doesn't exists
         if org_id not in context.objectIds():
             info('Adding organisation id: %s', org_id)
-            ds_id = context.invokeFactory('Organisation', id=org_id)
+            org_id = context.invokeFactory('Organisation', id=org_id)
 
         # Set properties
         org = getattr(context, org_id)
@@ -129,6 +130,7 @@ class MigrateOrganisations(object):
         form = datamodel()
         org.processForm(data=1, metadata=1, values=form)
         org.setTitle(datamodel.get('title', ''))
+        setattr(org, UUID_ATTR, datamodel.get('UID'))
 
         # Publish
         _publish(org)
