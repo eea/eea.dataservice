@@ -1,0 +1,10 @@
+.quality-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    float:left;
+    margin-right: 1em;
+}
+
+.quality-table td{
+    border: 1px solid black;
+}

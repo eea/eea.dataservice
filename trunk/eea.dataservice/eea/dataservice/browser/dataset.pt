@@ -66,10 +66,29 @@
     <!-- Geographic information quality -->
     <tal:block define="field python:here.getField('geoQuality');
                        value python:field.getAccessor(here)()"
-               condition="value">
+               condition="python:value == ('-1', '-1', '-1', '-1', '-1')">
         <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
         <dd>
-            <span tal:content="value" />
+            <span>Completeness:</span>
+            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+                                 qview python:quality_view(value=value[0]);"
+                         content="structure qview" />
+            <span>Logical consistency:</span>
+            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+                                 qview python:quality_view(value=value[1]);"
+                         content="structure qview" />
+            <span>Position accuracy:</span>
+            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+                                 qview python:quality_view(value=value[2]);"
+                         content="structure qview" />
+            <span>Temporal accuracy:</span>
+            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+                                 qview python:quality_view(value=value[3]);"
+                         content="structure qview" />
+            <span>Thematic accuracy:</span>
+            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+                                 qview python:quality_view(value=value[4]);"
+                         content="structure qview" />
         </dd>
     </tal:block>
 

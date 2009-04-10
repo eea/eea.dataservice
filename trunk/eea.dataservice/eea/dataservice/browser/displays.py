@@ -8,6 +8,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.PloneLanguageTool.availablelanguages import getCountries
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
 
 class DatasetContainerView(object):
     """ Default dataset view
@@ -227,6 +228,41 @@ class GetReferenceSystemTemplate(object):
 
     def __call__(self, tpl):
         return REFERENCE_SYSTEM_TEMPLATES[tpl]
+
+class GetQualityDisplay(object):
+    """ Return quality display
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, value):
+        label = ''
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        vocab = atvm[QUALITY_DICTIONARY_ID]
+        terms = vocab.getVocabularyDict()
+        for key in terms.keys():
+            if terms[key] == value:
+                label = key
+                break
+
+        template_style = [['cell1', 'white'], ['cell2', 'white'], ['cell3', 'white']]
+        for k in range(int(value)):
+            template_style[k][1] = 'LightGreen'
+        template_style = dict(template_style)
+        template_style['label'] = label
+        return QUALITY_TEMPLATE % template_style
+
+QUALITY_TEMPLATE = """
+<div>
+    <table class="quality-table"><tbody><tr>
+        <td style="background-color: %(cell1)s">&nbsp;&nbsp;</td>
+        <td style="background-color: %(cell2)s">&nbsp;&nbsp;</td>
+        <td style="background-color: %(cell3)s">&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <span>%(label)s</span>
+</div>
+"""
 
 ORGANISATION_SNIPPET = """
   <fieldset style="padding:0 1em 1em 1em; margin: 0 1em">

@@ -86,6 +86,13 @@
       />
 
   <page
+      name="getQualityDisplay"
+      class=".displays.GetQualityDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getReferenceSystemTemplate"
       class=".displays.GetReferenceSystemTemplate"
       for="*"
