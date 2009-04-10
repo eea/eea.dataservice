@@ -56,29 +56,6 @@
 
                 <tal:longVocab condition="python:(vlen >= 4 and format == 'flex') or (format in ('select', 'pulldown'))">
 
-<style>
-.quality-widget label {
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-.quality-widget select {
-  width: 120px;
-}
-
-.quality-widget table {
-  border: 1px solid black;
-  border-collapse: collapse;
-  float: left;
-  margin-right: 1em;
-  margin-top: 3px;
-}
-
-.quality-widget table td {
-  border: 1px solid black;
-  background-color: red;
-}
-</style>
 <div class="quality-widget">
 <tal:block define="value python:test(len(value)==5, value, ('-1','-1','-1','-1','-1'));
                    gq_com python:value[0];

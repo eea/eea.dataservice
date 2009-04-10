@@ -1,3 +1,4 @@
+// Quality view (index)
 .quality-table {
     border: 1px solid black;
     border-collapse: collapse;
@@ -7,4 +8,27 @@
 
 .quality-table td{
     border: 1px solid black;
+}
+
+// Quality widget (cms)
+.quality-widget label {
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+.quality-widget select {
+  width: 120px;
+}
+
+.quality-widget table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  float: left;
+  margin-right: 1em;
+  margin-top: 3px;
+}
+
+.quality-widget table td {
+  border: 1px solid black;
+  background-color: red;
 }

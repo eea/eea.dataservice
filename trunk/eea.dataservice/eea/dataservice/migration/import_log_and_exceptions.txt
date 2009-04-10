@@ -3,6 +3,7 @@ Cleanup, exception and missing exported data list
 ================================================================================
 
 DAVID - Geographic information quality (multiple values)
+ - can/shall we skip <quality_description> ?
 ================================================================================
 ================================================================================
 GIQ: multi 92DA47F4-E1E8-4414-8BB6-E767FBA32588

@@ -648,21 +648,21 @@ class dataservice_handler(ContentHandler):
             if name == 'quality_stamp':
                 data = _checkQualityData(self.quality, self.dataset_current.get('UID'))
                 if data:
-                    for key in self.quality.keys():
-                        if key == 'Completness':
-                            self.dataset_current.set('geoQualityCom', data)
+                    for key in data.keys():
+                        if key == 'Completeness':
+                            self.dataset_current.set('geoQualityCom', data[key][0][0])
                             #self.dataset_current.set('geoQualityComDesc', data)
                         if key == 'Logical consistency':
-                            self.dataset_current.set('geoQualityLog', data)
+                            self.dataset_current.set('geoQualityLog', data[key][0][0])
                             #self.dataset_current.set('geoQualityLogDesc', data)
                         if key == 'Position accuracy':
-                            self.dataset_current.set('geoQualityPos', data)
+                            self.dataset_current.set('geoQualityPos', data[key][0][0])
                             #self.dataset_current.set('geoQualityPosDesc', data)
                         if key == 'Temporal accuracy':
-                            self.dataset_current.set('geoQualityTem', data)
+                            self.dataset_current.set('geoQualityTem', data[key][0][0])
                             #self.dataset_current.set('geoQualityTemDesc', data)
                         if key == 'Thematic accuracy':
-                            self.dataset_current.set('geoQualityThe', data)
+                            self.dataset_current.set('geoQualityThe', data[key][0][0])
                             #self.dataset_current.set('geoQualityTheDesc', data)
 
 
