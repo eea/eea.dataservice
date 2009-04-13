@@ -307,6 +307,7 @@ class dataservice_handler(ContentHandler):
         self.dataset_groups = {}
         self.dataset_group_context = 0
         self.dataset_group_current = None
+
         self.dataset_context = 0
         self.dataset_current = None
         self.metadata_context = 0
@@ -470,8 +471,8 @@ class dataservice_handler(ContentHandler):
             ###if name == 'dataset_publish_level':
                 ###self.dataset_current.set('publish_level', self.data, 1)
 
-            ###if name == 'dataset_visible':
-                ###self.dataset_current.set('visible', self.data, 1)
+            if name == 'dataset_visible':
+                self.dataset_current.set('ExpirationDate', self.data, 1)
 
             # Dataset metadata
             if name == 'metadata_typelabel':
@@ -596,7 +597,12 @@ class dataservice_handler(ContentHandler):
                     data = data.replace('&amp;#39;', "'")
                     self.datatable_current.set('title', data)
                 if name == 'tableviewgid':
-                    self.datatables[self.datatable_current.get('id')] = self.datatable_current
+                    #self.datatables[self.datatable_current.get('id')] = self.datatable_current
+
+                    dt_tmp = self.datatables.get(self.dataset_current.get('UID'), {})
+                    dt_tmp[self.datatable_current.get('id')] = self.datatable_current
+                    self.datatables[self.dataset_current.get('UID')] = dt_tmp
+
                     self.datatable_current = None
                     self.datatable_context = 0
             if name == 'tableGroup':
@@ -665,12 +671,6 @@ class dataservice_handler(ContentHandler):
                             self.dataset_current.set('geoQualityThe', data[key][0][0])
                             #self.dataset_current.set('geoQualityTheDesc', data)
 
-
-
-
-
-
-
             # XML ends
             if name == 'data':
                 info('End parsing of datasets XML')
@@ -725,7 +725,7 @@ def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
     s = extract_basic(file_id)
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
-    return data.get_datasets()
+    return (data.get_datasets(), data.get_tables_files())
 
 def extract_tables_files(file_id='', info=0, ds_from=0, ds_to=10000):
     """ Return datatables from old dataservice exported XMLs

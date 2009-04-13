@@ -3,6 +3,7 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
+from DateTime import DateTime
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.config import UUID_ATTR
@@ -175,17 +176,23 @@ class MigrateDatasets(object):
 
         # Set properties
         ds = getattr(context, ds_id)
-        self.update_properties(ds, datamodel)
+        self.update_dataset(ds, datamodel)
         tagging = IThemeTagging(ds)
         tags = filter(None, datamodel.get('themes', ''))
         tagging.tags = tags
 
         return ds_id
 
-    def update_properties(self, ds, datamodel):
+    def update_dataset(self, ds, datamodel):
         """ Update dataset properties
         """
         ds.setExcludeFromNav(True)
+        ExpirationDate = datamodel.get('ExpirationDate')
+        if not int(ExpirationDate):
+            ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
+            ds.setExpirationDate(ExpirationDate)
+        datamodel.delete('ExpirationDate')
+
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
         ds.setTitle(datamodel.get('title', ''))
@@ -199,29 +206,84 @@ class MigrateDatasets(object):
         _reindex(ds)
         _reindex(ds.getParentNode())
 
+    def add_subobject(self, context, datamodel, otype):
+        """ Add new subobject
+        """
+        dt_id = datamodel.get('id')
+
+        # Add object if it doesn't exists
+        if dt_id not in context.objectIds():
+            info('Adding %s id: %s' % (otype, dt_id))
+            dt_id = context.invokeFactory(otype, id=dt_id)
+
+        # Set properties
+        dt = getattr(context, dt_id)
+        self.update_subobject(dt, datamodel)
+
+        return dt_id
+
+    def update_subobject(self, dt, datamodel):
+        """ Update subobject properties
+        """
+        dt.setExcludeFromNav(True)
+        form = datamodel()
+        dt.processForm(data=1, metadata=1, values=form)
+        dt.setTitle(datamodel.get('title', ''))
+
+        # Publish
+        #TODO: set proper state based on -1/0/1 from XML
+        _publish(dt)
+
+        # Reindex
+        _reindex(dt)
+        _reindex(dt.getParentNode())
+
     #
     # Browser interface
     #
     def __call__(self):
         container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        index = 0
+        ds_index = 0
+        dst_index = 0
+        dsf_index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        #ds_info = extract_data(self.xmlfile, 1)['groups_index']
-        ds_info = 40
+        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        ds_info = 5
         ds_range = 0
-        ds_step = 10
+        ds_step = 5
 
         while ds_range < ds_info:
             ds_range += ds_step
-            ds_data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
+            data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
+            ds_data = data[0]
+            ds_tables = data[1]
+            #add datasets
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
                     self.add_dataset(container, ds)
-                    index += 1
+                    ds_index += 1
 
-        msg = '%d datasets imported !' % index
+            #add tables
+            for table_id in ds_tables['tables'].keys():
+                table, files = ds_tables['tables'][table_id]
+
+                ctool = getToolByName(container, 'portal_catalog')
+                res = ctool.searchResults({'portal_type' : 'Data',
+                                           'UID' : table.get('dataset_id')})
+                ds_container = getattr(container, res[0].getId)
+
+                self.add_subobject(ds_container, table, 'DataTable')
+                dst_index += 1
+
+                #add files
+                for file_ob in files:
+                    container = getattr(ds_container, table.get('id', ''))
+                    self.add_subobject(container, file_ob, 'DataFile')
+                    dsf_index += 1
+
+        msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
 
