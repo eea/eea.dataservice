@@ -17,6 +17,20 @@ import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
+def _generate_table_def(data):
+    res = """<table>"""
+    for row in data:
+        res += """
+<tr>
+<td>%s</td>
+<td>%s</td>
+<td>%s</td>
+<td>%s</td>
+<td>%s</td>
+</tr>
+""" % (row.get('item', ''), row.get('def', ''), row.get('note', ''), row.get('item', 'type'), row.get('item', 'key'))
+    res += """</table>
+
 def _checkQualityData(data, dataset_id):
     res = data
     keys = data.keys()
@@ -337,6 +351,10 @@ class dataservice_handler(ContentHandler):
         self.quality_name = ''
         self.quality_desc = ''
 
+        self.table_definitions = {}
+        self.table_def_context = 0
+        self.table_row = {}
+
     # getters
     def get_datasets(self):
         return self.dataset_groups
@@ -412,6 +430,12 @@ class dataservice_handler(ContentHandler):
                 self.datasubtable_current = MigrationObject()
                 self.datasubtable_current.set('id', attrs['tableview_subgid'])
                 self.datasubtable_current.set('datatable_id', self.datatable_current.get('id'))
+
+            # Table definitions
+            if name == 'tableview_subgid' and self.table_def_context:
+                self.table_row['table_id'] = attrs['tableview_subgid']
+            if name == 'Table_metadata':
+                self.table_def_context = 1
 
             # Datarelations metadata
             if name == 'other_services':
@@ -670,6 +694,37 @@ class dataservice_handler(ContentHandler):
                         if key == 'Thematic accuracy':
                             self.dataset_current.set('geoQualityThe', data[key][0][0])
                             #self.dataset_current.set('geoQualityTheDesc', data)
+
+            # Table definitons
+            if name == 'Table_metadata':
+                for table_id in self.table_definitions.keys():
+                    if table_id not in self.data_table_file_structure['tables'].keys():
+                        info('ERROR table definition: %s' % table_id)
+                    else:
+                        table, files = self.data_table_file_structure['tables'][table_id]
+                        table.set('tableDefinition', _generate_table_def(self.table_definitions[table_id]))
+
+                self.table_definitions = {}
+                self.table_def_context = 0
+            if name != 'tableview_subgid' and self.table_def_context:
+                data = _get_data(self.data)
+                if name == 'tableviewsub_metadata_item':
+                    self.table_row['item'] = data
+                if name == 'tableviewsub_metadata_definition':
+                    self.table_row['def'] = data
+                if name == 'tableviewsub_metadata_note':
+                    self.table_row['note'] = data
+                if name == 'tableviewsub_metadata_datatype':
+                    self.table_row['type'] = data
+                if name == 'tableviewsub_metadata_primarykey':
+                    self.table_row['key'] = data
+            if name == 'tableview_subgid' and self.table_def_context:
+                row = (self.table_row.get('item', ''), self.table_row.get('def', ''),
+                       self.table_row.get('note', ''), self.table_row.get('type', ''),
+                       self.table_row.get('key', ''))
+                self.table_definitions[self.table_row['table_id']] = \
+                    self.table_definitions.get(self.table_row['table_id'], []).append(row)
+                self.table_row = {}
 
             # XML ends
             if name == 'data':

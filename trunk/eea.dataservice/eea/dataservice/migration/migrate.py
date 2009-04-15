@@ -274,6 +274,7 @@ class MigrateDatasets(object):
                                            'UID' : table.get('dataset_id')})
                 ds_container = getattr(container, res[0].getId)
 
+                table.delete('dataset_id')
                 self.add_subobject(ds_container, table, 'DataTable')
                 dst_index += 1
 

@@ -18,16 +18,6 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 schema = Schema((
     StringField(
-        name='records',
-        widget = StringWidget(
-            label="Records",
-            description = ("Records description."),
-            label_msgid='dataservice_label_records',
-            description_msgid='dataservice_help_records',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    StringField(
         name='category',
         default='edse',
         vocabulary=NamedVocabulary(CATEGORIES_DICTIONARY_ID),
@@ -41,14 +31,29 @@ schema = Schema((
         )
     ),
     StringField(
-        name='dataset_id',
+        name='records',
         widget = StringWidget(
-            label="Dataset ID",
-            description = ("Dataset ID description."),
-            label_msgid='dataservice_label_datasetid',
-            description_msgid='dataservice_help_datasetid',
+            label="Records",
+            description = ("Records description."),
+            label_msgid='dataservice_label_records',
+            description_msgid='dataservice_help_records',
             i18n_domain='eea.dataservice',
         )
+    ),
+    TextField(
+        name='tableDefinition',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        widget=RichWidget(
+            label="Table definition",
+            description="Table definition description.",
+            label_msgid="dataservice_label_table_definition",
+            description_msgid="dataservice_help_table_definition",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
     ),
     ),
 )
