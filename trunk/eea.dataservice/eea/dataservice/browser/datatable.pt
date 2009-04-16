@@ -34,7 +34,15 @@
         <dt i18n:translate="dataset_category">Records</dt>
         <dd tal:content="value" />
     </tal:block>
-    
+
+    <!-- Table definition -->
+    <tal:block define="field python:here.getField('tableDefinition');
+                       value python:field.getAccessor(here)()"
+              condition="value">
+        <dt i18n:translate="dataset_tableDefinition">Table definition</dt>
+        <dd tal:content="structure value" />
+    </tal:block>
+
     <fieldset><legend>Files</legend>
         <tal:block repeat="file python:here.objectValues('DataFile')">
             <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="python:here.getObjSize(size=file.filesize)" />)

@@ -209,7 +209,9 @@ class MigrateDatasets(object):
     def add_subobject(self, context, datamodel, otype):
         """ Add new subobject
         """
-        dt_id = datamodel.get('id')
+        #dt_id = datamodel.get('id')
+        dt_id = _generateNewId(context, datamodel.get('title'), datamodel.get('UID'))
+        datamodel.delete('id')
 
         # Add object if it doesn't exists
         if dt_id not in context.objectIds():
@@ -229,6 +231,7 @@ class MigrateDatasets(object):
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
         dt.setTitle(datamodel.get('title', ''))
+        setattr(dt, UUID_ATTR, datamodel.get('UID'))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -243,6 +246,7 @@ class MigrateDatasets(object):
     #
     def __call__(self):
         container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
+        ctool = getToolByName(container, 'portal_catalog')
         ds_index = 0
         dst_index = 0
         dsf_index = 0
@@ -250,9 +254,9 @@ class MigrateDatasets(object):
 
         #TODO: uncomment below, temporary commented
         #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        ds_info = 5
+        ds_info = 1
         ds_range = 0
-        ds_step = 5
+        ds_step = 1
 
         while ds_range < ds_info:
             ds_range += ds_step
@@ -262,14 +266,17 @@ class MigrateDatasets(object):
             #add datasets
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
+                    if ds.get('UID') == '2253D9FE-96A9-4191-9A51-46BB3B178BB7':
+                        pass #debug
                     self.add_dataset(container, ds)
                     ds_index += 1
 
             #add tables
             for table_id in ds_tables['tables'].keys():
                 table, files = ds_tables['tables'][table_id]
+                if table_id == '1417DD06-56CA-4079-8BC3-F85B915CD07E':
+                    pass #debug
 
-                ctool = getToolByName(container, 'portal_catalog')
                 res = ctool.searchResults({'portal_type' : 'Data',
                                            'UID' : table.get('dataset_id')})
                 ds_container = getattr(container, res[0].getId)
@@ -280,9 +287,14 @@ class MigrateDatasets(object):
 
                 #add files
                 for file_ob in files:
-                    container = getattr(ds_container, table.get('id', ''))
-                    self.add_subobject(container, file_ob, 'DataFile')
-                    dsf_index += 1
+                    res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               'UID' : table_id})
+                    if res:
+                        dt_container = getattr(ds_container, res[0].getId)
+                        self.add_subobject(dt_container, file_ob, 'DataFile')
+                        dsf_index += 1
+                    else:
+                        info('ERROR: cant find table container %s' % table_id)
 
         msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         info(msg)

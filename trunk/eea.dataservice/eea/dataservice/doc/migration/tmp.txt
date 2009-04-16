@@ -1,0 +1,121 @@
+General
+=========================
+??? zicea sasha ceva de folosit zope3 vocabulary
+??? de vazut cei cu back ref si fwd ref
+??? sunt doi indexi dientici ... id si getId. Nar trebui sa stergem unul?
+??? unele dataseturi nu au effectiveDate ... e ok? sau sa generez un log?
+!!! http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=612 (mega caz particular)
+!!! &amp;#38; (in dump XML)
+
+Datasets
+=========================
+(-) widgeturile din skins sa foloseasca macrourile deja existente in widgetul parinte
+(-) cleanup display.py (la final)
+(-) JS de pe widgets mi se pare ca se poate pune separat (de verificat)
+(-) de scris/documentat frumos interfetele la final
+(-) fix JS pt organisations_widget (multi)
+    - IDEEA: tooltip pe optiunile din select:
+            http://docs.jquery.com/Plugins/Tooltip
+            http://jquery.bassistance.de/tooltip/demo
+(-) partea de description care se duce in moreInfo are HTML striped si ar trebui so contina
+(-) rights: some carriage returns which makes ugly output
+(-) effectiveDate sa fie coordonat cu "public" state, tot ce e public sa aiba un effectiveDate
+(-) at full import whatch "lastUpload": 555F349A-8C74-4958-9BBD-8B57AD20D82B, AA49A531-0A0A-48A6-9A51-D0D9857F6EF2,
+                                        1FE966AE-8878-48DF-B636-431E16CF01E6, 35E7A716-C75F-4981-A0B4-8E2760B7C50F,
+                                        8FE31B09-5319-417E-BB6A-D4FA71AE02AB, 3631928A-32B1-426F-A85B-34757A424140
+                                        D2672BA8-15A1-44B1-AF03-48FCFA8CBD7E, 1A736CC8-2594-4E0C-B325-A6411AF2D012,
+(-) sa bag un details pentru grupurile de tari afisate pe index (pt. geo coverage widget)
+(-) sa sortez vocabularu de tari  (pt. geo coverage widget)
+(-) JS pentru auto-select tarile cand selectez un grup (pt. geo coverage widget)
+(-) o harta buna pentru index (pt. geo coverage widget)
+(-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
+(-) CSS/style pentru geo quality pe index
+
+
+- VERSIONARE ------------
+    * sa copiez si traducerile?
+    * cand creez versiune sa fac o copie a obiectului
+    * getLastVersion sa verifice si daca e published
+    * index in catalog
+    * portlet pentru versiuni
+-------------------------
+- versionare
+- relations (relations annotations, backward si forward)
+- index_html
+    - fix geo map
+    - nice html dispaly
+    - 2 templates internet/intranet
+- tables/files mapping
+    - table/files IDs plone generated
+    [x] cleanup import
+    [x] add table definitions (multi-defs 92DA47F4-E1E8-4414-8BB6-E767FBA32588, al 24lea dataset)
+- remaining (countries display/edit)
+- teste ffff simple
+-------------------------
+
+(-) cleanup datatable (e.g. dataset_id)
+(-) add table definition
+(-) versionarea
+
+(x) sa schimb parserul/adaugarea sa adaug pe cu ds-ul si table si files adiacente
+(x) dataset_visible
+
+
+[x] Geographic information quality
+[x] special field and widget
+[x] import data
+[x] special index display
+[x] reference system
+[x] exceptii: C9622ECA-1603-44C8-ACFD-373E2C23E033
+[x] de creat in kupu templeturile
+[NU] fix JS info pe edit la widgetul de Tempo coverage sa arate cu range
+[x] format tempo coverage (display.py) sa o scriu mai frumos
+[x] temporal coverage
+[x] geo coverage
+[x] update vocabulary to contain only country codes
+[x] new getters from LinguaPlone for country name
+[x] eea_mpcode -> leam redenumit si leam facut un widget+field special, afisare pe index, tre sa verific datele de import si gata
+[x] eea_mpyear
+[x] fieldul de EEA Management Plan Code nu valideaza daca cod-ul este integer
+[x] fieldu sa fie required
+[x] lastUpload
+[x] disclaimer (text)
+[x] contact (text)
+[x] geoAccuracy (text)
+[x] dataSource (html)
+[x] moreInfo (html)
+[x] methodology (html)
+[x] units (html)
+[x] effectiveDate
+[x] themes -> ! multi
+[x] rights
+[x] rights: exception list for Antonio
+[x] keywords -> map to Subject, sort keywords on index
+[x] sa fac redirectul pe baza UID si short_id
+[x] catalog index for shortId
+[x] description and moreInf done
+[x] moreinfo e vazut ca text de kupu la import
+[x] autogenereted ID and UID
+[x] dataOwner pot fi mai mult de unul (e.g. DD2BAE34-C533-4E70-8FEB-B153BFB7A3E9)
+[x] add 'getDataOwner' catalog index/metadata
+[x] fix organisation vocabulary
+
+Organisations
+=========================
+[-] sa generez IDul pe baza titlului si sa refac legaturile cu dataset-urile
+[-] subscriber to update all contents that use oraganisation widget (on organisation edit)
+
+[x] implement “””50 data set(s)””” on organisations index
+[x] fix location widget CSS for edit
+[x] cleanup organisation type
+[x] fix location import
+
+
+
+SKYPE:
+    - see antonio commit (diff) la documente
+
+    dataset_visible:
+    true = publish
+    false = ii setez ExpirationDate in trecut
+

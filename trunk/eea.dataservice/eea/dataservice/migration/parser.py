@@ -17,9 +17,11 @@ import logging
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
-def _generate_table_def(data):
+def _generate_table_def(data, table_id):
     res = """<table>"""
     for row in data:
+        if row == ('', '', '', '', ''):
+            info('ERROR: empty row! Table ID: %s' % table_id)
         res += """
 <tr>
 <td>%s</td>
@@ -28,8 +30,9 @@ def _generate_table_def(data):
 <td>%s</td>
 <td>%s</td>
 </tr>
-""" % (row.get('item', ''), row.get('def', ''), row.get('note', ''), row.get('item', 'type'), row.get('item', 'key'))
-    res += """</table>
+""" % (row[0], row[1], row[2], row[3], row[4])
+    res += """</table>"""
+    return res
 
 def _checkQualityData(data, dataset_id):
     res = data
@@ -299,6 +302,9 @@ class dataservice_info(ContentHandler):
     def get_datasets(self):
         return {'groups_index': self.groups_index}
 
+    def get_tables_files(self):
+        return None
+
     def startElement(self, name, attrs):
         # Dataset group info
         if name == 'relatedgid':
@@ -422,6 +428,7 @@ class dataservice_handler(ContentHandler):
                 self.datatable_current = MigrationObject()
                 self.datatable_context = 1
                 self.datatable_current.set('id', attrs['tableviewgid'])
+                self.datatable_current.set('UID', attrs['tableviewgid'])
                 self.datatable_current.set('dataset_id', self.dataset_current.get('UID'))
 
             # Datasubtable metadata
@@ -429,6 +436,7 @@ class dataservice_handler(ContentHandler):
                 self.datasubtable_context = 1
                 self.datasubtable_current = MigrationObject()
                 self.datasubtable_current.set('id', attrs['tableview_subgid'])
+                self.datasubtable_current.set('UID', attrs['tableview_subgid'])
                 self.datasubtable_current.set('datatable_id', self.datatable_current.get('id'))
 
             # Table definitions
@@ -593,6 +601,7 @@ class dataservice_handler(ContentHandler):
                     self.datafile_current.set('table_id', rand_id)
                     table_ob = MigrationObject()
                     table_ob.set('id', rand_id)
+                    table_ob.set('UID', rand_id)
                     table_title = self.datafile_current.get('title', '')
                     if not table_title: table_title = self.datafile_current.get('data_filename', '')
                     if not table_title: info('ERROR: no table title %s' % self.datafile_current.get('id'))
@@ -624,7 +633,7 @@ class dataservice_handler(ContentHandler):
                     #self.datatables[self.datatable_current.get('id')] = self.datatable_current
 
                     dt_tmp = self.datatables.get(self.dataset_current.get('UID'), {})
-                    dt_tmp[self.datatable_current.get('id')] = self.datatable_current
+                    dt_tmp[self.datatable_current.get('UID')] = self.datatable_current
                     self.datatables[self.dataset_current.get('UID')] = dt_tmp
 
                     self.datatable_current = None
@@ -645,11 +654,11 @@ class dataservice_handler(ContentHandler):
                     # set table parent metadata
                     self.datasubtable_current.set('category', 'edse')
                     self.datasubtable_current.set('dataset_id', self.datatable_current.get('dataset_id'))
-                    if self.datasubtable_current.get('id') in self.data_table_file_structure['tables'].keys():
-                        info('ERROR: duplicate table IDs %s' % self.datasubtable_current.get('id'))
-                    self.data_table_file_structure['tables'][self.datasubtable_current.get('id')] = (self.datasubtable_current, [])
+                    if self.datasubtable_current.get('UID') in self.data_table_file_structure['tables'].keys():
+                        info('ERROR: duplicate table IDs %s' % self.datasubtable_current.get('UID'))
+                    self.data_table_file_structure['tables'][self.datasubtable_current.get('UID')] = (self.datasubtable_current, [])
 
-                    self.datasubtables[self.datasubtable_current.get('id')] = self.datasubtable_current
+                    self.datasubtables[self.datasubtable_current.get('UID')] = self.datasubtable_current
                     self.datasubtable_current = None
                     self.datasubtable_context = 0
 
@@ -702,7 +711,8 @@ class dataservice_handler(ContentHandler):
                         info('ERROR table definition: %s' % table_id)
                     else:
                         table, files = self.data_table_file_structure['tables'][table_id]
-                        table.set('tableDefinition', _generate_table_def(self.table_definitions[table_id]))
+                        table.set('tableDefinition', _generate_table_def(self.table_definitions[table_id], table_id))
+                        self.data_table_file_structure['tables'][table_id] = (table, files)
 
                 self.table_definitions = {}
                 self.table_def_context = 0
@@ -722,8 +732,9 @@ class dataservice_handler(ContentHandler):
                 row = (self.table_row.get('item', ''), self.table_row.get('def', ''),
                        self.table_row.get('note', ''), self.table_row.get('type', ''),
                        self.table_row.get('key', ''))
-                self.table_definitions[self.table_row['table_id']] = \
-                    self.table_definitions.get(self.table_row['table_id'], []).append(row)
+                td_data = self.table_definitions.get(self.table_row['table_id'], [])
+                td_data.append(row)
+                self.table_definitions[self.table_row['table_id']] = td_data
                 self.table_row = {}
 
             # XML ends
