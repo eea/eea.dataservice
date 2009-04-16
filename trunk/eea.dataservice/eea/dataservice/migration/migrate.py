@@ -266,16 +266,12 @@ class MigrateDatasets(object):
             #add datasets
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
-                    if ds.get('UID') == '2253D9FE-96A9-4191-9A51-46BB3B178BB7':
-                        pass #debug
                     self.add_dataset(container, ds)
                     ds_index += 1
 
             #add tables
             for table_id in ds_tables['tables'].keys():
                 table, files = ds_tables['tables'][table_id]
-                if table_id == '1417DD06-56CA-4079-8BC3-F85B915CD07E':
-                    pass #debug
 
                 res = ctool.searchResults({'portal_type' : 'Data',
                                            'UID' : table.get('dataset_id')})
