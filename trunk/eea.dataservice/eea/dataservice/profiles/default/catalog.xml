@@ -6,6 +6,10 @@
  <index name="getShortId" meta_type="FieldIndex">
   <indexed_attr value="getShortId"/>
  </index>
+ <index name="getVersionId" meta_type="FieldIndex">
+  <indexed_attr value="getVersionId"/>
+ </index>
  <column value="getDataOwner"/>
  <column value="getShortId"/>
+ <column value="getVersionId"/>
 </object>

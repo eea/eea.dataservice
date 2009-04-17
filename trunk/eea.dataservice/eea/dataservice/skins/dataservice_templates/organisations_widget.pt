@@ -61,6 +61,7 @@
           <p />
 
           <script language="JavaScript">
+          /*
           jQuery(document).ready(function() { setOrganisationInfo(); });
 
           function setOrganisationInfo() {
@@ -84,6 +85,7 @@
           function clearSnippet(selector_id) {
             jQuery('#'+ selector_id).next().html('');
           }
+          */
           </script>
         </metal:fill>
       </metal:use>

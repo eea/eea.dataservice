@@ -6,6 +6,7 @@ General
 ??? unele dataseturi nu au effectiveDate ... e ok? sau sa generez un log?
 !!! http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=612 (mega caz particular)
 !!! &amp;#38; (in dump XML)
+!!! la a doua rulare a scriptului de import DataTable care au avut UID generate de script se re-creeaza
 
 Datasets
 =========================
@@ -53,9 +54,14 @@ Datasets
 - teste ffff simple
 -------------------------
 
-(-) cleanup datatable (e.g. dataset_id)
-(-) add table definition
+(x) cleanup datatable (e.g. dataset_id)
+(x) add table definition
 (-) versionarea
+    (x) create version
+    (x) basic version portlet
+    (x) revoke version
+    (-) import versions
+    (-) redirect pe baza group UID -> sal setez ca versionID
 
 (x) sa schimb parserul/adaugarea sa adaug pe cu ds-ul si table si files adiacente
 (x) dataset_visible

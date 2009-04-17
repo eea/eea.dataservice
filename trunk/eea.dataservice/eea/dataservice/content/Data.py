@@ -341,7 +341,7 @@ class Data(ATFolder):
         res = None
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
-                                 'getUrl': url})
+                                    'getUrl': url})
         if brains: res = brains[0]
         return res
 

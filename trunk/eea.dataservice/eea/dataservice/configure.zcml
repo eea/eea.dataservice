@@ -4,10 +4,11 @@
     i18n_domain="eea.reports">
 
     <five:registerPackage package="." initialize=".initialize" />
-    
+
     <include package=".browser" />
     <include package=".migration" />
     <include package=".content" />
+    <include package=".versions" />
     <include file="profiles.zcml" />
 
 </configure>

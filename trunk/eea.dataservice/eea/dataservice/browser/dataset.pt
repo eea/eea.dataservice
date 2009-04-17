@@ -26,7 +26,7 @@
     </div>
 
     <!-- Versions -->
-    <metal:themes use-macro="here/portlet_dataservice_versions/macros/portlet" />
+    <metal:themes use-macro="here/portlet_versions/macros/portlet" />
 
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
