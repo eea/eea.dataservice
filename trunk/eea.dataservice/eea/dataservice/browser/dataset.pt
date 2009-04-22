@@ -8,6 +8,11 @@
 <div metal:fill-slot="main">
     <style>
         dd {margin-left: 3em}
+
+        #map_canvas {
+            float: left;
+            margin-right: 10px;
+            margin-top: 3px; }
     </style>
 
     <!-- BASIC PROPERTIES -->
@@ -62,6 +67,23 @@
     <!-- UID (debug) -->
     <dt>UID:</dt>
     <dd tal:content="here/UID" />
+
+    <!-- Geographical coverage -->
+    <tal:block define="field python:here.getField('geographicCoverage');
+                       value python:field.getAccessor(here)()"
+               condition="value">
+        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
+
+        <dd>
+            <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
+                     content="structure map" />
+            <div id='map_canvas'></div>
+            <tal:block define="view nocall:here/@@getCountriesDisplay">
+                <div tal:content="python:view(list(value))" />
+            </tal:block>
+            <div class="visualClear">&nbsp;</div>
+        </dd>
+    </tal:block>
 
     <!-- Geographic information quality -->
     <tal:block define="field python:here.getField('geoQuality');
@@ -240,24 +262,9 @@
         </dd>
     </tal:block>
 
-    <!-- Geographical coverage -->
-    <tal:block define="field python:here.getField('geographicCoverage');
-                       value python:field.getAccessor(here)()"
-               condition="value">
-        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
-
-        <tal:block define="view nocall:here/@@getCountriesDisplay">
-            <dd tal:content="python:view(list(value))" />
-        </tal:block>
-
-        <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                 content="structure map" />
-        <div id='map_canvas'></div>
-    </tal:block>
-
     </dl>
     </div>
-    <br clear="all" />
+    <div class="visualClear">&nbsp;</div>
 </div>
 
 </body>

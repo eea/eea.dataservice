@@ -1,3 +1,15 @@
+Antonio
+=========================
+(?) in general nu au effectiveDate setat il setez 01/01/2000 (aka dataset_publish_date)
+    - asta afecteaza versiunile care functioneaza pe baza effectiveDate
+(?) versionarea functioneaza pe baza versionId si effectiveDate
+(?) e ok versionarea de mai sus?
+    - sa adaug un listing cu versiunile pt CMS?
+    - daca ramane ca versionarea sa mearga pe effectiveDate si unele dataseturi
+      nu au effectiveDate setez automat + o luna, unele versiuni au acelasi
+      effectiveDate => le modific cu minus o luna pe alea cu veriune mai mica
+(david) sami explice cum baga grupurile in export
+
 General
 =========================
 ??? zicea sasha ceva de folosit zope3 vocabulary
@@ -31,6 +43,7 @@ Datasets
 (-) o harta buna pentru index (pt. geo coverage widget)
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
 (-) CSS/style pentru geo quality pe index
+(-) e ceva cu "UK" la countries (vezi primul dataset)
 
 
 - VERSIONARE ------------

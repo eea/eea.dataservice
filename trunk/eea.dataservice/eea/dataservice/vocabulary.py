@@ -33,7 +33,7 @@ DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 QUALITY_DICTIONARY_ID = 'quality'
 QUALITY_DICTIONARY = {}
 QUALITY_DICTIONARY[QUALITY_DICTIONARY_ID] = (
-    ('Not-defined', '-1'),
+    ('Hidden', '-1'),
     ('Undefined', '0'),
     ('Poor', '1'),
     ('Good', '2'),

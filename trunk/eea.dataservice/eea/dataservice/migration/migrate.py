@@ -187,11 +187,17 @@ class MigrateDatasets(object):
         """ Update dataset properties
         """
         ds.setExcludeFromNav(True)
+        # Set ExpirationDate
         ExpirationDate = datamodel.get('ExpirationDate')
         if not int(ExpirationDate):
             ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
             ds.setExpirationDate(ExpirationDate)
         datamodel.delete('ExpirationDate')
+        # Set EffectiveDate
+        # TODO: tmp version cleanup
+        datamodel.delete('version_number')
+        if not 'effectiveDate' in datamodel.keys():
+            datamodel.set('effectiveDate', DateTime('01.01.2000'))
 
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
@@ -253,10 +259,10 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        ds_info = 1
+        ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        #ds_info = 1
         ds_range = 0
-        ds_step = 1
+        ds_step = 10
 
         while ds_range < ds_info:
             ds_range += ds_step
@@ -266,31 +272,31 @@ class MigrateDatasets(object):
             #add datasets
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
-                    self.add_dataset(container, ds)
+                    #self.add_dataset(container, ds)
                     ds_index += 1
 
-            #add tables
-            for table_id in ds_tables['tables'].keys():
-                table, files = ds_tables['tables'][table_id]
+            ##add tables
+            #for table_id in ds_tables['tables'].keys():
+                #table, files = ds_tables['tables'][table_id]
 
-                res = ctool.searchResults({'portal_type' : 'Data',
-                                           'UID' : table.get('dataset_id')})
-                ds_container = getattr(container, res[0].getId)
+                #res = ctool.searchResults({'portal_type' : 'Data',
+                                           #'UID' : table.get('dataset_id')})
+                #ds_container = getattr(container, res[0].getId)
 
-                table.delete('dataset_id')
-                self.add_subobject(ds_container, table, 'DataTable')
-                dst_index += 1
+                #table.delete('dataset_id')
+                #self.add_subobject(ds_container, table, 'DataTable')
+                #dst_index += 1
 
-                #add files
-                for file_ob in files:
-                    res = ctool.searchResults({'portal_type' : 'DataTable',
-                                               'UID' : table_id})
-                    if res:
-                        dt_container = getattr(ds_container, res[0].getId)
-                        self.add_subobject(dt_container, file_ob, 'DataFile')
-                        dsf_index += 1
-                    else:
-                        info('ERROR: cant find table container %s' % table_id)
+                ##add files
+                #for file_ob in files:
+                    #res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               #'UID' : table_id})
+                    #if res:
+                        #dt_container = getattr(ds_container, res[0].getId)
+                        #self.add_subobject(dt_container, file_ob, 'DataFile')
+                        #dsf_index += 1
+                    #else:
+                        #info('ERROR: cant find table container %s' % table_id)
 
         msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         info(msg)

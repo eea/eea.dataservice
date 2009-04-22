@@ -12,14 +12,14 @@
   <browser:page
       for="*"
       name="getVersions"
-      permission="cmf.ModifyPortalContent"
+      permission="zope2.View"
       class=".versions.GetVersions"
       />
 
   <browser:page
       for="*"
       name="hasVersions"
-      permission="cmf.ModifyPortalContent"
+      permission="zope2.View"
       class=".versions.HasVersions"
       />
 

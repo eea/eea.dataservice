@@ -34,6 +34,23 @@ def _generate_table_def(data, table_id):
     res += """</table>"""
     return res
 
+def _get_countries(data, dataset_id):
+    res = []
+    err = 0
+    exceptions = ['EU15', 'EU25']
+    for k in data.split(','):
+        k = k.strip()
+        if len(k) == 2:
+            res.append(k.lower())
+        else:
+            if k in exceptions:
+                continue
+            err = 1
+            res = []
+            info('COUNTRIES: bad format %s !' % dataset_id)
+            break
+    return res
+
 def _checkQualityData(data, dataset_id):
     res = data
     keys = data.keys()
@@ -484,8 +501,8 @@ class dataservice_handler(ContentHandler):
             if name == 'dataset_publish_date':
                 self.dataset_current.set('effectiveDate', self.data, 1)
 
-            ###if name == 'dataset_version':
-                ###self.dataset_current.set('version_number', self.data, 1)
+            if name == 'dataset_version':
+                self.dataset_current.set('version_number', self.data, 1)
 
             if name == 'dataset_title':
                 self.dataset_current.set('title', self.data, 1)
@@ -556,7 +573,7 @@ class dataservice_handler(ContentHandler):
                         if data:
                             data = _filter_scale(data, self.dataset_current.get('UID'))
                     if field_name == 'geographicCoverage':
-                        data = ['ro', 'it', 'ru']
+                        data = _get_countries(data, self.dataset_current.get('UID'))
                     if field_name == 'subject_existing_keywords':
                         self.data_keywords.extend(data.split(','))
                     if field_name == 'contact':

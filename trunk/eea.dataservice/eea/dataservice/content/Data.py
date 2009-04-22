@@ -50,20 +50,6 @@ validation.register(ManagementPlanCodeValidator('management_plan_code_validator'
 
 # Schema
 schema = Schema((
-    GeoQualityField(
-        name='geoQuality',
-        default=('-1', '-1', '-1', '-1', '-1'),
-        vocabulary=NamedVocabulary("quality"),
-        widget = GeoQualityWidget(
-            format="select",
-            label="Geographic information quality",
-            description = ("Geographic information quality description."),
-            label_msgid='dataservice_label_geoQuality',
-            description_msgid='dataservice_help_geoQuality',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
     LinesField(
         name='geographicCoverage',
         languageIndependent=True,
@@ -76,6 +62,20 @@ schema = Schema((
             description="Geographical coverage description.",
             label_msgid='dataservice_label_geographic',
             description_msgid='dataservice_help_geographic',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    GeoQualityField(
+        name='geoQuality',
+        default=('-1', '-1', '-1', '-1', '-1'),
+        vocabulary=NamedVocabulary("quality"),
+        widget = GeoQualityWidget(
+            format="select",
+            label="Geographic information quality",
+            description = ("Geographic information quality description."),
+            label_msgid='dataservice_label_geoQuality',
+            description_msgid='dataservice_help_geoQuality',
             i18n_domain='eea.dataservice',
         )
     ),

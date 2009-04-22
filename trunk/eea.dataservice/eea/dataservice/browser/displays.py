@@ -87,6 +87,25 @@ class GetCountries(object):
         res = _getCountryInfo(self.context)['countries']
         return [(key, res[key]) for key in res.keys()]
 
+class GetCountriesByGroup(object):
+    """ """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, group_id=''):
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        vocab = atvm[COUNTRIES_DICTIONARY_ID]
+
+        res = []
+        terms = vocab.getVocabularyDict()
+        for key in terms.keys():
+            if terms[key][0] == group_id:
+                for c_key in terms[key][1].keys():
+                    res.append(terms[key][1][c_key][0])
+                break
+        return res
+
 class GetCountriesDisplay(object):
     """ """
     def __init__(self, context, request):
@@ -205,7 +224,7 @@ class GeographicalCoverageMap(object):
             for country_code in cc:
                 tmp = """
       data.setValue(%(cindex)s, 0, '%(cc)s');
-      data.setValue(%(cindex)s, 1, 1);""" % {'cc': country_code, 'cindex': cc.index(country_code)}
+      data.setValue(%(cindex)s, 1, 1);""" % {'cc': country_code.upper(), 'cindex': cc.index(country_code)}
                 country_data += tmp
         return GEO_COVERAGE_MAP % (country_count, country_data)
 
@@ -280,25 +299,21 @@ ORGANISATION_SNIPPET = """
 """
 
 GEO_COVERAGE_MAP = """
-    <script type='text/javascript' src='http://www.google.com/jsapi'></script>
-    <script type='text/javascript'>
-     google.load('visualization', '1', {'packages': ['geomap']});
-     google.setOnLoadCallback(drawMap);
-
-     function drawMap() {
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["intensitymap"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
         var data = new google.visualization.DataTable();
+        data.addColumn('string', '', 'Country');
+        data.addColumn('number', 'Coverage', 'a');
         data.addRows(%s);
-        data.addColumn('string', 'Country');
-        data.addColumn('number', 'Dataset coverage');
 %s
-
-        var options = {};
-        options['dataMode'] = 'regions';
-
-        var container = document.getElementById('map_canvas');
-        var geomap = new google.visualization.GeoMap(container);
-        geomap.draw(data, options);
-    };
+        chart = new google.visualization.IntensityMap(document.getElementById('map_canvas'));
+        chart.draw(data, {region:'europe',colors:['green']});
+        jQuery('.google-visualization-intensitymap-legend').css("display","none");
+        jQuery('.google-visualization-intensitymap-map').css("height","220px");
+      }
     </script>
 """
 

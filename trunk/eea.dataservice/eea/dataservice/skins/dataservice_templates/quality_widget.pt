@@ -73,7 +73,7 @@
                             id string:${fieldName}Com;
                             tabindex tabindex/next;">
         <tal:block repeat="item vocab">
-        <option tal:define="lbl python:item.replace('-', ' ');
+        <option tal:define="lbl item;
                             val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_com) and 'selected' or None"
@@ -94,7 +94,7 @@
                             id string:${fieldName}Log;
                             tabindex tabindex/next;">
         <tal:block repeat="item vocab">
-        <option tal:define="lbl python:item.replace('-', ' ');
+        <option tal:define="lbl item;
                             val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_log) and 'selected' or None"
@@ -115,7 +115,7 @@
                             id string:${fieldName}Pos;
                             tabindex tabindex/next;">
         <tal:block repeat="item vocab">
-        <option tal:define="lbl python:item.replace('-', ' ');
+        <option tal:define="lbl item;
                             val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_pos) and 'selected' or None"
@@ -136,7 +136,7 @@
                             id string:${fieldName}Tem;
                             tabindex tabindex/next;">
         <tal:block repeat="item vocab">
-        <option tal:define="lbl python:item.replace('-', ' ');
+        <option tal:define="lbl item;
                             val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_tem) and 'selected' or None"
@@ -157,7 +157,7 @@
                             id string:${fieldName}The;
                             tabindex tabindex/next;">
         <tal:block repeat="item vocab">
-        <option tal:define="lbl python:item.replace('-', ' ');
+        <option tal:define="lbl item;
                             val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_the) and 'selected' or None"
