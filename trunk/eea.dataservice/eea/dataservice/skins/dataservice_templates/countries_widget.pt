@@ -97,7 +97,7 @@
           <script language="JavaScript">
             jQuery(document).ready(function() {
               setMapBtn();
-              setCountrySync();
+              setWidgetSync();
             });
 
             // Show/Hide map preview
@@ -117,42 +117,70 @@
             };
 
             // Synchronize groups and countries
-            function setCountrySync() {
+            function setWidgetSync() {
               jQuery('#geographicCoverage').change(function () { syncCountries() });
-              jQuery('#geographicCoverage_groups').change(function () { syncCountries() });
+              jQuery('#geographicCoverage_groups').change(function () { syncGroups() });
+              jQuery.getJSON('@@getCountryGroupsData', {}, function(data){
+                oldGroups = [];
+                groupsData = data;
+                syncCountries();
+                oldGroups = jQuery('#geographicCoverage_groups').val();
+                oldGroups = oldGroups ? oldGroups: [];
+              })
             }
 
-            function syncCountries() {
-              var sel_countries = {};
-              var res_countries = [];
+            function syncGroups() {
+              var res = [];
+              var index = -1;
+              var selectedCountries = jQuery('#geographicCoverage').val();
+              selectedCountries = selectedCountries ? selectedCountries: [];
+              var currentGroups = jQuery('#geographicCoverage_groups').val();
+              currentGroups = currentGroups ? currentGroups: [];
 
-              // Get unique country codes
-              jQuery.each(jQuery('#geographicCoverage_groups').val(), function() {
-                jQuery.get('@@getCountriesByGroup', {group_id:this},
-                  function(data){
-                    //TODO: fix me, data is a string not a list
-                    jQuery.each(data, function() {
-                      sel_countries[this] = this;
-                    })
+              jQuery.each(oldGroups, function(i, val) {
+                if (jQuery.inArray(val, currentGroups) == -1) {
+                  jQuery.each(groupsData[val], function(j, value) {
+                    index = jQuery.inArray(value, selectedCountries);
+                    selectedCountries.splice(index,1);
+                  })
+                }
+              })
+
+              jQuery.each(currentGroups, function(i, val) {
+                jQuery.each(groupsData[val], function(j, value) {
+                  selectedCountries.push(value);
                 })
               })
 
-              jQuery.each(jQuery('#geographicCoverage').val(), function() {
-                sel_countries[this] = this;
-              })
+              jQuery('#geographicCoverage').val(selectedCountries);
+              syncCountries();
+              oldGroups = jQuery('#geographicCoverage_groups').val();
+              oldGroups = oldGroups ? oldGroups: [];
+            }
 
-              for (cc in sel_countries) {
-                res_countries[res_countries.length] = cc;
+            function syncCountries() {
+              var detect = false;
+              var res = [];
+              var selectedCountries = jQuery('#geographicCoverage').val();
+              selectedCountries = selectedCountries ? selectedCountries: [];
+
+              for (group_id in groupsData) {
+                detect = false;
+                jQuery.each(groupsData[group_id], function(i, val) {
+                  if (jQuery.inArray(val, selectedCountries) != -1) {
+                    detect = true;
+                  }
+                  else {
+                    detect = false;
+                    return false;
+                  }
+                })
+                if (detect == true) { res.push(group_id) }
               }
 
-              // Sync countries
-              jQuery('#geographicCoverage').val(res_countries);
-
-              // Sync country groups
-              //TODO: fix me
-
-              // Update map
-              //TODO: fix me
+              jQuery('#geographicCoverage_groups').val(res);
+              oldGroups = jQuery('#geographicCoverage_groups').val();
+              oldGroups = oldGroups ? oldGroups: [];
             }
           </script>
 

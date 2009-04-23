@@ -72,6 +72,13 @@
       />
 
   <page
+      name="getCountryGroupsData"
+      class=".displays.GetCountryGroupsData"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getOrganisationSnippet"
       class=".displays.GetOrganisationSnippet"
       for="*"

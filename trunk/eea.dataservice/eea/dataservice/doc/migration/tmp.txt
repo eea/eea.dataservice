@@ -12,7 +12,7 @@ Antonio
 
 General
 =========================
-??? zicea sasha ceva de folosit zope3 vocabulary
+??? vocabulare r13411
 ??? de vazut cei cu back ref si fwd ref
 ??? sunt doi indexi dientici ... id si getId. Nar trebui sa stergem unul?
 ??? unele dataseturi nu au effectiveDate ... e ok? sau sa generez un log?

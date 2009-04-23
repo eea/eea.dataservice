@@ -87,6 +87,25 @@ class GetCountries(object):
         res = _getCountryInfo(self.context)['countries']
         return [(key, res[key]) for key in res.keys()]
 
+class GetCountryGroupsData(object):
+    """ """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, group_id=''):
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        vocab = atvm[COUNTRIES_DICTIONARY_ID]
+
+        res = {}
+        terms = vocab.getVocabularyDict()
+        for key in terms.keys():
+            if terms[key][1].keys():
+                res[terms[key][0]] = []
+                for c_key in terms[key][1].keys():
+                    res[terms[key][0]].append(terms[key][1][c_key][0])
+        return res
+
 class GetCountriesByGroup(object):
     """ """
     def __init__(self, context, request):
