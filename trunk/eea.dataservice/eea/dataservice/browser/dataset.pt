@@ -45,7 +45,21 @@
             <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
             <ul>
                 <li tal:repeat="file python:table.objectValues('DataFile')">
-                  <a tal:attributes="href file/download_link" tal:content="python:file.data_filename.split('/')[-1]" />&nbsp;(<span tal:content="python:here.getObjSize(size=file.filesize)" />)
+                    <tal:block define="field python:file.getField('file');
+                                       accessor python:field.getAccessor(file)();
+                                       icon accessor/getBestIcon | nothing;
+                                       filename accessor/filename | nothing;
+                                       size accessor/get_size | python:accessor and len(accessor) or 0;">
+
+                        <a href="" tal:attributes="href string:${file/absolute_url}/at_download/file">
+                            <img tal:condition="icon" src=""
+                                 tal:attributes="src string:${here/portal_url}/$icon"/>
+                            <span tal:content="filename" />
+                        </a>
+                        (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
+                        <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
+                        <br />
+                    </tal:block>
                 </li>
             </ul>
         </tal:block>

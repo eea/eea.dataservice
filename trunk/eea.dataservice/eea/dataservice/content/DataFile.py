@@ -12,9 +12,21 @@ from AccessControl import ClassSecurityInfo
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDatafile
+from iw.fss.FileSystemStorage import FileSystemStorage
 
 
 schema = Schema((
+    FileField('file',
+              required=False,
+              primary=True,
+              storage=FileSystemStorage(),
+              widget = FileWidget(
+                        description = "Select the file to be added by clicking the 'Browse' button.",
+                        description_msgid = "help_file",
+                        label= "File",
+                        label_msgid = "label_file",
+                        i18n_domain = "plone",
+                        show_content_type = False,)),
     StringField(
         name='short_id',
         widget = StringWidget(

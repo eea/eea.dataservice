@@ -202,36 +202,6 @@ schema = Schema((
     ),
 
     TextField(
-        name='dataSource',
-        languageIndependent=False,
-        allowable_content_types=('text/html',),
-        default_content_type='text/html',
-        default_output_type='text/html',
-        widget=RichWidget(
-            label="Source",
-            description="Source description.",
-            label_msgid="dataservice_label_source",
-            description_msgid="dataservice_help_source",
-            i18n_domain="eea.dataservice",
-            rows=10,
-        ),
-    ),
-    #LinesField(
-        #name='source',
-        #languageIndependent=True,
-        #multiValued=1,
-        #default=(u'EEA (European Environment Agency)',),
-        #vocabulary=NamedVocabulary("report_creators"),
-        #widget=KeywordWidget(
-            #label="Source",
-            #description="Source description.",
-            #label_msgid='dataservice_label_source',
-            #description_msgid='dataservice_help_source',
-            #i18n_domain='eea.dataservice',
-        #)
-    #),
-
-    TextField(
         name='referenceSystem',
         languageIndependent=False,
         allowable_content_types=('text/html',),
@@ -243,6 +213,22 @@ schema = Schema((
             description="Reference system description.",
             label_msgid="dataservice_label_system",
             description_msgid="dataservice_help_system",
+            i18n_domain="eea.dataservice",
+            rows=10,
+        ),
+    ),
+
+    TextField(
+        name='dataSource',
+        languageIndependent=False,
+        allowable_content_types=('text/html',),
+        default_content_type='text/html',
+        default_output_type='text/html',
+        widget=RichWidget(
+            label="Source",
+            description="Source description.",
+            label_msgid="dataservice_label_source",
+            description_msgid="dataservice_help_source",
             i18n_domain="eea.dataservice",
             rows=10,
         ),

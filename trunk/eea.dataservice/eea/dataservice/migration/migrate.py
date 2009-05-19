@@ -15,9 +15,14 @@ from config import (
     DATASERVICE_CONTAINER,
     ORGANISATIONS_CONTAINER,
     DATASETS_XML,
-    MAPS_AND_GRAPHS_XML
+    MAPS_AND_GRAPHS_XML,
+    DATAFILES_PATH
 )
 import logging
+from cStringIO import StringIO
+from cgi import FieldStorage
+from ZPublisher.HTTPRequest import FileUpload
+import os
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
@@ -233,6 +238,31 @@ class MigrateDatasets(object):
     def update_subobject(self, dt, datamodel):
         """ Update subobject properties
         """
+        # Upload file
+        if dt.portal_type == 'DataFile':
+            file_path = datamodel.get('data_filename', '')
+            if file_path.startswith('/'):
+                file_path = file_path[1:]
+            file_path = os.path.join(DATAFILES_PATH, file_path)
+            try:
+                file_ob = open(file_path, 'rb')
+                file_data = file_ob.read()
+                size = len(file_data)
+                filename = file_path.split('/')[-1]
+                fp = StringIO(file_data)
+                env = {'REQUEST_METHOD':'PUT'}
+                headers = {'content-length': size,
+                           'content-disposition':'attachment; filename=%s' % filename}
+                fs = FieldStorage(fp=fp, environ=env, headers=headers)
+
+                file_field = dt.getField('file')
+                kwargs = {'field': file_field.__name__}
+                file_field.getMutator(dt)(FileUpload(fs), **kwargs)
+
+            except IOError:
+                info('ERROR: File not uploaded: %s' % file_path)
+
+        # Set properties
         dt.setExcludeFromNav(True)
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
@@ -259,8 +289,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        #ds_info = 1
+        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        ds_info = 1
         ds_range = 0
         ds_step = 10
 
@@ -269,34 +299,34 @@ class MigrateDatasets(object):
             data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
             ds_data = data[0]
             ds_tables = data[1]
-            #add datasets
+            ###add datasets
             for ds_group_id in ds_data.keys():
                 for ds in ds_data[ds_group_id]:
-                    #self.add_dataset(container, ds)
+                    self.add_dataset(container, ds)
                     ds_index += 1
 
             ##add tables
-            #for table_id in ds_tables['tables'].keys():
-                #table, files = ds_tables['tables'][table_id]
+            for table_id in ds_tables['tables'].keys():
+                table, files = ds_tables['tables'][table_id]
 
-                #res = ctool.searchResults({'portal_type' : 'Data',
-                                           #'UID' : table.get('dataset_id')})
-                #ds_container = getattr(container, res[0].getId)
+                res = ctool.searchResults({'portal_type' : 'Data',
+                                           'UID' : table.get('dataset_id')})
+                ds_container = getattr(container, res[0].getId)
 
-                #table.delete('dataset_id')
-                #self.add_subobject(ds_container, table, 'DataTable')
-                #dst_index += 1
+                table.delete('dataset_id')
+                self.add_subobject(ds_container, table, 'DataTable')
+                dst_index += 1
 
                 ##add files
-                #for file_ob in files:
-                    #res = ctool.searchResults({'portal_type' : 'DataTable',
-                                               #'UID' : table_id})
-                    #if res:
-                        #dt_container = getattr(ds_container, res[0].getId)
-                        #self.add_subobject(dt_container, file_ob, 'DataFile')
-                        #dsf_index += 1
-                    #else:
-                        #info('ERROR: cant find table container %s' % table_id)
+                for file_ob in files:
+                    res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               'UID' : table_id})
+                    if res:
+                        dt_container = getattr(ds_container, res[0].getId)
+                        self.add_subobject(dt_container, file_ob, 'DataFile')
+                        dsf_index += 1
+                    else:
+                        info('ERROR: cant find table container %s' % table_id)
 
         msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         info(msg)
@@ -333,6 +363,12 @@ class MigrateTablesAndFiles(object):
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
         dt.setTitle(datamodel.get('title', ''))
+
+        # Upload file
+        if dt.portal_type == 'DataFile':
+            pass
+            #dt.data_filename
+            #DATAFILES_PATH
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
