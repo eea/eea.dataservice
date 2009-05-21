@@ -16,6 +16,16 @@ from iw.fss.FileSystemStorage import FileSystemStorage
 
 
 schema = Schema((
+    StringField(
+        name='category',
+        widget = StringWidget(
+            label="Category",
+            description = ("Category description."),
+            label_msgid='dataservice_label_category',
+            description_msgid='dataservice_help_category',
+            i18n_domain='eea.dataservice',
+        )
+    ),
     FileField('file',
               required=False,
               primary=True,
@@ -27,11 +37,13 @@ schema = Schema((
                         label_msgid = "label_file",
                         i18n_domain = "plone",
                         show_content_type = False,)),
+
     StringField(
         name='short_id',
         widget = StringWidget(
             label="Short ID",
             description = ("Short ID description."),
+            visible=-1,
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
             i18n_domain='eea.dataservice',
@@ -42,6 +54,7 @@ schema = Schema((
         widget = StringWidget(
             label="Table ID",
             description = ("Table ID description."),
+            visible=-1,
             label_msgid='dataservice_label_tableid',
             description_msgid='dataservice_help_tableid',
             i18n_domain='eea.dataservice',
@@ -52,18 +65,9 @@ schema = Schema((
         widget = StringWidget(
             label="Dataset ID",
             description = ("Dataset ID description."),
+            visible=-1,
             label_msgid='dataservice_label_datasetid',
             description_msgid='dataservice_help_datasetid',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-    StringField(
-        name='category',
-        widget = StringWidget(
-            label="Category",
-            description = ("Category description."),
-            label_msgid='dataservice_label_category',
-            description_msgid='dataservice_help_category',
             i18n_domain='eea.dataservice',
         )
     ),
@@ -72,6 +76,7 @@ schema = Schema((
         widget = StringWidget(
             label="Filename",
             description = ("Filename description."),
+            visible=-1,
             label_msgid='dataservice_label_filename',
             description_msgid='dataservice_help_filename',
             i18n_domain='eea.dataservice',
@@ -82,6 +87,7 @@ schema = Schema((
         widget = StringWidget(
             label="Filesize",
             description = ("Filesize description."),
+            visible=-1,
             label_msgid='dataservice_label_filesize',
             description_msgid='dataservice_help_filesize',
             i18n_domain='eea.dataservice',
@@ -92,6 +98,7 @@ schema = Schema((
         widget = StringWidget(
             label="Download link",
             description = ("Download link description."),
+            visible=-1,
             label_msgid='dataservice_label_download_link',
             description_msgid='dataservice_help_download_link',
             i18n_domain='eea.dataservice',

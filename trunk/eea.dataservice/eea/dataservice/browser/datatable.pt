@@ -64,14 +64,12 @@
     </fieldset>
 
     <!-- Dataset ID -->
-    <!--
-    <tal:block define="field python:here.getField('dataset_id');
+    <!-- tal:block define="field python:here.getField('dataset_id');
                        value python:field.getAccessor(here)()"
               condition="value">
         <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
         <dd tal:content="value" />
-    </tal:block>
-    -->
+    </tal:block -->
 
 </div>
 

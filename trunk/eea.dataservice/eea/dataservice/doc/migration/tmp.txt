@@ -22,6 +22,7 @@ General
 
 Datasets
 =========================
+(-) redirect pentru downloadul de fisiere bazat pe shortId (http://dataservice.eea.europa.eu/download.asp?id=4869)
 (-) widgeturile din skins sa foloseasca macrourile deja existente in widgetul parinte
 (-) cleanup display.py (la final)
 (-) JS de pe widgets mi se pare ca se poate pune separat (de verificat)

@@ -131,7 +131,7 @@
     <!-- EEA management plan code -->
     <tal:block define="field python:here.getField('eeaManagementPlan');
                        value python:field.getAccessor(here)()"
-               condition="value">
+               condition="python:value != ('', '')">
         <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
         <dd>
             <span>year:</span>&nbsp;<tal:block content="python:value[0]" />,
