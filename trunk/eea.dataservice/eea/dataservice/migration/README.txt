@@ -3,6 +3,7 @@ Migrate old dataservice
 
 Migration steps:
     - Site setup -> install "eea.dataservice" product
+    - Site setup -> install "iw.fss" product
 
 Under portal_setup:
     - use 'EEA Dataservice' profile
@@ -14,8 +15,6 @@ Under portal_setup:
 Run:
     - @@migrate_organisations
     - @@migrate_datasets
-    - //@@migrate_tables_files
-    - //@@migrate_datarelations
 
 Plone customisations:
     - Put under portal_skins/custom/standard_error_message

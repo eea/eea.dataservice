@@ -11,7 +11,7 @@
          directory="dataservice/skins/dataservice_templates"/>
 
  <skin-path name="*">
-  <layer insert-after="custom" 
+  <layer insert-after="custom"
          name="dataservice_templates"/>
  </skin-path>
 
