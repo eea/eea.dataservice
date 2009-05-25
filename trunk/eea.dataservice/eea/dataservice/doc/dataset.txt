@@ -1,0 +1,38 @@
+Overview
+========
+
+Lets add a new dataset.
+
+Group relations
+===============
+
+Add some datasets.
+
+    >>> self.loginAsPortalOwner()
+    >>> aaa = self.portal.allowedContentTypes()
+    >>> bbb = self.folder.allowedContentTypes()
+    >>> print {'portal': aaa, 'folder': bbb}
+    'alec'
+
+#self.portal.allowedContentTypes()
+
+    >>> self.folder.setConstrainTypesMode(1)
+    >>> self.folder.setImmediatelyAddableTypes(['Data',])
+    >>> self.folder.setLocallyAllowedTypes(['Data',])
+    >>> _ = self.folder.invokeFactory('Data', 'mydata_1')
+
+
+    >>> _ = self.folder.invokeFactory('Data', 'mydata_1')
+    >>> _ = self.folder.invokeFactory('Data', 'mydata_2')
+    >>> mydata_1 = self.folder.mydata_1
+    >>> mydata_2 = self.folder.mydata_2
+    >>> form = {
+    ...   'title': ['Data 1',],
+    ...   'effectiveDate': '11/11/2008',
+    ... }
+    >>> mydata_1.processForm(values=form, data=1, metadata=1)
+    >>> form['title'] = 'Data 2'
+    >>> form['effectiveDate'] = '11/11/2007'
+    >>> mydata_2.processForm(values=form, data=1, metadata=1)
+    >>> print 'alec'
+    'alec1'
