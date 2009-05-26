@@ -68,6 +68,7 @@ EXTRA_PRODUCTS = [
     'ATVocabularyManager',
     'PloneLanguageTool',
     'LinguaPlone',
+    'EEAContentTypes',
 ]
 try:
     import plone.app.blob
@@ -90,12 +91,16 @@ class DataserviceTestCase(PloneTestCase):
         # Set the local component registry
         setSite(self.portal)
 
+        from Products.Five.pythonproducts import patch_ProductDispatcher__bobo_traverse__
+        patch_ProductDispatcher__bobo_traverse__()
+
         setup = getattr(self.portal, 'portal_setup', None)
         profile = 'ThemeCentre:themecentre'
         if not self.portal._installed_profiles.has_key(profile):
             setup.setImportContext('profile-%s' % (profile,))
             setup.runImportStep('catalog')
             self.portal._installed_profiles[profile] = 1
+        setup.runImportStep('eeacontenttypes_various')
 
 class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
     """Base class for functional integration tests for the 'eea.dataservice' product.

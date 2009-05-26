@@ -331,24 +331,11 @@ class Data(ATFolder):
         if brains: res = brains[0]
         return res
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     security.declareProtected(permissions.View, 'getTablesByCategory')
     def getTablesByCategory(self):
         """ Return categories and related files
         """
+        #TODO: fix me
         res = {}
         for table in self.objectValues('DataTable'):
             cat = table.category
@@ -361,6 +348,7 @@ class Data(ATFolder):
     def getCategoryName(self, cat_code):
         """ Return category name
         """
+        #TODO: fix me
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = atvm[CATEGORIES_DICTIONARY_ID]
         return getattr(vocab, cat_code).Title()

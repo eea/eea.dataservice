@@ -59,6 +59,16 @@ schema = Schema((
 ),
 )
 
+def addOrganisation(self, id, title="", REQUEST = {}):
+    """
+    Factory method for an Organisation object
+    """
+    obj = Organisation(id, title="")
+    self._setObject(id, obj)
+    getattr(self, id)._post_init()
+    if REQUEST.has_key('RESPONSE'):
+        return REQUEST.RESPONSE.redirect(self.absolute_url() + '/manage_main')
+
 Organisation_schema = ATFolderSchema.copy() + schema.copy()
 
 class Organisation(ATFolder):
@@ -73,6 +83,15 @@ class Organisation(ATFolder):
     _at_rename_after_creation = True
 
     schema = Organisation_schema
+
+    security.declarePrivate('_post_init')
+    def _post_init(self):
+        """
+        _post_init(self) => Post-init method (that is, method that is
+        called AFTER the class has been set into the ZODB)
+        """
+        self.indexObject()
+        return
 
     # Getters
     security.declareProtected(permissions.View, 'getDataRows')
