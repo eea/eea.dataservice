@@ -4,12 +4,17 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from DateTime import DateTime
-from Products.statusmessages.interfaces import IStatusMessage
+from zope.interface import alsoProvides
+from ZPublisher.HTTPRequest import FileUpload
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.config import UUID_ATTR
-from parser import extract_data, extract_relations
-from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
+from Products.statusmessages.interfaces import IStatusMessage
+
 from eea.themecentre.interfaces import IThemeTagging
+from eea.dataservice.migration.parser import _get_random
+from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
+from parser import extract_data, extract_relations
 from data import getOrganisationsData
 from config import (
     DATASERVICE_CONTAINER,
@@ -18,11 +23,13 @@ from config import (
     MAPS_AND_GRAPHS_XML,
     DATAFILES_PATH
 )
-import logging
-from cStringIO import StringIO
-from cgi import FieldStorage
-from ZPublisher.HTTPRequest import FileUpload
+
 import os
+import operator
+import logging
+from cgi import FieldStorage
+from cStringIO import StringIO
+
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
 
@@ -169,24 +176,34 @@ class MigrateDatasets(object):
         self.request = request
         self.xmlfile = DATASETS_XML
 
-    def add_dataset(self, context, datamodel):
+    def add_dataset(self, context, datamodel, has_version):
         """ Add new dataset
         """
+        current_versionId = None
         ds_id = _generateNewId(context, datamodel.get('title'), datamodel.get('UID'))
 
         # Add dataset if it doesn't exists
         if ds_id not in context.objectIds():
             info('Adding dataset ID: %s', ds_id)
             ds_id = context.invokeFactory('Data', id=ds_id)
+        ds = getattr(context, ds_id)
+
+        # Set version
+        if has_version:
+            if has_version == True:
+                has_version = _get_random(10)
+            if not IVersionEnhanced.providedBy(ds):
+                alsoProvides(ds, IVersionEnhanced)
+            verds = IVersionControl(ds)
+            verds.setVersionId(has_version)
 
         # Set properties
-        ds = getattr(context, ds_id)
         self.update_dataset(ds, datamodel)
         tagging = IThemeTagging(ds)
         tags = filter(None, datamodel.get('themes', ''))
         tagging.tags = tags
 
-        return ds_id
+        return has_version
 
     def update_dataset(self, ds, datamodel):
         """ Update dataset properties
@@ -198,11 +215,6 @@ class MigrateDatasets(object):
             ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
             ds.setExpirationDate(ExpirationDate)
         datamodel.delete('ExpirationDate')
-        # Set EffectiveDate
-        # TODO: tmp version cleanup
-        datamodel.delete('version_number')
-        if not 'effectiveDate' in datamodel.keys():
-            datamodel.set('effectiveDate', DateTime('01.01.2000'))
 
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
@@ -301,8 +313,30 @@ class MigrateDatasets(object):
             ds_tables = data[1]
             ###add datasets
             for ds_group_id in ds_data.keys():
-                for ds in ds_data[ds_group_id]:
-                    self.add_dataset(container, ds)
+                datasets = ds_data[ds_group_id]
+                has_version = None
+                for ds in datasets:
+
+                    #Set EffectiveDate
+                    if len(datasets) > 1:
+                        if has_version == None:
+                            has_version = True
+                        ds_index = operator.indexOf(datasets, ds)
+                        if ds_index == 0:
+                            if not 'effectiveDate' in ds.keys():
+                                ds.set('effectiveDate', DateTime('01.01.2002'))
+                        else:
+                            prev_ds = datasets[ds_index-1].get('effectiveDate')
+                            if not 'effectiveDate' in ds.keys():
+                                ds.set('effectiveDate', DateTime(prev_ds)+0.1)
+                            else:
+                                if ds.get('effectiveDate') == prev_ds:
+                                    ds.set('effectiveDate', DateTime(prev_ds)+0.1)
+                    else:
+                        if not 'effectiveDate' in ds.keys():
+                            ds.set('effectiveDate', DateTime('01.01.2002'))
+
+                    has_version = self.add_dataset(container, ds, has_version)
                     ds_index += 1
 
             ##add tables

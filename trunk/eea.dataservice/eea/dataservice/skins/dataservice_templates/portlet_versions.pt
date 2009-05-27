@@ -9,7 +9,8 @@
   <tal:block define="versions here/@@getVersions">
     <thead>
       <tr>
-        <th title="More than one version is available. Select by clicking below" colspan="3" class="nosort">
+        <th title="More than one version is available. Select by clicking below" class="nosort"
+            tal:attributes="colspan python:len(versions.keys())+1">
           <center>Versions</center>
         </th>
       </tr>
@@ -42,7 +43,8 @@
         </tal:block>
       </tr>
       <tr tal:condition="python:not context.getEffectiveDate() == versions[len(versions.keys())].getEffectiveDate()">
-        <td style="color: darkred;" colspan="3">
+        <td tal:attributes="colspan python:len(versions.keys())+1"
+            style="color: darkred;">
           A newer version of this<br/>dataset is available
         </td>
       </tr>

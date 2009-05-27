@@ -62,7 +62,6 @@ Lets add a dataset.
     ...   'shortId': '1001',
     ... }
     >>> data1.processForm(values=form, data=1, metadata=1)
-    >>> import pdb; pdb.set_trace()
     >>> data1.Title()
     'Data 1'
 
