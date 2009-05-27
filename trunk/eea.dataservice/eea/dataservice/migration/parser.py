@@ -41,6 +41,7 @@ def _get_countries(data, dataset_id):
     for k in data.split(','):
         k = k.strip()
         if len(k) == 2:
+            if k == 'UK': k = 'GB'
             res.append(k.lower())
         else:
             if k in exceptions:

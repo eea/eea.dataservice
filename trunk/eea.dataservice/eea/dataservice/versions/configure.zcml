@@ -38,7 +38,7 @@
       />
 
   <browser:menuItem
-      for="Products.ATContentTypes.interface.IATFolder"
+      for="eea.dataservice.interfaces.IDataset"
       menu="object_buttons"
       title="Create new version"
       action="@@createVersion"
@@ -47,7 +47,7 @@
       />
 
   <browser:menuItem
-      for="Products.ATContentTypes.interface.IATFolder"
+      for="eea.dataservice.interfaces.IDataset"
       menu="object_buttons"
       title="Revoke version"
       action="@@revokeVersion"

@@ -84,8 +84,9 @@ class GetCountries(object):
         self.request = request
 
     def __call__(self):
-        res = _getCountryInfo(self.context)['countries']
-        return [(key, res[key]) for key in res.keys()]
+        countries = _getCountryInfo(self.context)['countries']
+        res = [(key, countries[key]) for key in countries.keys()]
+        return sorted(res, key=operator.itemgetter(1))
 
 class GetCountryGroupsData(object):
     """ """

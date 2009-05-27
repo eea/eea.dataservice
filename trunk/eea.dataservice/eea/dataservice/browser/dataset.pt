@@ -17,7 +17,7 @@
 
     <!-- BASIC PROPERTIES -->
     <!-- Title -->
-    <h1 tal:content="here/pretty_title_or_id">Title of the Dataset</h1>
+    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
     <div class="documentActions languages">
         <tal:lang tal:condition="exists: here/global_languageselector">
             <metal:lang use-macro="here/global_languageselector/macros/language" />
@@ -27,7 +27,7 @@
 
     <!-- Description -->
     <div class="publicationDescription">
-        <strong tal:content="here/Description" />
+        <strong tal:content="context/Description" />
     </div>
 
     <!-- Versions -->
@@ -37,9 +37,9 @@
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
     <!-- Tables -->
-    <tal:tables repeat="categ python:here.getTablesByCategory().keys()">
-        <h4 tal:content="python:here.getCategoryName(categ)" />
-        <tal:block repeat="table python:here.getTablesByCategory()[categ]">
+    <tal:tables repeat="categ python:context.getTablesByCategory().keys()">
+        <h4 tal:content="python:context.getCategoryName(categ)" />
+        <tal:block repeat="table python:context.getTablesByCategory()[categ]">
             <h5 tal:content="table/title" />
             <p tal:content="table/Description" />
             <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
@@ -53,7 +53,7 @@
 
                         <a href="" tal:attributes="href string:${file/absolute_url}/at_download/file">
                             <img tal:condition="icon" src=""
-                                 tal:attributes="src string:${here/portal_url}/$icon"/>
+                                 tal:attributes="src string:${context/portal_url}/$icon"/>
                             <span tal:content="filename" />
                         </a>
                         (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
@@ -71,8 +71,8 @@
     <dl>
 
     <!-- Short ID (debug) -->
-    <tal:block define="field python:here.getField('shortId');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('shortId');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Short ID:</dt>
         <dd tal:content="structure value">Short ID</dd>
@@ -80,19 +80,19 @@
 
     <!-- UID (debug) -->
     <dt>UID:</dt>
-    <dd tal:content="here/UID" />
+    <dd tal:content="context/UID" />
 
     <!-- Geographical coverage -->
-    <tal:block define="field python:here.getField('geographicCoverage');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('geographicCoverage');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
 
         <dd>
-            <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
+            <tal:map define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
                      content="structure map" />
             <div id='map_canvas'></div>
-            <tal:block define="view nocall:here/@@getCountriesDisplay">
+            <tal:block define="view nocall:context/@@getCountriesDisplay">
                 <div tal:content="python:view(list(value))" />
             </tal:block>
             <div class="visualClear">&nbsp;</div>
@@ -100,37 +100,37 @@
     </tal:block>
 
     <!-- Geographic information quality -->
-    <tal:block define="field python:here.getField('geoQuality');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('geoQuality');
+                       value python:field.getAccessor(context)()"
                condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
         <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
         <dd>
             <span>Completeness:</span>
-            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
                                  qview python:quality_view(value=value[0]);"
                          content="structure qview" />
             <span>Logical consistency:</span>
-            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
                                  qview python:quality_view(value=value[1]);"
                          content="structure qview" />
             <span>Position accuracy:</span>
-            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
                                  qview python:quality_view(value=value[2]);"
                          content="structure qview" />
             <span>Temporal accuracy:</span>
-            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
                                  qview python:quality_view(value=value[3]);"
                          content="structure qview" />
             <span>Thematic accuracy:</span>
-            <tal:quality define="quality_view nocall:here/@@getQualityDisplay;
+            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
                                  qview python:quality_view(value=value[4]);"
                          content="structure qview" />
         </dd>
     </tal:block>
 
     <!-- EEA management plan code -->
-    <tal:block define="field python:here.getField('eeaManagementPlan');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('eeaManagementPlan');
+                       value python:field.getAccessor(context)()"
                condition="python:value != ('', '')">
         <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
         <dd>
@@ -140,120 +140,120 @@
     </tal:block>
 
     <!-- Publish date -->
-    <tal:block define="value here/getEffectiveDate" condition="value">
+    <tal:block define="value context/getEffectiveDate" condition="value">
         <dt i18n:translate="dataset_keywords">Publish date:</dt>
         <dd tal:content="value" />
     </tal:block>
 
     <!-- Keyword(s) -->
-    <tal:block define="value here/getKeywords" condition="value">
+    <tal:block define="value context/getKeywords" condition="value">
         <dt i18n:translate="dataset_keywords">Keyword(s):</dt>
         <dd tal:content="value" />
     </tal:block>
 
     <!-- Rights -->
-    <tal:block define="value here/Rights" condition="value">
+    <tal:block define="value context/Rights" condition="value">
         <dt i18n:translate="dataset_rights">Rights:</dt>
         <dd tal:content="structure python:value.replace('\n', '<br />')" />
     </tal:block>
 
     <!-- Last upload -->
-    <tal:block define="field python:here.getField('effectiveDate');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('effectiveDate');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_last_upload">Last upload:</dt>
         <dd tal:content="structure value">Last upload</dd>
     </tal:block>
 
     <!-- Scale of the data set -->
-    <tal:block define="field python:here.getField('scale');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('scale');
+                       value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="dataset_scale">Scale of the data set:</dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
     </tal:block>
 
     <!-- Additional information -->
-    <tal:block define="field python:here.getField('moreInfo');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('moreInfo');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_aditional_info">Additional information:</dt>
         <dd tal:content="structure value">Additional information</dd>
     </tal:block>
 
     <!-- Disclaimer -->
-    <tal:block define="field python:here.getField('disclaimer');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('disclaimer');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_disclaimer">Disclaimer:</dt>
         <dd tal:content="structure value">Disclaimer</dd>
     </tal:block>
 
     <!-- Geographic accuracy -->
-    <tal:block define="field python:here.getField('geoAccuracy');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('geoAccuracy');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_accuracy">Geographic accuracy:</dt>
         <dd tal:content="structure value">Geographic accuracy</dd>
     </tal:block>
 
     <!-- Source -->
-    <tal:block define="field python:here.getField('dataSource');
-                       vocab python:field.Vocabulary(here);
-                       values python:field.getAccessor(here)();
-                       value python:here.displayValue(vocab, values)"
+    <tal:block define="field python:context.getField('dataSource');
+                       vocab python:field.Vocabulary(context);
+                       values python:field.getAccessor(context)();
+                       value python:context.displayValue(vocab, values)"
                condition="value">
         <dt i18n:translate="dataset_source">Source:</dt>
         <dd tal:content="structure value">source</dd>
     </tal:block>
 
     <!-- Methodology -->
-    <tal:block define="field python:here.getField('methodology');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('methodology');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_methodology">Methodology:</dt>
         <dd tal:content="structure value">Methodology</dd>
     </tal:block>
 
     <!-- Unit -->
-    <tal:block define="field python:here.getField('units');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('units');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Unit:</dt>
         <dd tal:content="structure value">Unit</dd>
     </tal:block>
 
     <!-- Temporal coverage -->
-    <tal:block define="field python:here.getField('temporalCoverage');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('temporalCoverage');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
-        <dd tal:content="here/@@formatTempCoverage" />
+        <dd tal:content="context/@@formatTempCoverage" />
     </tal:block>
 
     <!-- Contact person(s) for EEA -->
-    <tal:block define="field python:here.getField('contact');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('contact');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_contact">Contact person(s) for EEA:</dt>
         <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact person(s) for EEA</dd>
     </tal:block>
 
     <!-- Reference system -->
-    <tal:block define="field python:here.getField('referenceSystem');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('referenceSystem');
+                       value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Reference system:</dt>
         <dd tal:content="structure value">Reference system</dd>
     </tal:block>
 
     <!-- Owner -->
-    <tal:block define="field python:here.getField('dataOwner');
-                       urls python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('dataOwner');
+                       urls python:field.getAccessor(context)()"
                condition="urls">
         <dt i18n:translate="dataset_owner">Owner:</dt>
         <tal:block repeat="url urls">
-            <dd tal:define="value python:here.getOrganisationName(url)">
+            <dd tal:define="value python:context.getOrganisationName(url)">
                 <span tal:content="value/Title" /><br />
                 <a href="#" title=""
                    tal:attributes="href value/getUrl; title value/Title"
@@ -263,9 +263,9 @@
     </tal:block>
 
     <!-- Processor -->
-    <tal:block define="field python:here.getField('processor');
-                       url python:field.getAccessor(here)();
-                       value python:here.getOrganisationName(url)"
+    <tal:block define="field python:context.getField('processor');
+                       url python:field.getAccessor(context)();
+                       value python:context.getOrganisationName(url)"
                condition="value">
         <dt i18n:translate="dataset_processor">Processor:</dt>
         <dd>

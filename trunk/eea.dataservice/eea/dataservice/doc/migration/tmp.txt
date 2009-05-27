@@ -41,7 +41,7 @@ Datasets
                                         8FE31B09-5319-417E-BB6A-D4FA71AE02AB, 3631928A-32B1-426F-A85B-34757A424140
                                         D2672BA8-15A1-44B1-AF03-48FCFA8CBD7E, 1A736CC8-2594-4E0C-B325-A6411AF2D012,
 (-) sa bag un details pentru grupurile de tari afisate pe index (pt. geo coverage widget)
-(-) JS pentru auto-select tarile cand selectez un grup (pt. geo coverage widget)
+(x) JS pentru auto-select tarile cand selectez un grup (pt. geo coverage widget)
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
 (-) CSS/style pentru geo quality pe index
 (-) la widgetul de "Reference system" nu se poate adauga primul din select -> de adaugat un option empty

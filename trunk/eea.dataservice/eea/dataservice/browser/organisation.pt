@@ -8,7 +8,7 @@
 <div metal:fill-slot="main">
 
     <!-- Title -->
-    <h1 tal:content="here/pretty_title_or_id">Title of the Dataset</h1>
+    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
     <div class="documentActions languages">
         <tal:lang tal:condition="exists: here/global_languageselector">
             <metal:lang use-macro="here/global_languageselector/macros/language" />
@@ -17,45 +17,45 @@
     <div class="visualClear">&nbsp;</div>
 
     <!-- Description -->
-    <p class="publicationDescription" tal:content="here/Description" />
+    <p class="publicationDescription" tal:content="context/Description" />
 
     <!-- Data set(s) -->
     <p>
-        <tal:rows content="python:len(here.getDataRows())" />
+        <tal:rows content="python:len(context.getDataRows())" />
         <span i18n:translate="">data set(s)</span>
     </p>
 
     <!-- URL -->
-    <tal:block define="field python:here.getField('organisationUrl');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('organisationUrl');
+                       value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="organisation_url">URL</dt>
         <dd><a tal:attributes="href value" title="" href="" tal:content="value" /></dd>
     </tal:block>
 
     <!-- Data policy -->
-    <tal:block define="field python:here.getField('data_policy');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('data_policy');
+                       value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="organisation_policy">Data policy</dt>
         <dd tal:content="structure value" />
     </tal:block>
 
     <!-- Address -->
-    <tal:block define="field python:here.getField('location');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('location');
+                       value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="organisation_location">Location</dt>
         <dd tal:content="structure value" />
     </tal:block>
 
     <!-- Map -->
-    <tal:block define="field python:here.getField('location');
-                       value python:field.getAccessor(here)()"
+    <tal:block define="field python:context.getField('location');
+                       value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="organisation_map">Map location</dt>
-        <tal:block tal:condition="here/@@geopositionMap|nothing">
-            <tal:map replace="structure here/@@geopositionMap" /><br />
+        <tal:block tal:condition="context/@@geopositionMap|nothing">
+            <tal:map replace="structure context/@@geopositionMap" /><br />
         </tal:block>
     </tal:block>
 
