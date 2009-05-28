@@ -63,7 +63,8 @@
             <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" /><br />
             <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/@@formatTempCoverage" />
           </p>
-          <div id='map_canvas'></div>
+          <div class="visualClear">&nbsp;</div>
+
         </metal:fill>
       </metal:use>
     </metal:define>

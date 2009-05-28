@@ -15,6 +15,30 @@
             margin-top: 3px; }
     </style>
 
+    <script language="JavaScript">
+
+// Show/Hide table definition
+jQuery(document).ready(function() {
+  setTableDefShow();
+});
+
+function setTableDefShow() {
+  jQuery('.table-definition-show').click(function () { showDefinition(this) });
+};
+
+function showDefinition(context) {
+  if (jQuery(context).html() == '[-]') {
+    jQuery(context).parent().next().css("display","block");
+    jQuery(context).html('[x]');
+  }
+  else {
+    jQuery(context).parent().next().css("display","none");
+    jQuery(context).html('[-]');
+  }
+}
+
+    </script>
+
     <!-- BASIC PROPERTIES -->
     <!-- Title -->
     <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
@@ -42,6 +66,18 @@
         <tal:block repeat="table python:context.getTablesByCategory()[categ]">
             <h5 tal:content="table/title" />
             <p tal:content="table/Description" />
+
+
+            <tal:block define="field python:table.getField('tableDefinition');
+                               value python:field.getAccessor(table)()"
+                      condition="table">
+                <p>
+                  <span class="table-definition-show" style="cursor: pointer; color: green">[-]</span>
+                  Show table definition
+                </p>
+                <div style="border: 1px solid black; display: none;" tal:content="structure value" />
+            </tal:block>
+
             <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
             <ul>
                 <li tal:repeat="file python:table.objectValues('DataFile')">
