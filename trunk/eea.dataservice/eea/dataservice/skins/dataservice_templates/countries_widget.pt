@@ -84,7 +84,8 @@
                       style="padding:1px 8px 1px 8px; float: left"
                       i18n:translate="" />
           </select>
-          <br clear="all"/>
+          <span id="geo_coverage_info"></span>
+          <div class="visualClear">&nbsp;</div>
 
           <!-- Map preview -->
           <style>
@@ -156,6 +157,7 @@
               syncCountries();
               oldGroups = jQuery('#geographicCoverage_groups').val();
               oldGroups = oldGroups ? oldGroups: [];
+              showInfo();
             }
 
             function syncCountries() {
@@ -181,13 +183,20 @@
               jQuery('#geographicCoverage_groups').val(res);
               oldGroups = jQuery('#geographicCoverage_groups').val();
               oldGroups = oldGroups ? oldGroups: [];
+              showInfo();
+            }
+
+            function showInfo() {
+              var countries = jQuery('#geographicCoverage').val();
+              jQuery.get('@@getCountriesDisplay', {country_codes:countries}, function(data){
+                jQuery('#geo_coverage_info').html(data);
+              })
             }
           </script>
 
           <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
                    content="structure map" />
           <div id='map_canvas'></div>
-
 
         </metal:fill>
       </metal:use>
