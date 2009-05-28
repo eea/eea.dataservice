@@ -22,6 +22,7 @@ General
 
 Datasets
 =========================
+(-) 2 templates internet/intranet
 (-) html din display.py de mutat in templateuri
 (-) nu merge undo pe datafile ... de verificat si pe restul
 (-) redirect pentru downloadul de fisiere bazat pe shortId (http://dataservice.eea.europa.eu/download.asp?id=4869)
@@ -41,19 +42,13 @@ Datasets
                                         8FE31B09-5319-417E-BB6A-D4FA71AE02AB, 3631928A-32B1-426F-A85B-34757A424140
                                         D2672BA8-15A1-44B1-AF03-48FCFA8CBD7E, 1A736CC8-2594-4E0C-B325-A6411AF2D012,
 (-) sa bag un details pentru grupurile de tari afisate pe index (pt. geo coverage widget)
-(x) JS pentru auto-select tarile cand selectez un grup (pt. geo coverage widget)
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
-(-) CSS/style pentru geo quality pe index
 (-) la widgetul de "Reference system" nu se poate adauga primul din select -> de adaugat un option empty
 
-(-) import versions
 (-) copy/paste object la new version
 (-) redirect pentru version group UID
 (-) "revoke version" sa apara doar cand trebuie nu mereu
 
-(-) sa sortez vocabularu de tari (pt. geo coverage widget)
-(-) e ceva cu "UK" la countries (vezi primul dataset) (pt. geo coverage widget)
-(-) display cu Grupuri in loc de lista de tari (pt. geo coverage widget)
 (-) update map la CMS onchange pt widget (pt. geo coverage widget)
 
 
@@ -64,89 +59,3 @@ Datasets
     * getLastVersion sa verifice si daca e published
     * index in catalog
     * portlet pentru versiuni
--------------------------
-- versionare
-- relations (relations annotations, backward si forward)
-- index_html
-    - fix geo map
-    - nice html dispaly
-    - 2 templates internet/intranet
-- tables/files mapping
-    - table/files IDs plone generated
-    [x] cleanup import
-    [x] add table definitions (multi-defs 92DA47F4-E1E8-4414-8BB6-E767FBA32588, al 24lea dataset)
-- remaining (countries display/edit)
-- teste ffff simple
--------------------------
-
-(x) cleanup datatable (e.g. dataset_id)
-(x) add table definition
-(-) versionarea
-    (x) create version
-    (x) basic version portlet
-    (x) revoke version
-    (-) import versions
-    (-) redirect pe baza group UID -> sal setez ca versionID
-
-(x) sa schimb parserul/adaugarea sa adaug pe cu ds-ul si table si files adiacente
-(x) dataset_visible
-
-
-[x] Geographic information quality
-[x] special field and widget
-[x] import data
-[x] special index display
-[x] reference system
-[x] exceptii: C9622ECA-1603-44C8-ACFD-373E2C23E033
-[x] de creat in kupu templeturile
-[NU] fix JS info pe edit la widgetul de Tempo coverage sa arate cu range
-[x] format tempo coverage (display.py) sa o scriu mai frumos
-[x] temporal coverage
-[x] geo coverage
-[x] update vocabulary to contain only country codes
-[x] new getters from LinguaPlone for country name
-[x] eea_mpcode -> leam redenumit si leam facut un widget+field special, afisare pe index, tre sa verific datele de import si gata
-[x] eea_mpyear
-[x] fieldul de EEA Management Plan Code nu valideaza daca cod-ul este integer
-[x] fieldu sa fie required
-[x] lastUpload
-[x] disclaimer (text)
-[x] contact (text)
-[x] geoAccuracy (text)
-[x] dataSource (html)
-[x] moreInfo (html)
-[x] methodology (html)
-[x] units (html)
-[x] effectiveDate
-[x] themes -> ! multi
-[x] rights
-[x] rights: exception list for Antonio
-[x] keywords -> map to Subject, sort keywords on index
-[x] sa fac redirectul pe baza UID si short_id
-[x] catalog index for shortId
-[x] description and moreInf done
-[x] moreinfo e vazut ca text de kupu la import
-[x] autogenereted ID and UID
-[x] dataOwner pot fi mai mult de unul (e.g. DD2BAE34-C533-4E70-8FEB-B153BFB7A3E9)
-[x] add 'getDataOwner' catalog index/metadata
-[x] fix organisation vocabulary
-
-Organisations
-=========================
-[-] sa generez IDul pe baza titlului si sa refac legaturile cu dataset-urile
-[-] subscriber to update all contents that use oraganisation widget (on organisation edit)
-
-[x] implement “””50 data set(s)””” on organisations index
-[x] fix location widget CSS for edit
-[x] cleanup organisation type
-[x] fix location import
-
-
-
-SKYPE:
-    - see antonio commit (diff) la documente
-
-    dataset_visible:
-    true = publish
-    false = ii setez ExpirationDate in trecut
-

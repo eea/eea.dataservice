@@ -13,6 +13,7 @@ class GeoQualityWidget(TypesWidget):
     _properties.update({
         'format': "flex", # possible values: flex, select, radio
         'macro' : "quality_widget",
+        'helper_js': ('quality_widget.js',),
         })
 
     security = ClassSecurityInfo()
@@ -27,8 +28,8 @@ class GeoQualityWidget(TypesWidget):
         gq_position = form.get('%sPos' % name, None)
         gq_temporal = form.get('%sTem' % name, None)
         gq_thematic = form.get('%sThe' % name, None)
-        
-        
+
+
 
         if not (gq_completeness or gq_logical or gq_position or gq_temporal or gq_thematic):
             return empty_marker

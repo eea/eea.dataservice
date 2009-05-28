@@ -44,7 +44,7 @@
             </tal:block>
           </span>
 
-          <p style="margin-bottom: 3px">
+          <p id="show-map-preview">
             <span id="map_btn" style="cursor: pointer; color: green">[-]</span> Show map preview
           </p>
           <!-- Country groups -->
@@ -55,14 +55,13 @@
                                   size widget/size;
                                   tabindex tabindex/next;"
                   tal:define="groups here/@@getCountryGroups"
-                  style="padding: 2px; float: left; margin-right: 1em">
+                  class="countries-widget-select">
 
               <option tal:repeat="item groups"
                       selected=""
                       tal:attributes="value python:item[0];
                       selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
                       tal:content="python:item[1]"
-                      style="padding:1px 8px 1px 8px"
                       i18n:translate="" />
           </select>
 
@@ -74,126 +73,20 @@
                                   size widget/size;
                                   tabindex tabindex/next;"
                   tal:define="coutries here/@@getCountries"
-                  style="padding: 2px; float:left; margin-right: 1em">
+                  class="countries-widget-select">
 
               <option tal:repeat="item coutries"
                       selected=""
                       tal:attributes="value python:item[0];
                                       selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"
                       tal:content="python:item[1]"
-                      style="padding:1px 8px 1px 8px; float: left"
+                      style="float: left"
                       i18n:translate="" />
           </select>
           <span id="geo_coverage_info"></span>
           <div class="visualClear">&nbsp;</div>
 
           <!-- Map preview -->
-          <style>
-            #map_canvas {
-              margin-top: 3px;
-              display: none;
-            }
-          </style>
-
-          <script language="JavaScript">
-            jQuery(document).ready(function() {
-              setMapBtn();
-              setWidgetSync();
-            });
-
-            // Show/Hide map preview
-            function setMapBtn() {
-              jQuery('#map_btn').click(function () { showMap() });
-            };
-
-            function showMap() {
-              if (jQuery('#map_btn').html() == '[-]') {
-                jQuery('#map_canvas').css("display","block");
-                jQuery('#map_btn').html('[x]');
-              }
-              else {
-                jQuery('#map_canvas').css("display","none");
-                jQuery('#map_btn').html('[-]');
-              }
-            };
-
-            // Synchronize groups and countries
-            function setWidgetSync() {
-              jQuery('#geographicCoverage').change(function () { syncCountries() });
-              jQuery('#geographicCoverage_groups').change(function () { syncGroups() });
-              jQuery.getJSON('@@getCountryGroupsData', {}, function(data){
-                oldGroups = [];
-                groupsData = data;
-                syncCountries();
-                oldGroups = jQuery('#geographicCoverage_groups').val();
-                oldGroups = oldGroups ? oldGroups: [];
-              })
-            }
-
-            function syncGroups() {
-              var res = [];
-              var index = -1;
-              var selectedCountries = jQuery('#geographicCoverage').val();
-              selectedCountries = selectedCountries ? selectedCountries: [];
-              var currentGroups = jQuery('#geographicCoverage_groups').val();
-              currentGroups = currentGroups ? currentGroups: [];
-
-              jQuery.each(oldGroups, function(i, val) {
-                if (jQuery.inArray(val, currentGroups) == -1) {
-                  jQuery.each(groupsData[val], function(j, value) {
-                    index = jQuery.inArray(value, selectedCountries);
-                    selectedCountries.splice(index,1);
-                  })
-                }
-              })
-
-              jQuery.each(currentGroups, function(i, val) {
-                jQuery.each(groupsData[val], function(j, value) {
-                  selectedCountries.push(value);
-                })
-              })
-
-              jQuery('#geographicCoverage').val(selectedCountries);
-              syncCountries();
-              oldGroups = jQuery('#geographicCoverage_groups').val();
-              oldGroups = oldGroups ? oldGroups: [];
-              showInfo();
-            }
-
-            function syncCountries() {
-              var detect = false;
-              var res = [];
-              var selectedCountries = jQuery('#geographicCoverage').val();
-              selectedCountries = selectedCountries ? selectedCountries: [];
-
-              for (group_id in groupsData) {
-                detect = false;
-                jQuery.each(groupsData[group_id], function(i, val) {
-                  if (jQuery.inArray(val, selectedCountries) != -1) {
-                    detect = true;
-                  }
-                  else {
-                    detect = false;
-                    return false;
-                  }
-                })
-                if (detect == true) { res.push(group_id) }
-              }
-
-              jQuery('#geographicCoverage_groups').val(res);
-              oldGroups = jQuery('#geographicCoverage_groups').val();
-              oldGroups = oldGroups ? oldGroups: [];
-              showInfo();
-            }
-
-            function showInfo() {
-              var countries = jQuery('#geographicCoverage').val();
-              jQuery.get('@@getCountriesDisplay', {country_codes:countries}, function(data){
-                jQuery('#geo_coverage_info').html(data);
-              })
-            }
-          </script>
-
           <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
                    content="structure map" />
           <div id='map_canvas'></div>
