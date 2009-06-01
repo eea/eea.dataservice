@@ -42,6 +42,8 @@ Datasets
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
 (-) la widgetul de "Reference system" nu se poate adauga primul din select -> de adaugat un option empty
 
+(-) un mic bug la countries preview daca e doar o tara sau nici una selectate
+
 (-) copy/paste object la new version
 (-) redirect pentru version group UID
 (-) "revoke version" sa apara doar cand trebuie nu mereu

@@ -133,12 +133,18 @@ class GetCountriesDisplay(object):
         self.request = request
 
     def __call__(self, country_codes=[]):
+        data = []
+        if country_codes == 'null': country_codes = []
+        if not isinstance(country_codes, (list, tuple)):
+            data.append(country_codes)
+        else:
+            data.extend(country_codes)
         res = []
         context = self.context
         viewGetCountryGroups = GetCountryGroups(context, self.request)
         for group_code, group_name in viewGetCountryGroups():
             tmp_match = _getGroupCountries(context, group_code)
-            for country_code in country_codes:
+            for country_code in data:
                 if country_code in tmp_match:
                     tmp_match.remove(country_code)
             if not len(tmp_match): res.append(group_code)
@@ -146,16 +152,16 @@ class GetCountriesDisplay(object):
         for group_code in res:
             group_countries = _getGroupCountries(context, group_code)
             for country_code in group_countries:
-                if country_code in country_codes:
-                    country_codes.remove(country_code)
-                    if not len(country_codes): break
+                if country_code in data:
+                    data.remove(country_code)
+                    if not len(data): break
 
         res_string = ''
         if len(res):
             res_string = ', '.join(res)
-        if len(country_codes):
+        if len(data):
             countries = []
-            [countries.append(_getCountryName(code)) for code in country_codes]
+            [countries.append(_getCountryName(code)) for code in data]
             countries.sort()
             if res_string:
                 res_string += ', '

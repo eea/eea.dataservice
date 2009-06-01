@@ -57,6 +57,7 @@ schema = Schema((
         name='geographicCoverage',
         languageIndependent=True,
         multiValued=1,
+        default=[],
         vocabulary=NamedVocabulary(COUNTRIES_DICTIONARY_ID),
         widget=MultiSelectionWidget(
             macro="countries_widget",
@@ -136,7 +137,6 @@ schema = Schema((
         vocabulary=OrganisationsVocabulary(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
-            helper_js=("organisation_widget.js",),
             label="Owner",
             description="Owner description.",
             label_msgid='dataservice_label_owner',
@@ -151,7 +151,6 @@ schema = Schema((
         vocabulary=OrganisationsVocabulary(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
-            helper_js=("organisation_widget.js",),
             label="Processor",
             description="Processor description.",
             label_msgid='dataservice_label_processor',
@@ -317,8 +316,6 @@ class Data(ATFolder, ThemeTaggable):
     """
     implements(IDataset)
     security = ClassSecurityInfo()
-
-    __implements__ = (getattr(ATFolder,'__implements__',()),) + (getattr(ThemeTaggable,'__implements__',()),)
 
     archetype_name  = 'Data'
     portal_type     = 'Data'
