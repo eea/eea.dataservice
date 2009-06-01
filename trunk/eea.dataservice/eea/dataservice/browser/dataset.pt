@@ -118,6 +118,9 @@ function showDefinition(context) {
     <dt>UID:</dt>
     <dd tal:content="context/UID" />
 
+    <!-- Related items -->
+    <!-- #TODO: implement me -->
+
     <!-- Geographical coverage -->
     <tal:block define="field python:context.getField('geographicCoverage');
                        value python:field.getAccessor(context)()"

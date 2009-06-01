@@ -14,6 +14,9 @@ from zope.interface import implements
 from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
 
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from eea.themecentre.interfaces import IThemeTagging
+
 from eea.dataservice.config import *
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
@@ -305,13 +308,17 @@ schema = Schema((
 )
 
 Dataset_schema = ATFolderSchema.copy() + \
-    schema.copy()
+               getattr(ThemeTaggable, 'schema', Schema(())).copy() + \
+               schema.copy()
 
-class Data(ATFolder):
+
+class Data(ATFolder, ThemeTaggable):
     """ Dataset Content Type
     """
     implements(IDataset)
     security = ClassSecurityInfo()
+
+    __implements__ = (getattr(ATFolder,'__implements__',()),) + (getattr(ThemeTaggable,'__implements__',()),)
 
     archetype_name  = 'Data'
     portal_type     = 'Data'
@@ -336,6 +343,18 @@ class Data(ATFolder):
                                     'getUrl': url})
         if brains: res = brains[0]
         return res
+
+    security.declarePublic('getThemeVocabs')
+    def getThemeVocabs(self):
+        """
+        """
+        pass
+
+    def setThemes(self, value, **kw):
+        """ Use the tagging adapter to set the themes. """
+        value = filter(None, value)
+        tagging = IThemeTagging(self)
+        tagging.tags = value
 
     security.declareProtected(permissions.View, 'getTablesByCategory')
     def getTablesByCategory(self):

@@ -26,9 +26,7 @@ Datasets
 (-) html din display.py de mutat in templateuri
 (-) nu merge undo pe datafile ... de verificat si pe restul
 (-) redirect pentru downloadul de fisiere bazat pe shortId (http://dataservice.eea.europa.eu/download.asp?id=4869)
-(-) widgeturile din skins sa foloseasca macrourile deja existente in widgetul parinte
 (-) cleanup display.py (la final)
-(-) JS de pe widgets mi se pare ca se poate pune separat (de verificat)
 (-) de scris/documentat frumos interfetele la final
 (-) fix JS pt organisations_widget (multi)
     - IDEEA: tooltip pe optiunile din select:
@@ -41,7 +39,6 @@ Datasets
                                         1FE966AE-8878-48DF-B636-431E16CF01E6, 35E7A716-C75F-4981-A0B4-8E2760B7C50F,
                                         8FE31B09-5319-417E-BB6A-D4FA71AE02AB, 3631928A-32B1-426F-A85B-34757A424140
                                         D2672BA8-15A1-44B1-AF03-48FCFA8CBD7E, 1A736CC8-2594-4E0C-B325-A6411AF2D012,
-(-) sa bag un details pentru grupurile de tari afisate pe index (pt. geo coverage widget)
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
 (-) la widgetul de "Reference system" nu se poate adauga primul din select -> de adaugat un option empty
 
@@ -51,11 +48,42 @@ Datasets
 
 (-) update map la CMS onchange pt widget (pt. geo coverage widget)
 
-
-
 - VERSIONARE ------------
     * sa copiez si traducerile?
     * cand creez versiune sa fac o copie a obiectului
     * getLastVersion sa verifice si daca e published
     * index in catalog
     * portlet pentru versiuni
+
+Relations
+=========================
+
+Types:
+(<other_services>) -> unele au si titlu
+    - Reporting obligation(s) (ROD)
+        ROD
+    - Related website(s)/service(s)
+        other websites
+    - Interactive viewers
+        E.g. http://www.eea.europa.eu/themes/landuse/clc-download
+    - Published in the following report(s)
+        reports
+
+(<metadata_typelabel metadata_typelabel="Relation">)
+    - Derived data set
+    - Parent data set
+    - reports:     http://reports.eea.europa.eu/eea_report_2005_1/en
+
+[-] Reports
+    - auto relation_type = "Published in the following report(s)"
+[-] Indicators
+    - auto relation_type = "Interactive viewers"
+
+[-] DataSets
+    relation_type poate sa fie "based on" sau "derived from" ... trebe marcat manual la adaugare
+[-] External websites
+    - trebe sa aiba URL si Titlu
+    - auto relation_type = "Related website(s)/service(s)"
+[-] ROD
+    - trebe facut un pick list din datele de pe ROD
+    - auto relation_type = "Reporting obligation(s) (ROD)"
