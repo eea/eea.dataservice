@@ -261,6 +261,7 @@ class MigrateDatasets(object):
                 file_data = file_ob.read()
                 size = len(file_data)
                 filename = file_path.split('/')[-1]
+                filename = str(filename)
                 fp = StringIO(file_data)
                 env = {'REQUEST_METHOD':'PUT'}
                 headers = {'content-length': size,
@@ -270,7 +271,6 @@ class MigrateDatasets(object):
                 file_field = dt.getField('file')
                 kwargs = {'field': file_field.__name__}
                 file_field.getMutator(dt)(FileUpload(fs), **kwargs)
-
             except IOError:
                 info('ERROR: File not uploaded: %s' % file_path)
 
