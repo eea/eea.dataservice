@@ -277,7 +277,7 @@ DATAFILE_METADATA_MAPPING = {
     'download_file_title':             'title',
     'download_file_note':              'description',
     'category':                        'category',
-    'download_file_shortID':           'short_id',
+    'download_file_shortID':           'shortId',
     'download_file_name':              'data_filename',
     'download_file_link':              'download_link',
     'download_file_size':              'filesize',

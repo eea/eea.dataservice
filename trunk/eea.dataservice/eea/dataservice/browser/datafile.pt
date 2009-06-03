@@ -56,7 +56,7 @@
 
 
     <!-- Short ID -->
-    <!-- tal:block define="field python:context.getField('short_id');
+    <!-- tal:block define="field python:context.getField('shortId');
                        value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="dataset_shortId">Short ID</dt>

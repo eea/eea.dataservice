@@ -39,16 +39,17 @@ schema = Schema((
                         show_content_type = False,)),
 
     StringField(
-        name='short_id',
+        name='shortId',
         widget = StringWidget(
             label="Short ID",
-            description = ("Short ID description."),
             visible=-1,
+            description = ("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
             i18n_domain='eea.dataservice',
         )
     ),
+
     StringField(
         name='table_id',
         widget = StringWidget(

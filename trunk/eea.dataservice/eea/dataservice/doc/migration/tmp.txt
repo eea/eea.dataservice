@@ -16,22 +16,23 @@ General
 ??? de vazut cei cu back ref si fwd ref
 ??? sunt doi indexi dientici ... id si getId. Nar trebui sa stergem unul?
 ??? unele dataseturi nu au effectiveDate ... e ok? sau sa generez un log?
+??? fix JS pt organisations_widget (multi)
+    - IDEEA: tooltip pe optiunile din select:
+            http://docs.jquery.com/Plugins/Tooltip
+            http://jquery.bassistance.de/tooltip/demo
 !!! http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=612 (mega caz particular)
 !!! &amp;#38; (in dump XML)
 !!! la a doua rulare a scriptului de import DataTable care au avut UID generate de script se re-creeaza
 
 Datasets
 =========================
+(-) redirect pentru version group UID
+(-) redirect pentru downloadul de fisiere bazat pe shortId (http://dataservice.eea.europa.eu/download.asp?id=4869)
+
 (-) 2 templates internet/intranet
 (-) html din display.py de mutat in templateuri
-(-) nu merge undo pe datafile ... de verificat si pe restul
-(-) redirect pentru downloadul de fisiere bazat pe shortId (http://dataservice.eea.europa.eu/download.asp?id=4869)
 (-) cleanup display.py (la final)
 (-) de scris/documentat frumos interfetele la final
-(-) fix JS pt organisations_widget (multi)
-    - IDEEA: tooltip pe optiunile din select:
-            http://docs.jquery.com/Plugins/Tooltip
-            http://jquery.bassistance.de/tooltip/demo
 (-) partea de description care se duce in moreInfo are HTML striped si ar trebui so contina
 (-) rights: some carriage returns which makes ugly output
 (-) effectiveDate sa fie coordonat cu "public" state, tot ce e public sa aiba un effectiveDate
@@ -42,10 +43,7 @@ Datasets
 (-) logurile zic ca nu e bun "Owner" da are unul setat: A8685422-19F1-4FDA-BF16-AA19787073C2
 (-) la widgetul de "Reference system" nu se poate adauga primul din select -> de adaugat un option empty
 
-(-) un mic bug la countries preview daca e doar o tara sau nici una selectate
-
 (-) copy/paste object la new version
-(-) redirect pentru version group UID
 (-) "revoke version" sa apara doar cand trebuie nu mereu
 
 (-) update map la CMS onchange pt widget (pt. geo coverage widget)
