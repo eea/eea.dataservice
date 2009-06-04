@@ -292,27 +292,34 @@ function showDefinition(context) {
                condition="urls">
         <dt i18n:translate="dataset_owner">Owner:</dt>
         <tal:block repeat="url urls">
-            <dd tal:define="value python:context.getOrganisationName(url)">
-                <span tal:content="value/Title" /><br />
-                <a href="#" title=""
-                   tal:attributes="href value/getUrl; title value/Title"
-                   tal:content="value/getUrl" />
-            </dd>
+            <tal:block define="value python:context.getOrganisationName(url)"
+                       condition="value">
+                <dd>
+                    <span tal:content="value/Title" /><br />
+                    <a href="#" title=""
+                       tal:attributes="href value/getUrl; title value/Title"
+                       tal:content="value/getUrl" />
+                </dd>
+            </tal:block>
         </tal:block>
     </tal:block>
 
     <!-- Processor -->
     <tal:block define="field python:context.getField('processor');
-                       url python:field.getAccessor(context)();
-                       value python:context.getOrganisationName(url)"
-               condition="value">
+                       urls python:field.getAccessor(context)()"
+               condition="urls">
         <dt i18n:translate="dataset_processor">Processor:</dt>
-        <dd>
-            <span tal:content="value/Title" /><br />
-            <a href="#" title=""
-               tal:attributes="href value/getUrl; title value/Title"
-               tal:content="value/getUrl" />
-        </dd>
+        <tal:block repeat="url urls">
+            <tal:block define="value python:context.getOrganisationName(url)"
+                       condition="value">
+                <dd>
+                    <span tal:content="value/Title" /><br />
+                    <a href="#" title=""
+                       tal:attributes="href value/getUrl; title value/Title"
+                       tal:content="value/getUrl" />
+                </dd>
+            </tal:block>
+        </tal:block>
     </tal:block>
 
     </dl>

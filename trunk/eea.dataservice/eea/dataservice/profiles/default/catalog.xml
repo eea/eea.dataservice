@@ -3,6 +3,9 @@
  <index name="getDataOwner" meta_type="KeywordIndex">
   <indexed_attr value="getDataOwner"/>
  </index>
+ <index name="getProcessor" meta_type="KeywordIndex">
+  <indexed_attr value="getProcessor"/>
+ </index>
  <index name="getShortId" meta_type="FieldIndex">
   <indexed_attr value="getShortId"/>
  </index>
@@ -10,6 +13,7 @@
   <indexed_attr value="getVersionId"/>
  </index>
  <column value="getDataOwner"/>
+ <column value="getProcessor"/>
  <column value="getShortId"/>
  <column value="getVersionId"/>
 </object>

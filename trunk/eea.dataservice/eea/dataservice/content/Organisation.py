@@ -8,6 +8,8 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.atapi import *
+from Products.Archetypes.Field import decode
+from Acquisition import aq_base
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
 
@@ -16,9 +18,42 @@ from eea.dataservice.interfaces import IOrganisation
 from eea.locationwidget.locationwidget import LocationWidget
 
 
+class OrganisationField(StringField):
+    """ """
+    def set(self, instance, value, **kwargs):
+        old_url = instance.organisationUrl
+        kwargs['field'] = self
+        # Remove acquisition wrappers
+        if not getattr(self, 'raw', False):
+            value = decode(aq_base(value), instance, **kwargs)
+        self.getStorage(instance).set(self.getName(), instance, value, **kwargs)
+
+        # Update organisation URL to depedencies
+        cat = getToolByName(instance, 'portal_catalog')
+        brains1 = cat.searchResults({'getDataOwner': old_url})
+        if len(brains1):
+            for k in brains1:
+                val = [value]
+                k_ob = k.getObject()
+                for url in k_ob.getDataOwner():
+                    if url != old_url: val.append(url)
+                values = {'dataOwner': val}
+                k_ob.processForm(data=1, metadata=1, values=values)
+                k_ob.reindexObject()
+        brains2 = cat.searchResults({'getProcessor': old_url})
+        if len(brains2):
+            for k in brains2:
+                val = [value]
+                k_ob = k.getObject()
+                for url in k_ob.getProcessor():
+                    if url != old_url: val.append(url)
+                values = {'processor': val}
+                k_ob.processForm(data=1, metadata=1, values=values)
+                k_ob.reindexObject()
+
 schema = Schema((
 
-    StringField(
+    OrganisationField(
         name='organisationUrl',
         accessor='org_url',
         validators=('isURL',),
