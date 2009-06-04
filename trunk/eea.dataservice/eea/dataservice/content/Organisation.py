@@ -29,6 +29,7 @@ class OrganisationField(StringField):
         self.getStorage(instance).set(self.getName(), instance, value, **kwargs)
 
         # Update organisation URL to depedencies
+        #TODO: make the below dynamic
         cat = getToolByName(instance, 'portal_catalog')
         brains1 = cat.searchResults({'getDataOwner': old_url})
         if len(brains1):

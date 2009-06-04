@@ -120,23 +120,13 @@ class CreateVersion(object):
             _reindex(self.context)
 
         # Create version object
-        #TODO: copy/paste object (all properties should be copyed)
-        new_id = _generateNewId(parent, obj_title, obj_uid+'1')
-        parent.invokeFactory(obj_type, id=new_id, title=obj_title, relatedItem=obj_uid)
-        message = _(u'New version created.')
-        pu.addPortalMessage(message, 'structure')
+        cp = parent.manage_copyObjects(ids=[obj_id])
+        res = parent.manage_pasteObjects(cp)
+        new_id = res[0]['new_id']
 
         ver = getattr(parent, new_id)
         # Set effective date today
         ver.setEffectiveDate(DateTime())
-
-        # Adapt new version object
-        #TODO: if parent copy/paste -ed no need for mark/adapt
-        if not IVersionEnhanced.providedBy(ver):
-            alsoProvides(ver, IVersionEnhanced)
-        verobject = IVersionControl(ver)
-        verobject.setVersionId(verId)
-        _reindex(ver)
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
 
