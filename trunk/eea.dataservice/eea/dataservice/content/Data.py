@@ -303,6 +303,18 @@ schema = Schema((
         )
     ),
 
+    StringField(
+        name='relatedGid',
+        widget = StringWidget(
+            label="Related GID",
+            visible=-1,
+            description = ("Related GID description."),
+            label_msgid='dataservice_label_relatedgid',
+            description_msgid='dataservice_help_relatedgid',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
     ),
 )
 

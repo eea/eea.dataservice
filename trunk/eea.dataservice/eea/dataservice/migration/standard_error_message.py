@@ -16,6 +16,7 @@ if error_type == 'NotFound':
     requested_url = context.REQUEST.get('URL', '')
     requested_file = requested_url.split('/')[-1]
 
+    # To match old dataservice.eea.europa.eu links
     if context.getId() == 'data':
         if 'download.asp' in requested_url:
             # Redirects for DataFile objects
@@ -35,6 +36,14 @@ if error_type == 'NotFound':
             #     http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=29
             # to new http://eea.europa.eu/data/trends-in-emissions-of-greenhouse-gases-ipcc-sector-classification
 
+            # Related GID
+            query = {'portal_type': 'Data',
+                     'getRelatedGid': requested_file,
+                     'sort_on': 'effective'}
+            res = catalog(query)
+            if len(res) > 0:
+                redirect_to = context.absolute_url() + '/' + res[len(res)-1].getId
+                return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # UID resquest
             query = {'portal_type': 'Data',
                      'UID': requested_file}
@@ -49,9 +58,6 @@ if error_type == 'NotFound':
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
-    #TODO:
-    #  - redirect of Data based on groupId to last version
-
 
     # To match old reports.eea.europa.eu links
     query = {'object_provides' : 'eea.reports.interfaces.IReportContainerEnhanced',

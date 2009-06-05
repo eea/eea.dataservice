@@ -250,6 +250,7 @@ DATASET_METADATA_MAPPING = {
 ### Dataset:
     #@param id:                          String;
     #@param shortId:                     String;
+    #@param relatedGid:                  String;
     #@param title:                       String;
     #@param description:                 String;
     #@param themes:                      Iterator;
@@ -419,7 +420,7 @@ class dataservice_handler(ContentHandler):
             if name == 'datasetgid':
                 self.dataset_context = 1
                 self.dataset_current = MigrationObject()
-                ###self.dataset_current.set('group_id', self.dataset_group_current)
+                self.dataset_current.set('relatedGid', self.dataset_group_current)
                 self.dataset_current.set('UID', attrs['datasetgid'])
 
             # Dataset metadata
