@@ -21,7 +21,7 @@ from eea.locationwidget.locationwidget import LocationWidget
 class OrganisationField(StringField):
     """ """
     def set(self, instance, value, **kwargs):
-        old_url = instance.organisationUrl
+        old_url = getattr(instance, 'organisationUrl', None)
         kwargs['field'] = self
         # Remove acquisition wrappers
         if not getattr(self, 'raw', False):
@@ -30,9 +30,10 @@ class OrganisationField(StringField):
 
         # Update organisation URL to depedencies
         #TODO: make the below dynamic
-        cat = getToolByName(instance, 'portal_catalog')
-        brains1 = cat.searchResults({'getDataOwner': old_url})
-        if len(brains1):
+        if old_url != None:
+         cat = getToolByName(instance, 'portal_catalog')
+         brains1 = cat.searchResults({'getDataOwner': old_url})
+         if len(brains1):
             for k in brains1:
                 val = [value]
                 k_ob = k.getObject()
@@ -41,8 +42,8 @@ class OrganisationField(StringField):
                 values = {'dataOwner': val}
                 k_ob.processForm(data=1, metadata=1, values=values)
                 k_ob.reindexObject()
-        brains2 = cat.searchResults({'getProcessor': old_url})
-        if len(brains2):
+         brains2 = cat.searchResults({'getProcessor': old_url})
+         if len(brains2):
             for k in brains2:
                 val = [value]
                 k_ob = k.getObject()
