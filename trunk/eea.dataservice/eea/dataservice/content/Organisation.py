@@ -21,7 +21,7 @@ from eea.locationwidget.locationwidget import LocationWidget
 class OrganisationField(StringField):
     """ """
     def set(self, instance, value, **kwargs):
-        old_url = getattr(instance, 'organisationUrl', None)
+        old_url = getattr(instance, 'organisationUrl', '')
         kwargs['field'] = self
         # Remove acquisition wrappers
         if not getattr(self, 'raw', False):
@@ -30,7 +30,7 @@ class OrganisationField(StringField):
 
         # Update organisation URL to depedencies
         #TODO: make the below dynamic
-        if old_url != None:
+        if len(old_url):
          cat = getToolByName(instance, 'portal_catalog')
          brains1 = cat.searchResults({'getDataOwner': old_url})
          if len(brains1):
