@@ -812,21 +812,5 @@ def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
     data = parser.parseContent(s)
     return (data.get_datasets(), data.get_tables_files())
 
-def extract_tables_files(file_id='', info=0, ds_from=0, ds_to=10000):
-    """ Return datatables from old dataservice exported XMLs
-    """
-    s = extract_basic(file_id)
-    parser = dataservice_parser(info, ds_from, ds_to)
-    data = parser.parseContent(s)
-    return data.get_tables_files()
-
-def extract_relations(file_id='', info=0, ds_from=0, ds_to=10000):
-    """ Return relations from old dataservice exported XMLs
-    """
-    s = extract_basic(file_id)
-    parser = dataservice_parser(info, ds_from, ds_to)
-    data = parser.parseContent(s)
-    return data.get_relations()
-
 if __name__ == '__main__':
     print len(extract_data())

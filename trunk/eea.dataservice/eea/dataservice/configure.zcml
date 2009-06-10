@@ -9,6 +9,7 @@
     <include package=".migration" />
     <include package=".content" />
     <include package=".versions" />
+    <include package=".facetednavigation.dataservice" />
     <include file="profiles.zcml" />
 
 </configure>

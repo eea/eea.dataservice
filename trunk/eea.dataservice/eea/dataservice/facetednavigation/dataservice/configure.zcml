@@ -1,0 +1,28 @@
+<configure
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:faceted="http://namespaces.zope.org/faceted"
+  i18n_domain="eea.dataservice">
+
+  <faceted:widget factory=".widget.Widget" />
+
+  <browser:resource
+    name="eea.dataservice.facetednavigation.dataservice.view.js"
+    file="./view.js"
+   />
+
+  <browser:resource
+    name="eea.dataservice.facetednavigation.dataservice.edit.js"
+    file="./edit.js"
+   />
+
+  <browser:resource
+    name="eea.dataservice.facetednavigation.dataservice.view.css"
+    file="./view.css"
+   />
+
+  <browser:resource
+    name="eea.dataservice.facetednavigation.dataservice.edit.css"
+    file="./edit.css"
+   />
+
+</configure>

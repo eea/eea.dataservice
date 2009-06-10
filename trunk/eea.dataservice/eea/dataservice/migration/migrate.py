@@ -14,7 +14,7 @@ from eea.themecentre.interfaces import IThemeTagging
 from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
-from parser import extract_data, extract_relations
+from parser import extract_data
 from data import getOrganisationsData
 from config import (
     DATASERVICE_CONTAINER,
@@ -311,7 +311,7 @@ class MigrateDatasets(object):
             data = extract_data(self.xmlfile, 0, ds_range-ds_step, ds_range)
             ds_data = data[0]
             ds_tables = data[1]
-            ###add datasets
+            # Add datasets
             for ds_group_id in ds_data.keys():
                 datasets = ds_data[ds_group_id]
                 has_version = None
@@ -339,7 +339,7 @@ class MigrateDatasets(object):
                     has_version = self.add_dataset(container, ds, has_version)
                     ds_index += 1
 
-            ##add tables
+            # Add datatables
             for table_id in ds_tables['tables'].keys():
                 table, files = ds_tables['tables'][table_id]
 
@@ -351,7 +351,7 @@ class MigrateDatasets(object):
                 self.add_subobject(ds_container, table, 'DataTable')
                 dst_index += 1
 
-                ##add files
+                # Add datafiles
                 for file_ob in files:
                     res = ctool.searchResults({'portal_type' : 'DataTable',
                                                'UID' : table_id})
@@ -363,102 +363,5 @@ class MigrateDatasets(object):
                         info('ERROR: cant find table container %s' % table_id)
 
         msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
-        info(msg)
-        return _redirect(self, msg, DATASERVICE_CONTAINER)
-
-class MigrateTablesAndFiles(object):
-    """ Class used to migrate tables and files.
-    """
-    def __init__(self, context, request=None):
-        self.context = context
-        self.request = request
-        self.xmlfile = DATASETS_XML
-
-    def add_object(self, context, datamodel, otype):
-        """ Add new datatable
-        """
-        dt_id = datamodel.getId()
-
-        # Add object if it doesn't exists
-        if dt_id not in context.objectIds():
-            info('Adding %s id: %s' % (otype, dt_id))
-            dt_id = context.invokeFactory(otype, id=dt_id)
-
-        # Set properties
-        dt = getattr(context, dt_id)
-        self.update_properties(dt, datamodel)
-
-        return dt_id
-
-    def update_properties(self, dt, datamodel):
-        """ Update datatable properties
-        """
-        dt.setExcludeFromNav(True)
-        form = datamodel()
-        dt.processForm(data=1, metadata=1, values=form)
-        dt.setTitle(datamodel.get('title', ''))
-
-        # Upload file
-        if dt.portal_type == 'DataFile':
-            pass
-            #dt.data_filename
-            #DATAFILES_PATH
-
-        # Publish
-        #TODO: set proper state based on -1/0/1 from XML
-        _publish(dt)
-
-        # Reindex
-        _reindex(dt)
-        _reindex(dt.getParentNode())
-
-    #
-    # Browser interface
-    #
-    def __call__(self):
-        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        table_index = 0
-        file_index = 0
-        info('Import datatables and files using xml file: %s', self.xmlfile)
-        data = extract_tables_files(self.xmlfile)
-
-        tables = data['tables'].keys()[:50]
-        #add tables
-        for table_id in tables:
-            table, files = data['tables'][table_id]
-            ds_container = getattr(container, table.get('dataset_id', ''))
-            self.add_object(ds_container, table, 'DataTable')
-            table_index += 1
-
-            #add files
-            for file_ob in files:
-                container = getattr(ds_container, table.get('id', ''))
-                self.add_object(container, file_ob, 'DataFile')
-                file_index += 1
-
-        msg = '%d datatables and %s datafiles imported !' % (table_index, file_index)
-        info(msg)
-        return _redirect(self, msg, DATASERVICE_CONTAINER)
-
-class MigrateRelations(object):
-    """ Class used to migrate relations.
-    """
-    def __init__(self, context, request=None):
-        self.context = context
-        self.request = request
-        self.xmlfile = DATASETS_XML
-
-    #
-    # Browser interface
-    #
-    def __call__(self):
-        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
-        index = 0
-        info('Import relations and files using xml file: %s', self.xmlfile)
-        data = extract_relations(self.xmlfile)
-
-        #TODO: add relations
-
-        msg = '%d relations found !' % len(data.keys())
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)

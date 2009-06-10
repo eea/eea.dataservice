@@ -39,6 +39,27 @@ function showDefinition(context) {
 
     </script>
 
+<metal:intranet define-macro="dataservice_intranet">
+    <!-- EEA management plan code -->
+    <tal:block define="field python:context.getField('eeaManagementPlan');
+                       value python:field.getAccessor(context)()"
+               condition="python:value != ('', '')">
+        <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
+        <dd>
+            <span>year:</span>&nbsp;<tal:block content="python:value[0]" />,
+            <span>code:</span>&nbsp;<tal:block content="python:value[1]" />
+        </dd>
+    </tal:block>
+
+    <!-- Contact person(s) for EEA -->
+    <tal:block define="field python:context.getField('contact');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt i18n:translate="dataset_contact">Contact person(s) for EEA:</dt>
+        <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact person(s) for EEA</dd>
+    </tal:block>
+</metal:intranet>
+
     <!-- BASIC PROPERTIES -->
     <!-- Title -->
     <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
@@ -167,17 +188,6 @@ function showDefinition(context) {
         </dd>
     </tal:block>
 
-    <!-- EEA management plan code -->
-    <tal:block define="field python:context.getField('eeaManagementPlan');
-                       value python:field.getAccessor(context)()"
-               condition="python:value != ('', '')">
-        <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
-        <dd>
-            <span>year:</span>&nbsp;<tal:block content="python:value[0]" />,
-            <span>code:</span>&nbsp;<tal:block content="python:value[1]" />
-        </dd>
-    </tal:block>
-
     <!-- Publish date -->
     <tal:block define="value context/getEffectiveDate" condition="value">
         <dt i18n:translate="dataset_keywords">Publish date:</dt>
@@ -270,14 +280,6 @@ function showDefinition(context) {
         <dd tal:content="context/@@formatTempCoverage" />
     </tal:block>
 
-    <!-- Contact person(s) for EEA -->
-    <tal:block define="field python:context.getField('contact');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_contact">Contact person(s) for EEA:</dt>
-        <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact person(s) for EEA</dd>
-    </tal:block>
-
     <!-- Reference system -->
     <tal:block define="field python:context.getField('referenceSystem');
                        value python:field.getAccessor(context)()"
@@ -322,10 +324,17 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
 
+    <div metal:use-macro="here/@@dataset_view/macros/dataservice_intranet">
+        Metadata for authenticated.
+    </div>
+
     </dl>
     </div>
     <div class="visualClear">&nbsp;</div>
+
 </div>
+
+
 
 </body>
 </html>
