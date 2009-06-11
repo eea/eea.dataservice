@@ -24,7 +24,7 @@ from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYearsVocabulary
-from eea.dataservice.vocabulary import OrganisationsVocabulary
+from eea.dataservice.vocabulary import Organisations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
@@ -134,7 +134,7 @@ schema = Schema((
         name='dataOwner',
         multiValued=1,
         required=True,
-        vocabulary=OrganisationsVocabulary(),
+        vocabulary=Organisations(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
             label="Owner",
@@ -148,7 +148,7 @@ schema = Schema((
     LinesField(
         name='processor',
         multiValued=1,
-        vocabulary=OrganisationsVocabulary(),
+        vocabulary=Organisations(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
             label="Processor",

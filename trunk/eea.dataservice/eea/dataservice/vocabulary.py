@@ -60,7 +60,10 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
 )
 
 # Organisations vocabulary
-class OrganisationsVocabulary:
+from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.vocabulary import SimpleVocabulary
+
+class Organisations:
     """ Return organisations as vocabulary
     """
     __implements__ = (IVocabulary,)
@@ -84,6 +87,18 @@ class OrganisationsVocabulary:
 
     def showLeafsOnly(self):
         return False
+
+class OrganisationsVocabularyFactory(object):
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        if hasattr(context, 'context'):
+            context = context.context
+
+        return SimpleVocabulary(Organisations().getDisplayList())
+
+OrganisationsVocabulary = OrganisationsVocabularyFactory()
+
 
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'

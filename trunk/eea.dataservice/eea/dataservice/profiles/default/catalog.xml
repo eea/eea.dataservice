@@ -15,9 +15,17 @@
  <index name="getVersionId" meta_type="FieldIndex">
   <indexed_attr value="getVersionId"/>
  </index>
+ <index name="getGeographicCoverage" meta_type="KeywordIndex">
+  <indexed_attr value="getGeographicCoverage"/>
+ </index>
+ <index name="getTemporalCoverage" meta_type="KeywordIndex">
+  <indexed_attr value="getTemporalCoverage"/>
+ </index>
  <column value="getDataOwner"/>
  <column value="getProcessor"/>
  <column value="getShortId"/>
  <column value="getRelatedGid"/>
  <column value="getVersionId"/>
+ <column value="getGeographicCoverage"/>
+ <column value="getTemporalCoverage"/>
 </object>

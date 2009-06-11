@@ -26,8 +26,8 @@ class Widget(AbstractWidget):
     """ Widget
     """
     # Widget properties
-    widget_type = 'dataservice'
-    widget_label = 'Dataservice'
+    widget_type = 'lastversion'
+    widget_label = 'Show last version'
     view_js = '++resource++eea.dataservice.facetednavigation.dataservice.view.js'
     edit_js = '++resource++eea.dataservice.facetednavigation.dataservice.edit.js'
     view_css = '++resource++eea.dataservice.facetednavigation.dataservice.view.css'

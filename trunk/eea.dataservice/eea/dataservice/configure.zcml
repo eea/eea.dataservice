@@ -9,7 +9,18 @@
     <include package=".migration" />
     <include package=".content" />
     <include package=".versions" />
-    <include package=".facetednavigation.dataservice" />
+    <include package=".facetednavigation.lastversion" />
+    <include package=".facetednavigation.geocoverage" />
     <include file="profiles.zcml" />
+
+    <utility
+      component=".vocabulary.OrganisationsVocabulary"
+      name="Organisations"
+      />
+
+    <utility
+      component=".vocabulary.DatasetYearsVocabulary"
+      name="Temporal coverage"
+      />
 
 </configure>
