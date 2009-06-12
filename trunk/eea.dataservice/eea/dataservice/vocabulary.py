@@ -10,22 +10,42 @@ from Products.Archetypes.interfaces.vocabulary import IVocabulary
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.vocabulary import SimpleVocabulary
 
 from eea.dataservice.config import *
 
 # Temporal coverage vocabulary
-class DatasetYearsVocabularyFactory(object):
-    """ Dataset years vocabulary
+class DatasetYears:
     """
-    implements(IVocabularyFactory,)
+    """
+    __implements__ = (IVocabulary,)
 
-    def __call__(self):
+    def getDisplayList(self, instance):
+        """ """
         now = datetime.now()
         end_year = now.year + 3
         terms = []
         terms.extend((str(key), str(key))
                      for key in reversed(range(STARTING_YEAR, end_year)))
         return terms
+
+    def getVocabularyDict(self, instance):
+        return {}
+
+    def isFlat(self):
+        return False
+
+    def showLeafsOnly(self):
+        return False
+
+class DatasetYearsVocabularyFactory(object):
+    """ Dataset years vocabulary
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context=None):
+        data = DatasetYears.getDisplayList(context)
+        return SimpleVocabulary.fromItems(data)
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 
@@ -60,9 +80,6 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
 )
 
 # Organisations vocabulary
-from zope.app.schema.vocabulary import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
-
 class Organisations:
     """ Return organisations as vocabulary
     """
@@ -94,8 +111,8 @@ class OrganisationsVocabularyFactory(object):
     def __call__(self, context):
         if hasattr(context, 'context'):
             context = context.context
-
-        return SimpleVocabulary(Organisations().getDisplayList())
+        data = Organisations.getDisplayList(context)
+        return SimpleVocabulary.fromItems(data)
 
 OrganisationsVocabulary = OrganisationsVocabularyFactory()
 

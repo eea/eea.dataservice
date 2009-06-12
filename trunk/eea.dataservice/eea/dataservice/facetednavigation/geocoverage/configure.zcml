@@ -5,24 +5,4 @@
 
   <faceted:widget factory=".widget.Widget" />
 
-  <browser:resource
-    name="eea.dataservice.facetednavigation.geocoverage.view.js"
-    file="./view.js"
-   />
-
-  <browser:resource
-    name="eea.dataservice.facetednavigation.geocoverage.edit.js"
-    file="./edit.js"
-   />
-
-  <browser:resource
-    name="eea.dataservice.facetednavigation.geocoverage.view.css"
-    file="./view.css"
-   />
-
-  <browser:resource
-    name="eea.dataservice.facetednavigation.geocoverage.edit.css"
-    file="./edit.css"
-   />
-
 </configure>

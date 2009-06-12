@@ -23,7 +23,7 @@ from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.interfaces import IDataset
-from eea.dataservice.vocabulary import DatasetYearsVocabulary
+from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.vocabulary import Organisations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
@@ -91,7 +91,7 @@ schema = Schema((
         required=True,
         default=('', ''),
         validators = ('management_plan_code_validator',),
-        vocabulary=DatasetYearsVocabulary(),
+        vocabulary=DatasetYears(),
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
@@ -163,7 +163,7 @@ schema = Schema((
         name='temporalCoverage',
         languageIndependent=True,
         multiValued=1,
-        vocabulary=DatasetYearsVocabulary(),
+        vocabulary=DatasetYears(),
         widget=MultiSelectionWidget(
             macro="temporal_widget",
             helper_js=("temporal_widget.js",),

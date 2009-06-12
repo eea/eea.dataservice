@@ -1,96 +1,21 @@
-""" Select widget
+""" Geographical coverage widget
 """
-from Products.Archetypes.public import Schema
-from Products.Archetypes.public import StringField
-from Products.Archetypes.public import BooleanField
-from Products.Archetypes.public import StringWidget
-from Products.Archetypes.public import SelectionWidget
-from Products.Archetypes.public import BooleanWidget
-from eea.facetednavigation.widgets.vocabulary import CatalogIndexesVocabulary
-from eea.facetednavigation.widgets.vocabulary import UseCatalogVocabulary
-from eea.facetednavigation.widgets.vocabulary import PortalVocabulariesVocabulary
 
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from eea.facetednavigation.widgets.widget import CountableWidget
+from Products.CMFCore.utils import getToolByName
+from BTrees.IIBTree import weightedIntersection, IISet
+from eea.facetednavigation.widgets.select.widget import Widget as SelectWidget
+from eea.facetednavigation.widgets.select.widget import EditSchema as SelectSchema
 
-EditSchema = Schema((
-    StringField('title',
-        required=True,
-        widget=StringWidget(
-            size=25,
-            label='Friendly name',
-            label_msgid='faceted_criteria_title',
-            description='Title for widget to display in view page',
-            description_msgid='help_faceted_criteria_title',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-    StringField('index',
-        required=True,
-        vocabulary=CatalogIndexesVocabulary(),
-        widget=SelectionWidget(
-            label='Catalog index',
-            label_msgid='faceted_criteria_index',
-            description='Catalog index to use for search',
-            description_msgid='help_faceted_criteria_index',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-    StringField('vocabulary',
-        vocabulary=PortalVocabulariesVocabulary(),
-        widget=SelectionWidget(
-            label='Vocabulary',
-            label_msgid='faceted_criteria_vocabulary',
-            description='Vocabulary to use to render widget items',
-            description_msgid='help_faceted_criteria_vocabulary',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-    StringField('catalog',
-        vocabulary=UseCatalogVocabulary,
-        widget=SelectionWidget(
-            format='select',
-            label='Catalog',
-            label_msgid='faceted_criteria_catalog',
-            description='Get unique values from catalog as an alternative for vocabulary',
-            description_msgid='help_faceted_criteria_catalog',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-    BooleanField('count',
-        widget=BooleanWidget(
-            label='Count results',
-            label_msgid='faceted_criteria_count',
-            description='Display number of results near each option',
-            description_msgid='help_faceted_criteria_count',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-    StringField('default',
-        widget=StringWidget(
-            size=25,
-            label='Default value',
-            label_msgid='faceted_criteria_default',
-            description='Default selected item',
-            description_msgid='help_faceted_criteria_select_default',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-))
 
-class Widget(CountableWidget):
-    """ Widget
+GeoSchema = SelectSchema.copy()
+GeoSchema['vocabulary'].widget.visible = -1
+
+class Widget(SelectWidget):
+    """ Geographical coverage widget
     """
-    # Widget properties
     widget_type = 'geocoverage'
     widget_label = 'European countries'
-    view_js = '++resource++eea.dataservice.facetednavigation.geocoverage.view.js'
-    edit_js = '++resource++eea.dataservice.facetednavigation.geocoverage.edit.js'
-    view_css = '++resource++eea.dataservice.facetednavigation.geocoverage.view.css'
-    edit_css = '++resource++eea.dataservice.facetednavigation.geocoverage.edit.css'
-
-    index = ViewPageTemplateFile('widget.pt')
-    edit_schema = EditSchema
+    edit_schema = GeoSchema
 
     def query(self, form):
         """ Get value from form and return a catalog dict query
@@ -109,5 +34,68 @@ class Widget(CountableWidget):
         if not value:
             return query
 
-        query[index] = value
+        # custom
+        countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
+        if (value,value) in countryGroupsView():
+            getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
+            query[index] = {'query': getCountriesByGroupView(value), 'operator': 'and'}
+        else:
+            query[index] = value
+
         return query
+
+    def portal_vocabulary(self):
+        """ Return data vocabulary
+        """
+        #custom
+        terms = []
+        countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
+        countriesView = self.context.unrestrictedTraverse('@@getCountries')
+
+        terms.extend(countryGroupsView())
+        terms.extend(countriesView())
+
+        return terms
+
+    def apply_sequence(self, sequence, brains):
+        """ Intersect results
+        """
+        if not sequence:
+            return {}
+
+        index_id = self.data.get('index')
+        if not index_id:
+            return {}
+
+        ctool = getToolByName(self.context, 'portal_catalog')
+        index = ctool._catalog.getIndex(index_id)
+        apply_index = getattr(index, "_apply_index", None)
+        if not apply_index:
+            return {}
+
+        res = {}
+
+        brains = IISet(brain.getRID() for brain in brains)
+        for value in sequence:
+            if not value:
+                res[value] = len(brains)
+                continue
+
+            #custom
+            countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
+            if (value,value) in countryGroupsView():
+                getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
+                gr_value = getCountriesByGroupView(value)
+                rset = apply_index({index_id: gr_value})
+            else:
+                rset = apply_index({index_id: value})
+
+            if not rset:
+                continue
+            rset, u = rset
+            rset = IISet(rset)
+            u, rset = weightedIntersection(brains, rset)
+            if isinstance(value, str):
+                value = value.decode('utf-8', 'replace')
+            res[value] = len(rset)
+        return res

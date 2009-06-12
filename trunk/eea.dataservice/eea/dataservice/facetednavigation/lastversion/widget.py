@@ -1,4 +1,4 @@
-""" Criteria widget
+""" Version widget
 """
 from DateTime import DateTime
 from Products.Archetypes.public import Schema
