@@ -54,10 +54,12 @@ def _getGroupCountries(context, group_code):
 
 def _getCountryInfo(context):
     """ """
-    atvm = getToolByName(context, ATVOCABULARYTOOL)
-    vocab = atvm[COUNTRIES_DICTIONARY_ID]
-
     res = {'groups': {}, 'countries': {}}
+    atvm = getToolByName(context, ATVOCABULARYTOOL)
+    vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
+    if not vocab:
+        return res
+
     terms = vocab.getVocabularyDict()
     for key in terms.keys():
         code = terms[key][0]

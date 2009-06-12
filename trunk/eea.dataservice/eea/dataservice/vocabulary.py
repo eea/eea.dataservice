@@ -44,7 +44,7 @@ class DatasetYearsVocabularyFactory(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context=None):
-        data = DatasetYears.getDisplayList(context)
+        data = DatasetYears().getDisplayList(context)
         return SimpleVocabulary.fromItems(data)
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
@@ -111,7 +111,7 @@ class OrganisationsVocabularyFactory(object):
     def __call__(self, context):
         if hasattr(context, 'context'):
             context = context.context
-        data = Organisations.getDisplayList(context)
+        data = Organisations().getDisplayList(context)
         return SimpleVocabulary.fromItems(data)
 
 OrganisationsVocabulary = OrganisationsVocabularyFactory()
