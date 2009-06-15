@@ -51,7 +51,7 @@ Lets add a Dataset.
     ...   'effectiveDate': '11/11/2008',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
     ...   'geoQuality': ('1', '2', '1', '-1', '0'),
-    ...   'eeaManagementPlan': ('2008', '123456'),
+    ...   'eeaManagementPlan': ('', ''),
     ...   'lastUpload': '11/11/2008',
     ...   'scale': '1000000',
     ...   'dataOwner': 'http://organisation.url',
@@ -69,6 +69,12 @@ Lets add a Dataset.
     ... }
     >>> data1.processForm(values=form, data=1, metadata=1)
 
+Our dataset should provide IDataset interface.
+
+    >>> from eea.dataservice.interfaces import IDataset
+    >>> IDataset.providedBy(data1)
+    True
+
 Check see if properties applyed.
 
     >>> data1.Title()
@@ -81,7 +87,8 @@ Check see if properties applyed.
     ('ro', 'it', 'dk')
     >>> data1.getGeoQuality()
     ('-1', '-1', '-1', '-1', '-1')
-    >>> #TODO: eeaManagementPlan
+    >>> data1.getEeaManagementPlan()
+    ('', '')
     >>> data1.lastUpload
     DateTime('2008/11/11')
     >>> data1.getScale()
@@ -150,7 +157,6 @@ Lets add a DataFile under the above DataTable.
     ...   'effectiveDate': '11/11/2008',
     ...   'shortId': '2222',
     ... }
-    >>> #TODO: upload file
     >>> df1.processForm(values=form, data=1, metadata=1)
 
 Check see if properties applyed.
@@ -163,3 +169,17 @@ Check see if properties applyed.
     DateTime('2008/11/11')
     >>> df1.getShortId()
     '2222'
+
+Lets upload a file
+
+    >>> self.loadfile(df1, 'sample.pdf')
+    'File uploaded.'
+    >>> df1.getFile().filename
+    'sample.pdf'
+    >>> df1.getFile().getBestIcon()
+    'pdf.png'
+    >>> df1.getFile().get_size()
+    7981
+    >>> df1.getFile().getContentType()
+    'application/pdf'
+    >>> import pdb; pdb.set_trace()
