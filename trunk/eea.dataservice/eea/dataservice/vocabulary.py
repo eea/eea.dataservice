@@ -92,8 +92,10 @@ class Organisations:
         cat = getToolByName(instance, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
 
-        organisations.extend((brain.getUrl, brain.Title)
+        organisations.extend((brain.Title, brain.getUrl)
                              for brain in res)
+        #organisations.extend((brain.getUrl, brain.Title)
+        #                     for brain in res)
         return sorted(organisations, key=operator.itemgetter(1))
 
     def getVocabularyDict(self, instance):

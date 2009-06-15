@@ -53,9 +53,9 @@
                   class="dummy-org-selector">
             <option selected=""
                     tal:repeat="item vocab"
-                    tal:attributes="value nocall:item;
-                    selected python:test(here.unicodeTestIn(item, value), 'selected', None);"
-                    tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                    tal:attributes="value python:vocab.getValue(item);
+                    selected python:test(here.unicodeTestIn(vocab.getValue(item), value), 'selected', None);"
+                    tal:content="nocall:item"
                     i18n:translate="" />
           </select>
           <p />

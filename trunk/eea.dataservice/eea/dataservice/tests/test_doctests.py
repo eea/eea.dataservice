@@ -18,4 +18,8 @@ def test_suite():
                   optionflags=OPTIONFLAGS,
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,
+            Suite('doc/versions.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.dataservice',
+                  test_class=DataserviceFunctionalTestCase) ,
               ))

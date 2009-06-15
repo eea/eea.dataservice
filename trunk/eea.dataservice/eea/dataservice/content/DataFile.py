@@ -16,16 +16,6 @@ from iw.fss.FileSystemStorage import FileSystemStorage
 
 
 schema = Schema((
-    StringField(
-        name='category',
-        widget = StringWidget(
-            label="Category",
-            description = ("Category description."),
-            label_msgid='dataservice_label_category',
-            description_msgid='dataservice_help_category',
-            i18n_domain='eea.dataservice',
-        )
-    ),
     FileField('file',
               required=False,
               primary=True,
@@ -37,7 +27,6 @@ schema = Schema((
                         label_msgid = "label_file",
                         i18n_domain = "plone",
                         show_content_type = False,)),
-
     StringField(
         name='shortId',
         widget = StringWidget(
@@ -50,6 +39,17 @@ schema = Schema((
         )
     ),
 
+
+    StringField(
+        name='category',
+        widget = StringWidget(
+            label="Category",
+            description = ("Category description."),
+            label_msgid='dataservice_label_category',
+            description_msgid='dataservice_help_category',
+            i18n_domain='eea.dataservice',
+        )
+    ),
     StringField(
         name='table_id',
         widget = StringWidget(

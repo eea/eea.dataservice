@@ -22,7 +22,7 @@ Lets add an Organisation.
     ... }
     >>> org1.processForm(values=form, data=1, metadata=1)
 
-Lets see if properties applyed.
+Check see if properties applyed.
 
     >>> org1.Title()
     'Organisation 1'
@@ -35,7 +35,13 @@ Lets see if properties applyed.
     >>> org1.getEffectiveDate()
     DateTime('2008/11/11')
 
-Lets add a dataset.
+Verify if organisation vocabulary contains correct data.
+
+    >>> from eea.dataservice.vocabulary import Organisations
+    >>> Organisations().getDisplayList(org1)
+    [('Organisation 1', 'http://organisation.url')]
+
+Lets add a Dataset.
 
     >>> _ = sandbox.invokeFactory('Data', 'data1')
     >>> data1 = sandbox.data1
@@ -59,9 +65,101 @@ Lets add a dataset.
     ...   'moreInfo': 'More info',
     ...   'methodology': 'Methodology',
     ...   'units': 'units',
-    ...   'shortId': '1001',
+    ...   'shortId': '1111',
     ... }
     >>> data1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applyed.
+
     >>> data1.Title()
     'Data 1'
+    >>> data1.Description()
+    'Organisation description 1'
+    >>> data1.getEffectiveDate()
+    DateTime('2008/11/11')
+    >>> data1.getGeographicCoverage()
+    ('ro', 'it', 'dk')
+    >>> data1.getGeoQuality()
+    ('-1', '-1', '-1', '-1', '-1')
+    >>> #TODO: eeaManagementPlan
+    >>> data1.lastUpload
+    DateTime('2008/11/11')
+    >>> data1.getScale()
+    1000000
+    >>> data1.getDataOwner()
+    ('http://organisation.url',)
+    >>> data1.getProcessor()
+    ('http://organisation.url',)
+    >>> data1.getTemporalCoverage()
+    ('2008', '2009')
+    >>> data1.getDisclaimer()
+    'Some disclaimer'
+    >>> data1.getContact()
+    'Some contact'
+    >>> data1.getGeoAccuracy()
+    'Geographic accuracy'
+    >>> data1.getReferenceSystem()
+    '<p>References system</p>'
+    >>> data1.getDataSource()
+    '<p>Data source</p>'
+    >>> data1.getMoreInfo()
+    '<p>More info</p>'
+    >>> data1.getMethodology()
+    '<p>Methodology</p>'
+    >>> data1.getUnits()
+    '<p>units</p>'
+    >>> data1.getShortId()
+    '1111'
 
+Lets add a DataTable under the above Dataset.
+
+    >>> _ = data1.invokeFactory('DataTable', 'dt1')
+    >>> dt1 = data1.dt1
+    >>> form = {
+    ...   'title': 'DataTable 1',
+    ...   'description': 'DataTable description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'category': 'rod',
+    ...   'records': '38000',
+    ...   'tableDefinition': 'A table definition.',
+    ... }
+    >>> dt1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applyed.
+
+    >>> dt1.Title()
+    'DataTable 1'
+    >>> dt1.Description()
+    'DataTable description 1'
+    >>> dt1.getEffectiveDate()
+    DateTime('2008/11/11')
+    >>> dt1.getCategory()
+    'rod'
+    >>> dt1.getRecords()
+    '38000'
+    >>> dt1.getTableDefinition()
+    '<p>A table definition.</p>'
+
+Lets add a DataFile under the above DataTable.
+
+    >>> _ = dt1.invokeFactory('DataFile', 'df1')
+    >>> df1 = dt1.df1
+    >>> form = {
+    ...   'title': 'DataFile 1',
+    ...   'description': 'DataFile description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'shortId': '2222',
+    ... }
+    >>> #TODO: upload file
+    >>> df1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applyed.
+
+    >>> df1.Title()
+    'DataFile 1'
+    >>> df1.Description()
+    'DataFile description 1'
+    >>> df1.getEffectiveDate()
+    DateTime('2008/11/11')
+    >>> df1.getShortId()
+    '2222'
