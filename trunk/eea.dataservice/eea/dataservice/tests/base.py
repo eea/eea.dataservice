@@ -121,11 +121,8 @@ class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
         from cgi import FieldStorage
         from ZPublisher.HTTPRequest import FileUpload
 
-
-        #TODO: fix me
-        xxx_path = '/var/local/eea-buildout-devel/src/eea.dataservice/eea/dataservice/tests'
-
-        file_path = os.path.join(xxx_path, rel_filename)
+        storage_path = os.path.join(os.path.dirname(__file__))
+        file_path = os.path.join(storage_path, rel_filename)
         file_ob = open(file_path, 'rb')
         file_data = file_ob.read()
         size = len(file_data)

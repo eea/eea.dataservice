@@ -8,6 +8,9 @@ Only for Demo use:
 Migration steps:
     - Site setup -> install "eea.dataservice" product
     - Site setup -> install "iw.fss" product
+    - Edit file ../buildout/src/eea.dataservice/eea/dataservice/migration/config.py
+       and modify the value of DATAFILES_PATH to fit the files dump path
+    - Restart server
 
 Run:
     - http://plone_site/@@migrate_organisations

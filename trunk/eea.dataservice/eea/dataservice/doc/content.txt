@@ -182,4 +182,3 @@ Lets upload a file
     7981
     >>> df1.getFile().getContentType()
     'application/pdf'
-    >>> import pdb; pdb.set_trace()
