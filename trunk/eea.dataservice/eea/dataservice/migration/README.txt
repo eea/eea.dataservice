@@ -10,6 +10,8 @@ Migration steps:
     - Site setup -> install "iw.fss" product
     - Edit file ../buildout/src/eea.dataservice/eea/dataservice/migration/config.py
        and modify the value of DATAFILES_PATH to fit the files dump path
+       If using files dump from Whiteshark the DATAFILES_PATH should be:
+            DATAFILES_PATH = os.path.join('/var/eeawebtest/dataservicefiles')
     - Restart server
 
 Run:

@@ -57,6 +57,7 @@ def _generateNewId(context, title, uid):
                 else:
                     id = new_id
                     break
+    if id == 'methodology': id = 'methodology-1'
     return id
 
 def _redirect(obj, msg, container):
