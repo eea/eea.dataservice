@@ -3,6 +3,7 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
+import transaction
 from DateTime import DateTime
 from zope.interface import alsoProvides
 from ZPublisher.HTTPRequest import FileUpload
@@ -184,7 +185,7 @@ class MigrateDatasets(object):
 
         # Add dataset if it doesn't exists
         if ds_id not in context.objectIds():
-            info('Adding dataset ID: %s', ds_id)
+            ###info('Adding dataset ID: %s', ds_id)
             ds_id = context.invokeFactory('Data', id=ds_id)
         ds = getattr(context, ds_id)
 
@@ -238,8 +239,11 @@ class MigrateDatasets(object):
 
         # Add object if it doesn't exists
         if dt_id not in context.objectIds():
-            info('Adding %s id: %s' % (otype, dt_id))
-            dt_id = context.invokeFactory(otype, id=dt_id)
+            ###info('Adding %s id: %s' % (otype, dt_id))
+            try:
+                dt_id = context.invokeFactory(otype, id=dt_id)
+            except:
+                info('ERROR: could not add %s with UID: %s' % (otype, datamodel.get('UID')))
 
         # Set properties
         dt = getattr(context, dt_id)
@@ -301,8 +305,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        ds_info = 1
+        ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        #ds_info = 20
         ds_range = 0
         ds_step = 10
 
@@ -361,7 +365,9 @@ class MigrateDatasets(object):
                         dsf_index += 1
                     else:
                         info('ERROR: cant find table container %s' % table_id)
+            transaction.commit()
 
-        msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
+        #msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
+        msg = 'Datasets, datatables and datafiles imported!'
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
