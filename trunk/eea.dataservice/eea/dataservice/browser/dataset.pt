@@ -60,6 +60,9 @@ function showDefinition(context) {
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
+    <!-- Main data sets -->
+    <metal:themes use-macro="here/portlet_maindatasets/macros/portlet" />
+
     <!-- Tables -->
     <tal:tables repeat="categ python:context.getTablesByCategory().keys()">
         <h4 tal:content="python:context.getCategoryName(categ)" />

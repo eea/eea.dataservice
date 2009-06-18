@@ -31,6 +31,30 @@ class DatatableContainerView(object):
         self.context = context
         self.request = request
 
+class MainDatasets(object):
+    """ Main datasets based on last modified and
+        minimum 3 versions.
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, count=2, ver_num=3):
+        res = []
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : ['Data'],
+                                    'sort_on': 'modified',
+                                    'sort_order': 'reverse'})
+
+        for brain in brains:
+            dataset = brain.getObject()
+            versions_view = dataset.unrestrictedTraverse('@@getVersions')
+            if len(versions_view()) > ver_num:
+                res.append(dataset)
+            if len(res) == count: break
+
+        return res
+
 class OrganisationContainerView(object):
     """ Default organisation view
     """

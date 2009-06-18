@@ -68,6 +68,7 @@ class GetVersions(object):
 
     def __call__(self):
         res = {}
+        brains = []
         ver = IVersionControl(self.context)
         verId = ver.getVersionId()
 

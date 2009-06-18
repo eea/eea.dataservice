@@ -29,6 +29,13 @@
       />
 
   <page
+      name="getMainDatasets"
+      class=".displays.MainDatasets"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="organisation_view"
       template="organisation.pt"
       class=".displays.OrganisationContainerView"
