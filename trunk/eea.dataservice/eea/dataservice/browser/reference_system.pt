@@ -1,0 +1,11 @@
+<select name="reference-system-select"
+        class="kupu-tb-styles"
+        style="background-color:#ccc">
+
+  <option value="ETRS89">ETRS89</option>
+  <option value="ETRS">ETRS</option>
+  <option value="Lambert">Lambert Azimutal</option>
+  <option value="ALBERS">ALBERS</option>
+  <option value="WGS">WGS</option>
+
+</select>

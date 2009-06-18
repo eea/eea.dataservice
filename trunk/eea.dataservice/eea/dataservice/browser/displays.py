@@ -263,18 +263,12 @@ class GetReferenceSystemKupu(object):
         self.context = context
         self.request = request
 
-    def __call__(self):
-        return REFERENCE_SYSTEM_KUPU
-
 class GetReferenceSystemTemplate(object):
     """ Return reference system templates
     """
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
-    def __call__(self, tpl):
-        return REFERENCE_SYSTEM_TEMPLATES[tpl]
 
 class GetQualityDisplay(object):
     """ Return quality display
@@ -344,148 +338,3 @@ GEO_COVERAGE_MAP = """
       }
     </script>
 """
-
-REFERENCE_SYSTEM_KUPU = """
-<select name="reference-system-select" class="kupu-tb-styles" style="background-color:#ccc">
-  <option value="ETRS89">ETRS89</option>
-  <option value="ETRS">ETRS</option>
-  <option value="Lambert">Lambert Azimutal</option>
-  <option value="ALBERS">ALBERS</option>
-  <option value="WGS">WGS</option>
-</select>
-"""
-
-REFERENCE_SYSTEM_TEMPLATES = {
-    'ETRS89': """
-<table>
-<tr>
-<td valign="middle" colspan="2"><b>ETRS89</b> </td>
-</tr>
-
-<tr>
-<td valign="top">Datum<br />
-<span class="subscript">defines the position of the ellipsoid
-(spheroid) relative to the center of the earth</span></td>
-<td valign="top" class="subscript">D_ETRS_1989</td>
-</tr>
-
-<tr>
-<td valign="top">Ellipsoid<br />
-<span class="subscript">When used to represent the earth, the
-three-dimensional shape obtained by rotating an ellipse about its
-minor axis.</span></td>
-<td valign="top" class="subscript">GRS_1980</td>
-</tr>
-
-<tr>
-<td valign="top">Semi-major axis<br />
-<span class="subscript">Radius of the equatorial axis of the
-ellipsoid</span></td>
-<td valign="top" class="subscript">6378137</td>
-</tr>
-
-<tr>
-<td valign="top">Axis units<br />
-<span class="subscript">Unit of the semi-major axis</span></td>
-<td valign="top" class="subscript">Degrees</td>
-</tr>
-
-<tr>
-<td valign="top">Flattening ratio<br />
-<span class="subscript">Radius of the equatorial axis of the
-ellipsoid</span></td>
-<td valign="top" class="subscript">3.35281068118232E-03</td>
-</tr>
-</table>
-""",
-    'ETRS': """
-<table>
-<tr>
-<td valign="middle" colspan="2"><b>ETRS - Lambert Azimutal Equal
-Area</b></td>
-</tr>
-
-<tr>
-<td valign="top">Datum<br />
-<span class="subscript">defines the position of the ellipsoid
-(spheroid) relative to the center of the earth</span></td>
-<td valign="top" class="subscript">D_ETRS_1989</td>
-</tr>
-
-<tr>
-<td valign="top">Ellipsoid<br />
-<span class="subscript">When used to represent the earth, the
-three-dimensional shape obtained by rotating an ellipse about its
-minor axis.</span></td>
-<td valign="top" class="subscript">GRS_1980</td>
-</tr>
-
-<tr>
-<td valign="top">Semi-major axis<br />
-<span class="subscript">Radius of the equatorial axis of the
-ellipsoid</span></td>
-<td valign="top" class="subscript">6378137</td>
-</tr>
-
-<tr>
-<td valign="top">Axis units<br />
-<span class="subscript">Unit of the semi-major axis</span></td>
-<td valign="top" class="subscript">Degrees</td>
-</tr>
-
-<tr>
-<td valign="top">Flattening ratio<br />
-<span class="subscript">Radius of the equatorial axis of the
-ellipsoid</span></td>
-<td valign="top" class="subscript">3.35281068118232E-03</td>
-</tr>
-
-<tr>
-<td valign="top">Projection<br />
-<span class="subscript">a projected coordinate system designed for
-two-dimensional surface mapping</span></td>
-<td valign="top" class="subscript">Lambert_Azimutal_Equal_Area</td>
-</tr>
-
-<tr>
-<td valign="top">False easting<br />
-<span class="subscript">A linear value added to the x-coordinate
-values, usually to ensure that all map coordinates are
-positive.</span></td>
-<td valign="top" class="subscript">4321000 meters</td>
-</tr>
-
-<tr>
-<td valign="top">False northing<br />
-<span class="subscript">A linear value added to the y-coordinate
-values, usually to ensure that all map coordinates are
-positive.</span></td>
-<td valign="top" class="subscript">3210000 meters</td>
-</tr>
-
-<tr>
-<td valign="top">Central median<br />
-<span class="subscript">Line of longitude at the centre of a map
-projection generally used as the basis for constructing the
-projection</span></td>
-<td valign="top" class="subscript">10 degrees</td>
-</tr>
-
-<tr>
-<td valign="top">Latitude of origin<br />
-<span class="subscript">Latitude chosen as the origin of
-rectangular coordinates for a map projection</span></td>
-<td valign="top" class="subscript">52 degrees</td>
-</tr>
-</table>
-""",
-    'Lambert': """
-<table><tr><td valign="middle" colspan="2"><b>Lambert Azimutal</b></td></tr><tr><td valign="top">Longitute of Projection Center<br/><span  class="subscript">The longitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">20°00'00''</td></tr><tr><td valign="top">Latitute of Projection Center<br/><span  class="subscript">The latitude that defines the center (and sometimes origin) of a projection.</span></td><td valign="top">52°00'00''</td></tr><tr><td valign="top">Ellipsoid<br/><span class="subscript">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top">Sphere: radius 6378137</td></tr><tr><td valign="top">Axis Units<br/><span class="subscript">Unit the x,y-coordinates are specified.</span></td><td valign="top">Meters</td></tr><tr><td valign="top">False Easting<br/><span class="subscript">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">5071000.0 Meters</td></tr><tr><td valign="top">False Northing<br/><span class="subscript">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">3210000.0 Meters</td></tr><tr><td valign="top">Semimajor Axis<br/><span class="subscript">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">6378137 Meters</td></tr></table>
-""",
-    'ALBERS': """
-<table><tr><td valign="middle" colspan="2"><b>ALBERS Conical Equal Area</b></td></tr><tr><td valign="top">Longitute of Central Meridian<br/><span  class="subscript">The Longitute that defines the origin of the x-coordinate values for a projection.</span></td><td valign="top"> 22 39 00</td></tr><tr><td valign="top">Latitute of Projection Origin<br/><span  class="subscript">The latitute that defines the origin of the y-coordinate values for a projection</span></td><td valign="top">51 24 00</td></tr><tr><td valign="top">Ellipsoid<br/><span class="subscript">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top">Spheroid WGS72</td></tr><tr><td valign="top">Standard Parallel<br/><span class="subscript">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top">1st standard parallel 32 30 00, 2nd standard parallel 54 30 00</td></tr><tr><td valign="top">Axis Units<br/><span class="subscript">Unit the x,y-coordinates are specified.</span></td><td valign="top">Meters</td></tr><tr><td valign="top">False Easting<br/><span class="subscript">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 Meters</td></tr><tr><td valign="top">False Northing<br/><span class="subscript">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 Meters</td></tr><tr><td valign="top">Semimajor Axis<br/><span class="subscript">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">-</td></tr></table>
-""",
-    'WGS': """
-<table><tr><td valign="middle" colspan="2"><b>WGS_1984_Web_Mercator</b></td></tr><tr><td valign="top" class="subscript">Ellipsoid<br/><span class="subscript">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. Sphere: a three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" class="subscript">D_WGS_1984</td></tr><tr><td valign="top">Standard parallel<br/><span class="subscript">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" class="subscript">0.0</td></tr><tr><td valign="top">Axis units<br/><span class="subscript">The x,y-coordinates are specified.</span></td><td valign="top" class="subscript">Meters</td></tr><tr><td valign="top">False easting<br/><span class="subscript">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 Meters</td></tr><tr><td valign="top">False northing<br/><span class="subscript">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 Meters</td></tr><tr><td valign="top">Semi-major axis<br/><span class="subscript">The equatorial radius of a spheroid, Often known as "a"</span></td><td valign="top" class="subscript">6378137 Meters</td></tr></table>
-"""
-}
