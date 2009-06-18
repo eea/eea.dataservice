@@ -10,7 +10,7 @@ function setReferenceTemplatesInKupu() {
 };
 
 function addReferenceSystemTemplate(template) {
-  jQuery.get('@@getReferenceSystemTemplate', {tpl:jQuery("select[name='reference-system-select'] :selected").val()},
+  jQuery.get('@@getReferenceSystemTemplate', {tpl:jQuery("select[name='reference-system-select']").val()},
     function(data){
       var existing_data = jQuery('#kupu-editor-iframe-referenceSystem').contents().find('body').html();
       jQuery('#kupu-editor-iframe-referenceSystem').contents().find('body').html(data + existing_data);

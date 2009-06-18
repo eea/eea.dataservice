@@ -2,6 +2,7 @@
         class="kupu-tb-styles"
         style="background-color:#ccc">
 
+  <option value=""></option>
   <option value="ETRS89">ETRS89</option>
   <option value="ETRS">ETRS</option>
   <option value="Lambert">Lambert Azimutal</option>
