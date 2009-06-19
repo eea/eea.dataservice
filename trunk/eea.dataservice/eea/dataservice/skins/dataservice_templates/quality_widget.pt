@@ -58,11 +58,11 @@
 
 <div class="quality-widget">
 <tal:block define="value python:test(len(value)==5, value, ('-1','-1','-1','-1','-1'));
-                   gq_com python:value[0];
-                   gq_log python:value[1];
-                   gq_pos python:value[2];
-                   gq_tem python:value[3];
-                   gq_the python:value[4]">
+                   gq_com python:request.get(fieldName+'Com', value[0]);
+                   gq_log python:request.get(fieldName+'Log', value[1]);
+                   gq_pos python:request.get(fieldName+'Pos', value[2]);
+                   gq_tem python:request.get(fieldName+'Tem', value[3]);
+                   gq_the python:request.get(fieldName+'The', value[4])">
 
     <table class="" tal:attributes="class string:class-${fieldName}Com"><tbody><tr>
         <td>&nbsp;&nbsp;</td>

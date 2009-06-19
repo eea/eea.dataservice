@@ -66,8 +66,8 @@
         </td>
     </tr>
 <tal:block define="value python:test(len(value)==2, value, ('',''));
-                   mp_year python:value[0];
-                   mp_code python:value[1];">
+                   mp_year python:request.get(fieldName+'Year', value[0]);
+                   mp_code python:request.get(fieldName+'Code', value[1])">
     <tr>
         <td>
 <!-- Management plan year -->
