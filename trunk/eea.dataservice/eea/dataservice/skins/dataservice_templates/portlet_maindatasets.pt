@@ -16,9 +16,8 @@
         <a tal:content="dataset/Title" tal:attributes="href dataset/absolute_url"/>
     </dd>
     <dd class="portletFooter"></dd>
-
 </dl>
-<div class="visualClear"><!-- &nbsp;--></div>
+
 </div>
 </body>
 </html>

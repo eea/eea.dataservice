@@ -57,11 +57,11 @@ function showDefinition(context) {
     <!-- Versions -->
     <metal:themes use-macro="here/portlet_versions/macros/portlet" />
 
-    <!-- Themes -->
-    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
-
     <!-- Main data sets -->
     <metal:themes use-macro="here/portlet_maindatasets/macros/portlet" />
+
+    <!-- Themes -->
+    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
     <!-- Tables -->
     <tal:tables repeat="categ python:context.getTablesByCategory().keys()">
