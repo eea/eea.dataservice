@@ -13,7 +13,20 @@
 
     <dt class="portletHeader" i18n:translate="">Main data sets</dt>
     <dd class="portletItem" tal:repeat="dataset view">
-        <a tal:content="dataset/Title" tal:attributes="href dataset/absolute_url"/>
+        <span tal:attributes="class item_type_class"
+            tal:define="item_type           dataset/portal_type;
+                        item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
+                        item_description    dataset/Description;
+                        item_wf_state       dataset/review_state|python: wtool.getInfoFor(dataset, 'review_state', '');
+                        item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+            <a href="#" tal:attributes="href  dataset/absolute_url;
+                                        title string: $item_type: $item_description;
+                                        class string:$item_wf_state_class visualIconPadding;">
+                <span tal:replace="dataset/Title">
+                  Item Title
+                </span>
+            </a>
+        </span>
     </dd>
     <dd class="portletFooter"></dd>
 </dl>
