@@ -3,14 +3,14 @@
 
 from Products.CMFCore.utils import getToolByName
 from BTrees.IIBTree import weightedIntersection, IISet
-from eea.facetednavigation.widgets.select.widget import Widget as SelectWidget
-from eea.facetednavigation.widgets.select.widget import EditSchema as SelectSchema
+from eea.facetednavigation.widgets.checkbox.widget import Widget as CheckboxWidget
+from eea.facetednavigation.widgets.checkbox.widget import EditSchema as CheckboxSchema
 
 
-GeoSchema = SelectSchema.copy()
+GeoSchema = CheckboxSchema.copy()
 GeoSchema['vocabulary'].widget.visible = -1
 
-class Widget(SelectWidget):
+class Widget(CheckboxWidget):
     """ Geographical coverage widget
     """
     widget_type = 'geocoverage'
@@ -36,11 +36,18 @@ class Widget(SelectWidget):
 
         # custom
         countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
-        if (value,value) in countryGroupsView():
-            getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
-            query[index] = {'query': getCountriesByGroupView(value), 'operator': 'and'}
-        else:
-            query[index] = value
+        if not isinstance(value, list):
+            value = [value]
+
+        tmp_value = []
+        for code in value:
+            if (code,code) in countryGroupsView():
+                getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
+                tmp_value.extend(getCountriesByGroupView(value))
+            else:
+                tmp_value.append(code)
+
+        query[index] = {'query': tmp_value, 'operator': 'and'}
 
         return query
 
