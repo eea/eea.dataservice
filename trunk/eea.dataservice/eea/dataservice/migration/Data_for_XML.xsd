@@ -90,6 +90,24 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
+										<xs:element name="pivotview" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="pivotview_GID" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="pivotview_id" type="xs:int"/>
+																<xs:element name="pivotview_title" type="xs:string"/>
+																<xs:element name="pivotview_note" type="xs:string" minOccurs="0"/>
+																<xs:element name="pivotview_publish_level" type="xs:int"/>
+																<xs:element name="pivotview_link" type="xs:string"/>
+															</xs:sequence>
+															<xs:attribute name="pivotview_GID" type="xs:string" use="required"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 										<xs:element name="quality_stamp" minOccurs="0">
 											<xs:complexType>
 												<xs:choice maxOccurs="unbounded">
