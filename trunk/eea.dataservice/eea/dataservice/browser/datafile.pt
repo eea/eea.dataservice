@@ -19,22 +19,6 @@
     <!-- Description -->
     <p class="publicationDescription" tal:content="context/Description" />
 
-    <!-- Category -->
-    <tal:block define="field python:context.getField('category');
-                       value python:field.getAccessor(context)()"
-              condition="value">
-        <dt i18n:translate="dataset_category">Category</dt>
-        <dd tal:content="value" />
-    </tal:block>
-
-    <!-- Original download link -->
-    <tal:block define="field python:context.getField('download_link');
-                       value python:field.getAccessor(context)()"
-              condition="value">
-        <dt i18n:translate="dataset_download_link">Original download link</dt>
-        <dd><a tal:attributes="href value" tal:content="value" title="download" /></dd>
-    </tal:block>
-
     <!-- File -->
    <tal:block define="field python:context.getField('file');
                        accessor python:field.getAccessor(context)();
@@ -54,6 +38,21 @@
         </dd>
     </tal:block>
 
+    <!-- Category -->
+    <!-- tal:block define="field python:context.getField('category');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Category</dt>
+        <dd tal:content="value" />
+    </tal:block -->
+
+    <!-- Original download link -->
+    <!-- tal:block define="field python:context.getField('download_link');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_download_link">Original download link</dt>
+        <dd><a tal:attributes="href value" tal:content="value" title="download" /></dd>
+    </tal:block -->
 
     <!-- Short ID -->
     <!-- tal:block define="field python:context.getField('shortId');
