@@ -23,7 +23,8 @@ class DatasetYears:
     def getDisplayList(self, instance):
         """ """
         now = datetime.now()
-        end_year = now.year + 3
+        #end_year = now.year + 3
+        end_year = 2099
         terms = []
         terms.extend((str(key), str(key))
                      for key in reversed(range(STARTING_YEAR, end_year)))
