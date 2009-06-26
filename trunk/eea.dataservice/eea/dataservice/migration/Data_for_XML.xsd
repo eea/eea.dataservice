@@ -90,6 +90,24 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
+										<xs:element name="staticgisview" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="staticgisview_GID" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="staticgisview_id" type="xs:int"/>
+																<xs:element name="staticgisview_title" type="xs:string"/>
+																<xs:element name="staticgisview_note" type="xs:string"/>
+																<xs:element name="staticgisview_publish_level" type="xs:int"/>
+																<xs:element name="staticgisview_link" type="xs:string"/>
+															</xs:sequence>
+															<xs:attribute name="staticgisview_GID" type="xs:string" use="required"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 										<xs:element name="pivotview" minOccurs="0">
 											<xs:complexType>
 												<xs:sequence>
@@ -103,6 +121,24 @@
 																<xs:element name="pivotview_link" type="xs:string"/>
 															</xs:sequence>
 															<xs:attribute name="pivotview_GID" type="xs:string" use="required"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="staticgisview" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="staticgisview_GID" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="staticgisview_id" type="xs:int"/>
+																<xs:element name="staticgisview_title" type="xs:string"/>
+																<xs:element name="staticgisview_note" type="xs:string"/>
+																<xs:element name="staticgisview_publish_level" type="xs:int"/>
+																<xs:element name="staticgisview_link" type="xs:string"/>
+															</xs:sequence>
+															<xs:attribute name="staticgisview_GID" type="xs:string" use="required"/>
 														</xs:complexType>
 													</xs:element>
 												</xs:sequence>
