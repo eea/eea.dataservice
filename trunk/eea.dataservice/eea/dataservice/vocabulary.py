@@ -3,8 +3,9 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
-from datetime import datetime
 import operator
+import xmlrpclib
+from datetime import datetime
 
 from Products.Archetypes.interfaces.vocabulary import IVocabulary
 from Products.CMFCore.utils import getToolByName
@@ -119,6 +120,49 @@ class OrganisationsVocabularyFactory(object):
 
 OrganisationsVocabulary = OrganisationsVocabularyFactory()
 
+# Obligations vocabulary
+def formatTitle(title):
+    res = title
+    if len(title) > 80:
+        res = title[:80]
+        res += ' ...'
+    return res
+
+class Obligations:
+    """ Return obligations as vocabulary
+    """
+    __implements__ = (IVocabulary,)
+
+    def getDisplayList(self, instance):
+        """ Returns vocabulary
+        """
+        res = []
+        server = xmlrpclib.Server(ROD_SERVER)
+        result = server.WebRODService.getActivities()
+        if result:
+            res.extend((formatTitle(obligation['TITLE']), int(obligation['PK_RA_ID']))
+                        for obligation in result)
+        return sorted(res, key=operator.itemgetter(1))
+
+    def getVocabularyDict(self, instance):
+        return {}
+
+    def isFlat(self):
+        return False
+
+    def showLeafsOnly(self):
+        return False
+
+class ObligationsVocabularyFactory(object):
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        if hasattr(context, 'context'):
+            context = context.context
+        data = Obligations().getDisplayList(context)
+        return SimpleVocabulary.fromItems(data)
+
+ObligationsVocabulary = ObligationsVocabularyFactory()
 
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'

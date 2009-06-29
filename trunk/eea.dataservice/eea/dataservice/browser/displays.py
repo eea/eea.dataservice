@@ -4,11 +4,14 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 import operator
+import xmlrpclib
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.PloneLanguageTool.availablelanguages import getCountries
+
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
+from eea.dataservice.config import ROD_SERVER
 
 class DatasetContainerView(object):
     """ Default dataset view
@@ -30,6 +33,22 @@ class DatatableContainerView(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+class Obligations(object):
+    """ Returns obligations
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = {}
+        server = xmlrpclib.Server(ROD_SERVER)
+        result = server.WebRODService.getActivities()
+        if result:
+            for obligation in result:
+                res[int(obligation['PK_RA_ID'])] =obligation['TITLE']
+        return res
 
 class MainDatasets(object):
     """ Main datasets based on last modified and

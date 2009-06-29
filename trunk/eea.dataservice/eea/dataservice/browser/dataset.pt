@@ -104,22 +104,37 @@ function showDefinition(context) {
         </tal:block>
     </tal:tables>
 
+    <!-- Relations -->
+    <tal:block define="value context/getReportingObligations;
+                       view nocall:context/@@getObligations"
+               condition="value">
+        <h4 i18n:translate="">Reporting obligation(s) (ROD)</h4>
+        <ul tal:define="data python:view()">
+            <li tal:repeat="ob_nr value">
+                <a tal:define="ob_title python:data[int(ob_nr)]"
+                   tal:attributes="href string:$ob_nr;
+                                   title ob_title"
+                   tal:content="ob_title" />
+            </li>
+        </ul>
+    </tal:block>
+
     <!-- META DATA -->
-    <h4>Meta data</h4>
+    <h4 i18n:translate="">Meta data</h4>
     <div style="margin-left: 5%;">
     <dl>
 
     <!-- Short ID (debug) -->
-    <tal:block define="field python:context.getField('shortId');
+    <!-- tal:block define="field python:context.getField('shortId');
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_unit">Short ID:</dt>
         <dd tal:content="structure value">Short ID</dd>
-    </tal:block>
+    </tal:block -->
 
     <!-- UID (debug) -->
-    <dt>UID:</dt>
-    <dd tal:content="context/UID" />
+    <!-- dt>UID:</dt>
+    <dd tal:content="context/UID" / -->
 
     <!-- Related items -->
     <!-- #TODO: implement me -->

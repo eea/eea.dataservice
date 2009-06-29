@@ -24,7 +24,7 @@ from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYears
-from eea.dataservice.vocabulary import Organisations
+from eea.dataservice.vocabulary import Organisations, Obligations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
@@ -293,6 +293,8 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         ),
     ),
 
+
+    # Fields used only for redirects to old http://dataservice.eea.europa.eu
     StringField(
         name='shortId',
         widget = StringWidget(
@@ -313,6 +315,22 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             description = ("Related GID description."),
             label_msgid='dataservice_label_relatedgid',
             description_msgid='dataservice_help_relatedgid',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    # Fields for 'relations' schemata
+    LinesField(
+        schemata = "relations",
+        name='reportingObligations',
+        multiValued=1,
+        vocabulary=Obligations(),
+        widget=MultiSelectionWidget(
+            macro="obligations_widget",
+            label="Reporting obligation(s)",
+            description="If the dataset is listed in the ROD information should be identical to the information field called 'Report to' provided there.",
+            label_msgid='dataservice_label_owner',
+            description_msgid='dataservice_help_owner',
             i18n_domain='eea.dataservice',
         )
     ),

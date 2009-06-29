@@ -14,3 +14,6 @@ ORGANISATION_SUBOBJECTS = ['Folder', 'Organisation', 'Topic', 'RichTopic']
 
 #Dataset years vocabulary
 STARTING_YEAR = 1850
+
+#Obligations vocabulary
+ROD_SERVER = 'http://rod.eionet.europa.eu/rpcrouter'

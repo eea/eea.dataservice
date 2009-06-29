@@ -49,13 +49,12 @@
                   tal:attributes="name string:${fieldName}:list;
                   id fieldName;
                   size widget/size;
-                  tabindex tabindex/next;"
-                  class="dummy-org-selector">
+                  tabindex tabindex/next;">
             <option selected=""
                     tal:repeat="item vocab"
                     tal:attributes="value python:vocab.getValue(item);
                     selected python:test(here.unicodeTestIn(vocab.getValue(item), value), 'selected', None);"
-                    tal:content="nocall:item"
+                    tal:content="python:'('+str(vocab.getValue(item))+') '+item"
                     i18n:translate="" />
           </select>
           <p />

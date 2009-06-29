@@ -29,6 +29,13 @@
       />
 
   <page
+      name="getObligations"
+      class=".displays.Obligations"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getMainDatasets"
       class=".displays.MainDatasets"
       for="*"
