@@ -323,14 +323,28 @@ operator who uploaded the data resource and edited metadata. All three roles sho
     LinesField(
         schemata = "relations",
         name='reportingObligations',
+        languageIndependent=True,
         multiValued=1,
         vocabulary=Obligations(),
         widget=MultiSelectionWidget(
             macro="obligations_widget",
             label="Reporting obligation(s)",
             description="If the dataset is listed in the ROD information should be identical to the information field called 'Report to' provided there.",
-            label_msgid='dataservice_label_owner',
-            description_msgid='dataservice_help_owner',
+            label_msgid='dataservice_label_obligations',
+            description_msgid='dataservice_help_obligations',
+            i18n_domain='eea.dataservice',
+        )
+    ),
+
+    LinesField(
+        schemata = "relations",
+        name='externalRelations',
+        languageIndependent=True,
+        widget=LinesWidget(
+            label="External links, non EEA websites",
+            description="External links, non EEA websites. Please write http:// in front of the links.",
+            label_msgid='dataservice_label_external',
+            description_msgid='dataservice_help_external',
             i18n_domain='eea.dataservice',
         )
     ),

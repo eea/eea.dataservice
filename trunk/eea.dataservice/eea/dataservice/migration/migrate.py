@@ -15,7 +15,7 @@ from eea.themecentre.interfaces import IThemeTagging
 from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
-from parser import extract_data
+from parser import extract_data, extract_relations
 from data import getOrganisationsData
 from config import (
     DATASERVICE_CONTAINER,
@@ -73,7 +73,7 @@ def _redirect(obj, msg, container):
 def _reindex(obj):
     """ Reindex document
     """
-    ctool = getToolByName(obj.context, 'portal_catalog')
+    ctool = getToolByName(obj, 'portal_catalog')
     ctool.reindexObject(obj)
 
 def _publish(obj):
@@ -370,5 +370,57 @@ class MigrateDatasets(object):
 
         #msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         msg = 'Datasets, datatables and datafiles imported!'
+        info(msg)
+        return _redirect(self, msg, DATASERVICE_CONTAINER)
+
+class MigrateRelations(object):
+    """ Class used to migrate relations.
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+        self.xmlfile = DATASETS_XML
+
+    #
+    # Browser interface
+    #
+    def __call__(self):
+        container = _get_container(self, DATASERVICE_CONTAINER, DATASERVICE_SUBOBJECTS)
+        index = 0
+        info('Import relations and files using xml file: %s', self.xmlfile)
+        data = extract_relations(self.xmlfile)
+
+        #TODO: add relations
+        for key in data.keys():
+            rel_categ = data[key].get('category')
+            if rel_categ in ['rews', 'rod']:
+                ds_uid = data[key].get('id', '')
+                cat = getToolByName(self, 'portal_catalog')
+                brains = cat.searchResults({'portal_type' : 'Data',
+                                            'UID': ds_uid})
+                if brains:
+                    ds = brains[0].getObject()
+                    form = {}
+                    if rel_categ == 'rod':
+                        rel_data = []
+                        rel_data = list(ds.getReportingObligations())
+                        rel_url = data[key].get('url')
+                        rel_url = rel_url.replace('http://rod.eionet.europa.eu/obligations/', '')
+                        try:
+                            rel_url = int(rel_url)
+                        except:
+                            info('ERROR,rod url bad format, UID: %s' % ds_uid)
+                            continue
+                        rel_data.append(rel_url)
+                        form['reportingObligations'] = tuple(rel_data)
+                    ds.processForm(data=1, metadata=1, values=form)
+                    _reindex(ds)
+                    _reindex(ds.getParentNode())
+                    info('Success, dataset updated, UID: %s' % ds_uid)
+                else:
+                    info('ERROR, dataset not found, UID: %s' % ds_uid)
+                    continue
+
+        msg = '%d relations found !' % len(data.keys())
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)

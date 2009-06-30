@@ -19,4 +19,11 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:page
+      for="*"
+      name="migrate_datarelations"
+      class=".migrate.MigrateRelations"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

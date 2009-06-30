@@ -17,6 +17,7 @@ Migration steps:
 Run:
     - http://plone_site/@@migrate_organisations
     - http://plone_site/@@migrate_datasets
+    - http://plone_site/@@migrate_datarelations
 
     Two new folders will be created under /SITE . One containing organisations
       and a second one containing some datasets. (for demo purpose just a few

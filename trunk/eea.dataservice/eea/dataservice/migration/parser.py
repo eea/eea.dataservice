@@ -470,7 +470,7 @@ class dataservice_handler(ContentHandler):
             if name == 'other_services_category':
                 self.datarelation_context = 1
                 self.datarelation_current = MigrationObject()
-                self.datarelation_current.set('id', _generate_random_id())
+                self.datarelation_current.set('id', self.dataset_current.get('UID'))
                 self.datarelation_current.set('category', _map_categories(attrs['other_services_category']))
 
     def endElement(self, name):
@@ -689,7 +689,7 @@ class dataservice_handler(ContentHandler):
                     data = data.replace('&amp;#39;', "'")
                     self.datarelation_current.set(field_name, data)
             if name == 'other_services_category':
-                self.datarelations[self.datarelation_current.get('id')] = self.datarelation_current
+                self.datarelations[_generate_random_id()] = self.datarelation_current
                 self.datarelation_context = 0
                 self.datarelation_current = None
             if name == 'other_services':
@@ -811,6 +811,14 @@ def extract_data(file_id='', info=0, ds_from=0, ds_to=0):
     parser = dataservice_parser(info, ds_from, ds_to)
     data = parser.parseContent(s)
     return (data.get_datasets(), data.get_tables_files())
+
+def extract_relations(file_id='', info=0, ds_from=0, ds_to=10000):
+    """ Return relations from old dataservice exported XMLs
+    """
+    s = extract_basic(file_id)
+    parser = dataservice_parser(info, ds_from, ds_to)
+    data = parser.parseContent(s)
+    return data.get_relations()
 
 if __name__ == '__main__':
     print len(extract_data())
