@@ -400,8 +400,8 @@ class MigrateRelations(object):
                                             'UID': ds_uid})
                 if brains:
                     ds = brains[0].getObject()
-                    form = {}
                     if rel_categ == 'rod':
+                        #Set Reporting obligation(s) (ROD)
                         rel_data = []
                         rel_data = list(ds.getReportingObligations())
                         rel_url = data[key].get('url')
@@ -411,9 +411,15 @@ class MigrateRelations(object):
                         except:
                             info('ERROR,rod url bad format, UID: %s' % ds_uid)
                             continue
+                        rel_data.append(str(rel_url))
+                        ds.setReportingObligations(rel_data)
+                    elif rel_categ == 'rews':
+                        #Set Related website(s)/service(s)
+                        rel_data = []
+                        rel_data = list(ds.getExternalRelations())
+                        rel_url = data[key].get('url')
                         rel_data.append(rel_url)
-                        form['reportingObligations'] = tuple(rel_data)
-                    ds.processForm(data=1, metadata=1, values=form)
+                        ds.setExternalRelations(rel_data)
                     _reindex(ds)
                     _reindex(ds.getParentNode())
                     info('Success, dataset updated, UID: %s' % ds_uid)
