@@ -16,4 +16,7 @@ field.schemata = "relations"
 
 schema.addField(field)
 schema.moveField('relatedItems', pos='bottom');
+schema['relatedItems'].widget.label = 'This dataset is derived from'
+schema['relatedItems'].widget.description = 'Specify the datasets from which this dataset is derived.'
+schema['relatedItems'].widget.startup_directory = 'data'
 generateMethods(Data.Data, [field])

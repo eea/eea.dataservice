@@ -137,8 +137,11 @@ class Obligations:
         """ Returns vocabulary
         """
         res = []
-        server = xmlrpclib.Server(ROD_SERVER)
-        result = server.WebRODService.getActivities()
+        try:
+            server = xmlrpclib.Server(ROD_SERVER)
+            result = server.WebRODService.getActivities()
+        except xmlrpclib.ProtocolError:
+            result = []
         if result:
             res.extend((formatTitle(obligation['TITLE']), int(obligation['PK_RA_ID']))
                         for obligation in result)
