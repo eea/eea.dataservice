@@ -390,7 +390,6 @@ class MigrateRelations(object):
         info('Import relations and files using xml file: %s', self.xmlfile)
         data = extract_relations(self.xmlfile)
 
-        #TODO: add relations
         for key in data.keys():
             rel_categ = data[key].get('category')
             if rel_categ in ['rews', 'rod']:

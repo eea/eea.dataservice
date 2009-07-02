@@ -52,6 +52,30 @@ def _get_countries(data, dataset_id):
             break
     return res
 
+def _get_relation_parent(data, dataset_id):
+    if 'Parent data set' in data or 'Parent dataset' in data:
+        if 'Derived data set' in data or len(data.split('Parent data set')) > 2:
+            info('RELATION ERROR: %s' % dataset_id)
+            data = []
+        else:
+            href = []
+            p = re.compile(r'(href="(.*?)")')
+            m = p.search(data)
+            if m:
+                href = m.group()
+                href = href.split('metadetails.asp?id=')
+                try:
+                    href = int(href[1])
+                except:
+                    info('RELATION ERROR: %s' % dataset_id)
+            else:
+                info('RELATION ERROR: %s' % dataset_id)
+            data = href
+    else:
+        info('RELATION ERROR: %s' % dataset_id)
+        data = []
+    return data
+
 def _checkQualityData(data, dataset_id):
     res = data
     keys = data.keys()
@@ -538,6 +562,14 @@ class dataservice_handler(ContentHandler):
                     #if field_name == 'methodology': pass
                     #if field_name == 'referenceSystem': pass
 
+                    if field_name == 'relation':
+                        data = _get_relation_parent(data, self.dataset_current.get('UID'))
+                        if data:
+                            rel_ob = MigrationObject()
+                            rel_ob.set('category', 'parent')
+                            rel_ob.set('url', data)
+                            self.datarelations[_generate_random_id()] = rel_ob
+
                     if field_name == 'lastUpload':
                         data = _check_last_upload(data, self.dataset_current.get('UID'))
                     if field_name == 'geoAccuracy':
@@ -600,7 +632,7 @@ class dataservice_handler(ContentHandler):
                         self.dataset_current.set('eeaManagementPlanYear', data[0])
                         self.dataset_current.set('eeaManagementPlanCode', data[1])
 
-                    if field_name != 'eeaManagementPlan':
+                    if not field_name in ['eeaManagementPlan', 'relation']:
                         self.dataset_current.set(field_name, data)
                 #if name == 'metadata_text_publish_level':
                     ##self.dataset_current.set('%s_publish_level' % field_name, self.data, 1)
