@@ -104,7 +104,7 @@ function showDefinition(context) {
         </tal:block>
     </tal:tables>
 
-    <!-- Relations -->
+    <!-- Reporting obligation(s) (ROD) -->
     <tal:block define="value context/getReportingObligations;
                        view nocall:context/@@getObligations"
                condition="value">
@@ -120,6 +120,7 @@ function showDefinition(context) {
         </ul>
     </tal:block>
 
+    <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
                condition="value">
         <h4 i18n:translate="">Related website(s)/service(s)</h4>
@@ -145,11 +146,32 @@ function showDefinition(context) {
     </tal:block -->
 
     <!-- UID (debug) -->
-    <!-- dt>UID:</dt>
-    <dd tal:content="context/UID" / -->
+    <dt>UID:</dt>
+    <dd tal:content="context/UID" />
 
-    <!-- Related items -->
-    <!-- #TODO: implement me -->
+    <!-- Relation: parent data sets and derived data sets -->
+    <tal:block define="parents context/@@getDerivedFrom;
+                       derived context/@@getBasedOn"
+               condition="python:parents or derived">
+        <dt i18n:translate="dataset_relation">Relation:</dt>
+        <tal:block condition="parents">
+            <dd tal:repeat="par parents">
+                <span i18n:translate="">Parent data set:</span>&nbsp;
+                <a tal:attributes="href par/absolute_url;
+                                   title par/title_or_id"
+                   tal:content="par/title_or_id" />
+            </dd>
+        </tal:block>
+        <tal:block condition="derived">
+            <dd tal:repeat="der derived">
+                <span i18n:translate="">Derived data set:</span>&nbsp;
+                <a tal:attributes="href der/absolute_url;
+                                   title der/title_or_id"
+                   tal:content="der/title_or_id" />
+            </dd>
+        </tal:block>
+
+    </tal:block>
 
     <!-- Geographical coverage -->
     <tal:block define="field python:context.getField('geographicCoverage');

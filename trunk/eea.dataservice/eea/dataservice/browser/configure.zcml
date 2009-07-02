@@ -29,6 +29,20 @@
       />
 
   <page
+      name="getDerivedFrom"
+      class=".displays.DatasetDerivedFrom"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getBasedOn"
+      class=".displays.DatasetBasedOn"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getObligations"
       class=".displays.Obligations"
       for="*"

@@ -9,6 +9,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.PloneLanguageTool.availablelanguages import getCountries
 
+from Products.EEAContentTypes.interfaces import IRelations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
 from eea.dataservice.config import ROD_SERVER
@@ -33,6 +34,26 @@ class DatatableContainerView(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+class DatasetBasedOn(object):
+    """ Returns 'based on' datasets
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        return IRelations(self.context).backReferences()
+
+class DatasetDerivedFrom(object):
+    """ Returns 'derived from' datasets
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        return IRelations(self.context).forwardReferences()
 
 class Obligations(object):
     """ Returns obligations
