@@ -65,14 +65,15 @@ def _get_relation_parent(data, dataset_id):
                 href = m.group()
                 href = href.split('metadetails.asp?id=')
                 try:
-                    href = int(href[1])
+                    href = int(href[1].replace('"',''))
                 except:
                     info('RELATION ERROR: %s' % dataset_id)
             else:
                 info('RELATION ERROR: %s' % dataset_id)
+                info('DATA: %s' % data)
             data = href
     else:
-        info('RELATION ERROR: %s' % dataset_id)
+        #Derived data set
         data = []
     return data
 
