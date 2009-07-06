@@ -392,7 +392,7 @@ class MigrateRelations(object):
 
         for key in data.keys():
             rel_categ = data[key].get('category')
-            if rel_categ in ['rews', 'rod']:
+            if rel_categ in ['rews', 'rod', 'parent']:
                 ds_uid = data[key].get('id', '')
                 cat = getToolByName(self, 'portal_catalog')
                 brains = cat.searchResults({'portal_type' : 'Data',
@@ -419,9 +419,26 @@ class MigrateRelations(object):
                         rel_url = data[key].get('url')
                         rel_data.append(rel_url)
                         ds.setExternalRelations(rel_data)
+                    elif rel_categ == 'parent':
+                        #Set derived data set relation
+                        rel_data = []
+                        rel_data = list(ds.getRelatedItems())
+                        rel_shortId = str(data[key].get('url'))
+                        parent = cat.searchResults({'portal_type' : 'Data','getShortId': rel_shortId})
+                        if parent:
+                            parent_ob = parent[0].getObject()
+                            rel_data.append(parent_ob)
+                            try:
+                                ds.setRelatedItems(rel_data)
+                            except:
+                                info('PARENT ERROR: error on setRelatedItems:%s for UID:%s' (rel_shortId,ds.UID()))
+                            if len(parent) > 1:
+                                info('PARENT WARNING, too many data sets for shortId: %s' % rel_shortId)
+                        else:
+                            info('PARENT ERROR, data set shortId not found: %s' % rel_shortId)
                     _reindex(ds)
                     _reindex(ds.getParentNode())
-                    info('Success, dataset updated, UID: %s' % ds_uid)
+                    #info('Success, dataset updated, UID: %s' % ds_uid)
                 else:
                     info('ERROR, dataset not found, UID: %s' % ds_uid)
                     continue

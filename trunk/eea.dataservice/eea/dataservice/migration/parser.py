@@ -70,7 +70,6 @@ def _get_relation_parent(data, dataset_id):
                     info('RELATION ERROR: %s' % dataset_id)
             else:
                 info('RELATION ERROR: %s' % dataset_id)
-                info('DATA: %s' % data)
             data = href
     else:
         #Derived data set
@@ -569,6 +568,7 @@ class dataservice_handler(ContentHandler):
                             rel_ob = MigrationObject()
                             rel_ob.set('category', 'parent')
                             rel_ob.set('url', data)
+                            rel_ob.set('id', self.dataset_current.get('UID'))
                             self.datarelations[_generate_random_id()] = rel_ob
 
                     if field_name == 'lastUpload':
