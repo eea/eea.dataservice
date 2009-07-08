@@ -140,7 +140,7 @@ class Obligations:
         try:
             server = xmlrpclib.Server(ROD_SERVER)
             result = server.WebRODService.getActivities()
-        except xmlrpclib.ProtocolError:
+        except:
             result = []
         if result:
             res.extend((formatTitle(obligation['TITLE']), int(obligation['PK_RA_ID']))

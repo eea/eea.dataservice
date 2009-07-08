@@ -8,7 +8,6 @@ from DateTime import DateTime
 from zope.interface import alsoProvides
 from ZPublisher.HTTPRequest import FileUpload
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes.config import UUID_ATTR
 from Products.statusmessages.interfaces import IStatusMessage
 
 from eea.themecentre.interfaces import IThemeTagging
@@ -145,7 +144,7 @@ class MigrateOrganisations(object):
         form = datamodel()
         org.processForm(data=1, metadata=1, values=form)
         org.setTitle(datamodel.get('title', ''))
-        setattr(org, UUID_ATTR, datamodel.get('UID'))
+        org._setUID(datamodel.get('UID'))
 
         # Publish
         _publish(org)
@@ -221,7 +220,7 @@ class MigrateDatasets(object):
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
         ds.setTitle(datamodel.get('title', ''))
-        setattr(ds, UUID_ATTR, datamodel.get('UID'))
+        ds._setUID(datamodel.get('UID'))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -284,7 +283,7 @@ class MigrateDatasets(object):
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
         dt.setTitle(datamodel.get('title', ''))
-        setattr(dt, UUID_ATTR, datamodel.get('UID'))
+        dt._setUID(datamodel.get('UID'))
 
         # Publish
         #TODO: set proper state based on -1/0/1 from XML
@@ -349,6 +348,7 @@ class MigrateDatasets(object):
                 table, files = ds_tables['tables'][table_id]
 
                 res = ctool.searchResults({'portal_type' : 'Data',
+                                           'show_inactive': True,
                                            'UID' : table.get('dataset_id')})
                 ds_container = getattr(container, res[0].getId)
 
@@ -359,6 +359,7 @@ class MigrateDatasets(object):
                 # Add datafiles
                 for file_ob in files:
                     res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               'show_inactive': True,
                                                'UID' : table_id})
                     if res:
                         dt_container = getattr(ds_container, res[0].getId)
@@ -396,6 +397,7 @@ class MigrateRelations(object):
                 ds_uid = data[key].get('id', '')
                 cat = getToolByName(self, 'portal_catalog')
                 brains = cat.searchResults({'portal_type' : 'Data',
+                                            'show_inactive': True,
                                             'UID': ds_uid})
                 if brains:
                     ds = brains[0].getObject()
@@ -424,14 +426,16 @@ class MigrateRelations(object):
                         rel_data = []
                         rel_data = list(ds.getRelatedItems())
                         rel_shortId = str(data[key].get('url'))
-                        parent = cat.searchResults({'portal_type' : 'Data','getShortId': rel_shortId})
+                        parent = cat.searchResults({'portal_type' : 'Data',
+                                                    'show_inactive': True,
+                                                    'getShortId': rel_shortId})
                         if parent:
                             parent_ob = parent[0].getObject()
                             rel_data.append(parent_ob)
                             try:
                                 ds.setRelatedItems(rel_data)
                             except:
-                                info('PARENT ERROR: error on setRelatedItems:%s for UID:%s' (rel_shortId,ds.UID()))
+                                info('PARENT ERROR: error on setRelatedItems:%s for UID:%s' % (rel_shortId, ds.UID()))
                             if len(parent) > 1:
                                 info('PARENT WARNING, too many data sets for shortId: %s' % rel_shortId)
                         else:
