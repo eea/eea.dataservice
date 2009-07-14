@@ -146,8 +146,8 @@ function showDefinition(context) {
     </tal:block -->
 
     <!-- UID (debug) -->
-    <dt>UID:</dt>
-    <dd tal:content="context/UID" />
+    <!-- dt>UID:</dt>
+    <dd tal:content="context/UID" / -->
 
     <!-- Relation: parent data sets and derived data sets -->
     <tal:block define="parents context/@@getDerivedFrom;
@@ -171,6 +171,20 @@ function showDefinition(context) {
             </dd>
         </tal:block>
 
+    </tal:block>
+
+    <!-- Relation: related (plone) products -->
+    <tal:block define="relProducts context/@@getRelatedProducts"
+               condition="python:relProducts">
+        <dt i18n:translate="dataset_relation">Related products:</dt>
+        <tal:block condition="relProducts">
+            <dd tal:repeat="pro relProducts">
+                <span i18n:translate="">Parent data set:</span>&nbsp;
+                <a tal:attributes="href pro/absolute_url;
+                                   title pro/title_or_id"
+                   tal:content="pro/title_or_id" />
+            </dd>
+        </tal:block>
     </tal:block>
 
     <!-- Geographical coverage -->

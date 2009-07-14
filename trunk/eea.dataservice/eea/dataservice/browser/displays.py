@@ -35,6 +35,16 @@ class DatatableContainerView(object):
         self.context = context
         self.request = request
 
+class DatasetRelatedProducts(object):
+    """ Return related products
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        return self.context.getRelatedProducts()
+
 class DatasetBasedOn(object):
     """ Returns 'based on' datasets
     """

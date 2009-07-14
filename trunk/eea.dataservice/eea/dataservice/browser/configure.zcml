@@ -36,6 +36,13 @@
       />
 
   <page
+      name="getRelatedProducts"
+      class=".displays.DatasetRelatedProducts"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getBasedOn"
       class=".displays.DatasetBasedOn"
       for="*"
