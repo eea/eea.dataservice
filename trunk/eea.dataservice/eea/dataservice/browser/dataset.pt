@@ -327,10 +327,12 @@ function showDefinition(context) {
 
     <!-- Reference system -->
     <tal:block define="field python:context.getField('referenceSystem');
-                       value python:field.getAccessor(context)()"
+                       vocab python:field.Vocabulary(context);
+                       values python:field.getAccessor(context)();
+                       value python:context.displayValue(vocab, values)"
                condition="value">
-        <dt i18n:translate="dataset_unit">Reference system:</dt>
-        <dd tal:content="structure value">Reference system</dd>
+        <dt i18n:translate="dataset_reference">Coordinate reference system:</dt>
+        <dd tal:content="structure value">Coordinate reference system</dd>
     </tal:block>
 
     <!-- Owner -->

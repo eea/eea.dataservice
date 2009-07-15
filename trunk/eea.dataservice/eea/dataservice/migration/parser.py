@@ -12,6 +12,7 @@ from xml.sax.handler import ContentHandler
 from types import StringType
 from eea.dataservice.vocabulary import EEA_MPCODE_VOCABULARY
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY, CATEGORIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import REFERENCE_DICTIONARY, REFERENCE_DICTIONARY_ID
 
 import logging
 logger = logging.getLogger('eea.dataservice.migration')
@@ -138,6 +139,14 @@ def _extarct_organisation_url(text, dataset_id):
         info('organisation url ERROR: Dataset: %s -- bad format' % dataset_id)
     return tmp
 
+def _map_reference(text, dataset_id):
+    text = text.strip()
+    for key, val in REFERENCE_DICTIONARY[REFERENCE_DICTIONARY_ID]:
+        if text == val: return key
+    if text in ['', 'EPSG:']: return ''
+    info('ERROR: reference not mapped well %s' % dataset_id)
+    return ''
+
 def _map_categories(text):
     for key, val in CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID]:
         if text == val: return key
@@ -176,7 +185,7 @@ def _map_eea_mpcode(text, dataset_id):
 def _filter_scale(text, dataset_id):
     data = text.split('1:')
     if len(data) == 2:
-        return data[1]
+        return data[1].replace(' ', '')
     else:
         info('scale ERROR: Dataset: %s --not well formated.' % dataset_id)
         return ''
@@ -248,28 +257,28 @@ class MigrationObject(object):
         return self.UID
 
 DATASET_METADATA_MAPPING = {
-    'Additional information':     'moreInfo',
-    'Contact person(s) for EEA':  'contact',
-    'Disclaimer':                 'disclaimer',
-    'EEA management plan code':   'eeaManagementPlan',
-    'Geographic accuracy':        'geoAccuracy',
-    'Geographic box coordinates': 'geographic_coordinates',
-    'Geographical coverage':      'geographicCoverage',
-    'Keyword(s)':                 'subject_existing_keywords',
-    'Last upload':                'lastUpload',
-    'Methodology':                'methodology',
-    'Originator':                 'originator',
-    'Owner':                      'dataOwner',
-    'Processor':                  'processor',
-    'Reference system':           'referenceSystem',
-    'Relation':                   'relation',
-    'Rights':                     'rights',
-    'Scale of the data set':      'scale',
-    'Source':                     'dataSource',
-    'System folder':              'system_folder',
-    'Temporal coverage':          'temporalCoverage',
-    'Theme':                      'themes',
-    'Unit':                       'units'
+    'Additional information':      'moreInfo',
+    'Contact person(s) for EEA':   'contact',
+    'Disclaimer':                  'disclaimer',
+    'EEA management plan code':    'eeaManagementPlan',
+    'Geographic accuracy':         'geoAccuracy',
+    'Geographic box coordinates':  'geographic_coordinates',
+    'Geographical coverage':       'geographicCoverage',
+    'Keyword(s)':                  'subject_existing_keywords',
+    'Last upload':                 'lastUpload',
+    'Methodology':                 'methodology',
+    'Originator':                  'originator',
+    'Owner':                       'dataOwner',
+    'Processor':                   'processor',
+    'Coordinate reference system': 'referenceSystem',
+    'Relation':                    'relation',
+    'Rights':                      'rights',
+    'Scale of the data set':       'scale',
+    'Source':                      'dataSource',
+    'System folder':               'system_folder',
+    'Temporal coverage':           'temporalCoverage',
+    'Theme':                       'themes',
+    'Unit':                        'units'
 }
 ### Dataset:
     #@param id:                          String;
@@ -560,7 +569,6 @@ class dataservice_handler(ContentHandler):
                 data = data.replace('&amp;#39;', "'")
                 if name == 'metadata_text':
                     #if field_name == 'methodology': pass
-                    #if field_name == 'referenceSystem': pass
 
                     if field_name == 'relation':
                         data = _get_relation_parent(data, self.dataset_current.get('UID'))
@@ -571,6 +579,8 @@ class dataservice_handler(ContentHandler):
                             rel_ob.set('id', self.dataset_current.get('UID'))
                             self.datarelations[_generate_random_id()] = rel_ob
 
+                    if field_name == 'referenceSystem':
+                        data = _map_reference(data, self.dataset_current.get('UID'))
                     if field_name == 'lastUpload':
                         data = _check_last_upload(data, self.dataset_current.get('UID'))
                     if field_name == 'geoAccuracy':

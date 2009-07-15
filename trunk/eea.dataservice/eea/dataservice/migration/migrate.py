@@ -343,30 +343,30 @@ class MigrateDatasets(object):
                     has_version = self.add_dataset(container, ds, has_version)
                     ds_index += 1
 
-            # Add datatables
-            for table_id in ds_tables['tables'].keys():
-                table, files = ds_tables['tables'][table_id]
+            ## Add datatables
+            #for table_id in ds_tables['tables'].keys():
+                #table, files = ds_tables['tables'][table_id]
 
-                res = ctool.searchResults({'portal_type' : 'Data',
-                                           'show_inactive': True,
-                                           'UID' : table.get('dataset_id')})
-                ds_container = getattr(container, res[0].getId)
+                #res = ctool.searchResults({'portal_type' : 'Data',
+                                           #'show_inactive': True,
+                                           #'UID' : table.get('dataset_id')})
+                #ds_container = getattr(container, res[0].getId)
 
-                table.delete('dataset_id')
-                self.add_subobject(ds_container, table, 'DataTable')
-                dst_index += 1
+                #table.delete('dataset_id')
+                #self.add_subobject(ds_container, table, 'DataTable')
+                #dst_index += 1
 
-                # Add datafiles
-                for file_ob in files:
-                    res = ctool.searchResults({'portal_type' : 'DataTable',
-                                               'show_inactive': True,
-                                               'UID' : table_id})
-                    if res:
-                        dt_container = getattr(ds_container, res[0].getId)
-                        self.add_subobject(dt_container, file_ob, 'DataFile')
-                        dsf_index += 1
-                    else:
-                        info('ERROR: cant find table container %s' % table_id)
+                ## Add datafiles
+                #for file_ob in files:
+                    #res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               #'show_inactive': True,
+                                               #'UID' : table_id})
+                    #if res:
+                        #dt_container = getattr(ds_container, res[0].getId)
+                        #self.add_subobject(dt_container, file_ob, 'DataFile')
+                        #dsf_index += 1
+                    #else:
+                        #info('ERROR: cant find table container %s' % table_id)
             transaction.commit()
 
         #msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)

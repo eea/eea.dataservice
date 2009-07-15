@@ -51,6 +51,16 @@ class DatasetYearsVocabularyFactory(object):
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 
+# Coordinate reference system
+REFERENCE_DICTIONARY_ID = 'reference_system'
+REFERENCE_DICTIONARY = {}
+REFERENCE_DICTIONARY[REFERENCE_DICTIONARY_ID] = (
+    ('3035', 'EPSG:3035'),
+    ('4008', 'EPSG:4008'),
+    ('4258', 'EPSG:4258'),
+    ('4326', 'EPSG:4326')
+)
+
 # Geographic quality
 QUALITY_DICTIONARY_ID = 'quality'
 QUALITY_DICTIONARY = {}

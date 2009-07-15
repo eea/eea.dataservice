@@ -27,6 +27,7 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.vocabulary import Organisations, Obligations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 
 # Validators
 from Products.validation.interfaces.IValidator import IValidator
@@ -113,6 +114,20 @@ schema = Schema((
             label_msgid='dataservice_label_last_upload',
             description_msgid='dataservice_help_last_upload',
             i18n_domain='eea.dataservice',
+        ),
+    ),
+
+    StringField(
+        name='referenceSystem',
+        languageIndependent=False,
+        vocabulary=NamedVocabulary(REFERENCE_DICTIONARY_ID),
+        widget=SelectionWidget(
+            macro="reference_widget",
+            label="Coordinate reference system",
+            description="Coordinate reference system used for the dataset.",
+            label_msgid="dataservice_label_system",
+            description_msgid="dataservice_help_system",
+            i18n_domain="eea.dataservice",
         ),
     ),
 
@@ -208,24 +223,6 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             description_msgid='dataservice_help_accurracy',
             i18n_domain='eea.dataservice',
         )
-    ),
-
-    TextField(
-        name='referenceSystem',
-        languageIndependent=False,
-        allowable_content_types=('text/html',),
-        default_content_type='text/html',
-        default_output_type='text/html',
-        widget=RichWidget(
-            macro="reference_system_widget",
-            helper_js=("reference_system_widget.js",),
-            label="Reference system",
-            description="Definition of the reference system used for the dataset.",
-            label_msgid="dataservice_label_system",
-            description_msgid="dataservice_help_system",
-            i18n_domain="eea.dataservice",
-            rows=10,
-        ),
     ),
 
     TextField(
