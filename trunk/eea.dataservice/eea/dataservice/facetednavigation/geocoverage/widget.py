@@ -4,10 +4,11 @@
 from Products.CMFCore.utils import getToolByName
 from BTrees.IIBTree import weightedIntersection, IISet
 from eea.facetednavigation.widgets.checkbox.widget import Widget as CheckboxWidget
+from eea.facetednavigation.widgets.widget import CommonEditSchema
 from eea.facetednavigation.widgets.checkbox.widget import EditSchema as CheckboxSchema
 
 
-GeoSchema = CheckboxSchema.copy()
+GeoSchema = CommonEditSchema + CheckboxSchema.copy()
 GeoSchema['vocabulary'].widget.visible = -1
 
 class Widget(CheckboxWidget):

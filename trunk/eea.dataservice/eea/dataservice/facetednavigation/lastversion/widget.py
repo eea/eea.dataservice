@@ -1,26 +1,9 @@
 """ Version widget
 """
 from DateTime import DateTime
-from Products.Archetypes.public import Schema
-from Products.Archetypes.public import StringField
-from Products.Archetypes.public import StringWidget
 
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from eea.facetednavigation.widgets.widget import Widget as AbstractWidget
-
-EditSchema = Schema((
-    StringField('title',
-        required=True,
-        widget=StringWidget(
-            size=25,
-            label='Friendly name',
-            label_msgid='faceted_dataservice_title',
-            description='Title for widget to display in view page',
-            description_msgid='help_faceted_dataservice_title',
-            i18n_domain="eea.dataservice"
-        )
-    ),
-))
 
 class Widget(AbstractWidget):
     """ Widget
@@ -34,7 +17,7 @@ class Widget(AbstractWidget):
     edit_css = '++resource++eea.dataservice.facetednavigation.dataservice.edit.css'
 
     index = ViewPageTemplateFile('widget.pt')
-    edit_schema = EditSchema
+    edit_schema = AbstractWidget.edit_schema
 
     def after_query(self, brains, form):
         """ Filter brains
