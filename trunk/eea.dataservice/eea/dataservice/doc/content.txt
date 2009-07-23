@@ -60,7 +60,7 @@ Lets add a Dataset.
     ...   'disclaimer': 'Some disclaimer',
     ...   'contact': 'Some contact',
     ...   'geoAccuracy': 'Geographic accuracy',
-    ...   'referenceSystem': 'References system',
+    ...   'referenceSystem': '3035',
     ...   'dataSource': 'Data source',
     ...   'moreInfo': 'More info',
     ...   'methodology': 'Methodology',
@@ -106,7 +106,7 @@ Check see if properties applyed.
     >>> data1.getGeoAccuracy()
     'Geographic accuracy'
     >>> data1.getReferenceSystem()
-    '<p>References system</p>'
+    '3035'
     >>> data1.getDataSource()
     '<p>Data source</p>'
     >>> data1.getMoreInfo()
