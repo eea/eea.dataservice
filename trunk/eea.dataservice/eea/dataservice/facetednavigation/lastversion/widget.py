@@ -27,7 +27,8 @@ class Widget(AbstractWidget):
         for brain in brains:
             ptype = getattr(brain, 'portal_type', None)
             version_id = getattr(brain, 'getVersionId', '')
-            if ptype == 'Data' and len(version_id):
+            if version_id:
+            #if ptype == 'Data' and len(version_id):
                 effective_date = getattr(brain, 'EffectiveDate', DateTime(1970))
                 if len(version_id):
                     if last_versions.has_key(version_id):
@@ -40,7 +41,8 @@ class Widget(AbstractWidget):
         versions = [k.data_record_id_ for k in last_versions.values()]
         for brain in brains:
             version_id = getattr(brain, 'getVersionId', '')
-            if ptype == 'Data' and len(version_id):
+            #if ptype == 'Data' and len(version_id):
+            if version_id:
                 if brain.data_record_id_ in versions:
                     yield brain
             else:
