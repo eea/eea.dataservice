@@ -32,3 +32,18 @@ Plone customisations:
         Make "Subscript/Superscript group" visible to activate
           subscript and superscript in Kupu.
 
+Migrate old Maps & Graphs
+=========================
+NOTE: for demo use be advise not to import all figures as the process can take long time.
+
+On server update/install Ghostscript to version 8.64 to ensure that convertions
+of different EPS files works fine. PIL is using Ghostscript when converting EPS files.
+(http://pages.cs.wisc.edu/~ghost/doc/GPL/gpl864.htm)
+
+Migration steps:
+    - Site setup -> install "eea.mapsandgraphs" product
+
+Run:
+    - http://plone_site/@@migrate_figures
+
+    One new folders /SITE/figures will be created.
