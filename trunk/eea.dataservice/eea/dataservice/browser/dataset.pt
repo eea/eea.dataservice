@@ -194,11 +194,10 @@ function showDefinition(context) {
         <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
 
         <dd>
-            <tal:map define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                     content="structure map" />
-            <div id='map_canvas'></div>
+            <img tal:define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
+                 tal:attributes="src map" />
             <tal:block define="view nocall:context/@@getCountriesDisplay">
-                <div tal:content="python:view(list(value))" />
+                <p tal:content="python:view(list(value))" />
             </tal:block>
             <div class="visualClear">&nbsp;</div>
         </dd>

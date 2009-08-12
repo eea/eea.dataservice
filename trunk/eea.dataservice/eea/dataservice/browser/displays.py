@@ -318,17 +318,11 @@ class GeographicalCoverageMap(object):
         self.request = request
 
     def __call__(self, cc):
-        country_data = ''
-        country_count = 0
+        res = ''
         if cc:
-            cc = list(cc)
-            country_count = len(cc)
-            for country_code in cc:
-                tmp = """
-      data.setValue(%(cindex)s, 0, '%(cc)s');
-      data.setValue(%(cindex)s, 1, 1);""" % {'cc': country_code.upper(), 'cindex': cc.index(country_code)}
-                country_data += tmp
-        return GEO_COVERAGE_MAP % (country_count, country_data)
+            cc_list = ':2,'.join(cc) + ':2'
+            res = "http://map.eea.europa.eu/getmap.asp?Fullextent=1&size=W200&PredefShade=Dataservice&Q=%s" % cc_list
+        return res
 
 class GetReferenceSystemKupu(object):
     """ Return reference system select for Kupu
@@ -392,23 +386,4 @@ ORGANISATION_SNIPPET = """
       <span>%(address)s</span>
     </p>
   </fieldset>
-"""
-
-GEO_COVERAGE_MAP = """
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["intensitymap"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', '', 'Country');
-        data.addColumn('number', 'Coverage', 'a');
-        data.addRows(%s);
-%s
-        chart = new google.visualization.IntensityMap(document.getElementById('map_canvas'));
-        chart.draw(data, {region:'europe',colors:['green']});
-        jQuery('.google-visualization-intensitymap-legend').css("display","none");
-        jQuery('.google-visualization-intensitymap-map').css("height","220px");
-      }
-    </script>
 """
