@@ -141,7 +141,7 @@ function showDefinition(context) {
     <!-- tal:block define="field python:context.getField('shortId');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_unit">Short ID:</dt>
+        <dt i18n:translate="dataset_shortid">Short ID:</dt>
         <dd tal:content="structure value">Short ID</dd>
     </tal:block -->
 

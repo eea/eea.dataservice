@@ -16,7 +16,7 @@ if error_type == 'NotFound':
     requested_url = context.REQUEST.get('URL', '')
     requested_file = requested_url.split('/')[-1]
 
-    # To match old dataservice.eea.europa.eu links
+    # To match old http://dataservice.eea.europa.eu/dataservice links
     if context.getId() == 'data':
         if 'download.asp' in requested_url:
             # Redirects for DataFile objects
@@ -53,6 +53,38 @@ if error_type == 'NotFound':
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # ShortID request
             query = {'portal_type': 'Data',
+                     'getShortId': context.REQUEST.get('id', '')}
+            res = catalog(query)
+            if len(res) > 0:
+                redirect_to = context.absolute_url() + '/' + res[0].getId
+                return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
+
+    # To match old http://dataservice.eea.europa.eu/atlas links
+    if context.getId() == 'figures':
+        if 'viewpub.asp' in requested_url:
+            # Redirects for Figure objects
+            # To match old dataservice shortId and UID, e.g.
+            #     http://dataservice.eea.europa.eu/1C9124FE-E0F8-43AF-8505-0985DDB3D9F9
+            #     http://dataservice.eea.europa.eu/atlas/viewdata/viewpub.asp?id=4270
+            # to new http://eea.europa.eu/figures/per-capita-urban-waste-production
+
+            # Related GID
+            query = {'portal_type': 'EEAFigure',
+                     'getRelatedGid': requested_file,
+                     'sort_on': 'effective'}
+            res = catalog(query)
+            if len(res) > 0:
+                redirect_to = context.absolute_url() + '/' + res[len(res)-1].getId
+                return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
+            # UID resquest
+            query = {'portal_type': 'EEAFigure',
+                     'UID': requested_file}
+            res = catalog(query)
+            if len(res) > 0:
+                redirect_to = context.absolute_url() + '/' + res[0].getId
+                return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
+            # ShortID request
+            query = {'portal_type': 'EEAFigure',
                      'getShortId': context.REQUEST.get('id', '')}
             res = catalog(query)
             if len(res) > 0:
