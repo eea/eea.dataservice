@@ -129,6 +129,8 @@ class MigrateOrganisations(object):
         if org_id not in context.objectIds():
             info('Adding organisation id: %s', org_id)
             org_id = context.invokeFactory('Organisation', id=org_id)
+        else:
+            info('ERROR Organisation id already exist: %s', org_id)
 
         # Set properties
         org = getattr(context, org_id)
