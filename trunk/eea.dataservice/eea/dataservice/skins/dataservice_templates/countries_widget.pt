@@ -87,9 +87,8 @@
           <div class="visualClear">&nbsp;</div>
 
           <!-- Map preview -->
-          <tal:map define="map nocall:here/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                   content="structure map" />
-          <div id='map_canvas'></div>
+          <img tal:define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
+               tal:attributes="src map" />
 
         </metal:fill>
       </metal:use>
