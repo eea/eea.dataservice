@@ -108,7 +108,9 @@ class Organisations:
                              for brain in res)
         #organisations.extend((brain.getUrl, brain.Title)
         #                     for brain in res)
-        return sorted(organisations, key=operator.itemgetter(1))
+        #return sorted(organisations, key=operator.itemgetter(1))
+        organisations.sort()
+        return organisations
 
     def getVocabularyDict(self, instance):
         return {}
