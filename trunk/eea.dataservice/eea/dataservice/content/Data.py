@@ -75,6 +75,7 @@ schema = Schema((
 
     GeoQualityField(
         name='geoQuality',
+        languageIndependent=True,
         default=('-1', '-1', '-1', '-1', '-1'),
         vocabulary=NamedVocabulary("quality"),
         widget = GeoQualityWidget(
@@ -89,6 +90,7 @@ schema = Schema((
 
     ManagementPlanField(
         name='eeaManagementPlan',
+        languageIndependent=True,
         required=True,
         default=('', ''),
         validators = ('management_plan_code_validator',),
@@ -105,6 +107,7 @@ schema = Schema((
 
     DateTimeField(
         name='lastUpload',
+        languageIndependent=True,
         default=DateTime(),
         imports="from DateTime import DateTime",
         widget=CalendarWidget(
@@ -119,7 +122,7 @@ schema = Schema((
 
     StringField(
         name='referenceSystem',
-        languageIndependent=False,
+        languageIndependent=True,
         vocabulary=NamedVocabulary(REFERENCE_DICTIONARY_ID),
         widget=SelectionWidget(
             macro="reference_widget",
@@ -133,6 +136,7 @@ schema = Schema((
 
     IntegerField(
         name='scale',
+        languageIndependent=True,
         validators = ('isInt',),
         widget=IntegerWidget(
             macro='scale_widget',
@@ -147,6 +151,7 @@ schema = Schema((
 
     LinesField(
         name='dataOwner',
+        languageIndependent=True,
         multiValued=1,
         required=True,
         vocabulary=Organisations(),
@@ -162,6 +167,7 @@ schema = Schema((
 
     LinesField(
         name='processor',
+        languageIndependent=True,
         multiValued=1,
         vocabulary=Organisations(),
         widget=MultiSelectionWidget(
@@ -203,6 +209,7 @@ schema = Schema((
 
     TextField(
         name='contact',
+        languageIndependent=True,
         widget=TextAreaWidget(
             label="Contact person(s) for EEA",
             description="Outside person to be contacted by EEA if questions regarding the data \
@@ -216,6 +223,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
 
     TextField(
         name='geoAccuracy',
+        languageIndependent=True,
         widget=TextAreaWidget(
             label="Geographic accuracy",
             description="Geographic accuracy of location, ground distance as a value in meters.",
@@ -227,7 +235,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
 
     TextField(
         name='dataSource',
-        languageIndependent=False,
+        languageIndependent=True,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/html',

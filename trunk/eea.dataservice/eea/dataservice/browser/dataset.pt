@@ -208,27 +208,17 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
         <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
-        <dd>
+        <dd tal:define="quality_view nocall:context/@@getQualityDisplay">
             <span>Completeness:</span>
-            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
-                                 qview python:quality_view(value=value[0]);"
-                         content="structure qview" />
+            <tal:quality content="structure python:quality_view(value=value[0])" />
             <span>Logical consistency:</span>
-            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
-                                 qview python:quality_view(value=value[1]);"
-                         content="structure qview" />
+            <tal:quality content="structure python:quality_view(value=value[1])" />
             <span>Position accuracy:</span>
-            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
-                                 qview python:quality_view(value=value[2]);"
-                         content="structure qview" />
+            <tal:quality content="structure python:quality_view(value=value[2])" />
             <span>Temporal accuracy:</span>
-            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
-                                 qview python:quality_view(value=value[3]);"
-                         content="structure qview" />
+            <tal:quality content="structure python:quality_view(value=value[3])" />
             <span>Thematic accuracy:</span>
-            <tal:quality define="quality_view nocall:context/@@getQualityDisplay;
-                                 qview python:quality_view(value=value[4]);"
-                         content="structure qview" />
+            <tal:quality content="structure python:quality_view(value=value[4])" />
         </dd>
     </tal:block>
 

@@ -57,6 +57,7 @@ schema = Schema((
 
     OrganisationField(
         name='organisationUrl',
+        languageIndependent=True,
         accessor='org_url',
         validators=('isURL',),
         required=True,
