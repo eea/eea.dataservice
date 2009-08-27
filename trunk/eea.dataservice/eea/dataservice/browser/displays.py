@@ -79,8 +79,12 @@ class MainDatasets(object):
         for brain in brains:
             dataset = brain.getObject()
             versions_view = dataset.unrestrictedTraverse('@@getVersions')
-            if len(versions_view()) > ver_num:
-                res.append(dataset)
+            versions = versions_view()
+            versions_num = len(versions)
+            if versions_num > ver_num:
+                latest_version = versions[versions_num]
+                if not latest_version in res:
+                    res.append(latest_version)
             if len(res) == count: break
 
         return res
