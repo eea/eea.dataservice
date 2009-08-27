@@ -44,7 +44,7 @@ class Widget(CheckboxWidget):
         for code in value:
             if (code,code) in countryGroupsView():
                 getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
-                tmp_value.extend(getCountriesByGroupView(value))
+                tmp_value.extend(getCountriesByGroupView(code))
             else:
                 tmp_value.append(code)
 
