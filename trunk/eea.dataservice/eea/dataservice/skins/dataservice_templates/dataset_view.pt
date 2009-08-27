@@ -145,9 +145,13 @@ function showDefinition(context) {
         <dd tal:content="structure value">Short ID</dd>
     </tal:block -->
 
-    <!-- UID (debug) -->
-    <!-- dt>UID:</dt>
-    <dd tal:content="context/UID" / -->
+    <!-- GID (persistent link)  -->
+    <dt i18n:translate="dataset_gid">GID (persistent link):</dt>
+    <dd tal:content="context/UID" />
+
+    <!-- RelatedGID -->
+    <dt i18n:translate="dataset_relatedGid">RelatedGID:</dt>
+    <dd tal:content="context/UID" />
 
     <!-- Relation: parent data sets and derived data sets -->
     <tal:block define="parents context/@@getDerivedFrom;
