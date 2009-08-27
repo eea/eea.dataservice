@@ -1,0 +1,36 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+<body>
+
+<div metal:define-macro="portlet"
+       i18n:domain="plone"
+       tal:omit-tag=""
+       tal:define="view context/@@getDataViewers">
+
+<dl class="portlet portlet-rss"
+    style="float: right; clear: right; margin-right: 0pt; width: 17em; padding: 7px;">
+
+    <dt class="portletHeader" i18n:translate="">Data viewers</dt>
+    <dd class="portletItem" tal:repeat="dataset view">
+        <span tal:attributes="class item_type_class"
+            tal:define="item_type           dataset/portal_type;
+                        item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
+                        item_description    dataset/Description;
+                        item_wf_state       dataset/review_state|python: wtool.getInfoFor(dataset, 'review_state', '');
+                        item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+            <a href="#" tal:attributes="href  dataset/absolute_url;
+                                        title string: $item_type: $item_description;
+                                        class string:$item_wf_state_class visualIconPadding;">
+                <span tal:replace="dataset/Title">
+                  Item Title
+                </span>
+            </a>
+        </span>
+    </dd>
+    <dd class="portletFooter"></dd>
+</dl>
+
+</div>
+</body>
+</html>

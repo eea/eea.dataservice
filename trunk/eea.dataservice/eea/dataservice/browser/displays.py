@@ -89,6 +89,20 @@ class MainDatasets(object):
 
         return res
 
+class DataViewers(object):
+    """
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : ['Promotion',
+                                                     'GIS Map Application'],
+                                    'Title': 'data'})
+        return brains
+
 def _getCountryName(country_code):
     """ """
     return getCountries().get(country_code.upper(), country_code)

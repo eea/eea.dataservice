@@ -41,6 +41,13 @@
       />
 
   <page
+      name="getDataViewers"
+      class=".displays.DataViewers"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="formatTempCoverage"
       class=".displays.FormatTempCoverage"
       for="*"
