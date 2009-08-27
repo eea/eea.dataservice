@@ -4,29 +4,6 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            i18n_domain="eea.dataservice">
 
-  <page
-      name="dataset_view"
-      template="dataset.pt"
-      class=".displays.DatasetContainerView"
-      for="eea.dataservice.interfaces.IDataset"
-      permission="zope2.View"
-      />
-
-  <page
-      name="datafile_view"
-      template="datafile.pt"
-      class=".displays.DatafileContainerView"
-      for="eea.dataservice.interfaces.IDatafile"
-      permission="zope2.View"
-      />
-
-  <page
-      name="datatable_view"
-      template="datatable.pt"
-      class=".displays.DatatableContainerView"
-      for="eea.dataservice.interfaces.IDatatable"
-      permission="zope2.View"
-      />
 
   <page
       name="getDerivedFrom"
@@ -60,14 +37,6 @@
       name="getMainDatasets"
       class=".displays.MainDatasets"
       for="*"
-      permission="zope2.View"
-      />
-
-  <page
-      name="organisation_view"
-      template="organisation.pt"
-      class=".displays.OrganisationContainerView"
-      for="eea.dataservice.interfaces.IOrganisation"
       permission="zope2.View"
       />
 

@@ -14,26 +14,6 @@ from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
 from eea.dataservice.config import ROD_SERVER
 
-class DatasetContainerView(object):
-    """ Default dataset view
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-class DatafileContainerView(object):
-    """ Default datafile view
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-class DatatableContainerView(object):
-    """ Default datatable view
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
 
 class DatasetRelatedProducts(object):
     """ Return related products
@@ -104,13 +84,6 @@ class MainDatasets(object):
             if len(res) == count: break
 
         return res
-
-class OrganisationContainerView(object):
-    """ Default organisation view
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
 
 def _getCountryName(country_code):
     """ """
