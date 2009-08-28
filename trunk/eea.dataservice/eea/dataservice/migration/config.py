@@ -5,6 +5,7 @@ import os
 DATASERVICE_CONTAINER = 'data'
 ORGANISATIONS_CONTAINER = 'organisations'
 DATASETS_XML = 'Data_for_XML.xml'
+TEMPLATE_CONTAINER = 'templates'
 
 ### To match Whiteshark location
 #DATAFILES_PATH = os.path.join('/var/eeawebtest/dataservicefiles')

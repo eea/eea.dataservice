@@ -20,7 +20,8 @@ from config import (
     DATASERVICE_CONTAINER,
     ORGANISATIONS_CONTAINER,
     DATASETS_XML,
-    DATAFILES_PATH
+    DATAFILES_PATH,
+    TEMPLATE_CONTAINER
 )
 
 import os
@@ -107,6 +108,18 @@ def _get_container(obj, container, subobjects, *args, **kwargs):
         dataservice.setConstrainTypesMode(1)
         dataservice.setImmediatelyAddableTypes(subobjects)
         dataservice.setLocallyAllowedTypes(subobjects)
+
+    # Add templates folder
+    if TEMPLATE_CONTAINER not in dataservice.objectIds():
+        info('Create template folder %s/%s/%s', site.absolute_url(1),
+            container, TEMPLATE_CONTAINER)
+        site.invokeFactory('Folder',
+            id=TEMPLATE_CONTAINER, title='Templates of Datasets')
+        templates = getattr(dataservice, TEMPLATE_CONTAINER)
+        templates.selectViewTemplate(templateId='folder_summary_view')
+        templates.setConstrainTypesMode(1)
+        templates.setImmediatelyAddableTypes(subobjects)
+        templates.setLocallyAllowedTypes(subobjects)
 
     # Returns
     return dataservice
