@@ -131,10 +131,12 @@ def _check_integer(text):
 def _extarct_organisation_url(text, dataset_id):
     tmp = ''
     try:
-        tmp = text.split('<a href="')[1]
-        tmp = tmp.split('">')[0]
-        if tmp.endswith('/'):
-            tmp = tmp[:-1]
+        text = text.strip()
+        if len(text):
+            tmp = text.split('<a href="')[1]
+            tmp = tmp.split('">')[0]
+            if tmp.endswith('/'):
+                tmp = tmp[:-1]
     except:
         info('organisation url ERROR: Dataset: %s -- bad format' % dataset_id)
     return tmp
@@ -372,6 +374,7 @@ class dataservice_handler(ContentHandler):
         self.ds_to = ds_to
         self.ds_index = -1
         self.data = []
+        self.tmp_debug = {'count':0}
 
         self.data_contacts = []
         self.data_keywords = []
@@ -505,6 +508,7 @@ class dataservice_handler(ContentHandler):
                 self.datarelation_current = MigrationObject()
                 self.datarelation_current.set('id', self.dataset_current.get('UID'))
                 self.datarelation_current.set('category', _map_categories(attrs['other_services_category']))
+                self.tmp_debug[attrs['other_services_category']] = attrs['other_services_category']
 
     def endElement(self, name):
         if self.check_range():
@@ -801,6 +805,8 @@ class dataservice_handler(ContentHandler):
 
             # XML ends
             if name == 'data':
+                info('DEBUG log:')
+                info(self.tmp_debug.keys())
                 info('End parsing of datasets XML')
 
         self.data = []
