@@ -4,7 +4,7 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Organisation</property>
  <property name="description">EEA, European Topic Centres and Other external bodies</property>
- <property name="content_icon">organisation-icon.gif</property>
+ <property name="content_icon">organisation-icon.png</property>
  <property name="content_meta_type">Organisation</property>
  <property name="product">eea.dataservice</property>
  <property name="factory">addOrganisation</property>
