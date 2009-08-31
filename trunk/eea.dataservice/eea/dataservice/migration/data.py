@@ -537,7 +537,7 @@ ORGANISATIONS_MG_DATA = {
     'description': '',
     'location': '',
     'data_policy': '',
-    'title': 'ORKUSTOFNUN – National Energy Authority',
+    'title': 'ORKUSTOFNUN - National Energy Authority',
     'organisationUrl': 'http://www.os.is/page/english',
 },
 'StoUni': {
@@ -801,7 +801,7 @@ ORGANISATIONS_MG_DATA = {
     'description': '',
     'location': '',
     'data_policy': '',
-    'title': 'Ambiente Italia S.r.l. – Research Institute',
+    'title': 'Ambiente Italia S.r.l. - Research Institute',
     'organisationUrl': 'http://www.ambienteitalia.it/eng/index.asp',
 },
 'MNP': {
@@ -1065,7 +1065,7 @@ ORGANISATIONS_MG_DATA = {
     'description': '',
     'location': '',
     'data_policy': '',
-    'title': 'UNEP – Regional Office for Europe',
+    'title': 'UNEP - Regional Office for Europe',
     'organisationUrl': 'http://www.unep.ch/roe',
 },
 'UNECE': {
