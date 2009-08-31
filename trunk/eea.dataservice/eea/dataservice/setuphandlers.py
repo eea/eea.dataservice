@@ -5,6 +5,8 @@ from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID, getCountriesDict
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID, CATEGORIES_DICTIONARY
 from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID, QUALITY_DICTIONARY
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID, REFERENCE_DICTIONARY
+from eea.dataservice.vocabulary import QLD_DICTIONARY_ID, QLD_DICTIONARY
+from eea.dataservice.vocabulary import QLMG_DICTIONARY_ID, QLMG_DICTIONARY
 import logging
 logger = logging.getLogger('eea.dataservice: setuphandlers')
 
@@ -50,6 +52,20 @@ def installVocabularies(context):
         atvm[QUALITY_DICTIONARY_ID].setTitle('Geographic information quality')
     else:
         logger.warn('eea.dataservice quality vocabulary already exist.')
+
+    # Create quick link vocabulary for datasets
+    if not QLD_DICTIONARY_ID in atvm.contentIds():
+        createSimpleVocabs(atvm, QLD_DICTIONARY)
+        atvm[QLD_DICTIONARY_ID].setTitle('Datasets quick links')
+    else:
+        logger.warn('eea.dataservice quick link vocabulary for datasets already exist.')
+
+    # Create quick link vocabulary for maps and graphs
+    if not QLMG_DICTIONARY_ID in atvm.contentIds():
+        createSimpleVocabs(atvm, QLMG_DICTIONARY)
+        atvm[QLMG_DICTIONARY_ID].setTitle('Maps & graphs quick links')
+    else:
+        logger.warn('eea.dataservice quick link vocabulary for maps and graphs already exist.')
 
     # Create categories vocabulary
     if not CATEGORIES_DICTIONARY_ID in atvm.contentIds():

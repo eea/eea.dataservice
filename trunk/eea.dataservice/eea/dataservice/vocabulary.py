@@ -72,6 +72,44 @@ QUALITY_DICTIONARY[QUALITY_DICTIONARY_ID] = (
     ('Excellent', '3')
 )
 
+# Quick link vocabulary for datasets
+QLD_DICTIONARY_ID = 'quick_links_ds'
+QLD_DICTIONARY = {}
+QLD_DICTIONARY[QLD_DICTIONARY_ID] = (
+    ('air emissions', 'Air emissions'),
+    ('air quality', 'Air quality'),
+    ('CLC1990', 'Corine land cover 1990'),
+    ('clc2000', 'Corine land cover 2000'),
+    ('EEA owned data sets', 'EEA owned data sets'),
+    ('LEAC', 'Land cover accounts'),
+    ('eurosion', 'Eurosion'),
+    ('CDDA', 'Nationally designated areas'),
+    ('point data', 'Point data'),
+    ('raster data', 'Raster data'),
+    ('Geospatial data', 'Geospatial data'),
+    ('vector data', 'Vector data'),
+    ('waterbase', 'Waterbase'),
+    ('wise', 'Wise', )
+)
+
+# Quick link vocabulary for maps and graphs
+#TODO: replace in the XML dump the keyword "State of the environment report No 1/2007"
+#      with ""State of the environment report No 1 from 2007", as we cant add a
+#      vocabulary with an ID contining / character
+
+QLMG_DICTIONARY_ID = 'quick_links_mg'
+QLMG_DICTIONARY = {}
+QLMG_DICTIONARY[QLMG_DICTIONARY_ID] = (
+    #TODO: Original "State of the environment report No 1/2007"
+    ('State of the environment report No 1 2007', "Europe's environment - The fourth assessment"),
+    ('State and Outlook 2005', 'State and Outlook'),
+    ('State and Outlook 2005 - Part A', 'State and Outlook - Part A'),
+    ('State and Outlook 2005 - Part B', 'State and Outlook - Part B'),
+    ('State and Outlook 2005 - Part C', 'State and Outlook - Part C'),
+    ('CLC2000', 'Corine land cover 2000'),
+    ('eurosion', 'Eurosion')
+)
+
 # Categories vocabulary
 CATEGORIES_DICTIONARY_ID = 'categories'
 CATEGORIES_DICTIONARY = {}
