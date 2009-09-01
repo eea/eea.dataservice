@@ -113,7 +113,7 @@ def _get_container(obj, container, subobjects, *args, **kwargs):
     if TEMPLATE_CONTAINER not in dataservice.objectIds():
         info('Create template folder %s/%s/%s', site.absolute_url(1),
             container, TEMPLATE_CONTAINER)
-        site.invokeFactory('Folder',
+        dataservice.invokeFactory('Folder',
             id=TEMPLATE_CONTAINER, title='Templates of Datasets')
         templates = getattr(dataservice, TEMPLATE_CONTAINER)
         templates.selectViewTemplate(templateId='folder_summary_view')
@@ -319,8 +319,8 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #TODO: uncomment below, temporary commented
-        ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        #ds_info = 20
+        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        ds_info = 20
         ds_range = 0
         ds_step = 10
 
