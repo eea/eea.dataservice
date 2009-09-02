@@ -407,10 +407,10 @@ class MigrateRelations(object):
 
         for key in data.keys():
             rel_categ = data[key].get('category')
-            if rel_categ in ['rews', 'rod', 'parent']:
+            if rel_categ in ['rews', 'rod', 'parent', 'mg']:
                 ds_uid = data[key].get('id', '')
                 cat = getToolByName(self, 'portal_catalog')
-                brains = cat.searchResults({'portal_type' : 'Data',
+                brains = cat.searchResults({'portal_type': 'Data',
                                             'show_inactive': True,
                                             'UID': ds_uid})
                 if brains:
@@ -428,6 +428,24 @@ class MigrateRelations(object):
                             continue
                         rel_data.append(str(rel_url))
                         ds.setReportingObligations(rel_data)
+                    elif rel_categ == 'mg':
+                        #Set maps&graphs relation
+                        mg_shortId = data[key].get('shortId')
+                        rel_data = list(ds.getRelatedProducts())
+                        mg = cat.searchResults({'portal_type' : 'EEAFigure',
+                                                    'show_inactive': True,
+                                                    'getShortId': mg_shortId})
+                        if mg:
+                            mg_ob = mg[0].getObject()
+                            rel_data.append(mg_ob)
+                            try:
+                                ds.setRelatedProducts(rel_data)
+                            except:
+                                info('M&G relation ERROR: error on setRelatedProducts:%s for UID:%s' % (mg_shortId, ds.UID()))
+                            if len(parent) > 1:
+                                info('M&G relation WARNING, too many figures for shortId: %s' % mg_shortId)
+                        else:
+                            info('M&G relation ERROR, mg shortId not found: %s' % mg_shortId)
                     elif rel_categ == 'rews':
                         #Set Related website(s)/service(s)
                         rel_data = []

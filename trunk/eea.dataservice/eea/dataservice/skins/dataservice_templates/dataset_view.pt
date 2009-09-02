@@ -65,7 +65,8 @@ function showDefinition(context) {
 
     <!-- Tables -->
     <tal:tables repeat="categ python:context.getTablesByCategory().keys()">
-        <h4 tal:content="python:context.getCategoryName(categ)" />
+        <h4 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
+            tal:content="categ_name" />
         <tal:block repeat="table python:context.getTablesByCategory()[categ]">
             <h5 tal:content="table/title" />
             <p tal:content="table/Description" />
@@ -103,6 +104,48 @@ function showDefinition(context) {
             </ul>
         </tal:block>
     </tal:tables>
+
+    <!-- Relation: related (plone) products -->
+    <tal:block define="related_products context/@@getRelatedProducts">
+        <!-- Relations to figures -->
+        <tal:block define="value python:related_products['figures']"
+                   condition="value">
+            <h4 i18n:translate="">Produced map(s)/graph(s)</h4>
+            <ul>
+                <li tal:repeat="ob value">
+                    <a tal:attributes="href ob/absolute_url;
+                                       title ob/Title"
+                       tal:content="ob/Title" />
+                </li>
+            </ul>
+        </tal:block>
+
+        <!-- Relations to reports -->
+        <tal:block define="value python:related_products['reports']"
+                   condition="value">
+            <h4 i18n:translate="">Published in the following report(s)</h4>
+            <ul>
+                <li tal:repeat="ob value">
+                    <a tal:attributes="href ob/absolute_url;
+                                       title ob/Title"
+                       tal:content="ob/Title" />
+                </li>
+            </ul>
+        </tal:block>
+
+        <!-- Relations to other -->
+        <tal:block define="value python:related_products['other']"
+                   condition="value">
+            <h4 i18n:translate="">Relations to other EEA products</h4>
+            <ul>
+                <li tal:repeat="ob value">
+                    <a tal:attributes="href ob/absolute_url;
+                                       title ob/Title"
+                       tal:content="ob/Title" />
+                </li>
+            </ul>
+        </tal:block>
+    </tal:block>
 
     <!-- Reporting obligation(s) (ROD) -->
     <tal:block define="value context/getReportingObligations;
@@ -172,21 +215,6 @@ function showDefinition(context) {
                 <a tal:attributes="href der/absolute_url;
                                    title der/title_or_id"
                    tal:content="der/title_or_id" />
-            </dd>
-        </tal:block>
-
-    </tal:block>
-
-    <!-- Relation: related (plone) products -->
-    <tal:block define="relProducts context/@@getRelatedProducts"
-               condition="python:relProducts">
-        <dt i18n:translate="dataset_relation">Related products:</dt>
-        <tal:block condition="relProducts">
-            <dd tal:repeat="pro relProducts">
-                <span i18n:translate="">Parent data set:</span>&nbsp;
-                <a tal:attributes="href pro/absolute_url;
-                                   title pro/title_or_id"
-                   tal:content="pro/title_or_id" />
             </dd>
         </tal:block>
     </tal:block>

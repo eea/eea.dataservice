@@ -408,6 +408,9 @@ class dataservice_handler(ContentHandler):
         self.datarelation_context = 0
         self.datarelation_current = None
 
+        self.datarelation_mg = 0
+        self.datarelation_mg_current = None
+
         self.quality = {}
         self.quality_name = ''
         self.quality_desc = ''
@@ -509,6 +512,13 @@ class dataservice_handler(ContentHandler):
                 self.datarelation_current.set('id', self.dataset_current.get('UID'))
                 self.datarelation_current.set('category', _map_categories(attrs['other_services_category']))
                 self.tmp_debug[attrs['other_services_category']] = attrs['other_services_category']
+
+            # Datarelations to maps&graphs
+            if name == 'staticgisview_GID':
+                self.datarelation_mg = 1
+                self.datarelation_mg_current = MigrationObject()
+                self.datarelation_mg_current.set('id', self.dataset_current.get('UID'))
+                self.datarelation_mg_current.set('category', 'mg')
 
     def endElement(self, name):
         if self.check_range():
@@ -741,6 +751,16 @@ class dataservice_handler(ContentHandler):
                 self.datarelation_current = None
             if name == 'other_services':
                 self.datarelations_context = 0
+
+            # Datarelations to maps&graphs
+            if self.datarelation_mg:
+                if name == 'staticgisview_id':
+                    data = _get_data(self.data)
+                    self.datarelation_mg_current.set('shortId', data)
+            if name == 'staticgisview_GID':
+                self.datarelations[_generate_random_id()] = self.datarelation_mg_current
+                self.datarelation_mg = 0
+                self.datarelation_mg_current = None
 
             # Geographic information quality
             if name == 'quality_name':

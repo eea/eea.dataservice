@@ -76,57 +76,57 @@ QUALITY_DICTIONARY[QUALITY_DICTIONARY_ID] = (
 QLD_DICTIONARY_ID = 'quick_links_ds'
 QLD_DICTIONARY = {}
 QLD_DICTIONARY[QLD_DICTIONARY_ID] = (
-    ('air emissions', 'Air emissions'),
-    ('air quality', 'Air quality'),
+    ('Air emissions', 'Air emissions'),
+    ('Air quality', 'Air quality'),
     ('CLC1990', 'Corine land cover 1990'),
-    ('clc2000', 'Corine land cover 2000'),
+    ('CLC2000', 'Corine land cover 2000'),
     ('EEA owned data sets', 'EEA owned data sets'),
     ('LEAC', 'Land cover accounts'),
-    ('eurosion', 'Eurosion'),
+    ('Eurosion', 'Eurosion'),
     ('CDDA', 'Nationally designated areas'),
     ('point data', 'Point data'),
     ('raster data', 'Raster data'),
-    ('Geospatial data', 'Geospatial data'),
+    ('geospatial data', 'Geospatial data'),
     ('vector data', 'Vector data'),
     ('waterbase', 'Waterbase'),
-    ('wise', 'Wise', )
+    ('WISE', 'Wise', )
 )
 
 # Quick link vocabulary for maps and graphs
 #TODO: replace in the XML dump the keyword "State of the environment report No 1/2007"
-#      with ""State of the environment report No 1 from 2007", as we cant add a
-#      vocabulary with an ID contining / character
+#      with "State of the environment report No 1 from 2007", as we cant add a
+#      vocabulary with an ID containing / character
 
 QLMG_DICTIONARY_ID = 'quick_links_mg'
 QLMG_DICTIONARY = {}
 QLMG_DICTIONARY[QLMG_DICTIONARY_ID] = (
-    #TODO: Original "State of the environment report No 1/2007"
     ('State of the environment report No 1 2007', "Europe's environment - The fourth assessment"),
     ('State and Outlook 2005', 'State and Outlook'),
     ('State and Outlook 2005 - Part A', 'State and Outlook - Part A'),
     ('State and Outlook 2005 - Part B', 'State and Outlook - Part B'),
     ('State and Outlook 2005 - Part C', 'State and Outlook - Part C'),
     ('CLC2000', 'Corine land cover 2000'),
-    ('eurosion', 'Eurosion')
+    ('Eurosion', 'Eurosion')
 )
 
 # Categories vocabulary
 CATEGORIES_DICTIONARY_ID = 'categories'
 CATEGORIES_DICTIONARY = {}
 CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
-    ('orig', 'Original work data'),
-    ('docu', 'Documents'),
-    ('gisd', 'GIS data'),
-    ('dbco', 'Data by country (including raw data)'),
-    ('edsx', 'European data set (XML format)'),
-    ('edse', 'European data set'),
-    ('meto', 'Methodology'),
-    ('stat', 'Statistics'),
     ('adin', 'Additional information'),
-    ('repo', 'Published in the following report(s)'),
-    ('rod', 'Reporting obligation(s) (ROD)'),
+    ('dbco', 'Data by country (including raw data)'),
+    ('docu', 'Documents'),
+    ('edse', 'European data set'),
+    ('edsx', 'European data set (XML format)'),
+    ('gisd', 'GIS data'),
+    ('hard', 'Hard copy'),
     ('invi', 'Interactive viewers'),
-    ('rews', 'Related website(s)/service(s)')
+    ('meto', 'Methodology'),
+    ('orig', 'Original work data'),
+    ('repo', 'Published in the following report(s)'),
+    ('rews', 'Related website(s)/service(s)'),
+    ('rod', 'Reporting obligation(s) (ROD)'),
+    ('stat', 'Statistics')
 )
 
 # Organisations vocabulary

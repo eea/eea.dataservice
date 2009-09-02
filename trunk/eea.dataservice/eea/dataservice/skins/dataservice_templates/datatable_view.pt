@@ -24,7 +24,8 @@
                        value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="dataset_category">Category</dt>
-        <dd tal:content="python:context.getCategoryName(value)" />
+        <dd tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(value);"
+            tal:content="categ_name" />
     </tal:block>
 
     <!-- Records -->

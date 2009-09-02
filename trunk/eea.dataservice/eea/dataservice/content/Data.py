@@ -9,7 +9,6 @@ from Products.CMFCore import permissions
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.utils import getToolByName
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from zope.interface import implements
 from DateTime import DateTime
 from AccessControl import ClassSecurityInfo
@@ -26,7 +25,6 @@ from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.vocabulary import Organisations, Obligations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
-from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 
 # Validators
@@ -416,14 +414,5 @@ class Data(ATFolder, ThemeTaggable):
                 res[cat] = []
             res[cat].append(table)
         return res
-
-    security.declareProtected(permissions.View, 'getCategoryName')
-    def getCategoryName(self, cat_code):
-        """ Return category name
-        """
-        #TODO: fix me
-        atvm = getToolByName(self, ATVOCABULARYTOOL)
-        vocab = atvm[CATEGORIES_DICTIONARY_ID]
-        return getattr(vocab, cat_code).Title()
 
 registerType(Data, PROJECTNAME)

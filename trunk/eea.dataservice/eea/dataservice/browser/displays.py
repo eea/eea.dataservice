@@ -12,8 +12,13 @@ from Products.PloneLanguageTool.availablelanguages import getCountries
 from Products.EEAContentTypes.interfaces import IRelations
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from eea.dataservice.config import ROD_SERVER
+from eea.reports.interfaces import IReportContainerEnhanced
 
+#TODO: Implement relation getters for
+#        - Interactive viewers
+#        - Published in the following indicator(s)
 
 class DatasetRelatedProducts(object):
     """ Return related products
@@ -23,7 +28,28 @@ class DatasetRelatedProducts(object):
         self.request = request
 
     def __call__(self):
-        return self.context.getRelatedProducts()
+        res = {'figures': [], 'reports': [], 'other': []}
+        data = self.context.getRelatedProducts()
+        for ob in data:
+            if ob.portal_type == 'EEAFigure':
+                res['figures'].append(ob)
+            elif IReportContainerEnhanced.providedBy(ob):
+                res['reports'].append(ob)
+            else:
+                res['other'].append(ob)
+        return res
+
+class GetCategoryName(object):
+    """ Return category name
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, cat_code):
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        vocab = atvm[CATEGORIES_DICTIONARY_ID]
+        return getattr(vocab, cat_code).Title()
 
 class DatasetBasedOn(object):
     """ Returns 'based on' datasets

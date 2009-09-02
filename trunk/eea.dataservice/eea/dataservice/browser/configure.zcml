@@ -4,6 +4,12 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            i18n_domain="eea.dataservice">
 
+  <page
+      name="getCategoryName"
+      class=".displays.GetCategoryName"
+      for="*"
+      permission="zope2.View"
+      />
 
   <page
       name="getDerivedFrom"
