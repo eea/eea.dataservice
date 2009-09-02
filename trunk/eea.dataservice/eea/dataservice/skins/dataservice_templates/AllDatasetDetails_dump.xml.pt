@@ -17,27 +17,23 @@
       doc python:brain.getObject();
       uid doc/UID"
       tal:attributes="rdf:about string:urn:uuid:${uid}">
-      <dc:title tal:content="doc/title_or_id" />
-      <dc:link tal:content="doc/absolute_url" />
       <dc:identifier tal:content="uid" />
-      <dc:relatedGID tal:content="string:NOT IMPLEMENTED" />
-      <dc:source tal:define="
-        field python:doc.getField('dataSource');
-        vocab python:field.Vocabulary(doc);
-        values python:field.getAccessor(doc)();
-        value python:doc.displayValue(vocab, values);"
-        tal:content="string:NOT IMPLEMENTED" />
-      <dc:rights tal:define="
-        state python:brain.review_state;
-        right python:state == 'published' and 'public' or 'internal'"
-        tal:content="right" />
+      <dc:title tal:content="doc/title_or_id" />
+      <dc:description tal:define="description python:brain.Description.strip()"
+        tal:condition="description"
+        tal:content="structure python:'&lt;![CDATA[' + description + ']]&gt;'" />
+      <dc:link tal:content="doc/absolute_url" />
       <dc:contributor>EEA</dc:contributor>
+      <dc:publisher>EEA</dc:publisher>
+      <dc:relation>dataset</dc:relation>
       <dc:date tal:define="
         date brain/EffectiveDate;
         date python:date.replace(' ', 'T')"
         tal:content="date" tal:condition="python:date != 'None'" />
-      <dc:publisher>EEA</dc:publisher>
-      <dc:relation>dataset</dc:relation>
+      <dc:rights tal:define="
+        state python:brain.review_state;
+        right python:state == 'published' and 'public' or 'internal'"
+        tal:content="right" />
       <tal:version define="
         versions doc/@@getVersions;
         version python:[key for key, value in versions.items() if value.UID() == uid];
@@ -60,9 +56,6 @@
           <dc:owner tal:content="owner" />
         </tal:owner>
       </tal:owners>
-      <dc:description tal:define="description python:brain.Description.strip()"
-        tal:condition="description"
-        tal:content="structure python:'&lt;![CDATA[' + description + ']]&gt;'" />
       <tal:coverage tal:define="
         field python:doc.getField('geographicCoverage');
         value python:field.getAccessor(doc)();">
@@ -70,7 +63,9 @@
           <dc:coverage tal:content="python:country.upper()" />
         </tal:country>
       </tal:coverage>
+      <dc:source tal:content="string:NOT IMPLEMENTED" />
       <ds:coverage tal:content="doc/@@formatTempCoverage" />
+      <ds:relatedGID tal:content="string:NOT IMPLEMENTED" />
       <ds:unit tal:define="
         field python:doc.getField('units');
         value python:field.getAccessor(doc)()"
