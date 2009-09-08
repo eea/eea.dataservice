@@ -21,6 +21,9 @@
  <index name="getTemporalCoverage" meta_type="KeywordIndex">
   <indexed_attr value="getTemporalCoverage"/>
  </index>
+ <index name="filename" meta_type="FieldIndex">
+  <indexed_attr value="filename"/>
+ </index>
  <column value="getDataOwner"/>
  <column value="getProcessor"/>
  <column value="getShortId"/>
