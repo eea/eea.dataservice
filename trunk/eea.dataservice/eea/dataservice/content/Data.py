@@ -3,29 +3,32 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
-from Products.Archetypes.atapi import *
-from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.CMFCore import permissions
-from Products.ATContentTypes.content.folder import ATFolderSchema
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFCore.utils import getToolByName
-from zope.interface import implements
 from DateTime import DateTime
+from zope.interface import implements
+from Products.Archetypes.atapi import *
+from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
+from Products.CMFCore.utils import getToolByName
+from zope.app.annotation.interfaces import IAnnotations
+from Products.ATContentTypes.content.folder import ATFolder
+from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from eea.themecentre.interfaces import IThemeTagging
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 
 from eea.dataservice.config import *
-from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
-from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYears
-from eea.dataservice.vocabulary import Organisations, Obligations
+from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
+from eea.dataservice.vocabulary import Organisations, Obligations
+from eea.dataservice.fields.GeoQualityField import GeoQualityField
+from eea.dataservice.versions.versions import VERSION_ID, _reindex
+from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
+from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 
 # Validators
 from Products.validation.interfaces.IValidator import IValidator
@@ -310,18 +313,6 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         )
     ),
 
-    StringField(
-        name='relatedGid',
-        widget = StringWidget(
-            label="Related GID",
-            visible=-1,
-            description = ("Related GID description."),
-            label_msgid='dataservice_label_relatedgid',
-            description_msgid='dataservice_help_relatedgid',
-            i18n_domain='eea.dataservice',
-        )
-    ),
-
     # Fields for 'relations' schemata
     LinesField(
         schemata = "relations",
@@ -414,5 +405,20 @@ class Data(ATFolder, ThemeTaggable):
                 res[cat] = []
             res[cat].append(table)
         return res
+
+
+def versionIdHandler(obj, event):
+    """ Set a versionId as annotation without setting the
+        version marker interface just to have a perma link
+        to last version
+    """
+    hasVersions = obj.unrestrictedTraverse('@@hasVersions')
+    if not hasVersions():
+        verId = _get_random(10)
+        anno = IAnnotations(obj)
+        ver = anno.get(VERSION_ID)
+        if not ver.values()[0]:
+            ver[VERSION_ID] = verId
+            _reindex(obj)
 
 registerType(Data, PROJECTNAME)

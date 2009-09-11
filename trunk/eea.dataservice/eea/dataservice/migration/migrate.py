@@ -3,19 +3,27 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
+import os
+import logging
+import operator
+from cgi import FieldStorage
+from cStringIO import StringIO
+
 import transaction
 from DateTime import DateTime
 from zope.interface import alsoProvides
 from ZPublisher.HTTPRequest import FileUpload
 from Products.CMFCore.utils import getToolByName
+from zope.app.annotation.interfaces import IAnnotations
 from Products.statusmessages.interfaces import IStatusMessage
 
+from data import getOrganisationsData
+from parser import extract_data, extract_relations
 from eea.themecentre.interfaces import IThemeTagging
+from eea.dataservice.versions.versions import VERSION_ID
 from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
-from parser import extract_data, extract_relations
-from data import getOrganisationsData
 from config import (
     DATASERVICE_CONTAINER,
     ORGANISATIONS_CONTAINER,
@@ -24,11 +32,6 @@ from config import (
     TEMPLATE_CONTAINER
 )
 
-import os
-import operator
-import logging
-from cgi import FieldStorage
-from cStringIO import StringIO
 
 logger = logging.getLogger('eea.dataservice.migration')
 info = logger.info
@@ -230,6 +233,12 @@ class MigrateDatasets(object):
             ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
             ds.setExpirationDate(ExpirationDate)
         datamodel.delete('ExpirationDate')
+
+        # Set versionId
+        anno = IAnnotations(ds)
+        ver = anno.get(VERSION_ID)
+        ver[VERSION_ID] = datamodel.get('relatedGid')
+        datamodel.delete('relatedGid')
 
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)

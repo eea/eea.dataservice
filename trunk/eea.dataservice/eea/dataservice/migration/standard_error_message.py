@@ -38,7 +38,7 @@ if error_type == 'NotFound':
 
             # Related GID
             query = {'portal_type': 'Data',
-                     'getRelatedGid': requested_file,
+                     'getVersionId': requested_file,
                      'sort_on': 'effective'}
             res = catalog(query)
             if len(res) > 0:
@@ -70,7 +70,7 @@ if error_type == 'NotFound':
 
             # Related GID
             query = {'portal_type': 'EEAFigure',
-                     'getRelatedGid': requested_file,
+                     'getVersionId': requested_file,
                      'sort_on': 'effective'}
             res = catalog(query)
             if len(res) > 0:

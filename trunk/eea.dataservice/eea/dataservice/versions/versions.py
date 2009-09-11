@@ -1,16 +1,16 @@
 from DateTime import DateTime
 
-from zope.interface import implements
-from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.component import adapts
-from zope.app.annotation.interfaces import IAnnotations
+from zope.interface import implements
 from persistent.dict import PersistentDict
+from zope.app.annotation.interfaces import IAnnotations
+from zope.component.exceptions import ComponentLookupError
+from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
+from Products.CMFPlone import utils
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
-from Products.CMFPlone import utils
 
-from eea.dataservice.migration.migrate import _generateNewId
 from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 
@@ -79,6 +79,37 @@ class GetVersions(object):
 
         for index, brain in enumerate(brains):
             res[index+1] = brain.getObject()
+        return res
+
+class GetLatestVersionLink(object):
+    """ Get latest version link
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        anno = IAnnotations(self.context)
+        ver = anno.get(VERSION_ID)
+        return ver[VERSION_ID]
+
+class GetVersionId(object):
+    """ Get version ID
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = None
+        try:
+            ver = IVersionControl(self.context)
+            res = ver.getVersionId()
+        except (ComponentLookupError, TypeError, ValueError):
+            res = None
+
         return res
 
 class HasVersions(object):

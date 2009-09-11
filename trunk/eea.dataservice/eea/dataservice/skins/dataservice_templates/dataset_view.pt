@@ -189,12 +189,12 @@ function showDefinition(context) {
     </tal:block -->
 
     <!-- GID (persistent link)  -->
-    <dt i18n:translate="dataset_gid">GID (persistent link):</dt>
+    <dt i18n:translate="dataset_gid">Permalink:</dt>
     <dd tal:content="context/UID" />
 
-    <!-- RelatedGID -->
-    <dt i18n:translate="dataset_relatedGid">RelatedGID:</dt>
-    <dd tal:content="context/UID" />
+    <!-- Link to latest version -->
+    <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
+    <dd tal:content="context/@@getLatestVersionLink" />
 
     <!-- Relation: parent data sets and derived data sets -->
     <tal:block define="parents context/@@getDerivedFrom;

@@ -65,7 +65,7 @@
       </tal:coverage>
       <dc:source tal:content="string:NOT IMPLEMENTED" />
       <ds:coverage tal:content="doc/@@formatTempCoverage" />
-      <ds:relatedGID tal:content="string:NOT IMPLEMENTED" />
+      <ds:relatedGID tal:content="doc/@@getLatestVersionLink" />
       <ds:unit tal:define="
         field python:doc.getField('units');
         value python:field.getAccessor(doc)()"
