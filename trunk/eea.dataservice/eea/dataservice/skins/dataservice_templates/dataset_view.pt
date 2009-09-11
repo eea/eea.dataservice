@@ -190,11 +190,19 @@ function showDefinition(context) {
 
     <!-- GID (persistent link)  -->
     <dt i18n:translate="dataset_gid">Permalink:</dt>
-    <dd tal:content="context/UID" />
+    <dd tal:define="uid context/UID">
+        <a tal:attributes="href string:${context/absolute_url}/${uid};
+                           title uid"
+           tal:content="uid" />
+    </dd>
 
     <!-- Link to latest version -->
     <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
-    <dd tal:content="context/@@getLatestVersionLink" />
+    <dd tal:define="lastVersion context/@@getLatestVersionLink">
+        <a tal:attributes="href string:${context/absolute_url}/${lastVersion};
+                           title lastVersion"
+           tal:content="lastVersion" />
+    </dd>
 
     <!-- Relation: parent data sets and derived data sets -->
     <tal:block define="parents context/@@getDerivedFrom;
