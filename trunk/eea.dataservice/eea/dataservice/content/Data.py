@@ -417,8 +417,10 @@ def versionIdHandler(obj, event):
         verId = _get_random(10)
         anno = IAnnotations(obj)
         ver = anno.get(VERSION_ID)
-        if not ver.values()[0]:
-            ver[VERSION_ID] = verId
-            _reindex(obj)
+        #TODO: tests fails with ver = None (remove "if ver:" after fix)
+        if ver:
+            if not ver.values()[0]:
+                ver[VERSION_ID] = verId
+                _reindex(obj)
 
 registerType(Data, PROJECTNAME)
