@@ -30,6 +30,7 @@ schema = Schema((
             i18n_domain='eea.dataservice',
         )
     ),
+
     StringField(
         name='records',
         widget = StringWidget(
@@ -40,6 +41,7 @@ schema = Schema((
             i18n_domain='eea.dataservice',
         )
     ),
+
     TextField(
         name='tableDefinition',
         languageIndependent=False,

@@ -27,6 +27,7 @@ schema = Schema((
                         label_msgid = "label_file",
                         i18n_domain = "plone",
                         show_content_type = False,)),
+
     StringField(
         name='shortId',
         widget = StringWidget(
