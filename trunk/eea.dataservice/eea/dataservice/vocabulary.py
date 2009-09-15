@@ -228,11 +228,17 @@ def getCountriesDictionary():
         res[(key.lower(), data[key])] = {}
 
     # country groups
+    res[('efta4', 'EFTA4')] = EFTA4
     res[('eu15', 'EU15')] = EU15
     res[('eu25', 'EU25')] = EU25
     res[('eu27', 'EU27')] = EU27
     return res
 
+EFTA4 = {('ch', 'ch'): {},
+        ('is', 'is'): {},
+        ('li', 'li'): {},
+        ('no', 'no'): {},
+}
 EU15 = {('at', 'at'): {},
         ('be', 'be'): {},
         ('de', 'de'): {},
