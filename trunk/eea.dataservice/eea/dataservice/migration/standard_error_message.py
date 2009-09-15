@@ -90,6 +90,17 @@ if error_type == 'NotFound':
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
+        elif 'download.asp' in requested_url:
+            # Redirects for EEAFigureFile objects
+            # To match old maps and graphs file download, e.g.
+            #     http://dataservice.eea.europa.eu/download.asp?id=19692
+            query = {'portal_type': 'EEAFigureFile',
+                     'getShortId': context.REQUEST.get('id', '')}
+            res = catalog(query)
+            if len(res) > 0:
+                file_ob = res[0].getObject()
+                redirect_to = file_ob.absolute_url() + '/at_download/file/'
+                return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
 
     # To match old reports.eea.europa.eu links
     query = {'object_provides' : 'eea.reports.interfaces.IReportContainerEnhanced',
