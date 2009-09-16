@@ -5,7 +5,9 @@
 
 <body>
 
-<div metal:fill-slot="main">
+<div metal:fill-slot="main" tal:define="
+  lastVersion context/@@getLatestVersionLink;
+">
     <style>
         dd {margin-left: 3em}
 
@@ -91,7 +93,11 @@ function showDefinition(context) {
                                        filename accessor/filename | nothing;
                                        size accessor/get_size | python:accessor and len(accessor) or 0;">
 
-                        <a href="" tal:attributes="href string:${file/absolute_url}/at_download/file">
+                        <a tal:define="
+                           filePath string:/data/ga-downloads/$lastVersion;"
+                            tal:attributes="
+                            href string:${file/absolute_url}/at_download/file;
+                            onclick string:javascript:window.pageTracker ? pageTracker._trackPageview('$filePath') : '';">
                             <img tal:condition="icon" src=""
                                  tal:attributes="src string:${context/portal_url}/$icon"/>
                             <span tal:content="filename" />
@@ -198,7 +204,7 @@ function showDefinition(context) {
 
     <!-- Link to latest version -->
     <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
-    <dd tal:define="lastVersion context/@@getLatestVersionLink">
+    <dd>
         <a tal:attributes="href string:${context/aq_parent/absolute_url}/${lastVersion};
                            title lastVersion"
            tal:content="lastVersion" />

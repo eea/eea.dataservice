@@ -43,6 +43,9 @@ class TopDatasets(BrowserView):
     def get_dataset(self, version_id):
         """ Get dataset from version id
         """
+        if not version_id:
+            return {}
+
         ctool = getToolByName(self.context, 'portal_catalog')
         query = {
             'getVersionId': version_id,
