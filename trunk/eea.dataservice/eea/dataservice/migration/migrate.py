@@ -253,6 +253,35 @@ class MigrateDatasets(object):
         _reindex(ds)
         _reindex(ds.getParentNode())
 
+    def add_extra_files(self, context, mypath):
+        """ Recursively add all extra DataFiles and folders
+            (to be found only in the fs dump)
+        """
+        try:
+            for filename in os.listdir(mypath):
+                if filename in ['download', '.svn']:
+                    continue
+                if os.path.isdir(os.path.join(mypath, filename)):
+                    #TODO: set state as 'internal state'
+                    context.invokeFactory('Folder',
+                                          id=filename,
+                                          title=filename)
+                    myfolder = getattr(context, filename)
+                    myfolder.selectViewTemplate(templateId='folder_summary_view')
+                    myfolder.setConstrainTypesMode(1)
+                    myfolder.setImmediatelyAddableTypes(FIGURES_SUBOBJECTS)
+                    myfolder.setLocallyAllowedTypes(FIGURES_SUBOBJECTS)
+                    self.add_extra_files(myfolder, os.path.join(mypath, filename))
+                else:
+                    datamodel = MigrationObject()
+                    datamodel.set('title', filename)
+                    datamodel.set('download_file_name', os.path.join(mypath, filename))
+                    #datamodel.set('category' , None) #TODO: we set this?
+                    datamodel.set('download_file_publish_level', '0')
+                    self.add_subobject(context, datamodel, 'DataFile')
+        except OSError:
+            pass
+
     def add_subobject(self, context, datamodel, otype):
         """ Add new subobject
         """
@@ -365,6 +394,22 @@ class MigrateDatasets(object):
 
                     has_version = self.add_dataset(container, ds, has_version)
                     ds_index += 1
+
+                    #Add (extra) DataFiles adn folders, they will have an "internal state"
+                    sys_folder = ds.get('system_folder', None)
+                    if sys_folder:
+                        sys_folder = sys_folder.lower()
+                        if sys_folder.startswith('/'):
+                            sys_folder = sys_folder[1:]
+                        sys_folder = os.path.join(DATAFILES_PATH, sys_folder)
+                        res = ctool.searchResults({'portal_type' : 'Data',
+                                                   'show_inactive': True,
+                                                   'UID' : ds.get('UID')})
+                        if res:
+                            context = getattr(container, res[0].getId)
+                            self.add_extra_files(context, sys_folder)
+                        else:
+                            info('ERROR: cant find dataset for system_folder %s' % sys_folder)
 
             # Add datatables
             for table_id in ds_tables['tables'].keys():
