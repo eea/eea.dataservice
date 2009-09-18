@@ -1,6 +1,5 @@
 import logging
 from zope.component import getMultiAdapter
-from xml.dom import minidom
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
@@ -9,37 +8,6 @@ logger = logging.getLogger('eea.dataservice.google')
 class TopDatasets(BrowserView):
     """ Get top datasets downloads
     """
-
-    def parse_xml(self, xml):
-        """ Parse data from xml
-        """
-        dom = minidom.parseString(xml)
-        error = dom.getElementsByTagName('error')
-        if error:
-            logger.exception(("An error occured while trying to get top downloads. "
-                              "Please check portal_google/analytics configuration"))
-            return []
-
-        entries = dom.getElementsByTagName('entry')
-        res = []
-        for entry in entries:
-            key = value = None
-            for prop in entry.childNodes:
-                if prop.nodeName == u'dxp:dimension':
-                    if prop.getAttribute('name') == u'ga:pagePath':
-                        key = prop.getAttribute('value')
-                if prop.nodeName == u'dxp:metric':
-                    if prop.getAttribute('name') == u'ga:pageviews':
-                        value = prop.getAttribute('value')
-                        try:
-                            value = int(value)
-                        except (TypeError, ValueError):
-                            value = 0
-                if key and value:
-                    res.append((key, value))
-                    break
-        return res
-
     def get_dataset(self, version_id):
         """ Get dataset from version id
         """
@@ -78,25 +46,30 @@ class TopDatasets(BrowserView):
 
         report_path = kwargs.get('google_analytics_report', '')
         if not report_path:
+            logger.exception('Empty google_analytics_report path')
             return []
 
         report = self.context.unrestrictedTraverse(report_path, None)
         if not report:
+            logger.exception('Invalid google_analytics_report path')
             return []
 
-        report_xml = getMultiAdapter((report, self.request), name=u'index_html')
-        if not report_xml:
+        table = getMultiAdapter((report, self.request), name=u'index.table')
+        if not table:
+            logger.exception('No index.table for report %s' % report.absolute_url())
             return []
-
-        xml = report_xml(content_type=None)
-        datasets = self.parse_xml(xml)
+        datasets = table()
 
         res = []
-        for path, views in datasets:
+        for dimensions, metrics in datasets:
+            path = dimensions.get('ga:pagePath', '')
             version_id = path.split('/')[-1]
             dataset = self.get_dataset(version_id)
             if not dataset:
                 continue
-            dataset['views'] = views
+
+            key = ('ga:pageviews' in metrics.keys()) \
+                and 'ga:pageviews' or metrics.keys()[0]
+            dataset['views'] = metrics.get(key)
             res.append(dataset)
         return res
