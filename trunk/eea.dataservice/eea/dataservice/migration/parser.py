@@ -511,7 +511,6 @@ class dataservice_handler(ContentHandler):
                 self.datarelation_current = MigrationObject()
                 self.datarelation_current.set('id', self.dataset_current.get('UID'))
                 self.datarelation_current.set('category', _map_categories(attrs['other_services_category']))
-                self.tmp_debug[attrs['other_services_category']] = attrs['other_services_category']
 
             # Datarelations to maps&graphs
             if name == 'staticgisview_GID':
@@ -826,7 +825,7 @@ class dataservice_handler(ContentHandler):
             # XML ends
             if name == 'data':
                 info('DEBUG log:')
-                info(self.tmp_debug.keys())
+                #info(self.tmp_debug.keys())
                 info('End parsing of datasets XML')
 
         self.data = []
