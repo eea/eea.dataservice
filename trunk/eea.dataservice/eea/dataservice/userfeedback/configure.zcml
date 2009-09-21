@@ -1,0 +1,55 @@
+<configure
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea.dataservice">
+
+  <utility
+    component=".vocabularies.EconomicSectorsFactory"
+    name="eea.dataservice.vocabularies.economic-sectors"
+    />
+
+  <utility
+    component=".vocabularies.EnvironmentalDomainsFactory"
+    name="eea.dataservice.vocabularies.environmental-domains"
+    />
+
+  <browser:menuItem
+    for="..interfaces.IDataset"
+    menu="object_buttons"
+    title="Disable user feedback"
+    action="@@survey/disable"
+    filter="object/@@survey_support/enabled"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:menuItem
+    for="..interfaces.IDataset"
+    menu="object_buttons"
+    title="Enable user feedback"
+    action="@@survey/enable"
+    filter="object/@@survey_support/disabled"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page name="survey"
+    for="..interfaces.IDataset"
+    class=".survey.Survey"
+    permission="cmf.ModifyPortalContent"
+    allowed_interface=".interfaces.ISurvey"
+    />
+
+  <browser:page name="survey_support"
+    for="..interfaces.IDataset"
+    class=".survey.SurveySupport"
+    permission="zope.Public"
+    allowed_interface=".interfaces.ISurveySupport"
+    />
+
+  <browser:page name="survey.html"
+    for="..interfaces.IDataset"
+    class=".survey.SurveyView"
+    template="survey.pt"
+    permission="zope.Public"
+    />
+
+</configure>

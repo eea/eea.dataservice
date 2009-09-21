@@ -7,6 +7,7 @@ from zope.app.annotation.interfaces import IAnnotations
 from zope.component.exceptions import ComponentLookupError
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
+from Products.Five.browser import BrowserView
 from Products.CMFPlone import utils
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
@@ -73,7 +74,7 @@ class GetVersions(object):
         verId = ver.getVersionId()
 
         if verId:
-            cat = getToolByName(self, 'portal_catalog')
+            cat = getToolByName(self.context, 'portal_catalog')
             brains = cat.searchResults({'getVersionId' : verId,
                                         'sort_on': 'effective'})
 

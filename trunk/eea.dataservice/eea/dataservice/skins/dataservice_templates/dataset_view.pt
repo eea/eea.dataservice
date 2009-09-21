@@ -94,9 +94,13 @@ function showDefinition(context) {
                                        size accessor/get_size | python:accessor and len(accessor) or 0;">
 
                         <a tal:define="
-                           filePath string:/data/ga-downloads/$lastVersion;"
+                           filePath string:/data/ga-downloads/$lastVersion;
+                           survey here/@@survey_support|nothing;
+                           survey survey/enabled|nothing;
+                           class python:survey and 'user-feedback-survey' or ''"
                             tal:attributes="
                             href string:${file/absolute_url}/at_download/file;
+                            class class;
                             onclick string:javascript:window.pageTracker ? pageTracker._trackPageview('$filePath') : '';">
                             <img tal:condition="icon" src=""
                                  tal:attributes="src string:${context/portal_url}/$icon"/>

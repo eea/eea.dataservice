@@ -5,6 +5,7 @@
 
     <five:registerPackage package="." initialize=".initialize" />
 
+    <include package=".userfeedback" />
     <include package=".browser" />
     <include package=".google" />
     <include package=".migration" />
