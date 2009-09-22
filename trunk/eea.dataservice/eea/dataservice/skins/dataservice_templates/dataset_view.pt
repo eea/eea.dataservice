@@ -3,6 +3,22 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea.translations">
 
+<metal:css fill-slot="css_slot">
+  <style type="text/css" tal:content="
+    string:@import url(${portal_url}/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css);"></style>
+</metal:css>
+
+<metal:javascript fill-slot="javascript_head_slot">
+  <script tal:attributes="src string:$portal_url/++resource++jquery.ui-1.7.js"
+    type="text/javascript"></script>
+  <script tal:attributes="src string:$portal_url/++resource++jquery.cookie.js"
+    type="text/javascript"></script>
+  <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.survey.js"
+    type="text/javascript"></script>
+  <script language="javascript" type="text/javascript"
+    tal:content="string:jQuery(document).ready(DataService.Load);"></script>
+</metal:javascript>
+
 <body>
 
 <div metal:fill-slot="main" tal:define="
@@ -18,7 +34,7 @@
     </style>
 
     <script language="JavaScript">
-
+<!--
 // Show/Hide table definition
 jQuery(document).ready(function() {
   setTableDefShow();
@@ -38,7 +54,7 @@ function showDefinition(context) {
     jQuery(context).html('[-]');
   }
 }
-
+//-->
     </script>
 
     <!-- BASIC PROPERTIES -->
@@ -94,17 +110,20 @@ function showDefinition(context) {
                                        size accessor/get_size | python:accessor and len(accessor) or 0;">
 
                         <a tal:define="
-                           filePath string:/data/ga-downloads/$lastVersion;
+                           filePath string:/datasets/ga-downloads/$lastVersion;
                            survey here/@@survey_support|nothing;
                            survey survey/enabled|nothing;
-                           class python:survey and 'user-feedback-survey' or ''"
+                           class python:survey and 'feedback-survey google-analytics' or 'google-analytics'"
                             tal:attributes="
                             href string:${file/absolute_url}/at_download/file;
-                            class class;
-                            onclick string:javascript:window.pageTracker ? pageTracker._trackPageview('$filePath') : '';">
+                            class class;">
                             <img tal:condition="icon" src=""
                                  tal:attributes="src string:${context/portal_url}/$icon"/>
                             <span tal:content="filename" />
+                            <span
+                              style="display: none"
+                              class="google-analytics-path"
+                              tal:content="filePath" />
                         </a>
                         (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
                         <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
@@ -410,10 +429,6 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
 
-
-
-
-
     <!-- EEA management plan code -->
     <tal:block define="field python:context.getField('eeaManagementPlan');
                        value python:field.getAccessor(context)()"
@@ -436,7 +451,6 @@ function showDefinition(context) {
     </dl>
     </div>
     <div class="visualClear">&nbsp;</div>
-
 </div>
 
 </body>

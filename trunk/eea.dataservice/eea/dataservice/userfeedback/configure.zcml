@@ -13,6 +13,11 @@
     name="eea.dataservice.vocabularies.environmental-domains"
     />
 
+  <browser:resource
+    name="eea.dataservice.survey.js"
+    file="survey.js"
+   />
+
   <browser:menuItem
     for="..interfaces.IDataset"
     menu="object_buttons"

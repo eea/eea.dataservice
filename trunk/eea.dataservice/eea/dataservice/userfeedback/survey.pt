@@ -1,35 +1,50 @@
-<div tal:define="
+<div id="survey-description" style="border-bottom: 1px dotted black">
+  <div i18n:translate="">
+  In order to download this dataset, we ask you to fill in the agreement form below.
+  After the form is filled you will get immediate access to the data.
+  </div>
+
+  <div style="padding: 1em;">
+    <small i18n:translate="">
+    This dataset is under copyright of the EEA and within the public domain.
+    Public domain information may be used free of charge, provided the source
+    is acknowledged. The acknowledgement should read "(c) EEA, Copenhagen, [year]".
+    </small>
+  </div>
+</div>
+
+<form id="survey-content" action="." tal:define="
   sectors python:view.vocabulary(u'eea.dataservice.vocabularies.economic-sectors');
   domains python:view.vocabulary(u'eea.dataservice.vocabularies.environmental-domains');">
 
   <div style="float: left; width: 30em;" id="sectors-widget">
-    <p i18n:translate="">The key economic sectors where the requested products will be used are:</p>
+    <h3 i18n:translate="">Economic sectors</h3>
     <ul style="list-style: none">
       <li tal:repeat="sector sectors">
-        <input type="checkbox" name="sectors:list" tal:attributes="
+        <input type="checkbox" name="sectors" tal:attributes="
           value python:sector[0];
           title python:sector[1];
           id python:sector[0]" />
-        <label
+        <label style="font-weight: normal"
           tal:attributes="for python:sector[0]"
           tal:content="python:sector[1]" />
       </li>
     </ul>
   </div>
 
-  <div style="width: 60em; padding-top: 1px; display: none" id="domains-widget">
-  <p i18n:translate="">Specify the key environmental domains the product will be used for:</p>
+  <div style="margin-left: 31em; padding-top: 1px; display: none" id="domains-widget">
+  <h3 i18n:translate="">Environmental topics</h3>
   <ul style="list-style: none">
     <li tal:repeat="domain domains">
-      <input type="checkbox" name="domains:list" tal:attributes="
+      <input type="checkbox" name="domains" tal:attributes="
         value python:domain[0];
         title python:domain[1];
         id python:domain[0]" />
-      <label
+      <label style="font-weight: normal"
         tal:attributes="for python:domain[0]"
         tal:content="python:domain[1]" />
     </li>
   </ul>
   </div>
 
-</div>
+</form>

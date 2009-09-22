@@ -63,6 +63,7 @@ class TopDatasets(BrowserView):
         res = []
         for dimensions, metrics in datasets:
             path = dimensions.get('ga:pagePath', '')
+            path = path.split('?')[0]
             version_id = path.split('/')[-1]
             dataset = self.get_dataset(version_id)
             if not dataset:
