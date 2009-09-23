@@ -131,7 +131,12 @@ class DataViewers(object):
 
 def _getCountryName(country_code):
     """ """
-    return getCountries().get(country_code.upper(), country_code)
+    res = getCountries().get(country_code.upper(), country_code)
+    if res.lower() == 'me':
+        res = 'Montenegro'
+    elif res.lower() == 'rs':
+        res = 'Serbia'
+    return res
 
 def _getGroupCountries(context, group_code):
     """ """
