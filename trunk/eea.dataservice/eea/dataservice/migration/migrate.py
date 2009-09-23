@@ -470,7 +470,7 @@ class MigrateRelations(object):
                 if brains:
                     ds = brains[0].getObject()
                     if rel_categ == 'rod':
-                        #Set Reporting obligation(s) (ROD)
+                        # Set Reporting obligation(s) (ROD)
                         rel_data = []
                         rel_data = list(ds.getReportingObligations())
                         rel_url = data[key].get('url')
@@ -483,7 +483,7 @@ class MigrateRelations(object):
                         rel_data.append(str(rel_url))
                         ds.setReportingObligations(rel_data)
                     elif rel_categ == 'mg':
-                        #Set maps&graphs relation
+                        # Set maps&graphs relation
                         mg_shortId = data[key].get('shortId')
                         rel_data = list(ds.getRelatedProducts())
                         mg = cat.searchResults({'portal_type' : 'EEAFigure',
@@ -501,14 +501,32 @@ class MigrateRelations(object):
                         else:
                             info('M&G relation ERROR, mg shortId not found: %s' % mg_shortId)
                     elif rel_categ == 'rews':
-                        #Set Related website(s)/service(s)
+                        # Set Related website(s)/service(s)
                         rel_data = []
                         rel_data = list(ds.getExternalRelations())
                         rel_url = data[key].get('url')
                         rel_data.append(rel_url)
                         ds.setExternalRelations(rel_data)
+                    elif rel_categ == 'indicator':
+                        # Set Interactive viewers
+                        rel_data = []
+                        rel_data = list(ds.getRelatedProducts())
+                        rel_id = str(data[key].get('url')).split('/')[-1]
+                        parent = cat.searchResults({'show_inactive': True,
+                                                    'getId': rel_id})
+                        if parent:
+                            parent_ob = parent[0].getObject()
+                            rel_data.append(parent_ob)
+                            try:
+                                ds.setRelatedProducts(rel_data)
+                            except:
+                                info('PARENT ERROR: error on setRelatedProducts:%s for UID:%s' % (rel_id, ds.UID()))
+                            if len(parent) > 1:
+                                info('PARENT WARNING, too many data sets for RelatedProducts Id: %s' % rel_id)
+                        else:
+                            info('PARENT ERROR, data set RelatedProducts Id not found: %s' % rel_id)
                     elif rel_categ == 'parent':
-                        #Set derived data set relation
+                        # Set derived data set relation
                         rel_data = []
                         rel_data = list(ds.getRelatedItems())
                         rel_shortId = str(data[key].get('url'))

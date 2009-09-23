@@ -335,7 +335,7 @@ def getCountries():
         'ee':'ee',
         'es':'es',
         'fi':'fi',
-        'fo':'fo',
+        #'fo':'fo', #Faroe Islands
         'fr':'fr',
         'gb':'gb',
         'ge':'ge',
