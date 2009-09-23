@@ -393,19 +393,6 @@ class Data(ATFolder, ThemeTaggable):
         tagging = IThemeTagging(self)
         tagging.tags = value
 
-    security.declareProtected(permissions.View, 'getTablesByCategory')
-    def getTablesByCategory(self):
-        """ Return categories and related files
-        """
-        #TODO: fix me
-        res = {}
-        for table in self.objectValues('DataTable'):
-            cat = table.category
-            if not cat in res.keys():
-                res[cat] = []
-            res[cat].append(table)
-        return res
-
 
 def versionIdHandler(obj, event):
     """ Set a versionId as annotation without setting the

@@ -152,6 +152,8 @@ def _map_reference(text, dataset_id):
 def _map_categories(text):
     for key, val in CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID]:
         if text == val: return key
+    if text == 'Interactive viewers':
+        return 'indicator'
     info('ERROR: category dont match %s' % text)
     return text
 

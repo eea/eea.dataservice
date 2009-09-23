@@ -96,6 +96,13 @@
       />
 
   <page
+      name="getTablesByCategory"
+      class=".displays.GetTablesByCategory"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getOrganisationSnippet"
       class=".displays.GetOrganisationSnippet"
       for="*"

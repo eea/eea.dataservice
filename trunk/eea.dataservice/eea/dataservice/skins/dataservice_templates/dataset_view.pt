@@ -82,10 +82,10 @@ function showDefinition(context) {
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
     <!-- Tables -->
-    <tal:tables repeat="categ python:context.getTablesByCategory().keys()">
+    <tal:tables define="tablesData context/@@getTablesByCategory" repeat="categ python:tablesData.keys()">
         <h4 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
             tal:content="categ_name" />
-        <tal:block repeat="table python:context.getTablesByCategory()[categ]">
+        <tal:block repeat="table python:tablesData[categ]">
             <h5 tal:content="table/title" />
             <p tal:content="table/Description" />
 

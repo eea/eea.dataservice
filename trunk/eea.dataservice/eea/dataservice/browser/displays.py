@@ -97,7 +97,7 @@ class MainDatasets(object):
 
     def __call__(self, count=2, ver_num=3):
         res = []
-        cat = getToolByName(self, 'portal_catalog')
+        cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['Data'],
                                     'sort_on': 'modified',
                                     'sort_order': 'reverse'})
@@ -265,6 +265,26 @@ class GetCountriesDisplay(object):
                 res_string += ', '
             res_string += ', '.join(countries)
         return res_string
+
+class GetTablesByCategory(object):
+    """ Return categories and related files """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = {}
+        cat = getToolByName(self.context, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : ['DataTable'],
+                                    'path': '/'.join(self.context.getPhysicalPath())})
+
+        for brain in brains:
+            table = brain.getObject()
+            cat = table.category
+            if not cat in res.keys():
+                res[cat] = []
+            res[cat].append(table)
+        return res
 
 class FormatTempCoverage(object):
     """ Format temporal coverage display
