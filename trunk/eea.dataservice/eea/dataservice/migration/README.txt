@@ -16,6 +16,7 @@ Migration steps:
     - Site setup -> install "iw.fss" product
 
 Run:
+    - http://plone_site/@@migrate_organisations
     - http://plone_site/@@migrate_figures
     - http://plone_site/@@migrate_figurerelations
 
@@ -32,7 +33,6 @@ Migration steps:
     - Restart server
 
 Run:
-    - http://plone_site/@@migrate_organisations
     - http://plone_site/@@migrate_datasets
     - http://plone_site/@@migrate_datarelations
 
