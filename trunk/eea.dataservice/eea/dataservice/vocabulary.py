@@ -51,6 +51,46 @@ class DatasetYearsVocabularyFactory(object):
 
 DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
 
+# Main keywords vocabulary
+class MainKeywords:
+    """
+    """
+    __implements__ = (IVocabulary,)
+
+    def getDisplayList(self, instance):
+        """ """
+        words_length = 30
+        words = []
+        res = []
+        cat = getToolByName(instance, 'portal_catalog')
+        index = cat.Indexes.get('Subject', None)
+        values = index.uniqueValues(name=None, withLengths=1)
+        [words.append(k) for k in values]
+        words = sorted(words, key=operator.itemgetter(1))
+        words = words[-words_length:]
+        [res.append((k[0], k[0])) for k in words]
+        return res
+
+    def getVocabularyDict(self, instance):
+        return {}
+
+    def isFlat(self):
+        return False
+
+    def showLeafsOnly(self):
+        return False
+
+class MainKeywordsVocabularyFactory(object):
+    """ Main keywords vocabulary
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context=None):
+        data = MainKeywords().getDisplayList(context)
+        return SimpleVocabulary.fromItems(data)
+
+MainKeywordsVocabulary = MainKeywordsVocabularyFactory()
+
 # Coordinate reference system
 REFERENCE_DICTIONARY_ID = 'reference_system'
 REFERENCE_DICTIONARY = {}

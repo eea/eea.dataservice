@@ -31,6 +31,11 @@
       name="Temporal coverage"
       />
 
+    <utility
+      component=".vocabulary.MainKeywordsVocabulary"
+      name="Main keywords"
+      />
+
     <subscriber
          for=".interfaces.IDataset
               zope.app.event.interfaces.IObjectCreatedEvent"
