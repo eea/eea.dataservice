@@ -1,16 +1,19 @@
 """ New events
 """
+from zope.interface import Attribute
 from zope.app.event.interfaces import IObjectEvent
 from zope.interface import implements
 
-class IObjectPortalTypeChanged(IObjectEvent):
-    """ Objects portal_type changed
+class IFileUploadedEvent(IObjectEvent):
+    """ Objects file uploaded
     """
+    object = Attribute("The subject of the event.")
+    value = Attribute("File value.")
 
-class ObjectPortalTypeChanged(object):
-    """ Sent if portal_type was changed """
-    implements(IObjectPortalTypeChanged)
+class FileUploadedEvent(object):
+    """ Sent if file was changed """
+    implements(IFileUploadedEvent)
 
-    def __init__(self, context, portal_type):
+    def __init__(self, context, value):
         self.object = context
-        self.portal_type = portal_type
+        self.value = value

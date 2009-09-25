@@ -13,10 +13,10 @@ from AccessControl import ClassSecurityInfo
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDatafile
 from iw.fss.FileSystemStorage import FileSystemStorage
-
+from eea.dataservice.fields import EventFileField
 
 schema = Schema((
-    FileField('file',
+    EventFileField('file',
               required=False,
               primary=True,
               storage=FileSystemStorage(),
