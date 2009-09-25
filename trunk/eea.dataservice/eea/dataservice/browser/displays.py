@@ -16,9 +16,6 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from eea.dataservice.config import ROD_SERVER
 from eea.reports.interfaces import IReportContainerEnhanced
 
-#TODO: Implement relation getters for
-#        - Interactive viewers
-#        - Published in the following indicator(s)
 
 class DatasetRelatedProducts(object):
     """ Return related products

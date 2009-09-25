@@ -312,6 +312,7 @@ class MigrateDatasets(object):
         # Upload file
         if dt.portal_type == 'DataFile':
             file_path = datamodel.get('data_filename', '')
+            file_path = file_path.replace('/dataservice/', '/')
             if file_path.startswith('/'):
                 file_path = file_path[1:]
             file_path = os.path.join(DATAFILES_PATH, file_path)
@@ -359,9 +360,8 @@ class MigrateDatasets(object):
         dsf_index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
 
-        #TODO: uncomment below, temporary commented
         ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        #ds_info = 20
+        #ds_info = 20 #TODO: debug, cleanup me
         ds_range = 0
         ds_step = 10
 
@@ -398,21 +398,22 @@ class MigrateDatasets(object):
                     has_version = self.add_dataset(container, ds, has_version)
                     ds_index += 1
 
-                    ## Add (extra) DataFiles and folders, they will have an "internal state"
-                    #sys_folder = ds.get('system_folder', None)
-                    #if sys_folder:
-                        #sys_folder = sys_folder.lower()
-                        #if sys_folder.startswith('/'):
-                            #sys_folder = sys_folder[1:]
-                        #sys_folder = os.path.join(DATAFILES_PATH, sys_folder)
-                        #res = ctool.searchResults({'portal_type' : 'Data',
-                                                   #'show_inactive': True,
-                                                   #'UID' : ds.get('UID')})
-                        #if res:
-                            #context = getattr(container, res[0].getId)
-                            #self.add_extra_files(context, sys_folder)
-                        #else:
-                            #info('ERROR: cant find dataset for system_folder %s' % sys_folder)
+                    # Add (extra) DataFiles and folders, they will have an "internal state"
+                    sys_folder = ds.get('system_folder', None)
+                    if sys_folder:
+                        sys_folder = sys_folder.lower()
+                        sys_folder = sys_folder.replace('/dataservice/', '/')
+                        if sys_folder.startswith('/'):
+                            sys_folder = sys_folder[1:]
+                        sys_folder = os.path.join(DATAFILES_PATH, sys_folder)
+                        res = ctool.searchResults({'portal_type' : 'Data',
+                                                   'show_inactive': True,
+                                                   'UID' : ds.get('UID')})
+                        if res:
+                            context = getattr(container, res[0].getId)
+                            self.add_extra_files(context, sys_folder)
+                        else:
+                            info('ERROR: cant find dataset for system_folder %s' % sys_folder)
 
             # Add datatables
             for table_id in ds_tables['tables'].keys():
@@ -427,17 +428,17 @@ class MigrateDatasets(object):
                 self.add_subobject(ds_container, table, 'DataTable')
                 dst_index += 1
 
-                ## Add datafiles
-                #for file_ob in files:
-                    #res = ctool.searchResults({'portal_type' : 'DataTable',
-                                               #'show_inactive': True,
-                                               #'UID' : table_id})
-                    #if res:
-                        #dt_container = getattr(ds_container, res[0].getId)
-                        #self.add_subobject(dt_container, file_ob, 'DataFile')
-                        #dsf_index += 1
-                    #else:
-                        #info('ERROR: cant find table container %s' % table_id)
+                # Add datafiles
+                for file_ob in files:
+                    res = ctool.searchResults({'portal_type' : 'DataTable',
+                                               'show_inactive': True,
+                                               'UID' : table_id})
+                    if res:
+                        dt_container = getattr(ds_container, res[0].getId)
+                        self.add_subobject(dt_container, file_ob, 'DataFile')
+                        dsf_index += 1
+                    else:
+                        info('ERROR: cant find table container %s' % table_id)
             transaction.commit()
 
         #msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
