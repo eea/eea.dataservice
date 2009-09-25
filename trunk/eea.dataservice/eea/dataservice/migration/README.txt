@@ -20,7 +20,9 @@ Run:
     - http://plone_site/@@migrate_figures
     - http://plone_site/@@migrate_figurerelations
 
-    One new folders /SITE/figures will be created.
+    Two new folders will be created under /SITE . One containing organisations
+      and a second one containing some figures. (for demo purpose just a few
+      datasets are imported at this point)
 
 Migrate old dataservice
 =======================
@@ -36,9 +38,7 @@ Run:
     - http://plone_site/@@migrate_datasets
     - http://plone_site/@@migrate_datarelations
 
-    Two new folders will be created under /SITE . One containing organisations
-      and a second one containing some datasets. (for demo purpose just a few
-      datasets are imported at this point)
+    One new folders /SITE/data will be created.
 
 Plone customisations:
     - Put under ../portal_skins/custom/standard_error_message

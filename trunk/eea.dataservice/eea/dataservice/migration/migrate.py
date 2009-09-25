@@ -490,8 +490,8 @@ class MigrateRelations(object):
                         mg_shortId = data[key].get('shortId')
                         rel_data = list(ds.getRelatedProducts())
                         mg = cat.searchResults({'portal_type' : 'EEAFigure',
-                                                    'show_inactive': True,
-                                                    'getShortId': mg_shortId})
+                                                'show_inactive': True,
+                                                'getShortId': mg_shortId})
                         if mg:
                             mg_ob = mg[0].getObject()
                             rel_data.append(mg_ob)
@@ -499,7 +499,7 @@ class MigrateRelations(object):
                                 ds.setRelatedProducts(rel_data)
                             except:
                                 info('M&G relation ERROR: error on setRelatedProducts:%s for UID:%s' % (mg_shortId, ds.UID()))
-                            if len(parent) > 1:
+                            if len(mg) > 1:
                                 info('M&G relation WARNING, too many figures for shortId: %s' % mg_shortId)
                         else:
                             info('M&G relation ERROR, mg shortId not found: %s' % mg_shortId)
