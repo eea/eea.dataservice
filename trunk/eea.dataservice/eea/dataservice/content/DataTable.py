@@ -72,6 +72,7 @@ class DataTable(ATFolder):
     archetype_name  = 'DataTable'
     portal_type     = 'DataTable'
     meta_type       = 'DataTable'
+    allowed_content_types = ['ATImage', 'File', 'Folder', 'DataFile']
     _at_rename_after_creation = True
 
     schema = Datatable_schema

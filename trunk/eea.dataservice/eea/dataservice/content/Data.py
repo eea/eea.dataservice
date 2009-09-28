@@ -360,7 +360,7 @@ class Data(ATFolder, ThemeTaggable):
     archetype_name  = 'Data'
     portal_type     = 'Data'
     meta_type       = 'Data'
-    allowed_content_types = ['ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
+    allowed_content_types = ['ATImage', 'File', 'Folder', 'DataTable']
     _at_rename_after_creation = True
 
     schema = Dataset_schema

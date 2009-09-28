@@ -13,7 +13,6 @@
  <property name="filter_content_types">False</property>
  <property name="allowed_content_types">
   <element value="DataTable"/>
-  <element value="DataFile"/>
   <element value="ATImage"/>
   <element value="Folder"/>
   <element value="File"/>
