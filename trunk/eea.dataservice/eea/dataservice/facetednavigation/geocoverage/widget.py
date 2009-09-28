@@ -65,23 +65,23 @@ class Widget(CheckboxWidget):
 
         return terms
 
-    def apply_sequence(self, sequence, brains):
+    def count(self, brains):
         """ Intersect results
         """
+        res = {}
+        sequence = [key for key, value in self.vocabulary()]
         if not sequence:
-            return {}
+            return res
 
         index_id = self.data.get('index')
         if not index_id:
-            return {}
+            return res
 
         ctool = getToolByName(self.context, 'portal_catalog')
         index = ctool._catalog.getIndex(index_id)
         apply_index = getattr(index, "_apply_index", None)
         if not apply_index:
-            return {}
-
-        res = {}
+            return res
 
         brains = IISet(brain.getRID() for brain in brains)
         for value in sequence:
