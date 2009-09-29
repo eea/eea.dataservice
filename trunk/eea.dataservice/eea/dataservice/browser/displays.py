@@ -16,6 +16,16 @@ from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from eea.dataservice.config import ROD_SERVER
 from eea.reports.interfaces import IReportContainerEnhanced
 
+class GetDataForRedirect(object):
+    """ Get objects to redirect
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, query={}):
+        cat = getToolByName(self.context, 'portal_catalog')
+        return cat(**query)
 
 class DatasetRelatedProducts(object):
     """ Return related products

@@ -23,8 +23,10 @@ if error_type == 'NotFound':
             # To match old dataservice file download, e.g.
             #     http://dataservice.eea.europa.eu/download.asp?id=4869
             query = {'portal_type': 'DataFile',
-                     'getShortId': context.REQUEST.get('id', '')}
-            res = catalog(query)
+                     'show_inactive': True,
+                     'getShortId': context.REQUEST.get('id', None)}
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 file_ob = res[0].getObject()
                 redirect_to = file_ob.absolute_url() + '/at_download/file/'
@@ -39,22 +41,28 @@ if error_type == 'NotFound':
             # Related GID
             query = {'portal_type': 'Data',
                      'getVersionId': requested_file,
+                     'show_inactive': True,
                      'sort_on': 'effective'}
-            res = catalog(query)
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[len(res)-1].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # UID resquest
             query = {'portal_type': 'Data',
+                     'show_inactive': True,
                      'UID': requested_file}
-            res = catalog(query)
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # ShortID request
             query = {'portal_type': 'Data',
-                     'getShortId': context.REQUEST.get('id', '')}
-            res = catalog(query)
+                     'show_inactive': True,
+                     'getShortId': context.REQUEST.get('id', None)}
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
@@ -71,22 +79,28 @@ if error_type == 'NotFound':
             # Related GID
             query = {'portal_type': 'EEAFigure',
                      'getVersionId': requested_file,
+                     'show_inactive': True,
                      'sort_on': 'effective'}
-            res = catalog(query)
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[len(res)-1].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # UID resquest
             query = {'portal_type': 'EEAFigure',
+                     'show_inactive': True,
                      'UID': requested_file}
-            res = catalog(query)
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
             # ShortID request
             query = {'portal_type': 'EEAFigure',
-                     'getShortId': context.REQUEST.get('id', '')}
-            res = catalog(query)
+                     'show_inactive': True,
+                     'getShortId': context.REQUEST.get('id', None)}
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 redirect_to = context.absolute_url() + '/' + res[0].getId
                 return context.REQUEST.RESPONSE.redirect(redirect_to, lock=1)
@@ -95,8 +109,10 @@ if error_type == 'NotFound':
             # To match old maps and graphs file download, e.g.
             #     http://dataservice.eea.europa.eu/download.asp?id=19692
             query = {'portal_type': 'EEAFigureFile',
-                     'getShortId': context.REQUEST.get('id', '')}
-            res = catalog(query)
+                     'show_inactive': True,
+                     'getShortId': context.REQUEST.get('id', None)}
+            resView = context.restrictedTraverse('@@getDataForRedirect')
+            res = resView(query)
             if len(res) > 0:
                 file_ob = res[0].getObject()
                 redirect_to = file_ob.absolute_url() + '/at_download/file/'

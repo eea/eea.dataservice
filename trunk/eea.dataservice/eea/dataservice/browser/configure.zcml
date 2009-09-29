@@ -82,6 +82,13 @@
       />
 
   <page
+      name="getDataForRedirect"
+      class=".displays.GetDataForRedirect"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
       name="getCountriesByGroup"
       class=".displays.GetCountriesByGroup"
       for="*"
