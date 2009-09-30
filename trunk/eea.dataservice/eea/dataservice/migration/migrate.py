@@ -329,7 +329,7 @@ class MigrateDatasets(object):
                 fs = FieldStorage(fp=fp, environ=env, headers=headers)
 
                 file_field = dt.getField('file')
-                kwargs = {'field': file_field.__name__, '_migration_': True}}
+                kwargs = {'field': file_field.__name__, '_migration_': True}
                 file_field.getMutator(dt)(FileUpload(fs), **kwargs)
             except IOError:
                 info('ERROR: File not uploaded: %s' % file_path)
