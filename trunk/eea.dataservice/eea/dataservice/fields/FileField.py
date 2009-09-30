@@ -6,5 +6,6 @@ class EventFileField(atapi.FileField):
     """ Raise an event on file upload
     """
     def set(self, instance, value, **kwargs):
-        notify(FileUploadedEvent(instance, value))
+        if '_migration_' not in kwargs.keys():
+            notify(FileUploadedEvent(instance, value))
         return atapi.FileField.set(self, instance, value, **kwargs)
