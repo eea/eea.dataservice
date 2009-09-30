@@ -12,7 +12,7 @@ DATASETS_XML = 'Data_for_XML.xml'
 
 ### Files dump
 # To match Whiteshark location
-#DATAFILES_PATH = os.path.join('/var/eeawebtest/dataservicefiles')
+#DATAFILES_PATH = os.path.join('/var/eeawebtest/DSstorage/dataservicefiles')
 
 # To match demo dump in ../src/eea.dataservice/eea/dataservice/migration
 #DATAFILES_PATH = os.path.join(os.path.dirname(__file__), 'import_files')
