@@ -312,7 +312,6 @@ class MigrateDatasets(object):
         # Upload file
         if dt.portal_type == 'DataFile':
             file_path = datamodel.get('data_filename', '')
-            file_path = file_path.replace('/dataservice/', '/')
             if file_path.startswith('/'):
                 file_path = file_path[1:]
             file_path = os.path.join(DATAFILES_PATH, file_path)
