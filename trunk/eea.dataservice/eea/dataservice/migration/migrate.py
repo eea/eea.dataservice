@@ -60,6 +60,9 @@ def _generateNewId(context, title, uid):
                     id = new_id
                     break
     if id == 'methodology': id = 'methodology-1'
+    if len(id) > 250:
+        id = id[:250]
+        info('WARNING: Object id trunkated, title too long for %s' % uid)
     return id
 
 def _redirect(obj, msg, container):
@@ -394,14 +397,17 @@ class MigrateDatasets(object):
                         if not 'effectiveDate' in ds.keys():
                             ds.set('effectiveDate', DateTime('01.01.2002'))
 
-                    has_version = self.add_dataset(container, ds, has_version)
-                    ds_index += 1
+                    chk_res = ctool.searchResults({'portal_type' : 'Data',
+                                                   'show_inactive': True,
+                                                   'UID' : ds.get('UID')})
+                    if not chk_res:
+                        has_version = self.add_dataset(container, ds, has_version)
+                        ds_index += 1
 
                     # Add (extra) DataFiles and folders, they will have an "internal state"
                     sys_folder = ds.get('system_folder', None)
                     if sys_folder:
                         sys_folder = sys_folder.lower()
-                        sys_folder = sys_folder.replace('/dataservice/', '/')
                         if sys_folder.startswith('/'):
                             sys_folder = sys_folder[1:]
                         sys_folder = os.path.join(DATAFILES_PATH, sys_folder)
@@ -421,21 +427,29 @@ class MigrateDatasets(object):
                 res = ctool.searchResults({'portal_type' : 'Data',
                                            'show_inactive': True,
                                            'UID' : table.get('dataset_id')})
+                chk_res = ctool.searchResults({'portal_type' : 'DataTable',
+                                           'show_inactive': True,
+                                           'UID' : table.get('UID')})
                 ds_container = getattr(container, res[0].getId)
 
                 table.delete('dataset_id')
-                self.add_subobject(ds_container, table, 'DataTable')
-                dst_index += 1
+                if not chk_res:
+                    self.add_subobject(ds_container, table, 'DataTable')
+                    dst_index += 1
 
                 # Add datafiles
                 for file_ob in files:
                     res = ctool.searchResults({'portal_type' : 'DataTable',
                                                'show_inactive': True,
                                                'UID' : table_id})
+                    chk_res = ctool.searchResults({'portal_type' : 'DataFile',
+                                                   'show_inactive': True,
+                                                   'UID' : file_ob.get('UID')})
                     if res:
-                        dt_container = getattr(ds_container, res[0].getId)
-                        self.add_subobject(dt_container, file_ob, 'DataFile')
-                        dsf_index += 1
+                        if not chk_res:
+                            dt_container = getattr(ds_container, res[0].getId)
+                            self.add_subobject(dt_container, file_ob, 'DataFile')
+                            dsf_index += 1
                     else:
                         info('ERROR: cant find table container %s' % table_id)
             transaction.commit()
