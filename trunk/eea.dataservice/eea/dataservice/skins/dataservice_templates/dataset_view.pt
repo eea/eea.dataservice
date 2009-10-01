@@ -57,20 +57,25 @@ function showDefinition(context) {
 //-->
     </script>
 
-    <!-- BASIC PROPERTIES -->
-    <!-- Title -->
-    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
-    <div class="documentActions languages">
-        <tal:lang tal:condition="exists: here/global_languageselector">
-            <metal:lang use-macro="here/global_languageselector/macros/language" />
-        </tal:lang>
-    </div>
-    <div class="visualClear">&nbsp;</div>
+    <!-- MY BASIC PROPERTIES -->
 
-    <!-- Description -->
-    <div class="publicationDescription">
-        <strong tal:content="context/Description" />
+    <h1 tal:content="object_title" class="documentFirstHeading">
+      Title or id
+    </h1>
+
+    <div metal:use-macro="here/document_actions/macros/document_actions">
+        Document actions (print, sendto etc)
     </div>
+
+    <div metal:use-macro="here/document_byline/macros/byline">
+      Get the byline - contains details about author and modification date.
+    </div>
+
+    <p class="documentDescription"
+       tal:content="here/Description"
+       tal:condition="here/Description">
+        Description
+    </p>
 
     <!-- Versions -->
     <metal:themes use-macro="here/portlet_versions/macros/portlet" />
@@ -451,7 +456,7 @@ function showDefinition(context) {
     </dl>
     </div>
     <div class="visualClear">&nbsp;</div>
-</div>
 
+</div>
 </body>
 </html>
