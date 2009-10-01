@@ -206,8 +206,8 @@ function showDefinition(context) {
         </ul>
     </tal:block>
 
-    <!-- META DATA -->
-    <h4 i18n:translate="">Meta data</h4>
+    <!-- METADATA -->
+    <h4 i18n:translate="">Metadata</h4>
     <div style="margin-left: 5%;">
     <dl>
 
@@ -312,7 +312,7 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Last upload -->
-    <tal:block define="field python:context.getField('effectiveDate');
+    <tal:block define="field python:context.getField('lastUpload');
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_last_upload">Last upload:</dt>
