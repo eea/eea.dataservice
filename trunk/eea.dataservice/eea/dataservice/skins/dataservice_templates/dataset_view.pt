@@ -80,9 +80,6 @@ function showDefinition(context) {
     <!-- Versions -->
     <metal:themes use-macro="here/portlet_versions/macros/portlet" />
 
-    <!-- Main data sets -->
-    <metal:themes use-macro="here/portlet_maindatasets/macros/portlet" />
-
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
@@ -144,7 +141,7 @@ function showDefinition(context) {
         <!-- Relations to figures -->
         <tal:block define="value python:related_products['figures']"
                    condition="value">
-            <h4 i18n:translate="">Produced map(s)/graph(s)</h4>
+            <h4 i18n:translate="">Produced maps and graphs</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -157,7 +154,7 @@ function showDefinition(context) {
         <!-- Relations to reports -->
         <tal:block define="value python:related_products['reports']"
                    condition="value">
-            <h4 i18n:translate="">Published in the following report(s)</h4>
+            <h4 i18n:translate="">Used in the following publications</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -185,7 +182,7 @@ function showDefinition(context) {
     <tal:block define="value context/getReportingObligations;
                        view nocall:context/@@getObligations"
                condition="value">
-        <h4 i18n:translate="">Reporting obligation(s) (ROD)</h4>
+        <h4 i18n:translate="">Reporting obligations (ROD)</h4>
         <ul tal:define="data python:view()">
             <li tal:repeat="ob_nr value">
                 <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
@@ -200,7 +197,7 @@ function showDefinition(context) {
     <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
                condition="value">
-        <h4 i18n:translate="">Related website(s)/service(s)</h4>
+        <h4 i18n:translate="">Related websites</h4>
         <ul>
             <li tal:repeat="url value">
                 <a tal:attributes="href url; title url"
@@ -298,13 +295,13 @@ function showDefinition(context) {
 
     <!-- Publish date -->
     <tal:block define="value context/getEffectiveDate" condition="value">
-        <dt i18n:translate="dataset_keywords">Publish date:</dt>
+        <dt i18n:translate="publish_date">Publish date:</dt>
         <dd tal:content="value" />
     </tal:block>
 
     <!-- Keyword(s) -->
     <tal:block define="value context/getKeywords" condition="value">
-        <dt i18n:translate="dataset_keywords">Keyword(s):</dt>
+        <dt i18n:translate="dataset_keywords">Keywords:</dt>
         <dd tal:content="value" />
     </tal:block>
 
