@@ -323,7 +323,11 @@ class MigrateDatasets(object):
                 file_data = file_ob.read()
                 size = len(file_data)
                 filename = file_path.split('/')[-1]
-                filename = str(filename)
+                try:
+                    filename = str(filename)
+                except:
+                    filename = 'not-defined.' + str(filename[-3:])
+                    info("ERROR: codec can't encode filename %s" % file_path)
                 fp = StringIO(file_data)
                 env = {'REQUEST_METHOD':'PUT'}
                 headers = {'content-length': size,
