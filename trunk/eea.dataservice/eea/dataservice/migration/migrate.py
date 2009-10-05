@@ -265,7 +265,7 @@ class MigrateDatasets(object):
         """
         try:
             for filename in os.listdir(mypath):
-                if filename in ['download', '.svn']:
+                if filename in ['download', 'downloads', '.svn']:
                     continue
                 if os.path.isdir(os.path.join(mypath, filename)):
                     #TODO: set state as 'internal state'
