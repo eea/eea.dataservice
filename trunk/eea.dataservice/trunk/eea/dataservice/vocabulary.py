@@ -162,6 +162,7 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
     ('hard', 'Hard copy'),
     ('invi', 'Interactive viewers'),
     ('meto', 'Methodology'),
+    ('odata', 'Original data used to produce the analysis'),
     ('orig', 'Original work data'),
     ('repo', 'Published in the following report(s)'),
     ('rews', 'Related website(s)/service(s)'),

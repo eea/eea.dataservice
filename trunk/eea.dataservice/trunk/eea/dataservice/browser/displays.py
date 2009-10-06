@@ -35,7 +35,7 @@ class DatasetRelatedProducts(object):
         self.request = request
 
     def __call__(self):
-        res = {'figures': [], 'reports': [], 'other': []}
+        res = {'figures': [], 'reports': [], 'datasets': [], 'other': []}
         data = self.context.getRelatedProducts()
         for ob in data:
             if ob.portal_type == 'EEAFigure':
@@ -43,7 +43,10 @@ class DatasetRelatedProducts(object):
             elif IReportContainerEnhanced.providedBy(ob):
                 res['reports'].append(ob)
             else:
-                res['other'].append(ob)
+                if self.context.portal_type == 'EEAFigure' and ob.portal_type == 'Data':
+                    res['datasets'].append(ob)
+                else:
+                    res['other'].append(ob)
         return res
 
 class GetCategoryName(object):
