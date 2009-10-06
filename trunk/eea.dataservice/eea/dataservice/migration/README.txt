@@ -16,9 +16,9 @@ Migration steps:
     - Site setup -> install "iw.fss" product
 
 Run:
-    - http://plone_site/@@migrate_organisations
-    - http://plone_site/@@migrate_figures
-    - http://plone_site/@@migrate_figurerelations
+    - http://plone_site/SITE/@@migrate_organisations
+    - http://plone_site/SITE/@@migrate_figures
+    - http://plone_site/SITE/@@migrate_figurerelations
 
     Two new folders will be created under /SITE . One containing organisations
       and a second one containing some figures. (for demo purpose just a few
@@ -35,8 +35,8 @@ Migration steps:
     - Restart server
 
 Run:
-    - http://plone_site/@@migrate_datasets
-    - http://plone_site/@@migrate_datarelations
+    - http://plone_site/SITE/@@migrate_datasets
+    - http://plone_site/SITE/@@migrate_datarelations
 
     One new folders /SITE/data will be created.
 
