@@ -105,11 +105,10 @@ function showDefinition(context) {
             <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
             <ul>
                 <li tal:repeat="file python:table.objectValues('DataFile')">
-                    <tal:block define="field python:file.getField('file');
-                                       accessor python:field.getAccessor(file)();
-                                       icon accessor/getBestIcon | nothing;
-                                       filename accessor/filename | nothing;
-                                       size accessor/get_size | python:accessor and len(accessor) or 0;">
+                    <tal:block define="field python:file.getFile();
+                                       icon field/getBestIcon | nothing;
+                                       filename file/getFilename | nothing;
+                                       size field/get_size;">
 
                         <a tal:define="
                            filePath string:/datasets/ga-downloads/$lastVersion;
@@ -127,7 +126,7 @@ function showDefinition(context) {
                               class="google-analytics-path"
                               tal:content="filePath" />
                         </a>
-                        (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
+                        (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
                         <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
                         <br />
                     </tal:block>
