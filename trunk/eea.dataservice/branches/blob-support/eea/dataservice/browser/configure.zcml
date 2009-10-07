@@ -1,0 +1,148 @@
+<configure xmlns="http://namespaces.zope.org/browser"
+           xmlns:zope="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea.dataservice">
+
+  <page
+      name="getCategoryName"
+      class=".displays.GetCategoryName"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getDerivedFrom"
+      class=".displays.DatasetDerivedFrom"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getRelatedProducts"
+      class=".displays.DatasetRelatedProducts"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getBasedOn"
+      class=".displays.DatasetBasedOn"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getObligations"
+      class=".displays.Obligations"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getMainDatasets"
+      class=".displays.MainDatasets"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getDataViewers"
+      class=".displays.DataViewers"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="formatTempCoverage"
+      class=".displays.FormatTempCoverage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountries"
+      class=".displays.GetCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountriesDisplay"
+      class=".displays.GetCountriesDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountryGroups"
+      class=".displays.GetCountryGroups"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getDataForRedirect"
+      class=".displays.GetDataForRedirect"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountriesByGroup"
+      class=".displays.GetCountriesByGroup"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getCountryGroupsData"
+      class=".displays.GetCountryGroupsData"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getTablesByCategory"
+      class=".displays.GetTablesByCategory"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getOrganisationSnippet"
+      class=".displays.GetOrganisationSnippet"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getGeographicalCoverageMap"
+      class=".displays.GeographicalCoverageMap"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getReferenceSystemKupu"
+      template="reference_system.pt"
+      class=".displays.GetReferenceSystemKupu"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getQualityDisplay"
+      class=".displays.GetQualityDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <page
+      name="getReferenceSystemTemplate"
+      template="reference_system_templates.pt"
+      class=".displays.GetReferenceSystemTemplate"
+      for="*"
+      permission="zope2.View"
+      />
+</configure>

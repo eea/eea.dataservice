@@ -1,0 +1,57 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+<body>
+<div metal:define-macro="portlet"
+     tal:omit-tag="">
+
+<table align="right" class="sortable listing" id="versioning" style="float:right; clear: right;"
+       tal:condition="here/@@hasVersions">
+  <tal:block define="versions here/@@getVersions">
+    <thead>
+      <tr>
+        <th title="More than one version is available. Select by clicking below" class="nosort"
+            tal:attributes="colspan python:len(versions.keys())+1">
+          <center>Versions</center>
+        </th>
+      </tr>
+      <tr>
+        <th class="nosort"> </th>
+        <th class="nosort" tal:repeat="key versions/keys" tal:content="string:V${key}">V1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>English</td>
+        <tal:block repeat="verNumber versions/keys">
+          <tal:block define="ver python:versions[verNumber]">
+          <td style="background: rgb(245, 130, 31) none repeat scroll 0% 0%;
+                     -moz-background-clip: -moz-initial;
+                     -moz-background-origin: -moz-initial;
+                     -moz-background-inline-policy: -moz-initial;"
+              title="The dataset currently selected"
+              tal:condition="python:ver.UID() == context.UID()">
+            <center>S</center>
+          </td>
+          <td align="center"
+              tal:condition="python:ver.UID() != context.UID()">
+            <a tal:attributes="href ver/absolute_url;
+                               title string:English version ${verNumber} (Everybody including world)">
+              see
+            </a>
+          </td>
+          </tal:block>
+        </tal:block>
+      </tr>
+      <tr tal:condition="python:not context.getEffectiveDate() == versions[len(versions.keys())].getEffectiveDate()">
+        <td tal:attributes="colspan python:len(versions.keys())+1"
+            style="color: darkred;">
+          A newer version of this<br/>dataset is available
+        </td>
+      </tr>
+    </tbody>
+  </tal:block>
+</table>
+
+</div>
+</body>
+</html>

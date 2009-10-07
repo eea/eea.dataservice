@@ -1,0 +1,49 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="eea.dataservice">
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+    <include package=".userfeedback" />
+    <include package=".browser" />
+    <include package=".cache" />
+    <include package=".google" />
+    <include package=".migration" />
+    <include package=".content" />
+    <include package=".versions" />
+    <include package=".facetednavigation.lastversion" />
+    <include package=".facetednavigation.geocoverage" />
+    <include file="profiles.zcml" />
+
+    <utility
+      component=".vocabulary.OrganisationsVocabulary"
+      name="Organisations"
+      />
+
+    <utility
+      component=".vocabulary.ObligationsVocabulary"
+      name="Obligations"
+      />
+
+    <utility
+      component=".vocabulary.DatasetYearsVocabulary"
+      name="Temporal coverage"
+      />
+
+    <utility
+      component=".vocabulary.MainKeywordsVocabulary"
+      name="Main keywords"
+      />
+
+    <subscriber
+         for=".interfaces.IDataset
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler=".content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IDataset
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler=".content.Data.versionIdHandler" />
+
+</configure>

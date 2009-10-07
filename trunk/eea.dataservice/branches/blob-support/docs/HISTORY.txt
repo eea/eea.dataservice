@@ -1,0 +1,9 @@
+Changelog for eea.dataservice
+
+    (name of developer listed in brackets)
+
+eea.dataservice - 0.1 Unreleased
+
+    - Initial package structure.
+      [zopeskel]
+

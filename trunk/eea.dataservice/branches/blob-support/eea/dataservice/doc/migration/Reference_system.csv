@@ -1,0 +1,9 @@
+id	projectionGID	Name	Projection	Ellipsoid	AxisUnits	SemiMajorAxis	StandartParallel	LongitudeCentralMeridian	LatitudeProjectionOrigin	LatituteProjectionCenter	LongituteProjectionCenter	FalseEasting	FalseNorthing
+2	{A770EED0-74AA-4007-8DA5-19B2834E0F5E}	ALBERS	ALBERS	CLARKE1866	Meters	6378388	1st standard parallel 40&#176;49' 60'', 2nd standard parallel 64&#176;10' 00''	 25&#176;00' 00''	00&#176;00' 00''			-3500000.0	0.0
+13	{92DA47F4-E1E8-4414-8BB6-E767FBA32588}	ETRS89 - Lambert Azimutal Equal Area  	ETRS89 - Lambert Azimutal Equal Area  	Spheroid: GRS_1980
+
+	Meters
+
+	6378137				48&#176;00' 00''	09&#176;00' 00''	0.0	0.0
+3	{2F971D88-35D9-440D-961B-B5B656C5436D}	Lambert Azimutal	Lambert Azimutal	Sphere: radius 6378388	Meters	6378388				48&#176;00'00''	09&#176;00'00''	0.0	0.0
+15	{9ADCA56E-C2C2-4BD0-BD92-228CF30F2E6C}	WGS_1984_Web_Mercator	WGS_1984_Web_Mercator	D_WGS_1984	Meters	6378137	0.0	00&#176;00' 00''				0.0	0.0

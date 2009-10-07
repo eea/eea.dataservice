@@ -1,0 +1,754 @@
+
+
+Introduction:
+Main objective of this document is to describe current functionalities of the Data service.
+It also describes where the information is stored within the relational data base [metadata] (SQL server).
+
+The document is organized "by Data service pages";
+
+Data service pages are:
+- Data service home page;
+- Data set;
+- M&G;
+- provider page;
+...
+
+Since some Data Service content is already provided in XML format for IMS purpose, a mapping between the Data base and the XML is also highlighted.
+
+
+
+See live site for screenshot
+
+
+
+
+Plone considerations:
+Dataservice has 2 main entrance pages (frontpages):
+  1. Data
+  2. Maps and graphs
+
+These frontpages will be implemented similarly in plone as two page templates. The search box form will have to be implemented and use the existing plone catalog internal search.
+
+The new content types are:
+	1. Data
+        a. Data File reference
+	2. Map
+	3. Graph
+
+Map and graph are essentially the same metadata schema and logic, we just need to be able to distiguish them, for exaple  for different workflow, search. 
+
+Other supporting content types will probably also be needed: 
+	4. Organisation
+      5, (ROD reference)
+	6. (Spatial Coverage) could be just vocabulary
+      7. (Temporal Coverage) could be just 2 date fields
+      
+
+Dataservice will be represented by the follwing folder structure:
+  SITE/
+		figures/	(BTreeFolder for maps and graphs)
+              	        mapid/
+			graphid/
+		data/		(BTreeFolder for data sets)
+			datasetid/
+				datafileref-1
+                                datafileref-2
+
+
+/*********************************************************************************/
+Quick links: give users the possibility to access quickly some key data sets (M&G) available in the Data Service.
+These links are inserted manually (do not depend on any event) by Data Service administrators.
+
+
+
+
+1.A. Quick links label: 
+[Table].[Field]: [web_comment].[comment]
+[Publish]: control at which level the row is published.
+
+1.B. 
+[Table]: [meta_button]
+Key fields:
+[formgroup]: tag telling in which form the data should be shown
+à value: ”quick_data” for Data
+à value: “quick_atlas” for M&G
+
+[button]: label of the entry
+à example value: “Air emissions”
+…
+
+[Description]: text shown when mouse over hyperlink (ALT).
+à example value: “Air emissions”
+…
+
+[sortorder]: integer value used for sorting purpose with the list of entries
+à example value: “1” (“Air Emission” will come first within “Quick links” the list).
+…
+
+[url]: relative URL that points to the list of datasets entries. It usually returns a list of data sets that have been assigned the same keyword.
+à example value: “/dataservice/available2.asp?type=findkeyword&theme=air%20emissions”
+
+[Publish]: control at which level the row is published.
+à value: ”1” for published at internet level
+à value: “0” for published at Eionet level
+à value: “-1” for published at intranet level (data service administrators).
+
+
+Corresponding content editor: none, each entry have to be inserted/edited directly in the Data base.
+
+
+Plone considerations:
+In plone there is a one-to-one match of quick links with the content types "Promotions". So we can have a folder for quick links in the root of data service. Alternativly we could use just "Link" content type. 
+
+Publish metadata is represented in plone by workflow states. 1 = published, 0 = new state to create where authorised can view, -1 = any other non -published state where
+
+/*********************************************************************************/
+Data highlights: shows latest upload/update of data sets/M&G. These entries are inserted manually (do not depend on any event) by Data Service administrators.
+The availability of a specific entry within the “Data highlight” section is 3 months; period of availability is set by Data Service administrators. Publish level of a specific entry should match the publish level of the related Data set/M&G.
+
+
+
+2.A. Data highlights label:
+[Table].[Field]: [web_comment].[comment]
+
+2.B. [Table]: [meta_news]
+Key fields:
+[Title]: title of the entry, it’s the same as the Data set/M&G title.
+Ex: National emissions reported to the Convention on Long-range Transboundary Air Pollution (LRTAP Convention)
+
+[startdate]: date when the entry was inserted, in datetime format.
+Ex: 13 Nov 2008
+
+[enddate]: date when the entry will not appear anymore within the “Data highlight” section. In datetime format ([startdate]+3month).
+Ex: 13 Feb 2009 (not shown in screen shot above).
+
+[description]: abstract of the data set/M&G (rare for M&G). The text is truncated at 200 characters. Workflow is to make a copy/paste of the whole data set abstract to the [meta_news].[description], the text gets truncated by the “.asp” program.
+Ex: Data on emissions of air pollutants submitted to the LRTAP Convention and copied to EEA and ETC/ACC. Data compiled and held by ETC/ACC are annual national total emissions of CO, NH3, NMVOC, NOX, PM10,...
+
+[url]: relative URL that points to specific data set/M&G.
+Ex: /dataservice/metadetails.asp?id=1061
+
+[typeID]: field used to distinguish between Data set or M&G, related table is [meta_newstype].
+[typeID]=3 means the entry will be available in the Data set part, [typeID]=6 means the entry will be available in the M&G part.
+[typeID] 2 and 8 are not used anymore.
+
+ 
+meta_newstype	   
+id	title	description	name	   
+2	New or updated feature(s)	featcher	featcher	   
+3	New or updated Dataset(s)	Data set	dataset	   
+6	New or updated Map or Graph	Map or graph	mapgraph	   
+8	New or updated application(s)	Pivot view	pivot	 
+
+[Publish]: control at which level the row is published
+
+Below, the corresponding content editor:
+ 
+
+
+Plone considerations:
+redundant
+the dataservice highlights can be implemented just via a macro getting the result from a catalog query sorted by effective dates. There is no need to implement a specific content type or any similar redundant content management interface since the content already exists. it is just a logical query and simple template work. 
+
+Implemetation can also be done via Rich topic, this way we also get the RSS feed functionality out-of-the-box.
+
+There must be a way to not highlight an item, like a checkbox "do not highllight this item". Today we use sate public draft, but this also mean that it will not be listed in any listings, even rss and other lists.  
+
+2.C: RSS feed: lists “Data highlight” entries (latest 10 only).
+
+URL for M&G:
+http://dataconnector.eea.europa.eu/xmldataservice/xml/rss_news/MapsGrapsNews_Top10.xml
+
+URL for Data set:
+http://dataconnector.eea.europa.eu/xmldataservice/xml/rss_news/DatasetNews_Top10.xml
+
+
+/*********************************************************************************/
+Top 5 data sets: lists most downloaded data sets/M&G, the count is done on number of files that belong to a data set/M&G downloaded.
+More files within a data set, means chances are that the count is high. The list is refreshed twice a day (to be confirmed).
+
+
+
+3.A. Top 5 data sets label:
+[Table].[Field]: [web_comment].[comment]
+
+3.B. title
+[Table].[Field]: [meta_dataset].[title]
+
+The download count is retrieved from the SQL statement that generates the XML file.
+
+Key table is [meta_users_downloaded], this table stores all files downloaded from the Data service.
+Every time a user downloads a file then a record is inserted in the table. Implemented in March2003, the table currently counts around 770K rows.
+
+Content editor: not relevant since the content is automatically generated.
+
+Plone consideration:
+unclear if this feature is necessary. Can be implemeted as a ajax-portlet where the data comes from an XML file via google analytics, or simply as an RSS from dataservice we can use the portlet-rss for it. 
+
+/*********************************************************************************/
+Data viewers: lists all data viewers available on the OLAP server (Bison).
+
+
+4.A. Data viewers label:
+Not included in the Data base.
+
+4.B. Data viewers titles:
+[Table].[Field]: [meta_pivot_view].[title]
+
+content editor: not relevant since the content is automatically generated.
+
+Plone consideration:
+Almost already exisiting, simply by using the promotion box as it is used on the frontpage or themes site.
+
+/*********************************************************************************/
+Most popular keywords: lists most accessed keywords
+
+
+(Data base [Tables],[fields]àto be completed if relevant).
+
+Content editor: not relevant since the content is automatically generated.
+
+
+Plone consideration:
+not sure if it will be kept. can be implemented via the popularity of keywords.
+
+/*********************************************************************************/
+Data Service and authentication.
+Users can identify themselves in order to access some content only available via restricted level (Data set/M&G).
+
+
+
+Based on the LDAP data base, authentication is relevant for users that own a “CIRCA Eionet” login.
+
+Classic workflow: 
+- data Service administrator upload/update a data set/M&G. While work is in progress, the publication level used is set to “intranet” (so called “intranet” level: is actually an “administrator/editor” level, it does not relies on Windows authentication).
+- Data service administrator ask for feedback/correction to specific project managers (EEA staff), the data set/M&G is therefore published at Eionet level.
+- when final editing is done, data set/M&G is published at internet level where no authentication is needed in order to acess its content.
+
+3 distinct roles:
+eionet-group-dataservice-administrator: 
+-	This group have access to intranet level of Data service content;
+-	current list of users: http://eea.eionet.europa.eu/Public/irc/eionet-circle/Home/central_dir_admin?fn=roles&v=eionet-group-dataservice-administrator&rd=0&af=0&ud=1&od=0
+-	LDAP path: LDAP://ldap.eionet.europa.eu:389/l=Europe/o=Eionet/ou=Roles/cn=eionet/cn=eionet-group/cn=eionet-group-dataservice/cn=eionet-group-dataservice-administrator
+
+eionet-group-dataservice-partner: 
+- This group have access to Eionet level of Data service content;
+- current list of users: http://eea.eionet.europa.eu/Public/irc/eionet-circle/Home/central_dir_admin?fn=roles&v=eionet-group-dataservice-partner&rd=0&af=0&ud=1&od=0
+- LDAP path: LDAP://ldap.eionet.europa.eu:389/l=Europe/o=Eionet/ou=Roles/cn=eionet/cn=eionet-group/cn=eionet-group-dataservice/cn=eionet-group-dataservice-partner
+- note: these are people that are not EEA staff but can access Eionet content, very few people, rarely used, but should be kept.
+
+eionet-group-dataservice-partner: 
+- This group have access to Eionet level of Data service content;
+- current list of users: http://eea.eionet.europa.eu/Public/irc/eionet-circle/Home/central_dir_admin?fn=roles&v=eea-staff&rd=0&af=0&ud=1&od=0
+	- LDAP path: LDAP://ldap.eionet.europa.eu:389/l=Europe/o=Eionet/ou=Roles/cn=eea/cn=eea-staff
+
+
+Plone consideration:
+We have LDAP authentication in plone too. we just need to map ldap groups to plone group and add them as local roles in the specific data service folders. Not sure if the login box needs to be so visible, we have the login at the bottom of the page.
+
+
+(Data base [Tables],[fields], àto be completed if relevant)
+Synchronization between LDAP data base and metadata Data base: (how many times a day? when? àto be completed)
+
+/*********************************************************************************/
+Menu
+
+
+
+“What is new / Search”: Data service entry page, sends to:
+- Data: http://dataservice.eea.europa.eu/dataservice/ 
+- M&G: http://dataservice.eea.europa.eu/atlas/ 
+
+“Alphabetically”: allows browsing Data service content alphabetically. The string taken into account is the data set/M&G title. Listing proposed by default is letter “A”.
+Example: data set with title: “Digital elevation model of Europe” will be listed under letter “D”. 
+- Data: http://dataservice.eea.europa.eu/dataservice/available.asp?type=azlist&letter=A
+- M&G: http://dataservice.eea.europa.eu/atlas/available.asp?type=AZlist
+
+“Thematically”: allows browsing Data service content by themes. Themes are assigned to each Data sets/M&G via a metadata tag “Theme”.
+- Data: http://dataservice.eea.europa.eu/dataservice/available.asp?type=Themes
+- M&G: http://dataservice.eea.europa.eu/atlas/available.asp?type=Themes
+
+“By keyword”: allows browsing Data service content by keywords. Keywords are assigned to each Data sets/M&G via a metadata tag “Keyword(s)”.
+- Data: http://dataservice.eea.europa.eu/dataservice/available.asp?type=Keywords
+- M&G: http://dataservice.eea.europa.eu/atlas/available.asp?type=Keywords
+
+“Providers”: allows browsing Data service content by data providers. Providers are assigned to each Data sets/M&G via a metadata tag “Owner”.
+- Data: http://dataservice.eea.europa.eu/dataservice/othersources.asp
+- M&G: http://dataservice.eea.europa.eu/atlas/othersources.asp
+
+“Data viewers”: lists all Map viewers, Data viewers. The content is already in Plone, means the listing proposed in this page is independent of the Data Service data base.
+	- Data: http://www.eea.europa.eu/quicklinks/explore-interactive-maps/all-viewers/data-viewers
+- M&G: http://www.eea.europa.eu/quicklinks/explore-interactive-maps
+
+/*********************************************************************************/
+“Term of use”:
+(to be completed)
+/*********************************************************************************/
+
+“About this service”: 
+(to be completed)
+/*********************************************************************************/
+
+Plone consideration:
+The navigation will be automatically generated by Plone.
+We must use faceted navigation to give a unified browsing and filter listing. 
+
+
+
+(to be completed)
+/*********************************************************************************/
+
+Data sets main page:
+Screenshots below are taken from:
+http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=1060 (alternative URL using Data set GID: http://dataservice.eea.europa.eu/1753C9AD-48E8-4B95-BCC0-A150E62388A7)
+
+Plone consideration:
+We will simply use plone internal site_search.
+
+
+
+/*********************************************************************************/Top of the page shows a data set description, title, version…
+Some content of all data sets is already provided to IMS in XML format: http://dataconnector.eea.europa.eu/xml/indicatorManagementSystem/dumps/AllDatasetDetails_dump.xml
+
+Plone consideration:
+this template will be the default view template for data set content type.
+
+
+
+
+Below, the corresponding “data sets property” editor:
+
+
+
+Data set name (table name): 
+[Table].[field]: [meta_dataset].[table_name]
+File system folder name, this name is version independent, means v1,2,3 and 4 have the same table_name (“NEC” in this case).
+Included in data set XML dump: yes à <dc:source>
+
+Title: data set title
+[Table].[field]: [meta_dataset].[title]
+Included in data set XML dump: yes à <dc:title>
+
+Subtitle: !!Not used
+[Table].[field]: [meta_dataset].[subtitle]
+Included in data set XML dump: no
+
+Note: data set abstract
+[Table].[Field]: [meta_dataset].[note]
+Included in data set XML dump: yes à <dc:description>
+
+Version:
+[Table].[Field]: [meta_dataset].[version]
+Included in data set XML dump: yes à <ds:version>
+
+Note about data sets versioning:
+Primary key of the [meta_dataset] table is Field [DatasetGID], means that 1 data set is identified uniquely according to this field.
+Field [meta_dataset].[datasetGID] is included in the XML under <dc:identifier>.
+Important field for data set versioning is: [meta_dataset].[relatedGID] which identifies the same data set but independently of its version.
+In example above version1,2,3 and 4 have the same [relatedGID]. This field is included in the XML under <ds:relatedGID>
+
+More detail about the version table:
+
+The text “This is the latest available version of the dataset” depends not only on the version but also on the Dataset’s publication level.
+For example: if an administrator create a version5 as a work in progress (published at intranet level), internet users will still be presented: “This is the latest available version of the dataset” when version4 is selected, even if there is actually a newer version.
+
+URL behavior and versioning:
+http://dataservice.eea.europa.eu/dataservice/ + [datasetgid] will present a specific version of a data set. If the data set is at a lower level of publication than the one the user access, then it will return a “not found” message.
+http://dataservice.eea.europa.eu/dataservice/ + [relatedgid] will present latest version of a set of data sets (redirection). Again, latest data set version available via the current level of publication. 
+
+Language: 
+[Table].[Field]: [meta_dataset].[iso_language]
+!!populated in the data base, but only “English”.
+Included in data set XML dump: no
+
+Use this map/graph as an example:
+[Table].[Field]: [meta_dataset].[example_GID]
+!!Not used, the idea was to propose next to the title a thumbnail of a map made with the specific data set, it has been implemented but never used.
+Included in data set XML dump: no
+
+Visible status:
+[Table].[Field]: [meta_dataset].[visible]
+3 distinct status:
+“Visible in search lists”àvalue of the field [visible]=0
+“Hide in search lists” à value of the field [visible]=1
+“Visible as template”à value of the field [visible]=2
+Included in data set XML dump: no
+
+Note about data sets visibility:
+Administrator have the possibility to hide some data sets from listing. Data sets listing are found when users browse “Alphabetically”, “thematically”, “By keywords” (see "Menu" description)
+
+Example of listing (for Keyword “Air emissions”), URL: http://dataservice.eea.europa.eu/dataservice/available2.asp?type=findkeyword&theme=air%20emissions
+
+Plone consideration:
+versioning is a dataservice feature which we will need to add in Plone. Versioning will also be needed for future content types to be migrated like indicators.
+
+Example: from an existing content type, via an action, the content manager decides to create a new version. the new version is a copy of the old version, the content manager can then update appropriate fields and publishes when done as new version. versioning can be seen as grouping of instances, where the latest version is the latest created, the oldest version is the first created. A portlet will make it visible to the user what version he/she is viewing. We will need to make this portlet more visible and consisten with the publication product soft versioning box.  
+
+
+Note: data set “National Emission Ceilings (NEC) Directive Inventory” is only shown once even if several versions exist.
+Visibility tag is set by the administrators. A classic workflow is always to leave latest version “visible” and “hide” previous ones.
+
+“Visible as template”: a template can be used when an administrator needs to create a data set. Templates store a predefined set of metadata and content. Using a template makes the data set creation/editing quicker and ensures coherence between distinct data sets. Templates are heavily used for M&G, less for data sets.
+
+Publish level:
+[Table].[Field]: [meta_dataset].[publish]
+3 distinct status:
+“Administrators only” à value of the field [publish]=-1 
+“EEA & partners” à value of the field [visible]=0
+“Public”à value of the field [visible]=1
+Included in data set XML dump: yes à <dc:rights>
+
+Note on publication level:
+Publication level applies for most “entities” (data set, metadata, table group, downloadable files…). 
+An important functionality is that publication of an object depends on its hierarchy. For example no downloadable files will be shown at public level if the corresponding data set is only published at administrator level of visibility.
+
+Publish date:
+[Table].[Field]: [meta_dataset].[publish_date]
+Field in “datetime” format. Not set by administrators, but inserted automatically when a data set is published at internet level. 
+Included in data set XML dump: yes à </dc:date>
+
+/*********************************************************************************/
+Data sets downloads
+
+
+
+Two categories of downloads:
+Files downloaded are always “flat” (not generated on the fly), but some data sets show a table structure description.
+
+Screenshot above shows both cases of figure.
+Under “European data set”, one table group can be found, this is indicated by the hypelink “Table definition”.
+Under “additional information”, no table group and therefore no table structure is described, just flat files download.
+
+Below, the corresponding “Table group” editor:
+
+
+
+Title:
+[Table].[Field]: [meta_tableview].[title]
+Included in data set XML dump: no
+Note: 
+[Table].[Field]: [meta_tableview].[note]
+Included in data set XML dump: no
+Publish level:
+[Table].[Field]: [meta_tableview].[publish]
+
+Remarks: 
+- One data set can have 0, 1 or many table groups assigned.
+- Table group titles are not seen by the users, they are used by administrator during content creation.
+
+When clicked, the hyperlink “Table definition” shows, in a popup window, the assigned table(s) structure(s) as seen below.
+
+Below, the corresponding “Table group” editor:
+
+
+Table group:
+[Table].[Field]: [meta_tableview].[title]
+Included in data set XML dump: no
+Remark: drop down menu, lists table groups previously created for the specific data set.
+
+Table name:
+[Table].[Field]: [meta_tableview_sub].[sql_name]
+Included in data set XML dump: no
+
+Title: 
+[Table].[Field]: [meta_tableview_sub].[title]
+Included in data set XML dump: no
+
+Note: 
+[Table].[Field]: [meta_tableview_sub].[note]
+Included in data set XML dump: no
+
+Sql-select statment:
+[Table].[Field]: [meta_tableview_sub].[sql_select]
+Included in data set XML dump: no
+
+Insert new fields:
+Remark: Not used.
+Included in data set XML dump: no
+
+Publish level:
+[Table].[Field]: [meta_tableview_sub].[publish]
+Included in data set XML dump: no
+
+Remark: 
+- One table group can have 1 or many table assigned.
+
+
+Each field within the imported table shows some properties.
+Below, an example of a field property: "unit":
+
+
+
+Item:
+[Table].[Field]: [meta_TableView_MetaData].[item]
+Included in data set XML dump: no
+
+Alias:
+[Table].[Field]: [meta_TableView_MetaData].[alias]
+Included in data set XML dump: no
+Remark: Not used.
+
+Datatype:
+[Table].[Field]: [meta_TableView_MetaData].[datatype]
+Included in data set XML dump: no
+
+Definition:
+[Table].[Field]: [meta_TableView_MetaData].[definition]
+Included in data set XML dump: no
+
+Note:
+[Table].[Field]: [meta_TableView_MetaData].[note]
+Included in data set XML dump: no
+
+This item can be used to link other tables (check box):
+[Table].[Field]: [meta_TableView_MetaData].[foreignkey]
+Included in data set XML dump: no
+Remark: use to describe the specific table primary key.
+
+The files to be downloaded:
+
+Shown below are 2 distinct presentations of files data.  Files metadata (title, size...), are stored within the same table.
+Below shows both layout, but it's only that some files are stored within a table group (as seen above), and others are not.
+
+
+
+
+Below, an example of a file property: "ASCII delimited (zip)":
+
+
+
+Select a category:
+[Table].[Field]: [meta_download_files].[categoryID]
+Included in data set XML dump: no
+
+Title: 
+[Table].[Field]: [meta_download_files].[title]
+Included in data set XML dump: no
+
+Keywords:
+[Table].[Field]: (to be completed)
+Included in data set XML dump: no
+Remark: downloadable files can be assigned some keyword, implemented but no used.
+
+Note: 
+[Table].[Field]: [meta_download_files].[note]
+Included in data set XML dump: no
+
+Produce other formats...:
+Remark: Only relevant for M&G section (picture converter).
+
+Force refresh of automatic...:
+Remark: Only relevant for M&G section.
+
+Aggreement form: 
+[Table].[Field]: [meta_download_files].[agreementform]
+Included in data set XML dump: no
+Remarks:
+- Some files can be linked with agreement forms that users have to complete systematically in order to download the file;
+- Only one agreement form is used (clean up needed);
+- the agreement form can be seen at this URL: http://dataservice.eea.europa.eu/download.asp?id=17951&filetype=.zip;
+- Only used for CLC2000 data files
+
+Publish level:
+[Table].[Field]: [meta_download_files].[publish]
+Included in data set XML dump: no
+
+Below, an additional example of a file property: "Data viewer manual"
+
+
+
+It’s important to notice that the file metadata is the same as previous example. It's just the presentation layout of these metadata that is different.
+
+Plone consideration:
+no sure if tables definitions are needed to be migrated. 
+external data file reference will be migrated
+
+/*********************************************************************************/
+
+Pivot application (data viewers).
+
+ 
+(to be completed if relevant)
+
+
+/*********************************************************************************/
+
+Data Service and ROD data base.
+
+ 
+
+Some data sets are linked with reporting obligation described in the ROD data base (Reportnet tool).
+
+Below, the corresponding “ROD” property editor:
+ 
+
+
+Url:
+[Table].[Field]: [meta_otherServices].[url]
+Included in data set XML dump: yes --> <rod:obligation>
+
+Title:
+[Table].[Field]: [meta_otherServices].[title]
+Included in data set XML dump: no
+
+Type of link:
+[Table].[Field]: [meta_otherServices].[type]
+Included in data set XML dump: no
+
+Note:
+[Table].[Field]: [meta_otherServices].[note]
+Included in data set XML dump: no
+
+Publish level:
+[Table].[Field]: [meta_otherServices].[publish]
+Included in data set XML dump: no
+
+Remark:
+- 1 One data set can be linked with 0,1 or many reporting obligations.
+- Obligations are entrered manually in the data service table [meta_otherServices]. Even if there is some connections between ROD DB and Data service DB (to be clarified).
+- Yet, the relation RO <--> Data set is stable and does not need much ressources to maintain.
+
+Plone considerations
+relations to Reporting obligations are necessary and will be migrated. these are references, similar to external link content type
+
+
+/*********************************************************************************/
+Meta data: several metadata tags are use in order to describe each data sets.
+For information: a "Meta data definitions" document is available online at this URL: http://dataservice.eea.europa.eu/atlas/introduction.asp (produced in 2006, it needs to be updated).
+
+
+Remark:
+Some metdata are specific to some "objects", for example data sets have a certain set of meta data and M&G can have a similar set and some additional meta data.
+Identified objects are basically ".asp" pages where administrator can insert meta data, the objects are:
+- Data sets (example: http://dataservice.eea.europa.eu/dataservice/metadetails.asp?id=1060);
+- Table view (mentionned above see example at: http://dataservice.eea.europa.eu/appl/tabledefinition.asp?id=1107), Remark: assigning metadata at table view level has been very rarely done --> should be dropped.
+- Maps&Graphs (example: http://dataservice.eea.europa.eu/atlas/viewdata/viewpub.asp?id=3829);
+- Providers (example: http://dataservice.eea.europa.eu/dataservice/provider.asp?id=C7FD6B23-37B0-4770-8BB6-D85A7C7A5806)
+
+Below a table that shows which metadata tag can be inserted to each objects.
+
+ 
+Meta data label	                Data set	M&G	Providers	Tableview	Max publication level	   
+Source?	                        Yes		Yes	Yes		No		internet level	   
+Unit    	                Yes		Yes	No		No		internet level	   
+Last upload			Yes		Yes	No		No		internet level	   
+Geographical coverage     	Yes		Yes	No		No		internet level	   
+Temporal coverage		Yes		Yes	No		No		internet level	   
+Additional information		Yes		Yes	No		Yes		internet level	   
+Contact person(s) for EEA    	Yes		Yes	No		No		intranet level	   
+Relation?			Yes		Yes	No		No		internet level	   
+Reference system?		Yes		No	No		No		internet level	   
+Methodology			Yes		Yes	Yes		Yes		internet level	   
+Geographic box coordinates?	Yes		No	No		No		internet level	   
+Scale of the data set?		Yes		No	No		No		internet level	   
+Keyword(s)    			Yes		Yes	Yes		Yes		internet level	   
+Owner				Yes		Yes	Yes		Yes		internet level	   
+Type				No		Yes	No		No		internet level	   
+Rights				Yes		Yes	No		No		internet level	   
+Processor			Yes		Yes	No		Yes		internet level	   
+Geographic accuracy		Yes		No	No		No		internet level	   
+Reference ID										intranet level	   
+sourceImages										intranet level	   
+Theme    			Yes		Yes	No		No		internet level	   
+Data policy			No		No	Yes		No		internet level	   
+System folder										intranet level	   
+GID											internet level	   
+RelatedGID										internet level	   
+Disclaimer			Yes		Yes	No		No		internet level	   
+EEA management plan code	Yes		Yes	No		No		intranet level	   
+EEA Publication Id		No		Yes	No		No		intranet level	   
+Publish date			Yes		Yes	No		No		internet level	 
+
+Remarks: 
+- some meta data can only be published at administrator (intranet) level, otherwise most of the tags can be made publicly available.
+- again hirerarchy in the publication level: if a tag can only published at intranet level, then its value will never be seen at upper level whatever the publication level of the content:
+example:
+"Content person(s) for EEA" tag can only be published at intranet level.
+
+ 
+
+- As seen above some meta data tags, are not assigned to any of the 4 objects listed, (to be completed)
+
+
+
+/*********************************************************************************/
+
+Below is the corresponding example as presented within the XML dump used for IMS:
+
+<dctype:Dataset rdf:about="urn:uuid:1753C9AD-48E8-4B95-BCC0-A150E62388A7">
+?
+<dc:title>
+National Emission Ceilings (NEC) Directive Inventory
+</dc:title>
+?
+<dc:link>
+http://dataservice.eea.europa.eu/1753C9AD-48E8-4B95-BCC0-A150E62388A7
+</dc:link>
+<dc:identifier>1753C9AD-48E8-4B95-BCC0-A150E62388A7</dc:identifier>
+<ds:relatedGID>2BFB06C9-AB28-41EC-9808-576E32A36410</ds:relatedGID>
+<dc:source>NEC</dc:source>
+<dc:rights>public</dc:rights>
+<dc:contributor>EEA</dc:contributor>
+<dc:date>2008-10-31T10:06:04</dc:date>
+<dc:publisher>EEA</dc:publisher>
+<ds:version>4.00</ds:version>
+<dc:relation>dataset</dc:relation>
+<ds:latestversion>1753C9AD-48E8-4B95-BCC0-A150E62388A7</ds:latestversion>
+<ds:latestversionflag>True</ds:latestversionflag>
+<dc:owner>Directorate-general for Environment</dc:owner>
+?
+<dc:description>
+Data on emissions of air pollutants (NH3, NMVOC, NOX, SO2) reported
+annually by Member States to the European Commission (with copies
+to EEA) under Directive 2001/81/EC of the European Parliament and
+of the Council on National Emission Ceilings for certain
+pollutants.
+
+</dc:description>
+<dc:coverage>AT</dc:coverage>
+<dc:coverage>BE</dc:coverage>
+<dc:coverage>CY</dc:coverage>
+<dc:coverage>CZ</dc:coverage>
+<dc:coverage>DE</dc:coverage>
+<dc:coverage>DK</dc:coverage>
+<dc:coverage>EE</dc:coverage>
+<dc:coverage>ES</dc:coverage>
+<dc:coverage>FI</dc:coverage>
+<dc:coverage>FR</dc:coverage>
+<dc:coverage>GB</dc:coverage>
+<dc:coverage>GR</dc:coverage>
+<dc:coverage>HU</dc:coverage>
+<dc:coverage>IE</dc:coverage>
+<dc:coverage>IT</dc:coverage>
+<dc:coverage>LT</dc:coverage>
+<dc:coverage>LU</dc:coverage>
+<dc:coverage>LV</dc:coverage>
+<dc:coverage>MT</dc:coverage>
+<dc:coverage>NL</dc:coverage>
+<dc:coverage>PL</dc:coverage>
+<dc:coverage>PT</dc:coverage>
+<dc:coverage>SE</dc:coverage>
+<dc:coverage>SI</dc:coverage>
+<dc:coverage>SK</dc:coverage>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<t:theme/>
+<ds:coverage>1990 - 2006
+
+</ds:coverage>
+<ds:coverage/>
+<rod:obligation rdf:resource="http://rod.eionet.europa.eu/obligations/141"/>
+<ds:unit>Kilotonnes (1000 Tonnes)
+
+</ds:unit>

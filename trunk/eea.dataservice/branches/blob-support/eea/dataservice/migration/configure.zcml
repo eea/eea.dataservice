@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser"
+    xmlns:zope="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea.dataservice">
+
+  <browser:page
+      for="*"
+      name="migrate_organisations"
+      class=".migrate.MigrateOrganisations"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="migrate_datasets"
+      class=".migrate.MigrateDatasets"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="migrate_datarelations"
+      class=".migrate.MigrateRelations"
+      permission="cmf.ModifyPortalContent"
+      />
+
+</configure>
