@@ -5,8 +5,8 @@
      tal:omit-tag="">
 
 <table align="right" class="sortable listing" id="versioning" style="float:right; clear: right;"
-       tal:condition="here/@@hasVersions">
-  <tal:block define="versions here/@@getVersions">
+       tal:define="versions here/@@getVersions; has_versions here/@@hasVersions"
+       tal:condition="python:has_versions and versions">
     <thead>
       <tr>
         <th title="More than one version is available. Select by clicking below" class="nosort"
@@ -49,7 +49,6 @@
         </td>
       </tr>
     </tbody>
-  </tal:block>
 </table>
 
 </div>
