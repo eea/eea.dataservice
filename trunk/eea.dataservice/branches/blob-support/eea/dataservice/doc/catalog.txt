@@ -12,7 +12,7 @@ Set up
     ...   'description': 'a data file'
     ... }
     >>> data.processForm(values=form, data=1, metadata=1)
-    >>> _ = self.loadfile(data, 'sample.pdf')
+    >>> _ = self.loadblobfile(data, 'sample.pdf')
     >>> data.reindexObject(idxs=['filename',])
 
 Search by filename

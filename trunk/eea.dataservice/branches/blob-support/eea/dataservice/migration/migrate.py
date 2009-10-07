@@ -7,7 +7,7 @@ import os
 import logging
 import operator
 from cgi import FieldStorage
-from cStringIO import StringIO
+from StringIO import StringIO
 
 import transaction
 from DateTime import DateTime
@@ -329,14 +329,8 @@ class MigrateDatasets(object):
                     filename = 'not-defined.' + str(filename[-3:])
                     info("ERROR: codec can't encode filename %s" % file_path)
                 fp = StringIO(file_data)
-                env = {'REQUEST_METHOD':'PUT'}
-                headers = {'content-length': size,
-                           'content-disposition':'attachment; filename=%s' % filename}
-                fs = FieldStorage(fp=fp, environ=env, headers=headers)
-
-                file_field = dt.getField('file')
-                kwargs = {'field': file_field.__name__, '_migration_': True}
-                file_field.getMutator(dt)(FileUpload(fs), **kwargs)
+                fp.filename = filename
+                dt.setFile(fp, _migration_=True)
             except IOError:
                 info('ERROR: File not uploaded: %s' % file_path)
 
@@ -366,8 +360,8 @@ class MigrateDatasets(object):
         dsf_index = 0
         info('Import datasets using xml file: %s', self.xmlfile)
 
-        ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        #ds_info = 20 #TODO: debug, cleanup me
+        #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
+        ds_info = 20 #TODO: debug, cleanup me
         ds_range = 0
         ds_step = 10
 
@@ -456,7 +450,7 @@ class MigrateDatasets(object):
                             dsf_index += 1
                     else:
                         info('ERROR: cant find table container %s' % table_id)
-            transaction.commit()
+            transaction.savepoint()
 
         #msg = '%d datasets, %d datatables and %d datafiles imported !' % (ds_index, dst_index, dsf_index)
         msg = 'Datasets, datatables and datafiles imported!'

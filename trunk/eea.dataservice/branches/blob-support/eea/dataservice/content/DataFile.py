@@ -19,7 +19,6 @@ schema = Schema((
     EventFileField('file',
               required=False,
               primary=True,
-              storage=FileSystemStorage(),
               widget = FileWidget(
                         description = "Select the file to be added by clicking the 'Browse' button.",
                         description_msgid = "help_file",

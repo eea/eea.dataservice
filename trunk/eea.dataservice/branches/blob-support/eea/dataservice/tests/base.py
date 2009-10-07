@@ -1,5 +1,4 @@
-""" Base test cases
-"""
+from plone.app.blob.tests import db
 import os
 from Products.Five import zcml
 from Products.Five import fiveconfigure
@@ -136,4 +135,23 @@ class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
         kwargs = {'field': file_field.__name__}
         file_field.getMutator(context)(FileUpload(fs), **kwargs)
 
+        return 'File uploaded.'
+
+    def loadblobfile(self, context, rel_filename, ctype='application/pdf'):
+        """ load a file
+        """
+        import os
+        from StringIO import StringIO
+
+        storage_path = os.path.join(os.path.dirname(__file__))
+        file_path = os.path.join(storage_path, rel_filename)
+        file_ob = open(file_path, 'rb')
+        file_data = file_ob.read()
+        size = len(file_data)
+        filename = file_path.split('/')[-1]
+        filename = str(filename)
+        fp = StringIO(file_data)
+        fp.filename = filename
+        context.setFile(fp)
+        
         return 'File uploaded.'

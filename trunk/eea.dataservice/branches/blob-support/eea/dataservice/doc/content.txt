@@ -172,13 +172,15 @@ Check see if properties applyed.
 
 Lets upload a file
 
-    >>> self.loadfile(df1, 'sample.pdf')
+    >>> self.loadblobfile(df1, 'sample.pdf')
     'File uploaded.'
     >>> df1.getFile().filename
     'sample.pdf'
     >>> df1.getFile().getBestIcon()
     'pdf.png'
     >>> df1.getFile().get_size()
-    7981
+    7981L
     >>> df1.getFile().getContentType()
     'application/pdf'
+    >>> df1.file
+    <plone.app.blob.field.BlobWrapper object at ...>
