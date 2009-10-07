@@ -567,11 +567,11 @@ class dataservice_handler(ContentHandler):
                 self.dataset_current.set('description', desc_split[0])
                 self.dataset_current.set('moreInfo', more_info)
 
-            ###if name == 'dataset_publish_level':
-                ###self.dataset_current.set('publish_level', self.data, 1)
+            if name == 'dataset_publish_level':
+                self.dataset_current.set('publish_level', self.data, 1)
 
-            if name == 'dataset_visible':
-                self.dataset_current.set('ExpirationDate', self.data, 1)
+#            if name == 'dataset_visible':
+#                self.dataset_current.set('ExpirationDate', self.data, 1)
 
             # Dataset metadata
             if name == 'metadata_typelabel':
@@ -777,19 +777,14 @@ class dataservice_handler(ContentHandler):
                     for key in data.keys():
                         if key == 'Completeness':
                             self.dataset_current.set('geoQualityCom', data[key][0][0])
-                            #self.dataset_current.set('geoQualityComDesc', data)
                         if key == 'Logical consistency':
                             self.dataset_current.set('geoQualityLog', data[key][0][0])
-                            #self.dataset_current.set('geoQualityLogDesc', data)
                         if key == 'Position accuracy':
                             self.dataset_current.set('geoQualityPos', data[key][0][0])
-                            #self.dataset_current.set('geoQualityPosDesc', data)
                         if key == 'Temporal accuracy':
                             self.dataset_current.set('geoQualityTem', data[key][0][0])
-                            #self.dataset_current.set('geoQualityTemDesc', data)
                         if key == 'Thematic accuracy':
                             self.dataset_current.set('geoQualityThe', data[key][0][0])
-                            #self.dataset_current.set('geoQualityTheDesc', data)
 
             # Table definitons
             if name == 'Table_metadata':
