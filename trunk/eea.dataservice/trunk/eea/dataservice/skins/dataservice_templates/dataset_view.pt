@@ -118,6 +118,7 @@ function showDefinition(context) {
                            survey survey/enabled|nothing;
                            class python:survey and 'feedback-survey google-analytics' or 'google-analytics'"
                             tal:attributes="
+                            id python:file.getId();
                             href string:${file/absolute_url}/at_download/file;
                             class class;">
                             <img tal:condition="icon" src=""
