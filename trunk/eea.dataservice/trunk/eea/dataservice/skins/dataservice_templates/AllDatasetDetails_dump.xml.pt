@@ -63,7 +63,10 @@
           <dc:coverage tal:content="python:country.upper()" />
         </tal:country>
       </tal:coverage>
-      <dc:source tal:content="string:NOT IMPLEMENTED" />
+      <dc:source tal:define="
+        field python:doc.getField('dataSource');
+        source python:field.getAccessor(doc)();"
+        tal:content="structure python:'&lt;![CDATA[' + source + ']]&gt;'" />
       <ds:coverage tal:content="doc/@@formatTempCoverage" />
       <ds:relatedGID tal:content="doc/@@getLatestVersionLink" />
       <ds:unit tal:define="
