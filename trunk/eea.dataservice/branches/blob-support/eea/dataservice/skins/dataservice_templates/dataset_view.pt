@@ -109,7 +109,6 @@ function showDefinition(context) {
                                        icon field/getBestIcon | nothing;
                                        filename file/getFilename | nothing;
                                        size field/get_size;">
-
                         <a tal:define="
                            filePath string:/datasets/ga-downloads/$lastVersion;
                            survey here/@@survey_support|nothing;

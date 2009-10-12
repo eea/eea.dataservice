@@ -315,19 +315,16 @@ class MigrateDatasets(object):
         # Upload file
         if dt.portal_type == 'DataFile':
             file_path = datamodel.get('data_filename', '')
-            if file_path.startswith('/'):
-                file_path = file_path[1:]
-            file_path = os.path.join(DATAFILES_PATH, file_path)
+            if file_path.find(DATAFILES_PATH[1:]) == -1:
+                if file_path.startswith('/'):
+                    file_path = file_path[1:]
+                file_path = os.path.join(DATAFILES_PATH, file_path)
             try:
                 file_ob = open(file_path, 'rb')
                 file_data = file_ob.read()
                 size = len(file_data)
                 filename = file_path.split('/')[-1]
-                try:
-                    filename = str(filename)
-                except:
-                    filename = 'not-defined.' + str(filename[-3:])
-                    info("ERROR: codec can't encode filename %s" % file_path)
+                filename = filename.encode('utf-8')
                 fp = StringIO(file_data)
                 fp.filename = filename
                 dt.setFile(fp, _migration_=True)
@@ -361,7 +358,7 @@ class MigrateDatasets(object):
         info('Import datasets using xml file: %s', self.xmlfile)
 
         #ds_info = extract_data(self.xmlfile, 1)[0]['groups_index']
-        ds_info = 20 #TODO: debug, cleanup me
+        ds_info = 10 #TODO: debug, cleanup me
         ds_range = 0
         ds_step = 10
 
