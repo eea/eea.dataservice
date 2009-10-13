@@ -6,13 +6,13 @@ DataService.Survey = {
     this.links = jQuery('a.feedback-survey', this.context);
     this.selected = null;
     this.cookie = null;
-    this.survey_next = null;
+    this.survey_next = {};
 
     /* Download files */
     var js_context = this;
     this.links.each(function(){
       var link = jQuery(this);
-      js_context.survey_next = link.attr('href');
+      js_context.survey_next[link.attr('id')] = link.attr('href');
       link.attr('href', '');
       var cookie_id = jQuery('span.google-analytics-path', link).text();
       cookie_id = cookie_id.split('/');
@@ -144,7 +144,10 @@ DataService.Survey = {
     if(!jQuery.cookie(this.cookie)){
       jQuery.cookie(this.cookie, query, {expires: 1, path: '/'});
     }
-    return DataService.Google.track(this.selected, query, this.survey_next);
+
+    var next_id = this.selected.attr('id');
+    var next = this.survey_next[next_id];
+    return DataService.Google.track(this.selected, query, next);
   }
 };
 
