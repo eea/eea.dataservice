@@ -234,11 +234,11 @@ class MigrateDatasets(object):
         """
         ds.setExcludeFromNav(True)
         # Set ExpirationDate
-        ExpirationDate = datamodel.get('ExpirationDate')
-        if not int(ExpirationDate):
-            ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
-            ds.setExpirationDate(ExpirationDate)
-        datamodel.delete('ExpirationDate')
+        #ExpirationDate = datamodel.get('ExpirationDate')
+        #if not int(ExpirationDate):
+            #ExpirationDate = DateTime(datamodel.get('effectiveDate', DateTime())) - 30
+            #ds.setExpirationDate(ExpirationDate)
+        #datamodel.delete('ExpirationDate')
 
         # Set versionId
         anno = IAnnotations(ds)
