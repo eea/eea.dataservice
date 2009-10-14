@@ -337,7 +337,8 @@ DATATABLE_METADATA_MAPPING = {
 DATASUBTABLE_METADATA_MAPPING = {
     'tableviewsub_title':        'title',
     'tableviewsub_note':         'description',
-    'tableviewsub_totalrecords': 'records'
+    'tableviewsub_totalrecords': 'records',
+    'tableviewsub_publish_level': 'publish_level'
 }
 #tableview_subgid['tableview_subgid']   'id'
 #                                       'dataset_id'
@@ -686,6 +687,7 @@ class dataservice_handler(ContentHandler):
                     table_ob.set('description', _strip_html_tags(self.datafile_current.get('description', '')))
                     table_ob.set('dataset_id', self.dataset_current.get('UID'))
                     table_ob.set('category', _map_categories(self.datafile_current.get('category', '')))
+                    table_ob.set('publish_level', self.datafile_current.get('publish_level', ''))
                     self.data_table_file_structure['tables'][rand_id] = (table_ob, [])
                 try:
                     if not self.datafile_current.get('title'):
@@ -707,8 +709,6 @@ class dataservice_handler(ContentHandler):
                     data = data.replace('&amp;#39;', "'")
                     self.datatable_current.set('title', data)
                 if name == 'tableviewgid':
-                    #self.datatables[self.datatable_current.get('id')] = self.datatable_current
-
                     dt_tmp = self.datatables.get(self.dataset_current.get('UID'), {})
                     dt_tmp[self.datatable_current.get('UID')] = self.datatable_current
                     self.datatables[self.dataset_current.get('UID')] = dt_tmp

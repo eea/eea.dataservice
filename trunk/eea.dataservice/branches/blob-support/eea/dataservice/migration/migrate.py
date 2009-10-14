@@ -94,6 +94,40 @@ def _publish(obj):
     except:
         pass
 
+def _getState(state):
+    """
+    """
+    state = str(state)
+    states = {
+        'draft': 'draft',
+        '1': 'published',
+        '0': 'published_eionet',
+        '-1': 'content_pending'}
+    return states[state]
+
+def _migrationSetState(obj, new_state):
+    """ Set states of imported content
+    """
+    if new_state == 'draft':
+        return
+
+    wftool = getToolByName(obj.context, 'portal_workflow')
+
+    if new_state == 'published':
+        wftool.doActionFor(obj, 'quickPublish',
+                           comment='Set by migration script.')
+    elif new_state == 'published_eionet':
+        wftool.doActionFor(obj, 'publishEionet',
+                           comment='Set by migration script.')
+    elif new_state == 'content_pending':
+        wftool.doActionFor(obj, 'submitContentReview',
+                           comment='Set by migration script.')
+    elif new_state == 'visible':
+        wftool.doActionFor(obj, 'quickPublish',
+                           comment='Set by migration script.')
+        wftool.doActionFor(obj, 'hide',
+                           comment='Set by migration script.')
+
 #
 # Getters
 #
@@ -160,7 +194,6 @@ class MigrateOrganisations(object):
     def update_properties(self, org, datamodel):
         """ Update organisation properties
         """
-        org.setExcludeFromNav(True)
         form = datamodel()
         org.processForm(data=1, metadata=1, values=form)
         org.setTitle(datamodel.get('title', ''))
@@ -232,7 +265,6 @@ class MigrateDatasets(object):
     def update_dataset(self, ds, datamodel):
         """ Update dataset properties
         """
-        ds.setExcludeFromNav(True)
         # Set ExpirationDate
         #ExpirationDate = datamodel.get('ExpirationDate')
         #if not int(ExpirationDate):
@@ -251,9 +283,9 @@ class MigrateDatasets(object):
         ds.setTitle(datamodel.get('title', ''))
         ds._setUID(datamodel.get('UID'))
 
-        # Publish
-        #TODO: set proper state based on -1/0/1 from XML
-        _publish(ds)
+        # Set state
+        state = datamodel.get('publish_level', 'draft')
+        _migrationSetState(ds, _getState(state))
 
         # Reindex
         _reindex(ds)
@@ -283,7 +315,7 @@ class MigrateDatasets(object):
                     datamodel.set('title', filename)
                     datamodel.set('download_file_name', os.path.join(mypath, filename))
                     #datamodel.set('category' , None) #TODO: we set this?
-                    datamodel.set('download_file_publish_level', '0')
+                    datamodel.set('publish_level', 'draft')
                     self.add_subobject(context, datamodel, 'DataFile')
         except OSError:
             pass
@@ -332,15 +364,14 @@ class MigrateDatasets(object):
                 info('ERROR: File not uploaded: %s' % file_path)
 
         # Set properties
-        dt.setExcludeFromNav(True)
         form = datamodel()
         dt.processForm(data=1, metadata=1, values=form)
         dt.setTitle(datamodel.get('title', ''))
         dt._setUID(datamodel.get('UID'))
 
-        # Publish
-        #TODO: set proper state based on -1/0/1 from XML
-        _publish(dt)
+        # Set state
+        state = datamodel.get('publish_level', 'draft')
+        _migrationSetState(dt, _getState(state))
 
         # Reindex
         _reindex(dt)
