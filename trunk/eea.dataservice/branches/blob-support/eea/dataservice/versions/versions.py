@@ -134,6 +134,32 @@ class CreateVersion(object):
         self.context = context
         self.request = request
 
+    def generateNewId(self, context, id, uid):
+        tmp = id.split('-')[-1]
+        try:
+            num = int(tmp)
+            id = '-'.join(id.split('-')[:-1])
+        except ValueError:
+            pass
+
+        if id in context.objectIds():
+            tmp_ob = getattr(context, id)
+            if tmp_ob.UID() != uid:
+                idx = 1
+                while idx <= 100:
+                    new_id = "%s-%d" % (id, idx)
+                    new_ob = getattr(context, new_id, None)
+                    if new_ob:
+                        if new_ob.UID() != uid:
+                            idx += 1
+                        else:
+                            id = new_id
+                            break
+                    else:
+                        id = new_id
+                        break
+        return id
+
     def __call__(self):
         pu = getToolByName(self.context, 'plone_utils')
         obj_uid = self.context.UID()
@@ -158,8 +184,16 @@ class CreateVersion(object):
         new_id = res[0]['new_id']
 
         ver = getattr(parent, new_id)
+
+        # Remove copy_of from ID
+        id = ver.getId()
+        new_id = id.replace('copy_of_', '')
+        new_id = self.generateNewId(parent, new_id, ver.UID())
+        parent.manage_renameObject(id=id, new_id=new_id)
+
         # Set effective date today
         ver.setEffectiveDate(DateTime())
+        ver.reindexObject()
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
 
