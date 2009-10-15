@@ -93,9 +93,15 @@ def _checkQualityData(data, dataset_id):
 
 def _get_data(data):
     res = u''.join(data).strip()
-    #res = res.replace('<![CDATA[', '')
-    #res = res.replace(']]>', '')
+    res = res.replace('\n\n', ' ')
+    res = res.replace('\n', '').replace('\r', '')
+    res = res.replace('<br />', '\r\n').replace('<br/>', '\r\n')
     return res
+
+def _split_to_sentences(data):
+    sentenceEnders = re.compile('[.!?]\s')
+    sentenceList = sentenceEnders.split(data)
+    return sentenceList
 
 def _get_random(size=0):
     chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789"
@@ -561,10 +567,10 @@ class dataservice_handler(ContentHandler):
             if name == 'dataset_note':
                 desc = _get_data(self.data)
                 desc = _strip_html_tags(desc)
-                desc_split = desc.split('.')
+                desc_split = _split_to_sentences(desc)
                 more_info = ''
                 if len(desc_split) > 1:
-                    more_info = '.'.join(desc_split[1:])
+                    more_info = '. '.join(desc_split[1:])
                 self.dataset_current.set('description', desc_split[0])
                 self.dataset_current.set('moreInfo', more_info)
 
