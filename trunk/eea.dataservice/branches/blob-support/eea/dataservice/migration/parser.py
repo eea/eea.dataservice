@@ -94,7 +94,7 @@ def _checkQualityData(data, dataset_id):
 def _get_data(data):
     res = u''.join(data).strip()
     res = res.replace('\n\n', ' ')
-    res = res.replace('\n', '').replace('\r', '')
+    res = res.replace('\n', ' ').replace('\r', ' ')
     res = res.replace('<br />', '\r\n').replace('<br/>', '\r\n')
     return res
 

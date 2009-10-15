@@ -239,7 +239,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         languageIndependent=True,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
-        default_output_type='text/html',
+        default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Source",
             description="A reference to a resource from which the present data resource is derived.",
@@ -256,7 +256,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
-        default_output_type='text/html',
+        default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Additional information",
             description="Other relevant information.",
@@ -272,7 +272,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
-        default_output_type='text/html',
+        default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Methodology",
             description="Description of how the resource was compiled.",
@@ -288,7 +288,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         languageIndependent=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
-        default_output_type='text/html',
+        default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Unit",
             description="Describes the unit(s) taken in account for the measurement values(s) of the data resource.",

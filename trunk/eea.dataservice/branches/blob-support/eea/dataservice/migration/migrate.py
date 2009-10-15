@@ -65,6 +65,19 @@ def _generateNewId(context, title, uid):
         info('WARNING: Object id trunkated, title too long for %s' % uid)
     return id
 
+def _setHtmlMimetype(datamodel):
+    HTML_FIELDS = ['dataSource', 'moreInfo', 'methodology', 'units']
+
+    for fieldName in HTML_FIELDS:
+        data = datamodel.get(fieldName)
+        if data:
+            if not '</' in data:
+                if not data.startswith('<p'):
+                    data = '<p>%s</p>' % data
+                    datamodel.set(fieldName, data)
+
+    return datamodel
+
 def _redirect(obj, msg, container):
     """ Set status message and redirect to context absolute_url
     """
@@ -278,6 +291,9 @@ class MigrateDatasets(object):
         ver[VERSION_ID] = datamodel.get('relatedGid')
         datamodel.delete('relatedGid')
 
+        # Set text/html mimetype
+        datamodel = _setHtmlMimetype(datamodel)
+
         form = datamodel()
         ds.processForm(data=1, metadata=1, values=form)
         ds.setTitle(datamodel.get('title', ''))
@@ -300,7 +316,6 @@ class MigrateDatasets(object):
                 if filename in ['download', 'downloads', '.svn']:
                     continue
                 if os.path.isdir(os.path.join(mypath, filename)):
-                    #TODO: set state as 'internal state'
                     context.invokeFactory('Folder',
                                           id=filename,
                                           title=filename)
