@@ -3,6 +3,7 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
+from datetime import datetime
 from DateTime import DateTime
 from zope.interface import implements
 from Products.Archetypes.atapi import *
@@ -65,7 +66,7 @@ schema = Schema((
             macro="countries_widget",
             helper_js=("countries_widget.js",),
             helper_css=("countries_widget.css",),
-            size=8,
+            size=15,
             label="Geographical coverage",
             description="The geographical extent of the content of the data resource.",
             label_msgid='dataservice_label_geographic',
@@ -93,7 +94,7 @@ schema = Schema((
         name='eeaManagementPlan',
         languageIndependent=True,
         required=True,
-        default=('', ''),
+        default=(datetime.now().year, ''),
         #validators = ('management_plan_code_validator',),
         vocabulary=DatasetYears(),
         widget = ManagementPlanWidget(
@@ -159,6 +160,7 @@ schema = Schema((
         vocabulary=Organisations(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
+            size=15,
             label="Owner",
             description="An entity that owns the data resource.",
             label_msgid='dataservice_label_owner',
@@ -174,6 +176,7 @@ schema = Schema((
         vocabulary=Organisations(),
         widget=MultiSelectionWidget(
             macro="organisations_widget",
+            size=15,
             label="Processor",
             description="The technical producer or processor of the data.",
             label_msgid='dataservice_label_processor',
@@ -190,6 +193,7 @@ schema = Schema((
         widget=MultiSelectionWidget(
             macro="temporal_widget",
             helper_js=("temporal_widget.js",),
+            size=15,
             label="Temporal coverage",
             description="The temporal scope of the content of the data resource. Temporal coverage will typically include a year or a time range.",
             label_msgid='dataservice_label_coverage',
@@ -247,7 +251,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             label_msgid="dataservice_label_source",
             description_msgid="dataservice_help_source",
             i18n_domain="eea.dataservice",
-            rows=10,
+            rows=5,
         ),
     ),
 
@@ -264,7 +268,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             label_msgid="dataservice_label_moreInfo",
             description_msgid="dataservice_help_moreInfo",
             i18n_domain="eea.dataservice",
-            rows=10,
+            rows=5,
         ),
     ),
 
@@ -280,7 +284,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             label_msgid="dataservice_label_methodology",
             description_msgid="dataservice_help_methodology",
             i18n_domain="eea.dataservice",
-            rows=10,
+            rows=5,
         ),
     ),
 
@@ -296,7 +300,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
             label_msgid="dataservice_label_unit",
             description_msgid="dataservice_help_unit",
             i18n_domain="eea.dataservice",
-            rows=10,
+            rows=5,
         ),
     ),
 
@@ -351,6 +355,7 @@ Dataset_schema = ATFolderSchema.copy() + \
                getattr(ThemeTaggable, 'schema', Schema(())).copy() + \
                schema.copy()
 
+Dataset_schema['description'].widget.rows = 15
 
 class Data(ATFolder, ThemeTaggable):
     """ Dataset Content Type
