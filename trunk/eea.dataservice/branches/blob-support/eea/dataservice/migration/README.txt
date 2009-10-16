@@ -1,3 +1,6 @@
+Under ../EEA-BUILDOUT/src/eea.dataservice/trunk/eea/dataservice/migration/data-service.zexp
+there is an export from Whiteshark of the settings and structure of http://WHITESHARK/plone_site/SITE/data-service
+
 Migrate old Maps & Graphs
 =========================
 Only for Demo use:
@@ -48,3 +51,6 @@ Plone customisations:
         (http://eea.europa.eu/kupu_library_tool/zmi_toolbar)
         Make "Subscript/Superscript group" visible to activate
           subscript and superscript in Kupu.
+
+Last step to run:
+    - http://plone_site/SITE/@@migrate_cleanup

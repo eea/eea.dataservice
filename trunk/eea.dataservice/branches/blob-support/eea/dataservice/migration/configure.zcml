@@ -26,4 +26,11 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:page
+      for="*"
+      name="migrate_cleanup"
+      class=".migrate.MigrateCleanup"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

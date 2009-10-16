@@ -16,12 +16,14 @@ from ZPublisher.HTTPRequest import FileUpload
 from Products.CMFCore.utils import getToolByName
 from zope.app.annotation.interfaces import IAnnotations
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 
 from data import getOrganisationsData
 from parser import extract_data, extract_relations
 from eea.themecentre.interfaces import IThemeTagging
 from eea.dataservice.versions.versions import VERSION_ID
 from eea.dataservice.migration.parser import _get_random
+from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.dataservice.config import DATASERVICE_SUBOBJECTS, ORGANISATION_SUBOBJECTS
 from config import (
@@ -30,6 +32,7 @@ from config import (
     DATASETS_XML,
     DATAFILES_PATH,
     DATAFILES_EXTERNAL_PATH,
+    DS_CONTAINER,
     TEMPLATE_CONTAINER
 )
 
@@ -84,7 +87,8 @@ def _redirect(obj, msg, container):
     """
     if not obj.request:
         return msg
-    context = getattr(obj.context, container, obj.context)
+    context = getattr(obj.context, DS_CONTAINER, obj.context)
+    context = getattr(context, container, obj.context)
     url = context.absolute_url()
     IStatusMessage(obj.request).addStatusMessage(msg, type='info')
     obj.request.response.redirect(url)
@@ -150,13 +154,21 @@ def _get_container(obj, container, subobjects, *args, **kwargs):
     """
     site = getattr(obj.context, 'SITE', obj.context)
     new = 0
+
     # Add dataservice folder
-    if container not in site.objectIds():
-        new = 1
-        info('Create folder %s/%s', site.absolute_url(1), container)
+    if DS_CONTAINER not in site.objectIds():
+        info('Create folder %s/%s', site.absolute_url(1), DS_CONTAINER)
         site.invokeFactory('Folder',
+            id=DS_CONTAINER, title='Data and maps')
+    ds_container = getattr(site, DS_CONTAINER)
+
+    # Add dataservice folder
+    if container not in ds_container.objectIds():
+        new = 1
+        info('Create folder %s/%s/%s', site.absolute_url(1), DS_CONTAINER, container)
+        ds_container.invokeFactory('Folder',
             id=container, title=container.title())
-    dataservice = getattr(site, container)
+    dataservice = getattr(ds_container, container)
     if new:
         dataservice.selectViewTemplate(templateId='folder_summary_view')
         dataservice.setConstrainTypesMode(1)
@@ -165,8 +177,8 @@ def _get_container(obj, container, subobjects, *args, **kwargs):
 
     # Add templates folder
     if TEMPLATE_CONTAINER not in dataservice.objectIds():
-        info('Create template folder %s/%s/%s', site.absolute_url(1),
-            container, TEMPLATE_CONTAINER)
+        info('Create template folder %s/%s/%s/%s', site.absolute_url(1),
+            DS_CONTAINER, container, TEMPLATE_CONTAINER)
         dataservice.invokeFactory('Folder',
             id=TEMPLATE_CONTAINER, title='Templates of Datasets')
         templates = getattr(dataservice, TEMPLATE_CONTAINER)
@@ -613,3 +625,17 @@ class MigrateRelations(object):
         msg = '%d relations found !' % len(data.keys())
         info(msg)
         return _redirect(self, msg, DATASERVICE_CONTAINER)
+
+class MigrateCleanup(object):
+    """ Cleanup after full migration
+    """
+    def __init__(self, context, request=None):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        vocab = atvm[CATEGORIES_DICTIONARY_ID]
+
+        for item_id in ['repo', 'rews', 'rod', 'invi']:
+            vocab.manage_delObjects([item_id])

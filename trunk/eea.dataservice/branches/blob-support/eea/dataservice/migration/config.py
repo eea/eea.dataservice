@@ -4,8 +4,9 @@ import os
 
 ### Default locations
 DATASERVICE_CONTAINER = 'data'
-ORGANISATIONS_CONTAINER = 'organisations'
+ORGANISATIONS_CONTAINER = 'data-providers-and-partners'
 TEMPLATE_CONTAINER = 'templates'
+DS_CONTAINER = 'data-service'
 
 ### XML dump
 DATASETS_XML = 'Data_for_XML.xml'
