@@ -452,7 +452,7 @@ class MigrateDatasets(object):
                         sys_folder = sys_folder.lower()
                         if sys_folder.startswith('/'):
                             sys_folder = sys_folder[1:]
-                        sys_folder = os.path.join(DATAFILES_PATH, sys_folder)
+                        sys_folder = os.path.join(DATAFILES_EXTERNAL_PATH, sys_folder)
                         res = ctool.searchResults({'portal_type' : 'Data',
                                                    'show_inactive': True,
                                                    'UID' : ds.get('UID')})
