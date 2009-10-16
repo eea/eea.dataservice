@@ -450,6 +450,9 @@ class MigrateDatasets(object):
                     else:
                         if not 'effectiveDate' in ds.keys():
                             ds.set('effectiveDate', DateTime('01.01.2002'))
+                    # Set Last Upload
+                    if not ds.get('lastUpload'):
+                        ds.set('lastUpload', ds.get('effectiveDate'))
 
                     chk_res = ctool.searchResults({'portal_type' : 'Data',
                                                    'show_inactive': True,

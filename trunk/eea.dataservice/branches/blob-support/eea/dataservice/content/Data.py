@@ -109,6 +109,7 @@ schema = Schema((
     DateTimeField(
         name='lastUpload',
         languageIndependent=True,
+        required=True,
         default=DateTime(),
         imports="from DateTime import DateTime",
         widget=CalendarWidget(
