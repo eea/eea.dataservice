@@ -14,6 +14,7 @@ from Products.CMFPlone import PloneMessageFactory as _
 
 from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.dataservice.versions.interfaces import IGetVersions
 
 VERSION_ID = 'versionId'
 
@@ -62,25 +63,93 @@ class VersionControl(object):
 class GetVersions(object):
     """ Get all versions
     """
+    implements(IGetVersions)
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.versions = {}
+
+    def extract(self, version):
+        """ Extract needed properties
+        """
+        field = version.getField('lastUpload')
+        if not field:
+            value = version.getEffectiveDate()
+        else:
+            value = field.getAccessor(version)()
+
+        if not isinstance(value, DateTime):
+            value = None
+
+        return {
+            'title': version.title_or_id(),
+            'url': version.absolute_url(),
+            'date': value
+        }
+
+    def newest(self):
+        """ Return new versions
+        """
+        if not self.versions:
+            self()
+        versions = self.versions.items()
+        versions.sort(reverse=True)
+
+        res = []
+        found = False
+        uid = self.context.UID()
+        for key, version in versions:
+            if version.UID() == uid:
+                found = True
+                break
+            res.append(self.extract(version))
+
+        if not found:
+            return []
+        return res
+
+    def oldest(self):
+        """ Return old versions
+        """
+        if not self.versions:
+            self()
+        versions = self.versions.items()
+        versions.sort()
+
+        res = []
+        found = False
+        uid = self.context.UID()
+        for key, version in versions:
+            self.extract(version)
+            if version.UID() == uid:
+                found = True
+                break
+            res.append(self.extract(version))
+
+        if not found:
+            return []
+
+        res.reverse()
+        return res
 
     def __call__(self):
-        res = {}
-        brains = []
+        if self.versions:
+            return self.versions
+
         ver = IVersionControl(self.context)
         verId = ver.getVersionId()
 
-        if verId:
-            cat = getToolByName(self.context, 'portal_catalog')
-            brains = cat.searchResults({'getVersionId' : verId,
-                                        'sort_on': 'effective'})
+        if not verId:
+            return self.versions
+
+        cat = getToolByName(self.context, 'portal_catalog')
+        brains = cat.searchResults({'getVersionId' : verId,
+                                    'sort_on': 'effective'})
 
         for index, brain in enumerate(brains):
-            res[index+1] = brain.getObject()
-        return res
+            self.versions[index+1] = brain.getObject()
+        return self.versions
 
 class GetLatestVersionLink(object):
     """ Get latest version link

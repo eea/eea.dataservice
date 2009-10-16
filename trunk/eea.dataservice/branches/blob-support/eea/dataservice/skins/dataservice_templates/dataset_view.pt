@@ -23,6 +23,8 @@
 
 <div metal:fill-slot="main" tal:define="
   lastVersion context/@@getLatestVersionLink;
+  versions nocall:here/@@getVersions;
+  has_versions here/@@hasVersions;
 ">
     <style>
         dd {margin-left: 3em}
@@ -79,7 +81,9 @@ function showDefinition(context) {
  </metal:basic>
 
     <!-- Versions -->
-    <metal:versions use-macro="here/portlet_versions/macros/portlet" />
+    <metal:versions use-macro="here/portlet_versions/macros/versions">
+      <metal:new fill-slot="old" />
+    </metal:versions>
 
     <!-- Themes -->
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
@@ -481,6 +485,11 @@ function showDefinition(context) {
     </dl>
     </div>
     <div class="visualClear">&nbsp;</div>
+
+    <!-- Older versions -->
+    <metal:versions use-macro="here/portlet_versions/macros/versions">
+      <metal:old fill-slot="new" />
+    </metal:versions>
 
 </div>
 </body>
