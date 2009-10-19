@@ -364,6 +364,8 @@ Dataset_schema = ATFolderSchema.copy() + \
                schema.copy()
 
 Dataset_schema['description'].widget.rows = 15
+Dataset_schema['description'].required = True
+Dataset_schema['themes'].required = True
 
 class Data(ATFolder, ThemeTaggable):
     """ Dataset Content Type
