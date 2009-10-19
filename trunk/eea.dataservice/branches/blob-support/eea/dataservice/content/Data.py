@@ -59,6 +59,7 @@ schema = Schema((
     LinesField(
         name='geographicCoverage',
         languageIndependent=True,
+        required=True,
         multiValued=1,
         default=[],
         vocabulary=NamedVocabulary(COUNTRIES_DICTIONARY_ID),
@@ -93,7 +94,7 @@ schema = Schema((
     ManagementPlanField(
         name='eeaManagementPlan',
         languageIndependent=True,
-        required=True,
+        required=False,
         default=(datetime.now().year, ''),
         #validators = ('management_plan_code_validator',),
         vocabulary=DatasetYears(),
@@ -116,7 +117,7 @@ schema = Schema((
         widget=CalendarWidget(
             show_hm=False,
             label="Last upload",
-            description="Shows the date when the data resource was last uploaded in EEA data Dataset service.",
+            description="Date when the data resource was last uploaded in EEA data service. If not manually provided it will conicide with publishing date. It can later be used when a dataset is re-uploaded due to corrections and when a whole new version is not necessary.",
             label_msgid='dataservice_label_last_upload',
             description_msgid='dataservice_help_last_upload',
             i18n_domain='eea.dataservice',
@@ -126,11 +127,12 @@ schema = Schema((
     StringField(
         name='referenceSystem',
         languageIndependent=True,
+        required=False,
         vocabulary=NamedVocabulary(REFERENCE_DICTIONARY_ID),
         widget=SelectionWidget(
             macro="reference_widget",
             label="Coordinate reference system",
-            description="Coordinate reference system used for the dataset.",
+            description="Coordinate reference system used for the GIS dataset. Example: Lambert Azimutal",
             label_msgid="dataservice_label_system",
             description_msgid="dataservice_help_system",
             i18n_domain="eea.dataservice",
@@ -140,12 +142,13 @@ schema = Schema((
     IntegerField(
         name='scale',
         languageIndependent=True,
+        required=False,
         validators = ('isInt',),
         widget=IntegerWidget(
             macro='scale_widget',
             label='Scale of the dataset',
             label_msgid='dataservice_label_scale',
-            description = ("Gives a rough value of accuracy of the dataset."),
+            description = ("Gives a rough value of accuracy for the GIS dataset. Example: 1:1000"),
             description_msgid='dataservice_help_scale',
             i18n_domain='eea.dataservice',
             size=20,
@@ -162,7 +165,7 @@ schema = Schema((
             macro="organisations_widget",
             size=15,
             label="Owner",
-            description="An entity that owns the data resource.",
+            description="An entity or set of entities that owns the data resource. It conicides with the entity that first makes the data public available. The data owner is primarly responsible for the dataset harmonisation, quality assurance and collection from other reporting organisations.",
             label_msgid='dataservice_label_owner',
             description_msgid='dataservice_help_owner',
             i18n_domain='eea.dataservice',
@@ -172,6 +175,7 @@ schema = Schema((
     LinesField(
         name='processor',
         languageIndependent=True,
+        required=True,
         multiValued=1,
         vocabulary=Organisations(),
         widget=MultiSelectionWidget(
@@ -195,7 +199,7 @@ schema = Schema((
             helper_js=("temporal_widget.js",),
             size=15,
             label="Temporal coverage",
-            description="The temporal scope of the content of the data resource. Temporal coverage will typically include a year or a time range.",
+            description="The temporal scope of the content of the data resource. Temporal coverage will typically include a set of years or a time range.",
             label_msgid='dataservice_label_coverage',
             description_msgid='dataservice_help_coverage',
             i18n_domain='eea.dataservice',
@@ -204,6 +208,8 @@ schema = Schema((
 
     TextField(
         name='disclaimer',
+        languageIndependent=False,
+        required=False,
         widget=TextAreaWidget(
             label="Disclaimer",
             description="Disclaimer description.",
@@ -216,11 +222,10 @@ schema = Schema((
     TextField(
         name='contact',
         languageIndependent=True,
+        required=True,
         widget=TextAreaWidget(
             label="Contact person(s) for EEA",
-            description="Outside person to be contacted by EEA if questions regarding the data \
-resource arise at a later date, responsible project manager in EEA and the \
-operator who uploaded the data resource and edited metadata. All three roles should be enlisted here.",
+            description="Outside person to be contacted by EEA if questions regarding the data resource arise at a later date, responsible project manager at EEA.",
             label_msgid='dataservice_label_dataset_contact',
             description_msgid='dataservice_help_dataset_contact',
             i18n_domain='eea.dataservice',
@@ -232,7 +237,7 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         languageIndependent=True,
         widget=TextAreaWidget(
             label="Geographic accuracy",
-            description="Geographic accuracy of location, ground distance as a value in meters.",
+            description="It is applicable to GIS datasets. It indicates the geographic accuracy of location, ground distance as a value in meters.",
             label_msgid='dataservice_label_accurracy',
             description_msgid='dataservice_help_accurracy',
             i18n_domain='eea.dataservice',
@@ -242,12 +247,13 @@ operator who uploaded the data resource and edited metadata. All three roles sho
     TextField(
         name='dataSource',
         languageIndependent=True,
+        required=True,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Source",
-            description="A reference to a resource from which the present data resource is derived.",
+            description="A reference to a resource from which the present data resource is derived. Details such exact body or department, date of delivery, original database, table or GIS layer, scientific literature ...",
             label_msgid="dataservice_label_source",
             description_msgid="dataservice_help_source",
             i18n_domain="eea.dataservice",
@@ -275,12 +281,13 @@ operator who uploaded the data resource and edited metadata. All three roles sho
     TextField(
         name='methodology',
         languageIndependent=False,
+        required=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Methodology",
-            description="Description of how the resource was compiled.",
+            description="Description of how the resource was compiled: used tools, applied procedures, additional information to understand the data, further references to used methodologies.",
             label_msgid="dataservice_label_methodology",
             description_msgid="dataservice_help_methodology",
             i18n_domain="eea.dataservice",
@@ -290,7 +297,8 @@ operator who uploaded the data resource and edited metadata. All three roles sho
 
     TextField(
         name='units',
-        languageIndependent=False,
+        languageIndependent=True,
+        required=False,
         allowable_content_types=('text/html',),
         default_content_type='text/html',
         default_output_type='text/x-html-safe',
@@ -327,8 +335,8 @@ operator who uploaded the data resource and edited metadata. All three roles sho
         vocabulary=Obligations(),
         widget=MultiSelectionWidget(
             macro="obligations_widget",
-            label="Reporting obligation(s)",
-            description="If the dataset is listed in the ROD information should be identical to the information field called 'Report to' provided there.",
+            label="Environmental reporting obligations (ROD)",
+            description="The environmental reporting obligations used to optain the data. Reporting obligations are requirements to provide information agreed between countries and international bodies such as the EEA or international conventions.",
             label_msgid='dataservice_label_obligations',
             description_msgid='dataservice_help_obligations',
             i18n_domain='eea.dataservice',
