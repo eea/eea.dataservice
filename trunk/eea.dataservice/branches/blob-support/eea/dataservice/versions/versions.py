@@ -1,3 +1,4 @@
+import random
 from DateTime import DateTime
 
 from zope.component import adapts
@@ -12,7 +13,6 @@ from Products.CMFPlone import utils
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
 
-from eea.dataservice.migration.parser import _get_random
 from eea.dataservice.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.dataservice.versions.interfaces import IGetVersions
 
@@ -23,6 +23,13 @@ def _reindex(obj):
     """
     ctool = getToolByName(obj, 'portal_catalog')
     ctool.reindexObject(obj)
+
+def _get_random(size=0):
+    chars = "ABCDEFGHIJKMNOPQRSTUVWXYZ023456789"
+    res = ''
+    for k in range(size):
+        res += random.choice(chars)
+    return res
 
 class VersionControl(object):
     """ Version adapter

@@ -21,7 +21,7 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.vocabulary import DatasetYears
-from eea.dataservice.migration.parser import _get_random
+from eea.dataservice.versions.versions import _get_random
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 from eea.dataservice.vocabulary import Organisations, Obligations
