@@ -1,6 +1,6 @@
 Changelog for eea.dataservice
 
-    (name of developer listed in brackets)
+    [Alexandru Ghica]
 
 eea.dataservice - 0.1 Unreleased
 
