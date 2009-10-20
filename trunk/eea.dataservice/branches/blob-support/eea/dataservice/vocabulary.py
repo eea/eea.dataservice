@@ -170,6 +170,50 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
     ('stat', 'Statistics')
 )
 
+# Figures type vocabulary
+class FigureTypes:
+    """
+    """
+    __implements__ = (IVocabulary,)
+
+    def getDisplayList(self, instance):
+        """ """
+        return [('map', 'Map'), ('graph', 'Graph'), ('table', 'Table')]
+
+    def getVocabularyDict(self, instance):
+        return {}
+
+    def isFlat(self):
+        return False
+
+    def showLeafsOnly(self):
+        return False
+
+class FigureTypesVocabularyFactory(object):
+    """ Figure types vocabulary
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context=None):
+        data = FigureTypes().getDisplayList(context)
+        return SimpleVocabulary.fromItems(data)
+
+FigureTypesVocabulary = FigureTypesVocabularyFactory()
+
+# Conversion format for EEAFigureFiles
+CONVERSIONS_DICTIONARY_ID = 'conversions'
+CONVERSIONS_DICTIONARY = {}
+CONVERSIONS_DICTIONARY[CONVERSIONS_DICTIONARY_ID] = (
+    ('GIF-400', 'High resolution GIF'), # public
+    ('PNG-400', 'High resolution PNG'), # public
+    ('PNG-300', 'Medium resolution PNG'), # public
+    ('PNG-75', 'Low resolution PNG'),
+    ('TIFF-400', 'High resolution TIFF'), # public
+    ('PNG-96', 'Low resolution PNG'),
+    ('GIF-96', 'Low resolution GIF'),
+)
+CONVERSIONS_USED = ['GIF-400', 'PNG-400', 'PNG-300', 'TIFF-400']
+
 # Organisations vocabulary
 class Organisations:
     """ Return organisations as vocabulary

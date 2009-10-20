@@ -7,7 +7,7 @@
     name="description">An image hold on filesystem, which can be referenced in documents or displayed in an album.</property>
  <property name="content_icon">image_icon.gif</property>
  <property name="content_meta_type">ImageFS</property>
- <property name="product">eea.mapsandgraphs</property>
+ <property name="product">eea.dataservice</property>
  <property name="factory">addImageFS</property>
  <property name="immediate_view">image_view</property>
  <property name="global_allow">True</property>

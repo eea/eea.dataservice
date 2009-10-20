@@ -6,7 +6,7 @@
  <property name="description">A maps and graphs data.</property>
  <property name="content_icon">eeafigure-icon.png</property>
  <property name="content_meta_type">EEAFigure</property>
- <property name="product">eea.mapsandgraphs</property>
+ <property name="product">eea.dataservice</property>
  <property name="factory">addEEAFigure</property>
  <property name="immediate_view">edit</property>
  <property name="global_allow">True</property>
