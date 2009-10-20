@@ -1,0 +1,211 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="atreferencebrowserwidget">
+
+  <head><title></title></head>
+
+  <body>
+
+    <metal:view_macro define-macro="view">
+    </metal:view_macro>
+
+    <metal:reference_edit define-macro="reference_edit"
+             tal:define="multiVal           python:test(field.multiValued, 1, 0);
+                         show_path          field/widget/show_path|nothing;
+                         image_portal_types widget/image_portal_types;
+                         image_method       widget/image_method|string:;
+                         portal_path        python:'/'.join(context.portal_url.getPortalObject().getPhysicalPath());
+                         fieldName          fieldName;
+                         fieldRealName      field/getName;
+                         uids               python:same_type(value, []) and value or [value];
+                         types_param        python:','.join(field.allowed_types)
+                         ">
+
+          <input type="hidden"
+                             value=""
+                             tal:condition="python:not field.required and multiVal"
+                             tal:attributes="name string:$fieldName:default:list"
+                 />
+
+          <tal:single tal:condition="not: multiVal" >
+              <tal:value tal:condition="value">
+                  <tal:block tal:define="obj python:here.reference_catalog.lookupObject(value);
+                                         obj_path python: '/'.join(obj.getPhysicalPath())" >
+                      <input size=""
+                             type="text"
+                             value=""
+                             id=""
+                             tal:attributes="value obj/title_or_id;
+                                             tabindex tabindex/next;
+                                             size python:test(widget.size=='', 30, widget.size);
+                                             id string:${fieldName}_label" readonly="readonly" />
+
+                      <img tal:condition="python: obj.portal_type in image_portal_types"
+                            tal:attributes="src string:${obj/absolute_url}/$image_method"
+                      />
+
+                      <tal:if condition="show_path"
+                           i18n:translate="label_directory">
+                        ( Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
+                      </tal:if>
+
+                  </tal:block>
+              </tal:value>
+              <input id=""
+                     size="50"
+                     type="text"
+                     value="No reference set. Click the browse button to select."
+                     readonly="readonly"
+                     i18n:attributes="value label_no_reference_set;"
+                     tal:condition="not:  value"
+                     tal:attributes="id string:${fieldName}_label"/>
+              <input type="hidden"
+                     value=""
+                     name=""
+                     tal:attributes="name fieldName;
+                                     value value;
+                                     id string:${fieldName}" />
+
+          </tal:single>
+          <tal:multi tal:condition="multiVal"
+                     tal:define="targets python:[(here.reference_catalog.lookupObject(u),u) for u in uids if u]">
+              <div style="float: left">
+                <select multiple="multiple"
+                        tabindex=""
+                        class="figure_widget_select"
+                        tal:attributes="name string:${fieldName}:list;
+                                        id string:${fieldName};
+                                        size python:test(widget.size=='', 8, widget.size);
+                                        tabindex tabindex/next;">
+                    <tal:block tal:repeat="set targets">
+                        <option value=""
+                                selected="selected"
+                                tal:define="title    python: set[0].title_or_id();
+                                            obj_path python: '/'.join(set[0].getPhysicalPath());
+                                            title    python: show_path and '%s (%s)' % (title, obj_path.replace(portal_path, '')) or title"
+                                tal:attributes="value python:set[1];"
+                                tal:content="title">
+                            option
+                        </option>
+                  </tal:block>
+                </select>
+              </div>
+              <div style="float: left; margin-left: 2em;"
+                   tal:condition="field/widget/allow_sorting | nothing"
+                   class="reference-widget-sorting">
+                  <input style="width: 100pt"
+                         type="button"
+                         i18n:attributes="value label_move_top;"
+                         value="Move top"
+                         tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_to_top(el, pos);;"
+                  />
+                  <br/>
+                  <input style="width: 100pt"
+                         type="button"
+                         i18n:attributes="value label_move_up;"
+                         value="Move up"
+                         tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_up(el, pos);;"
+                  />
+                  <br/>
+                  <input style="width: 100pt"
+                         type="button"
+                         i18n:attributes="value label_move_down;"
+                         value="Move down"
+                         tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_down(el, pos);;"
+                  />
+                  <br/>
+                  <input style="width: 100pt"
+                         type="button"
+                         i18n:attributes="value label_move_bottom;"
+                         value="Move bottom"
+                         tal:attributes="onclick string:var el = document.getElementById('$fieldName');; var pos = el.selectedIndex;; entry_to_bottom(el, pos);;"
+                  />
+              </div>
+          </tal:multi>
+          <div style="clear: both"
+               tal:define="startup_directory python:here.referencebrowser_startupDirectory (widget.startup_directory);
+                           global at_url at_url|python:'/'.join(here.getPhysicalPath())">
+              <input type="button"
+                     class="searchButton"
+                     value="Browse..."
+                     onClick=""
+                     i18n:attributes="value label_browse;"
+                     tal:attributes="onClick string:javascript:referencebrowser_openBrowser('${startup_directory}','${fieldName}', '${at_url}', '${fieldRealName}')" />
+              <input type="button"
+                     class="destructive"
+                     value="Remove reference"
+                     onClick=""
+                     i18n:attributes="value label_remove_reference;"
+                     tal:condition="not: multiVal"
+                     tal:attributes="onClick string:javascript:referencebrowser_removeReference('${fieldName}', ${multiVal})" />
+              <input type="button"
+                     class="destructive"
+                     value="Remove selected items"
+                     onClick=""
+                     i18n:attributes="value label_remove_selected_items;"
+                     tal:condition="multiVal"
+                     tal:attributes="onClick string:javascript:referencebrowser_removeReference('${fieldName}', ${multiVal})" />
+          </div>
+          <!-- Todo? -->
+          <metal:addable metal:use-macro="here/widgets/addable_support/macros/addable"/>
+    </metal:reference_edit>
+
+    <metal:edit_macro define-macro="edit">
+      <div class="figure_widget_left">
+        <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+          <metal:fill fill-slot="widget_body">
+            <metal:use use-macro="here/figure_referencebrowser/macros/reference_edit" />
+          </metal:fill>
+        </metal:use>
+      </div>
+      <div class="figure_widget_right" style="display: none">
+        <!-- Search for publications -->
+        <div class="figure_widget_search">
+          <label class="formQuestion" tal:attributes="
+            for string:${fieldName}_eeaid"
+            i18n:translate="">Search for Publication Internal ID</label>
+          <div class="formHelp" i18n:translate="">Insert publication internal id to search for (number)</div>
+          <input type="text" tal:attributes="
+            id string:${fieldName}_eeaid"
+            name="eeaid" value="" />
+          <input type="submit" name="form.actions.search" value="Search" />
+          <span class="figure_widget_errors"></span>
+          <div class="figure_widget_results"></div>
+        </div>
+
+        <!-- Add new publication -->
+        <fieldset class="figure_widget_new_publication" style="display: none">
+          <legend i18n:translate="">Add new publication</legend>
+          <div class="field ArchetypesStringWidget">
+            <label class="formQuestion" tal:attributes="
+              for string:${fieldName}_title" i18n:translate="">EEA Publication title</label>
+            <span class="fieldRequired" title="Required">  (Required) </span>
+            <div class="formHelp figure_widget_errors"></div>
+            <input tal:attributes="id string:${fieldName}_title"
+              type="text" maxlength="255" name="title"/>
+          </div>
+          <div class="field ArchetypesStringWidget">
+            <label class="formQuestion" tal:attributes="
+              for string:${fieldName}_eeaid_new" i18n:translate="">EEA Publication Id</label>
+            <span class="fieldRequired" title="Required">  (Required) </span>
+            <div class="formHelp figure_widget_errors"></div>
+            <input tal:attributes="id string:${fieldName}_eeaid_new"
+              type="text" maxlength="255" name="eeaid"/>
+          </div>
+          <div class="figure_widget_new_publication_buttons">
+            <input type="submit" name="form.actions.add" value="Add" />
+            <input type="submit" name="form.actions.cancel" value="Cancel" />
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="figure_clear"> </div>
+    </metal:edit_macro>
+
+    <metal:search_macro define-macro="search">
+      <div metal:use-macro="here/widgets/reference/macros/edit"></div>
+    </metal:search_macro>
+  </body>
+</html>

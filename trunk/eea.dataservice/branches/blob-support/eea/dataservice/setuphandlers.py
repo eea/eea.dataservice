@@ -1,13 +1,28 @@
-from Products.ATVocabularyManager.utils.vocabs import createHierarchicalVocabs, createSimpleVocabs
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from Products.CMFCore.utils import getToolByName
-from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID, getCountriesDictionary
-from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID, CATEGORIES_DICTIONARY
-from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID, QUALITY_DICTIONARY
-from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID, REFERENCE_DICTIONARY
-from eea.dataservice.vocabulary import QLD_DICTIONARY_ID, QLD_DICTIONARY
-from eea.dataservice.vocabulary import QLMG_DICTIONARY_ID, QLMG_DICTIONARY
 import logging
+
+from Products.CMFCore.utils import getToolByName
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.ATVocabularyManager.utils.vocabs import createHierarchicalVocabs, createSimpleVocabs
+
+from eea.dataservice.vocabulary import (
+    CATEGORIES_DICTIONARY,
+    CATEGORIES_DICTIONARY_ID,
+    CONVERSIONS_DICTIONARY,
+    CONVERSIONS_DICTIONARY_ID,
+    CONVERSIONS_USED,
+    COUNTRIES_DICTIONARY_ID,
+    getCountriesDictionary,
+    QLD_DICTIONARY,
+    QLD_DICTIONARY_ID,
+    QLMG_DICTIONARY,
+    QLMG_DICTIONARY_ID,
+    QUALITY_DICTIONARY,
+    QUALITY_DICTIONARY_ID,
+    REFERENCE_DICTIONARY,
+    REFERENCE_DICTIONARY_ID
+)
+
+
 logger = logging.getLogger('eea.dataservice: setuphandlers')
 
 def installVocabularies(context):
@@ -73,3 +88,24 @@ def installVocabularies(context):
         atvm[CATEGORIES_DICTIONARY_ID].setTitle('Dataservice categories')
     else:
         logger.warn('eea.dataservice categories vocabulary already exist.')
+
+    # Create conversions vocabulary
+    if not CONVERSIONS_DICTIONARY_ID in atvm.contentIds():
+        createSimpleVocabs(atvm, CONVERSIONS_DICTIONARY)
+        atvm[CONVERSIONS_DICTIONARY_ID].setTitle('Conversion format for dataservice')
+    else:
+        logger.warn('eea.dataservice conversion vocabulary already exist.')
+
+    # Set public the vocabulary items we use for active convertion
+    for vocabId in CONVERSIONS_USED:
+        wftool = getToolByName(site, 'portal_workflow')
+        vocabParentOb = getattr(atvm, CONVERSIONS_DICTIONARY_ID)
+        vocabItem = getattr(vocabParentOb, vocabId)
+        state = wftool.getInfoFor(vocabItem, 'review_state', '(Unknown)')
+        if state == 'published':
+            continue
+        try:
+            wftool.doActionFor(vocabItem, 'publish',
+                               comment='Auto published by migration script.')
+        except:
+            pass

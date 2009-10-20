@@ -10,6 +10,9 @@ import Data
 import Organisation
 import DataFile
 import DataTable
+import EEAFigure
+import EEAFigureFile
+import ImageFS
 
 # monkey patch, replaces reference field to an orderable reference field
 from Products.EEAContentTypes.content.orderablereffield import field

@@ -8,4 +8,10 @@
     handler="eea.dataservice.cache.squid.invalidate_file_cache"
   />
 
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+         eea.dataservice.events.IFileUploadedEvent"
+    handler="eea.dataservice.cache.squid.invalidate_file_cache"
+  />
+
 </configure>

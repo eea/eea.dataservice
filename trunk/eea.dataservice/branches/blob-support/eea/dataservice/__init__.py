@@ -12,6 +12,7 @@ registerDirectory('skins', globals())
 cmfutils.ProductsPath = ppath
 
 import catalog
+import pil
 
 def initialize(context):
     """initialize product (called by zope)"""

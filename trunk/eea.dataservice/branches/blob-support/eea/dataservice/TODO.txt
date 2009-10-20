@@ -1,8 +1,1 @@
 EEA Dataservice TODOs:
-    - data-icon.gif to have transparent background
-    - Cache eea.dataservice.google.analytics.TopDatasets.__call__
-
-David Simoens
-===================================
-EEA management plan code is a pick list:
-SELECT id, cast(programme_year as nvarchar(4)) + '-' + code + ' ' + title FROM [Moonefish].[ManagementPlan_Export].[dbo].[dataservice_projects] order by programme_year desc, code asc

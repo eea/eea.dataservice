@@ -53,10 +53,7 @@ def setup_eea_dataservice():
     # should be available. This can't happen until after we have loaded
     # the ZCML.
 
-    # It seems that files are automatically blobs, but my test won't
-    # run without this. (Plone3.1?)
     try:
-        #ztc.installPackage('plone.app.blob')
         ztc.installPackage('iw.fss')
         ztc.installPackage('eea.dataservice')
     except AttributeError:
@@ -153,5 +150,5 @@ class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
         fp = StringIO(file_data)
         fp.filename = filename
         context.setFile(fp)
-        
+
         return 'File uploaded.'

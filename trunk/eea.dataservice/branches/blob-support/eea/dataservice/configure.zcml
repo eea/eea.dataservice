@@ -1,15 +1,19 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="eea.dataservice">
 
     <five:registerPackage package="." initialize=".initialize" />
 
     <include package=".userfeedback" />
     <include package=".browser" />
+    <include package=".converter" />
     <include package=".cache" />
+    <include package=".templates" />
     <include package=".google" />
     <include package=".content" />
+    <include package=".widgets" />
     <include package=".versions" />
     <include package=".facetednavigation.lastversion" />
     <include package=".facetednavigation.geocoverage" />
@@ -18,6 +22,11 @@
     <utility
       component=".vocabulary.OrganisationsVocabulary"
       name="Organisations"
+      />
+
+    <utility
+      component=".vocabulary.FigureTypesVocabulary"
+      name="Figure types"
       />
 
     <utility
@@ -35,6 +44,24 @@
       name="Main keywords"
       />
 
+    <browser:menuItem
+        for=".interfaces.IEEAFigure"
+        menu="object_buttons"
+        title="Create new version"
+        action="@@createVersion"
+        description="Create a new version"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for=".interfaces.IEEAFigure"
+        menu="object_buttons"
+        title="Revoke version"
+        action="@@revokeVersion"
+        description="Revoke a version"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <subscriber
          for=".interfaces.IDataset
               zope.app.event.interfaces.IObjectCreatedEvent"
@@ -44,5 +71,15 @@
          for=".interfaces.IDataset
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler=".content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
 
 </configure>

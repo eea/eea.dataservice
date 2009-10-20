@@ -7,11 +7,11 @@ import operator
 import xmlrpclib
 from datetime import datetime
 
-from Products.Archetypes.interfaces.vocabulary import IVocabulary
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
-from zope.app.schema.vocabulary import IVocabularyFactory
+from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary
+from zope.app.schema.vocabulary import IVocabularyFactory
+from Products.Archetypes.interfaces.vocabulary import IVocabulary
 
 from eea.dataservice.config import *
 

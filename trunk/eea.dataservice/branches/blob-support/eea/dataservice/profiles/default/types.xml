@@ -8,4 +8,10 @@
     meta_type="Factory-based Type Information with dynamic views"/>
  <object name="DataFile"
     meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="EEAFigure"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="EEAFigureFile"
+    meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="ImageFS"
+    meta_type="Factory-based Type Information with dynamic views"/>
 </object>

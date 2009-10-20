@@ -14,7 +14,7 @@ def test_suite():
     """ Suite
     """
     return unittest.TestSuite((
-            Suite('doc/content.txt',
+            Suite('doc/datasets.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,
@@ -23,6 +23,14 @@ def test_suite():
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,
             Suite('doc/catalog.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.dataservice',
+                  test_class=DataserviceFunctionalTestCase) ,
+            Suite('doc/figures.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.dataservice',
+                  test_class=DataserviceFunctionalTestCase) ,
+            Suite('doc/figure_file.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,

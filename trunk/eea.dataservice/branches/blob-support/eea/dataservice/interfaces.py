@@ -38,3 +38,31 @@ class IOrganisation(Interface):
     def getDataRows(obj):
         """ Return datasets which are owned by this organisation
         """
+
+class IEEAFigure(Interface):
+    """ Marker interface for EEAFigure.
+    """
+
+class IEEAFigureMap(Interface):
+    """ Marker interface for Map
+    """
+
+class IEEAFigureGraph(Interface):
+    """ Marker interface for Graph
+    """
+
+class IEEAFigureTable(Interface):
+    """ Marker interface for Table
+    """
+
+class IEEAFigureFile(Interface):
+    """ Marker interface for Figure File
+    """
+
+class IImageFS(Interface):
+    """ Marker interface for Image Filesystem
+    """
+
+class IWorkingList(Interface):
+    """ Marker interface for ATTopic
+    """
