@@ -18,7 +18,7 @@ import ImageFS
 from Products.EEAContentTypes.content.orderablereffield import field
 from Products.Archetypes.ClassGen import generateMethods
 
-schema = Data.Dataset_schema
+schema = Data.dataset_schema
 field.schemata = 'relations'
 
 
