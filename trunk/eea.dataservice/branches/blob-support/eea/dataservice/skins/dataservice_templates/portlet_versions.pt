@@ -8,14 +8,14 @@
 ">
 
 <!-- Information about new versions -->
-<tal:new metal:define-slot="new" tal:define="versions python:versions.newest();">
+<tal:new metal:define-slot="new" tal:define="newest python:versions.newest();">
   <div class="portalMessage"
-    tal:condition="python:has_versions and versions">
+    tal:condition="python:has_versions and newest">
       <strong i18n:translate="new_version_available">
           Note: new versions are available!
       </strong>
       <ul>
-        <li tal:repeat="doc versions">
+        <li tal:repeat="doc newest">
           <a tal:define="
             doc_url doc/url;
             doc_published doc/date;
@@ -25,11 +25,17 @@
         </li>
       </ul>
   </div>
+  <div class="portalMessage" tal:define="oldest python:versions.oldest()"
+    tal:condition="python:has_versions and (not newest) and oldest">
+    <span i18n:translate="">This is the latest version published. See</span>
+    <a tal:attributes="href string:${context/absolute_url}#previous-versions"
+      i18n:translate="">previous versions</a>
+  </div>
 </tal:new>
 
 <!-- Information about old versions -->
 <tal:old metal:define-slot="old" tal:define="versions python:versions.oldest()">
-  <dl class="portlet portlet-rss publicationPortlet"
+  <dl class="portlet portlet-rss publicationPortlet" id="previous-versions"
       tal:condition="python:has_versions and versions">
       <dt class="portletHeader" i18n:translate="report_older_versions">
         Older versions
