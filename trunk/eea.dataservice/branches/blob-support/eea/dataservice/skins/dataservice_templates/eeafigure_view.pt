@@ -29,13 +29,16 @@
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
   <!-- EEAFigureFiles -->
-  <div metal:define-macro="figures-album" class="map-photo-album" tal:repeat="child context/@@getEEAFigureFiles">
+  <div metal:define-macro="figures-album" class="map-photo-album"
+    tal:repeat="child context/@@getEEAFigureFiles">
     <tal:child define="
       categ python:child[0];
       folderContents python:child[1];
       categView nocall:context/@@getCategoryName;
       categ_name python:categView(categ);">
-      <h4 tal:content="categ_name" tal:attributes="title categ"/>
+      <h4 tal:content="categ_name" tal:attributes="
+        id string:fancy-$categ;
+        title categ_name;"/>
       <metal:figures use-macro="here/atct_album_view/macros/listing" />
     </tal:child>
   </div>

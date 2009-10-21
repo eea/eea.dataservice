@@ -64,6 +64,30 @@ td#fancy_title_right {
   background: transparent url(../../++resource++fancybox/fancy_title_right.png) repeat-x;
 }
 
+span#fancy_left_ico {
+  left: 1em;
+}
+
+a#fancy_left:hover span {
+  left: 0.5em;
+}
+
+span#fancy_right_ico {
+  right: 1em;
+}
+
+a#fancy_right:hover span {
+  right: 0.5em;
+}
+
+a#fancy_left, a#fancy_right {
+  width: 5em;
+}
+
+#figures-fancyimage {
+  margin: 0 5em;
+}
+
 /* Update jqzoom image paths
 */
 .preload {

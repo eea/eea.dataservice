@@ -13,14 +13,16 @@ Figures.PhotoAlbum = function(content_id){
     var photo = jQuery(this);
     var link = jQuery('a', photo);
     var img = jQuery('img', photo);
+    var h4 = jQuery('h4', photo.parent());
     var preview = img.attr('src').replace('image_thumb', 'fancybox.html');
     link.attr('href', preview);
+    link.attr('rel', h4.attr('id'));
   });
 
   var js_context = this;
   jQuery('.photoAlbumEntry a').fancybox({
     hideOnContentClick: false,
-    frameWidth: 650,
+    frameWidth: 750,
     frameHeight: 450,
     centerOnScroll: false,
     callbackOnShow: js_context.init_zoom,
