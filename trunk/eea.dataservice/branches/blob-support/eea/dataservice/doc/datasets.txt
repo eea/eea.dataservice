@@ -51,7 +51,7 @@ Lets add a Dataset.
     ...   'effectiveDate': '11/11/2008',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
     ...   'geoQuality': ('1', '2', '1', '-1', '0'),
-    ...   'eeaManagementPlan': ('', ''),
+    ...   'eeaManagementPlan': (2009, ''),
     ...   'lastUpload': '11/11/2008',
     ...   'scale': '1000000',
     ...   'dataOwner': 'http://organisation.url',
@@ -88,7 +88,7 @@ Check see if properties applyed.
     >>> data1.getGeoQuality()
     ('-1', '-1', '-1', '-1', '-1')
     >>> data1.getEeaManagementPlan()
-    ('', '')
+    (2009, '')
     >>> data1.lastUpload
     DateTime('2008/11/11')
     >>> data1.getScale()

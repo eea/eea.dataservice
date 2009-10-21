@@ -15,7 +15,7 @@ Lets add a Dataset.
     >>> _ = sandbox.invokeFactory('Data', 'data1')
     >>> data1 = sandbox.data1
     >>> form = {
-    ...   'title': 'Data 1',
+    ...   'title': 'Dataset',
     ...   'description': 'Organisation description 1',
     ...   'effectiveDate': '11/11/2008',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
@@ -42,7 +42,7 @@ Now lets create a new version of the above dataset.
 
     >>> createVersionView = data1.unrestrictedTraverse('@@createVersion')
     >>> vertmp = createVersionView()
-    >>> dataVer = sandbox._getOb('copy_of_data-1')
+    >>> dataVer = sandbox._getOb('dataset-1')
 
 Verify if properties were copyed on the new version.
 

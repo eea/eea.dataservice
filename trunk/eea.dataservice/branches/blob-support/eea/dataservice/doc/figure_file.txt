@@ -54,20 +54,20 @@ Lets convert the EEAFigureFile above.
 As default we have 4 image formats defined, TIFF, PNG 300dpi, PNG 400dpi
 and GIF in which we convert a source image.
 
-    >>> ff1['source_image.eps.tif']
+    >>> ff1['source_image.eps.400dpi.tif']
     <ImageFS at ...>
     >>> ff1['source_image.eps.300dpi.png']
     <ImageFS at ...>
     >>> ff1['source_image.eps.400dpi.png']
     <ImageFS at ...>
-    >>> ff1['source_image.eps.gif']
+    >>> ff1['source_image.eps.400dpi.gif']
     <ImageFS at ...>
 
 Lets test if converted images contain converted formats.
 
-    >>> img_tif = ff1._getOb('source_image.eps.tif')
+    >>> img_tif = ff1._getOb('source_image.eps.400dpi.tif')
     >>> img_tif.getObjSize()
-    '1.2 MB'
+    '37.6 MB'
 
 Lets check if thumbs were created.
 
@@ -82,5 +82,5 @@ Check the convertion of another EPS format and test if old converted images were
     >>> cvtimg = convertImg()
     >>> len(ff1.objectValues('ImageFS'))
     4
-    >>> ff1['source_image2.eps.tif']
+    >>> ff1['source_image2.eps.400dpi.tif']
     <ImageFS at ...>

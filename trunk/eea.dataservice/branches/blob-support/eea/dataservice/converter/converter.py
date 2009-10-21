@@ -3,6 +3,7 @@ from PIL import Image
 from cStringIO import StringIO
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 
@@ -81,10 +82,13 @@ class ConvertMap(object):
 
                 # Set state
                 wftool = getToolByName(self.context, 'portal_workflow')
-                wftool.doActionFor(im_ob, 'quickPublish',
-                                   comment='Set by convert figure action.')
-                wftool.doActionFor(im_ob, 'hide',
-                                   comment='Set by convert figure action.')
+                try:
+                    wftool.doActionFor(im_ob, 'quickPublish',
+                                       comment='Set by convert figure action.')
+                    wftool.doActionFor(im_ob, 'hide',
+                                       comment='Set by convert figure action.')
+                except WorkflowException, err:
+                    logger.exception('WorkflowException: %s', err)
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1
