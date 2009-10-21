@@ -96,6 +96,10 @@
 
     <metal:related use-macro="here/dataset_view/macros/related-externals" />
 
+    <div metal:use-macro="here/document_relateditems/macros/relatedItemsWithThumbs">
+                       show all (back and forward refs) related items if they exist
+    </div>
+
     <div class="visualClear">&nbsp;</div>
 
     <!-- Older versions -->
