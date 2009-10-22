@@ -1,10 +1,10 @@
-from plone.app.blob.tests import db
 import os
+from StringIO import StringIO
 from Products.Five import zcml
+from Globals import package_home
+from plone.app.blob.tests import db
 from Products.Five import fiveconfigure
 from Testing import ZopeTestCase as ztc
-from StringIO import StringIO
-from Globals import package_home
 from zope.app.component.hooks import setSite
 from eea.dataservice.config import product_globals
 
@@ -41,10 +41,6 @@ def setup_eea_dataservice():
     # Load the ZCML configuration for the eea.dataservice package.
     # This includes the other products below as well.
 
-    import iw.fss
-    zcml.load_config('meta.zcml', iw.fss)
-    zcml.load_config('configure.zcml', iw.fss)
-
     import eea.dataservice
     zcml.load_config('configure.zcml', eea.dataservice)
     fiveconfigure.debug_mode = False
@@ -54,7 +50,6 @@ def setup_eea_dataservice():
     # the ZCML.
 
     try:
-        ztc.installPackage('iw.fss')
         ztc.installPackage('eea.dataservice')
     except AttributeError:
         # Old ZopeTestCase
@@ -95,9 +90,6 @@ class DataserviceTestCase(PloneTestCase):
         from Products.Five.pythonproducts import patch_ProductDispatcher__bobo_traverse__
         patch_ProductDispatcher__bobo_traverse__()
 
-        from iw.fss.Extensions.Install import install as installFss
-        installFss(self.portal)
-
         setup = getattr(self.portal, 'portal_setup', None)
         profile = 'ThemeCentre:themecentre'
         if not self.portal._installed_profiles.has_key(profile):
@@ -109,37 +101,10 @@ class DataserviceTestCase(PloneTestCase):
 class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
     """Base class for functional integration tests for the 'eea.dataservice' product.
     """
-    def loadfile(self, context, rel_filename, ctype='application/pdf'):
-        """ load a file
-        """
-        import os
-        from cStringIO import StringIO
-        from cgi import FieldStorage
-        from ZPublisher.HTTPRequest import FileUpload
-
-        storage_path = os.path.join(os.path.dirname(__file__))
-        file_path = os.path.join(storage_path, rel_filename)
-        file_ob = open(file_path, 'rb')
-        file_data = file_ob.read()
-        size = len(file_data)
-        filename = file_path.split('/')[-1]
-        filename = str(filename)
-        fp = StringIO(file_data)
-        env = {'REQUEST_METHOD':'PUT'}
-        headers = {'content-length': size, 'content-disposition':'attachment; filename=%s' % filename}
-        fs = FieldStorage(fp=fp, environ=env, headers=headers)
-        file_field = context.getField('file')
-        kwargs = {'field': file_field.__name__}
-        file_field.getMutator(context)(FileUpload(fs), **kwargs)
-
-        return 'File uploaded.'
 
     def loadblobfile(self, context, rel_filename, ctype='application/pdf'):
         """ load a file
         """
-        import os
-        from StringIO import StringIO
-
         storage_path = os.path.join(os.path.dirname(__file__))
         file_path = os.path.join(storage_path, rel_filename)
         file_ob = open(file_path, 'rb')
