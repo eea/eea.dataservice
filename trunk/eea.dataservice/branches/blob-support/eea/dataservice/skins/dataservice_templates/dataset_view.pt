@@ -112,7 +112,7 @@ function showDefinition(context) {
                 <li tal:repeat="file python:table.objectValues('DataFile')">
                     <tal:block define="field python:file.getFile();
                                        icon field/getBestIcon | nothing;
-                                       filename field/filename;
+                                       filename field/filename | nothing;
                                        size field/get_size;">
 
                         <a tal:define="
@@ -310,15 +310,15 @@ function showDefinition(context) {
                condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
         <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
         <dd tal:define="quality_view nocall:context/@@getQualityDisplay">
-            <span>Completeness:</span>
+            <span i18n:translate="completeness">Completeness:</span>
             <tal:quality content="structure python:quality_view(value=value[0])" />
-            <span>Logical consistency:</span>
+            <span i18n:translate="logical_consistency">Logical consistency:</span>
             <tal:quality content="structure python:quality_view(value=value[1])" />
-            <span>Position accuracy:</span>
+            <span i18n:translate="position_accuracy">Position accuracy:</span>
             <tal:quality content="structure python:quality_view(value=value[2])" />
-            <span>Temporal accuracy:</span>
+            <span i18n:translate="temporal_accuracy">Temporal accuracy:</span>
             <tal:quality content="structure python:quality_view(value=value[3])" />
-            <span>Thematic accuracy:</span>
+            <span i18n:translate="thematic_accuracy">Thematic accuracy:</span>
             <tal:quality content="structure python:quality_view(value=value[4])" />
         </dd>
     </tal:block>
