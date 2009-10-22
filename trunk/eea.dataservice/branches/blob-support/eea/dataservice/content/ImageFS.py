@@ -5,15 +5,13 @@ __docformat__ = 'plaintext'
 
 from zope.interface import implements
 from Products.validation import V_REQUIRED
+from Products.CMFCore.permissions import View
 from plone.app.blob.field import BlobField
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.Field import Image
 from Products.Archetypes.public import Schema
-from Products.Archetypes.utils import shasattr
 from plone.app.blob.mixins import ImageFieldMixin
 from Products.Archetypes.public import ImageWidget
 from Products.Archetypes.atapi import registerType
-from plone.app.imaging.utils import getAllowedSizes
 from plone.app.blob.interfaces import IBlobImageField
 from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.image import ATImage
@@ -33,6 +31,8 @@ class ImageBlobField(BlobField, ImageFieldMixin):
         super(ImageBlobField, self).set(instance, value, **kwargs)
         self.fixAutoId(instance)
 
+    def getAvailableSizes(self, instance):
+        return self.sizes
 
 imagefs_schema = ATContentTypeSchema.copy() + Schema((
     ImageBlobField('image',
@@ -79,5 +79,13 @@ class ImageFS(ATImage):
     _at_rename_after_creation = True
 
     schema = imagefs_schema
+
+
+    security.declareProtected(View, 'index_html')
+    def index_html(self, REQUEST, RESPONSE):
+        """ download the file inline or as an attachment """
+        field = self.getPrimaryField()
+        return field.index_html(self, REQUEST, RESPONSE)
+
 
 registerType(ImageFS, PROJECTNAME)
