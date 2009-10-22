@@ -112,7 +112,7 @@ function showDefinition(context) {
                 <li tal:repeat="file python:table.objectValues('DataFile')">
                     <tal:block define="field python:file.getFile();
                                        icon field/getBestIcon | nothing;
-                                       filename field/filename | nothing;
+                                       filename field/getFilename | nothing;
                                        size field/get_size;">
 
                         <a tal:define="

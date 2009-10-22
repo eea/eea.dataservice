@@ -45,6 +45,7 @@ validation.register(ManagementPlanCodeValidator('management_plan_code_validator'
 
 # Base schema for datasets and figures
 dataservice_base_schema = Schema((
+    # Metadata
     LinesField(
         name='geographicCoverage',
         languageIndependent=True,

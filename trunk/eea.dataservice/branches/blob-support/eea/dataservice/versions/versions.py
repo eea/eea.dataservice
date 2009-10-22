@@ -269,6 +269,8 @@ class CreateVersion(object):
 
         # Set effective date today
         ver.setEffectiveDate(DateTime())
+
+        # Set new state
         ver.reindexObject()
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
