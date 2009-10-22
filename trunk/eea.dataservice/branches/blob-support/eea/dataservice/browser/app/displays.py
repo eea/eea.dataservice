@@ -30,10 +30,10 @@ class DisplaySize(object):
         bytes = float(size)
         if bytes >= 1000:
             bytes = bytes/1024
-            ftype = 'Kb'
+            ftype = 'kB'
             if bytes >= 1000:
                 bytes = bytes/1024
-                ftype = 'Mb'
+                ftype = 'MB'
             res = '%s %s' % ('%4.2f' % bytes, ftype)
         else:
             ftype = 'Bytes'

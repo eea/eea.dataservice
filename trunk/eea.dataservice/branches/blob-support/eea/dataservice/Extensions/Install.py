@@ -20,4 +20,17 @@ def install(portal):
     if qi.isProductInstalled(product_name):
         qi.uninstallProducts([product_name])
 
+    # enable portal_factory for given types
+    factory_tool = getToolByName(portal, 'portal_factory')
+    factory_types=[
+        "Data",
+        "DataFile",
+        "DataTable",
+        "EEAFigure",
+        "EEAFigureFile",
+        "Organisation",
+        "ImageFS",
+        ] + factory_tool.getFactoryTypes().keys()
+    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
+
     return "Ran all import steps."
