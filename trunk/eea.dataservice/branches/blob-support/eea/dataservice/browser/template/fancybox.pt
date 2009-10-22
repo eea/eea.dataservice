@@ -25,7 +25,8 @@
              tal:define="size python:context.getFile().get_size()"
              class="google-analytics">
             <span i18n:translate="">Original file</span>
-            <span tal:content="python:'(%.02f Mb)' % (size / 1048576.0)" />
+            <span tal:define="displaySize nocall:context/displaySize"
+                  tal:content="python:displaySize(size)" />
           </a>
         </li>
         <li tal:repeat="item python:view.vocabulary">

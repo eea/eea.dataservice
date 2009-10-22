@@ -6,6 +6,13 @@
   <include package=".resources" />
 
   <browser:page
+      name="displaySize"
+      class=".app.displays.DisplaySize"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="getCategoryName"
       class=".app.displays.GetCategoryName"
       for="*"

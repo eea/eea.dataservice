@@ -10,7 +10,10 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
 from zope.app.annotation.interfaces import IAnnotations
 from Products.ATContentTypes.content.folder import ATFolder
+from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.OrderableReferenceField._field import OrderableReferenceField
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
@@ -27,6 +30,7 @@ from eea.dataservice.vocabulary import Obligations, REFERENCE_DICTIONARY_ID
 
 # Schema
 schema = Schema((
+    # Metadata
     TextField(
         name='geoAccuracy',
         languageIndependent=True,
@@ -98,6 +102,7 @@ schema = Schema((
         )
     ),
 
+    # Fields for 'relations' schemata
     LinesField(
         schemata = "relations",
         name='reportingObligations',
@@ -113,9 +118,45 @@ schema = Schema((
             i18n_domain='eea.dataservice',
         )
     ),
+
+    OrderableReferenceField(
+        'relatedProducts',
+        schemata = 'relations',
+        relationship = 'relatesToProducts',
+        multiValued = True,
+        isMetadata = True,
+        languageIndependent = False,
+        index = 'KeywordIndex',
+        write_permission = ModifyPortalContent,
+        widget = ReferenceBrowserWidget(
+            allow_search = True,
+            allow_browse = True,
+            allow_sorting = True,
+            show_indexes = False,
+            force_close_on_insert = True,
+            label = "Relations to other EEA products",
+            label_msgid = "label_related_products",
+            description = "Specify relations to other EEA products within Plone.",
+            description_msgid = "help_related_products",
+            i18n_domain = "plone",
+            visible = {'edit' : 'visible', 'view' : 'invisible' }
+            )
+        )
 ),)
 
 dataset_schema = dataservice_schema.copy() + schema.copy()
+
+# Derived from relations
+from Products.EEAContentTypes.content.orderablereffield import field
+from Products.Archetypes.ClassGen import generateMethods
+
+field.schemata = 'relations'
+dataset_schema.addField(field)
+dataset_schema.moveField('relatedItems', pos='bottom');
+dataset_schema['relatedItems'].widget.label = 'This dataset is derived from'
+dataset_schema['relatedItems'].widget.description = 'Specify the datasets from which this dataset is derived.'
+dataset_schema['relatedItems'].widget.startup_directory = 'data'
+
 
 class Data(ATFolder, ThemeTaggable):
     """ Dataset Content Type
@@ -178,3 +219,4 @@ def versionIdHandler(obj, event):
                 _reindex(obj)
 
 registerType(Data, PROJECTNAME)
+generateMethods(Data, [field])

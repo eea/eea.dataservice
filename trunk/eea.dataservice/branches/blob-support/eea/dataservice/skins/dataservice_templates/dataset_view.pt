@@ -133,7 +133,8 @@ function showDefinition(context) {
                               tal:content="filePath" />
                         </a>
                         (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
-                        <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
+                        <tal:size define="displaySize nocall:context/displaySize"
+                                  content="python:displaySize(size)">0Kb</tal:size>)
                         <br />
                     </tal:block>
                 </li>

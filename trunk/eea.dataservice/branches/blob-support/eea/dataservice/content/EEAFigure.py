@@ -29,7 +29,7 @@ from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 
 # Schema
 schema = Schema((
-
+    # Metadata
     StringField(
         name='figureType',
         languageIndependent=False,

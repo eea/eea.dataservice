@@ -245,7 +245,7 @@ dataservice_base_schema = Schema((
         )
     ),
 
-    # Relations
+    # Fields for 'relations' schemata
     LinesField(
         schemata = "relations",
         name='externalRelations',

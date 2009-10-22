@@ -19,6 +19,27 @@ from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 
+class DisplaySize(object):
+    """ Transform a file size in Kb, Mb ..
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, size=0):
+        bytes = float(size)
+        if bytes >= 1000:
+            bytes = bytes/1024
+            ftype = 'Kb'
+            if bytes >= 1000:
+                bytes = bytes/1024
+                ftype = 'Mb'
+            res = '%s %s' % ('%4.2f' % bytes, ftype)
+        else:
+            ftype = 'Bytes'
+            res = '%s %s' % ('%4.0f' % bytes, ftype)
+        return res
+
 class GetDataForRedirect(object):
     """ Get objects to redirect
     """
