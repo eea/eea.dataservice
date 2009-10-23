@@ -412,7 +412,7 @@ def getCountries():
         'bg':'bg',
         'by':'by',
         'ch':'ch',
-        #'cs':'cs', #Serbia and Montenegro
+        #'cs':'cs', #Serbia and Montenegro, not used
         'cy':'cy',
         'cz':'cz',
         'de':'de',
@@ -420,7 +420,7 @@ def getCountries():
         'ee':'ee',
         'es':'es',
         'fi':'fi',
-        #'fo':'fo', #Faroe Islands
+        #'fo':'fo', #Faroe Islands, not used
         'fr':'fr',
         'gb':'gb',
         'ge':'ge',
@@ -428,7 +428,7 @@ def getCountries():
         'hr':'hr',
         'hu':'hu',
         'ie':'ie',
-        'il':'il',
+        #'il':'il', #Israel, not used
         'is':'is',
         'it':'it',
         'kz':'kz',
