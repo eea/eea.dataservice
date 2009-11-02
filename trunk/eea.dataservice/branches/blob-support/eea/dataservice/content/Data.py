@@ -157,6 +157,13 @@ dataset_schema['relatedItems'].widget.label = 'This dataset is derived from'
 dataset_schema['relatedItems'].widget.description = 'Specify the datasets from which this dataset is derived.'
 dataset_schema['relatedItems'].widget.startup_directory = 'data'
 
+# Set position on form
+dataset_schema.moveField('disclaimer', after='contact')
+dataset_schema.moveField('geoAccuracy', before='contact')
+dataset_schema.moveField('geoQuality', before='geoAccuracy')
+dataset_schema.moveField('referenceSystem', before='geoQuality')
+dataset_schema.moveField('scale', before='referenceSystem')
+
 
 class Data(ATFolder, ThemeTaggable):
     """ Dataset Content Type

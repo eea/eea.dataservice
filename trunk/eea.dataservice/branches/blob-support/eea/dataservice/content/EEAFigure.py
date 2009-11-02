@@ -75,6 +75,9 @@ schema = Schema((
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
 
+# Set position on form
+eeafigure_schema.moveField('figureType', pos=3)
+
 class EEAFigure(ATFolder, ThemeTaggable):
     """ EEAFigure Content Type
     """
