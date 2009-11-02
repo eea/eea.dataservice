@@ -178,8 +178,8 @@ Lets upload a file
     'sample.pdf'
     >>> df1.getFile().getBestIcon()
     'pdf.png'
-    >>> df1.getFile().get_size()
-    7981L
+    >>> print df1.getFile().get_size()
+    7981
     >>> df1.getFile().getContentType()
     'application/pdf'
     >>> df1.file

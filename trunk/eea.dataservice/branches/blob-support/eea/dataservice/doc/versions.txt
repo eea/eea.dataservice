@@ -65,7 +65,7 @@ Both objects should have the same version ID.
     >>> IVersionControl(dataVer).getVersionId() == IVersionControl(data1).getVersionId()
     True
 
-TO check if "link to latest version" works, we will create a new dataset and verify the versionId.
+To check if "link to latest version" works, we will create a new dataset and verify the versionId.
 
     >>> _ = sandbox.invokeFactory('Data', 'data2')
     >>> data2 = sandbox.data2

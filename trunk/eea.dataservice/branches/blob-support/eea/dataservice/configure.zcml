@@ -75,11 +75,11 @@
     <subscriber
          for=".interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler=".content.Data.versionIdHandler" />
 
     <subscriber
          for=".interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler=".content.Data.versionIdHandler" />
 
 </configure>

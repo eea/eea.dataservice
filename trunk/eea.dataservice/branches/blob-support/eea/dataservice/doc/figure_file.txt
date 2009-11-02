@@ -41,8 +41,8 @@ Lets upload a source image.
     'source_image.eps'
     >>> ff1.getFile().getBestIcon()
     'ps.png'
-    >>> ff1.getFile().get_size()
-    5054507L
+    >>> print ff1.getFile().get_size()
+    5054507
     >>> ff1.getFile().getContentType()
     'application/postscript'
 
@@ -86,7 +86,7 @@ Check the convertion of another EPS format and test if old converted images were
     <ImageFS at ...>
 
 
-Try to download the image with index_html method 
+Try to download the image with index_html method
 
     >>> ff1['source_image2.eps.400dpi.tif'].index_html(self.portal.REQUEST, self.portal.REQUEST.response)
     <plone.app.blob.iterators.BlobStreamIterator object at ...>
