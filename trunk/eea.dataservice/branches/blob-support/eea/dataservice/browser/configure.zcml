@@ -183,7 +183,15 @@
   <browser:page
     for="..interfaces.IEEAFigureFile"
     name="imgview"
-    class=".app.imgview.ImageView"
+    class=".app.imgview.ImageViewFigureFile"
+    permission="zope.Public"
+    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+    />
+
+  <browser:page
+    for="..interfaces.IEEAFigure"
+    name="imgview"
+    class=".app.imgview.ImageViewFigure"
     permission="zope.Public"
     allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
     />
