@@ -13,6 +13,13 @@
       />
 
   <browser:page
+      name="getimg"
+      class=".app.ims.GetIMSimage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="getCategoryName"
       class=".app.displays.GetCategoryName"
       for="*"
