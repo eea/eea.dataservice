@@ -149,13 +149,9 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-figures" define="value python:related_products['figures']"
                    condition="value">
             <h4 i18n:translate="">Produced maps and graphs</h4>
-            <ul>
-                <li tal:repeat="ob value">
-                    <a tal:attributes="href ob/absolute_url;
-                                       title ob/Title"
-                       tal:content="ob/Title" />
-                </li>
-            </ul>
+            <div tal:define="folderContents value">
+                <metal:figures use-macro="here/atct_album_view/macros/listing" />
+            </div>
         </tal:block>
 
         <!-- Relations to reports -->

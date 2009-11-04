@@ -71,6 +71,16 @@ class DatasetRelatedProducts(object):
                     res['datasets'].append(ob)
                 else:
                     res['other'].append(ob)
+
+        # Format figures for album view
+        uids = []
+        for ob in res['figures']:
+            uids.append(ob.UID())
+        cat = getToolByName(self.context, 'portal_catalog')
+        query = {'UID': uids}
+        brains = cat(**query)
+        res['figures'] = Batch(brains, 1000, 0, 100)
+
         return res
 
 class GetCategoryName(object):
