@@ -32,6 +32,7 @@ Figures.PhotoAlbum = function(content_id){
 
 Figures.PhotoAlbum.prototype = {
   init_zoom: function(){
+    jQuery(document).trigger('JQ-DEACTIVATE');
     Figures.jqzoom = new Figures.FancyBoxZoom();
   },
 
