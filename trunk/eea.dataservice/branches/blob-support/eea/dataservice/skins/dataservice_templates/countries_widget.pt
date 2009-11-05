@@ -86,10 +86,6 @@
           <span id="geo_coverage_info"></span>
           <div class="visualClear">&nbsp;</div>
 
-          <!-- Map preview -->
-          <img tal:define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
-               tal:attributes="src map" />
-
         </metal:fill>
       </metal:use>
     </metal:define>
