@@ -56,7 +56,6 @@ if not obj:
 
         # Redirects for Not Found
         return response.notFoundError('''The link you followed appears to be broken''')
-        #return response.redirect(context.absolute_url() + '/' + 'xxx')
 
 if traverse_subpath:
     traverse_subpath.insert(0, obj.absolute_url())

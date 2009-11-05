@@ -19,7 +19,7 @@
                         item_description    dataset/Description;
                         item_wf_state       dataset/review_state|python: wtool.getInfoFor(dataset, 'review_state', '');
                         item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
-            <a href="#" tal:attributes="href  dataset/absolute_url;
+            <a href="#" tal:attributes="href  dataset/getURL;
                                         title string: $item_type: $item_description;
                                         class string:$item_wf_state_class visualIconPadding;">
                 <span tal:replace="dataset/Title">
