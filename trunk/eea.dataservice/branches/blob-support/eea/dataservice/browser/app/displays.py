@@ -168,12 +168,14 @@ class DataViewers(object):
         self.request = request
 
     def __call__(self):
+        res = []
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['Promotion',
                                                      'GIS Map Application'],
                                     'Title': 'data viewer',
                                     'review_state':'published'})
-        return brains
+        [res.append(brain.getObject()) for brain in brains]
+        return res
 
 def _getCountryName(country_code):
     """ """

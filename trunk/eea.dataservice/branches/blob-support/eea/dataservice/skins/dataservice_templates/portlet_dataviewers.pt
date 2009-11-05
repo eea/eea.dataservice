@@ -12,22 +12,31 @@
     style="">
 
     <dt class="portletHeader" i18n:translate="">Data viewers</dt>
-    <dd class="portletItem" tal:repeat="dataset view">
+    <dt class="portletItem" tal:repeat="viewer view">
         <span tal:attributes="class item_type_class"
-            tal:define="item_type           dataset/portal_type;
+            tal:define="item_type           viewer/portal_type;
                         item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
-                        item_description    dataset/Description;
-                        item_wf_state       dataset/review_state|python: wtool.getInfoFor(dataset, 'review_state', '');
+                        item_description    viewer/Description;
+                        item_wf_state       viewer/review_state|python: wtool.getInfoFor(viewer, 'review_state', '');
                         item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
-            <a href="#" tal:attributes="href  dataset/getURL;
+            <span class="figure-left">
+             <span class="figure">
+               <a tal:attributes="href string:viewer/url;
+                                  title string: $item_type: $item_description;">
+                  <tal:block content="structure viewer/@@imgview" />
+                </a>
+             </span>
+            </span>
+
+            <a href="#" tal:attributes="href string:viewer/url;
                                         title string: $item_type: $item_description;
                                         class string:$item_wf_state_class visualIconPadding;">
-                <span tal:replace="dataset/Title">
+                <span tal:replace="viewer/Title">
                   Item Title
                 </span>
             </a>
         </span>
-    </dd>
+    </dt>
     <dd class="portletFooter"></dd>
 </dl>
 
