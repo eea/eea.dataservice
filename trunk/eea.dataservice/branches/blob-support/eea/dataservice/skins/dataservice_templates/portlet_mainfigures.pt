@@ -9,16 +9,25 @@
        tal:define="view context/@@getMainFigures">
 
 <dl class="portlet portlet-rss"
-    style="float: right; clear: right; margin-right: 0pt; width: 17em; padding: 7px;">
+    style="">
 
     <dt class="portletHeader" i18n:translate="">Main maps/graphs</dt>
-    <dd class="portletItem" tal:repeat="figure view">
+    <dt class="portletItem" tal:repeat="figure view">
         <span tal:attributes="class item_type_class"
             tal:define="item_type           figure/portal_type;
                         item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
                         item_description    figure/Description;
                         item_wf_state       figure/review_state|python: wtool.getInfoFor(figure, 'review_state', '');
                         item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+            <span class="figure-left">
+             <span class="figure"> 
+               <a tal:attributes="href  figure/absolute_url;
+                                                    title string: $item_type: $item_description;">
+                  <tal:block content="structure figure/@@imgview" />
+                </a>
+             </span>
+            </span>
+
             <a href="#" tal:attributes="href  figure/absolute_url;
                                         title string: $item_type: $item_description;
                                         class string:$item_wf_state_class visualIconPadding;">
@@ -27,7 +36,7 @@
                 </span>
             </a>
         </span>
-    </dd>
+    </dt>
     <dd class="portletFooter"></dd>
 </dl>
 

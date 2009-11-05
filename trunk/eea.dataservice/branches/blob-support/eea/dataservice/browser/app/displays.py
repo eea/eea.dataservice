@@ -139,12 +139,13 @@ class MainDatasets(object):
         self.context = context
         self.request = request
 
-    def __call__(self, count=2, ver_num=3):
+    def __call__(self, count=5, ver_num=3):
         res = []
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['Data'],
                                     'sort_on': 'modified',
-                                    'sort_order': 'reverse'})
+                                    'sort_order': 'reverse',
+                                    'review_state':'published'})
 
         for brain in brains:
             dataset = brain.getObject()
@@ -170,7 +171,8 @@ class DataViewers(object):
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['Promotion',
                                                      'GIS Map Application'],
-                                    'Title': 'data'})
+                                    'Title': 'data viewer',
+                                    'review_state':'published'})
         return brains
 
 def _getCountryName(country_code):
@@ -478,7 +480,7 @@ class MainFigures(object):
         self.context = context
         self.request = request
 
-    def __call__(self, count=2, ver_num=3):
+    def __call__(self, count=5, ver_num=3):
         res = []
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['EEAFigure'],

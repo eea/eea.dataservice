@@ -9,7 +9,7 @@
        tal:define="view context/@@getDataViewers">
 
 <dl class="portlet portlet-rss"
-    style="float: right; clear: right; margin-right: 0pt; width: 17em; padding: 7px;">
+    style="">
 
     <dt class="portletHeader" i18n:translate="">Data viewers</dt>
     <dd class="portletItem" tal:repeat="dataset view">
