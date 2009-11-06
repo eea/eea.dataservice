@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<body>
+
+<div metal:fill-slot="main">
+
+    <!-- Title -->
+    <h1 tal:content="context/pretty_title_or_id">Title of the Datatable</h1>
+    <div class="documentActions languages">
+        <tal:lang tal:condition="exists: here/global_languageselector">
+            <metal:lang use-macro="here/global_languageselector/macros/language" />
+        </tal:lang>
+    </div>
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Description -->
+    <p class="publicationDescription" tal:content="context/Description" />
+
+    <!-- Category -->
+    <tal:block define="field python:context.getField('category');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Category</dt>
+        <dd tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(value);"
+            tal:content="categ_name" />
+    </tal:block>
+
+    <!-- Records -->
+    <tal:block define="field python:context.getField('records');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Records</dt>
+        <dd tal:content="value" />
+    </tal:block>
+
+    <!-- Table definition -->
+    <tal:block define="field python:context.getField('tableDefinition');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_tableDefinition">Table definition</dt>
+        <dd tal:content="structure value" />
+    </tal:block>
+
+    <fieldset><legend>Files</legend>
+        <tal:block repeat="file python:context.objectValues('DataFile')">
+            <tal:block define="field python:file.getField('file');
+                               accessor python:field.getAccessor(file)();
+                               icon accessor/getBestIcon | nothing;
+                               filename accessor/filename | nothing;
+                               size accessor/get_size | python:accessor and len(accessor) or 0;">
+
+                <a href="" tal:attributes="href string:${file/absolute_url}/at_download/file">
+                    <img tal:condition="icon" src=""
+                         tal:attributes="src string:${context/portal_url}/$icon"/>
+                    <span tal:content="filename" />
+                </a>
+                (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
+                <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
+                <br />
+            </tal:block>
+        </tal:block>
+    </fieldset>
+
+    <!-- Dataset ID -->
+    <!-- tal:block define="field python:context.getField('dataset_id');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
+        <dd tal:content="value" />
+    </tal:block -->
+
+</div>
+
+</body>
+</html>

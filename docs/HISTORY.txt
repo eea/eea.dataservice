@@ -1,0 +1,9 @@
+Changelog for eea.dataservice
+
+    [Alexandru Ghica]
+
+eea.dataservice - 0.1 Unreleased
+
+    - Initial package structure.
+      [zopeskel]
+
