@@ -255,6 +255,7 @@
           category="workflow">Submit for internal review</action>
   <guard>
    <guard-role>Editor</guard-role>
+   <guard-expression>python: here.portal_type in  ['Data', 'EEAFigure'] and here.Language() == 'en'</guard-expression>
   </guard>
  </transition>
  <worklist worklist_id="contentReview" title="">
