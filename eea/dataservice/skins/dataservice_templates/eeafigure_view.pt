@@ -49,16 +49,6 @@
     <div style="margin-left: 5%;">
     <dl>
 
-    <metal:basicmeta use-macro="here/dataset_view/macros/basicmeta" />
-
-    <!-- Link to latest version -->
-    <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
-    <dd>
-        <a tal:attributes="href string:${context/aq_parent/absolute_url}/${lastVersion};
-                           title lastVersion"
-           tal:content="lastVersion" />
-    </dd>
-
        <!-- Figure type -->
        <tal:block define="field python:context.getField('figureType');
                           vocab python:field.Vocabulary(context);
@@ -82,6 +72,16 @@
        <metal:related use-macro="here/dataset_view/macros/processors" />
        <metal:related use-macro="here/dataset_view/macros/eea-mp-code" />
        <metal:related use-macro="here/dataset_view/macros/eea-contact-reference" />
+       <metal:basicmeta use-macro="here/dataset_view/macros/basicmeta" />
+           <!-- Link to latest version -->
+    <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
+    <dd>
+        <a tal:attributes="href string:${context/aq_parent/absolute_url}/${lastVersion};
+                           title lastVersion"
+           tal:content="lastVersion" />
+    </dd>
+
+
     </dl>
     </div>
 
