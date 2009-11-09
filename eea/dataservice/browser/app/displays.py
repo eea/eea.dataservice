@@ -59,7 +59,8 @@ class DatasetRelatedProducts(object):
         self.request = request
 
     def __call__(self):
-        res = {'figures': [], 'reports': [], 'datasets': [], 'other': []}
+        res = {'figures': [], 'reports': [], 'datasets': [], 'other': [], 'has_data': False}
+        has_data = False
         data = self.context.getRelatedProducts()
         for ob in data:
             if ob.portal_type == 'EEAFigure':
@@ -77,9 +78,17 @@ class DatasetRelatedProducts(object):
         for ob in res['figures']:
             uids.append(ob.UID())
         cat = getToolByName(self.context, 'portal_catalog')
-        query = {'UID': uids}
+        query = {'UID': uids,
+                 'review_state':'published'}
         brains = cat(**query)
         res['figures'] = Batch(brains, 1000, 0, 100)
+        
+        # Determine if any values
+        for key in res.keys():
+            if key == 'figures' and res[key].start:
+                res['has_data'] = True
+            elif key != 'figures' and res[key]:
+                res['has_data'] = True
 
         return res
 
@@ -487,7 +496,8 @@ class MainFigures(object):
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['EEAFigure'],
                                     'sort_on': 'modified',
-                                    'sort_order': 'reverse'})
+                                    'sort_order': 'reverse',
+                                    'review_state':'published'})
 
         for brain in brains:
             figure = brain.getObject()
