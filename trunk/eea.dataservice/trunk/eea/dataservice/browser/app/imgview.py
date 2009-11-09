@@ -12,7 +12,14 @@ class ImageViewFigure(BrowserView):
     def __init__(self, context, request):
         super(ImageViewFigure, self).__init__(context, request)
         eeafile = None
-        files = self.context.objectValues('EEAFigureFile')
+        files = []
+        images = []
+        fbrains = self.context.getFolderContents(contentFilter={
+            'portal_type': 'EEAFigureFile',
+            'review_state': ['published', 'visible'],
+        })
+        [files.append(brain.getObject()) for brain in fbrains]
+        
         for obj in files:
             if obj.getCategory() == 'hard':
                 eeafile = obj
@@ -21,7 +28,12 @@ class ImageViewFigure(BrowserView):
                 eeafile = files[0]
 
         if eeafile:
-            children = [img for img in eeafile.objectValues('ImageFS')
+            ibrains = eeafile.getFolderContents(contentFilter={
+                'portal_type': 'ImageFS',
+                'review_state': ['published', 'visible'],
+            })
+            [images.append(brain.getObject()) for brain in ibrains]
+            children = [img for img in images
                         if img.getId().lower().endswith('.png')]
             if children:
                 self.original = children[0]
@@ -52,8 +64,15 @@ class ImageViewFigureFile(BrowserView):
     implements(IImageView)
 
     def __init__(self, context, request):
+        images = []
         super(ImageViewFigureFile, self).__init__(context, request)
-        children = [img for img in context.objectValues('ImageFS')
+        ibrains = context.getFolderContents(contentFilter={
+            'portal_type': 'ImageFS',
+            'review_state': ['published', 'visible'],
+        })
+        [images.append(brain.getObject()) for brain in ibrains]
+        
+        children = [img for img in images
                     if img.getId().lower().endswith('.png')]
         if children:
             self.original = children[0]

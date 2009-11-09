@@ -45,8 +45,8 @@
 
 
     <!-- META DATA -->
-    <h4 i18n:translate="">Metadata</h4>
-    <div style="margin-left: 5%;">
+    <h4 i18n:translate="metadata">Metadata</h4>
+    <div class="metadata-container">
     <dl>
 
        <!-- Figure type -->
@@ -85,19 +85,22 @@
     </dl>
     </div>
 
-    <h2>Related content</h2>
-
-    <!-- Relation: related (plone) products -->
-    <tal:block define="related_products context/@@getRelatedProducts">
+    <tal:related define="related_products context/@@getRelatedProducts;
+                         has_content python:related_products['has_data']">
+        <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="related_content">
+            Related content
+        </h2>
+    
+        <!-- Relation: related (plone) products -->
         <metal:related use-macro="here/dataset_view/macros/related-publications" />
         <metal:related use-macro="here/dataset_view/macros/related-figures" />
         <metal:related use-macro="here/dataset_view/macros/related-datasets" />
         <metal:related use-macro="here/dataset_view/macros/related-others" />
-    </tal:block>
-
-    <!-- metal:related use-macro="here/dataset_view/macros/related-rod" / -->
-
-    <metal:related use-macro="here/dataset_view/macros/related-externals" />
+    
+        <!-- metal:related use-macro="here/dataset_view/macros/related-rod" / -->
+    
+        <metal:related use-macro="here/dataset_view/macros/related-externals" />
+    </tal:related>
 
     <div class="visualClear">&nbsp;</div>
 

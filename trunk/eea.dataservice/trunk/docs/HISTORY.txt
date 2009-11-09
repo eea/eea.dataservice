@@ -2,8 +2,7 @@ Changelog for eea.dataservice
 
     [Alexandru Ghica]
 
-eea.dataservice - 0.1 Unreleased
-
+eea.dataservice - 1.0
     - Initial package structure.
       [zopeskel]
 

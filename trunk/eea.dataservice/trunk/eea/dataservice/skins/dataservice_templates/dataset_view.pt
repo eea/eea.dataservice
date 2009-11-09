@@ -26,14 +26,6 @@
   versions nocall:here/@@getVersions;
   has_versions here/@@hasVersions;
 ">
-    <style>
-        dd {margin-left: 3em}
-
-        #map_canvas {
-            float: left;
-            margin-right: 10px;
-            margin-top: 3px; }
-    </style>
 
     <script language="JavaScript">
 <!--
@@ -101,13 +93,13 @@ function showDefinition(context) {
                                value python:field.getAccessor(table)()"
                       condition="table">
                 <p>
-                  <span class="table-definition-show" style="cursor: pointer; color: green">[-]</span>
+                  <span class="table-definition-show" i18n:translate="show_table_definition">[-]</span>
                   Show table definition
                 </p>
-                <div style="border: 1px solid black; display: none;" tal:content="structure value" />
+                <div class="table-definition-body" tal:content="structure value" />
             </tal:block>
 
-            <span style="font-style: italic">Records: <tal:block tal:content="table/records" /></span>
+            <span class="table-records" i18n:translate="records">Records:</span>&nbsp;<span class="table-records" tal:content="table/records" />
             <ul>
                 <li tal:repeat="file python:table.objectValues('DataFile')">
                     <tal:block define="field python:file.getFile();
@@ -147,8 +139,8 @@ function showDefinition(context) {
     <tal:block define="related_products context/@@getRelatedProducts">
         <!-- Relations to figures -->
         <tal:block metal:define-macro="related-figures" define="value python:related_products['figures']"
-                   condition="value">
-            <h4 i18n:translate="">Produced maps and graphs</h4>
+                   condition="value/start">
+            <h4 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h4>
             <div tal:define="folderContents value">
                 <metal:figures use-macro="here/atct_album_view/macros/listing" />
             </div>
@@ -157,7 +149,7 @@ function showDefinition(context) {
         <!-- Relations to reports -->
         <tal:block metal:define-macro="related-publications" define="value python:related_products['reports']"
                    condition="value">
-            <h4 i18n:translate="">Used in the following publications</h4>
+            <h4 i18n:translate="used_in_publications">Used in the following publications</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -170,7 +162,7 @@ function showDefinition(context) {
          <!-- Related data used to produce the analysis -->
         <tal:block metal:define-macro="related-datasets" define="value python:related_products['datasets']"
                    condition="value">
-            <h4 i18n:translate="">Original data used to produce the analysis</h4>
+            <h4 i18n:translate="original_data_used">Original data used to produce the analysis</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -183,7 +175,7 @@ function showDefinition(context) {
         <!-- Relations to other -->
         <tal:block metal:define-macro="related-others" define="value python:related_products['other']"
                    condition="value">
-            <h4 i18n:translate="">Relations to other EEA products</h4>
+            <h4 i18n:translate="relations_to_other">Relations to other EEA products</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -200,7 +192,7 @@ function showDefinition(context) {
     <tal:block define="value context/getReportingObligations;
                        view nocall:context/@@getObligations"
                condition="value">
-        <h4 i18n:translate="">Reporting obligations (ROD)</h4>
+        <h4 i18n:translate="reporting_obligations">Reporting obligations (ROD)</h4>
         <ul tal:define="data python:view()">
             <li tal:repeat="ob_nr value">
                 <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
@@ -218,7 +210,7 @@ function showDefinition(context) {
     <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
                condition="value">
-        <h4 i18n:translate="">Related websites</h4>
+        <h4 i18n:translate="related_websites">Related websites</h4>
         <ul>
            <tal:block repeat="url value">
             <li tal:condition="python:url.find('http:',0,5)>-1" >
@@ -231,8 +223,8 @@ function showDefinition(context) {
     </metal:related-externals>
 
     <!-- METADATA -->
-    <h4 i18n:translate="">Metadata</h4>
-    <div style="margin-left: 5%;">
+    <h4 i18n:translate="metadata">Metadata</h4>
+    <div class="metadata-container">
     <dl>
 
     <metal:basicmeta define-macro="basicmeta">
@@ -480,10 +472,6 @@ function showDefinition(context) {
     </metal:contacts>
 
     </dl>
-    </div>
-
-    <div metal:use-macro="here/document_relateditems/macros/relatedItemsWithThumbs">
-                       show all (back and forward refs) related items if they exist
     </div>
 
     <div class="visualClear">&nbsp;</div>
