@@ -6,7 +6,7 @@
     float: left;
     margin-right: 10px;
     margin-top: 3px; }
-    
+
 .table-definition-show {
     cursor: pointer;
     color: green; }
@@ -17,9 +17,12 @@
 
 .table-records {
     font-style: italic; }
-    
+
 .metadata-container {
     margin-left: 5%; }
+
+.datatable-title {
+    margin: 1.67em 0 0; }
 
 
 // Quality view (index)

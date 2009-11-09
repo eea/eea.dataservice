@@ -85,23 +85,28 @@ function showDefinition(context) {
         <h4 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
             tal:content="categ_name" />
         <tal:block repeat="table python:tablesData[categ]">
-            <h5 tal:content="table/title" />
-            <p tal:content="table/Description" />
-
+            <h5 class="datatable-title" tal:content="table/title" />
+            <p tal:condition="table/Description"
+               tal:content="table/Description" />
 
             <tal:block define="field python:table.getField('tableDefinition');
                                value python:field.getAccessor(table)()"
-                      condition="table">
+                      condition="value">
                 <p>
-                  <span class="table-definition-show" i18n:translate="show_table_definition">[-]</span>
-                  Show table definition
+                  <span class="table-definition-show" >[-]</span>
+                  <span i18n:translate="show_table_definition">Show table definition</span>
+                  <tal:records condition="table/records">
+                    (<span class="table-records" i18n:translate="records">records:</span>
+                    &nbsp;
+                    <span class="table-records" tal:content="table/records" />)
+                  </tal:records>
                 </p>
                 <div class="table-definition-body" tal:content="structure value" />
             </tal:block>
 
-            <span class="table-records" i18n:translate="records">Records:</span>&nbsp;<span class="table-records" tal:content="table/records" />
             <ul>
-                <li tal:repeat="file python:table.objectValues('DataFile')">
+                <li tal:define="datafiles table/@@getDataFiles"
+                    tal:repeat="file datafiles">
                     <tal:block define="field python:file.getFile();
                                        icon field/getBestIcon | nothing;
                                        filename field/filename | nothing;
