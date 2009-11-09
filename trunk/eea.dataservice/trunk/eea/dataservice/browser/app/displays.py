@@ -82,7 +82,7 @@ class DatasetRelatedProducts(object):
                  'review_state':'published'}
         brains = cat(**query)
         res['figures'] = Batch(brains, 1000, 0, 100)
-        
+
         # Determine if any values
         for key in res.keys():
             if key == 'figures' and res[key].start:
@@ -322,6 +322,21 @@ class GetCountriesDisplay(object):
                 res_string += ', '
             res_string += ', '.join(countries)
         return res_string
+
+class GetDataFiles(object):
+    """ Return DataFile objects """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = []
+        cat = getToolByName(self.context, 'portal_catalog')
+        brains = cat.searchResults({
+            'portal_type' : ['DataFile'],
+            'path': '/'.join(self.context.getPhysicalPath())})
+        [res.append(brain.getObject()) for brain in brains]
+        return res
 
 class GetTablesByCategory(object):
     """ Return categories and related files """

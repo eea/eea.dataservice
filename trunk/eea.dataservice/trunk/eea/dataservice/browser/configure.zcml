@@ -118,6 +118,13 @@
       />
 
   <browser:page
+      name="getDataFiles"
+      class=".app.displays.GetDataFiles"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="getTablesByCategory"
       class=".app.displays.GetTablesByCategory"
       for="*"
