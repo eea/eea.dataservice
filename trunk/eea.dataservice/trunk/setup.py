@@ -1,7 +1,10 @@
 from setuptools import setup, find_packages
 import os
+from os.path import join
 
-version = '1.0'
+name = 'eea.dataservice'
+path = name.split('.') + ['version.txt']
+version = open(join(*path)).read().strip()
 
 setup(name='eea.dataservice',
       version=version,
