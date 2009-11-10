@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<body>
+
+<div metal:fill-slot="main">
+    <style>
+        dd {margin-left: 3em}
+
+        #map_canvas {
+            float: left;
+            margin-right: 10px;
+            margin-top: 3px; }
+    </style>
+
+    <!-- BASIC PROPERTIES -->
+    <!-- Title -->
+    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
+    <div class="documentActions languages">
+        <tal:lang tal:condition="exists: here/global_languageselector">
+            <metal:lang use-macro="here/global_languageselector/macros/language" />
+        </tal:lang>
+    </div>
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Description -->
+    <div class="publicationDescription">
+        <strong tal:content="context/Description" />
+    </div>
+
+
+    <!-- Short ID (debug) -->
+    <tal:block define="field python:context.getField('shortId');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt i18n:translate="dataset_shortid">Short ID:</dt>
+        <dd tal:content="structure value">Short ID</dd>
+    </tal:block>
+
+    <!-- Category -->
+    <tal:block define="field python:context.getField('category');
+                       value python:field.getAccessor(context)()"
+              condition="value">
+        <dt i18n:translate="dataset_category">Category</dt>
+        <dd tal:content="value" />
+    </tal:block>
+
+    <div class="visualClear">&nbsp;</div>
+
+</div>
+
+</body>
+</html>
