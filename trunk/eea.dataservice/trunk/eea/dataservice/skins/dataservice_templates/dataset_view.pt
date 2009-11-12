@@ -104,14 +104,14 @@ function showDefinition(context) {
                 <div class="table-definition-body" tal:content="structure value" />
             </tal:block>
 
-            <ul>
-                <li tal:define="datafiles table/@@getDataFiles"
-                    tal:repeat="file datafiles">
-                    <tal:block define="field python:file.getFile();
-                                       icon field/getBestIcon | nothing;
-                                       filename field/filename | nothing;
-                                       size field/get_size;">
-
+            <ul tal:define="datafiles table/@@getDataFiles"
+                tal:condition="datafiles">
+                <tal:block repeat="file datafiles">
+                    <li tal:define="field python:file.getFile();
+                                    icon field/getBestIcon | nothing;
+                                    filename field/filename | nothing;
+                                    size field/get_size;"
+                        tal:condition="size">
                         <a tal:define="
                            filePath string:/datasets/ga-downloads/$lastVersion;
                            survey here/@@survey_support|nothing;
@@ -133,8 +133,8 @@ function showDefinition(context) {
                         <tal:size define="displaySize nocall:context/displaySize"
                                   content="python:displaySize(size)">0Kb</tal:size>)
                         <br />
-                    </tal:block>
-                </li>
+                    </li>
+                </tal:block>
             </ul>
         </tal:block>
     </tal:tables>
