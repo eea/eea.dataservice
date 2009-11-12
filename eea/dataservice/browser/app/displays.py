@@ -487,6 +487,7 @@ class GetEEAFigureFiles(object):
         res = {}
         brains = self.context.getFolderContents(contentFilter={
             'portal_type': 'EEAFigureFile',
+            'review_state': 'published',
         })
 
         for brain in brains:

@@ -43,7 +43,6 @@
     </tal:child>
   </div>
 
-
     <!-- META DATA -->
     <h4 i18n:translate="metadata">Metadata</h4>
     <div class="metadata-container">
@@ -73,14 +72,14 @@
        <metal:related use-macro="here/dataset_view/macros/eea-mp-code" />
        <metal:related use-macro="here/dataset_view/macros/eea-contact-reference" />
        <metal:basicmeta use-macro="here/dataset_view/macros/basicmeta" />
-           <!-- Link to latest version -->
-    <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
-    <dd>
-        <a tal:attributes="href string:${context/aq_parent/absolute_url}/${lastVersion};
-                           title lastVersion"
-           tal:content="lastVersion" />
-    </dd>
 
+       <!-- Link to latest version -->
+       <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
+       <dd>
+           <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};
+                              title lastVersion"
+              tal:content="lastVersion" />
+       </dd>
 
     </dl>
     </div>
@@ -90,15 +89,15 @@
         <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="related_content">
             Related content
         </h2>
-    
+
         <!-- Relation: related (plone) products -->
         <metal:related use-macro="here/dataset_view/macros/related-publications" />
         <metal:related use-macro="here/dataset_view/macros/related-figures" />
         <metal:related use-macro="here/dataset_view/macros/related-datasets" />
         <metal:related use-macro="here/dataset_view/macros/related-others" />
-    
+
         <!-- metal:related use-macro="here/dataset_view/macros/related-rod" / -->
-    
+
         <metal:related use-macro="here/dataset_view/macros/related-externals" />
     </tal:related>
 
