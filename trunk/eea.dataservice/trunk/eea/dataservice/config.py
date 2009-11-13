@@ -9,10 +9,6 @@ AUTHOR = u"European Environment Agency"
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 COPYRIGHTS = u'(c) Copyrights - EEA (European Environment Agency)'
 
-DATASERVICE_SUBOBJECTS = ['Folder', 'Data', 'Topic', 'RichTopic']
-FIGURES_SUBOBJECTS = ['Folder', 'EEAFigure', 'Topic', 'RichTopic', 'EEAFigureFile']
-ORGANISATION_SUBOBJECTS = ['Folder', 'Organisation', 'Topic', 'RichTopic']
-
 #Dataset years vocabulary
 STARTING_YEAR = 1850
 
