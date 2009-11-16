@@ -1,8 +1,11 @@
-Changelog for eea.dataservice
+Changelog
+=========
+[Alexandru Ghica - alec.ghica@eaudeweb.ro]
 
-    [Alexandru Ghica]
+1.1 - (Unreleased)
+------------------
+ * Fixed link to latest version on EEAFigure view template
 
-eea.dataservice - 1.0
-    - Initial package structure.
-      [zopeskel]
-
+1.0 -(2009-11-10)
+-----------------
+ * Initial release
