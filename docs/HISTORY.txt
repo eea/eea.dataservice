@@ -2,6 +2,10 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 
+1.2 - (Unreleased)
+------------------
+
+
 1.1 - (2009-11-18)
 ------------------
  * Hide empty files on views
