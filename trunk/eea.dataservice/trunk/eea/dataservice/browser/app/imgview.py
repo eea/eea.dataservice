@@ -74,7 +74,6 @@ class ImageViewFigureFile(BrowserView):
         if children:
             self.original = children[0]
             self.img = atfield.ImageView(self.original, request)
-
         else:
             self.original = None
             self.img = atfolder.ImageView(context, request)
