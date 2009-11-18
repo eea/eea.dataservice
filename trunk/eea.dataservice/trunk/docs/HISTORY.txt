@@ -4,6 +4,7 @@ Changelog
 
 1.1 - (Unreleased)
 ------------------
+ * Hide empty files on views
  * Fixed link to latest version on EEAFigure view template
 
 1.0 -(2009-11-10)
