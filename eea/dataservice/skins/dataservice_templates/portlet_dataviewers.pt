@@ -21,14 +21,14 @@
                         item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
             <span class="figure-left">
              <span class="figure">
-               <a tal:attributes="href string:viewer/url;
+               <a tal:attributes="href python: str(viewer.url);
                                   title string: $item_type: $item_description;">
                   <tal:block content="structure viewer/@@imgview" />
                 </a>
              </span>
             </span>
 
-            <a href="#" tal:attributes="href string:viewer/url;
+            <a href="#" tal:attributes="href python: str(viewer.url);
                                         title string: $item_type: $item_description;
                                         class string:$item_wf_state_class visualIconPadding;">
                 <span tal:replace="viewer/Title">
