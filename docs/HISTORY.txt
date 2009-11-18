@@ -4,6 +4,7 @@ Changelog
 
 1.2 - (Unreleased)
 ------------------
+ * Fixed external url or interactive data viewers in portlet_dataviewers.pt
 
 
 1.1 - (2009-11-18)
