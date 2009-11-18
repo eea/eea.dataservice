@@ -2,7 +2,7 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 
-1.1 - (Unreleased)
+1.1 - (2009-11-18)
 ------------------
  * Hide empty files on views
  * Fixed link to latest version on EEAFigure view template
