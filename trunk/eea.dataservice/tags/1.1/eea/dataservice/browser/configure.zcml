@@ -1,0 +1,231 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea.dataservice">
+
+  <include package=".resources" />
+
+  <browser:page
+      name="displaySize"
+      class=".app.displays.DisplaySize"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getimg"
+      class=".app.ims.GetIMSimage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCategoryName"
+      class=".app.displays.GetCategoryName"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDerivedFrom"
+      class=".app.displays.DatasetDerivedFrom"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getRelatedProducts"
+      class=".app.displays.DatasetRelatedProducts"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getBasedOn"
+      class=".app.displays.DatasetBasedOn"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getObligations"
+      class=".app.displays.Obligations"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getMainDatasets"
+      class=".app.displays.MainDatasets"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataViewers"
+      class=".app.displays.DataViewers"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="formatTempCoverage"
+      class=".app.displays.FormatTempCoverage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountries"
+      class=".app.displays.GetCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountriesDisplay"
+      class=".app.displays.GetCountriesDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountryGroups"
+      class=".app.displays.GetCountryGroups"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataForRedirect"
+      class=".app.displays.GetDataForRedirect"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountriesByGroup"
+      class=".app.displays.GetCountriesByGroup"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountryGroupsData"
+      class=".app.displays.GetCountryGroupsData"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataFiles"
+      class=".app.displays.GetDataFiles"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getTablesByCategory"
+      class=".app.displays.GetTablesByCategory"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getOrganisationSnippet"
+      class=".app.displays.GetOrganisationSnippet"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getGeographicalCoverageMap"
+      class=".app.displays.GeographicalCoverageMap"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getReferenceSystemKupu"
+      template="template/reference_system.pt"
+      class=".app.displays.GetReferenceSystemKupu"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getQualityDisplay"
+      class=".app.displays.GetQualityDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getReferenceSystemTemplate"
+      template="template/reference_system_templates.pt"
+      class=".app.displays.GetReferenceSystemTemplate"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+    name="getEEAFigureFiles"
+    class=".app.displays.GetEEAFigureFiles"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="getMainFigures"
+    class=".app.displays.MainFigures"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <class class="Products.ATContentTypes.content.topic.ATTopic">
+    <implements interface="..interfaces.IWorkingList" />
+  </class>
+
+  <browser:menuItem
+    for="..interfaces.IWorkingList"
+    menu="object"
+    title="Working list"
+    action="folder_contents"
+    permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:page
+    for="..interfaces.IEEAFigureFile"
+    name="imgview"
+    class=".app.imgview.ImageViewFigureFile"
+    permission="zope.Public"
+    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+    />
+
+  <browser:page
+    for="..interfaces.IEEAFigure"
+    name="imgview"
+    class=".app.imgview.ImageViewFigure"
+    permission="zope.Public"
+    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+    />
+
+  <browser:page
+    for="..interfaces.IEEAFigureFile"
+    name="fancybox.html"
+    class=".app.fancybox.FancyBox"
+    template="template/fancybox.pt"
+    permission="zope.Public"
+    />
+
+  <browser:resource
+    name="eea.dataservice.view.js"
+    file="javascript/view.js"
+   />
+
+  <browser:resource
+    name="eea.dataservice.view.css"
+    file="stylesheet/view.css"
+   />
+
+</configure>

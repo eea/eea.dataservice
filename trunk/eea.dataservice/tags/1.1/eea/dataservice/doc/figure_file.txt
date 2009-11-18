@@ -1,0 +1,92 @@
+Overview
+========
+
+Use for debug: import pdb; pdb.set_trace()
+
+Lets use the sandbox.
+
+    >>> self.loginAsPortalOwner()
+    >>> _ = self.portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb('sandbox')
+
+Lets add a EEAFigure.
+
+    >>> _ = sandbox.invokeFactory('EEAFigure', 'f1')
+    >>> f1 = sandbox.f1
+
+Now, lets add a EEAFigureFile.
+
+    >>> form = {
+    ...   'title': 'EEAFigureFile 1',
+    ...   'description': 'EEAFigureFile description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ... }
+    >>> _ = f1.invokeFactory('EEAFigureFile', 'ff1', **form)
+    >>> ff1 = f1.ff1
+
+Check see if properties applyed.
+
+    >>> ff1.Title()
+    'EEAFigureFile 1'
+    >>> ff1.Description()
+    'EEAFigureFile description 1'
+    >>> ff1.getEffectiveDate()
+    DateTime('2008/11/11')
+
+Lets upload a source image.
+
+    >>> self.loadblobfile(ff1, 'source_image.eps')
+    'File uploaded.'
+    >>> ff1.getFile().filename
+    'source_image.eps'
+    >>> ff1.getFile().getBestIcon()
+    'ps.png'
+    >>> print ff1.getFile().get_size()
+    5054507
+    >>> ff1.getFile().getContentType()
+    'application/postscript'
+
+Lets convert the EEAFigureFile above.
+
+    >>> convertImg = ff1.unrestrictedTraverse('@@convertMap')
+    >>> cvtimg = convertImg()
+
+As default we have 4 image formats defined, TIFF, PNG 300dpi, PNG 400dpi
+and GIF in which we convert a source image.
+
+    >>> ff1['source_image.eps.400dpi.tif']
+    <ImageFS at ...>
+    >>> ff1['source_image.eps.300dpi.png']
+    <ImageFS at ...>
+    >>> ff1['source_image.eps.400dpi.png']
+    <ImageFS at ...>
+    >>> ff1['source_image.eps.400dpi.gif']
+    <ImageFS at ...>
+
+Lets test if converted images contain converted formats.
+
+    >>> img_tif = ff1._getOb('source_image.eps.400dpi.tif')
+    >>> img_tif.getObjSize()
+    '37.6 MB'
+
+Lets check if thumbs were created.
+
+    >>> thumb = img_tif.unrestrictedTraverse('image_thumb')
+    >>> thumb.image
+    <plone.app.blob.field.BlobWrapper object at ...>
+
+Check the convertion of another EPS format and test if old converted images were deleted.
+
+    >>> self.loadblobfile(ff1, 'source_image2.eps')
+    'File uploaded.'
+    >>> cvtimg = convertImg()
+    >>> len(ff1.objectValues('ImageFS'))
+    4
+    >>> ff1['source_image2.eps.400dpi.tif']
+    <ImageFS at ...>
+
+
+Try to download the image with index_html method
+
+    >>> ff1['source_image2.eps.400dpi.tif'].index_html(self.portal.REQUEST, self.portal.REQUEST.response)
+    <plone.app.blob.iterators.BlobStreamIterator object at ...>

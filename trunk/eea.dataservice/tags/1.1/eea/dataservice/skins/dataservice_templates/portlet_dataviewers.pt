@@ -1,0 +1,45 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+<body>
+
+<div metal:define-macro="portlet"
+       i18n:domain="plone"
+       tal:omit-tag=""
+       tal:define="view context/@@getDataViewers">
+
+<dl class="portlet portlet-rss"
+    style="">
+
+    <dt class="portletHeader" i18n:translate="">Data viewers</dt>
+    <dt class="portletItem" tal:repeat="viewer view">
+        <span tal:attributes="class item_type_class"
+            tal:define="item_type           viewer/portal_type;
+                        item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
+                        item_description    viewer/Description;
+                        item_wf_state       viewer/review_state|python: wtool.getInfoFor(viewer, 'review_state', '');
+                        item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+            <span class="figure-left">
+             <span class="figure">
+               <a tal:attributes="href string:viewer/url;
+                                  title string: $item_type: $item_description;">
+                  <tal:block content="structure viewer/@@imgview" />
+                </a>
+             </span>
+            </span>
+
+            <a href="#" tal:attributes="href string:viewer/url;
+                                        title string: $item_type: $item_description;
+                                        class string:$item_wf_state_class visualIconPadding;">
+                <span tal:replace="viewer/Title">
+                  Item Title
+                </span>
+            </a>
+        </span>
+    </dt>
+    <dd class="portletFooter"></dd>
+</dl>
+
+</div>
+</body>
+</html>

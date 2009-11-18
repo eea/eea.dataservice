@@ -1,0 +1,118 @@
+<?xml  version="1.0"?>
+<rdf:RDF
+  xmlns:t="http://themes.eea.europa.eu/ns/1.0/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dctype="http://purl.org/dc/dcmitype/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:ds="http://dataservice.eea.europa.eu/xmldataservice/xml/dublincore/sdes.xml#"
+  xmlns:rod="http://rod.eionet.europa.eu/schema.rdf#"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+<tal:images define="brains python:here.getFolderContents({'portal_type': 'EEAFigure'})">
+  <tal:image repeat="brain brains">
+    <dctype:Image tal:define="
+      doc python:brain.getObject();
+      uid doc/UID"
+      tal:attributes="rdf:about string:urn:uuid:${uid}">
+      <dc:identifier tal:content="uid" />
+      <dc:title tal:content="doc/title_or_id" />
+      <dc:description tal:define="description python:brain.Description.strip()"
+        tal:condition="description"
+        tal:content="structure python:'&lt;![CDATA[' + description + ']]&gt;'" />
+      <dc:link tal:content="doc/absolute_url" />
+      <dc:contributor>EEA</dc:contributor>
+      <dc:publisher>EEA</dc:publisher>
+      <dc:relation>atlas</dc:relation>
+      <dc:date tal:define="
+        date brain/EffectiveDate;
+        date python:date.replace(' ', 'T')"
+        tal:content="date" tal:condition="python:date != 'None'" />
+      <dc:rights tal:define="
+        state python:brain.review_state;
+        right python:state == 'published' and 'public' or 'internal'"
+        tal:content="right" />
+      <tal:version define="
+        versions doc/@@getVersions;
+        version python:[key for key, value in versions.items() if value.UID() == uid];
+        version python:version and version[0] or 1;
+        max_nb python:versions and max(versions.keys()) or 1;
+        max_vers python:versions.get(max_nb, doc);
+        last python:max_vers.UID();
+        lastflag python:last == uid;">
+        <ds:version tal:content="string:${version}.00" />
+        <ds:latestversion tal:content="last" />
+        <ds:latestversionflag tal:content="lastflag" />
+      </tal:version>
+      <tal:owners tal:define="
+        field python:doc.getField('dataOwner');
+        urls python:field.getAccessor(doc)();
+        owners python:[doc.getOrganisationName(url) for url in urls];
+        owners python:[owner.Title for owner in owners if owner];
+        owners python:owners or ('European Environment Agency',)">
+        <tal:owner repeat="owner owners">
+          <dc:owner tal:content="owner" />
+        </tal:owner>
+      </tal:owners>
+      <dc:source tal:define="
+        field python:doc.getField('dataSource');
+        source python:field.getAccessor(doc)();"
+        tal:content="structure python:'&lt;![CDATA[' + source + ']]&gt;'" />
+      <tal:coverage tal:define="
+        field python:doc.getField('geographicCoverage');
+        value python:field.getAccessor(doc)();">
+        <tal:country repeat="country value">
+          <dc:coverage tal:content="python:country.upper()" />
+        </tal:country>
+      </tal:coverage>
+      <ds:coverage tal:content="doc/@@formatTempCoverage" />
+      <ds:relatedGID tal:content="doc/@@getLatestVersionLink" />
+      <ds:unit tal:define="
+        field python:doc.getField('units');
+        value python:field.getAccessor(doc)()"
+        tal:condition="value"
+        tal:content="value" />
+      <tal:downloadlink define="
+        eeafiles python:doc.objectValues('EEAFigureFile');
+        simple python:[efile for efile in eeafiles if not efile.objectIds()];
+        eps python:[efile for efile in eeafiles if efile.objectIds()]">
+        <tal:simplefiles repeat="efile simple">
+          <ds:downloadlink tal:content="string:${efile/absolute_url}/at_download/file" />
+        </tal:simplefiles>
+        <tal:efiles repeat="efile eps">
+        <tal:efile define="
+          eimg python:[img for img in efile.objectIds('ImageFS') if img.lower().endswith('.gif')];
+          eimg python:eimg and eimg[0]" tal:condition="eimg">
+          <ds:downloadlink tal:content="string:${efile/absolute_url}/$eimg/download" />
+        </tal:efile>
+        </tal:efiles>
+      </tal:downloadlink>
+      <tal:coverageImage define="
+        field python:doc.getField('geographicCoverage');
+        value python:field.getAccessor(doc)();" condition="value">
+        <tal:content define="
+          map nocall:doc/@@getGeographicalCoverageMap;
+          map python:map(cc=value);
+          view nocall:doc/@@getCountriesDisplay;
+          countries python:view(list(value))">
+          <ds:coverageImage tal:content='string:
+            &lt;table&gt;&lt;tr&gt;
+            &lt;td&gt;&lt;img src="$map" /&gt;&lt;/td&gt;
+            &lt;td&gt;$countries&lt;/td&gt;
+            &lt;/tr&gt;&lt;/table&gt;'/>
+        </tal:content>
+      </tal:coverageImage>
+      <tal:themes define="
+        field python:doc.getField('themes');
+        themes python:field.getAccessor(doc)();">
+        <tal:theme repeat="theme themes">
+          <t:theme tal:content="theme" />
+        </tal:theme>
+      </tal:themes>
+    </dctype:Image>
+  </tal:image>
+</tal:images>
+
+</rdf:RDF>
