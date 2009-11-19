@@ -39,12 +39,13 @@ class ConvertMap(object):
                 self.formats.append(key)
         return self.formats
 
-    def __call__(self, cronjob=0):
+    def __call__(self, cronjob=0, purge=True):
         err = 0
 
         # Delete (if neccesary) old converted images
-        for convimg in self.context.objectValues('ImageFS'):
-            self.context.manage_delObjects([convimg.getId()])
+        if purge:
+            for convimg in self.context.objectValues('ImageFS'):
+                self.context.manage_delObjects([convimg.getId()])
 
         # Create converted images
         field = self.context.getField('file')
