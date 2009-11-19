@@ -18,9 +18,15 @@ class ConvertMap(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.formats = []
 
     def getFormats(self):
-        formats = []
+        if self.formats:
+            return self.formats
+
+        # By default generate zooming image PNG 75dpi
+        self.formats = ['ZOOM-75']
+
         atvm = getToolByName(self.context, ATVOCABULARYTOOL)
         vocab = atvm[CONVERSIONS_DICTIONARY_ID]
         terms = vocab.getVocabularyDict()
@@ -30,9 +36,8 @@ class ConvertMap(object):
             wftool = getToolByName(self.context, 'portal_workflow')
             state = wftool.getInfoFor(vocab[key], 'review_state', '(Unknown)')
             if state == 'published':
-                formats.append(key)
-
-        return formats
+                self.formats.append(key)
+        return self.formats
 
     def __call__(self, cronjob=0):
         err = 0
@@ -47,8 +52,16 @@ class ConvertMap(object):
         if accessor:
             for format in self.getFormats():
                 img_format, img_dpi = format.split('-')
-                outfile = StringIO()
 
+                if img_dpi == 'default':
+                    im_id = '.'.join((accessor.filename, img_format[:3].lower()))
+                elif img_format == 'ZOOM':
+                    img_format = 'PNG'
+                    im_id = '.'.join((accessor.filename, 'zoom', img_format[:3].lower()))
+                else:
+                    im_id = '.'.join((accessor.filename, img_dpi + 'dpi', img_format[:3].lower()))
+
+                outfile = StringIO()
                 try:
                     im = Image.open(StringIO(self.context.getFile().getBlob().open().read()))
                     if img_dpi == 'default':
@@ -68,13 +81,7 @@ class ConvertMap(object):
                     err = 1
                     continue
 
-
                 file_data = outfile.getvalue()
-                if img_dpi == 'default':
-                    im_id = accessor.filename + '.' + img_format[:3].lower()
-                else:
-                    im_id = accessor.filename + '.' + img_dpi + 'dpi.' + img_format[:3].lower()
-
                 if not getattr(self.context, im_id, None):
                     im_id = self.context.invokeFactory('ImageFS', id=im_id)
                 im_ob = getattr(self.context, im_id)

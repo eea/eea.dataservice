@@ -36,6 +36,9 @@ class FancyBox(BrowserView):
 
         for brain in brains:
             uid = brain.getId
+            if '.zoom.png' in uid:
+                continue
+
             title = self.get_title(uid, mapping)
             size = brain.getObjSize
             yield (uid, title, size)
