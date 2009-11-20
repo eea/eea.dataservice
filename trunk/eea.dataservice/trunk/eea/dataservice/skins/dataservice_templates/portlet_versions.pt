@@ -12,10 +12,10 @@
   <div class="portalMessage"
     tal:condition="python:has_versions and newest">
       <strong i18n:translate="new_version_available">
-          Note: new versions are available!
+          Note: new version is available!
       </strong>
       <ul>
-        <li tal:repeat="doc newest">
+        <li tal:repeat="doc python:newest[:1]">
           <a tal:define="
             doc_url doc/url;
             doc_published doc/date;
