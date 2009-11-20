@@ -6,6 +6,7 @@ Changelog
 ------------------
  * Fixed external url or interactive data viewers in portlet_dataviewers.pt
  * #2808 Fixed second zoom on large figures [voineali]
+ * #2798 Display only the latest version available in versions box [voineali]
 
 
 1.1 - (2009-11-18)
