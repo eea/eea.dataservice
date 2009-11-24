@@ -116,8 +116,8 @@ QUALITY_DICTIONARY[QUALITY_DICTIONARY_ID] = (
 QLD_DICTIONARY_ID = 'quick_links_ds'
 QLD_DICTIONARY = {}
 QLD_DICTIONARY[QLD_DICTIONARY_ID] = (
-    ('Air emissions', 'Air emissions'),
-    ('Air quality', 'Air quality'),
+    ('air emissions', 'Air emissions'),
+    ('air quality', 'Air quality'),
     ('CLC1990', 'Corine land cover 1990'),
     ('CLC2000', 'Corine land cover 2000'),
     ('EEA owned data sets', 'EEA owned data sets'),
