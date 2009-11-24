@@ -1,4 +1,4 @@
-// EEAFigure and Data (index)
+/* EEAFigure and Data (index) */
 .metadata-container dd {
     margin-left: 3em; }
 
@@ -24,8 +24,29 @@
 .datatable-title {
     margin: 1.67em 0 0; }
 
+/* Organisation (index) */
 
-// Quality view (index)
+.organisation-statistics {
+    padding: 0.2em;
+    margin-bottom: 1em; }
+
+.organisation-statistics legend {
+    padding: 2px;
+    font-weight: bold; }
+
+.organisation-header-top {
+    margin-top: 0.5em; }
+
+.organisation-statistics h5 {
+    margin-bottom: 0.2 em;
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    padding-left: 2px; }
+
+.organisation-statistics p {
+    margin-left: 1em; }
+
+/* Quality view (index) */
 .quality-table {
     border: 1px solid black;
     border-collapse: collapse;
@@ -37,7 +58,7 @@
     border: 1px solid black;
 }
 
-// Quality widget (cms)
+/* Quality widget (cms) */
 .quality-widget label {
   font-weight: normal;
   vertical-align: middle;

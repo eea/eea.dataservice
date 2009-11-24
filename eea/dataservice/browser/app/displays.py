@@ -19,6 +19,41 @@ from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 
+class OrganisationStatistics(object):
+    """ Returns number of owners and processors pointing to this organisation
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        data = {'owners': ([], []), 'processor': ([], [])}
+        cat = getToolByName(self.context, 'portal_catalog')
+
+        # Owner statistics
+        query = { 'portal_type':'EEAFigure',
+                  'getDataOwner': self.context.org_url()}
+        brains = cat(**query)
+        data['owners'][1].extend(brains)
+
+        query = { 'portal_type':'Data',
+                  'getDataOwner': self.context.org_url()}
+        brains = cat(**query)
+        data['owners'][0].extend(brains)
+
+        # Processor statistics
+        query = { 'portal_type':'EEAFigure',
+                  'getProcessor': self.context.org_url()}
+        brains = cat(**query)
+        data['processor'][1].extend(brains)
+
+        query = { 'portal_type':'Data',
+                  'getProcessor': self.context.org_url()}
+        brains = cat(**query)
+        data['processor'][0].extend(brains)
+
+        return data
+
 class DisplaySize(object):
     """ Transform a file size in Kb, Mb ..
     """
