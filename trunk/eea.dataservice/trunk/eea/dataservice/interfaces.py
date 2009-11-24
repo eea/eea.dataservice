@@ -35,10 +35,6 @@ class IOrganisation(Interface):
     """ Objects which have organisation information.
     """
 
-    def getDataRows(obj):
-        """ Return datasets which are owned by this organisation
-        """
-
 class IEEAFigure(Interface):
     """ Marker interface for EEAFigure.
     """

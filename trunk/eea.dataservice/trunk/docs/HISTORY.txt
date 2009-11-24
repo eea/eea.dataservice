@@ -4,11 +4,11 @@ Changelog
 
 1.2 - (Unreleased)
 ------------------
+ * Organisation view now display statistics about related owners and processors [ghicaale #2815]
  * Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET" [ghicaale]
  * Fixed external url or interactive data viewers in portlet_dataviewers.pt [ghicaale]
- * #2808 Fixed second zoom on large figures [voineali]
- * #2798 Display only the latest version available in versions box [voineali]
-
+ * Fixed second zoom on large figures [voineali #2808]
+ * Display only the latest version available in versions box [voineali #2798]
 
 1.1 - (2009-11-18)
 ------------------
@@ -17,4 +17,4 @@ Changelog
 
 1.0 -(2009-11-10)
 -----------------
- * Initial release  [ghicaale]
+ * Initial release [ghicaale]

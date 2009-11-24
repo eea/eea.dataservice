@@ -6,6 +6,13 @@
   <include package=".resources" />
 
   <browser:page
+      name="organisationStatistics"
+      class=".app.displays.OrganisationStatistics"
+      for="..interfaces.IOrganisation"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="displaySize"
       class=".app.displays.DisplaySize"
       for="*"

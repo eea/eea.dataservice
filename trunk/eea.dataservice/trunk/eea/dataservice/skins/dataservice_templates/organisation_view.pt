@@ -19,11 +19,47 @@
     <!-- Description -->
     <p class="publicationDescription" tal:content="context/Description" />
 
-    <!-- Data set(s) -->
-    <p>
-        <tal:rows content="python:len(context.getDataRows())" />
-        <span i18n:translate="">data set(s)</span>
-    </p>
+    <!-- Statistics -->
+    <tal:block define="data context/@@organisationStatistics;
+                       odatasets python:data['owners'][0];
+                       ofigures python:data['owners'][1];
+                       pdatasets python:data['processor'][0];
+                       pfigures python:data['processor'][1]">
+
+        <fieldset class="organisation-statistics"
+                  tal:condition="python:len(odatasets) or len(ofigures)">
+          <legend i18n:translate="statistics">Statistics</legend>
+
+            <!-- Owner -->
+            <h5 class="organisation-header-top"
+                tal:condition="python:len(odatasets) or len(ofigures)"
+                i18n:translate="owner_of">Owner of:</h5>
+            <p tal:condition="odatasets">
+                <tal:rows content="python:len(odatasets)" />
+                <span i18n:translate="">datasets</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&b_start=0&c15=${context/org_url}">see more</a> )
+            </p>
+            <p tal:condition="ofigures">
+                <tal:rows content="python:len(ofigures)" />
+                <span i18n:translate="">figures</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&b_start=0&c6=${context/org_url}">see more</a> )
+            </p>
+
+            <!-- Processor -->
+            <h5 i18n:translate="processor_of"
+                tal:condition="python:len(pdatasets) or len(pfigures)">Processor of:</h5>
+            <p tal:condition="pdatasets">
+                <tal:rows content="python:len(pdatasets)" />
+                <span i18n:translate="datasets">datasets</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&b_start=0&c16=${context/org_url}">see more</a> )
+            </p>
+            <p tal:condition="pfigures">
+                <tal:rows content="python:len(pfigures)" />
+                <span i18n:translate="figures">figures</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&b_start=0&c17=${context/org_url}">see more</a> )
+            </p>
+        </fieldset>
+    </tal:block>
 
     <!-- URL -->
     <tal:block define="field python:context.getField('organisationUrl');
