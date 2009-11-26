@@ -264,8 +264,7 @@ class GetCountryGroups(object):
         self.request = request
 
     def __call__(self):
-        res = _getCountryInfo(self.context)['groups']
-        return [(key, res[key]) for key in res.keys()]
+        return _getCountryInfo(self.context)['groups']
 
 class GetCountries(object):
     """ """

@@ -57,7 +57,7 @@
                   tal:define="groups here/@@getCountryGroups"
                   class="countries-widget-select">
 
-              <option tal:repeat="item groups"
+              <option tal:repeat="item python:groups.items()"
                       selected=""
                       tal:attributes="value python:item[0];
                       selected python:test(here.unicodeTestIn(item[0], value), 'selected', None);"

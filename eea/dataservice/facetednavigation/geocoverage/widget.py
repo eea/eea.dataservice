@@ -1,13 +1,14 @@
 """ Geographical coverage widget
 """
-
+import logging
+from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from BTrees.IIBTree import weightedIntersection, IISet
 from eea.facetednavigation.widgets.checkbox.widget import Widget as CheckboxWidget
 from eea.facetednavigation.widgets.widget import CommonEditSchema
 from eea.facetednavigation.widgets.checkbox.widget import EditSchema as CheckboxSchema
 
-
+logger = logging.getLogger('eea.dataservice.facetednavigation.geocoverage')
 GeoSchema = CommonEditSchema + CheckboxSchema.copy()
 GeoSchema['vocabulary'].widget.visible = -1
 
@@ -35,21 +36,22 @@ class Widget(CheckboxWidget):
         if not value:
             return query
 
-        # custom
-        countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
+        countryGroups = getMultiAdapter(
+            (self.context, self.request), name=u'getCountryGroups')()
+        getCountriesByGroupView = getMultiAdapter(
+            (self.context, self.request), name=u'getCountriesByGroup')
+
         if not isinstance(value, list):
             value = [value]
 
         tmp_value = []
         for code in value:
-            if (code,code) in countryGroupsView():
-                getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
+            if code in countryGroups:
                 tmp_value.extend(getCountriesByGroupView(code))
             else:
                 tmp_value.append(code)
 
         query[index] = {'query': tmp_value, 'operator': 'and'}
-
         return query
 
     def portal_vocabulary(self):
@@ -57,10 +59,12 @@ class Widget(CheckboxWidget):
         """
         #custom
         terms = []
-        countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
-        countriesView = self.context.unrestrictedTraverse('@@getCountries')
+        countryGroupsView = getMultiAdapter(
+            (self.context, self.request), name=u'getCountryGroups')
+        countriesView = getMultiAdapter(
+            (self.context, self.request), name=u'getCountries')
 
-        terms.extend(countryGroupsView())
+        terms.extend(countryGroupsView().items())
         terms.extend(countriesView())
 
         return terms
@@ -83,20 +87,29 @@ class Widget(CheckboxWidget):
         if not apply_index:
             return res
 
+        countryGroupsView = getMultiAdapter(
+                (self.context, self.request), name=u'getCountryGroups')
+        countryGroups = countryGroupsView()
+
+        getCountriesByGroupView = getMultiAdapter(
+                    (self.context, self.request), name=u'getCountriesByGroup')
+
         brains = IISet(brain.getRID() for brain in brains)
         for value in sequence:
             if not value:
                 res[value] = len(brains)
                 continue
 
-            #custom
-            countryGroupsView = self.context.unrestrictedTraverse('@@getCountryGroups')
-            if (value,value) in countryGroupsView():
-                getCountriesByGroupView = self.context.unrestrictedTraverse('@@getCountriesByGroup')
+            if value in countryGroups:
                 gr_value = getCountriesByGroupView(value)
-                rset = apply_index({index_id: gr_value})
+                rset = apply_index({
+                    index_id: gr_value,
+                    index_id +'_operator': 'and',
+                })
             else:
-                rset = apply_index({index_id: value})
+                rset = apply_index({
+                    index_id: value
+                })
 
             if not rset:
                 continue
