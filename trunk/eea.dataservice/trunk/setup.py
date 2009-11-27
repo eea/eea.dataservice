@@ -6,7 +6,7 @@ name = 'eea.dataservice'
 path = name.split('.') + ['version.txt']
 version = open(join(*path)).read().strip()
 
-setup(name='eea.dataservice',
+setup(name=name,
       version=version,
       description="EEA Dataservice",
       long_description=open("README.txt").read() + "\n" +
