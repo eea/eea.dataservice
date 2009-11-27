@@ -4,6 +4,7 @@ Changelog
 
 1.2 - (Unreleased)
 ------------------
+ * Fixed broken link from publications, now pointing to dataservice 2.0 objects [ghicaale #2823]
  * Fixed vocabulary for datasets quick links [ghicaale #2828]
  * Organisation view now display statistics about related owners and processors [ghicaale #2815]
  * Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET" [ghicaale]
