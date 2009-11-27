@@ -1,0 +1,24 @@
+Changelog
+=========
+[Alexandru Ghica - alec.ghica@eaudeweb.ro]
+
+1.2 - (2009-11-27)
+------------------
+ * Fixed broken link from publications, now pointing to dataservice 2.0 objects [ghicaale #2823]
+ * Fixed vocabulary for datasets quick links [ghicaale #2828]
+ * Organisation view now display statistics about related owners and processors [ghicaale #2815]
+ * Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET" [ghicaale]
+ * Fixed external url or interactive data viewers in portlet_dataviewers.pt [ghicaale]
+ * Fixed second zoom on large figures [voineali #2808]
+ * Display only the latest version available in versions box [voineali #2798]
+ * Fix custom faceted geocoverage widget counting and optimize query and count
+   methods [voineali #2800]
+
+1.1 - (2009-11-18)
+------------------
+ * Hide empty files on views [ghicaale]
+ * Fixed link to latest version on EEAFigure view template [ghicaale]
+
+1.0 -(2009-11-10)
+-----------------
+ * Initial release [ghicaale]

@@ -1,0 +1,54 @@
+<configure xmlns="http://namespaces.zope.org/browser"
+           xmlns:zope="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea.dataservice">
+
+  <browser:page
+      for="*"
+      name="checkFiguresConvertion"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.CheckFiguresConvertion"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="convertMap"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertMap"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigure"
+      name="convertAllMaps"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertAllMaps"
+      />
+
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigure"
+      name="convertAction"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertAction"
+      />
+
+  <browser:menuItem
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      menu="object_buttons"
+      title="Convert figure"
+      action="@@convertMap"
+      description="Convert figure to predefined formats and resolutions"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:menuItem
+      for="eea.dataservice.interfaces.IEEAFigure"
+      menu="object_buttons"
+      title="Convert all figures"
+      action="@@convertAction"
+      description="Convert all figures to predefined formats and resolutions"
+      permission="cmf.ModifyPortalContent"
+      />
+
+</configure>

@@ -1,0 +1,47 @@
+<div id="figures-fancyimage" tal:define="
+  parent context/getParentNode;
+  lastVersion parent/@@getLatestVersionLink">
+  <span id="google-analytics" style="display: none"
+    tal:content="string:/figures/ga-downloads/$lastVersion" />
+<table>
+  <tr>
+    <td class="figures-fancyimage-left">
+      <a class="jqzoom"
+       tal:attributes="href string:${context/absolute_url}/image_original">
+        <img tal:attributes="
+          title string:${context/title_or_id};
+          alt string:${context/absolute_url}/image_original;
+          src string:${context/absolute_url}/image_preview;" />
+      </a>
+    </td>
+    <td class="figures-fancyimage-right">
+      <div class="figures-empty" i18n:translate="">
+        Move your mouse over image to zoom in.
+      </div>
+      <h4 i18n:translate="">Download</h4>
+      <ul>
+        <li>
+          <a tal:attributes="href string:${context/absolute_url}/at_download/file"
+             tal:define="size python:context.getFile().get_size()"
+             class="google-analytics">
+            <span i18n:translate="">Original file</span>
+            <span tal:define="displaySize nocall:context/displaySize"
+                  tal:content="python:displaySize(size)" />
+          </a>
+        </li>
+        <li tal:repeat="item python:view.vocabulary">
+          <a tal:define="
+            uid python:item[0];
+            title python:item[1];
+            size python:item[2]"
+            tal:attributes="href string:${context/absolute_url}/$uid/at_download/image"
+            class="google-analytics">
+            <span i18n:translate="" tal:content="title" />
+            <span tal:content="string:($size)" />
+          </a>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
+</div>
