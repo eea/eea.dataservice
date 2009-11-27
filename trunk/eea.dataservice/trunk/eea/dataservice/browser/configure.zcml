@@ -48,6 +48,13 @@
       />
 
   <browser:page
+      name="publicationBasedOn"
+      class=".app.displays.PublicationBasedOn"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="getBasedOn"
       class=".app.displays.DatasetBasedOn"
       for="*"

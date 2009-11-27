@@ -139,6 +139,22 @@ class GetCategoryName(object):
         vocab = atvm[CATEGORIES_DICTIONARY_ID]
         return getattr(vocab, cat_code).Title()
 
+class PublicationBasedOn(object):
+    """ Returns EEAFigures related to a certain publication
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        cat = getToolByName(self.context, 'portal_catalog')
+        references = IRelations(self.context).backReferences(relatesTo='relatesToProducts')
+        uids = []
+        [uids.append(ob.UID()) for ob in references]
+        query = {'UID': uids, 'review_state':'published'}
+        brains = [b for b in cat.searchResults(query)]
+        return Batch(brains, 1000, 0, 100)
+
 class DatasetBasedOn(object):
     """ Returns 'based on' datasets
     """

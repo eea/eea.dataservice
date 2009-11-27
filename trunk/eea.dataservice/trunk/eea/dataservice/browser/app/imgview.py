@@ -26,6 +26,7 @@ class ImageViewFigure(BrowserView):
         if not eeafile and len(files):
             eeafile = files[0]
 
+        self.img = None
         if eeafile:
             self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
