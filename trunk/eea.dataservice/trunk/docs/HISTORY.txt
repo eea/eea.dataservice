@@ -4,6 +4,7 @@ Changelog
 
 1.3 (unreleased)
 ------------------
+ * "Last upload" and "Publish date" formated with toLocalizedTime [ghicaale #2819]
  * Added empty value for years list on management plan code field [ghicaale #2819]
  * Fixed broken "GetCountryGroups" view [ghicaale #2800]
 
