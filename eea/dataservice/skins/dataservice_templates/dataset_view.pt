@@ -319,7 +319,7 @@ function showDefinition(context) {
     <!-- Publish date -->
     <tal:block  metal:define-macro="publish-date" define="value context/getEffectiveDate" condition="value">
         <dt i18n:translate="publish_date">Publish date:</dt>
-        <dd tal:content="value" />
+        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
     </tal:block>
 
     <!-- Tags -->
@@ -339,7 +339,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_last_upload">Last upload:</dt>
-        <dd tal:content="structure value">Last upload</dd>
+        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
     </tal:block>
 
     <!-- Scale of the data set -->
