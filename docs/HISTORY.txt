@@ -4,6 +4,7 @@ Changelog
 
 1.3 (unreleased)
 ------------------
+ * Added empty value for years list on management plan code field [ghicaale #2819]
  * Fixed broken "GetCountryGroups" view [ghicaale #2800]
 
 1.2 - (2009-11-27)
