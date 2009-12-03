@@ -347,7 +347,7 @@ class GetCountriesDisplay(object):
         res = []
         context = self.context
         viewGetCountryGroups = GetCountryGroups(context, self.request)
-        for group_code, group_name in viewGetCountryGroups():
+        for group_code in viewGetCountryGroups():
             tmp_match = _getGroupCountries(context, group_code)
             for country_code in data:
                 if country_code in tmp_match:

@@ -2,6 +2,10 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 
+1.3 (unreleased)
+------------------
+ * Fixed broken "GetCountryGroups" view [ghicaale #2800]
+
 1.2 - (2009-11-27)
 ------------------
  * Fixed broken link from publications, now pointing to dataservice 2.0 objects [ghicaale #2823]
