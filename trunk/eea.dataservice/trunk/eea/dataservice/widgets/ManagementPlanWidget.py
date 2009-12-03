@@ -25,7 +25,7 @@ class ManagementPlanWidget(TypesWidget):
         mp_year = form.get('%sYear' % name, None)
         mp_code = form.get('%sCode' % name, None)
 
-        if not (mp_year or mp_code):
+        if mp_year is None or mp_code is None:
             return empty_marker
 
         return (mp_year, mp_code), {}
