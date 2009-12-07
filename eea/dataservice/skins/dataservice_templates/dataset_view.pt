@@ -466,7 +466,6 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Contact persons for EEA -->
-
     <metal:contacts define-macro="eea-contact-reference" tal:condition="not: portal/portal_membership/isAnonymousUser">
      <tal:block define="field python:context.getField('contact');
                        value python:field.getAccessor(context)()"

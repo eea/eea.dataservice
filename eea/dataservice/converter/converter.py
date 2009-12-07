@@ -10,6 +10,7 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
 
 logger = logging.getLogger('eea.dataservice.converter')
+info = logger.info
 
 class ConvertMap(object):
     """ Convert the map in different image formats
@@ -95,6 +96,7 @@ class ConvertMap(object):
                                        comment='Set by convert figure action.')
                     wftool.doActionFor(im_ob, 'hide',
                                        comment='Set by convert figure action.')
+                    info('INFO: Convertion created %s', im_ob.getId())
                 except WorkflowException, err:
                     logger.exception('WorkflowException: %s', err)
         else:
@@ -102,6 +104,7 @@ class ConvertMap(object):
             err = 1
 
         msg = 'Done converting "%s".' % self.context.title_or_id()
+        info('INFO: %s', msg)
         if err:
             msg = 'Some error(s) occured during conversion of "%s".' % self.context.title_or_id()
 
@@ -124,6 +127,7 @@ class ConvertAllMaps(object):
             msg = "Conversion finnished."
             for ob in self.context.objectValues('EEAFigureFile'):
                 obConvert = ob.unrestrictedTraverse('@@convertMap')
+                info('INFO: Start converting %s', ob.getId())
                 obConvert()
 
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
