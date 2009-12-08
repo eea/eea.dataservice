@@ -4,6 +4,8 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Transaction savapoint added as convertion process can take some time to be
+   finnished if several EPS files are converted during same action. [ghicaale #2850]
  * More logging added to "Convert figure" and "Convert all figures" [ghicaale #2819]
 
 1.3 - (2009-12-04)
