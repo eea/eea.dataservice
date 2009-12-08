@@ -1,4 +1,5 @@
 import logging
+import transaction
 from PIL import Image
 from cStringIO import StringIO
 
@@ -129,6 +130,7 @@ class ConvertAllMaps(object):
                 obConvert = ob.unrestrictedTraverse('@@convertMap')
                 info('INFO: Start converting %s', ob.getId())
                 obConvert()
+                transaction.savepoint()
 
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
             return self.request.RESPONSE.redirect(self.context.absolute_url())
@@ -181,8 +183,10 @@ class CheckFiguresConvertion(object):
                 msg += '%s\r\n' % ff_ob.absolute_url()
         else:
             for ff_ob in notConverted:
+                info('INFO: Start converting %s', ff_ob.getId())
                 convertFigureView = ff_ob.unrestrictedTraverse('@@convertMap')
                 convtmp = convertFigureView(cronjob=1)
                 msg += 'CONVERTED: %s \r\n' % ff_ob.absolute_url()
+                transaction.savepoint()
 
         return msg
