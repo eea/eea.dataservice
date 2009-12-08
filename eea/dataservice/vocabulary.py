@@ -160,13 +160,9 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
     ('edsx', 'European data set (XML format)'),
     ('gisd', 'GIS data'),
     ('hard', 'Hard copy'),
-    ('invi', 'Interactive viewers'),
     ('meto', 'Methodology'),
     ('odata', 'Original data used to produce the analysis'),
     ('orig', 'Original work data'),
-    ('repo', 'Published in the following report(s)'),
-    ('rews', 'Related website(s)/service(s)'),
-    ('rod', 'Reporting obligation(s) (ROD)'),
     ('stat', 'Statistics')
 )
 
