@@ -14,9 +14,11 @@ from Products.PloneLanguageTool.availablelanguages import getCountries
 from eea.dataservice.config import ROD_SERVER
 from Products.EEAContentTypes.interfaces import IRelations
 from eea.reports.interfaces import IReportContainerEnhanced
-from eea.dataservice.vocabulary import QUALITY_DICTIONARY_ID
-from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
-from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
+from eea.dataservice.vocabulary import (
+    QUALITY_DICTIONARY_ID,
+    COUNTRIES_DICTIONARY_ID,
+    CATEGORIES_DICTIONARY_ID
+)
 
 
 class OrganisationStatistics(object):
@@ -386,6 +388,10 @@ class GetDataFiles(object):
             'portal_type' : ['DataFile'],
             'path': '/'.join(self.context.getPhysicalPath())})
         [res.append(brain.getObject()) for brain in brains]
+
+        # Sort DataFiles by filename
+        comp = lambda x,y: cmp(x.getFilename(), y.getFilename())
+        res.sort(comp)
         return res
 
 class GetTablesByCategory(object):
@@ -400,13 +406,19 @@ class GetTablesByCategory(object):
         brains = cat.searchResults({'portal_type' : ['DataTable'],
                                     'path': '/'.join(self.context.getPhysicalPath())})
 
+        # Get DataTable files
         for brain in brains:
             table = brain.getObject()
             cat = table.category
             if not cat in res.keys():
                 res[cat] = []
             res[cat].append(table)
-        return res
+
+        # Get sorted categories (based on vocabulary items order)
+        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+        categories = atvm[CATEGORIES_DICTIONARY_ID]
+
+        return (categories.keys(), res)
 
 class FormatTempCoverage(object):
     """ Format temporal coverage display

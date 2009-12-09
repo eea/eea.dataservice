@@ -81,10 +81,14 @@ function showDefinition(context) {
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
     <!-- Tables -->
-    <tal:tables define="tablesData context/@@getTablesByCategory" repeat="categ python:tablesData.keys()">
+    <tal:tables define="tablesData context/@@getTablesByCategory;
+                        categories python:tablesData[0];
+                        data python:tablesData[1]"
+                repeat="categ categories">
+        <tal:table condition="python:data.has_key(categ)">
         <h4 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
             tal:content="categ_name" />
-        <tal:block repeat="table python:tablesData[categ]">
+        <tal:block repeat="table python:data[categ]">
             <h5 class="datatable-title" tal:content="table/title" />
             <p tal:condition="table/Description"
                tal:content="table/Description" />
@@ -137,6 +141,7 @@ function showDefinition(context) {
                 </tal:block>
             </ul>
         </tal:block>
+        </tal:table>
     </tal:tables>
 
     <metal:related-products define-macro="related-products">

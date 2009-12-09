@@ -4,6 +4,8 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Categories sort order of datasets based on order of vocabulary items order
+   on 'categories' vocabulary. DataFiles are now sorted based on filename. [ghicaale #2858]
  * Fixed download IDs to be unique so survey can differentiate between them. [ghicaale #2860]
  * Transaction savapoint added as convertion process can take some time to be
    finnished if several EPS files are converted during same action. [ghicaale #2850]
