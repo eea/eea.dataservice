@@ -22,11 +22,15 @@ from eea.dataservice.vocabulary import (
     REFERENCE_DICTIONARY_ID
 )
 
-
 logger = logging.getLogger('eea.dataservice: setuphandlers')
+
 
 def installVocabularies(context):
     """creates/imports the atvm vocabs."""
+
+    # only run this step if we are in eea.dataservice profile
+    if context.readDataFile('eeadataservice_vocabularies.txt') is None:
+        return
 
     site = context.getSite()
     try:
@@ -90,22 +94,25 @@ def installVocabularies(context):
         logger.warn('eea.dataservice categories vocabulary already exist.')
 
     # Create conversions vocabulary
+    convertion_fresh_install = False
     if not CONVERSIONS_DICTIONARY_ID in atvm.contentIds():
+        convertion_fresh_install = True
         createSimpleVocabs(atvm, CONVERSIONS_DICTIONARY)
         atvm[CONVERSIONS_DICTIONARY_ID].setTitle('Conversion format for dataservice')
     else:
         logger.warn('eea.dataservice conversion vocabulary already exist.')
 
     # Set public the vocabulary items we use for active convertion
-    for vocabId in CONVERSIONS_USED:
-        wftool = getToolByName(site, 'portal_workflow')
-        vocabParentOb = getattr(atvm, CONVERSIONS_DICTIONARY_ID)
-        vocabItem = getattr(vocabParentOb, vocabId)
-        state = wftool.getInfoFor(vocabItem, 'review_state', '(Unknown)')
-        if state == 'published':
-            continue
-        try:
-            wftool.doActionFor(vocabItem, 'publish',
-                               comment='Auto published by migration script.')
-        except:
-            pass
+    if convertion_fresh_install:
+        for vocabId in CONVERSIONS_USED:
+            wftool = getToolByName(site, 'portal_workflow')
+            vocabParentOb = getattr(atvm, CONVERSIONS_DICTIONARY_ID)
+            vocabItem = getattr(vocabParentOb, vocabId)
+            state = wftool.getInfoFor(vocabItem, 'review_state', '(Unknown)')
+            if state == 'published':
+                continue
+            try:
+                wftool.doActionFor(vocabItem, 'publish',
+                                   comment='Auto published by migration script.')
+            except:
+                pass
