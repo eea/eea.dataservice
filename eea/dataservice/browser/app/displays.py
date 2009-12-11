@@ -96,7 +96,7 @@ class DatasetRelatedProducts(object):
         self.request = request
 
     def __call__(self):
-        res = {'figures': [], 'reports': [], 'datasets': [], 'other': [], 'has_data': False}
+        res = {'figures': [], 'reports': [], 'datasets': [], 'other': [], 'data_viewers':[], 'has_data': False}
         has_data = False
         data = self.context.getRelatedProducts()
         for ob in data:
@@ -104,6 +104,8 @@ class DatasetRelatedProducts(object):
                 res['figures'].append(ob)
             elif IReportContainerEnhanced.providedBy(ob):
                 res['reports'].append(ob)
+            elif 'data viewer' in ob.Title() and ob.portal_type in ['Promotion', 'GIS Map Application']:
+                res['data_viewers'].append(ob)
             else:
                 if self.context.portal_type == 'EEAFigure' and ob.portal_type == 'Data':
                     res['datasets'].append(ob)
