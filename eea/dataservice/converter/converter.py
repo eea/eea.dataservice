@@ -99,7 +99,7 @@ class ConvertMap(object):
                                        comment='Set by convert figure action.')
                     info('INFO: Convertion created %s', im_ob.getId())
                 except WorkflowException, err:
-                    logger.exception('WorkflowException: %s', err)
+                    logger.exception('WorkflowException: %s ImageFS %s', err, im_ob.absolute_url())
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1
