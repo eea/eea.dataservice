@@ -182,6 +182,41 @@ function showDefinition(context) {
             </ul>
         </tal:block>
 
+        <!-- Relations to data viewers -->
+        <tal:block metal:define-macro="related-data-viewers" define="value python:related_products['data_viewers']"
+                   condition="value">
+            <h4 i18n:translate="interactive_data_viewer">Interactive data viewer</h4>
+
+            <tal:dataViewers repeat="viewer value">
+            <div class="visualClear">
+                <span tal:attributes="class item_type_class"
+                    tal:define="item_type           viewer/portal_type;
+                                item_type_class     python:'visualIcon contenttype-' + normalizeString(item_type);
+                                item_description    viewer/Description;
+                                item_wf_state       viewer/review_state|python: wtool.getInfoFor(viewer, 'review_state', '');
+                                item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+                    <span class="figure-left">
+                     <span class="figure">
+                       <a tal:attributes="href python: str(viewer.url);
+                                          title string: $item_type: $item_description;">
+                          <tal:block content="structure viewer/@@imgview" />
+                        </a>
+                     </span>
+                    </span>
+
+                    <a href="#" tal:attributes="href python: str(viewer.url);
+                                                title string: $item_type: $item_description;
+                                                class string:$item_wf_state_class visualIconPadding;">
+                        <span tal:replace="viewer/Title">
+                          Item Title
+                        </span>
+                    </a>
+                </span>
+            </div>
+            </tal:dataViewers>
+            <div class="visualClear">&nbsp;</div>
+        </tal:block>
+
         <!-- Relations to other -->
         <tal:block metal:define-macro="related-others" define="value python:related_products['other']"
                    condition="value">
