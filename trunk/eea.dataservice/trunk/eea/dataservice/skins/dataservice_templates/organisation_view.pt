@@ -28,7 +28,7 @@
 
         <fieldset class="organisation-statistics"
                   tal:condition="python:len(odatasets) or len(ofigures)">
-          <legend i18n:translate="statistics">Statistics</legend>
+          <legend i18n:translate="contribution">Contribution</legend>
 
             <!-- Owner -->
             <h5 class="organisation-header-top"
