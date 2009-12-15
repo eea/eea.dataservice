@@ -468,7 +468,7 @@ function showDefinition(context) {
                        condition="value">
                 <dd>
                     <a href="#" title=""
-                       tal:attributes="href value/getUrl; title value/Title"
+                       tal:attributes="href value/getURL; title value/Title"
                        tal:content="value/Title" />
                 </dd>
             </tal:block>
@@ -485,7 +485,7 @@ function showDefinition(context) {
                        condition="value">
                 <dd>
                     <a href="#" title=""
-                       tal:attributes="href value/getUrl; title value/Title"
+                       tal:attributes="href value/getURL; title value/Title"
                        tal:content="value/Title" />
                 </dd>
             </tal:block>

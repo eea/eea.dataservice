@@ -4,6 +4,8 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Link of owners and processors are pointing to related organisation,
+   no more externals links. [ghicaale]
  * Organisation view labels updated. [ghicaale]
  * Data viewers listing on datasets view showing thumb and real actual link to the viewer. [ghicaale #2852]
  * Fixed that 'installVocabularies' import step is only run if
