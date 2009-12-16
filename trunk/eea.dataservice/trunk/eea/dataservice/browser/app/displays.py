@@ -100,17 +100,21 @@ class DatasetRelatedProducts(object):
         has_data = False
         data = self.context.getRelatedProducts()
         for ob in data:
-            if ob.portal_type == 'EEAFigure':
-                res['figures'].append(ob)
-            elif IReportContainerEnhanced.providedBy(ob):
-                res['reports'].append(ob)
-            elif 'data viewer' in ob.Title() and ob.portal_type in ['Promotion', 'GIS Map Application']:
-                res['data_viewers'].append(ob)
-            else:
-                if self.context.portal_type == 'EEAFigure' and ob.portal_type == 'Data':
-                    res['datasets'].append(ob)
+            # Only published objects
+            wftool = getToolByName(self.context, 'portal_workflow')
+            state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
+            if state == 'published':
+                if ob.portal_type == 'EEAFigure':
+                    res['figures'].append(ob)
+                elif IReportContainerEnhanced.providedBy(ob):
+                    res['reports'].append(ob)
+                elif 'data viewer' in ob.Title() and ob.portal_type in ['Promotion', 'GIS Map Application']:
+                    res['data_viewers'].append(ob)
                 else:
-                    res['other'].append(ob)
+                    if self.context.portal_type == 'EEAFigure' and ob.portal_type == 'Data':
+                        res['datasets'].append(ob)
+                    else:
+                        res['other'].append(ob)
 
         # Format figures for album view
         uids = []

@@ -4,6 +4,7 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Only published relations are displayed [ghicaale #2876]
  * Link of owners and processors are pointing to related organisation,
    no more externals links. [ghicaale]
  * Organisation view labels updated. [ghicaale]
