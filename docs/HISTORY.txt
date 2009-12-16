@@ -4,6 +4,8 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * ImageFS are using now eea_imagefs_workflow so no need
+   to change state during convert map. [ghicaale]
  * Only published relations are displayed [ghicaale #2876]
  * Link of owners and processors are pointing to related organisation,
    no more externals links. [ghicaale]
