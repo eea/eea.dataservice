@@ -3,14 +3,15 @@
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title">Organisation</property>
- <property name="description">EEA, European Topic Centres and Other external bodies</property>
+ <property
+    name="description">EEA, European Topic Centres and Other external bodies</property>
  <property name="content_icon">organisation-icon.png</property>
  <property name="content_meta_type">Organisation</property>
  <property name="product">eea.dataservice</property>
  <property name="factory">addOrganisation</property>
- <property name="immediate_view">base_view</property>
+ <property name="immediate_view">organisation_view</property>
  <property name="global_allow">True</property>
- <property name="filter_content_types">False</property>
+ <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
  <property name="default_view">organisation_view</property>
