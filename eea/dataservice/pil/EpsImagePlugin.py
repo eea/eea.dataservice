@@ -245,10 +245,10 @@ class EpsImageFile(PILEpsImageFile):
 
     def load(self):
         # Load EPS via Ghostscript
-        dpi = getattr(self, 'dpi', None)
-
         if not self.tile:
             return
+
+        dpi = getattr(self, 'dpi', None)
         self.im = Ghostscript(self.tile, self.size, self.fp, dpi=dpi)
         self.mode = self.im.mode
         self.size = self.im.size
