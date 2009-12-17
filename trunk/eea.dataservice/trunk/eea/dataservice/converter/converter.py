@@ -41,6 +41,47 @@ class ConvertMap(object):
                 self.formats.append(key)
         return self.formats
 
+    def get_aspect_ratio(self, width, height, to=2048):
+        """ Get resize aspect ratio
+
+            >>> ConvertMap(None, None).get_aspect_ratio(1024, 800, 640)
+            (640, 500)
+
+            >>> ConvertMap(None, None).get_aspect_ratio(1024, 1280)
+            (1638, 2048)
+        """
+        to_w = to_h = to
+        sw = float(to_w) / width
+        sh = float(to_h) / height
+        if sw == sh:
+            return to_w, to_h
+        elif sw < sh:
+            to_h = int(round(sw * height))
+        else:
+            to_w = int(round(sh * width))
+        return to_w, to_h
+
+    def handle_zoom(self, im, output):
+        """ Convert to PNG: 2048x2048px, 75dpi with a tolerance of 20%
+        """
+        width, height = im.size
+        if width >= 1640 or height >= 1640:
+            im.dpi = 75
+        else:
+            dw = int(round(2048.0 / width))
+            dh = int(round(2048.0 / height))
+            im.dpi = 75 * min(dw, dh)
+        im.load()
+
+        width, height = im.size
+        if width > 2450 or height > 2450:
+            width, height = self.get_aspect_ratio(width, height, to=2048)
+            try:
+                im = im.resize((width, height), Image.ANTIALIAS)
+            except AttributeError:
+                im = im.resize((width, height))
+        im.save(output, 'PNG')
+
     def __call__(self, cronjob=0, purge=True):
         err = 0
 
@@ -59,15 +100,16 @@ class ConvertMap(object):
                 if img_dpi == 'default':
                     im_id = '.'.join((accessor.filename, img_format[:3].lower()))
                 elif img_format == 'ZOOM':
-                    img_format = 'PNG'
-                    im_id = '.'.join((accessor.filename, 'zoom', img_format[:3].lower()))
+                    im_id = '.'.join((accessor.filename, 'zoom.png'))
                 else:
                     im_id = '.'.join((accessor.filename, img_dpi + 'dpi', img_format[:3].lower()))
 
                 outfile = StringIO()
                 try:
                     im = Image.open(StringIO(self.context.getFile().getBlob().open().read()))
-                    if img_dpi == 'default':
+                    if img_format == 'ZOOM':
+                        self.handle_zoom(im, outfile)
+                    elif img_dpi == 'default':
                         im.dpi = 400
                         im.save(outfile, img_format)
                     else:
