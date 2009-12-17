@@ -4,6 +4,7 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Fix: and minus for data table expand. [ghicaale]
  * Fix: to low/high resolution for zoom images [voineali #2877]
  * ImageFS are using now eea_imagefs_workflow so no need
    to change state during convert map. [ghicaale]

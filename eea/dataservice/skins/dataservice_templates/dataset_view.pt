@@ -39,13 +39,13 @@ function setTableDefShow() {
 };
 
 function showDefinition(context) {
-  if (jQuery(context).html() == '[-]') {
+  if (jQuery(context).html() == '[+]') {
     jQuery(context).parent().next().css("display","block");
     jQuery(context).html('[x]');
   }
   else {
     jQuery(context).parent().next().css("display","none");
-    jQuery(context).html('[-]');
+    jQuery(context).html('[+]');
   }
 }
 //-->
@@ -97,7 +97,7 @@ function showDefinition(context) {
                                value python:field.getAccessor(table)()"
                       condition="value">
                 <p>
-                  <span class="table-definition-show" >[-]</span>
+                  <span class="table-definition-show" >[+]</span>
                   <span i18n:translate="show_table_definition">Show table definition</span>
                   <tal:records condition="table/records">
                     (<span class="table-records" i18n:translate="records">records:</span>
