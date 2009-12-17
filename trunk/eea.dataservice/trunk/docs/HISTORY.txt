@@ -4,6 +4,7 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * Tags for datasets and figures are now clickable. [ghicaale #2863]
  * Fix: and minus for data table expand. [ghicaale]
  * Fix: to low/high resolution for zoom images [voineali #2877]
  * ImageFS are using now eea_imagefs_workflow so no need
