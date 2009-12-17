@@ -60,7 +60,11 @@
        <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
        <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
        <metal:related use-macro="here/dataset_view/macros/publish-date" />
-       <metal:related use-macro="here/dataset_view/macros/tags" />
+       <tal:tags tal:define="container string:figures;
+                         facetId string:c9;
+                         alec context/getId">
+            <metal:related use-macro="here/dataset_view/macros/tags" />
+       </tal:tags>
        <metal:related use-macro="here/dataset_view/macros/rights" />
        <metal:related use-macro="here/dataset_view/macros/last-upload" />
        <metal:related use-macro="here/dataset_view/macros/source" />
