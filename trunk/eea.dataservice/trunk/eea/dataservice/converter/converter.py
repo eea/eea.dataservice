@@ -93,7 +93,7 @@ class ConvertMap(object):
                 # We changed ImageFS worflow from eea_data_workflow to eea_imagefs_workflow
                 # and we dont need anymore the below transitions
 
-                ## Set state (old eea_data_workflow
+                ## Set state
                 #wftool = getToolByName(self.context, 'portal_workflow')
                 #try:
                     #wftool.doActionFor(im_ob, 'quickPublish',
