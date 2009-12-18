@@ -363,18 +363,18 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Tags -->
-    <tal:block define="container string:data;
+    <tal:block define="facetContainer string:data;
                        facetId string:c17">
         <tal:block metal:define-macro="tags"
                    define="value context/getKeywords;
-                           container string:container;
-                           facetId string:facetId"
+                           facetContainer facetContainer;
+                           facetId facetId"
                    condition="value">
             <dt i18n:translate="dataset_keywords">Tags:</dt>
             <dd>
                 <tal:tags repeat="tag python:value.split(', ')">
                     <a tal:attributes="title tag;
-                                       href string:$portal_url/data-and-maps/${container}#c5=all&c0=5&b_start=0&${facetId}=${tag};"
+                                       href string:$portal_url/data-and-maps/${facetContainer}#c5=all&c0=5&b_start=0&${facetId}=${tag};"
                        tal:content="tag" />
                     <tal:block condition="not:repeat/tag/end"> | </tal:block>
                 </tal:tags>
