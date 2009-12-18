@@ -7,17 +7,7 @@
 
 <div metal:fill-slot="main">
 
-    <!-- Title -->
-    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
-    <div class="documentActions languages">
-        <tal:lang tal:condition="exists: here/global_languageselector">
-            <metal:lang use-macro="here/global_languageselector/macros/language" />
-        </tal:lang>
-    </div>
-    <div class="visualClear">&nbsp;</div>
-
-    <!-- Description -->
-    <p class="publicationDescription" tal:content="context/Description" />
+    <metal:basic use-macro="here/dataset_view/macros/basic" />
 
     <!-- Statistics -->
     <tal:block define="data context/@@organisationStatistics;
