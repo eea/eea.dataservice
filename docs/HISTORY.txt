@@ -4,9 +4,9 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
- * Organisation view use now correct macros. [ghicaale]
+ * Organisation view use now correct macros. [ghicaale #2886]
  * Tags for datasets and figures are now clickable. [ghicaale #2863]
- * Fix: and minus for data table expand. [ghicaale]
+ * Fix: and minus for data table expand. [ghicaale #2886]
  * Fix: to low/high resolution for zoom images [voineali #2877]
  * ImageFS are using now eea_imagefs_workflow so no need
    to change state during convert map. [ghicaale]
