@@ -126,6 +126,10 @@ DataService.Survey = {
       jQuery(this).dialog('close');
     };
 
+    res.Skip = function(){
+      js_context.download('skipped=1');
+      jQuery(this).dialog('close');
+    };
     return res;
   },
 
@@ -142,7 +146,9 @@ DataService.Survey = {
 
   download: function(query){
     if(!jQuery.cookie(this.cookie)){
-      jQuery.cookie(this.cookie, query, {expires: 1, path: '/'});
+      if(query!='skipped=1'){
+        jQuery.cookie(this.cookie, query, {expires: 1, path: '/'});
+      }
     }
 
     var next_id = this.selected.attr('id');
