@@ -409,8 +409,9 @@ class GetTablesByCategory(object):
     def __call__(self):
         res = {}
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : ['DataTable'],
-                                    'path': '/'.join(self.context.getPhysicalPath())})
+        brains = cat.searchResults({'portal_type': ['DataTable'],
+                                    'path': '/'.join(self.context.getPhysicalPath()),
+                                    'sort_on': 'sortable_title'})
 
         # Get DataTable files
         for brain in brains:
