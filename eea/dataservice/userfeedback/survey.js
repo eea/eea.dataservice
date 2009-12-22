@@ -33,7 +33,7 @@ DataService.Survey = {
   init_survey: function(){
     var js_context = this;
     js_context.survey = jQuery('<div>');
-    js_context.survey.attr('title', 'Download agreement');
+    js_context.survey.attr('title', 'Usage feedback');
     jQuery.get('@@survey.html', {}, function(data){
       js_context.survey.html(data);
 

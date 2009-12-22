@@ -1,18 +1,10 @@
 <div id="survey-description" style="border-bottom: 1px dotted black">
   <div i18n:translate="">
-  In order to download this dataset, we ask you to fill in the agreement form below.
-  After the form is filled you will get immediate access to the data.
-  </div>
-
-  <div style="padding: 1em;">
-    <small i18n:translate="">
-    This dataset is under copyright of the EEA and within the public domain.
-    Public domain information may be used free of charge, provided the source
-    is acknowledged. The acknowledgement should read "(c) EEA, Copenhagen, [year]".
-    </small>
+  Before downloading this dataset, please give us some feedback about the usage of this dataset. This will 
+help us improving our online services. <strong>One question only.</strong>
   </div>
 </div>
-
+<h2>In which sectors/topics you intend to use this dataset?</h2>
 <form id="survey-content" action="." tal:define="
   sectors python:view.vocabulary(u'eea.dataservice.vocabularies.economic-sectors');
   domains python:view.vocabulary(u'eea.dataservice.vocabularies.environmental-domains');">
