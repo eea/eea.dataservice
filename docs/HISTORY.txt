@@ -4,6 +4,7 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * updated text for data survey, it is not an agreement. [demarant #2814]
  * DataTables sorted alphabetically under a category. [ghicaale #2888]
  * Quick fix: files are now listed if file size equal zero but size information if hiden. [ghicaale #2889]
  * Organisation view use now correct macros. [ghicaale #2886]
