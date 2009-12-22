@@ -114,8 +114,7 @@ function showDefinition(context) {
                     <li tal:define="field python:file.getFile();
                                     icon field/getBestIcon | nothing;
                                     filename field/filename | nothing;
-                                    size field/get_size;"
-                        tal:condition="size">
+                                    size field/get_size;">
                         <a tal:define="
                            filePath string:/datasets/ga-downloads/$lastVersion;
                            survey here/@@survey_support|nothing;
@@ -135,7 +134,8 @@ function showDefinition(context) {
                         </a>
                         (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
                         <tal:size define="displaySize nocall:context/displaySize"
-                                  content="python:displaySize(size)">0Kb</tal:size>)
+                                  content="python:displaySize(size)"
+                                  condition="size">0Kb</tal:size>)
                         <br />
                     </li>
                 </tal:block>
