@@ -18,7 +18,7 @@
    <bound-workflow workflow_id="eea_data_workflow"/>
   </type>
   <type type_id="ImageFS">
-   <bound-workflow workflow_id="eea_data_workflow"/>
+   <bound-workflow workflow_id="eea_imagefs_workflow"/>
   </type>
  </bindings>
 </object>

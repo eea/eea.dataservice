@@ -21,11 +21,12 @@ def install(portal):
         qi.uninstallProducts([product_name])
 
     # DCWorkflowDump doesn't yet support the 'manager_bypass'
-    WF_ID = 'eea_data_workflow'
+    WF_IDs = ['eea_data_workflow', 'eea_imagefs_workflow']
     wf_tool = getToolByName(portal, 'portal_workflow')
-    if WF_ID in wf_tool.objectIds():
-        wfobj = wf_tool.getWorkflowById(WF_ID)
-        wfobj.manager_bypass = 1
+    for wf_id in WF_IDs:
+        if wf_id in wf_tool.objectIds():
+            wfobj = wf_tool.getWorkflowById(wf_id)
+            wfobj.manager_bypass = 1
 
     # enable portal_factory for given types
     factory_tool = getToolByName(portal, 'portal_factory')
