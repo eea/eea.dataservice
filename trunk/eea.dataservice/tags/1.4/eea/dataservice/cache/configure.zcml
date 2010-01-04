@@ -1,0 +1,17 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea.dataservice">
+
+  <subscriber
+    for="eea.dataservice.interfaces.IDatafile
+         eea.dataservice.events.IFileUploadedEvent"
+    handler="eea.dataservice.cache.squid.invalidate_file_cache"
+  />
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+         eea.dataservice.events.IFileUploadedEvent"
+    handler="eea.dataservice.cache.squid.invalidate_file_cache"
+  />
+
+</configure>

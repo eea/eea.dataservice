@@ -1,0 +1,58 @@
+Changelog
+=========
+[Alexandru Ghica - alec.ghica@eaudeweb.ro]
+[Antonio De Marinis - demarinis@eea.europa.eu]
+
+1.4 - (2010-01-04)
+------------------
+ * ImageFS workflow added. [ghicaale]
+ * Add 'Skip' button on survey page. [voineali #2891]
+ * Updated text for data survey, it is not an agreement. [demarant #2814]
+ * DataTables sorted alphabetically under a category. [ghicaale #2888]
+ * Quick fix: files are now listed if file size equal zero but size information if hiden. [ghicaale #2889]
+ * Organisation view use now correct macros. [ghicaale #2886]
+ * Tags for datasets and figures are now clickable. [ghicaale #2863]
+ * Fix: and minus for data table expand. [ghicaale #2886]
+ * Fix: to low/high resolution for zoom images [voineali #2877]
+ * ImageFS are using now eea_imagefs_workflow so no need
+   to change state during convert map. [ghicaale]
+ * Only published relations are displayed [ghicaale #2876]
+ * Link of owners and processors are pointing to related organisation,
+   no more externals links. [ghicaale]
+ * Organisation view labels updated. [ghicaale]
+ * Data viewers listing on datasets view showing thumb and real actual link to the viewer. [ghicaale #2852]
+ * Fixed that 'installVocabularies' import step is only run if
+   we are in eea.dataservice profile. [ghicaale]
+ * Categories sort order of datasets based on order of vocabulary items order
+   on 'categories' vocabulary. DataFiles are now sorted based on filename. [ghicaale #2858]
+ * Fixed download IDs to be unique so survey can differentiate between them. [ghicaale #2860]
+ * Transaction savapoint added as convertion process can take some time to be
+   finnished if several EPS files are converted during same action. [ghicaale #2850]
+ * More logging added to "Convert figure" and "Convert all figures" [ghicaale #2819]
+
+1.3 - (2009-12-04)
+------------------
+ * "Last upload" and "Publish date" formated with toLocalizedTime [ghicaale #2819]
+ * Added empty value for years list on management plan code field [ghicaale #2819]
+ * Fixed broken "GetCountryGroups" view [ghicaale #2800]
+
+1.2 - (2009-11-27)
+------------------
+ * Fixed broken link from publications, now pointing to dataservice 2.0 objects [ghicaale #2823]
+ * Fixed vocabulary for datasets quick links [ghicaale #2828]
+ * Organisation view now display statistics about related owners and processors [ghicaale #2815]
+ * Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET" [ghicaale]
+ * Fixed external url or interactive data viewers in portlet_dataviewers.pt [ghicaale]
+ * Fixed second zoom on large figures [voineali #2808]
+ * Display only the latest version available in versions box [voineali #2798]
+ * Fix custom faceted geocoverage widget counting and optimize query and count
+   methods [voineali #2800]
+
+1.1 - (2009-11-18)
+------------------
+ * Hide empty files on views [ghicaale]
+ * Fixed link to latest version on EEAFigure view template [ghicaale]
+
+1.0 -(2009-11-10)
+-----------------
+ * Initial release [ghicaale]
