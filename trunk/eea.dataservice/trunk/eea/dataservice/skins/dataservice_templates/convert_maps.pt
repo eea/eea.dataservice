@@ -5,7 +5,7 @@
 <body>
 
 <div metal:fill-slot="main">
- <h1 i18n:translate="">Convert all maps</h1>
+ <h1 i18n:translate="">Convert all figures</h1>
 
  <form name="frmConvert" action="@@convertAllMaps" method="put">
   <input class="context" type="submit" name="convert" value="Convert" />
