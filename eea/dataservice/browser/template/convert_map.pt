@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<div metal:fill-slot="main">
+ <script>
+  jQuery(document).ready(function() { convertMap(); });
+
+  function convertMap() {
+   jQuery.get('@@convertMap');
+  };
+ </script>
+
+ <h1 class="documentFirstHeading" i18n:translate="">Convert figure</h1>
+
+ <p class="documentDescription" i18n:translate="">
+   This operation might take a while, a notification
+   will be sent to user@eea.europa.eu after convertion is done.
+ </p>
+
+</div>
+
+</body>
+</html>

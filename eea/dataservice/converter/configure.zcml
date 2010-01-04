@@ -37,7 +37,7 @@
       for="eea.dataservice.interfaces.IEEAFigureFile"
       menu="object_buttons"
       title="Convert figure"
-      action="@@convertMap"
+      action="@@convertMapAjax"
       description="Convert figure to predefined formats and resolutions"
       permission="cmf.ModifyPortalContent"
       />
