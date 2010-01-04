@@ -4,6 +4,7 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+ * ImageFS workflow added. [ghicaale]
  * Add 'Skip' button on survey page. [voineali #2891]
  * Updated text for data survey, it is not an agreement. [demarant #2814]
  * DataTables sorted alphabetically under a category. [ghicaale #2888]
