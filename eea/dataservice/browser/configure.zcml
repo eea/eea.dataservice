@@ -232,13 +232,6 @@
     permission="zope.Public"
     />
 
-  <browser:page
-      name="convertMapAjax"
-      template="template/convert_map.pt"
-      for="*"
-      permission="zope2.View"
-      />
-
   <browser:resource
     name="eea.dataservice.view.js"
     file="javascript/view.js"
