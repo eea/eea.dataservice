@@ -80,3 +80,13 @@
   border: 1px solid black;
   background-color: red;
 }
+
+/* Convert all figures */
+.convert-all-figures dt {
+  background-color: #ccc;
+}
+
+.convert-all-figures dd {
+  margin-bottom: 0;
+  margin-left: 0.2em;
+}
