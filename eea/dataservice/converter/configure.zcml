@@ -20,9 +20,9 @@
 
   <browser:page
       for="eea.dataservice.interfaces.IEEAFigure"
-      name="convertAllMaps"
+      name="convertAllFigures"
       permission="cmf.ModifyPortalContent"
-      class=".converter.ConvertAllMaps"
+      class=".converter.ConvertAllFigures"
       />
 
   <browser:page
@@ -33,10 +33,17 @@
       />
 
   <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
       name="convertFigure"
       template="convert_figure.pt"
-      for="*"
       permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="convertionInfo"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertionInfo"
       />
 
   <browser:menuItem
@@ -60,6 +67,11 @@
   <browser:resource
       name="eea.dataservice.convert_figure.js"
       file="convert_figure.js"
+     />
+
+  <browser:resource
+      name="eea.dataservice.convert_figures.js"
+      file="convert_figures.js"
      />
 
 </configure>

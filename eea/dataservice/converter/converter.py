@@ -159,8 +159,8 @@ class ConvertMap(object):
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url())
 
-class ConvertAllMaps(object):
-    """ Convert all the maps found in the current context
+class ConvertAllFigures(object):
+    """ Convert all the EEAFigures found in the current context
     """
 
     def __init__(self, context, request):
@@ -169,10 +169,10 @@ class ConvertAllMaps(object):
 
     def __call__(self):
         if self.request.form.has_key('convert'):
-            #Convert
+            # Convert
             msg = "Conversion finnished."
             for ob in self.context.objectValues('EEAFigureFile'):
-                obConvert = ob.unrestrictedTraverse('@@convertMap')
+                obConvert = ob.unrestrictedTraverse('@@convertFigure')
                 info('INFO: Start converting %s', ob.getId())
                 obConvert()
                 transaction.savepoint()
@@ -180,7 +180,7 @@ class ConvertAllMaps(object):
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
             return self.request.RESPONSE.redirect(self.context.absolute_url())
         else:
-            #Cancel
+            # Cancel
             msg = "Convertion canceled."
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
             return self.request.RESPONSE.redirect(self.context.absolute_url())
@@ -235,3 +235,18 @@ class CheckFiguresConvertion(object):
                 transaction.savepoint()
 
         return msg
+
+class ConvertionInfo(object):
+    """ Return info about the last convertion(s)
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        res = None
+        images = self.context.objectValues('ImageFS')
+        if images:
+            res = images[0].ModificationDate()
+        return res
