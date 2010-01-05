@@ -25,7 +25,6 @@
       class=".converter.ConvertAllMaps"
       />
 
-
   <browser:page
       for="eea.dataservice.interfaces.IEEAFigure"
       name="convertAction"
@@ -33,11 +32,18 @@
       class=".converter.ConvertAction"
       />
 
+  <browser:page
+      name="convertFigure"
+      template="convert_figure.pt"
+      for="*"
+      permission="zope2.View"
+      />
+
   <browser:menuItem
       for="eea.dataservice.interfaces.IEEAFigureFile"
       menu="object_buttons"
       title="Convert figure"
-      action="@@convertMapAjax"
+      action="@@convertFigure"
       description="Convert figure to predefined formats and resolutions"
       permission="cmf.ModifyPortalContent"
       />
@@ -50,5 +56,10 @@
       description="Convert all figures to predefined formats and resolutions"
       permission="cmf.ModifyPortalContent"
       />
+
+  <browser:resource
+      name="eea.dataservice.convert_figure.js"
+      file="convert_figure.js"
+     />
 
 </configure>
