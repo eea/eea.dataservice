@@ -15,9 +15,12 @@
  <h1 class="documentFirstHeading" i18n:translate="">Convert figure</h1>
 
  <p class="documentDescription" i18n:translate="">
-   This operation might take a while, a notification
-   will be sent to user@eea.europa.eu after convertion is done.
+   This operation might take a while.
  </p>
+
+ <img id="convert-loading" tal:attributes="src string:${context/absolute_url}/ajax-loader-small.gif" />
+ <strong style="color: red" id="convert-label" i18n:translate="">converting</strong>
+ <p id="convert-status" />
 
 </div>
 

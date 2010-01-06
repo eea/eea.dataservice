@@ -5,6 +5,7 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+ * Figure convertions asyncronus. #2895
  * Download figure if no thumb on atct_album_view. [ghicaale #2897]
 
 1.4 - (2010-01-04)

@@ -19,23 +19,16 @@
       />
 
   <browser:page
-      for="eea.dataservice.interfaces.IEEAFigure"
-      name="convertAllFigures"
-      permission="cmf.ModifyPortalContent"
-      class=".converter.ConvertAllFigures"
-      />
-
-  <browser:page
-      for="eea.dataservice.interfaces.IEEAFigure"
-      name="convertAction"
-      permission="cmf.ModifyPortalContent"
-      class=".converter.ConvertAction"
-      />
-
-  <browser:page
       for="eea.dataservice.interfaces.IEEAFigureFile"
       name="convertFigure"
       template="convert_figure.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigure"
+      name="convertFigures"
+      template="convert_figures.pt"
       permission="zope2.View"
       />
 
@@ -59,7 +52,7 @@
       for="eea.dataservice.interfaces.IEEAFigure"
       menu="object_buttons"
       title="Convert all figures"
-      action="@@convertAction"
+      action="@@convertFigures"
       description="Convert all figures to predefined formats and resolutions"
       permission="cmf.ModifyPortalContent"
       />
