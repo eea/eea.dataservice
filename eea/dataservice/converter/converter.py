@@ -159,47 +159,6 @@ class ConvertMap(object):
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url())
 
-class ConvertAllFigures(object):
-    """ Convert all the EEAFigures found in the current context
-    """
-
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self):
-        if self.request.form.has_key('convert'):
-            # Convert
-            msg = "Conversion finnished."
-            for ob in self.context.objectValues('EEAFigureFile'):
-                obConvert = ob.unrestrictedTraverse('@@convertFigure')
-                info('INFO: Start converting %s', ob.getId())
-                obConvert()
-                transaction.savepoint()
-
-            IStatusMessage(self.request).addStatusMessage(msg, type='info')
-            return self.request.RESPONSE.redirect(self.context.absolute_url())
-        else:
-            # Cancel
-            msg = "Convertion canceled."
-            IStatusMessage(self.request).addStatusMessage(msg, type='info')
-            return self.request.RESPONSE.redirect(self.context.absolute_url())
-
-class ConvertAction(object):
-    """ Convert all the maps found in the current context
-    """
-
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self):
-        msg = "This operation might take some time."
-        if not self.request:
-            return msg
-        IStatusMessage(self.request).addStatusMessage(msg, type='info')
-        return self.request.RESPONSE.redirect(self.context.absolute_url() + '/convert_maps')
-
 class CheckFiguresConvertion(object):
     """ Check all EEAFigureFiles if are converted and converts them if not
     """

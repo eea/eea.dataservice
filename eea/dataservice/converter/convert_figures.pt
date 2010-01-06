@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="convert python:request.get('convert', None);
                  figures python:request.get('figures', None)">
- <h1 i18n:translate="">Convert all figures</h1>
+ <h1 i18n:translate="">Convert figures</h1>
 
  <div tal:condition="convert">
    <p class="documentDescription" i18n:translate="">
@@ -24,30 +24,42 @@
      The following figures will be converted:
    </p>
 
-   <ul>
+   <ul id="figures-to-convert">
      <tal:figures repeat="figure figures">
-       <li tal:define="figure_title python:context[figure].Title"
-           tal:content="figure_title" />
+       <li tal:define="figure_ob python:context[figure];
+                       figure_title python:figure_ob.pretty_title_or_id;
+                       figure_id python:figure_ob.getId()">
+          <img tal:attributes="id string:${figure_id}-loading;
+                               src string:${context/absolute_url}/ajax-loader-small.gif" />
+          <strong style="color: red" i18n:translate=""
+                  tal:attributes="id string:${figure_id}-label">converting</strong>
+          <span tal:content="figure_title"
+                tal:attributes="id figure_id" />
+          <p tal:attributes="id string:${figure_id}-status" />
+       </li>
      </tal:figures>
    </ul>
  </div>
 
- <!-- form name="frmConvert" action="@@convertAllFigures" method="put" -->
  <form name="frmConvert" method="put" id="convert-all"
        tal:condition="not:convert"
-       tal:attributes="action string:${context/absolute_url}/convert_maps">
+       tal:attributes="action string:${context/absolute_url}/@@convertFigures">
+
+  <p class="documentDescription" i18n:translate="">
+    Select figures to be converted.
+  </p>
+
   <input class="context" type="submit" name="convert" value="Convert" />
-  <input class="context" type="submit" name="cancel" value="Cancel" />
 
   <br /><br />
   <input type="checkbox" name="checkAll" id="checkAll" value="Check all" title="Check all" />
-  <label for="checkAll" title="Check all">Check all</label>
+  <label for="checkAll" title="Check all" i18n:translate="">Check all</label>
 
  <dl class="convert-all-figures">
   <tal:figures repeat="figure python:context.objectValues('EEAFigureFile')">
-   <dt tal:define="figure_title figure/title_or_id;
+   <dt tal:define="figure_title figure/pretty_title_or_id;
                    figure_id figure/getId">
-     <input type="checkbox" name="figures"
+     <input type="checkbox" name="figures:list"
             tal:attributes="value figure_id;
                             id figure_id;
                             title figure_title" />
