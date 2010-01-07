@@ -17,8 +17,7 @@
 
  <div tal:condition="convert">
    <p class="documentDescription" i18n:translate="">
-     This operation might take a while, a notification
-     will be sent to user@eea.europa.eu after each convertion is done.
+     This operation might take a while.
    </p>
    <p class="documentDescription" i18n:translate="">
      The following figures will be converted:

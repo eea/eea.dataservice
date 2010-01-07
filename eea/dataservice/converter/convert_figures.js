@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
       $("INPUT[type='checkbox']").attr('checked', $('#checkAll').is(':checked'));
       $('#checkAll').attr('checked', status);
     }
-)
+  )
 });
 
 function convertFigures() {
