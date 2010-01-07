@@ -5,6 +5,7 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+ * Fix: get also the backreference for 'Related Products'. [ghicaale #2890]
  * Figure convertions asyncronus. [ghicaale #2895]
  * Download figure if no thumb on atct_album_view. [ghicaale #2897]
 
