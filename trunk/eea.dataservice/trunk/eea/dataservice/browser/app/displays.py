@@ -98,8 +98,17 @@ class DatasetRelatedProducts(object):
     def __call__(self):
         res = {'figures': [], 'reports': [], 'datasets': [], 'other': [], 'data_viewers':[], 'has_data': False}
         has_data = False
-        data = self.context.getRelatedProducts()
-        for ob in data:
+
+        references = []
+        forwards = self.context.getRelatedProducts()
+        backs = IRelations(self.context).backReferences(relatesTo='relatesToProducts')
+
+        # make sure we don't get duplicates
+        references = backs
+        ruids = [ref.UID() for ref in references]
+        references += [ref for ref in forwards if ref.UID() not in ruids]
+
+        for ob in references:
             # Only published objects
             wftool = getToolByName(self.context, 'portal_workflow')
             state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
