@@ -6,7 +6,6 @@ __docformat__ = 'plaintext'
 import operator
 import xmlrpclib
 
-from Products.CMFPlone.PloneBatch import Batch
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.PloneLanguageTool.availablelanguages import getCountries
@@ -166,7 +165,7 @@ class PublicationBasedOn(object):
         [uids.append(ob.UID()) for ob in references]
         query = {'UID': uids, 'review_state':'published'}
         brains = [b for b in cat.searchResults(query)]
-        return Batch(brains, 1000, 0, 100)
+        return brains
 
 class DatasetBasedOn(object):
     """ Returns 'based on' datasets
