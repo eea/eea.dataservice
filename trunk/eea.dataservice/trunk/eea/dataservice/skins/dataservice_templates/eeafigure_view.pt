@@ -32,8 +32,10 @@
   <div metal:define-macro="figures-album" class="map-photo-album"
     tal:repeat="child context/@@getEEAFigureFiles">
     <tal:child define="
+      Batch python:modules['Products.CMFPlone'].Batch;
+      b_start python:request.get('b_start', 0);
+      folderContents python:Batch(child[1], 100, int(b_start), orphan=1);
       categ python:child[0];
-      folderContents python:child[1];
       categView nocall:context/@@getCategoryName;
       categ_name python:categView(categ);">
       <h4 tal:content="categ_name" tal:attributes="
