@@ -132,15 +132,11 @@ class DatasetRelatedProducts(object):
         cat = getToolByName(self.context, 'portal_catalog')
         query = {'UID': uids,
                  'review_state':'published'}
-        brains = cat(**query)
-        res['figures'] = Batch(brains, 1000, 0, 100)
+        res['figures'] = cat(**query)
 
         # Determine if any values
         for key in res.keys():
-            if key == 'figures' and res[key].start:
-                res['has_data'] = True
-            elif key != 'figures' and res[key]:
-                res['has_data'] = True
+            if res[key]: res['has_data'] = True
 
         return res
 
@@ -575,7 +571,7 @@ class GetEEAFigureFiles(object):
             res[categ].append(brain)
 
         for categ, brains in res.items():
-            yield categ, Batch(brains, 1000, 0, 100)
+            yield categ, brains
 
 class MainFigures(object):
     """ Main figures based on last modified and

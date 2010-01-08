@@ -149,9 +149,11 @@ function showDefinition(context) {
     <tal:block define="related_products context/@@getRelatedProducts">
         <!-- Relations to figures -->
         <tal:block metal:define-macro="related-figures" define="value python:related_products['figures']"
-                   condition="value/start">
+                   condition="value">
             <h4 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h4>
-            <div tal:define="folderContents value">
+            <div tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                             b_start python:request.get('b_start', 0);
+                             folderContents python:Batch(value, 12, int(b_start), orphan=1)">
                 <metal:figures use-macro="here/atct_album_view/macros/listing" />
             </div>
         </tal:block>
