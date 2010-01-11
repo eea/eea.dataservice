@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+
 from zope.event import notify
 from eea.dataservice.events import FileUploadedEvent
 from plone.app.blob.field import BlobField

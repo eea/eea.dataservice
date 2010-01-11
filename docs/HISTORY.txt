@@ -5,6 +5,10 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+ * Added an organisation URL validator in order to have only
+   unique URLs poiting from organisations. [ghicaale #2914]
+ * Fix: no more duplicates in organisation vocabulary even if there are
+   more then one organisation with same url. [ghicaale #2914]
  * Batch on album view for datasets and figures is now customisable. [ghicaale #2908]
  * Fix: get also the backreference for 'Related Products'. [ghicaale #2890]
  * Figure convertions asyncronus. [ghicaale #2895]

@@ -7,6 +7,7 @@ from datetime import datetime
 from DateTime import DateTime
 
 from Products.Archetypes.atapi import *
+from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
@@ -42,6 +43,30 @@ class ManagementPlanCodeValidator:
         return 1
 
 validation.register(ManagementPlanCodeValidator('management_plan_code_validator'))
+
+class UniqueOrganisationUrlValidator:
+    __implements__ = IValidator
+
+    def __init__(self,
+                 name,
+                 title='Unique organisation URL',
+                 description='Unique organisation URL validator'):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+        cat = getToolByName(kwargs['instance'], 'portal_catalog')
+        brains = cat.searchResults({'portal_type': 'Organisation',
+                                    'getUrl': value})
+        if len(brains):
+            for brain in brains:
+                org_ob = brain.getObject()
+                if kwargs['instance'].UID() != org_ob.UID():
+                    return ("Validation failed, there is already an organisation poiting to this URL.")
+        return 1
+
+validation.register(UniqueOrganisationUrlValidator('unique_organisation_url_validator'))
 
 # Base schema for datasets and figures
 dataservice_base_schema = Schema((
