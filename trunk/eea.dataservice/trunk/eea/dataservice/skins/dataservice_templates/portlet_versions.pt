@@ -9,7 +9,7 @@
 
 <!-- Information about new versions -->
 <tal:new metal:define-slot="new" tal:define="newest python:versions.newest();">
-  <div class="portalMessage"
+  <div class="portalMessage warningMessage"
     tal:condition="python:has_versions and newest">
       <strong i18n:translate="new_version_available">
           Note: new version is available!
@@ -25,7 +25,7 @@
         </li>
       </ul>
   </div>
-  <div class="portalMessage" tal:define="oldest python:versions.oldest()"
+  <div class="portalMessage informationMessage" tal:define="oldest python:versions.oldest()"
     tal:condition="python:has_versions and (not newest) and oldest">
     <span i18n:translate="">This is the latest version published. See</span>
     <a tal:attributes="href string:${context/absolute_url}#previous-versions"

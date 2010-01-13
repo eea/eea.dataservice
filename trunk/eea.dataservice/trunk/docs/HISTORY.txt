@@ -5,6 +5,7 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+ * Added new style classes for messages on new or old version [demarant. #2389]
  * Added an organisation URL validator in order to have only
    unique URLs poiting from organisations. [ghicaale #2914]
  * Fix: no more duplicates in organisation vocabulary even if there are
