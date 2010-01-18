@@ -3,6 +3,9 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.6 - (Unreleased)
+------------------
+
 1.5 - (2010-01-18)
 ------------------
  * Added new style classes for messages on new or old version [demarant. #2389]
