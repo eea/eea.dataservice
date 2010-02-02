@@ -19,7 +19,7 @@
     font-style: italic; }
 
 .metadata-container {
-    margin-left: 5%; }
+    margin-left: 0; }
 
 .datatable-title {
     margin: 1.67em 0 0; }

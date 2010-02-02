@@ -5,6 +5,7 @@ Changelog
 
 1.6 - (Unreleased)
 ------------------
+ * Changed order of metadata on data and figure fields. [demarant. #2389]
 
 1.5 - (2010-01-18)
 ------------------
