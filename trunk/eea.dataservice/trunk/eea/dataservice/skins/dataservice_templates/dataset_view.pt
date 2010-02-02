@@ -70,7 +70,9 @@ function showDefinition(context) {
        tal:condition="here/Description">
         Description
     </p>
+
  </metal:basic>
+
 
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions">
@@ -143,6 +145,15 @@ function showDefinition(context) {
         </tal:block>
         </tal:table>
     </tal:tables>
+
+    <!-- Additional information -->
+    <tal:block  metal:define-macro="more-info" define="field python:context.getField('moreInfo');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <h4 i18n:translate="dataset_aditional_info">Additional information</h4>
+        <div class="additionalInfo" tal:content="structure value">Additional information</div>
+    </tal:block>
+
 
     <metal:related-products define-macro="related-products">
     <!-- Relation: related (plone) products -->
@@ -269,36 +280,9 @@ function showDefinition(context) {
     </tal:block>
     </metal:related-externals>
 
-    <!-- METADATA -->
-    <h4 i18n:translate="metadata">Metadata</h4>
     <div class="metadata-container">
     <dl>
 
-    <metal:basicmeta define-macro="basicmeta">
-        <!-- Short ID (debug) -->
-        <!-- tal:block define="field python:context.getField('shortId');
-                           value python:field.getAccessor(context)()"
-                   condition="value">
-            <dt i18n:translate="dataset_shortid">Short ID:</dt>
-            <dd tal:content="structure value">Short ID</dd>
-        </tal:block -->
-
-        <!-- GID (persistent link)  -->
-        <dt i18n:translate="dataset_gid">Permalink:</dt>
-        <dd tal:define="uid context/UID">
-            <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${uid};
-                               title uid"
-               tal:content="uid" />
-        </dd>
-    </metal:basicmeta>
-
-    <!-- Link to latest version -->
-    <dt i18n:translate="dataset_lastVersion">Link to latest version:</dt>
-    <dd>
-        <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};
-                           title lastVersion"
-           tal:content="lastVersion" />
-    </dd>
 
     <!-- Relation: parent data sets and derived data sets -->
     <tal:block metal:define-macro="parent-child-data" define="parents context/@@getDerivedFrom;
@@ -321,6 +305,27 @@ function showDefinition(context) {
                    tal:content="der/title_or_id" />
             </dd>
         </tal:block>
+    </tal:block>
+    <!-- Publish date -->
+    <tal:block  metal:define-macro="publish-date" define="value context/getEffectiveDate" condition="value">
+        <dt i18n:translate="publish_date">Publish date:</dt>
+        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
+    </tal:block>
+
+    <!-- Temporal coverage -->
+    <tal:block  metal:define-macro="temp-coverage" define="field python:context.getField('temporalCoverage');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
+        <dd tal:content="context/@@formatTempCoverage" />
+    </tal:block>
+ 
+    <!-- Last upload -->
+    <tal:block  metal:define-macro="last-upload" define="field python:context.getField('lastUpload');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+       	<dt i18n:translate="dataset_last_upload">Last upload:</dt>
+       	<dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
     </tal:block>
 
     <!-- Geographical coverage -->
@@ -357,12 +362,14 @@ function showDefinition(context) {
             <tal:quality content="structure python:quality_view(value=value[4])" />
         </dd>
     </tal:block>
-
-    <!-- Publish date -->
-    <tal:block  metal:define-macro="publish-date" define="value context/getEffectiveDate" condition="value">
-        <dt i18n:translate="publish_date">Publish date:</dt>
-        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
+    <!-- Geographic accuracy -->
+    <tal:block  metal:define-macro="geo-accuracy" define="field python:context.getField('geoAccuracy');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt i18n:translate="dataset_accuracy">Geographic accuracy:</dt>
+        <dd tal:content="structure value">Geographic accuracy</dd>
     </tal:block>
+
 
     <!-- Tags -->
     <tal:block define="facetId string:c9">
@@ -382,19 +389,6 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
 
-    <!-- Rights -->
-    <tal:block  metal:define-macro="rights" define="value context/Rights" condition="value">
-        <dt i18n:translate="dataset_rights">Rights:</dt>
-        <dd tal:content="structure python:value.replace('\n', '<br />')" />
-    </tal:block>
-
-    <!-- Last upload -->
-    <tal:block  metal:define-macro="last-upload" define="field python:context.getField('lastUpload');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_last_upload">Last upload:</dt>
-        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
-    </tal:block>
 
     <!-- Scale of the data set -->
     <tal:block  metal:define-macro="scale-of-data" define="field python:context.getField('scale');
@@ -403,13 +397,10 @@ function showDefinition(context) {
         <dt i18n:translate="dataset_scale">Scale of the data set:</dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
     </tal:block>
-
-    <!-- Additional information -->
-    <tal:block  metal:define-macro="more-info" define="field python:context.getField('moreInfo');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_aditional_info">Additional information:</dt>
-        <dd tal:content="structure value">Additional information</dd>
+    <!-- Rights -->
+    <tal:block  metal:define-macro="rights" define="value context/Rights" condition="value">
+        <dt i18n:translate="dataset_rights">Rights:</dt>
+        <dd tal:content="structure python:value.replace('\n', '<br />')" />
     </tal:block>
 
     <!-- Disclaimer -->
@@ -420,23 +411,6 @@ function showDefinition(context) {
         <dd tal:content="structure value">Disclaimer</dd>
     </tal:block>
 
-    <!-- Geographic accuracy -->
-    <tal:block  metal:define-macro="geo-accuracy" define="field python:context.getField('geoAccuracy');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_accuracy">Geographic accuracy:</dt>
-        <dd tal:content="structure value">Geographic accuracy</dd>
-    </tal:block>
-
-    <!-- Source -->
-    <tal:block  metal:define-macro="source" define="field python:context.getField('dataSource');
-                       vocab python:field.Vocabulary(context);
-                       values python:field.getAccessor(context)();
-                       value python:context.displayValue(vocab, values)"
-               condition="value">
-        <dt i18n:translate="dataset_source">Source:</dt>
-        <dd tal:content="structure value">source</dd>
-    </tal:block>
 
     <!-- Methodology -->
     <tal:block  metal:define-macro="methodology" define="field python:context.getField('methodology');
@@ -454,13 +428,6 @@ function showDefinition(context) {
         <dd tal:content="structure value">Units</dd>
     </tal:block>
 
-    <!-- Temporal coverage -->
-    <tal:block  metal:define-macro="temp-coverage" define="field python:context.getField('temporalCoverage');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
-        <dd tal:content="context/@@formatTempCoverage" />
-    </tal:block>
 
     <!-- Reference system -->
     <tal:block  metal:define-macro="reference-system" define="field python:context.getField('referenceSystem');
@@ -470,6 +437,16 @@ function showDefinition(context) {
                condition="value">
         <dt i18n:translate="dataset_reference">Coordinate reference system:</dt>
         <dd tal:content="structure value">Coordinate reference system</dd>
+    </tal:block>
+
+    <!-- Source -->
+    <tal:block  metal:define-macro="source" define="field python:context.getField('dataSource');
+                       vocab python:field.Vocabulary(context);
+                       values python:field.getAccessor(context)();
+                       value python:context.displayValue(vocab, values)"
+               condition="value">
+        <dt i18n:translate="dataset_source">Source:</dt>
+        <dd tal:content="structure value">source</dd>
     </tal:block>
 
     <!-- Owner -->
@@ -505,6 +482,25 @@ function showDefinition(context) {
             </tal:block>
         </tal:block>
     </tal:block>
+
+    <metal:basicmeta define-macro="basicmeta">
+
+        <!-- GID (persistent link)  -->
+        <dt i18n:translate="dataset_gid">Permalink to this version</dt>
+        <dd tal:define="uid context/UID">
+            <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${uid};
+                               title uid"
+               tal:content="uid" />
+        </dd>
+       <!-- permalink to latest version -->
+       <dt i18n:translate="dataset_lastVersion">Permalink to latest version</dt>
+       <dd>
+        <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};
+                           title lastVersion"
+           tal:content="lastVersion" />
+        </dd>
+    </metal:basicmeta>
+
 
     <!-- EEA management plan code -->
     <tal:block  metal:define-macro="eea-mp-code" tal:condition="not: portal/portal_membership/isAnonymousUser"  define="field python:context.getField('eeaManagementPlan');
