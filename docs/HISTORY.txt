@@ -5,6 +5,7 @@ Changelog
 
 1.6 - (Unreleased)
 ------------------
+ * better path for google analytics stats on downloads of files [demarant #2977]
  * Changed order of metadata on data and figure fields. [demarant. #2389]
 
 1.5 - (2010-01-18)
