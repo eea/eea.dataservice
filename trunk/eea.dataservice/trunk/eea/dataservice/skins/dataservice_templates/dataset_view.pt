@@ -23,6 +23,7 @@
 
 <div metal:fill-slot="main" tal:define="
   lastVersion context/@@getLatestVersionLink;
+  datasetVersionId context/id;
   versions nocall:here/@@getVersions;
   has_versions here/@@hasVersions;
 ">
@@ -118,7 +119,7 @@ function showDefinition(context) {
                                     filename field/filename | nothing;
                                     size field/get_size;">
                         <a tal:define="
-                           filePath string:/datasets/ga-downloads/$lastVersion;
+                           filePath string:/data-and-maps/data/ga-downloads/$lastVersion/${datasetVersionId}/${filename};
                            survey here/@@survey_support|nothing;
                            survey survey/enabled|nothing;
                            class python:survey and 'feedback-survey google-analytics' or 'google-analytics'"
