@@ -3,6 +3,9 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.7 - (Unreleased)
+------------------
+
 1.6 - (2010-02-15) 
 ------------------
  * Better path for google analytics stats on downloads of files [demarant #2977]
