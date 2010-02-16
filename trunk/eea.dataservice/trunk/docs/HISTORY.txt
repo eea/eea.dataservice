@@ -5,6 +5,11 @@ Changelog
 
 1.7 - (Unreleased)
 ------------------
+ * Fixed that only DataTables and DataFiles that are in public state
+   are visible on index page. On organisations index statistics are 
+   counting now only published figures and datasets. [ghicaale #2997]
+ * Fixed label of 'This dataset is derived from' being aquired by other
+   content types that uses 'relatedItems' field. [ghicaale #3001]
 
 1.6 - (2010-02-15) 
 ------------------

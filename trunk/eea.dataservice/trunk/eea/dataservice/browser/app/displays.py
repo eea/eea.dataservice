@@ -33,23 +33,27 @@ class OrganisationStatistics(object):
 
         # Owner statistics
         query = { 'portal_type':'EEAFigure',
-                  'getDataOwner': self.context.org_url()}
+                  'getDataOwner': self.context.org_url(),
+                  'review_state': 'published'}
         brains = cat(**query)
         data['owners'][1].extend(brains)
 
         query = { 'portal_type':'Data',
-                  'getDataOwner': self.context.org_url()}
+                  'getDataOwner': self.context.org_url(),
+                  'review_state': 'published'}
         brains = cat(**query)
         data['owners'][0].extend(brains)
 
         # Processor statistics
         query = { 'portal_type':'EEAFigure',
-                  'getProcessor': self.context.org_url()}
+                  'getProcessor': self.context.org_url(),
+                  'review_state': 'published'}
         brains = cat(**query)
         data['processor'][1].extend(brains)
 
         query = { 'portal_type':'Data',
-                  'getProcessor': self.context.org_url()}
+                  'getProcessor': self.context.org_url(),
+                  'review_state': 'published'}
         brains = cat(**query)
         data['processor'][0].extend(brains)
 
@@ -245,7 +249,7 @@ class DataViewers(object):
         brains = cat.searchResults({'portal_type' : ['Promotion',
                                                      'GIS Map Application'],
                                     'Title': 'data viewer',
-                                    'review_state':'published'})
+                                    'review_state': 'published'})
         [res.append(brain.getObject()) for brain in brains]
         return res
 
@@ -396,7 +400,8 @@ class GetDataFiles(object):
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({
             'portal_type' : ['DataFile'],
-            'path': '/'.join(self.context.getPhysicalPath())})
+            'path': '/'.join(self.context.getPhysicalPath()),
+            'review_state': 'published'})
         [res.append(brain.getObject()) for brain in brains]
 
         # Sort DataFiles by filename
@@ -415,7 +420,8 @@ class GetTablesByCategory(object):
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({'portal_type': ['DataTable'],
                                     'path': '/'.join(self.context.getPhysicalPath()),
-                                    'sort_on': 'sortable_title'})
+                                    'sort_on': 'sortable_title',
+                                    'review_state':'published'})
 
         # Get DataTable files
         for brain in brains:
