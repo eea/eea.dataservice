@@ -141,21 +141,35 @@ schema = Schema((
             i18n_domain = "plone",
             visible = {'edit' : 'visible', 'view' : 'invisible' }
             )
+        ),
+
+    OrderableReferenceField(
+        'relatedItems',
+        schemata = "relations",
+        relationship = 'relatesTo',
+        multiValued = True,
+        isMetadata = True,
+        languageIndependent = False,
+        index = 'KeywordIndex',
+        write_permission = ModifyPortalContent,
+        widget = ReferenceBrowserWidget(
+            allow_search = True,
+            allow_browse = True,
+            allow_sorting = True,
+            show_indexes = False,
+            force_close_on_insert = True,
+            label = "This dataset is derived from",
+            label_msgid = "dataservice_label_related_items",
+            description = "Specify the datasets from which this dataset is derived.",
+            description_msgid = "dataservice_help_related_items",
+            i18n_domain = "plone",
+            startup_directory = 'data',
+            visible = {'edit' : 'visible', 'view' : 'invisible' }
+            )
         )
 ),)
 
 dataset_schema = dataservice_schema.copy() + schema.copy()
-
-# Derived from relations
-from Products.EEAContentTypes.content.orderablereffield import field
-from Products.Archetypes.ClassGen import generateMethods
-
-field.schemata = 'relations'
-dataset_schema.addField(field)
-dataset_schema.moveField('relatedItems', pos='bottom');
-dataset_schema['relatedItems'].widget.label = 'This dataset is derived from'
-dataset_schema['relatedItems'].widget.description = 'Specify the datasets from which this dataset is derived.'
-dataset_schema['relatedItems'].widget.startup_directory = 'data'
 
 # Set position on form
 dataset_schema.moveField('disclaimer', after='contact')
@@ -163,6 +177,7 @@ dataset_schema.moveField('geoAccuracy', before='contact')
 dataset_schema.moveField('geoQuality', before='geoAccuracy')
 dataset_schema.moveField('referenceSystem', before='geoQuality')
 dataset_schema.moveField('scale', before='referenceSystem')
+dataset_schema.moveField('relatedItems', pos='bottom')
 
 
 class Data(ATFolder, ThemeTaggable):
@@ -226,4 +241,3 @@ def versionIdHandler(obj, event):
                 _reindex(obj)
 
 registerType(Data, PROJECTNAME)
-generateMethods(Data, [field])
