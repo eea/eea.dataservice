@@ -12,12 +12,12 @@ class IReferenceWidgetController(Interface):
     Controller to be use within ReferenceBrowserWidget
     macro figure_referencebrowser
     """
-    def search(eeaid):
-        """ Search for publications with given eeaid. Returns a json object.
+    def search(title):
+        """ Search for publications with given title. Returns a json object.
         """
 
-    def add(title, eeaid, **kwargs):
-        """ Add publication with given. Returns a string message.
+    def add(title, eeaid='', **kwargs):
+        """ Add publication with given title. Returns a string message.
         """
 
 class ReferenceWidgetController(BrowserView):
@@ -32,14 +32,15 @@ class ReferenceWidgetController(BrowserView):
     #
     # Search
     #
-    def _search(self, eeaid):
+    def _search(self, title):
         """ Search catalog for
         """
         query = {
-            'eeaid': eeaid,
+            'Title': title,
             'object_provides': 'eea.reports.interfaces.IReportContainerEnhanced'
         }
         brains = self.catalog(**query)
+        res = []
         for brain in brains:
             doc = brain.getObject()
             uid = getattr(doc.aq_explicit, 'UID', None)
@@ -47,12 +48,12 @@ class ReferenceWidgetController(BrowserView):
                 continue
 
             uid = uid()
-            return {
+            res.append({
                 'title': brain.Title.strip(),
                 'url': brain.getURL(),
                 'uid': uid
-            }
-        return {}
+            })
+        return res
 
     def search(self, **kwargs):
         """ See interface
@@ -60,16 +61,16 @@ class ReferenceWidgetController(BrowserView):
         if self.request:
             kwargs.update(self.request.form)
 
-        eeaid = kwargs.get('eeaid', None)
-        if not eeaid:
+        title = kwargs.get('title', None)
+        if not title:
             res = {}
         else:
-            res = self._search(eeaid)
+            res = self._search(title)
         return json.dumps(res)
     #
     # Add
     #
-    def _add(self, title, eeaid):
+    def _add(self, title, eeaid=''):
         """ Add publication
         """
         site = getattr(self.context, 'SITE', None)

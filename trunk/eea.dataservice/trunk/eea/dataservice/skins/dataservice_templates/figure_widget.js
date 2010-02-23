@@ -71,18 +71,23 @@ FigureWidget.Search = {
     input.removeClass('submitting');
 
     // Validate
+    /* deprecated:
     if(!FigureWidget.Validator.validate(eeaid, errors_area, 1, 1)){
       return false;
     }
+    */
 
     // Submit
 
     results.text('Searching ...');
-    var query = {'eeaid:int': eeaid.val(), nocache: nocache};
+    // deprecated: var query = {'eeaid:int': eeaid.val(), nocache: nocache};
+    var query = {'title': eeaid.val(), nocache: nocache};
     jQuery.getJSON('@@figure_reference_widget/search', query, function(data){
-      var uid = data.uid;
-      if(uid){
-        context.handle_data(data, form, widget);
+      var uid = data.uid; //alec
+      if(data){
+        jQuery.each(data, function(j, result) {
+          context.handle_data(result, form, widget);
+        })
       }else{
         context.handle_nodata(data, form, widget);
       }
@@ -91,13 +96,16 @@ FigureWidget.Search = {
   },
 
   handle_data: function(data, form, widget){
-    var results = jQuery('.figure_widget_results', form);
-    results.html('');
-    // Help text
-    var help = jQuery('<div>');
-    help.addClass('formHelp');
-    help.text('Click on the following link to insert it as a related EEA product');
-    results.append(help);
+    var results_container = jQuery('.figure_widget_results', form);
+    var results = jQuery('.figure_widget_results div.formHelp', form);
+
+    if (results.length == 0) {
+      results_container.html('');
+      // Help text
+      var help = jQuery('<div>');
+      help.addClass('formHelp');
+      help.text('Click on the following link to insert it as a related EEA product');
+      results_container.append(help);}
 
     // Link
     var link = jQuery('<a>');
@@ -117,18 +125,19 @@ FigureWidget.Search = {
         }
       });
       if(already){
-        results.html('EEA Product already in list');
+        results_container.html('EEA Product already in list');
       }else{
         var option = jQuery('<option>');
         option.attr('value', data.uid);
         option.attr('selected', 'selected');
         option.html(data.title);
         select.append(option);
-        results.html('');
+        results_container.html('');
       }
       return false;
     });
-    results.append(link);
+    results_container.append(link);
+    results_container.append('<br />');
   },
 
   handle_nodata: function(data, form, widget){
@@ -182,19 +191,23 @@ FigureWidget.Add = {
     input.removeClass('submitting');
     var context = this;
     var title = jQuery('input[name=title]', form);
-    var eeaid = jQuery('input[name=eeaid]', form);
+    // deprecated: var eeaid = jQuery('input[name=eeaid]', form);
 
     var errors_area = jQuery('.formHelp', title.parent());
     var valid_title = FigureWidget.Validator.validate(title, errors_area, 1, 0);
 
+    /* deprecated:
     errors_area = jQuery('.formHelp', eeaid.parent());
     var valid_eeaid = FigureWidget.Validator.validate(eeaid, errors_area, 1, 1);
+    */
+    var valid_eeaid = true
 
     if(!(valid_title && valid_eeaid)){
       return;
     }
 
-    var query = {title: title.val(), 'eeaid:int': eeaid.val()};
+    // deprecated: var query = {title: title.val(), 'eeaid:int': eeaid.val()};
+    var query = {title: title.val()};
     jQuery('.figure_widget_new_publication_buttons', form).append('<span>Adding ...</span>');
     jQuery.post('@@figure_reference_widget/add', query, function(data){
       context.handle_data(data, form, widget);
