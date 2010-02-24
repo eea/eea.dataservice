@@ -76,14 +76,6 @@
           <dd tal:content="structure value">Figure type</dd>
        </tal:block>
 
-       <!-- Link to latest version -->
-       <dt i18n:translate="dataset_lastVersion">Permalink to latest version:</dt>
-       <dd>
-           <a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};
-                              title lastVersion"
-              tal:content="lastVersion" />
-       </dd>
-
     </dl>
     </div>
 
