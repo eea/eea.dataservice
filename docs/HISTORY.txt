@@ -3,7 +3,7 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.7 - (Unreleased)
+1.7 - (2010-02-24)
 ------------------
  * The search after publications from relation widget is now based
    on publication title instead of eeaid. Multiple results are now
