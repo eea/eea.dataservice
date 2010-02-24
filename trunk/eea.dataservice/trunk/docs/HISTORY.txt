@@ -5,6 +5,8 @@ Changelog
 
 1.8 - (Unreleased)
 -----------------
+ * Removed duplicate listing of "Permalink to latest version"
+   from figures view. [ghicaale]
 
 1.7 - (2010-02-24)
 ------------------
