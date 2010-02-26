@@ -83,8 +83,7 @@ FigureWidget.Search = {
     // deprecated: var query = {'eeaid:int': eeaid.val(), nocache: nocache};
     var query = {'title': eeaid.val(), nocache: nocache};
     jQuery.getJSON('@@figure_reference_widget/search', query, function(data){
-      var uid = data.uid; //alec
-      if(data){
+      if(data.length){
         jQuery.each(data, function(j, result) {
           context.handle_data(result, form, widget);
         })

@@ -7,6 +7,8 @@ Changelog
 -----------------
  * Removed duplicate listing of "Permalink to latest version"
    from figures view. [ghicaale]
+ * Fixed display list of publications from relation widget
+   search results. [ghicaale #3018]
 
 1.7 - (2010-02-24)
 ------------------
