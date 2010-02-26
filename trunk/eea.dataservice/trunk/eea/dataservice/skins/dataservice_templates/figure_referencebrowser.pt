@@ -153,6 +153,8 @@
     </metal:reference_edit>
 
     <metal:edit_macro define-macro="edit">
+    <fieldset class="figure_widget_container">
+      <legend><span class="formQuestion" tal:content="field/widget/label" /></legend>
       <div class="figure_widget_left">
         <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
           <metal:fill fill-slot="widget_body">
@@ -201,6 +203,7 @@
           </div>
         </fieldset>
       </div>
+      </fieldset>
 
       <div class="figure_clear"> </div>
     </metal:edit_macro>
