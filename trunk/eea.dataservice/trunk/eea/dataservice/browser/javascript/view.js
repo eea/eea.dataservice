@@ -41,7 +41,8 @@ Figures.PhotoAlbum.prototype = {
   }
 };
 
-Figures.FancyBoxZoom = function(){
+Figures.FancyBoxZoom = function(closed){
+  var startOpened = closed ? false: true;
   this.context = jQuery('#figures-fancyimage');
 
   var images = jQuery('a.jqzoom', this.context);
@@ -62,7 +63,7 @@ Figures.FancyBoxZoom = function(){
 
   jQuery('a.jqzoom', this.context).jqzoom({
     title: false,
-    startOpened: true
+    startOpened: startOpened
   });
 };
 
@@ -70,5 +71,9 @@ Figures.FancyBoxZoom.prototype = {
 };
 
 Figures.Load = function(){
-  Figures.fancybox = new Figures.PhotoAlbum('#region-content');
+  if(jQuery('.map-singlefile').length){
+    var jqzoom = new Figures.FancyBoxZoom(true);
+  }else{
+    Figures.fancybox = new Figures.PhotoAlbum('#region-content');
+  }
 };

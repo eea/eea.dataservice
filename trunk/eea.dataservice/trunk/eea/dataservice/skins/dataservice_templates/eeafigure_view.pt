@@ -29,21 +29,31 @@
     <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
   <!-- EEAFigureFiles -->
-  <div metal:define-macro="figures-album" class="map-photo-album"
-    tal:repeat="child context/@@getEEAFigureFiles">
-    <tal:child define="
-      Batch python:modules['Products.CMFPlone'].Batch;
-      b_start python:request.get('b_start', 0);
-      folderContents python:Batch(child[1], 100, int(b_start), orphan=1);
-      categ python:child[0];
-      categView nocall:context/@@getCategoryName;
-      categ_name python:categView(categ);">
-      <h4 tal:content="categ_name" tal:attributes="
-        id string:fancy-$categ;
-        title categ_name;"/>
-      <metal:figures use-macro="here/atct_album_view/macros/listing" />
-    </tal:child>
-  </div>
+  <tal:figurefiles define="
+    categView nocall:context/@@getCategoryName;
+    singlefile context/@@getSingleEEAFigureFile;
+    figurefiles context/@@getEEAFigureFiles">
+    <div tal:condition="singlefile" class="map-singlefile">
+      <tal:doc define="doc python:singlefile.getObject()">
+        <tal:fancybox replace="structure doc/@@fancybox.html" />
+      </tal:doc>
+    </div>
+    <div metal:define-macro="figures-album" class="map-photo-album"
+      tal:repeat="child figurefiles">
+      <tal:child define="
+        Batch python:modules['Products.CMFPlone'].Batch;
+        b_start python:request.get('b_start', 0);
+        folderContents python:Batch(child[1], 100, int(b_start), orphan=1);
+        categ python:child[0];
+        categ_name python:categView(categ);">
+        <h4 tal:content="categ_name" tal:attributes="
+          id string:fancy-$categ;
+          title categ_name;"/>
+        <metal:figures use-macro="here/atct_album_view/macros/listing" />
+      </tal:child>
+    </div>
+  </tal:figurefiles>
+
     <metal:related use-macro="here/dataset_view/macros/more-info" />
 
     <!-- META DATA -->
