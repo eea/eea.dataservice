@@ -9,6 +9,8 @@ Changelog
    from figures view. [ghicaale]
  * Fixed display list of publications from relation widget
    search results. [ghicaale #3018]
+ * Refactor figure view template to show fancybox inline if there is only one
+   figure file [voineali #2924]
 
 1.7 - (2010-02-24)
 ------------------
