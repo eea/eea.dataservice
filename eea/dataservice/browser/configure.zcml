@@ -183,8 +183,17 @@
       />
 
   <browser:page
+    name="getSingleEEAFigureFile"
+    class=".app.displays.GetEEAFigureFiles"
+    attribute="singlefigure"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="getEEAFigureFiles"
     class=".app.displays.GetEEAFigureFiles"
+    attribute="categories"
     for="*"
     permission="zope2.View"
     />

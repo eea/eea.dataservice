@@ -104,10 +104,12 @@ dd {margin-left: 3em}
 
 .map-photo-album {
   width: 70%;
+  padding-bottom: 1em;
 }
 
 .figures-fancyimage-left {
-  vertical-align: top;
+  float: left;
+  width: 400px;
 }
 
 .figures-fancyimage-left img {
@@ -116,7 +118,8 @@ dd {margin-left: 3em}
 
 .figures-fancyimage-right {
   padding-left: 1em;
-  vertical-align: top;
+  float: left;
+  width: 200px;
 }
 
 .figures-empty {
@@ -125,4 +128,32 @@ dd {margin-left: 3em}
   border: 1px dotted #000000;
   text-align: center;
   cursor: crosshair;
+  color: #76797C;
+  font-size: 90%;
+}
+
+.map-singlefile {
+  padding: 1em 0;
+
+}
+
+.map-singlefile .figures-fancyimage-left {
+  float: none;
+  width: auto;
+}
+
+.map-singlefile .figures-fancyimage-right {
+  float: none;
+  width: auto;
+}
+
+.map-singlefile .figures-empty {
+  width: auto;
+  padding: 0 2em 0 0;
+  border: none;
+  text-align: left;
+}
+
+.map-singlefile #figures-fancyimage {
+  margin: 0px;
 }

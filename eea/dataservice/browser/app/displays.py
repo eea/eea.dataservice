@@ -6,6 +6,7 @@ __docformat__ = 'plaintext'
 import operator
 import xmlrpclib
 
+from zope.component import queryMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.PloneLanguageTool.availablelanguages import getCountries
@@ -561,15 +562,45 @@ class GetEEAFigureFiles(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self._brains = []
+        self._figures = []
 
-    def __call__(self):
+    @property
+    def brains(self):
+        if not self._brains:
+            self._brains = self.context.getFolderContents(contentFilter={
+                'portal_type': 'EEAFigureFile',
+                'review_state': 'published',
+            })
+        return self._brains
+
+    def figures(self):
+        if self._figures:
+            return self._figures
+
+        for brain in self.brains:
+            doc = brain.getObject()
+            imgview = queryMultiAdapter((doc, self.request), name=u'imgview')
+            if not imgview:
+                continue
+            if not imgview.display():
+                continue
+            self._figures.append(brain)
+
+        return self._figures
+
+    def singlefigure(self):
+        figures = self.figures()
+        if len(figures) == 1:
+            return figures[0]
+        return None
+
+    def categories(self):
         res = {}
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEAFigureFile',
-            'review_state': 'published',
-        })
-
-        for brain in brains:
+        singlefigure = self.singlefigure()
+        for brain in self.brains:
+            if brain is singlefigure:
+                continue
             doc = brain.getObject()
             categ = doc.getCategory()
             res.setdefault(categ, [])
