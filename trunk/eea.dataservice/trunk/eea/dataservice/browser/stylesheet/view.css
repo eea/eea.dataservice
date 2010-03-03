@@ -64,28 +64,28 @@ td#fancy_title_right {
   background: transparent url(../../++resource++fancybox/fancy_title_right.png) repeat-x;
 }
 
-span#fancy_left_ico {
+span#fancybox-left-ico {
   left: 1em;
 }
 
-a#fancy_left:hover span {
+a#fancybox-left:hover span {
   left: 0.5em;
 }
 
-span#fancy_right_ico {
-  right: 1em;
+span#fancybox-right-ico {
+  left: 1em;
 }
 
-a#fancy_right:hover span {
+a#fancybox-right:hover span {
   right: 0.5em;
 }
 
-a#fancy_left, a#fancy_right {
+a#fancybox-left, a#fancybox-right {
   width: 5em;
 }
 
 #figures-fancyimage {
-  margin: 0 5em;
+  margin: 2em 5em;
 }
 
 /* Update jqzoom image paths
@@ -119,7 +119,7 @@ dd {margin-left: 3em}
 .figures-fancyimage-right {
   padding-left: 1em;
   float: left;
-  width: 200px;
+  width: 210px;
 }
 
 .figures-empty {
@@ -156,4 +156,10 @@ dd {margin-left: 3em}
 
 .map-singlefile #figures-fancyimage {
   margin: 0px;
+}
+
+.fancybox-more-details {
+  clear: both;
+  text-align: center;
+  padding-top: 2em;
 }

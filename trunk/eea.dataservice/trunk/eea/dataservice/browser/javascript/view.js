@@ -3,9 +3,8 @@ var Figures = {version: '1.0.0'};
 Figures.fancybox = null;
 Figures.jqzoom = null;
 
-Figures.PhotoAlbum = function(content_id){
-  content_id = content_id ? content_id : '#region-content';
-  this.context = jQuery(content_id);
+Figures.PhotoAlbum = function(context){
+  this.context = context;
   this.photos = jQuery('div.photoAlbumEntry', this.context);
   this.photos.removeClass('photoAlbumFolder');
 
@@ -74,9 +73,10 @@ Figures.FancyBoxZoom.prototype = {
 };
 
 Figures.Load = function(){
-  if(jQuery('.map-singlefile').length){
-    var jqzoom = new Figures.FancyBoxZoom(true);
+  var context = jQuery('#region-content');
+  if(jQuery('.map-singlefile', context).length){
+    Figures.jqzoom = new Figures.FancyBoxZoom(true);
   }else{
-    Figures.fancybox = new Figures.PhotoAlbum('#region-content');
+    Figures.fancybox = new Figures.PhotoAlbum(context);
   }
 };

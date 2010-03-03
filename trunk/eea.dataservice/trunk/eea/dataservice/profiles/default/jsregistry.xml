@@ -2,6 +2,6 @@
 <object name="portal_javascripts" meta_type="JavaScripts Registry">
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
-    expression="python:'eeafigure_view' in request.URL0"
+    expression="python: request.get('jsdisable','') != 'jquery'"
     id="figures.view.js" inline="False"/>
 </object>

@@ -1,8 +1,8 @@
+from zope.component import queryMultiAdapter
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
-
 
 class FancyBox(BrowserView):
     """ View to use within fancybox jquery plugin
@@ -42,3 +42,19 @@ class FancyBox(BrowserView):
             title = self.get_title(uid, mapping)
             size = brain.getObjSize
             yield (uid, title, size)
+
+class ContainerFancyBox(BrowserView):
+    """ Return fancybox for container
+    """
+    @property
+    def box(self):
+        imgview = queryMultiAdapter((self.context, self.request), name=u'imgview')
+        childview = getattr(imgview, 'img', None)
+        child = getattr(childview, 'context', None)
+        if not child:
+            return self.context.title_or_id()
+
+        fancybox = queryMultiAdapter((child, self.request), name=u'fancybox.html')
+        if not fancybox:
+            return self.context.title_or_id()
+        return fancybox()
