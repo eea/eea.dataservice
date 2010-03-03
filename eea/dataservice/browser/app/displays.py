@@ -89,8 +89,16 @@ class GetDataForRedirect(object):
         self.request = request
 
     def __call__(self, query={}):
+        res = []
         cat = getToolByName(self.context, 'portal_catalog')
-        return cat.unrestrictedSearchResults(**query)
+        res = cat(**query)
+        if not res:
+            # If no results published try searching for objects
+            # in published_eionet state
+            query['review_state'] = ['published', \
+                                     'published_eionet']
+            res = cat.unrestrictedSearchResults(**query)
+        return res
 
 class DatasetRelatedProducts(object):
     """ Return related products
@@ -100,7 +108,9 @@ class DatasetRelatedProducts(object):
         self.request = request
 
     def __call__(self):
-        res = {'figures': [], 'reports': [], 'datasets': [], 'other': [], 'data_viewers':[], 'has_data': False}
+        res = {'figures': [], 'reports': [], \
+               'datasets': [], 'other': [], \
+               'data_viewers':[], 'has_data': False}
         has_data = False
 
         references = []
