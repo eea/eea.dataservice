@@ -11,6 +11,8 @@ Changelog
    search results. [ghicaale #3018]
  * Refactor figure view template to show fancybox inline if there is only one
    figure file [voineali #2924]
+ * Fixed when receiving '404 Not Found' upon redireting via permalinks to a dataset
+   not published. [ghicaale #3030]
 
 1.7 - (2010-02-24)
 ------------------

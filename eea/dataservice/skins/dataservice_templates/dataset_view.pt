@@ -320,7 +320,7 @@ function showDefinition(context) {
         <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
         <dd tal:content="context/@@formatTempCoverage" />
     </tal:block>
- 
+
     <!-- Last upload -->
     <tal:block  metal:define-macro="last-upload" define="field python:context.getField('lastUpload');
                        value python:field.getAccessor(context)()"

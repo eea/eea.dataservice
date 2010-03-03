@@ -90,7 +90,7 @@ class GetDataForRedirect(object):
 
     def __call__(self, query={}):
         cat = getToolByName(self.context, 'portal_catalog')
-        return cat(**query)
+        return cat.unrestrictedSearchResults(**query)
 
 class DatasetRelatedProducts(object):
     """ Return related products
