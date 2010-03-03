@@ -54,8 +54,6 @@ class ViewJavascript(Javascript):
     @property
     def js_libs(self):
         return [
-            '++resource++fancybox/jquery.easing.1.3.js',
-            '++resource++fancybox/jquery.fancybox-1.2.1.js',
             '++resource++jqzoom/jqzoom.js',
             '++resource++eea.dataservice.view.js',
         ]
