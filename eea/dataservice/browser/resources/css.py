@@ -56,7 +56,6 @@ class ViewCSS(CSS):
         """ Faceted CSS libs
         """
         return [
-            '++resource++fancybox/jquery.fancybox.css',
             '++resource++jqzoom/jqzoom.css',
             '++resource++eea.dataservice.view.css',
         ]

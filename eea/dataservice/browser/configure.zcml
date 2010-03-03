@@ -241,6 +241,14 @@
     permission="zope.Public"
     />
 
+  <browser:page
+    for="..interfaces.IEEAFigure"
+    name="fancybox.html"
+    class=".app.fancybox.ContainerFancyBox"
+    template="template/containerfancybox.pt"
+    permission="zope.Public"
+    />
+
   <browser:resource
     name="eea.dataservice.view.js"
     file="javascript/view.js"

@@ -11,7 +11,7 @@ Changelog
  * Fixed display list of publications from relation widget
    search results. [ghicaale #3018]
  * Refactor figure view template to show fancybox inline if there is only one
-   figure file [voineali #2924]
+   figure file. Also added support to use figure fancybox outside EEAFigure context [voineali #2924]
  * Fixed when receiving '404 Not Found' upon redireting via permalinks to a dataset
    not published. [ghicaale #3030]
 

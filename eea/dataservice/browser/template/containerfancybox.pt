@@ -1,0 +1,6 @@
+<tal:fancybox replace="structure python:template.box" />
+<div class="fancybox-more-details">
+  <a tal:attributes="
+    href context/absolute_url;
+    title context/title_or_id" i18n:translate="">See more details</a>
+</div>
