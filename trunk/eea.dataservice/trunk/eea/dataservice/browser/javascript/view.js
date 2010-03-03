@@ -22,11 +22,14 @@ Figures.PhotoAlbum = function(content_id){
   var js_context = this;
   jQuery('.photoAlbumEntry a').fancybox({
     hideOnContentClick: false,
-    frameWidth: 750,
-    frameHeight: 450,
+    width: 750,
+    height: 450,
+    autoDimensions: false,
+    padding: 0,
+    margin: 0,
     centerOnScroll: false,
-    callbackOnShow: js_context.init_zoom,
-    callbackOnClose: js_context.close
+    onComplete: js_context.init_zoom,
+    onClosed: js_context.close
   });
 };
 
