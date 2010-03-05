@@ -148,19 +148,20 @@ function showDefinition(context) {
     </tal:tables>
 
     <!-- Additional information -->
-    <tal:block  metal:define-macro="more-info" define="field python:context.getField('moreInfo');
+    <tal:block metal:define-macro="more-info"
+               define="field python:context.getField('moreInfo');
                        value python:field.getAccessor(context)()"
                condition="value">
         <h4 i18n:translate="dataset_aditional_info">Additional information</h4>
         <div class="additionalInfo" tal:content="structure value">Additional information</div>
     </tal:block>
 
-
     <metal:related-products define-macro="related-products">
     <!-- Relation: related (plone) products -->
     <tal:block define="related_products context/@@getRelatedProducts">
         <!-- Relations to figures -->
-        <tal:block metal:define-macro="related-figures" define="value python:related_products['figures']"
+        <tal:block metal:define-macro="related-figures"
+                   define="value python:related_products['figures']"
                    condition="value">
             <h4 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h4>
             <div tal:define="Batch python:modules['Products.CMFPlone'].Batch;
@@ -171,7 +172,8 @@ function showDefinition(context) {
         </tal:block>
 
         <!-- Relations to reports -->
-        <tal:block metal:define-macro="related-publications" define="value python:related_products['reports']"
+        <tal:block metal:define-macro="related-publications"
+                   define="value python:related_products['reports']"
                    condition="value">
             <h4 i18n:translate="used_in_publications">Used in the following publications</h4>
             <ul>
@@ -184,7 +186,8 @@ function showDefinition(context) {
         </tal:block>
 
          <!-- Related data used to produce the analysis -->
-        <tal:block metal:define-macro="related-datasets" define="value python:related_products['datasets']"
+        <tal:block metal:define-macro="related-datasets"
+                   define="value python:related_products['datasets']"
                    condition="value">
             <h4 i18n:translate="original_data_used">Original data used to produce the analysis</h4>
             <ul>
@@ -197,7 +200,8 @@ function showDefinition(context) {
         </tal:block>
 
         <!-- Relations to data viewers -->
-        <tal:block metal:define-macro="related-data-viewers" define="value python:related_products['data_viewers']"
+        <tal:block metal:define-macro="related-data-viewers"
+                   define="value python:related_products['data_viewers']"
                    condition="value">
             <h4 i18n:translate="interactive_data_viewer">Interactive data viewer</h4>
 
@@ -232,7 +236,8 @@ function showDefinition(context) {
         </tal:block>
 
         <!-- Relations to other -->
-        <tal:block metal:define-macro="related-others" define="value python:related_products['other']"
+        <tal:block metal:define-macro="related-others"
+                   define="value python:related_products['other']"
                    condition="value">
             <h4 i18n:translate="relations_to_other">Relations to other EEA products</h4>
             <ul>
@@ -284,9 +289,9 @@ function showDefinition(context) {
     <div class="metadata-container">
     <dl>
 
-
     <!-- Relation: parent data sets and derived data sets -->
-    <tal:block metal:define-macro="parent-child-data" define="parents context/@@getDerivedFrom;
+    <tal:block metal:define-macro="parent-child-data"
+               define="parents context/@@getDerivedFrom;
                        derived context/@@getBasedOn"
                condition="python:parents or derived">
         <dt i18n:translate="dataset_relation">Relation:</dt>
@@ -308,32 +313,66 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
     <!-- Publish date -->
-    <tal:block  metal:define-macro="publish-date" define="value context/getEffectiveDate" condition="value">
-        <dt i18n:translate="publish_date">Publish date:</dt>
+    <tal:block metal:define-macro="publish-date"
+               define="field python:context.getField('effectiveDate');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span  i18n:translate="publish_date">Publish date:</span>
+        </dt>
         <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
     </tal:block>
 
     <!-- Temporal coverage -->
-    <tal:block  metal:define-macro="temp-coverage" define="field python:context.getField('temporalCoverage');
+    <tal:block metal:define-macro="temp-coverage"
+               define="field python:context.getField('temporalCoverage');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_temporalCoverage">Temporal coverage:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_temporalCoverage">Temporal coverage:</span>
+        </dt>
         <dd tal:content="context/@@formatTempCoverage" />
     </tal:block>
 
     <!-- Last upload -->
-    <tal:block  metal:define-macro="last-upload" define="field python:context.getField('lastUpload');
+    <tal:block metal:define-macro="last-upload"
+               define="field python:context.getField('lastUpload');
                        value python:field.getAccessor(context)()"
                condition="value">
-       	<dt i18n:translate="dataset_last_upload">Last upload:</dt>
-       	<dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_last_upload">Last upload:</span>
+        </dt>
+        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
     </tal:block>
 
     <!-- Geographical coverage -->
-    <tal:block  metal:define-macro="geo-coverage" define="field python:context.getField('geographicCoverage');
+    <tal:block metal:define-macro="geo-coverage"
+               define="field python:context.getField('geographicCoverage');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_geographical">Geographical coverage:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_geographical">Geographical coverage:</span>
+        </dt>
 
         <dd>
             <img tal:define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
@@ -346,10 +385,18 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Geographic information quality -->
-    <tal:block  metal:define-macro="geo-quality" define="field python:context.getField('geoQuality');
+    <tal:block metal:define-macro="geo-quality"
+               define="field python:context.getField('geoQuality');
                        value python:field.getAccessor(context)()"
                condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
-        <dt i18n:translate="dataset_quality">Geographic information quality label:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_quality">Geographic information quality label:</span>
+        </dt>
         <dd tal:define="quality_view nocall:context/@@getQualityDisplay">
             <span i18n:translate="completeness">Completeness:</span>
             <tal:quality content="structure python:quality_view(value=value[0])" />
@@ -364,10 +411,18 @@ function showDefinition(context) {
         </dd>
     </tal:block>
     <!-- Geographic accuracy -->
-    <tal:block  metal:define-macro="geo-accuracy" define="field python:context.getField('geoAccuracy');
+    <tal:block metal:define-macro="geo-accuracy"
+               define="field python:context.getField('geoAccuracy');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_accuracy">Geographic accuracy:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_accuracy">Geographic accuracy:</span>
+        </dt>
         <dd tal:content="structure value">Geographic accuracy</dd>
     </tal:block>
 
@@ -375,12 +430,20 @@ function showDefinition(context) {
     <!-- Tags -->
     <tal:block define="facetId string:c9">
         <tal:block metal:define-macro="tags"
-                   define="value context/getKeywords;
+                   define="field python:context.getField('subject');
+                           value python:field.getAccessor(context)();
                            facetId facetId"
                    condition="value">
-            <dt i18n:translate="dataset_keywords">Tags:</dt>
+            <dt>
+                <img class="eea-flexible-tooltip-bottom"
+                     src="information.png"
+                     title=""
+                     tal:attributes="src string:${portal_url}/information.png;
+                                     title field/widget/description" />
+                <span i18n:translate="dataset_keywords">Tags:</span>
+            </dt>
             <dd>
-                <tal:tags repeat="tag python:value.split(', ')">
+                <tal:tags repeat="tag value">
                     <a tal:attributes="title tag;
                                        href string:$portal_url/data-and-maps/tags#c5=all&c0=5&b_start=0&${facetId}=${tag};"
                        tal:content="tag" />
@@ -390,71 +453,136 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
 
-
     <!-- Scale of the data set -->
-    <tal:block  metal:define-macro="scale-of-data" define="field python:context.getField('scale');
+    <tal:block metal:define-macro="scale-of-data"
+               define="field python:context.getField('scale');
                        value python:field.getAccessor(context)()"
-              condition="value">
-        <dt i18n:translate="dataset_scale">Scale of the data set:</dt>
+               condition="value">
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_scale">Scale of the data set:</span>
+        </dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
     </tal:block>
+
     <!-- Rights -->
-    <tal:block  metal:define-macro="rights" define="value context/Rights" condition="value">
-        <dt i18n:translate="dataset_rights">Rights:</dt>
+    <tal:block metal:define-macro="rights"
+               define="field python:context.getField('rights');
+                       value python:field.getAccessor(context)()"
+               condition="value">
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_rights">Rights:</span>
+        </dt>
         <dd tal:content="structure python:value.replace('\n', '<br />')" />
     </tal:block>
 
     <!-- Disclaimer -->
-    <tal:block  metal:define-macro="disclaimer" define="field python:context.getField('disclaimer');
+    <tal:block metal:define-macro="disclaimer"
+               define="field python:context.getField('disclaimer');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_disclaimer">Disclaimer:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_disclaimer">Disclaimer:</span>
+        </dt>
         <dd tal:content="structure value">Disclaimer</dd>
     </tal:block>
 
-
     <!-- Methodology -->
-    <tal:block  metal:define-macro="methodology" define="field python:context.getField('methodology');
+    <tal:block metal:define-macro="methodology"
+               define="field python:context.getField('methodology');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_methodology">Methodology:</dt>
+        <dt i18n:translate="dataset_methodology">
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_methodology">Methodology:</span>
+        </dt>
         <dd tal:content="structure value">Methodology</dd>
     </tal:block>
 
     <!-- Unit -->
-    <tal:block  metal:define-macro="units" define="field python:context.getField('units');
+    <tal:block metal:define-macro="units"
+               define="field python:context.getField('units');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_unit">Units:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_unit">Units:</span>
+        </dt>
         <dd tal:content="structure value">Units</dd>
     </tal:block>
 
 
     <!-- Reference system -->
-    <tal:block  metal:define-macro="reference-system" define="field python:context.getField('referenceSystem');
+    <tal:block metal:define-macro="reference-system"
+               define="field python:context.getField('referenceSystem');
                        vocab python:field.Vocabulary(context);
                        values python:field.getAccessor(context)();
                        value python:context.displayValue(vocab, values)"
                condition="value">
-        <dt i18n:translate="dataset_reference">Coordinate reference system:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_reference">Coordinate reference system:</span>
+        </dt>
         <dd tal:content="structure value">Coordinate reference system</dd>
     </tal:block>
 
     <!-- Source -->
-    <tal:block  metal:define-macro="source" define="field python:context.getField('dataSource');
+    <tal:block metal:define-macro="source"
+               define="field python:context.getField('dataSource');
                        vocab python:field.Vocabulary(context);
                        values python:field.getAccessor(context)();
                        value python:context.displayValue(vocab, values)"
                condition="value">
-        <dt i18n:translate="dataset_source">Source:</dt>
+        <dt i18n:translate="dataset_source">
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_source">Source:</span>
+        </dt>
         <dd tal:content="structure value">source</dd>
     </tal:block>
 
     <!-- Owner -->
-    <tal:block metal:define-macro="owners" define="field python:context.getField('dataOwner');
+    <tal:block metal:define-macro="owners"
+               define="field python:context.getField('dataOwner');
                        urls python:field.getAccessor(context)()"
                condition="urls">
-        <dt i18n:translate="dataset_owner">Owners:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_owner">Owners:</span>
+        </dt>
         <tal:block repeat="url urls">
             <tal:block define="value python:context.getOrganisationName(url)"
                        condition="value">
@@ -468,10 +596,18 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Processor -->
-    <tal:block metal:define-macro="processors" define="field python:context.getField('processor');
+    <tal:block metal:define-macro="processors"
+               define="field python:context.getField('processor');
                        urls python:field.getAccessor(context)()"
                condition="urls">
-        <dt i18n:translate="dataset_processor">Processors:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_processor">Processors:</span>
+        </dt>
         <tal:block repeat="url urls">
             <tal:block define="value python:context.getOrganisationName(url)"
                        condition="value">
@@ -485,7 +621,6 @@ function showDefinition(context) {
     </tal:block>
 
     <metal:basicmeta define-macro="basicmeta">
-
         <!-- GID (persistent link)  -->
         <dt i18n:translate="dataset_gid">Permalink to this version</dt>
         <dd tal:define="uid context/UID">
@@ -504,9 +639,18 @@ function showDefinition(context) {
 
 
     <!-- EEA management plan code -->
-    <tal:block  metal:define-macro="eea-mp-code" tal:condition="not: portal/portal_membership/isAnonymousUser"  define="field python:context.getField('eeaManagementPlan');
+    <tal:block metal:define-macro="eea-mp-code"
+               tal:condition="not: portal/portal_membership/isAnonymousUser"
+               define="field python:context.getField('eeaManagementPlan');
                        value python:field.getAccessor(context)()">
-        <dt i18n:translate="dataset_plan_code">EEA management plan code:</dt>
+        <dt>
+            <img class="eea-flexible-tooltip-bottom"
+                 src="information.png"
+                 title=""
+                 tal:attributes="src string:${portal_url}/information.png;
+                                 title field/widget/description" />
+            <span i18n:translate="dataset_plan_code">EEA management plan code:</span>
+        </dt>
         <dd tal:condition="python:value != ('', '')">
             <span>year:</span>&nbsp;<tal:block content="python:value[0]" />,
             <span>code:</span>&nbsp;<tal:block content="python:value[1]" />
@@ -517,13 +661,21 @@ function showDefinition(context) {
     </tal:block>
 
     <!-- Contact persons for EEA -->
-    <metal:contacts define-macro="eea-contact-reference" tal:condition="not: portal/portal_membership/isAnonymousUser">
-     <tal:block define="field python:context.getField('contact');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_contact">Contact references at EEA:</dt>
-        <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact persons for EEA</dd>
-     </tal:block>
+    <metal:contacts define-macro="eea-contact-reference"
+                    tal:condition="not: portal/portal_membership/isAnonymousUser">
+        <tal:block define="field python:context.getField('contact');
+                           value python:field.getAccessor(context)()"
+                   condition="value">
+           <dt>
+                <img class="eea-flexible-tooltip-bottom"
+                     src="information.png"
+                     title=""
+                     tal:attributes="src string:${portal_url}/information.png;
+                                     title field/widget/description" />
+                <span i18n:translate="dataset_contact">Contact references at EEA:</span>
+           </dt>
+           <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact persons for EEA</dd>
+        </tal:block>
     </metal:contacts>
 
     </dl>
