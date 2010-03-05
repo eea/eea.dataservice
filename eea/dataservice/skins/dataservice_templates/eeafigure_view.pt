@@ -36,6 +36,7 @@
     <div tal:condition="singlefile" class="map-singlefile">
       <tal:doc define="doc python:singlefile.getObject()">
         <tal:fancybox replace="structure doc/@@fancybox.html" />
+        <div class="visualClear"></div>
       </tal:doc>
     </div>
     <div metal:define-macro="figures-album" class="map-photo-album"

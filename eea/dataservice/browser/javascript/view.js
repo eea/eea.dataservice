@@ -22,7 +22,7 @@ Figures.PhotoAlbum = function(context){
   jQuery('.photoAlbumEntry a').fancybox({
     hideOnContentClick: false,
     width: 750,
-    height: 450,
+    height: 460,
     autoDimensions: false,
     padding: 0,
     margin: 0,
