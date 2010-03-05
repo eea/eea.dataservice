@@ -5,6 +5,7 @@ Changelog
 
 1.8 - (Unreleased)
 -----------------
+ * Fixed: now on IMS EEAFigureFiles in any state appear. [ghicaale #3018]
  * Explicit tooltip icons added in front of each metadata label. [ghicaale #2986]
  * Fixed: Title value is replaced with ['', ''] when using next/previous buttons
    in EEAFigure edit form [voineali #3018]

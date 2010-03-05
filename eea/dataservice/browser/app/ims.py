@@ -13,7 +13,7 @@ class GetIMSimage(object):
     def __call__(self, gid='', image='preview'):
         cat = getToolByName(self.context, 'portal_catalog')
         query = {'UID': gid}
-        brains = cat(**query)
+        brains = cat.unrestrictedSearchResults(**query)
         if brains:
             figure = brains[0].getObject()
             GetImg = getMultiAdapter((figure, self.request), name='imgview')
