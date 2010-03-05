@@ -109,7 +109,7 @@ dd {margin-left: 3em}
 
 .figures-fancyimage-left {
   float: left;
-  width: 400px;
+  width: auto;
 }
 
 .figures-fancyimage-left img {
@@ -138,13 +138,11 @@ dd {margin-left: 3em}
 }
 
 .map-singlefile .figures-fancyimage-left {
-  float: none;
   width: auto;
 }
 
 .map-singlefile .figures-fancyimage-right {
-  float: none;
-  width: auto;
+  width: 380px;
 }
 
 .map-singlefile .figures-empty {
@@ -161,5 +159,4 @@ dd {margin-left: 3em}
 .fancybox-more-details {
   clear: both;
   text-align: center;
-  padding-top: 2em;
 }
