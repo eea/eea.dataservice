@@ -21,6 +21,26 @@ class FancyBox(BrowserView):
                 return title
         return uid
 
+    def get_size(self, brain):
+        """ Get size
+        """
+        size = brain.getObjSize
+        if size and size not in ('0 kB', u'0 kB'):
+            return size
+
+        displaySize = queryMultiAdapter(
+            (self.context, self.request), name=u'displaySize')
+        if not displaySize:
+            return size
+
+        doc = brain.getObject()
+        get_size = getattr(doc, 'get_size', None)
+        if not get_size:
+            return size
+
+        size = get_size()
+        return displaySize(size)
+
     @property
     def vocabulary(self):
         brains = self.context.getFolderContents(contentFilter={
@@ -40,7 +60,7 @@ class FancyBox(BrowserView):
                 continue
 
             title = self.get_title(uid, mapping)
-            size = brain.getObjSize
+            size = self.get_size(brain)
             yield (uid, title, size)
 
 class ContainerFancyBox(BrowserView):
