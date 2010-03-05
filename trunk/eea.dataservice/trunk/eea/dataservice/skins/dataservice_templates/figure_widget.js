@@ -151,9 +151,10 @@ FigureWidget.Search = {
     link.click(function(){
       results.html('');
       var new_pub = jQuery('.figure_widget_new_publication', widget);
-      var eeaid = jQuery('input[name=eeaid]', form).val();
-      jQuery('input[name=eeaid]', new_pub).val(eeaid);
-      jQuery('input[name=title]', new_pub).val('');
+      var title = jQuery('input[type=text]', form).val();
+      //var eeaid = jQuery('input[name=eeaid]', form).val();
+      //jQuery('input[name=eeaid]', new_pub).val(eeaid);
+      jQuery('input[type=text]', new_pub).val(title);
       new_pub.show();
       form.hide();
       return false;
@@ -189,7 +190,7 @@ FigureWidget.Add = {
   add: function(input, form, widget){
     input.removeClass('submitting');
     var context = this;
-    var title = jQuery('input[name=title]', form);
+    var title = jQuery('input[type=text]', form);
     // deprecated: var eeaid = jQuery('input[name=eeaid]', form);
 
     var errors_area = jQuery('.formHelp', title.parent());

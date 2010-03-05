@@ -170,8 +170,9 @@
             i18n:translate="">Search for Publication by title</label>
           <div class="formHelp" i18n:translate="">Insert publication keywords to search for</div>
           <input type="text" tal:attributes="
-            id string:${fieldName}_title"
-            name="title" value="" />
+            id string:${fieldName}_title;
+            title string:${fieldName}_ajax_search_title"
+            value="" />
           <input type="submit" name="form.actions.search" value="Search" />
           <span class="figure_widget_errors"></span>
           <div class="figure_widget_results"></div>
@@ -185,8 +186,10 @@
               for string:${fieldName}_title" i18n:translate="">EEA Publication title</label>
             <span class="fieldRequired" title="Required">  (Required) </span>
             <div class="formHelp figure_widget_errors"></div>
-            <input tal:attributes="id string:${fieldName}_title"
-              type="text" maxlength="255" name="title"/>
+            <input tal:attributes="
+              id string:${fieldName}_title;
+              title string:${fieldName}_ajax_add_title"
+              type="text" maxlength="255"/>
           </div>
           <!-- eeaid is now deprecated -->
           <!-- div class="field ArchetypesStringWidget">
