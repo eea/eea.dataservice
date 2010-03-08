@@ -5,6 +5,8 @@ Changelog
 
 1.8 - (Unreleased)
 -----------------
+ * Added a macro for tooltip display. Tooltip is now shown only if
+   there is information available. [ghicaale #2389]
  * Fixed: Size is displayed 0 kB if lower than 1 Mb [voineali]
  * Fixed: now on IMS EEAFigureFiles in any state appear. [ghicaale #3018]
  * Explicit tooltip icons added in front of each metadata label. [ghicaale #2986]
