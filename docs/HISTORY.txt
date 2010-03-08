@@ -3,8 +3,8 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.8 - (Unreleased)
------------------
+1.8 - (2010-03-08)
+------------------
  * Added a macro for tooltip display. Tooltip is now shown only if
    there is information available. [ghicaale #2389]
  * Fixed: Size is displayed 0 kB if lower than 1 Mb [voineali]
