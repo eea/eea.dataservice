@@ -3,6 +3,10 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.9 - (Unreleased)
+------------------
+
+
 1.8 - (2010-03-08)
 ------------------
  * Added a macro for tooltip display. Tooltip is now shown only if
