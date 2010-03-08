@@ -147,6 +147,17 @@ function showDefinition(context) {
         </tal:table>
     </tal:tables>
 
+    <!-- Tooltip macro -->
+    <metal:tooltip define-macro="tooltip"
+                   tal:define="tooltip field/widget/description"
+                   tal:condition="tooltip">
+        <img class="eea-flexible-tooltip-bottom"
+             src="information.png"
+             title=""
+             tal:attributes="src string:${portal_url}/information.png;
+                             title tooltip" />
+    </metal:tooltip>
+
     <!-- Additional information -->
     <tal:block metal:define-macro="more-info"
                define="field python:context.getField('moreInfo');
@@ -269,7 +280,6 @@ function showDefinition(context) {
     </tal:block>
     </metal:related-rod>
 
-
     <metal:related-externals define-macro="related-externals">
     <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
@@ -312,17 +322,14 @@ function showDefinition(context) {
             </dd>
         </tal:block>
     </tal:block>
+
     <!-- Publish date -->
     <tal:block metal:define-macro="publish-date"
                define="field python:context.getField('effectiveDate');
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span  i18n:translate="publish_date">Publish date:</span>
         </dt>
         <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
@@ -334,11 +341,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_temporalCoverage">Temporal coverage:</span>
         </dt>
         <dd tal:content="context/@@formatTempCoverage" />
@@ -350,11 +353,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_last_upload">Last upload:</span>
         </dt>
         <dd tal:content="python:context.toLocalizedTime(value, long_format=0)">Last upload</dd>
@@ -366,11 +365,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_geographical">Geographical coverage:</span>
         </dt>
 
@@ -390,11 +385,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_quality">Geographic information quality label:</span>
         </dt>
         <dd tal:define="quality_view nocall:context/@@getQualityDisplay">
@@ -416,11 +407,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_accuracy">Geographic accuracy:</span>
         </dt>
         <dd tal:content="structure value">Geographic accuracy</dd>
@@ -435,11 +422,7 @@ function showDefinition(context) {
                            facetId facetId"
                    condition="value">
             <dt>
-                <img class="eea-flexible-tooltip-bottom"
-                     src="information.png"
-                     title=""
-                     tal:attributes="src string:${portal_url}/information.png;
-                                     title field/widget/description" />
+                <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_keywords">Tags:</span>
             </dt>
             <dd>
@@ -459,11 +442,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_scale">Scale of the data set:</span>
         </dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
@@ -475,11 +454,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_rights">Rights:</span>
         </dt>
         <dd tal:content="structure python:value.replace('\n', '<br />')" />
@@ -491,11 +466,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_disclaimer">Disclaimer:</span>
         </dt>
         <dd tal:content="structure value">Disclaimer</dd>
@@ -507,11 +478,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt i18n:translate="dataset_methodology">
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_methodology">Methodology:</span>
         </dt>
         <dd tal:content="structure value">Methodology</dd>
@@ -523,11 +490,7 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_unit">Units:</span>
         </dt>
         <dd tal:content="structure value">Units</dd>
@@ -542,11 +505,7 @@ function showDefinition(context) {
                        value python:context.displayValue(vocab, values)"
                condition="value">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_reference">Coordinate reference system:</span>
         </dt>
         <dd tal:content="structure value">Coordinate reference system</dd>
@@ -560,11 +519,7 @@ function showDefinition(context) {
                        value python:context.displayValue(vocab, values)"
                condition="value">
         <dt i18n:translate="dataset_source">
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_source">Source:</span>
         </dt>
         <dd tal:content="structure value">source</dd>
@@ -576,11 +531,7 @@ function showDefinition(context) {
                        urls python:field.getAccessor(context)()"
                condition="urls">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_owner">Owners:</span>
         </dt>
         <tal:block repeat="url urls">
@@ -601,11 +552,7 @@ function showDefinition(context) {
                        urls python:field.getAccessor(context)()"
                condition="urls">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_processor">Processors:</span>
         </dt>
         <tal:block repeat="url urls">
@@ -644,11 +591,7 @@ function showDefinition(context) {
                define="field python:context.getField('eeaManagementPlan');
                        value python:field.getAccessor(context)()">
         <dt>
-            <img class="eea-flexible-tooltip-bottom"
-                 src="information.png"
-                 title=""
-                 tal:attributes="src string:${portal_url}/information.png;
-                                 title field/widget/description" />
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_plan_code">EEA management plan code:</span>
         </dt>
         <dd tal:condition="python:value != ('', '')">
@@ -667,11 +610,7 @@ function showDefinition(context) {
                            value python:field.getAccessor(context)()"
                    condition="value">
            <dt>
-                <img class="eea-flexible-tooltip-bottom"
-                     src="information.png"
-                     title=""
-                     tal:attributes="src string:${portal_url}/information.png;
-                                     title field/widget/description" />
+                <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_contact">Contact references at EEA:</span>
            </dt>
            <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact persons for EEA</dd>
