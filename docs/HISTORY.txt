@@ -6,6 +6,7 @@ Changelog
 1.9 - (Unreleased)
 ------------------
 
+ * Safely define macro tooltip in dataset_view.pt [voineali]
 
 1.8 - (2010-03-08)
 ------------------
