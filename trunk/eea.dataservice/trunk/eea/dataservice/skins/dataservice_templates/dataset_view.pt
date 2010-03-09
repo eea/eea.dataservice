@@ -149,7 +149,7 @@ function showDefinition(context) {
 
     <!-- Tooltip macro -->
     <metal:tooltip define-macro="tooltip"
-                   tal:define="tooltip field/widget/description"
+                   tal:define="tooltip field/widget/description|nothing"
                    tal:condition="tooltip">
         <img class="eea-flexible-tooltip-bottom"
              src="information.png"
