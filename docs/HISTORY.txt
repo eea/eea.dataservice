@@ -6,6 +6,7 @@ Changelog
 1.9 - (Unreleased)
 ------------------
 
+ * Fixed: Most recent map version not found in thematic search [voineali #3101]
  * Safely define macro tooltip in dataset_view.pt [voineali]
 
 1.8 - (2010-03-08)
