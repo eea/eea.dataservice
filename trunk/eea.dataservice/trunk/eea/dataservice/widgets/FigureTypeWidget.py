@@ -8,7 +8,7 @@ from Products.Archetypes.Widget import TypesWidget
 from Products.Archetypes.Registry import registerWidget
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
-from eea.dataservice.interfaces import *
+from eea.dataservice import interfaces
 
 
 class FigureTypeWidget(TypesWidget):
@@ -28,19 +28,19 @@ class FigureTypeWidget(TypesWidget):
         value = form.get(field.getName(), empty_marker)
         old_value = instance.getFigureType()
 
-        if value == 'map':
-            alsoProvides(instance, IEEAFigureMap)
-        elif value == 'graph':
-            alsoProvides(instance, IEEAFigureGraph)
-        elif value == 'table':
-            alsoProvides(instance, IEEAFigureTable)
-
         if old_value == 'map':
-            directlyProvides(instance, directlyProvidedBy(instance)-IEEAFigureMap)
+            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureMap)
         elif old_value == 'graph':
-            directlyProvides(instance, directlyProvidedBy(instance)-IEEAFigureGraph)
+            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureGraph)
         elif old_value == 'table':
-            directlyProvides(instance, directlyProvidedBy(instance)-IEEAFigureTable)
+            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureTable)
+
+        if value == 'map':
+            alsoProvides(instance, interfaces.IEEAFigureMap)
+        elif value == 'graph':
+            alsoProvides(instance, interfaces.IEEAFigureGraph)
+        elif value == 'table':
+            alsoProvides(instance, interfaces.IEEAFigureTable)
 
         if value is empty_marker:
             return empty_marker
