@@ -174,7 +174,7 @@ class FigureTypes:
 
     def getDisplayList(self, instance):
         """ """
-        return [('map', 'Map'), ('graph', 'Graph'), ('table', 'Table')]
+        return [('map', 'Map'), ('graph', 'Graph')]
 
     def getVocabularyDict(self, instance):
         return {}

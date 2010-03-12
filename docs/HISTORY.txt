@@ -6,6 +6,8 @@ Changelog
 1.9 - (Unreleased)
 ------------------
 
+ * 'Table' removed from the list of 'Figure type', now only 'Map'
+   and 'Graph' are available as a choice. [ghicaale #3140]
  * Fixed: Most recent map version not found in thematic search [voineali #3101]
  * Safely define macro tooltip in dataset_view.pt [voineali]
 
