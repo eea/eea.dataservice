@@ -3,6 +3,9 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.10 - (Unreleased)
+-------------------
+
 1.9 - (2010-03-16)
 ------------------
 
