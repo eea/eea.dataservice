@@ -6,8 +6,9 @@ Changelog
 1.10 - (Unreleased)
 -------------------
 
- * #3156 Fixed: layout issue on fancybox with long notes [voineali]
-
+ * Fixed: layout issue on fancybox with long notes [voineali #3156]
+ * Fixed: error on datasets view when ROD ( http://rod.eionet.europa.eu/obligations )
+   server is not responding [ghicaale #3161]
 
 1.9 - (2010-03-16)
 ------------------
