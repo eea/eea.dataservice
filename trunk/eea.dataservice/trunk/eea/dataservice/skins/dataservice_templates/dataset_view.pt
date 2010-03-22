@@ -266,7 +266,8 @@ function showDefinition(context) {
     <!-- Reporting obligation(s) (ROD) -->
     <tal:block define="value context/getReportingObligations;
                        view nocall:context/@@getObligations"
-               condition="value">
+               condition="value"
+               on-error="nothing">
         <h4 i18n:translate="reporting_obligations">Reporting obligations (ROD)</h4>
         <ul tal:define="data python:view()">
             <li tal:repeat="ob_nr value">
