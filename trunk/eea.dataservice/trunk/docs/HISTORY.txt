@@ -6,6 +6,9 @@ Changelog
 1.10 - (Unreleased)
 -------------------
 
+ * #3156 Fixed: layout issue on fancybox with long notes [voineali]
+
+
 1.9 - (2010-03-16)
 ------------------
 
