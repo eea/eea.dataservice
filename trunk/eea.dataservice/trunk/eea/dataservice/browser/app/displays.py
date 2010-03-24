@@ -190,7 +190,8 @@ class DatasetBasedOn(object):
         self.request = request
 
     def __call__(self):
-        return IRelations(self.context).backReferences()
+        return [rel for rel in IRelations(self.context).backReferences()
+                    if rel.portal_type == 'Data']
 
 class DatasetDerivedFrom(object):
     """ Returns 'derived from' datasets
@@ -200,7 +201,8 @@ class DatasetDerivedFrom(object):
         self.request = request
 
     def __call__(self):
-        return IRelations(self.context).forwardReferences()
+        return [rel for rel in IRelations(self.context).forwardReferences()
+                    if rel.portal_type == 'Data']
 
 class Obligations(object):
     """ Returns obligations
