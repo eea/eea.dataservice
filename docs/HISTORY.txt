@@ -6,6 +6,9 @@ Changelog
 1.10 - (Unreleased)
 -------------------
 
+ * Fixed: Typo in 'Last upload' tooltip, replaced 'conicide' with 'coincide' [ghicaale]
+ * Fixed: Only datasets appear now under 'Derived data set' and
+   under 'Parent data set' [ghicaale #3174]
  * Fixed: layout issue on fancybox with long notes [voineali #3156]
  * Fixed: error on datasets view when ROD ( http://rod.eionet.europa.eu/obligations )
    server is not responding [ghicaale #3161]
