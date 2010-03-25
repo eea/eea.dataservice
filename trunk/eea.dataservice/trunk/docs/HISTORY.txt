@@ -5,7 +5,7 @@ Changelog
 
 1.10 - (Unreleased)
 -------------------
-
+ * Fixed: Get all visible figures in AllMapsAndGraphs_dump.xml [voineali #2833]
  * Fixed: Typo in 'Last upload' tooltip, replaced 'conicide' with 'coincide' [ghicaale]
  * Fixed: Only datasets appear now under 'Derived data set' and
    under 'Parent data set' [ghicaale #3174]

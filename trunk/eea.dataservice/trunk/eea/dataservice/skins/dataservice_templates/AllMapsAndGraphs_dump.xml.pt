@@ -11,7 +11,7 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:metal="http://xml.zope.org/namespaces/metal">
 
-<tal:images define="brains python:here.getFolderContents({'portal_type': 'EEAFigure'})">
+<tal:images define="brains python:here.getFolderContents({'portal_type': 'EEAFigure', 'review_state': ['published', 'visible']})">
   <tal:image repeat="brain brains">
     <dctype:Image tal:define="
       doc python:brain.getObject();
