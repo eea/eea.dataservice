@@ -3,6 +3,9 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.11 - (unreleased)
+-------------------
+
 1.10 - (2010-03-26)
 -------------------
  * Fixed: Get all visible figures in AllMapsAndGraphs_dump.xml [voineali #2833]
