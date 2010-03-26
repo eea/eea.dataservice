@@ -1,0 +1,123 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<head>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script language="javascript" type="text/javascript"
+          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
+    </metal:javascript>
+</head>
+
+<body>
+
+<div metal:fill-slot="main" tal:define="
+  lastVersion context/@@getLatestVersionLink;
+  versions nocall:here/@@getVersions;
+  has_versions here/@@hasVersions;">
+    <!-- BASIC PROPERTIES -->
+
+    <metal:basic use-macro="here/dataset_view/macros/basic" />
+
+    <!-- Versions -->
+    <metal:versions use-macro="here/portlet_versions/macros/versions">
+      <metal:new fill-slot="old" />
+    </metal:versions>
+
+    <!-- Themes -->
+    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+
+  <!-- EEAFigureFiles -->
+  <tal:figurefiles define="
+    categView nocall:context/@@getCategoryName;
+    singlefile context/@@getSingleEEAFigureFile;
+    figurefiles context/@@getEEAFigureFiles">
+    <div tal:condition="singlefile" class="map-singlefile">
+      <tal:doc define="doc python:singlefile.getObject()">
+        <tal:fancybox replace="structure doc/@@fancybox.html" />
+        <div class="visualClear"></div>
+      </tal:doc>
+    </div>
+    <div metal:define-macro="figures-album" class="map-photo-album"
+      tal:repeat="child figurefiles">
+      <tal:child define="
+        Batch python:modules['Products.CMFPlone'].Batch;
+        b_start python:request.get('b_start', 0);
+        folderContents python:Batch(child[1], 100, int(b_start), orphan=1);
+        categ python:child[0];
+        categ_name python:categView(categ);">
+        <h4 tal:content="categ_name" tal:attributes="
+          id string:fancy-$categ;
+          title categ_name;"/>
+        <metal:figures use-macro="here/atct_album_view/macros/listing" />
+      </tal:child>
+    </div>
+  </tal:figurefiles>
+
+    <metal:related use-macro="here/dataset_view/macros/more-info" />
+
+    <!-- META DATA -->
+    <div class="metadata-container">
+    <dl>
+       <metal:related use-macro="here/dataset_view/macros/publish-date" />
+       <metal:related use-macro="here/dataset_view/macros/last-upload" />
+       <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
+       <tal:tags define="facetId string:c9">
+            <metal:related use-macro="here/dataset_view/macros/tags" />
+       </tal:tags>
+       <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
+       <metal:related use-macro="here/dataset_view/macros/methodology" />
+       <metal:related use-macro="here/dataset_view/macros/units" />
+       <metal:related use-macro="here/dataset_view/macros/rights" />
+       <metal:related use-macro="here/dataset_view/macros/source" />
+       <metal:related use-macro="here/dataset_view/macros/owners" />
+       <metal:related use-macro="here/dataset_view/macros/processors" />
+       <metal:related use-macro="here/dataset_view/macros/eea-mp-code" />
+       <metal:related use-macro="here/dataset_view/macros/eea-contact-reference" />
+       <metal:basicmeta use-macro="here/dataset_view/macros/basicmeta" />
+
+       <!-- Figure type -->
+       <tal:block define="field python:context.getField('figureType');
+                          vocab python:field.Vocabulary(context);
+                          values python:field.getAccessor(context)();
+                          value python:context.displayValue(vocab, values)"
+                  condition="value">
+          <dt>
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+            <span i18n:translate="dataservice_type">Figure type:</span>
+          </dt>
+          <dd tal:content="structure value">Figure type</dd>
+       </tal:block>
+
+    </dl>
+    </div>
+
+    <tal:related define="related_products context/@@getRelatedProducts;
+                         has_content python:related_products['has_data']">
+        <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="related_content">
+            Related content
+        </h2>
+
+        <!-- Relation: related (plone) products -->
+        <metal:related use-macro="here/dataset_view/macros/related-publications" />
+        <metal:related use-macro="here/dataset_view/macros/related-figures" />
+        <metal:related use-macro="here/dataset_view/macros/related-datasets" />
+        <metal:related use-macro="here/dataset_view/macros/related-others" />
+
+        <!-- metal:related use-macro="here/dataset_view/macros/related-rod" / -->
+
+        <metal:related use-macro="here/dataset_view/macros/related-externals" />
+    </tal:related>
+
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Older versions -->
+    <metal:versions use-macro="here/portlet_versions/macros/versions">
+      <metal:old fill-slot="new" />
+    </metal:versions>
+
+</div>
+
+</body>
+</html>
