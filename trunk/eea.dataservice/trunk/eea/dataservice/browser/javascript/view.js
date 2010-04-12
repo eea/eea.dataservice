@@ -20,6 +20,7 @@ Figures.PhotoAlbum = function(context){
 
   var js_context = this;
   jQuery('.photoAlbumEntry a').fancybox({
+    type: 'ajax',
     hideOnContentClick: false,
     width: 750,
     height: 460,
