@@ -5,6 +5,7 @@ Changelog
 
 1.11 - (unreleased)
 -------------------
+ * Fixed: Maps&Graphs fancy box returns an error [voineali #3240]
 
 1.10 - (2010-03-26)
 -------------------

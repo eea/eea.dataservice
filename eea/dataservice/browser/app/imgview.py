@@ -1,9 +1,12 @@
+import logging
 from zope.interface import implements
 from zope.component import queryMultiAdapter
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser import BrowserView
 from valentine.imagescales.browser.interfaces import IImageView
 from valentine.imagescales.browser import atfield, atfolder
+
+logger = logging.getLogger("eea.dataservice")
 
 class ImageViewFigure(BrowserView):
     """ Get cover image from folder contents
@@ -80,7 +83,11 @@ class ImageViewFigureFile(BrowserView):
     def display(self, scalename='thumb'):
         if scalename == 'original':
             return not not self.original
-        return self.img.display(scalename)
+        try:
+            return self.img.display(scalename)
+        except Exception, err:
+            logger.exception(err)
+            return False
 
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
