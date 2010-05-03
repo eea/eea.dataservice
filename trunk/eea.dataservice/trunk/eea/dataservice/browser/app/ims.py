@@ -15,7 +15,7 @@ class GetIMSimage(object):
         query = {'UID': gid}
         brains = cat.unrestrictedSearchResults(**query)
         if brains:
-            figure = brains[0].getObject()
+            figure = self.context.unrestrictedTraverse(brains[0].getPath())
             GetImg = getMultiAdapter((figure, self.request), name='imgview')
 
             # Transform old IMS calls of image
