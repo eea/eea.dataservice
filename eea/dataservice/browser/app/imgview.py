@@ -15,23 +15,25 @@ class ImageViewFigure(BrowserView):
 
     def __init__(self, context, request):
         super(ImageViewFigure, self).__init__(context, request)
-        eeafile = None
-        images = []
-        files = self.context.getFolderContents(contentFilter={
+
+        brains = self.context.getFolderContents(contentFilter={
             'portal_type': 'EEAFigureFile',
             'review_state': ['published', 'visible'],
         }, full_objects = True)
 
-        for obj in files:
-            if obj.getCategory() == 'hard':
-                eeafile = obj
-                break
-        if not eeafile and len(files):
-            eeafile = files[0]
+        eeafile = None
+        for brain in brains:
+            children = brain.getFolderContents(contentFilter={
+                'portal_type': 'ImageFS',
+                'review_state': ['published', 'visible']
+            })
+            if not len(children):
+                continue
 
-        self.img = None
-        if eeafile:
-            self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
+            eeafile = brain
+            break
+
+        self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
     def display(self, scalename='thumb'):
         if not self.img:
