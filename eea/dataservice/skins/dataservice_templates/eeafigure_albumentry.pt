@@ -1,18 +1,10 @@
 <metal:entry define-macro="entry" tal:define="
   css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry';
   display obj/@@imgview/display|nothing;">
-  <div tal:attributes="class python:display and css or 'figuresPhotoAlbumEntry'">
-    <a tal:condition="display" tal:attributes="
-      href listing_url;
-      title python:obj_title">
-      <span class="photoAlbumEntryWrapper">
-      <img style="border: none" tal:attributes="
-        title obj_title;
-        alt obj/pretty_title_or_id;
-        src string:${obj/absolute_url}/image_thumb"/>
-      </span>
-      <span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" />
-    </a>
+  <tal:entry condition="display">
+    <metal:entry use-macro="here/atct_albumentry/macros/entry" />
+  </tal:entry>
+  <div tal:condition="not:display" class="figuresPhotoAlbumEntry">
     <div class="figuresPhotoAlbumEntryTitle" tal:define="
       field obj/getFile | nothing;
       size field/get_size | nothing;
