@@ -5,6 +5,7 @@ Changelog
 
 1.11 - (unreleased)
 -------------------
+ * Adjust template to use the new atct_album_view listing macro [voineali #3305]
  * Fixed: broken thumbnails for EEAFigures [voineali #3311]
  * Fixed: Maps&Graphs fancy box returns an error [voineali #3240]
  * Fixed: On IMS, thumb image from dataservice is now acquired regardless of EEAFigure state. [ghicaale #3018]
