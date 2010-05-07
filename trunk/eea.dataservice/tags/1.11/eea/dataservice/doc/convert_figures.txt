@@ -1,0 +1,12 @@
+Convert all EEAFigureFiles
+==============================================================
+
+There are two ways you can call this view, one only to see
+the status of all EEAFigureFiles:
+
+    http://www.eea.europa.eu/@@checkFiguresConvertion?info=1
+
+And a second type of call (recomanded for cron jobs) to convert
+all not already converted EEAFigureFiles:
+
+    http://www.eea.europa.eu/@@checkFiguresConvertion
