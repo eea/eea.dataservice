@@ -3,6 +3,10 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.12 - (unreleased)
+-------------------
+
+
 1.11 - (2010-05-07)
 -------------------
  * Adjust template to use the new atct_album_view listing macro [voineali #3305]
