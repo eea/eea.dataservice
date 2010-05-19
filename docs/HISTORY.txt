@@ -5,7 +5,7 @@ Changelog
 
 1.12 - (unreleased)
 -------------------
-
+ * Implemented "assign version to" functionality [ghicaale #2883]
 
 1.11 - (2010-05-07)
 -------------------

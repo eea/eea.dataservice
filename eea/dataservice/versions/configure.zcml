@@ -52,12 +52,35 @@
       class=".versions.RevokeVersion"
       />
 
+  <browser:page
+      for="*"
+      name="assignVersion"
+      template="assign_version.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="assign_version"
+      permission="cmf.ModifyPortalContent"
+      class=".versions.AssignVersion"
+      />
+
   <browser:menuItem
       for="eea.dataservice.interfaces.IDataset"
       menu="object_buttons"
       title="Create new version"
       action="@@createVersion"
       description="Create a new version"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:menuItem
+      for="eea.dataservice.interfaces.IDataset"
+      menu="object_buttons"
+      title="Re-assign version"
+      action="@@assignVersion"
+      description="Re-assign to another version ID"
       permission="cmf.ModifyPortalContent"
       />
 
