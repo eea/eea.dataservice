@@ -11,7 +11,7 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:metal="http://xml.zope.org/namespaces/metal">
 
-<tal:datasets define="brains python:here.getFolderContents({'portal_type': 'Data'})">
+<tal:datasets define="brains python:here.portal_catalog(**{'portal_type': 'Data', 'show_inactive': True})">
   <tal:data repeat="brain brains">
     <dctype:Dataset tal:define="
       doc python:brain.getObject();
