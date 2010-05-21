@@ -6,6 +6,7 @@ Changelog
 1.12 - (unreleased)
 -------------------
  * Implemented "assign version to" functionality [ghicaale #2883]
+ * XML dump of datasets and figures are now using catalog to do the query [ghicaale]
 
 1.11 - (2010-05-07)
 -------------------
