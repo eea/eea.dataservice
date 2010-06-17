@@ -3,8 +3,9 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.2 - (Unreleased)
+1.13 - (2010-06-17)
 -------------------
+ * #3455 Fix versions inclusion in release 1.12 [voineali]
 
 1.12 - (2010-06-16)
 -------------------

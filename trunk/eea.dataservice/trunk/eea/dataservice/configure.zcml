@@ -14,7 +14,7 @@
     <include package=".google" />
     <include package=".content" />
     <include package=".widgets" />
-    <!-- include package=".versions" / -->
+    <include package=".versions" />
     <include package=".facetednavigation.lastversion" />
     <include package=".facetednavigation.geocoverage" />
     <include file="profiles.zcml" />
