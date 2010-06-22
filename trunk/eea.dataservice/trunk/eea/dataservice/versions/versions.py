@@ -285,8 +285,22 @@ class AssignVersion(object):
 
         if new_version:
             obj = self.context
+
+            # Verify if there are more objects under this version
+            cat = getToolByName(self.context, 'portal_catalog')
+            brains = cat.searchResults({'getVersionId' : new_version,
+                                        'show_inactive': True})
+            if brains and not IVersionEnhanced.providedBy(obj):
+                alsoProvides(obj, IVersionEnhanced)
+            if len(brains) == 1:
+                target_ob = brains[0].getObject()
+                if not IVersionEnhanced.providedBy(target_ob):
+                    alsoProvides(target_ob, IVersionEnhanced)
+
+            # Set new version ID
             verparent = IVersionControl(obj)
             verparent.setVersionId(new_version)
+
             obj.reindexObject()
             message = _(u'Version ID changed.')
         else:
