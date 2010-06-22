@@ -5,10 +5,11 @@ Changelog
 
 1.2 - (Unreleased)
 ------------------
+ * Fix "assign version to" [ghicaale #2883]
 
 1.13 - (2010-06-17)
 -------------------
- * #3455 Fix versions inclusion in release 1.12 [voineali]
+ * Fix versions inclusion in release 1.12 [voineali #3455]
 
 1.12 - (2010-06-16)
 -------------------

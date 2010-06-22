@@ -51,7 +51,6 @@
         action="@@createVersion"
         description="Create a new version"
         permission="cmf.ModifyPortalContent"
-        filter="python:object.aq_parent.meta_type not in ['AssessmentPart']"
         />
 
     <browser:menuItem
@@ -70,7 +69,6 @@
         action="@@revokeVersion"
         description="Revoke a version"
         permission="cmf.ModifyPortalContent"
-        filter="python:object.aq_parent.meta_type not in ['AssessmentPart']"
         />
 
     <subscriber
