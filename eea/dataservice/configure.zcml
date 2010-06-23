@@ -18,6 +18,7 @@
     <include package=".facetednavigation.lastversion" />
     <include package=".facetednavigation.geocoverage" />
     <include file="profiles.zcml" />
+    <include file="versions.zcml" />
 
     <utility
       component=".vocabulary.OrganisationsVocabulary"
