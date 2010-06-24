@@ -45,33 +45,6 @@
       name="Main keywords"
       />
 
-    <browser:menuItem
-        for=".interfaces.IEEAFigure"
-        menu="object_buttons"
-        title="Create new version"
-        action="@@createVersion"
-        description="Create a new version"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <browser:menuItem
-        for=".interfaces.IEEAFigure"
-        menu="object_buttons"
-        title="Re-assign version"
-        action="@@assignVersion"
-        description="Re-assign to another version ID"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <browser:menuItem
-        for=".interfaces.IEEAFigure"
-        menu="object_buttons"
-        title="Revoke version"
-        action="@@revokeVersion"
-        description="Revoke a version"
-        permission="cmf.ModifyPortalContent"
-        />
-
     <subscriber
          for=".interfaces.IDataset
               zope.app.event.interfaces.IObjectCreatedEvent"
