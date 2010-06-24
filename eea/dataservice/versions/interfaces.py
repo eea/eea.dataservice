@@ -1,28 +1,17 @@
-from zope.interface import Interface, Attribute
+from eea.versions.interfaces import (
+    IVersionControl,
+    IVersionEnhanced,
+    IGetVersions
+)
 
-class IVersionControl(Interface):
-    """ Objects which have versions.
-    """
-    versionId = Attribute("Version ID")
-
-    def getVersionNumber():
-        """ Return version number. """
-
-class IVersionEnhanced(Interface):
+class IVersionControl(IVersionControl):
     """ Objects which have versions.
     """
 
-class IGetVersions(Interface):
-    """ Get container versions
+class IVersionEnhanced(IVersionEnhanced):
+    """ Objects which have versions.
     """
-    def newest():
-        """ Return newer versions
-        """
 
-    def oldest():
-        """ Return oldest versions
-        """
-
-    def __call__():
-        """ Get all versions
-        """
+class IGetVersions(IGetVersions):
+    """ Get container versions.
+    """
