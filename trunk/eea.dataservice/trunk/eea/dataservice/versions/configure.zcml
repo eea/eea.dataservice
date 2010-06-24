@@ -61,21 +61,21 @@
     <subscriber
          for="eea.dataservice.interfaces.IDataset
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler=".handler.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for="eea.dataservice.interfaces.IDataset
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler=".handler.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for="eea.dataservice.interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler=".handler.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for="eea.dataservice.interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler=".handler.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
 </configure>
