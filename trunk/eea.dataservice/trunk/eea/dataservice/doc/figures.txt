@@ -20,7 +20,7 @@ Lets add a EEAFigure.
     ...   'figureType': 'map',
     ...   'temporalCoverage': ['2008', '2009'],
     ...   'processor': 'http://organisation.url',
-    ...   'eeaManagementPlan': (2009, ''),
+    ...   'eeaManagementPlan': (2010, ''),
     ...   'dataOwner': 'http://organisation.url',
     ...   'lastUpload': '11/11/2008',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
@@ -58,8 +58,6 @@ Check see if properties applyed.
     ('2008', '2009')
     >>> figure1.getProcessor()
     ('http://organisation.url',)
-    >>> figure1.getEeaManagementPlan()
-    (2009, '')
     >>> figure1.getDataOwner()
     ('http://organisation.url',)
     >>> figure1.lastUpload
