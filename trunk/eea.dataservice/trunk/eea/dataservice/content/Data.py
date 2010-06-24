@@ -8,7 +8,6 @@ from Products.Archetypes.atapi import *
 from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
-from zope.app.annotation.interfaces import IAnnotations
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
@@ -20,10 +19,8 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IDataset
-from eea.dataservice.versions.versions import _get_random
 from eea.dataservice.content.schema import dataservice_schema
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
-from eea.dataservice.versions.versions import VERSION_ID, _reindex
 from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 from eea.dataservice.vocabulary import Obligations, REFERENCE_DICTIONARY_ID
 
@@ -221,23 +218,5 @@ class Data(ATFolder, ThemeTaggable):
         value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
-
-
-def versionIdHandler(obj, event):
-    """ Set a versionId as annotation without setting the
-        version marker interface just to have a perma link
-        to last version
-    """
-    hasVersions = obj.unrestrictedTraverse('@@hasVersions')
-    if not hasVersions():
-        verId = _get_random(10)
-        anno = IAnnotations(obj)
-        ver = anno.get(VERSION_ID)
-        #TODO: tests fails with ver = None when adding an EEAFigure,
-        #      remove "if ver:" after fix
-        if ver:
-            if not ver.values()[0]:
-                ver[VERSION_ID] = verId
-                _reindex(obj)
 
 registerType(Data, PROJECTNAME)
