@@ -59,22 +59,22 @@
         />
 
     <subscriber
-         for=".interfaces.IDataset
+         for="eea.dataservice.interfaces.IDataset
               zope.app.event.interfaces.IObjectCreatedEvent"
          handler=".handler.versionIdHandler" />
 
     <subscriber
-         for=".interfaces.IDataset
+         for="eea.dataservice.interfaces.IDataset
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler=".handler.versionIdHandler" />
 
     <subscriber
-         for=".interfaces.IEEAFigure
+         for="eea.dataservice.interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectCreatedEvent"
          handler=".handler.versionIdHandler" />
 
     <subscriber
-         for=".interfaces.IEEAFigure
+         for="eea.dataservice.interfaces.IEEAFigure
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler=".handler.versionIdHandler" />
 
