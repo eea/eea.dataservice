@@ -5,6 +5,7 @@ Changelog
 
 1.2 - (Unreleased)
 ------------------
+ * Make use of eea.versions package. [ghicaale #3462]
  * Fix "assign version to" [ghicaale #2883]
 
 1.13 - (2010-06-17)
