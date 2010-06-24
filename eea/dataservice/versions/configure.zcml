@@ -58,4 +58,24 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <subscriber
+         for=".interfaces.IDataset
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler=".handler.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IDataset
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler=".handler.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler=".handler.versionIdHandler" />
+
+    <subscriber
+         for=".interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler=".handler.versionIdHandler" />
+
 </configure>

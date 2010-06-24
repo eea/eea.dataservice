@@ -100,6 +100,6 @@ parent effective date.
 
 Both objects should have the same version ID.
 
-    >>> from eea.dataservice.versions.interfaces import IVersionControl
+    >>> from eea.versions.interfaces import IVersionControl
     >>> IVersionControl(dataVer).getVersionId() == IVersionControl(figure1).getVersionId()
     True
