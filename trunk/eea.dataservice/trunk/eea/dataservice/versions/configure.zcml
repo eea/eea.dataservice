@@ -5,7 +5,7 @@
     i18n_domain="eea.dataservice">
 
     <browser:menuItem
-        for=".interfaces.IEEAFigure"
+        for="eea.dataservice.interfaces.IEEAFigure"
         menu="object_buttons"
         title="Create new version"
         action="@@createVersion"
@@ -14,7 +14,7 @@
         />
 
     <browser:menuItem
-        for=".interfaces.IEEAFigure"
+        for="eea.dataservice.interfaces.IEEAFigure"
         menu="object_buttons"
         title="Re-assign version"
         action="@@assignVersion"
@@ -23,7 +23,7 @@
         />
 
     <browser:menuItem
-        for=".interfaces.IEEAFigure"
+        for="eea.dataservice.interfaces.IEEAFigure"
         menu="object_buttons"
         title="Revoke version"
         action="@@revokeVersion"
