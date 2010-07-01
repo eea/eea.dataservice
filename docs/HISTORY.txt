@@ -3,7 +3,7 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.14 - (Unreleased)
+1.14 - (2010-07-01)
 ------------------
  * Make use of eea.versions package. [ghicaale #3462]
  * Fix "assign version to" [ghicaale #2883]
