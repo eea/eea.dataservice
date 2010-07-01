@@ -1,0 +1,81 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea.dataservice">
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IEEAFigure"
+        menu="object_buttons"
+        title="Create new version"
+        action="@@createVersion"
+        description="Create a new version"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IEEAFigure"
+        menu="object_buttons"
+        title="Re-assign version"
+        action="@@assignVersion"
+        description="Re-assign to another version ID"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IEEAFigure"
+        menu="object_buttons"
+        title="Revoke version"
+        action="@@revokeVersion"
+        description="Revoke a version"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IDataset"
+        menu="object_buttons"
+        title="Create new version"
+        action="@@createVersion"
+        description="Create a new version"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IDataset"
+        menu="object_buttons"
+        title="Re-assign version"
+        action="@@assignVersion"
+        description="Re-assign to another version ID"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:menuItem
+        for="eea.dataservice.interfaces.IDataset"
+        menu="object_buttons"
+        title="Revoke version"
+        action="@@revokeVersion"
+        description="Revoke a version"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <subscriber
+         for="eea.dataservice.interfaces.IDataset
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+         for="eea.dataservice.interfaces.IDataset
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+         for="eea.dataservice.interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+         for="eea.dataservice.interfaces.IEEAFigure
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
+
+</configure>

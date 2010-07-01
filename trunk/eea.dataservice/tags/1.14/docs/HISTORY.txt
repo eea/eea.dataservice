@@ -1,0 +1,146 @@
+Changelog
+=========
+[Alexandru Ghica - alec.ghica@eaudeweb.ro]
+[Antonio De Marinis - demarinis@eea.europa.eu]
+
+1.14 - (2010-07-01)
+------------------
+ * Make use of eea.versions package. [ghicaale #3462]
+ * Fix "assign version to" [ghicaale #2883]
+
+1.13 - (2010-06-17)
+-------------------
+ * Fix versions inclusion in release 1.12 [voineali #3455]
+
+1.12 - (2010-06-16)
+-------------------
+ * Implemented "assign version to" functionality [ghicaale #2883]
+ * XML dump of datasets and figures are now using catalog to do the query [ghicaale]
+
+1.11 - (2010-05-07)
+-------------------
+ * Adjust template to use the new atct_album_view listing macro [voineali #3305]
+ * Fixed: broken thumbnails for EEAFigures [voineali #3311]
+ * Fixed: Maps&Graphs fancy box returns an error [voineali #3240]
+ * Fixed: On IMS, thumb image from dataservice is now acquired regardless of EEAFigure state. [ghicaale #3018]
+
+1.10 - (2010-03-26)
+-------------------
+ * Fixed: Get all visible figures in AllMapsAndGraphs_dump.xml [voineali #2833]
+ * Fixed: Typo in 'Last upload' tooltip, replaced 'conicide' with 'coincide' [ghicaale]
+ * Fixed: Only datasets appear now under 'Derived data set' and
+   under 'Parent data set' [ghicaale #3174]
+ * Fixed: layout issue on fancybox with long notes [voineali #3156]
+ * Fixed: error on datasets view when ROD ( http://rod.eionet.europa.eu/obligations )
+   server is not responding [ghicaale #3161]
+
+1.9 - (2010-03-16)
+------------------
+
+ * Update faceted lastversion widget to use IWidgetFilterBrains adapter instead
+   of after_query method [voineali #3141]
+ * 'Table' removed from the list of 'Figure type', now only 'Map'
+   and 'Graph' are available as a choice. [ghicaale #3140]
+ * Fixed: Most recent map version not found in thematic search [voineali #3101]
+ * Safely define macro tooltip in dataset_view.pt [voineali]
+
+1.8 - (2010-03-08)
+------------------
+ * Added a macro for tooltip display. Tooltip is now shown only if
+   there is information available. [ghicaale #2389]
+ * Fixed: Size is displayed 0 kB if lower than 1 Mb [voineali]
+ * Fixed: now on IMS EEAFigureFiles in any state appear. [ghicaale #3018]
+ * Explicit tooltip icons added in front of each metadata label. [ghicaale #2986]
+ * Fixed: Title value is replaced with ['', ''] when using next/previous buttons
+   in EEAFigure edit form [voineali #3018]
+ * Now uses jquery.fancybox 1.3.0 which is included in portal_javascript [thuliper #3031]
+ * Removed duplicate listing of "Permalink to latest version"
+   from figures view. [ghicaale]
+ * Fixed display list of publications from relation widget
+   search results. [ghicaale #3018]
+ * Refactor figure view template to show fancybox inline if there is only one
+   figure file. Also added support to use figure fancybox outside EEAFigure context [voineali #2924]
+ * Fixed when receiving '404 Not Found' upon redireting via permalinks to a dataset
+   not published. [ghicaale #3030]
+
+1.7 - (2010-02-24)
+------------------
+ * The search after publications from relation widget is now based
+   on publication title instead of eeaid. Multiple results are now
+   shown after each search. [ghicaale #2910]
+ * Fixed that only DataTables and DataFiles that are in public state
+   are visible on index page. On organisations index statistics are
+   counting now only published figures and datasets. [ghicaale #2997]
+ * Fixed label of 'This dataset is derived from' being aquired by other
+   content types that uses 'relatedItems' field. [ghicaale #3001]
+
+1.6 - (2010-02-15)
+------------------
+ * Better path for google analytics stats on downloads of files [demarant #2977]
+ * Changed order of metadata on data and figure fields. [demarant. #2389]
+
+1.5 - (2010-01-18)
+------------------
+ * Added new style classes for messages on new or old version [demarant. #2389]
+ * Added an organisation URL validator in order to have only
+   unique URLs poiting from organisations. [ghicaale #2914]
+ * Fix: no more duplicates in organisation vocabulary even if there are
+   more then one organisation with same url. [ghicaale #2914]
+ * Batch on album view for datasets and figures is now customisable. [ghicaale #2908]
+ * Fix: get also the backreference for 'Related Products'. [ghicaale #2890]
+ * Figure convertions asyncronus. [ghicaale #2895]
+ * Download figure if no thumb on atct_album_view. [ghicaale #2897]
+
+1.4 - (2010-01-04)
+------------------
+ * ImageFS workflow added. [ghicaale]
+ * Add 'Skip' button on survey page. [voineali #2891]
+ * Updated text for data survey, it is not an agreement. [demarant #2814]
+ * DataTables sorted alphabetically under a category. [ghicaale #2888]
+ * Quick fix: files are now listed if file size equal zero but size information if hiden. [ghicaale #2889]
+ * Organisation view use now correct macros. [ghicaale #2886]
+ * Tags for datasets and figures are now clickable. [ghicaale #2863]
+ * Fix: and minus for data table expand. [ghicaale #2886]
+ * Fix: to low/high resolution for zoom images [voineali #2877]
+ * ImageFS are using now eea_imagefs_workflow so no need
+   to change state during convert map. [ghicaale]
+ * Only published relations are displayed [ghicaale #2876]
+ * Link of owners and processors are pointing to related organisation,
+   no more externals links. [ghicaale]
+ * Organisation view labels updated. [ghicaale]
+ * Data viewers listing on datasets view showing thumb and real actual link to the viewer. [ghicaale #2852]
+ * Fixed that 'installVocabularies' import step is only run if
+   we are in eea.dataservice profile. [ghicaale]
+ * Categories sort order of datasets based on order of vocabulary items order
+   on 'categories' vocabulary. DataFiles are now sorted based on filename. [ghicaale #2858]
+ * Fixed download IDs to be unique so survey can differentiate between them. [ghicaale #2860]
+ * Transaction savapoint added as convertion process can take some time to be
+   finnished if several EPS files are converted during same action. [ghicaale #2850]
+ * More logging added to "Convert figure" and "Convert all figures" [ghicaale #2819]
+
+1.3 - (2009-12-04)
+------------------
+ * "Last upload" and "Publish date" formated with toLocalizedTime [ghicaale #2819]
+ * Added empty value for years list on management plan code field [ghicaale #2819]
+ * Fixed broken "GetCountryGroups" view [ghicaale #2800]
+
+1.2 - (2009-11-27)
+------------------
+ * Fixed broken link from publications, now pointing to dataservice 2.0 objects [ghicaale #2823]
+ * Fixed vocabulary for datasets quick links [ghicaale #2828]
+ * Organisation view now display statistics about related owners and processors [ghicaale #2815]
+ * Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET" [ghicaale]
+ * Fixed external url or interactive data viewers in portlet_dataviewers.pt [ghicaale]
+ * Fixed second zoom on large figures [voineali #2808]
+ * Display only the latest version available in versions box [voineali #2798]
+ * Fix custom faceted geocoverage widget counting and optimize query and count
+   methods [voineali #2800]
+
+1.1 - (2009-11-18)
+------------------
+ * Hide empty files on views [ghicaale]
+ * Fixed link to latest version on EEAFigure view template [ghicaale]
+
+1.0 -(2009-11-10)
+-----------------
+ * Initial release [ghicaale]
