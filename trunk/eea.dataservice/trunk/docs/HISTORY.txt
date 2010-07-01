@@ -3,6 +3,10 @@ Changelog
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.15 - (Unreleased)
+-------------------
+
+
 1.14 - (2010-07-01)
 ------------------
  * Make use of eea.versions package. [ghicaale #3462]
