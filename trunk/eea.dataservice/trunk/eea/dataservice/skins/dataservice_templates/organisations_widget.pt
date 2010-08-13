@@ -60,6 +60,8 @@
           </select>
           <p />
 
+					<script tal:content="string:new MultiSelectAutocompleteWiget($$('#$fieldName'));" />
+
         </metal:fill>
       </metal:use>
     </metal:define>
