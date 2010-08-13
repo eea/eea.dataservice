@@ -6,6 +6,8 @@ Changelog
 1.15 - (Unreleased)
 -------------------
 
+ * [Feature] Added multiautocommpleteselect widget, to be used in the Organisations widget [tiberich ]
+
 
 1.14 - (2010-07-01)
 ------------------
