@@ -63,7 +63,7 @@
                             class="dummy-org-selector">
 
                         <option tal:repeat="item vocab"
-                                tal:attributes="value vocab.getValue(item);
+                                tal:attributes="value python:vocab.getValue(item);
                                                 selected python:here.checkSelected(vocab.getValue(item), value) and 'selected' or None"
                                 tal:content="item"
                                 i18n:translate=""
@@ -71,6 +71,8 @@
 
                     </select>
                     <p />
+										<script tal:content="string: new SelectAutocompleteWidget($$('#$fieldName'))">
+										</script>
                 </tal:longVocab>
 
             </metal:fill>
