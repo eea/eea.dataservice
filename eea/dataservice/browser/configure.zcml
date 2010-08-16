@@ -259,4 +259,11 @@
     file="stylesheet/view.css"
    />
 
+  <browser:page
+    for="eea.dataservice.interfaces.IDataset"
+    name="migrateToExternal"
+    permission="cmf.ManagePortal"
+    class=".app.migrate.MigrateDatasetsToExternalDatasets"
+    />
+
 </configure>
