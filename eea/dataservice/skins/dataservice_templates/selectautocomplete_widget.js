@@ -148,16 +148,11 @@ SelectAutocompleteWidget.prototype.get_selected_option = function(selectbox){
 
 SelectAutocompleteWidget.prototype.filter_values = function(values, criteria){
     var res = [];
-    for (var i in values) {
-        var oo = values[i];
-        var label = oo.label;
-        if (label == null){
-            continue;
+    $(values).each(function(i, o) {
+        if (o.label.toLowerCase().search(criteria.toLowerCase()) != -1) {
+            res.push(o);
         }
-        if (label.toLowerCase().search(criteria.toLowerCase()) != -1) {
-            res.push(oo);
-        }
-    }
+    });
     return res;
 };
 

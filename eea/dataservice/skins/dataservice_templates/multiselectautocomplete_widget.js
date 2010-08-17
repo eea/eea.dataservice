@@ -142,12 +142,11 @@ MultiSelectAutocompleteWidget.prototype.clear_select_box = function(selectbox){
 
 MultiSelectAutocompleteWidget.prototype.filter_values = function(values, criteria){
     var res = [];
-    for (var i in values) {
-        var o = values[i];
+    $(values).each(function(i, o){
         if (o.label.toLowerCase().search(criteria.toLowerCase()) != -1) {
             res.push(o);
         }
-    }
+    });
     return res;
 };
 

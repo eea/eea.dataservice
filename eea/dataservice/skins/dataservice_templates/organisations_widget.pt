@@ -60,7 +60,7 @@
           </select>
           <p />
 
-					<!-- <script tal:content="string:jQuery(window).load(function(){new MultiSelectAutocompleteWidget($$('#$fieldName'));});" /> -->
+          <script tal:content="string:new MultiSelectAutocompleteWidget($$('#$fieldName'));" />
 
         </metal:fill>
       </metal:use>
