@@ -4,8 +4,8 @@
     enabled="True"
     expression="python: request.get('jsdisable','') != 'jquery'"
     id="figures.view.js" inline="False"/>
- <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="True"
-    expression="python: request.get('jsdisable','') != 'jquery'"
-    id="multiselectautocomplete_widget.js" inline="False"/>
+ <!-- <javascript cacheable="True" compression="safe" cookable="True" -->
+ <!--    enabled="True" -->
+ <!--    expression="python: request.get('jsdisable','') != 'jquery'" -->
+ <!--    id="multiselectautocomplete_widget.js" inline="False"/> -->
 </object>
