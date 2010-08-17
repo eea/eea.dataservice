@@ -6,7 +6,7 @@ Changelog
 1.15 - (Unreleased)
 -------------------
  * Feature: Added "Migrate Data to ExternalDataSpec" action for managers [ghicaale #3213]
- * Feature: Added multiautocommpleteselect widget, to be used in the Organisations widget [tiberich #3530]
+ * Feature: Added multiautocommpleteselect and selectautocomplete widgets, to be used in the Organisations widget [tiberich #3530]
 
 1.14 - (2010-07-01)
 ------------------

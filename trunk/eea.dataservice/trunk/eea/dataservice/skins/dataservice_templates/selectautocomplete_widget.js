@@ -38,9 +38,10 @@ SelectAutocompleteWidget = function(context){
 
     self.options = _make_values(self.select);
     $(self.select).css('display','none');
-    $(self.filter).css('display','none');
-    $(self.info).css('display','none');
     self.set_select_values(self.available_choices_box, self.options); 
+    
+    // $(self.filter).css('display','none');
+    // $(self.info).css('display','none');
 
     var preselected = self.get_selected_option(self.select);
     self.set_selection(self.available_choices_box, preselected);
@@ -57,13 +58,13 @@ SelectAutocompleteWidget = function(context){
     });
 
     $(self.clear_filter_btn).bind('click', function(e){
-        $(self.info).css('display','none');
         self.filter_box.value = "";
         var selected_option = self.get_selected_option(self.available_choices_box);
         self.set_select_values(self.available_choices_box, self.options); 
         self.set_selection(self.available_choices_box, selected_option);
         self.refresh_info();
         self.commit_to_form();
+        // $(self.info).css('display','none');
         return true;
     });
 
@@ -71,14 +72,14 @@ SelectAutocompleteWidget = function(context){
         self.commit_to_form();
     });
 
-    $(self.widget).bind('mouseover', function(e){
-        $(self.filter).css('display','block');
-    });
+    // $(self.widget).bind('mouseover', function(e){
+    //     $(self.filter).css('display','block');
+    // });
 
-    $(self.widget).bind('mouseout', function(e){
-        $(self.filter).css('display','none');
-        // $(self.info).css('display','none');
-    });
+    // $(self.widget).bind('mouseout', function(e){
+    //     $(self.filter).css('display','none');
+    //     // $(self.info).css('display','none');
+    // });
 };
 
 SelectAutocompleteWidget.prototype.build_widget = function(){
