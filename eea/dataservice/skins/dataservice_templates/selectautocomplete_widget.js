@@ -117,12 +117,15 @@ SelectAutocompleteWidget.prototype.set_selection = function(selectbox, value){
     if (value == null) {
         return;
     }
-    $(selectbox.options).each(function(i, v) {
-        if (v.value == value.key) {
+
+    for (var i=0; i<selectbox.options.length; i++ ) {
+        var option = selectbox.options[i];
+        if (option.value == value.key) {
             selectbox.selectedIndex = i;
             return;
         }
-    });
+    }
+
     return null;
 };
 
