@@ -27,31 +27,33 @@ function _make_values(optionbox) {
     return options;
 }
 
-function _combine(a1, a2) {
-    // add to a1 the unique elements from a2
-    var keys = [];
-    $(a1).each(function(i, v) {
-        keys.push(v.key);
-    });
-    $(a2).each(function(i, v) {
-        if (keys.indexOf(v.key) == -1 ) {
-            a1.push(v);
+function _indexOf(arr, k){
+    // returns the position of k in array arr, otherwise return -1
+    var res = -1;
+    $(arr).each(function(i, v){
+        if (v.key == k) {
+            res = i;
+            return false;
         }
+    });
+    return res;
+}
+
+function _combine(a1, a2) {
+    // add two arrays: to a1, add the unique elements from a2
+
+    $(a2).each(function(i, v){
+        if(_indexOf(a1, v.key) == -1) a1.push(v);
     });
     return a1;
 }
 
 function _remove(a1, a2) {
     // remove stuff a1 from a2 and return result
-    var keys = [];
-    $(a1).each(function(i, v) {
-        keys.push(v.key);
-    });
+    
     var res = [];
-    $(a2).each(function(i, v) {
-        if (keys.indexOf(v.key) == -1 ) {
-            res.push(v);
-        }
+    $(a2).each(function(i, v){
+        if (_indexOf(a1, v.key) == -1) res.push(v);
     });
     return res;
 }
@@ -106,6 +108,14 @@ MultiSelectAutocompleteWidget = function(context){
         self.set_select_values(self.selected_choices_box, combined);
         self.commit_to_form();
         return true;
+    });
+
+    $(self.available_choices_box).bind('dblclick', function(e){
+        $(self.move_right_btn).trigger('click');
+    });
+
+    $(self.selected_choices_box).bind('dblclick', function(e){
+        $(self.move_left_btn).trigger('click');
     });
 
     $(self.clear_filter_btn).bind('click', function(e){
