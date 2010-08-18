@@ -37,10 +37,11 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
             eds_ob.setSubject(data_ob.Subject())
             eds_ob.setCreators(data_ob.Creators())
 
-            #TODO: * shall we map "dataSource" from the original Data object?
-            #      * shall we migrate/map themes ?
-            #      * shall we map something to provider_name, dataset_path
-            #        and category_of_use ?
+            #TODO:
+            #      * ?? provider_name --> ?
+            #      * ?? extract URL from dataSource and add it on dataset_url
+            #      * ?? On ExternalDataSpec shouldn't we rename provider_url to processor
+            #              and dataset_url/data_url to dataOwner ?
 
             processor = data_ob.getProcessor()
             if processor:
@@ -61,6 +62,7 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
                 eds_ob.setTimeliness(FormatTempCoverage())
 
             eds_ob.setOther_comments(data_ob.getMoreInfo())
+            eds_ob.setCategory_of_use('DataUseCategory_04')
 
             # Map relatedItems. All forward and backward references of the
             # data object are removed
@@ -87,6 +89,18 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
                     del related[related.index(data_ob)]
                     related.append(eds_ob)
                     ob.setRelatedProducts(related)
+
+            # Migrate DataSource
+            datasource = data_ob.getDataSource()
+
+            tables = data_ob.objectValues('DataTable')
+            for table in tables:
+                for datafile in table.objectValues('DataFile'):
+                    if datafile.content_type == 'text/plain':
+                        datasource += '<br />'
+                        datasource += datafile.getFile().data
+
+            eds_ob.setDataset_path(datasource)
 
             # Change data object state to 'draft'
             wftool = getToolByName(data_ob, 'portal_workflow')
