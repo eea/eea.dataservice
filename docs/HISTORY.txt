@@ -6,9 +6,9 @@ Changelog
 1.15 - (Unreleased)
 -------------------
  * Feature: Added "Migrate Data to ExternalDataSpec" action, available to
-              Portal Managers [ghicaale #3213]
+     Portal Managers [ghicaale #3213]
  * Feature: Added multiautocommpleteselect and selectautocomplete widgets,
-              to be used in the Organisations widget [tiberich #3530]
+     to be used in the Organisations widget [tiberich #3530]
 
 1.14 - (2010-07-01)
 ------------------
@@ -37,25 +37,25 @@ Changelog
  * Bug fix: Get all visible figures in AllMapsAndGraphs_dump.xml [voineali #2833]
  * Bug fix: Typo in 'Last upload' tooltip, replaced 'conicide' with 'coincide' [ghicaale]
  * Bug fix: Only datasets appear now under 'Derived data set' and
-              under 'Parent data set' [ghicaale #3174]
+     under 'Parent data set' [ghicaale #3174]
  * Bug fix: Layout issue on fancybox with long notes [voineali #3156]
  * Bug fix: Error on datasets view when ROD ( http://rod.eionet.europa.eu/obligations )
-              server is not responding [ghicaale #3161]
+     server is not responding [ghicaale #3161]
 
 1.9 - (2010-03-16)
 ------------------
 
  * Feature: Update faceted lastversion widget to use IWidgetFilterBrains adapter instead
-             of after_query method [voineali #3141]
+     of after_query method [voineali #3141]
  * Change: 'Table' removed from the list of 'Figure type', now only 'Map'
-              and 'Graph' are available as a choice. [ghicaale #3140]
+     and 'Graph' are available as a choice. [ghicaale #3140]
  * Bug fix: Most recent map version not found in thematic search [voineali #3101]
  * Change: Safely define macro tooltip in dataset_view.pt [voineali]
 
 1.8 - (2010-03-08)
 ------------------
  * Change: Added a macro for tooltip display. Tooltip is now shown only if
-             there is information available. [ghicaale #2389]
+     there is information available. [ghicaale #2389]
  * Bug fix: Size is displayed 0 kB if lower than 1 Mb [voineali]
  * Bug fix: now on IMS EEAFigureFiles in any state appear. [ghicaale #3018]
  * Feature: Explicit tooltip icons added in front of each metadata label. [ghicaale #2986]
@@ -65,21 +65,21 @@ Changelog
  * Bug fix: Removed duplicate listing of "Permalink to latest version" from figures view. [ghicaale]
  * Bug fix: Fixed display list of publications from relation widget search results. [ghicaale #3018]
  * Feature: Refactor figure view template to show fancybox inline if there is only one
-              figure file. Also added support to use figure fancybox outside EEAFigure
-              context [voineali #2924]
+     figure file. Also added support to use figure fancybox outside EEAFigure
+     context [voineali #2924]
  * Bug fix: Fixed when receiving '404 Not Found' upon redireting via permalinks to a dataset
-              not published. [ghicaale #3030]
+     not published. [ghicaale #3030]
 
 1.7 - (2010-02-24)
 ------------------
  * Change: The search after publications from relation widget is now based
-             on publication title instead of eeaid. Multiple results are now
-             shown after each search. [ghicaale #2910]
+     on publication title instead of eeaid. Multiple results are now
+     shown after each search. [ghicaale #2910]
  * Bug fix: Fixed that only DataTables and DataFiles that are in public state
-              are visible on index page. On organisations index statistics are
-              counting now only published figures and datasets. [ghicaale #2997]
+     are visible on index page. On organisations index statistics are
+     counting now only published figures and datasets. [ghicaale #2997]
  * Bug fix: Fixed label of 'This dataset is derived from' being aquired by other
-              content types that uses 'relatedItems' field. [ghicaale #3001]
+     content types that uses 'relatedItems' field. [ghicaale #3001]
 
 1.6 - (2010-02-15)
 ------------------
@@ -90,9 +90,9 @@ Changelog
 ------------------
  * Feature: Added new style classes for messages on new or old version [demarant. #2389]
  * Feature: Added an organisation URL validator in order to have only
-              unique URLs poiting from organisations. [ghicaale #2914]
+     unique URLs poiting from organisations. [ghicaale #2914]
  * Bug fix: No more duplicates in organisation vocabulary even if there are
-              more then one organisation with same url. [ghicaale #2914]
+     more then one organisation with same url. [ghicaale #2914]
  * Feature: Batch on album view for datasets and figures is now customisable. [ghicaale #2908]
  * Bug fix: get also the backreference for 'Related Products'. [ghicaale #2890]
  * Feature: Figure convertions asyncronus. [ghicaale #2895]
@@ -105,25 +105,25 @@ Changelog
  * Change: Updated text for data survey, it is not an agreement. [demarant #2814]
  * Feature: DataTables sorted alphabetically under a category. [ghicaale #2888]
  * Bug fix: Files are now listed if file size equal zero but size
-              information if hiden. [ghicaale #2889]
+     information if hiden. [ghicaale #2889]
  * Bug fix: Organisation view use now correct macros. [ghicaale #2886]
  * Feature: Tags for datasets and figures are now clickable. [ghicaale #2863]
  * Bug fix: and minus for data table expand. [ghicaale #2886]
  * Bug fix: to low/high resolution for zoom images [voineali #2877]
  * Feature: ImageFS are using now eea_imagefs_workflow so no need
-              to change state during convert map. [ghicaale]
+     to change state during convert map. [ghicaale]
  * Bug fix: Only published relations are displayed [ghicaale #2876]
  * Change: Link of owners and processors are pointing to related organisation,
-             no more externals links. [ghicaale]
+     no more externals links. [ghicaale]
  * Change: Organisation view labels updated. [ghicaale]
  * Change: Data viewers listing on datasets view showing thumb and real actual link to the viewer. [ghicaale #2852]
  * Bug fix: Fixed that 'installVocabularies' import step is only run if
-              we are in eea.dataservice profile. [ghicaale]
+     we are in eea.dataservice profile. [ghicaale]
  * Change: Categories sort order of datasets based on order of vocabulary items order
-             on 'categories' vocabulary. DataFiles are now sorted based on filename. [ghicaale #2858]
+     on 'categories' vocabulary. DataFiles are now sorted based on filename. [ghicaale #2858]
  * Bug fix: Fixed download IDs to be unique so survey can differentiate between them. [ghicaale #2860]
  * Change: Transaction savapoint added as convertion process can take some time to be
-             finnished if several EPS files are converted during same action. [ghicaale #2850]
+     finnished if several EPS files are converted during same action. [ghicaale #2850]
  * Change: More logging added to "Convert figure" and "Convert all figures" [ghicaale #2819]
 
 1.3 - (2009-12-04)
