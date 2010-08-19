@@ -37,21 +37,9 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
             eds_ob.setSubject(data_ob.Subject())
             eds_ob.setCreators(data_ob.Creators())
 
-            #TODO:
-            #      * ?? provider_name --> ?
-            #      * ?? extract URL from dataSource and add it on dataset_url
-            #      * ?? On ExternalDataSpec shouldn't we rename provider_url to processor
-            #              and dataset_url/data_url to dataOwner ?
-
-            processor = data_ob.getProcessor()
-            if processor:
-                eds_ob.setProvider_url(processor[0])
-                if len(processor) > 1:
-                    msg += 'Warning, there were more then one processor.'
-
             owner = data_ob.getDataOwner()
             if owner:
-                eds_ob.setDataset_url(owner[0])
+                eds_ob.setProvider_url(owner[0])
                 if len(owner) > 1:
                     msg += 'Warning, there were more then one owner.'
 
