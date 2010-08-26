@@ -108,6 +108,30 @@ class EEAFigure(ATFolder, ThemeTaggable):
         res.sort(key=str.lower)
         return ', '.join(res)
 
+    security.declarePublic('Rights')
+    def Rights(self):
+        """
+         return standard EEA copyrights policy information otherwise return the specific one if present.
+        """
+	value = self.schema['rights'].getRaw(self)
+
+        if value:
+           return value
+        else:
+           ownerfield = self.getField('dataOwner')
+           urls = ownerfield.getAccessor(self)()
+           orgnames = ""
+           copyrightholders = ""
+           for url in urls:
+              orgob = self.getOrganisationName(url)
+              orgname = orgob.Title
+              orgnames = orgnames + orgname + ', '
+           if len(orgnames)>0:
+              copyrightholders = 'Copyright holder: ' + orgnames
+              copyrightholders = copyrightholders[:-2] + '.'
+
+           return "EEA standard re-use policy: unless otherwise indicated, re-use of content on the EEA website for commercial or non-commercial purposes is permitted free of charge, provided that the source is acknowledged (http://www.eea.europa.eu/legal/copyright). " + copyrightholders
+
     security.declarePublic('getThemeVocabs')
     def getThemeVocabs(self):
         """
