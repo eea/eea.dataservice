@@ -5,6 +5,7 @@ Changelog
 
 1.15 - (Unreleased)
 -------------------
+ * Change: Copyright info is now more explicit when it falls to EEA standard re-use policy. [demarant #3580]
  * Feature: Added "Migrate Data to ExternalDataSpec" action, available to
      Portal Managers [ghicaale #3213]
  * Feature: Added multiautocommpleteselect and selectautocomplete widgets,
