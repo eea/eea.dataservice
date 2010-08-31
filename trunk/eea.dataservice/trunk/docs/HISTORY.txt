@@ -2,10 +2,14 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
+[Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
 1.15 - (Unreleased)
 -------------------
- * Change: Copyright info is now more explicit when it falls to EEA standard re-use policy. [demarant #3580]
+ * Feature: reindex backreferencing Assessments and IndicatorFactSheets when a 
+   EEAFigure changes [tiberich #3475]
+ * Change: Copyright info is now more explicit when it falls to EEA standard 
+   re-use policy. [demarant #3580]
  * Feature: Added "Migrate Data to ExternalDataSpec" action, available to
      Portal Managers [ghicaale #3213]
  * Feature: Added multiautocommpleteselect and selectautocomplete widgets,

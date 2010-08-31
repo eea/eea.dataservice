@@ -44,4 +44,9 @@
       name="Main keywords"
       />
 
+   <subscriber handler=".events.handle_eeafigure_state_change"
+       for="eea.dataservice.interfaces.IEEAFigure
+           Products.CMFCore.interfaces.IActionSucceededEvent
+           " />
+
 </configure>
