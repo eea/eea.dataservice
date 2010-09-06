@@ -4,7 +4,7 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.15 - (Unreleased)
+1.15 - (2010-09-06)
 -------------------
  * Feature: reindex backreferencing Assessments and IndicatorFactSheets when a 
    EEAFigure changes [tiberich #3475]
