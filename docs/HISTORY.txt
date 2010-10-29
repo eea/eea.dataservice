@@ -10,6 +10,9 @@ Changelog
  * Bug fix: Most recent map version not found in thematic search [voineali #3101]
  * Change: Safely define macro tooltip in dataset_view.pt [voineali]
 
+1.3-dev - (unreleased)
+----------------------
+
 1.2 - (2010-10-29)
 ------------------
  * API Change: use isVersionEnhanced instead of hasVersions [tiberich #3278]
