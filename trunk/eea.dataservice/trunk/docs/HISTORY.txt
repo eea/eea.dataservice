@@ -6,6 +6,7 @@ Changelog
 
 1.2-dev - (unreleased)
 ----------------------
+ * API Change: use isVersionEnhanced instead of hasVersions [tiberich #3278]
 
 1.15 - (2010-09-06)
 -------------------
