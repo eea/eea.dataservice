@@ -4,6 +4,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.4-dev - (unreleased)
+----------------------
+
 1.3 - (2010-10-29)
 ------------------
  * API Change: use isVersionEnhanced instead of hasVersions [tiberich #3278]
