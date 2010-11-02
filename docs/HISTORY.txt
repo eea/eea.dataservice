@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.17 - (unreleased)
--------------------
+1.18-dev - (2010-11-02)
+-----------------------
 
 1.17-dev - (2010-10-29)
 -----------------------
