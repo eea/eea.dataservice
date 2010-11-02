@@ -25,7 +25,7 @@
   lastVersion context/@@getLatestVersionLink;
   datasetVersionId context/id;
   versions nocall:here/@@getVersions;
-  has_versions here/@@hasVersions;
+  isVersionEnhanced here/@@isVersionEnhanced;
 ">
 
     <script language="JavaScript">

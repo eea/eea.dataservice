@@ -4,7 +4,7 @@
 
 <div metal:define-macro="versions" tal:define="
   versions nocall:versions | nocall:here/@@getVersions;
-  isVersionEnhanced isVersionEnhanced | here/@@hasVersions;
+  isVersionEnhanced isVersionEnhanced | here/@@isVersionEnhanced;
 ">
 
 <!-- Information about new versions -->
@@ -58,7 +58,7 @@
      tal:omit-tag="">
 
 <table align="right" class="sortable listing" id="versioning" style="float:right; clear: right;"
-       tal:define="versions here/@@getVersions; isVersionEnhanced here/@@hasVersions"
+       tal:define="versions here/@@getVersions; isVersionEnhanced here/@@isVersionEnhanced"
        tal:condition="python:isVersionEnhanced and versions">
     <thead>
       <tr>
