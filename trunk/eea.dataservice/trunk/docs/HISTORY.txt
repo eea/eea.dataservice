@@ -4,6 +4,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.17 - (unreleased)
+-------------------
+
 1.17-dev - (2010-10-29)
 -----------------------
  * Bug fix: fixed usage of isVersionEnhanced instead of hasVersions [ghicaale #3278]
