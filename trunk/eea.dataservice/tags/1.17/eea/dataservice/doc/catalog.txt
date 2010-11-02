@@ -1,0 +1,31 @@
+Catalog indexes
+===============
+
+Set up
+------
+
+    >>> self.loginAsPortalOwner()
+    >>> fid = folder.invokeFactory('DataFile', 'data-file')
+    >>> data = folder._getOb(fid)
+    >>> form = {
+    ...   'title': 'Some data file',
+    ...   'description': 'a data file'
+    ... }
+    >>> data.processForm(values=form, data=1, metadata=1)
+    >>> _ = self.loadblobfile(data, 'sample.pdf')
+    >>> data.reindexObject(idxs=['filename',])
+
+Search by filename
+------------------
+
+    >>> ctool = portal.portal_catalog
+    >>> 'filename' in ctool.Indexes.keys()
+    True
+
+    >>> brains = ctool(filename='sample.pdf', portal_type='DataFile')
+    >>> len(brains) != 0
+    True
+
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/Members/test_user_1_/some-data-file
