@@ -15,7 +15,7 @@
 <div metal:fill-slot="main" tal:define="
   lastVersion context/@@getLatestVersionLink;
   versions nocall:here/@@getVersions;
-  has_versions here/@@hasVersions;">
+  isVersionEnhanced here/@@isVersionEnhanced;">
     <!-- BASIC PROPERTIES -->
 
     <metal:basic use-macro="here/dataset_view/macros/basic" />

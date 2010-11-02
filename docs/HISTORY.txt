@@ -6,16 +6,17 @@ Changelog
 
 1.17-dev - (2010-10-29)
 -----------------------
+ * Bug fix: fixed usage of isVersionEnhanced instead of hasVersions [ghicaale #3278]
 
-1.16-dev - (2010-10-29)
+1.16 - (2010-10-29)
 -----------------------
  * API Change: use isVersionEnhanced instead of hasVersions [tiberich #3278]
 
 1.15 - (2010-09-06)
 -------------------
- * Feature: reindex backreferencing Assessments and IndicatorFactSheets when a 
+ * Feature: reindex backreferencing Assessments and IndicatorFactSheets when a
    EEAFigure changes [tiberich #3475]
- * Change: Copyright info is now more explicit when it falls to EEA standard 
+ * Change: Copyright info is now more explicit when it falls to EEA standard
    re-use policy. [demarant #3580]
  * Feature: Added "Migrate Data to ExternalDataSpec" action, available to
      Portal Managers [ghicaale #3213]
