@@ -4,8 +4,11 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.18-dev - (unreleased)
+1.19-dev - (unreleased)
 -----------------------
+
+1.18 - (2010-11-04)
+-------------------
  * Change: reindent code [ghicaale] 
  * Bug fix: don't reverse years in @@formatTempCoverage if not needed [tiberich #3813]
 
