@@ -6,6 +6,8 @@ Changelog
 
 1.18-dev - (unreleased)
 -----------------------
+ * Change: reindent code [ghicaale] 
+ * Bug fix: don't reverse years in @@formatTempCoverage if not needed [tiberich #3813]
 
 1.17 - (2010-11-02)
 -----------------------
