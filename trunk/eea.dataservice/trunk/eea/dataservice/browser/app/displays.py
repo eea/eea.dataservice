@@ -460,8 +460,13 @@ class FormatTempCoverage(object):
     def __call__(self):
         field = self.context.getField('temporalCoverage')
         data = field.getAccessor(self.context)()
-        data = list(data)
-        data.reverse()
+        data = sorted(list(data))
+
+        #in one odd case, the data is sorted in the wrong way, so we reverse
+        #only if we need to
+        if len(data) > 1 and (int(data[-1]) < int(data[0])):
+            data.reverse()
+
         tmp_res = []
         res = ''
 
