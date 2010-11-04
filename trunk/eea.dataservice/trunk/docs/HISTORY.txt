@@ -6,6 +6,7 @@ Changelog
 
 1.19-dev - (unreleased)
 -----------------------
+ * Change: make STARTING_YEAR 1750 instead of 1850 [tiberich ]
 
 1.18 - (2010-11-04)
 -------------------
