@@ -1,0 +1,187 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+
+    <!-- Selection Widgets -->
+
+    <metal:view_macro define-macro="view"
+                      tal:define="vocab python:field.Vocabulary(here);
+                                  value python:accessor();
+                                  display python:here.displayValue(vocab, value)"
+                      tal:replace="structure display" />
+
+    <metal:define define-macro="edit">
+
+        <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+
+            <metal:fill fill-slot="widget_body"
+                        tal:define="vocab python:field.Vocabulary(here);
+                                    vlen python:len(vocab);
+                                    format python:widget.format">
+
+                <tal:shortVocab condition="python:(vlen &lt; 4 and format == 'flex') or (format == 'radio')">
+
+                    <!-- Radio when the vocab is short < 4 -->
+
+                    <tal:radios repeat="item vocab">
+
+                        <input class="noborder"
+                               tabindex=""
+                               type="radio"
+                               tal:define="tabindex tabindex/next"
+                               tal:attributes="name fieldName;
+                                               id string:${fieldName}_${repeat/item/number};
+                                               checked python:here.checkSelected(item, value);
+                                               value item;
+                                               tabindex tabindex;"
+                               />
+
+                        <label tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                               i18n:translate=""
+                               tal:attributes="for string:${fieldName}_${repeat/item/number}" />
+
+                        <br />
+
+                    </tal:radios>
+
+                </tal:shortVocab>
+
+                <tal:longVocab condition="python:(vlen >= 4 and format == 'flex') or (format in ('select', 'pulldown'))">
+
+<div class="quality-widget">
+<tal:block define="value python:test(len(value)==5, value, ('-1','-1','-1','-1','-1'));
+                   gq_com python:request.get(fieldName+'Com', value[0]);
+                   gq_log python:request.get(fieldName+'Log', value[1]);
+                   gq_pos python:request.get(fieldName+'Pos', value[2]);
+                   gq_tem python:request.get(fieldName+'Tem', value[3]);
+                   gq_the python:request.get(fieldName+'The', value[4])">
+
+    <table class="" tal:attributes="class string:class-${fieldName}Com"><tbody><tr>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <select tal:attributes="name string:${fieldName}Com;
+                            id string:${fieldName}Com;
+                            tabindex tabindex/next;">
+        <tal:block repeat="item vocab">
+        <option tal:define="lbl item;
+                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                tal:attributes="value val;
+                                selected python:here.checkSelected(val, gq_com) and 'selected' or None"
+                tal:content="lbl"
+                i18n:translate=""
+                />
+        </tal:block>
+    </select>
+    <label tal:attributes="for string:${fieldName}Com"
+           i18n:translate="label_quality_completeness">Completeness</label><br />
+
+    <table class="" tal:attributes="class string:class-${fieldName}Log"><tbody><tr>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <select tal:attributes="name string:${fieldName}Log;
+                            id string:${fieldName}Log;
+                            tabindex tabindex/next;">
+        <tal:block repeat="item vocab">
+        <option tal:define="lbl item;
+                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                tal:attributes="value val;
+                                selected python:here.checkSelected(val, gq_log) and 'selected' or None"
+                tal:content="lbl"
+                i18n:translate=""
+                />
+        </tal:block>
+    </select>
+    <label tal:attributes="for string:${fieldName}Log"
+           i18n:translate="label_quality_logical">Logical consistency</label><br />
+
+    <table class="" tal:attributes="class string:class-${fieldName}Pos"><tbody><tr>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <select tal:attributes="name string:${fieldName}Pos;
+                            id string:${fieldName}Pos;
+                            tabindex tabindex/next;">
+        <tal:block repeat="item vocab">
+        <option tal:define="lbl item;
+                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                tal:attributes="value val;
+                                selected python:here.checkSelected(val, gq_pos) and 'selected' or None"
+                tal:content="lbl"
+                i18n:translate=""
+                />
+        </tal:block>
+    </select>
+    <label tal:attributes="for string:${fieldName}Pos"
+           i18n:translate="label_quality_position">Position accuracy</label><br />
+
+    <table class="" tal:attributes="class string:class-${fieldName}Tem"><tbody><tr>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <select tal:attributes="name string:${fieldName}Tem;
+                            id string:${fieldName}Tem;
+                            tabindex tabindex/next;">
+        <tal:block repeat="item vocab">
+        <option tal:define="lbl item;
+                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                tal:attributes="value val;
+                                selected python:here.checkSelected(val, gq_tem) and 'selected' or None"
+                tal:content="lbl"
+                i18n:translate=""
+                />
+        </tal:block>
+    </select>
+    <label tal:attributes="for string:${fieldName}Tem"
+           i18n:translate="label_quality_temporal">Temporal accuracy</label><br />
+
+    <table class="" tal:attributes="class string:class-${fieldName}The"><tbody><tr>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;</td>
+    </tr></tbody></table>
+    <select tal:attributes="name string:${fieldName}The;
+                            id string:${fieldName}The;
+                            tabindex tabindex/next;">
+        <tal:block repeat="item vocab">
+        <option tal:define="lbl item;
+                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                tal:attributes="value val;
+                                selected python:here.checkSelected(val, gq_the) and 'selected' or None"
+                tal:content="lbl"
+                i18n:translate=""
+                />
+        </tal:block>
+    </select>
+    <label tal:attributes="for string:${fieldName}The"
+           i18n:translate="label_quality_thematic">Thematic accuracy</label><br />
+</tal:block>
+</div>
+                </tal:longVocab>
+
+            </metal:fill>
+
+        </metal:use>
+
+    </metal:define>
+
+    <div metal:define-macro="search">
+        <div metal:use-macro="here/widgets/selection/macros/edit" />
+    </div>
+
+</body>
+
+</html>
