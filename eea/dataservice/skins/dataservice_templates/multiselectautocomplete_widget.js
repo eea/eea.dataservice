@@ -1,7 +1,7 @@
-/* 
-* A near drop-in replacement of the MultiSelect lines widget from Plone. 
+/*
+* A near drop-in replacement of the MultiSelect lines widget from Plone.
 * You still need to initialize the widget by pointing at the select element.
-* You can use, for example make_multiselectautocomplete_widget($('select.multi_select_widget')) 
+* You can use, for example make_multiselectautocomplete_widget($('select.multi_select_widget'))
 * to quickly change all select widgets to MultiSelectAutocompleteWidget
 *
 * */
@@ -43,24 +43,28 @@ function _combine(a1, a2) {
     // add two arrays: to a1, add the unique elements from a2
 
     $(a2).each(function(i, v){
-        if(_indexOf(a1, v.key) == -1) a1.push(v);
+        if(_indexOf(a1, v.key) == -1){
+            a1.push(v);
+        }
     });
     return a1;
 }
 
 function _remove(a1, a2) {
     // remove stuff a1 from a2 and return result
-    
+
     var res = [];
     $(a2).each(function(i, v){
-        if (_indexOf(a1, v.key) == -1) res.push(v);
+        if (_indexOf(a1, v.key) == -1){
+            res.push(v);
+        }
     });
     return res;
 }
 
 MultiSelectAutocompleteWidget = function(context){
     var self = this;
-	self.select = context.get(0);
+    self.select = context.get(0);
 
     self.filter_box = null;   // the search input box
     self.available_choices_box = null;   // the available choices <select/>
@@ -69,13 +73,13 @@ MultiSelectAutocompleteWidget = function(context){
     self.move_right_btn = null;          // the move option to right button
     self.clear_filter_btn = null;        // the clear filter search box button
 
-	self.build_widget();
-    
+    self.build_widget();
+
     self.options = _make_values(self.select);
 
     $(self.select).css('display','none');
-    self.set_select_values(self.available_choices_box, self.options); 
-    self.set_select_values(self.selected_choices_box, 
+    self.set_select_values(self.available_choices_box, self.options);
+    self.set_select_values(self.selected_choices_box,
                            self.get_selected_options(self.select));
 
     $(self.available_choices_box).bind('click', function(e){
@@ -120,7 +124,7 @@ MultiSelectAutocompleteWidget = function(context){
 
     $(self.clear_filter_btn).bind('click', function(e){
         self.filter_box.value = "";
-        self.set_select_values(self.available_choices_box, self.options); 
+        self.set_select_values(self.available_choices_box, self.options);
         return true;
     });
 };
@@ -136,7 +140,7 @@ MultiSelectAutocompleteWidget.prototype.get_selected_options = function(selectbo
     var options = [];
     for (var i=0; i<selectbox.options.length; i++) {
         var option = selectbox.options[i];
-        if (option.selected == true) {
+        if (option.selected === true) {
             var o = {};
             o.key = option.value;
             o.label = option.text;
@@ -169,25 +173,25 @@ MultiSelectAutocompleteWidget.prototype.set_select_values = function(selectbox, 
 };
 
 MultiSelectAutocompleteWidget.prototype.build_widget = function(){
-    // we need: 
+    // we need:
     // left available choices select box
     // right selected choices select box
     // the filter input text box and its clear button
     // move left & move right btn
-    
+
     var select = $(this.select);
     var parent = select.parent();
 
     parent.append($(
-        "<table><tr>" + 
-        "<td valign='top' with='400'>Available choices: <br/>" + 
-        "<select multiple='multiple' style='width:450px; height:300px;' class='available_choices' /></td>" + 
+        "<table><tr>" +
+        "<td valign='top' with='400'>Available choices: <br/>" +
+        "<select multiple='multiple' style='width:450px; height:300px;' class='available_choices' /></td>" +
         "<td><input type='button' value='&rarr;' class='move_right' /><br/>" +
         "<input type='button' value='&larr;' class='move_left' /></td>" +
-        "<td valign='top' width='300'>Selected choices: " + 
-        "<select class='selected_choices' multiple='multiple' style='width:100%;height:300px' /></td>" + 
+        "<td valign='top' width='300'>Selected choices: " +
+        "<select class='selected_choices' multiple='multiple' style='width:100%;height:300px' /></td>" +
         "<tr><td>" +
-        "Filter: <input type='text' class='filter_box' style='width:300px' /><input class='clear_filter' type='button' value='Clear' />" + 
+        "Filter: <input type='text' class='filter_box' style='width:300px' /><input class='clear_filter' type='button' value='Clear' />" +
         "</td><td>&nbsp;</td><td>&nbsp;</td></tr>"
         ));
 
@@ -205,6 +209,6 @@ function make_multiselectautocomplete_widget(elements) {
     // The elements should be a jQuery collection (selector result)
     // that points to the <select /> elements of the multiselect widget
     $(elements).each(function(i, v){
-        new MultiSelectAutocompleteWidget(el);
+        var widget = new MultiSelectAutocompleteWidget(el);
     });
 }

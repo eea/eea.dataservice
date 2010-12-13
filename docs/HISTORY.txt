@@ -6,6 +6,7 @@ Changelog
 
 1.21-dev - (unreleased)
 -----------------------
+* Bug fix: Fixed jslint warnings [voineali #3821]
 
 1.20 - (2010-11-12)
 -------------------
@@ -17,7 +18,7 @@ Changelog
 
 1.18 - (2010-11-04)
 -------------------
- * Change: reindent code [ghicaale] 
+ * Change: reindent code [ghicaale]
  * Bug fix: don't reverse years in @@formatTempCoverage if not needed [tiberich #3813]
 
 1.17 - (2010-11-02)
