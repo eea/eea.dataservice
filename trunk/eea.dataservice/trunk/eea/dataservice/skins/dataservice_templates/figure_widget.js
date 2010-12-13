@@ -86,7 +86,7 @@ FigureWidget.Search = {
       if(data.length){
         jQuery.each(data, function(j, result) {
           context.handle_data(result, form, widget);
-        })
+        });
       }else{
         context.handle_nodata(data, form, widget);
       }
@@ -98,7 +98,7 @@ FigureWidget.Search = {
     var results_container = jQuery('.figure_widget_results', form);
     var results = jQuery('.figure_widget_results div.formHelp', form);
 
-    if (results.length == 0) {
+    if (results.length === 0) {
       results_container.html('');
       // Help text
       var help = jQuery('<div>');
@@ -200,7 +200,7 @@ FigureWidget.Add = {
     errors_area = jQuery('.formHelp', eeaid.parent());
     var valid_eeaid = FigureWidget.Validator.validate(eeaid, errors_area, 1, 1);
     */
-    var valid_eeaid = true
+    var valid_eeaid = true;
 
     if(!(valid_title && valid_eeaid)){
       return;

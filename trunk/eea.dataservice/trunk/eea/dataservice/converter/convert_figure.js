@@ -1,6 +1,4 @@
-jQuery(document).ready(function() { convertFigure(); });
-
-function convertFigure() {
+var convertFigure = function() {
  jQuery.post('@@convertMap', {cronjob: 1}, function(data){
   var label = $('#convert-label');
   var image = $('#convert-loading');
@@ -14,3 +12,7 @@ function convertFigure() {
   }
  });
 };
+
+jQuery(document).ready(function(){
+ convertFigure();
+});

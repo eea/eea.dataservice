@@ -38,8 +38,8 @@ SelectAutocompleteWidget = function(context){
 
     self.options = _make_values(self.select);
     $(self.select).css('display','none');
-    self.set_select_values(self.available_choices_box, self.options); 
-    
+    self.set_select_values(self.available_choices_box, self.options);
+
     // $(self.filter).css('display','none');
     // $(self.info).css('display','none');
 
@@ -60,7 +60,7 @@ SelectAutocompleteWidget = function(context){
     $(self.clear_filter_btn).bind('click', function(e){
         self.filter_box.value = "";
         var selected_option = self.get_selected_option(self.available_choices_box);
-        self.set_select_values(self.available_choices_box, self.options); 
+        self.set_select_values(self.available_choices_box, self.options);
         self.set_selection(self.available_choices_box, selected_option);
         self.refresh_info();
         self.commit_to_form();
@@ -87,12 +87,12 @@ SelectAutocompleteWidget.prototype.build_widget = function(){
     var parent = select.parent();
 
     parent.append($(
-        "<div style='width:650px; text-align:right' class='selectautocomplete_widget'>" + 
-        "<div class='info'>Showing <span class='x'>x</span> of <span class='y'>y</span>. Choose one.</div>" + 
-        "<select style='width:100%; text-align:left' class='available_choices' />" + 
-        "<div class='filter'>Filter: <input type='text' class='filter_box' style='width:300px' />&nbsp;" + 
-        "<input class='clear_filter' type='button' value='Clear' /></div>" + 
-        "</div>" 
+        "<div style='width:650px; text-align:right' class='selectautocomplete_widget'>" +
+        "<div class='info'>Showing <span class='x'>x</span> of <span class='y'>y</span>. Choose one.</div>" +
+        "<select style='width:100%; text-align:left' class='available_choices' />" +
+        "<div class='filter'>Filter: <input type='text' class='filter_box' style='width:300px' />&nbsp;" +
+        "<input class='clear_filter' type='button' value='Clear' /></div>" +
+        "</div>"
         ));
 
     this.filter_box = parent.find("input[class='filter_box']").get(0);
@@ -114,7 +114,7 @@ SelectAutocompleteWidget.prototype.set_select_values = function(selectbox, value
 };
 
 SelectAutocompleteWidget.prototype.set_selection = function(selectbox, value){
-    if (value == null) {
+    if (value === null) {
         return;
     }
 
