@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.21-dev - (unreleased)
------------------------
+1.21 - (2010-12-13)
+-------------------
 * Bug fix: Fixed jslint warnings [voineali #3821]
 
 1.20 - (2010-11-12)
