@@ -6,6 +6,7 @@ Changelog
 
 1.22-dev - (unreleased)
 -----------------------
+* Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
 * Change: fixed intendation in Data.py [ghicaale]
 
 1.21 - (2010-12-13)

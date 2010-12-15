@@ -17,6 +17,7 @@
     <include package=".versions" />
     <include package=".facetednavigation.lastversion" />
     <include package=".facetednavigation.geocoverage" />
+    <include package=".updates" />
     <include file="profiles.zcml" />
 
     <utility
