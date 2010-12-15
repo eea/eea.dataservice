@@ -6,10 +6,10 @@
     i18n_domain="eea.dataservice">
 
   <browser:page for="*"
-                name="migrate_ids"
-                class=".migrate.MigrateIds"
+                name="migrate_soer_figures"
+                class=".soer_bulk_import.BulkImportSoerFigures"
                 permission="cmf.ModifyPortalContent">
-      Class used to generate IDs of the imported content
+      Class used to import SOER figures
   </browser:page>
 
 </configure>
