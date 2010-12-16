@@ -18,7 +18,7 @@ info = logger.info
 info_exception = logger.exception
 
 # Configuration
-IMPORT_PATH = "/www/SITE/sandbox/soer-figures"
+IMPORT_PATH = "SITE/sandbox/soer-figures"
 FILES_PATH = "/var/local/soer_files/FINAL_FIGURES"
 
 class BulkImportSoerFigures(BrowserView):
@@ -30,7 +30,7 @@ class BulkImportSoerFigures(BrowserView):
         1. create EEAFigures
         2. create EEAFigureFiles
         3. extra mappings
-        4. transactional import
+        4. [done] transactional import
         5. check encoding during import, e.g. José Barredo
     3. generate import logs
     4. run a full test on unicorn (including files)
@@ -41,7 +41,13 @@ class BulkImportSoerFigures(BrowserView):
     """
 
     def __call__(self):
-        for row in soer_data['rows']:
+        error_detected = False
+        import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
+        counter = 0
+
+        for row in soer_data['rows'][:2]:
+            counter += 1
+
             object_type = row["Object type"]
             filepath = row["Filepath"]
             category = row["Category"]
@@ -66,18 +72,40 @@ class BulkImportSoerFigures(BrowserView):
             unit = row["Unit"]
 
             try:
-                import pdb; pdb.set_trace()
                 if row['Object type'] == 'EEAFigure':
-                    pass
+                    info('INFO: adding EEAFigure %s' % filepath)
+                    #TODO: add logic
+
+                    # pass title?
+                    fig_id = import_context.invokeFactory(
+                              type_name='EEAFigure',
+                              id=import_context.generateUniqueId("EEAFigure"))
+
+                    fig_ob = getattr(context, fig_id)
+                    fig_ob.processForm(data=1, metadata=1, values=DATA_DICT)
+                    fig_ob.setTitle(ind_title)
+                    fig_ob.reindexObject()
+
+                    current_parent = fig_ob
+                    error_detected = False
                 elif row['Object type'] == 'EEAFigureFile':
-                    pass
+                    if error_detected:
+                        info('ERROR: EEAFigureFile not added %s', filepath)
+                    else:
+                        #TODO: add logic
+                        pass
                 else:
+                    error_detected = True
                     info('ERROR: unknown "Object type" on %s', filepath)
             except Exception, err:
+                error_detected = True
                 info('ERR: import error on %s', filepath)
                 info_exception(err)
 
-        transaction.commit()
+            if counter % 10 == 0:
+                info('INFO: Transaction commited, step %s' % str(counter))
+                transaction.commit()
+
         info('INFO: Done soer figures import!')
 
 
