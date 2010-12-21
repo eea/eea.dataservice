@@ -6,6 +6,7 @@ Changelog
 
 1.22-dev - (unreleased)
 -----------------------
+* Bug fix: Implemented correct annual management plan validator, fixes #4019 [demarant] 
 * Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
 * Change: fixed intendation in Data.py [ghicaale]
 
