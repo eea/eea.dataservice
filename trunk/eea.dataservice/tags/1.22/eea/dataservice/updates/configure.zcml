@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/browser"
+    xmlns:zope="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea.dataservice">
+
+  <browser:page for="*"
+                name="migrate_soer_figures"
+                class=".soer_bulk_import.BulkImportSoerFigures"
+                permission="cmf.ModifyPortalContent">
+      Class used to import SOER figures
+  </browser:page>
+
+</configure>
