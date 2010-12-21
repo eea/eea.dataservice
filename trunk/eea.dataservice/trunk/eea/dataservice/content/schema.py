@@ -36,12 +36,20 @@ class ManagementPlanCodeValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
-        try:
-            nval = int(value[1])
-        except ValueError:
-            return ("Validation failed, management plan code is not integer.")
-        return 1
-
+        """ check if management plan code is in right format """
+        # check we have 3 digits separated by dots
+        errmsg = "Validation failed, management plan code is not in the format #.#.# e.g. 1.5.2"
+        digits = value[1].split('.')
+        if len(digits) == 3:
+            for dig in digits:
+                try:
+                    nval = int(dig)
+                except ValueError:
+                    return (errmsg)
+            return 1
+        else:
+            return (errmsg)
+       
 validation.register(ManagementPlanCodeValidator('management_plan_code_validator'))
 
 class UniqueOrganisationUrlValidator:
