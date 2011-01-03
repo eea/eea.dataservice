@@ -49,7 +49,7 @@ class ManagementPlanCodeValidator:
             return 1
         else:
             return (errmsg)
-       
+
 validation.register(ManagementPlanCodeValidator('management_plan_code_validator'))
 
 class UniqueOrganisationUrlValidator:
@@ -104,7 +104,7 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         required=False,
         default=(datetime.now().year, ''),
-        #validators = ('management_plan_code_validator',),
+        validators = ('management_plan_code_validator',),
         vocabulary=DatasetYears(),
         widget = ManagementPlanWidget(
             format="select",

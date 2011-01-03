@@ -6,12 +6,13 @@ Changelog
 
 1.23-dev - (unreleased)
 -----------------------
+* Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
+* Change: Activated annual management plan validator for datasets [ghicaale #4023]
 
 1.22 - (2010-12-21)
 -------------------
-* Bug fix: Implemented correct annual management plan validator, fixes #4019 [demarant] 
-* Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
-* Change: fixed intendation in Data.py [ghicaale]
+* Bug fix: Implemented correct annual management plan validator, fixes #4019 [demarant]
+* Change: Fixed intendation in Data.py [ghicaale]
 
 1.21 - (2010-12-13)
 -------------------
@@ -19,28 +20,28 @@ Changelog
 
 1.20 - (2010-11-12)
 -------------------
-* Change: added cache metadata to images [ghicaale #3667]
+* Change: Added cache metadata to images [ghicaale #3667]
 
 1.19 - (2010-11-04)
 -------------------
- * Change: make STARTING_YEAR 1750 instead of 1850 [tiberich ]
+ * Change: Make STARTING_YEAR 1750 instead of 1850 [tiberich ]
 
 1.18 - (2010-11-04)
 -------------------
- * Change: reindent code [ghicaale]
- * Bug fix: don't reverse years in @@formatTempCoverage if not needed [tiberich #3813]
+ * Change: Reindent code [ghicaale]
+ * Bug fix: Don't reverse years in @@formatTempCoverage if not needed [tiberich #3813]
 
 1.17 - (2010-11-02)
 -----------------------
- * Bug fix: fixed usage of isVersionEnhanced instead of hasVersions [ghicaale #3278]
+ * Bug fix: Fixed usage of isVersionEnhanced instead of hasVersions [ghicaale #3278]
 
 1.16 - (2010-10-29)
 -----------------------
- * API Change: use isVersionEnhanced instead of hasVersions [tiberich #3278]
+ * API Change: Use isVersionEnhanced instead of hasVersions [tiberich #3278]
 
 1.15 - (2010-09-06)
 -------------------
- * Feature: reindex backreferencing Assessments and IndicatorFactSheets when a
+ * Feature: Reindex backreferencing Assessments and IndicatorFactSheets when a
    EEAFigure changes [tiberich #3475]
  * Change: Copyright info is now more explicit when it falls to EEA standard
    re-use policy. [demarant #3580]
