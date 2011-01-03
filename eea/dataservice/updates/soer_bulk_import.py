@@ -22,6 +22,33 @@ info_exception = logger.exception
 IMPORT_PATH = "SITE/sandbox/soer-figures"
 FILES_PATH = "/var/local/soer_files/FINAL_FIGURES"
 
+# Mappings
+THEME_MAPPING = {
+    'agriculture':                  'agriculture',
+    'air pollution':                'air',
+    'biodiversity':                 'biodiversity',
+    'climate change':               'climate',
+    'coasts and seas':              'coast_sea',
+    'energy':                       'energy',
+    'environment and health':       'human',
+    'environmental technology':     'technology',
+    'household consumption':        'households',
+    'industry':                     'industry',
+    'natural resources':            'natural',
+    'tourism':                      'tourism',
+    'transport':                    'transport',
+    'waste and material resources': 'waste',
+    'water':                        'water',
+}
+
+def setHtmlMimetype(data):
+    if data:
+        if not '</' in data:
+            if not data.startswith('<p'):
+                data = '<p>%s</p>' % data
+    return data
+
+# SOER data import
 class BulkImportSoerFigures(BrowserView):
     """ Bulk import of SOER figures """
 
@@ -53,27 +80,27 @@ class BulkImportSoerFigures(BrowserView):
             counter += 1
             data_dict = {}
 
-            object_type = row["Object type"]
-            filepath = row["Filepath"]
+            additional_information = row["Additional information"]
             category = row["Category"]
-            title = row["Title"]
-            creators = row["Creators"]
+            contact = row["Contact person(s) for EEA"]
             contributors = row["Contributors"]
             copyrights = row["Copyrights"]
-            keywords = row["Keywords"]
-            figure_type = row["Figure type"]
+            creators = row["Creators"]
             description = row["Description"]
-            themes = row["Themes"]
-            geo_coverage = row["Geographical coverage"]
             eea_management_plan = row["EEA Management Plan"]
+            figure_type = row["Figure type"]
+            filepath = row["Filepath"]
+            geo_coverage = row["Geographical coverage"]
+            keywords = row["Keywords"]
             last_upload = row["Last upload"]
+            methodology = row["Methodology"]
+            object_type = row["Object type"]
             owner = row["Owner"]
             processor = row["Processor"]
-            tem_coverage = row["Temporal coverage"]
-            contact = row["Contact person(s) for EEA"]
             source = row["Source"]
-            additional_information = row["Additional information"]
-            methodology = row["Methodology"]
+            themes = row["Themes"]
+            tem_coverage = row["Temporal coverage"]
+            title = row["Title"]
             unit = row["Unit"]
 
             # General metadata
@@ -92,31 +119,67 @@ class BulkImportSoerFigures(BrowserView):
 
                     # Setting EEAFigures metadata
                     data_dict['subject_existing_keywords'] = \
-                             keywords.split(',')
+                             [kword.strip() for kword in keywords.split(',')]
 
                     if not figure_type:
                         figure_type = 'Map'
                     data_dict['figureType'] = figure_type
 
-                    themes = themes.split(',')
+                    picked_themes = []
+                    themes = [th.strip().lower() for th in themes.split(',')]
                     tagging = IThemeTagging(fig_ob)
                     if len(themes) > 3:
                         info('ERROR: more then 3 themes')
-                    themes = filter(None, themes[:3]) # pick first 3 themes
-                    tagging.tags = themes
-                    #TODO: themes vocabulary to check if theme name is valid
+                    for theme in themes:
+                        th_name = THEME_MAPPING.get(theme, None)
+                        if th_name:
+                            picked_themes.append(th_name)
+                        else:
+                            info('ERROR: %s theme not mapped', theme)
+                    tagging.tags = picked_themes[:3] #pick first 3 themes
 
-                    data_dict['geographicCoverage'] = geo_coverage
-                    data_dict['eeaManagementPlan'] = eea_management_plan
-                    data_dict['lastUpload'] = last_upload
-                    #data_dict['dataOwner'] = owner
-                    #data_dict['processor'] = processor
-                    data_dict['temporalCoverage'] = tem_coverage
+                    data_dict['units'] = setHtmlMimetype(unit)
+                    data_dict['methodology'] = setHtmlMimetype(methodology)
+                    data_dict['moreInfo'] = \
+                             setHtmlMimetype(additional_information)
+                    data_dict['dataSource'] = setHtmlMimetype(source)
                     data_dict['contact'] = contact
-                    data_dict['dataSource'] = source
-                    data_dict['moreInfo'] = additional_information
-                    data_dict['methodology'] = methodology
-                    data_dict['units'] = unit
+
+                    if last_upload:
+                        data_dict['lastUpload'] = DateTime(last_upload)
+                    #else:
+                    #    data_dict['lastUpload'] = DateTime('0000-00-00')
+
+                    picked_plan = ('', '')
+                    if eea_management_plan:
+                        plan = eea_management_plan.split(',')
+                        if len(plan) == 2:
+                            picked_plan = (plan[0].strip(), plan[1].strip())
+                        elif len(plan) == 1:
+                            picked_plan = (plan[0].strip(), '')
+                    data_dict['eeaManagementPlan'] = picked_plan
+
+                    picked_temp = []
+                    if tem_coverage:
+                        for tmp in tem_coverage.split(','):
+                            tmp = tmp.strip()
+                            if '-' in tmp:
+                                tmp_range = range(int(tmp.split('-')[0]),
+                                                  int(tmp.split('-')[1]))
+                                for trange in tmp_range:
+                                    picked_temp.extend(str(trange))
+                            elif '–' in tmp:
+                                tmp_range = range(int(tmp.split('–')[0]),
+                                                  int(tmp.split('–')[1]))
+                                for trange in tmp_range:
+                                    picked_temp.extend(str(trange))
+                            else:
+                                picked_temp.append(tmp)
+                    data_dict['temporalCoverage'] = picked_temp
+
+                    ##data_dict['dataOwner'] = owner
+                    ##data_dict['processor'] = processor
+                    #data_dict['geographicCoverage'] = geo_coverage
 
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
@@ -131,7 +194,8 @@ class BulkImportSoerFigures(BrowserView):
                         #data_dict['filepath'] = filepath
                         data_dict['category'] = category
 
-                        #TODO: add logic
+                        #TODO: add EEAFigureFile
+                        #TODO: convert images if case
                         pass
                     else:
                         info('ERROR: EEAFigureFile not added %s', filepath)
