@@ -74,6 +74,7 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
+eeafigure_schema['eeaManagementPlan'].validators = ()
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
