@@ -181,7 +181,7 @@ Changelog
  * Bug fix: Fixed second zoom on large figures [voineali #2808]
  * Bug fix: Display only the latest version available in versions box [voineali #2798]
  * Bug fix: Fix custom faceted geocoverage widget counting and optimize query and count
-              methods [voineali #2800]
+     methods [voineali #2800]
 
 1.1 - (2009-11-18)
 ------------------
