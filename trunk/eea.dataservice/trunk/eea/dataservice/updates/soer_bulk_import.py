@@ -10,6 +10,7 @@ __credits__ = """contributions: Alec Ghica"""
 from eea.dataservice.updates.soer_bulk_import_data import soer_data
 from eea.themecentre.interfaces import IThemeTagging
 from Products.Five.browser import BrowserView
+from zope.component import getMultiAdapter
 import transaction
 
 # Logging
@@ -70,11 +71,16 @@ class BulkImportSoerFigures(BrowserView):
     """
 
     def __call__(self):
-        #import pdb; pdb.set_trace()
-
         current_parent = None
         import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
         counter = 0
+        
+        # countries data
+        countriesView = getMultiAdapter((self.context, self.request), name=u'getCountries')
+        countries = countriesView()
+        countryGroupsView = getMultiAdapter((self.context, self.request), name=u'getCountryGroups')
+        countryGroups = countryGroupsView()
+        getCountriesByGroupView = getMultiAdapter((self.context, self.request), name=u'getCountriesByGroup')
 
         for row in soer_data['rows'][:2]:
             counter += 1
@@ -176,10 +182,34 @@ class BulkImportSoerFigures(BrowserView):
                             else:
                                 picked_temp.append(tmp)
                     data_dict['temporalCoverage'] = picked_temp
+                    
+                    picked_geo = []
+                    for geo in geo_coverage.split(','):
+                	geo = geo.strip()
+                	countryCode = None
+                	for country in countries:
+                	    if country[1] == geo:
+                		countryCode = [country[0]]
+                		break
+                	if not countryCode:
+                	    for countryGroup in countryGroups:
+                		if countryGroup == geo:
+                		    countryCode = getCountriesByGroupView(geo)
+                		    break
+                	if countryCode:
+                	    picked_geo.extend(countryCode)
+                	else:
+                	    info('ERROR: undefined country %s', geo)
+            	    data_dict['geographicCoverage'] = picked_geo                  
 
                     ##data_dict['dataOwner'] = owner
-                    ##data_dict['processor'] = processor
-                    #data_dict['geographicCoverage'] = geo_coverage
+                    
+                    # - get URL and/or Title
+                    # - check if organisation already exist
+                    # - add organisation if not exist
+                    
+                    #TODO: processor data in current dump is wrong
+                    #data_dict['processor'] = processor
 
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
