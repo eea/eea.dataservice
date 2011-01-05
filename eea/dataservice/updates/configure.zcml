@@ -11,5 +11,12 @@
                 permission="cmf.ModifyPortalContent">
       Class used to import SOER figures
   </browser:page>
+  
+  <browser:page for="*"                                                                                                                                                 
+	        name="migration_link_checker"                                                                            
+                class=".validators.LinkChecker"                                                                                                                         
+                permission="cmf.ModifyPortalContent">                                                                                                                   
+      Generates an report about URLs status
+  </browser:page>
 
 </configure>

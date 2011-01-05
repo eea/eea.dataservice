@@ -9,6 +9,7 @@ __credits__ = """contributions: Alec Ghica"""
 
 from eea.dataservice.updates.soer_bulk_import_data import soer_data
 from eea.themecentre.interfaces import IThemeTagging
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
 import transaction
@@ -48,6 +49,66 @@ def setHtmlMimetype(data):
             if not data.startswith('<p'):
                 data = '<p>%s</p>' % data
     return data
+
+def validateExternalURL(url, context, request):                                                                                                              
+    status = True                                                                                                                                                       
+    if not url.startswith('http://'):                                                                                                                                   
+        info('ERROR: URL ( %s ) validation: bad format', url)                                                                                                     
+        status = False                                                                                                                                                  
+        return status                                                                                                                                                   
+                                                                                                                                                                        
+    LinkChecker = getMultiAdapter((context, request),                                                                                                                   
+                                   name=u'migration_link_checker')                                                                                                        
+    status_code = LinkChecker.getStatusCode(url)                                                                                                                        
+    status_msg = LinkChecker.getStatusMsg(status_code)                                                                                                                  
+    if status_code in [110, 404]:                                                                                                                                       
+        info('ERROR: status code %s ::: %s', status_code, url)                                                                                        
+        status = False                                                                                                                                                  
+    return status
+
+def checkOrganisation(context, url, title=''):                                                                                                                         
+    """ Check if an Organisation pointing to this URL                                                                                                               
+        already exists, if not add a new one                                                                                                                        
+    """                                                                                                                                                             
+    # Check if an Organisation already exists                                                                                                                       
+    ctool = getToolByName(context, 'portal_catalog')                                                                                                           
+    query = { 'portal_type': ['Organisation'],                                                                                                                      
+              'getUrl': url }                                                                                                                                       
+    brains = ctool(**query)                                                                                                                                         
+                                                                                                                                                                        
+    if brains:                                                                                                                                                      
+        info('INFO: Organisation found.')                                                                                                                           
+    else:                                                                                                                                                           
+        # There is no Organisation pointing to our URL, create a new one                                                                                            
+        info('INFO: Adding organisation :: %s', url)                                                                                                                
+        org_path = 'SITE/data-and-maps/data-providers-and-partners'                                                                                                 
+        org_container = context.unrestrictedTraverse(org_path)                                                                                                 
+                                                                                                                                                                        
+        org_id = org_container.invokeFactory('Organisation', id="new_organisation")                                                                                 
+        org_ob = org_container._getOb(org_id)                                                                                                                       
+                                                                                                                                                                        
+        # Set metadata                                                                                                                                              
+        if not title:                                                                                                                                               
+            title = url                                                                                                                                             
+        org_ob.setTitle(title)                                                                                                                                      
+                                                                                                                                                                        
+        datamodel = {}                                                                                                                               
+        datamodel['organisationUrl'] = url                                                                                                                          
+        org_ob.processForm(data=1, metadata=1, values=datamodel)                                                                                                                                                                                                                  
+        # Set workflow state                                                                                                                                        
+        wftool = getToolByName(context, 'portal_workflow')                                                                                                     
+        state = wftool.getInfoFor(org_ob, 'review_state', '(Unknown)')                                                                                              
+        if state == 'published':      
+            return                                                                                                                                                  
+        try:                                                                                                                                                        
+            wftool.doActionFor(org_ob, 'publish',                                                                                                                   
+                               comment='Auto published by migration script.')                                                                                       
+        except Exception, err:                                                                                                                                      
+            info('ERROR: setting workflow')                                                                                                                         
+            info_exception('Exception: %s ', err)                                                                                                                   
+                                                                                                                                                                        
+        org_ob.reindexObject() 
+        info('INFO: Organisation update done') 
 
 # SOER data import
 class BulkImportSoerFigures(BrowserView):
@@ -202,11 +263,20 @@ class BulkImportSoerFigures(BrowserView):
                 	    info('ERROR: undefined country %s', geo)
             	    data_dict['geographicCoverage'] = picked_geo                  
 
-                    ##data_dict['dataOwner'] = owner
-                    
-                    # - get URL and/or Title
-                    # - check if organisation already exist
-                    # - add organisation if not exist
+                    if owner:
+                	owner_data = owner.split(',')
+                	if len(owner_data) > 2:
+                	    info('ERROR: bad format Owner')
+            		else:
+            		    owner_url = owner_data[0]
+            		    owner_title = ''
+            		    if owner_data == 2:
+            			owner_title = owner_data[1]
+            		    
+            		    status = validateExternalURL(owner_url, self.context, self.request)
+            		    if status:
+                                checkOrganisation(self.context, owner_url, owner_title)
+            			data_dict['dataOwner'] = [owner_url]
                     
                     #TODO: processor data in current dump is wrong
                     #data_dict['processor'] = processor
@@ -217,6 +287,8 @@ class BulkImportSoerFigures(BrowserView):
 
                     current_parent = fig_ob
                     error_detected = False
+                    
+                    #TODO: add coresponding EEAFigureFile
                 elif object_type == 'EEAFigureFile':
                     if current_parent:
                         info('INFO: adding EEAFigureFile %s' % filepath)
