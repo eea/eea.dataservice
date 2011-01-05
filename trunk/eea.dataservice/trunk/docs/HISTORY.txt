@@ -4,6 +4,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.24-dev - (unreleased)
+-----------------------
+
 1.23 - (2011-01-05)
 -------------------
 * Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
