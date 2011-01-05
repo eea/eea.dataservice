@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.23-dev - (unreleased)
------------------------
+1.23 - (2011-01-05)
+-------------------
 * Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
 * Change: Activated annual management plan validator for datasets [ghicaale #4023]
 
