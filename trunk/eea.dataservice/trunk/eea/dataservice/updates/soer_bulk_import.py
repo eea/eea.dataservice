@@ -7,12 +7,16 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica"""
 
+from DateTime import DateTime
 from eea.dataservice.updates.soer_bulk_import_data import soer_data
 from eea.themecentre.interfaces import IThemeTagging
+import os
+import os.path
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from zope.component import getMultiAdapter
+from StringIO import StringIO
 import transaction
+from zope.component import getMultiAdapter
 
 # Logging
 import logging
@@ -22,7 +26,7 @@ info_exception = logger.exception
 
 # Configuration
 IMPORT_PATH = "SITE/sandbox/soer-figures"
-FILES_PATH = "/var/local/soer_files/FINAL_FIGURES"
+FILES_PATH = "/var/local/soer_files"
 
 # Mappings
 THEME_MAPPING = {
@@ -43,6 +47,7 @@ THEME_MAPPING = {
     'water':                        'water',
 }
 
+# Utils
 def setHtmlMimetype(data):
     if data:
         if not '</' in data:
@@ -115,12 +120,12 @@ class BulkImportSoerFigures(BrowserView):
     """ Bulk import of SOER figures """
 
     import_steps = """
-    1. [done] export metadata in JSON
-    2. [-] import from XML
-        1. [-] import EEAFigures
-        2. [-] import EEAFigureFiles
+    1. [x] export metadata in JSON
+    2. [x] import from JSON
+        1. [x] import EEAFigures
+        2. [x] import EEAFigureFiles
         3. [-] extra mappings
-        4. [done] transactional import
+        4. [x] transactional import
         5. [-] check encoding during import, e.g. José Barredo
         6. [-] after import owner should not be "alec" but "Carlsten"
     3. [-] generate import logs ( includin mandatory fields warnings )
@@ -284,21 +289,78 @@ class BulkImportSoerFigures(BrowserView):
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
                     fig_ob.reindexObject()
+                    
+                    #TODO: set state
 
                     current_parent = fig_ob
                     error_detected = False
                     
-                    #TODO: add coresponding EEAFigureFile
+                    if filepath:
+                        eps_data_dict = {}
+                        info('INFO: adding EEAFigureFile (EPS)  %s' % filepath)
+
+                        file_name = filepath.split('/')[1]
+                        putils = getToolByName(self.context, 'plone_utils', None)
+                        file_id = putils.normalizeString(file_name)
+                        
+                        file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
+                        file_ob = getattr(current_parent, file_id)
+                        
+                        file_path = os.path.join(FILES_PATH, filepath)
+                        file_stream = open(file_path, 'rb')
+                        file_data = file_stream.read()
+                        file_name = file_name.encode('utf-8')
+                        fp = StringIO(file_data)
+                        fp.filename = file_name
+                        file_ob.setFile(fp, _migration_=True)
+
+        		eps_data_dict['description'] = description
+        		eps_data_dict['creators'] = creators
+        		eps_data_dict['rights'] = copyrights                        
+                        eps_data_dict['category'] = category
+                        file_ob.processForm(data=1, metadata=1, values=eps_data_dict)
+                        
+                        if not title:
+                            title = file_name
+                        file_ob.setTitle(title)
+                        
+                        #TODO: set state
+                        
+                        file_ob.reindexObject()
+
+                        #TODO: convert images if case
+                	pass
                 elif object_type == 'EEAFigureFile':
                     if current_parent:
                         info('INFO: adding EEAFigureFile %s' % filepath)
 
-                        #data_dict['filepath'] = filepath
+                        file_name = filepath.split('/')[1]
+                        putils = getToolByName(self.context, 'plone_utils', None)
+                        file_id = putils.normalizeString(file_name)
+                        
+                        file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
+                        file_ob = getattr(current_parent, file_id)
+                        
+                        file_path = os.path.join(FILES_PATH, filepath)
+                        file_stream = open(file_path, 'rb')
+                        file_data = file_stream.read()
+                        file_name = file_name.encode('utf-8')
+                        fp = StringIO(file_data)
+                        fp.filename = file_name
+                        file_ob.setFile(fp, _migration_=True)
+                        
                         data_dict['category'] = category
+                        file_ob.processForm(data=1, metadata=1, values=data_dict)
+                        
+                        if not title:
+                            title = file_name
+                        file_ob.setTitle(title)
+                        
+                        #TODO: set state
+                        
+                        file_ob.reindexObject()
 
-                        #TODO: add EEAFigureFile
                         #TODO: convert images if case
-                        pass
                     else:
                         info('ERROR: EEAFigureFile not added %s', filepath)
 
@@ -314,8 +376,8 @@ class BulkImportSoerFigures(BrowserView):
                 info('INFO: Transaction commited, step %s' % str(counter))
                 transaction.commit()
 
-        info('INFO: Done soer figures import!')
-        return "Done soer figures import!"
+        info('INFO: *** Done soer figures import! ***')
+        return " *** Done soer figures import! *** "
 
 
 
