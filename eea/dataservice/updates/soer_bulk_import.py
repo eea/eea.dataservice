@@ -47,6 +47,11 @@ THEME_MAPPING = {
     'water':                        'water',
 }
 
+CATEGORY_MAPPING = {
+    'Hard copy':   'hard',
+    'Methodology': 'meto',
+}
+
 # Utils
 def setHtmlMimetype(data):
     if data:
@@ -55,65 +60,66 @@ def setHtmlMimetype(data):
                 data = '<p>%s</p>' % data
     return data
 
-def validateExternalURL(url, context, request):                                                                                                              
-    status = True                                                                                                                                                       
-    if not url.startswith('http://'):                                                                                                                                   
-        info('ERROR: URL ( %s ) validation: bad format', url)                                                                                                     
-        status = False                                                                                                                                                  
-        return status                                                                                                                                                   
-                                                                                                                                                                        
-    LinkChecker = getMultiAdapter((context, request),                                                                                                                   
-                                   name=u'migration_link_checker')                                                                                                        
-    status_code = LinkChecker.getStatusCode(url)                                                                                                                        
-    status_msg = LinkChecker.getStatusMsg(status_code)                                                                                                                  
-    if status_code in [110, 404]:                                                                                                                                       
-        info('ERROR: status code %s ::: %s', status_code, url)                                                                                        
-        status = False                                                                                                                                                  
+def validateExternalURL(url, context, request):
+    status = True
+    if not url.startswith('http://'):
+        info('ERROR: URL ( %s ) validation: bad format', url)
+        status = False
+        return status
+
+    LinkChecker = getMultiAdapter((context, request),
+                                   name=u'migration_link_checker')
+    status_code = LinkChecker.getStatusCode(url)
+    status_msg = LinkChecker.getStatusMsg(status_code)
+    if status_code in [110, 404]:
+        info('ERROR: status code %s ::: %s', status_code, url)
+        status = False
     return status
 
-def checkOrganisation(context, url, title=''):                                                                                                                         
-    """ Check if an Organisation pointing to this URL                                                                                                               
-        already exists, if not add a new one                                                                                                                        
-    """                                                                                                                                                             
-    # Check if an Organisation already exists                                                                                                                       
-    ctool = getToolByName(context, 'portal_catalog')                                                                                                           
-    query = { 'portal_type': ['Organisation'],                                                                                                                      
-              'getUrl': url }                                                                                                                                       
-    brains = ctool(**query)                                                                                                                                         
-                                                                                                                                                                        
-    if brains:                                                                                                                                                      
-        info('INFO: Organisation found.')                                                                                                                           
-    else:                                                                                                                                                           
-        # There is no Organisation pointing to our URL, create a new one                                                                                            
-        info('INFO: Adding organisation :: %s', url)                                                                                                                
-        org_path = 'SITE/data-and-maps/data-providers-and-partners'                                                                                                 
-        org_container = context.unrestrictedTraverse(org_path)                                                                                                 
-                                                                                                                                                                        
-        org_id = org_container.invokeFactory('Organisation', id="new_organisation")                                                                                 
-        org_ob = org_container._getOb(org_id)                                                                                                                       
-                                                                                                                                                                        
-        # Set metadata                                                                                                                                              
-        if not title:                                                                                                                                               
-            title = url                                                                                                                                             
-        org_ob.setTitle(title)                                                                                                                                      
-                                                                                                                                                                        
-        datamodel = {}                                                                                                                               
-        datamodel['organisationUrl'] = url                                                                                                                          
-        org_ob.processForm(data=1, metadata=1, values=datamodel)                                                                                                                                                                                                                  
-        # Set workflow state                                                                                                                                        
-        wftool = getToolByName(context, 'portal_workflow')                                                                                                     
-        state = wftool.getInfoFor(org_ob, 'review_state', '(Unknown)')                                                                                              
-        if state == 'published':      
-            return                                                                                                                                                  
-        try:                                                                                                                                                        
-            wftool.doActionFor(org_ob, 'publish',                                                                                                                   
-                               comment='Auto published by migration script.')                                                                                       
-        except Exception, err:                                                                                                                                      
-            info('ERROR: setting workflow')                                                                                                                         
-            info_exception('Exception: %s ', err)                                                                                                                   
-                                                                                                                                                                        
-        org_ob.reindexObject() 
-        info('INFO: Organisation update done') 
+def checkOrganisation(context, url, title=''):
+    """ Check if an Organisation pointing to this URL
+        already exists, if not add a new one
+    """
+    # Check if an Organisation already exists
+    ctool = getToolByName(context, 'portal_catalog')
+    query = { 'portal_type': ['Organisation'],
+              'getUrl': url }
+    brains = ctool(**query)
+
+    if brains:
+        info('INFO: Organisation found.')
+    else:
+        # There is no Organisation pointing to our URL, create a new one
+        info('INFO: Adding organisation :: %s', url)
+        org_path = 'SITE/data-and-maps/data-providers-and-partners'
+        org_container = context.unrestrictedTraverse(org_path)
+
+        org_id = org_container.invokeFactory('Organisation',
+                                             id="new_organisation")
+        org_ob = org_container._getOb(org_id)
+
+        # Set metadata
+        if not title:
+            title = url
+        org_ob.setTitle(title)
+
+        datamodel = {}
+        datamodel['organisationUrl'] = url
+        org_ob.processForm(data=1, metadata=1, values=datamodel)
+        # Set workflow state
+        wftool = getToolByName(context, 'portal_workflow')
+        state = wftool.getInfoFor(org_ob, 'review_state', '(Unknown)')
+        if state == 'published':
+            return
+        try:
+            wftool.doActionFor(org_ob, 'publish',
+                               comment='Auto published by migration script.')
+        except Exception, err:
+            info('ERROR: setting workflow')
+            info_exception('Exception: %s ', err)
+
+        org_ob.reindexObject()
+        info('INFO: Organisation update done')
 
 # SOER data import
 class BulkImportSoerFigures(BrowserView):
@@ -124,11 +130,11 @@ class BulkImportSoerFigures(BrowserView):
     2. [x] import from JSON
         1. [x] import EEAFigures
         2. [x] import EEAFigureFiles
-        3. [-] extra mappings
+        3. [-] set auto-relations
         4. [x] transactional import
         5. [-] check encoding during import, e.g. José Barredo
         6. [-] after import owner should not be "alec" but "Carlsten"
-    3. [-] generate import logs ( includin mandatory fields warnings )
+    3. [x] generate import logs ( includin mandatory fields warnings )
     4. [-] run a full test on unicorn (including files)
     """
 
@@ -140,13 +146,17 @@ class BulkImportSoerFigures(BrowserView):
         current_parent = None
         import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
         counter = 0
-        
+
         # countries data
-        countriesView = getMultiAdapter((self.context, self.request), name=u'getCountries')
+        countriesView = getMultiAdapter((self.context, self.request),
+                                         name=u'getCountries')
         countries = countriesView()
-        countryGroupsView = getMultiAdapter((self.context, self.request), name=u'getCountryGroups')
+        countryGroupsView = getMultiAdapter((self.context, self.request),
+                                             name=u'getCountryGroups')
         countryGroups = countryGroupsView()
-        getCountriesByGroupView = getMultiAdapter((self.context, self.request), name=u'getCountriesByGroup')
+        getCountriesByGroupView = getMultiAdapter(
+            (self.context, self.request),
+             name=u'getCountriesByGroup')
 
         for row in soer_data['rows'][:2]:
             counter += 1
@@ -194,8 +204,8 @@ class BulkImportSoerFigures(BrowserView):
                              [kword.strip() for kword in keywords.split(',')]
 
                     if not figure_type:
-                        figure_type = 'Map'
-                    data_dict['figureType'] = figure_type
+                        figure_type = 'map'
+                    data_dict['figureType'] = figure_type.lower()
 
                     picked_themes = []
                     themes = [th.strip().lower() for th in themes.split(',')]
@@ -215,7 +225,7 @@ class BulkImportSoerFigures(BrowserView):
                     data_dict['moreInfo'] = \
                              setHtmlMimetype(additional_information)
                     data_dict['dataSource'] = setHtmlMimetype(source)
-                    data_dict['contact'] = contact
+                    data_dict['contact'] = contact.replace('\n', '\r\n')
 
                     if last_upload:
                         data_dict['lastUpload'] = DateTime(last_upload)
@@ -226,10 +236,12 @@ class BulkImportSoerFigures(BrowserView):
                     if eea_management_plan:
                         plan = eea_management_plan.split(',')
                         if len(plan) == 2:
-                            picked_plan = (plan[0].strip(), plan[1].strip())
+                            picked_plan = (int(plan[0].strip()),
+                                           plan[1].strip())
                         elif len(plan) == 1:
-                            picked_plan = (plan[0].strip(), '')
-                    data_dict['eeaManagementPlan'] = picked_plan
+                            picked_plan = (int(plan[0].strip()), '')
+                    data_dict['eeaManagementPlanYear'] = picked_plan[0]
+                    data_dict['eeaManagementPlanCode'] = picked_plan[1]
 
                     picked_temp = []
                     if tem_coverage:
@@ -239,73 +251,79 @@ class BulkImportSoerFigures(BrowserView):
                                 tmp_range = range(int(tmp.split('-')[0]),
                                                   int(tmp.split('-')[1]))
                                 for trange in tmp_range:
-                                    picked_temp.extend(str(trange))
+                                    picked_temp.extend([str(trange)])
                             elif '–' in tmp:
                                 tmp_range = range(int(tmp.split('–')[0]),
                                                   int(tmp.split('–')[1]))
                                 for trange in tmp_range:
-                                    picked_temp.extend(str(trange))
+                                    picked_temp.extend([str(trange)])
                             else:
                                 picked_temp.append(tmp)
                     data_dict['temporalCoverage'] = picked_temp
-                    
+
                     picked_geo = []
                     for geo in geo_coverage.split(','):
-                	geo = geo.strip()
-                	countryCode = None
-                	for country in countries:
-                	    if country[1] == geo:
-                		countryCode = [country[0]]
-                		break
-                	if not countryCode:
-                	    for countryGroup in countryGroups:
-                		if countryGroup == geo:
-                		    countryCode = getCountriesByGroupView(geo)
-                		    break
-                	if countryCode:
-                	    picked_geo.extend(countryCode)
-                	else:
-                	    info('ERROR: undefined country %s', geo)
-            	    data_dict['geographicCoverage'] = picked_geo                  
+                        geo = geo.strip()
+                        countryCode = None
+                        for country in countries:
+                            if country[1] == geo:
+                                countryCode = [country[0]]
+                                break
+                        if not countryCode:
+                            for countryGroup in countryGroups:
+                                if countryGroup == geo:
+                                    countryCode = getCountriesByGroupView(geo)
+                                    break
+                        if countryCode:
+                            picked_geo.extend(countryCode)
+                        else:
+                            info('ERROR: undefined country %s', geo)
+                    data_dict['geographicCoverage'] = picked_geo
 
                     if owner:
-                	owner_data = owner.split(',')
-                	if len(owner_data) > 2:
-                	    info('ERROR: bad format Owner')
-            		else:
-            		    owner_url = owner_data[0]
-            		    owner_title = ''
-            		    if owner_data == 2:
-            			owner_title = owner_data[1]
-            		    
-            		    status = validateExternalURL(owner_url, self.context, self.request)
-            		    if status:
-                                checkOrganisation(self.context, owner_url, owner_title)
-            			data_dict['dataOwner'] = [owner_url]
-                    
+                        owner_data = owner.split(',')
+                        if len(owner_data) > 2:
+                            info('ERROR: bad format Owner')
+                        else:
+                            owner_url = owner_data[0]
+                            owner_title = ''
+                            if len(owner_data) == 2:
+                                owner_title = owner_data[1]
+
+                            status = validateExternalURL(owner_url,
+                                                         self.context,
+                                                         self.request)
+                            if status:
+                                checkOrganisation(self.context,
+                                                  owner_url,
+                                                  owner_title.strip())
+                                data_dict['dataOwner'] = [owner_url]
+
                     #TODO: processor data in current dump is wrong
                     #data_dict['processor'] = processor
 
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
                     fig_ob.reindexObject()
-                    
+
                     #TODO: set state
 
                     current_parent = fig_ob
                     error_detected = False
-                    
+
                     if filepath:
                         eps_data_dict = {}
-                        info('INFO: adding EEAFigureFile (EPS)  %s' % filepath)
+                        info('INFO: adding EEAFigureFile (EPS) %s' % filepath)
 
                         file_name = filepath.split('/')[1]
-                        putils = getToolByName(self.context, 'plone_utils', None)
+                        putils = getToolByName(self.context,
+                                               'plone_utils',
+                                               None)
                         file_id = putils.normalizeString(file_name)
-                        
+
                         file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
                         file_ob = getattr(current_parent, file_id)
-                        
+
                         file_path = os.path.join(FILES_PATH, filepath)
                         file_stream = open(file_path, 'rb')
                         file_data = file_stream.read()
@@ -314,22 +332,23 @@ class BulkImportSoerFigures(BrowserView):
                         fp.filename = file_name
                         file_ob.setFile(fp, _migration_=True)
 
-        		eps_data_dict['description'] = description
-        		eps_data_dict['creators'] = creators
-        		eps_data_dict['rights'] = copyrights                        
-                        eps_data_dict['category'] = category
+                        #eps_data_dict['description'] = description
+                        eps_data_dict['creators'] = creators
+                        eps_data_dict['rights'] = copyrights
+                        if category:
+                            eps_data_dict['category'] = CATEGORY_MAPPING[category]
                         file_ob.processForm(data=1, metadata=1, values=eps_data_dict)
-                        
+
                         if not title:
                             title = file_name
                         file_ob.setTitle(title)
-                        
+
                         #TODO: set state
-                        
+
                         file_ob.reindexObject()
 
                         #TODO: convert images if case
-                	pass
+                        pass
                 elif object_type == 'EEAFigureFile':
                     if current_parent:
                         info('INFO: adding EEAFigureFile %s' % filepath)
@@ -337,10 +356,10 @@ class BulkImportSoerFigures(BrowserView):
                         file_name = filepath.split('/')[1]
                         putils = getToolByName(self.context, 'plone_utils', None)
                         file_id = putils.normalizeString(file_name)
-                        
+
                         file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
                         file_ob = getattr(current_parent, file_id)
-                        
+
                         file_path = os.path.join(FILES_PATH, filepath)
                         file_stream = open(file_path, 'rb')
                         file_data = file_stream.read()
@@ -348,16 +367,17 @@ class BulkImportSoerFigures(BrowserView):
                         fp = StringIO(file_data)
                         fp.filename = file_name
                         file_ob.setFile(fp, _migration_=True)
-                        
-                        data_dict['category'] = category
+
+                        if category:
+                            data_dict['category'] = CATEGORY_MAPPING[category]
                         file_ob.processForm(data=1, metadata=1, values=data_dict)
-                        
+
                         if not title:
                             title = file_name
                         file_ob.setTitle(title)
-                        
+
                         #TODO: set state
-                        
+
                         file_ob.reindexObject()
 
                         #TODO: convert images if case
