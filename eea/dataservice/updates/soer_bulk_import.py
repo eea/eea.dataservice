@@ -203,7 +203,7 @@ class BulkImportSoerFigures(BrowserView):
         putils = getToolByName(self.context, 'plone_utils')
         wftool = getToolByName(self.context, 'portal_workflow')
         membertool = getToolByName(self.context, 'portal_membership')
-        username = 'aeditor' #iverscar
+        username = 'iverscar'
         workflow_id = 'eea_data_workflow'
         current_parent = None
         counter = 0
