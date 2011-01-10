@@ -54,6 +54,7 @@ CATEGORY_MAPPING = {
 
 # Utils
 def setHtmlMimetype(data):
+    """ set mimetype to HTML """
     if data:
         if not '</' in data:
             if not data.startswith('<p'):
@@ -61,6 +62,7 @@ def setHtmlMimetype(data):
     return data
 
 def validateExternalURL(url, context, request):
+    """ check external URLs """
     status = True
     if not url.startswith('http://'):
         info('ERROR: URL ( %s ) validation: bad format', url)
@@ -117,9 +119,63 @@ def checkOrganisation(context, url, title=''):
         except Exception, err:
             info('ERROR: setting workflow')
             info_exception('Exception: %s ', err)
+            info('============================================')
 
         org_ob.reindexObject()
         info('INFO: Organisation update done')
+
+def changeOwnership(context, membertool, username, workflow_id):
+    """ change ownership and workflow history """
+    # Change ownership
+    user_ob = membertool.getMemberById(username)
+    context.changeOwnership(user=user_ob, recursive=1)
+
+    # Set 'owner' role
+    owners = context.users_with_local_role('Owner')
+    for o in owners:
+        context.manage_delLocalRoles([o])
+    context.manage_setLocalRoles(username, ['Owner'])
+    context.reindexObjectSecurity()
+    #try:
+        #context.folder_localrole_edit('add',
+                                       #member_ids=tuple(username),
+                                       #member_role=['Owner'])
+        #context.folder_localrole_set(use_acquisition=0)
+    #except Exception, err:
+        #info('ERROR: error setting local role')
+        #info_exception('Exception: %s ', err)
+        #info('============================================')
+
+    ## Update workflow history
+    #wf_state = {
+        #'action': 'Ownership changed',
+        #'actor': username
+        #'comments': "Set by migration script.",
+        #'review_state': 'content_pending',
+        #'time': DateTime(),
+    #}
+    #wftool.setStatusOf(workflow_id, context, wf_state)
+
+    # Update workflow history
+    history = context.workflow_history[workflow_id]
+    history = list(history)
+    updated_history = []
+    count = 0
+    for entry in history:
+        entry['actor'] = username
+        if count == 0:
+            entry['action'] = 'Import of SOER figures'
+            entry['comments'] = 'Set by migration script.'
+        updated_history.append(entry)
+        count += 1
+    context.workflow_history[workflow_id] = tuple(updated_history)
+
+def convertEEAFigureFile(context, request):
+    convert = getMultiAdapter((context, request), name=u'convertMap')
+    error = convert(cronjob=True)
+    if not error.startswith('Done'):
+        info('ERROR: error converting file')
+        info('============================================')
 
 # SOER data import
 class BulkImportSoerFigures(BrowserView):
@@ -133,7 +189,7 @@ class BulkImportSoerFigures(BrowserView):
         3. [-] set auto-relations
         4. [x] transactional import
         5. [-] check encoding during import, e.g. José Barredo
-        6. [-] after import owner should not be "alec" but "Carlsten"
+        6. [x] after import owner should not be "alec" but "Carlsten/iverscar"
     3. [x] generate import logs ( includin mandatory fields warnings )
     4. [-] run a full test on unicorn (including files)
     """
@@ -143,8 +199,13 @@ class BulkImportSoerFigures(BrowserView):
     """
 
     def __call__(self):
-        current_parent = None
         import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
+        putils = getToolByName(self.context, 'plone_utils')
+        wftool = getToolByName(self.context, 'portal_workflow')
+        membertool = getToolByName(self.context, 'portal_membership')
+        username = 'aeditor' #iverscar
+        workflow_id = 'eea_data_workflow'
+        current_parent = None
         counter = 0
 
         # countries data
@@ -302,11 +363,23 @@ class BulkImportSoerFigures(BrowserView):
                     #TODO: processor data in current dump is wrong
                     #data_dict['processor'] = processor
 
+                    # Set state to 'content_pending'
+                    try:
+                        wftool.doActionFor(fig_ob, 'submitContentReview',
+                                           comment='Set by migration script.')
+                    except Exception, err:
+                        info('ERROR: setting workflow')
+                        info_exception('Exception: %s ', err)
+                        info('============================================')
+
+                    # Change ownership
+                    changeOwnership(fig_ob, membertool, username, workflow_id)
+
+                    # Save metadata
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
                     fig_ob.reindexObject()
-
-                    #TODO: set state
+                    info('INFO: done adding %s', fig_ob.getId())
 
                     current_parent = fig_ob
                     error_detected = False
@@ -316,9 +389,6 @@ class BulkImportSoerFigures(BrowserView):
                         info('INFO: adding EEAFigureFile (EPS) %s' % filepath)
 
                         file_name = filepath.split('/')[1]
-                        putils = getToolByName(self.context,
-                                               'plone_utils',
-                                               None)
                         file_id = putils.normalizeString(file_name)
 
                         file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
@@ -337,24 +407,35 @@ class BulkImportSoerFigures(BrowserView):
                         eps_data_dict['rights'] = copyrights
                         if category:
                             eps_data_dict['category'] = CATEGORY_MAPPING[category]
+
+                        # Set state to 'content_pending'
+                        try:
+                            wftool.doActionFor(file_ob, 'submitContentReview',
+                                               comment='Set by migration script.')
+                        except Exception, err:
+                            info('ERROR: error setting local role')
+                            info_exception('Exception: %s ', err)
+                            info('============================================')
+
+                        # Change ownership
+                        changeOwnership(file_ob, membertool, username, workflow_id)
+
                         file_ob.processForm(data=1, metadata=1, values=eps_data_dict)
 
                         if not title:
                             title = file_name
                         file_ob.setTitle(title)
 
-                        #TODO: set state
+                        # Convert image if case
+                        convertEEAFigureFile(file_ob, self.request)
 
                         file_ob.reindexObject()
-
-                        #TODO: convert images if case
-                        pass
+                        info('INFO: done adding %s', file_ob.getId())
                 elif object_type == 'EEAFigureFile':
                     if current_parent:
                         info('INFO: adding EEAFigureFile %s' % filepath)
 
                         file_name = filepath.split('/')[1]
-                        putils = getToolByName(self.context, 'plone_utils', None)
                         file_id = putils.normalizeString(file_name)
 
                         file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
@@ -370,17 +451,30 @@ class BulkImportSoerFigures(BrowserView):
 
                         if category:
                             data_dict['category'] = CATEGORY_MAPPING[category]
+
+                        # Set state to 'content_pending'
+                        try:
+                            wftool.doActionFor(file_ob, 'submitContentReview',
+                                               comment='Set by migration script.')
+                        except Exception, err:
+                            info('ERROR: error setting local role')
+                            info_exception('Exception: %s ', err)
+                            info('============================================')
+
+                        # Change ownership
+                        changeOwnership(file_ob, membertool, username, workflow_id)
+
                         file_ob.processForm(data=1, metadata=1, values=data_dict)
 
                         if not title:
                             title = file_name
                         file_ob.setTitle(title)
 
-                        #TODO: set state
+                        # Convert image if case
+                        convertEEAFigureFile(file_ob, self.request)
 
                         file_ob.reindexObject()
-
-                        #TODO: convert images if case
+                        info('INFO: done adding %s', file_ob.getId())
                     else:
                         info('ERROR: EEAFigureFile not added %s', filepath)
 
@@ -391,6 +485,7 @@ class BulkImportSoerFigures(BrowserView):
                     current_parent = None
                 info('ERROR: import error on %s', filepath)
                 info_exception(err)
+                info('============================================')
 
             if counter % 10 == 0:
                 info('INFO: Transaction commited, step %s' % str(counter))
@@ -398,10 +493,3 @@ class BulkImportSoerFigures(BrowserView):
 
         info('INFO: *** Done soer figures import! ***')
         return " *** Done soer figures import! *** "
-
-
-
-
-
-
-
