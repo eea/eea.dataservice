@@ -211,6 +211,19 @@ CONVERSIONS_DICTIONARY[CONVERSIONS_DICTIONARY_ID] = (
 CONVERSIONS_USED = ['GIF-400', 'PNG-400', 'PNG-300', 'TIFF-400']
 
 # Organisations vocabulary
+def generateUniqueTitles(data):
+    seen_titles = set()
+    data_unique_titles = {}
+    for url, orig_title in data.iteritems():
+        n = 0
+        title = orig_title
+        while title in seen_titles:
+            n += 1
+            title = '%s (%d)' % (orig_title, n)
+        seen_titles.add(title)
+        data_unique_titles[url] = title
+    return data_unique_titles
+
 class Organisations:
     """ Return organisations as vocabulary
     """
@@ -226,6 +239,7 @@ class Organisations:
 
         [unique_org.setdefault(brain.getUrl, brain.Title)
             for brain in res]
+        unique_org = generateUniqueTitles(unique_org)
         organisations.extend((unique_org[url], url)
                              for url in unique_org.keys())
         organisations.sort()
