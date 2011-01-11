@@ -52,6 +52,38 @@ CATEGORY_MAPPING = {
     'Methodology': 'meto',
 }
 
+PUBLICATIONS_MAPPING = {
+    ('SOER2010', 'thematic assessment', 'air pollution'):
+        'SITE/soer/europe/air-pollution',
+    ('SOER2010', 'thematic assessment', 'nature and biodiversity'):
+        'SITE/soer/europe/biodiversity',
+    ('SOER2010', 'thematic assessment', 'climate change',
+     'understanding climate change'):
+        'SITE/soer/europe/understanding-climate-change',
+    ('SOER2010', 'thematic assessment', 'climate change', 'mitigation'):
+        'SITE/soer/europe/mitigating-climate-change',
+    ('SOER2010', 'thematic assessment', 'climate change', 'adaptation'):
+        'SITE/soer/europe/adapting-to-climate-change',
+    ('SOER2010', 'thematic assessment', 'land use'):
+        'SITE/soer/europe/land-use',
+    ('SOER2010', 'thematic assessment', 'soil'):
+        'SITE/soer/europe/soil',
+    ('SOER2010', 'thematic assessment', 'marine and coastal'):
+        'SITE/soer/europe/marine-and-coastal-environment',
+    ('SOER2010', 'thematic assessment', 'consumption'):
+        'SITE/soer/europe/consumption-and-environment',
+    ('SOER2010', 'thematic assessment', 'material resources', 'waste'):
+        'SITE/soer/europe/material-resources-and-waste',
+    ('SOER2010', 'thematic assessment', 'urban environment'):
+        'SITE/soer/europe/urban-environment',
+    ('SOER2010', 'thematic assessment', 'freshwater quality'):
+        'SITE/soer/europe/freshwater-quality',
+    ('SOER2010', 'thematic assessment', 'water resources'):
+        'SITE/soer/europe/water-resources-quantity-and-flows',
+}
+
+#TODO: add files mapping, related to "megatrends" keyword
+
 # Utils
 def setHtmlMimetype(data):
     """ set mimetype to HTML """
@@ -126,6 +158,7 @@ def checkOrganisation(context, url, title=''):
 
 def changeOwnership(context, membertool, username, workflow_id):
     """ change ownership and workflow history """
+
     # Change ownership
     user_ob = membertool.getMemberById(username)
     context.changeOwnership(user=user_ob, recursive=1)
@@ -171,32 +204,34 @@ def changeOwnership(context, membertool, username, workflow_id):
     context.workflow_history[workflow_id] = tuple(updated_history)
 
 def convertEEAFigureFile(context, request):
+    """ Convert EEAFigureFiles """
     convert = getMultiAdapter((context, request), name=u'convertMap')
     error = convert(cronjob=True)
     if not error.startswith('Done'):
         info('ERROR: error converting file')
         info('============================================')
 
+def findRelatedPublications(context, fig_keywords):
+    """ returns related publication based on keywords match """
+    publication_ob = None
+
+    for keyword_set in PUBLICATIONS_MAPPING.keys():
+        key_flag = True
+        for keyword in keyword_set:
+            if not keyword in fig_keywords:
+                key_flag = False
+                break
+        if key_flag:
+            break
+
+    if keyword_set and key_flag:
+        publication_ob = context.unrestrictedTraverse(
+                                PUBLICATIONS_MAPPING[keyword_set])
+    return publication_ob
+
 # SOER data import
 class BulkImportSoerFigures(BrowserView):
     """ Bulk import of SOER figures """
-
-    import_steps = """
-    1. [x] export metadata in JSON
-    2. [x] import from JSON
-        1. [x] import EEAFigures
-        2. [x] import EEAFigureFiles
-        3. [-] set auto-relations
-        4. [x] transactional import
-        5. [-] check encoding during import, e.g. José Barredo
-        6. [x] after import owner should not be "alec" but "Carlsten/iverscar"
-    3. [x] generate import logs ( includin mandatory fields warnings )
-    4. [-] run a full test on unicorn (including files)
-    """
-
-    questions = """
-    1. what state should have imported figures and files?
-    """
 
     def __call__(self):
         import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
@@ -261,8 +296,8 @@ class BulkImportSoerFigures(BrowserView):
                     fig_ob = getattr(import_context, fig_id)
 
                     # Setting EEAFigures metadata
-                    data_dict['subject_existing_keywords'] = \
-                             [kword.strip() for kword in keywords.split(',')]
+                    keywords_list = [kword.strip() for kword in keywords.split(',')]
+                    data_dict['subject_existing_keywords'] = keywords_list
 
                     if not figure_type:
                         figure_type = 'map'
@@ -378,6 +413,13 @@ class BulkImportSoerFigures(BrowserView):
                     # Save metadata
                     fig_ob.setTitle(title)
                     fig_ob.processForm(data=1, metadata=1, values=data_dict)
+
+                    publication_ob = findRelatedPublications(self.context,
+                                                             keywords_list)
+                    if publication_ob:
+                        fig_ob.setRelatedProducts(list(publication_ob))
+
+
                     fig_ob.reindexObject()
                     info('INFO: done adding %s', fig_ob.getId())
 
@@ -391,7 +433,9 @@ class BulkImportSoerFigures(BrowserView):
                         file_name = filepath.split('/')[1]
                         file_id = putils.normalizeString(file_name)
 
-                        file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
+                        file_id = current_parent.invokeFactory(
+                            'EEAFigureFile',
+                            id=file_id)
                         file_ob = getattr(current_parent, file_id)
 
                         file_path = os.path.join(FILES_PATH, filepath)
@@ -406,21 +450,28 @@ class BulkImportSoerFigures(BrowserView):
                         eps_data_dict['creators'] = creators
                         eps_data_dict['rights'] = copyrights
                         if category:
-                            eps_data_dict['category'] = CATEGORY_MAPPING[category]
+                            eps_data_dict['category'] = \
+                                         CATEGORY_MAPPING[category]
 
                         # Set state to 'content_pending'
                         try:
-                            wftool.doActionFor(file_ob, 'submitContentReview',
-                                               comment='Set by migration script.')
+                            wftool.doActionFor(
+                                file_ob, 'submitContentReview',
+                                comment='Set by migration script.')
                         except Exception, err:
                             info('ERROR: error setting local role')
                             info_exception('Exception: %s ', err)
-                            info('============================================')
+                            info('==========================================')
 
                         # Change ownership
-                        changeOwnership(file_ob, membertool, username, workflow_id)
+                        changeOwnership(file_ob,
+                                        membertool,
+                                        username,
+                                        workflow_id)
 
-                        file_ob.processForm(data=1, metadata=1, values=eps_data_dict)
+                        file_ob.processForm(data=1,
+                                            metadata=1,
+                                            values=eps_data_dict)
 
                         if not title:
                             title = file_name
@@ -438,7 +489,9 @@ class BulkImportSoerFigures(BrowserView):
                         file_name = filepath.split('/')[1]
                         file_id = putils.normalizeString(file_name)
 
-                        file_id = current_parent.invokeFactory('EEAFigureFile', id=file_id)
+                        file_id = current_parent.invokeFactory(
+                            'EEAFigureFile',
+                            id=file_id)
                         file_ob = getattr(current_parent, file_id)
 
                         file_path = os.path.join(FILES_PATH, filepath)
@@ -454,17 +507,23 @@ class BulkImportSoerFigures(BrowserView):
 
                         # Set state to 'content_pending'
                         try:
-                            wftool.doActionFor(file_ob, 'submitContentReview',
-                                               comment='Set by migration script.')
+                            wftool.doActionFor(
+                                file_ob, 'submitContentReview',
+                                comment='Set by migration script.')
                         except Exception, err:
                             info('ERROR: error setting local role')
                             info_exception('Exception: %s ', err)
-                            info('============================================')
+                            info('==========================================')
 
                         # Change ownership
-                        changeOwnership(file_ob, membertool, username, workflow_id)
+                        changeOwnership(file_ob,
+                                        membertool,
+                                        username,
+                                        workflow_id)
 
-                        file_ob.processForm(data=1, metadata=1, values=data_dict)
+                        file_ob.processForm(data=1,
+                                            metadata=1,
+                                            values=data_dict)
 
                         if not title:
                             title = file_name
