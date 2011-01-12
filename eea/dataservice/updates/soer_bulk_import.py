@@ -25,8 +25,8 @@ info = logger.info
 info_exception = logger.exception
 
 # Configuration
-IMPORT_PATH = "SITE/sandbox/soer-figures"
-FILES_PATH = "/var/eeawebtest/soer_files"
+IMPORT_PATH = "SITE/data-and-maps/figures"
+FILES_PATH = "/var/soer_files"
 
 # Mappings
 THEME_MAPPING = {
