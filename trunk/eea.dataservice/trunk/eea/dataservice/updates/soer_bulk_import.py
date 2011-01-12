@@ -82,7 +82,7 @@ PUBLICATIONS_MAPPING = {
         'SITE/soer/europe/water-resources-quantity-and-flows',
 }
 
-#TODO: add files mapping, related to "megatrends" keyword
+#TODO: add files mapping, related to "megatrends" keyword, used for next batch
 
 # Utils
 def setHtmlMimetype(data):
@@ -151,7 +151,6 @@ def checkOrganisation(context, url, title=''):
         except Exception, err:
             info('ERROR: setting workflow')
             #info_exception('Exception: %s ', err)
-            #info('============================================')
 
         org_ob.reindexObject()
         info('INFO: Organisation update done')
@@ -177,7 +176,6 @@ def changeOwnership(context, membertool, username, workflow_id):
     #except Exception, err:
         #info('ERROR: error setting local role')
         #info_exception('Exception: %s ', err)
-        #info('============================================')
 
     ## Update workflow history
     #wf_state = {
@@ -210,7 +208,6 @@ def convertEEAFigureFile(context, request):
         error = convert(cronjob=True)
     except:
         info('ERROR: error converting file')
-#        info('============================================')
 
 def findRelatedPublications(context, fig_keywords):
     """ returns related publication based on keywords match """
@@ -305,7 +302,8 @@ ERROR: undefined country Greenland
                     fig_ob = getattr(import_context, fig_id)
 
                     # Setting EEAFigures metadata
-                    keywords_list = [kword.strip() for kword in keywords.split(',')]
+                    keywords_list = [kword.strip()
+                                     for kword in keywords.split(',')]
                     data_dict['subject_existing_keywords'] = keywords_list
 
                     if not figure_type:
@@ -418,7 +416,6 @@ ERROR: undefined country Greenland
                     except Exception, err:
                         info('ERROR: setting workflow')
                         #info_exception('Exception: %s ', err)
-                        #info('============================================')
 
                     # Change ownership
                     changeOwnership(fig_ob, membertool, username, workflow_id)
@@ -478,7 +475,6 @@ ERROR: undefined country Greenland
                         except Exception, err:
                             info('ERROR: error setting workflow')
                             #info_exception('Exception: %s ', err)
-                            #info('==========================================')
 
                         # Change ownership
                         changeOwnership(file_ob,
@@ -531,7 +527,6 @@ ERROR: undefined country Greenland
                         except Exception, err:
                             info('ERROR: error setting workflow')
                             #info_exception('Exception: %s ', err)
-                            #info('==========================================')
 
                         # Change ownership
                         changeOwnership(file_ob,
@@ -562,7 +557,6 @@ ERROR: undefined country Greenland
                     current_parent = None
                 info('ERROR: import error on %s', filepath)
                 info_exception(err)
-                #info('============================================')
 
             info('INFO: objects added %s' % str(counter))
             if counter % 10 == 0:
