@@ -26,7 +26,7 @@ info_exception = logger.exception
 
 # Configuration
 IMPORT_PATH = "SITE/sandbox/soer-figures"
-FILES_PATH = "/var/local/soer_files"
+FILES_PATH = "/var/eeawebtest/soer_files"
 
 # Mappings
 THEME_MAPPING = {
@@ -150,8 +150,8 @@ def checkOrganisation(context, url, title=''):
                                comment='Auto published by migration script.')
         except Exception, err:
             info('ERROR: setting workflow')
-            info_exception('Exception: %s ', err)
-            info('============================================')
+            #info_exception('Exception: %s ', err)
+            #info('============================================')
 
         org_ob.reindexObject()
         info('INFO: Organisation update done')
@@ -206,10 +206,11 @@ def changeOwnership(context, membertool, username, workflow_id):
 def convertEEAFigureFile(context, request):
     """ Convert EEAFigureFiles """
     convert = getMultiAdapter((context, request), name=u'convertMap')
-    error = convert(cronjob=True)
-    if not error.startswith('Done'):
+    try:
+        error = convert(cronjob=True)
+    except:
         info('ERROR: error converting file')
-        info('============================================')
+#        info('============================================')
 
 def findRelatedPublications(context, fig_keywords):
     """ returns related publication based on keywords match """
@@ -233,6 +234,14 @@ def findRelatedPublications(context, fig_keywords):
 class BulkImportSoerFigures(BrowserView):
     """ Bulk import of SOER figures """
 
+    import_errors = """
+ERROR: undefined country EEA32
+ERROR: undefined country EU12
+ERROR: undefined country USA
+ERROR: undefined country EFTA
+ERROR: undefined country Greenland
+    """
+
     def __call__(self):
         import_context = self.context.unrestrictedTraverse(IMPORT_PATH)
         putils = getToolByName(self.context, 'plone_utils')
@@ -254,8 +263,7 @@ class BulkImportSoerFigures(BrowserView):
             (self.context, self.request),
              name=u'getCountriesByGroup')
 
-        for row in soer_data['rows'][:2]:
-            counter += 1
+        for row in soer_data['rows']:
             data_dict = {}
 
             additional_information = row["Additional information"]
@@ -288,6 +296,7 @@ class BulkImportSoerFigures(BrowserView):
 
             try:
                 if object_type == 'EEAFigure':
+                    counter += 1
                     info('INFO: adding EEAFigure %s' % filepath)
 
                     fig_id = import_context.invokeFactory(
@@ -365,7 +374,11 @@ class BulkImportSoerFigures(BrowserView):
                             if country[1] == geo:
                                 countryCode = [country[0]]
                                 break
+                        if geo == 'Former Yugoslav Republic of Macedonia':
+                            countryCode = 'mk'
                         if not countryCode:
+                            geo = geo.replace(' ', '')
+                            geo = geo.replace('-', '')
                             for countryGroup in countryGroups:
                                 if countryGroup == geo:
                                     countryCode = getCountriesByGroupView(geo)
@@ -404,8 +417,8 @@ class BulkImportSoerFigures(BrowserView):
                                            comment='Set by migration script.')
                     except Exception, err:
                         info('ERROR: setting workflow')
-                        info_exception('Exception: %s ', err)
-                        info('============================================')
+                        #info_exception('Exception: %s ', err)
+                        #info('============================================')
 
                     # Change ownership
                     changeOwnership(fig_ob, membertool, username, workflow_id)
@@ -417,7 +430,7 @@ class BulkImportSoerFigures(BrowserView):
                     publication_ob = findRelatedPublications(self.context,
                                                              keywords_list)
                     if publication_ob:
-                        fig_ob.setRelatedProducts(list(publication_ob))
+                        fig_ob.setRelatedProducts([publication_ob])
 
 
                     fig_ob.reindexObject()
@@ -427,8 +440,12 @@ class BulkImportSoerFigures(BrowserView):
                     error_detected = False
 
                     if filepath:
+                        counter += 1
                         eps_data_dict = {}
                         info('INFO: adding EEAFigureFile (EPS) %s' % filepath)
+
+                        if filepath[len(filepath)-4:] != '.eps':
+                            filepath = '%s.eps' % filepath
 
                         file_name = filepath.split('/')[1]
                         file_id = putils.normalizeString(file_name)
@@ -459,9 +476,9 @@ class BulkImportSoerFigures(BrowserView):
                                 file_ob, 'submitContentReview',
                                 comment='Set by migration script.')
                         except Exception, err:
-                            info('ERROR: error setting local role')
-                            info_exception('Exception: %s ', err)
-                            info('==========================================')
+                            info('ERROR: error setting workflow')
+                            #info_exception('Exception: %s ', err)
+                            #info('==========================================')
 
                         # Change ownership
                         changeOwnership(file_ob,
@@ -483,6 +500,7 @@ class BulkImportSoerFigures(BrowserView):
                         file_ob.reindexObject()
                         info('INFO: done adding %s', file_ob.getId())
                 elif object_type == 'EEAFigureFile':
+                    counter += 1
                     if current_parent:
                         info('INFO: adding EEAFigureFile %s' % filepath)
 
@@ -511,9 +529,9 @@ class BulkImportSoerFigures(BrowserView):
                                 file_ob, 'submitContentReview',
                                 comment='Set by migration script.')
                         except Exception, err:
-                            info('ERROR: error setting local role')
-                            info_exception('Exception: %s ', err)
-                            info('==========================================')
+                            info('ERROR: error setting workflow')
+                            #info_exception('Exception: %s ', err)
+                            #info('==========================================')
 
                         # Change ownership
                         changeOwnership(file_ob,
@@ -544,8 +562,9 @@ class BulkImportSoerFigures(BrowserView):
                     current_parent = None
                 info('ERROR: import error on %s', filepath)
                 info_exception(err)
-                info('============================================')
+                #info('============================================')
 
+            info('INFO: objects added %s' % str(counter))
             if counter % 10 == 0:
                 info('INFO: Transaction commited, step %s' % str(counter))
                 transaction.commit()
