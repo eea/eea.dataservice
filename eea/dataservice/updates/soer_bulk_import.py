@@ -53,32 +53,32 @@ CATEGORY_MAPPING = {
 }
 
 PUBLICATIONS_MAPPING = {
-    ('SOER2010', 'thematic assessment', 'air pollution'):
+    ('soer2010', 'thematic assessment', 'air pollution'):
         'SITE/soer/europe/air-pollution',
-    ('SOER2010', 'thematic assessment', 'nature and biodiversity'):
+    ('soer2010', 'thematic assessment', 'nature and biodiversity'):
         'SITE/soer/europe/biodiversity',
-    ('SOER2010', 'thematic assessment', 'climate change',
+    ('soer2010', 'thematic assessment', 'climate change',
      'understanding climate change'):
         'SITE/soer/europe/understanding-climate-change',
-    ('SOER2010', 'thematic assessment', 'climate change', 'mitigation'):
+    ('soer2010', 'thematic assessment', 'climate change', 'mitigation'):
         'SITE/soer/europe/mitigating-climate-change',
-    ('SOER2010', 'thematic assessment', 'climate change', 'adaptation'):
+    ('soer2010', 'thematic assessment', 'climate change', 'adaptation'):
         'SITE/soer/europe/adapting-to-climate-change',
-    ('SOER2010', 'thematic assessment', 'land use'):
+    ('soer2010', 'thematic assessment', 'land use'):
         'SITE/soer/europe/land-use',
-    ('SOER2010', 'thematic assessment', 'soil'):
+    ('soer2010', 'thematic assessment', 'soil'):
         'SITE/soer/europe/soil',
-    ('SOER2010', 'thematic assessment', 'marine and coastal'):
+    ('soer2010', 'thematic assessment', 'marine and coastal'):
         'SITE/soer/europe/marine-and-coastal-environment',
-    ('SOER2010', 'thematic assessment', 'consumption'):
+    ('soer2010', 'thematic assessment', 'consumption'):
         'SITE/soer/europe/consumption-and-environment',
-    ('SOER2010', 'thematic assessment', 'material resources', 'waste'):
+    ('soer2010', 'thematic assessment', 'material resources', 'waste'):
         'SITE/soer/europe/material-resources-and-waste',
-    ('SOER2010', 'thematic assessment', 'urban environment'):
+    ('soer2010', 'thematic assessment', 'urban environment'):
         'SITE/soer/europe/urban-environment',
-    ('SOER2010', 'thematic assessment', 'freshwater quality'):
+    ('soer2010', 'thematic assessment', 'freshwater quality'):
         'SITE/soer/europe/freshwater-quality',
-    ('SOER2010', 'thematic assessment', 'water resources'):
+    ('soer2010', 'thematic assessment', 'water resources'):
         'SITE/soer/europe/water-resources-quantity-and-flows',
 }
 
@@ -147,7 +147,7 @@ def checkOrganisation(context, url, title=''):
             return
         try:
             wftool.doActionFor(org_ob, 'publish',
-                               comment='Auto published by migration script.')
+                               comment='Set by SOER2010 bulk import script.')
         except Exception, err:
             info('ERROR: setting workflow')
             #info_exception('Exception: %s ', err)
@@ -212,11 +212,12 @@ def convertEEAFigureFile(context, request):
 def findRelatedPublications(context, fig_keywords):
     """ returns related publication based on keywords match """
     publication_ob = None
+    figure_keywords = [fig.lower() for fig in fig_keywords]
 
     for keyword_set in PUBLICATIONS_MAPPING.keys():
         key_flag = True
         for keyword in keyword_set:
-            if not keyword in fig_keywords:
+            if not keyword in figure_keywords:
                 key_flag = False
                 break
         if key_flag:
@@ -262,6 +263,7 @@ ERROR: undefined country Greenland
 
         for row in soer_data['rows']:
             data_dict = {}
+            all_mandatory = True
 
             additional_information = row["Additional information"]
             category = row["Category"]
@@ -306,32 +308,51 @@ ERROR: undefined country Greenland
                                      for kword in keywords.split(',')]
                     data_dict['subject_existing_keywords'] = keywords_list
 
-                    if not figure_type:
-                        figure_type = 'map'
-                    data_dict['figureType'] = figure_type.lower()
+                    if not description:
+                        info('ERROR: no desription')
+                        all_mandatory = False
 
-                    picked_themes = []
-                    themes = [th.strip().lower() for th in themes.split(',')]
-                    tagging = IThemeTagging(fig_ob)
-                    if len(themes) > 3:
-                        info('ERROR: more then 3 themes')
-                    for theme in themes:
-                        th_name = THEME_MAPPING.get(theme, None)
-                        if th_name:
-                            picked_themes.append(th_name)
-                        else:
-                            info('ERROR: %s theme not mapped', theme)
-                    tagging.tags = picked_themes[:3] #pick first 3 themes
+                    if not figure_type:
+                        info('ERROR: no "figure type" defined')
+                        all_mandatory = False
+                    else:
+                        data_dict['figureType'] = figure_type.lower()
+
+                    if not themes:
+                        info('ERROR: no theme')
+                        all_mandatory = False
+                    else:
+                        picked_themes = []
+                        themes = [th.strip().lower() for th in themes.split(',')]
+                        tagging = IThemeTagging(fig_ob)
+                        if len(themes) > 3:
+                            info('ERROR: more then 3 themes')
+                        for theme in themes:
+                            th_name = THEME_MAPPING.get(theme, None)
+                            if th_name:
+                                picked_themes.append(th_name)
+                            else:
+                                info('ERROR: %s theme not mapped', theme)
+                        tagging.tags = picked_themes[:3] #pick first 3 themes
 
                     data_dict['units'] = setHtmlMimetype(unit)
                     data_dict['methodology'] = setHtmlMimetype(methodology)
                     data_dict['moreInfo'] = \
                              setHtmlMimetype(additional_information)
-                    data_dict['dataSource'] = setHtmlMimetype(source)
-                    data_dict['contact'] = contact.replace('\n', '\r\n')
+                    if source:
+                        data_dict['dataSource'] = setHtmlMimetype(source)
+                    else:
+                        all_mandatory = False
+                    if contact:
+                        data_dict['contact'] = contact.replace('\n', '\r\n')
+                    else:
+                        all_mandatory = False
 
                     if last_upload:
                         data_dict['lastUpload'] = DateTime(last_upload)
+                    else:
+                        info('ERROR: no lastUpload')
+                        all_mandatory = False
                     #else:
                     #    data_dict['lastUpload'] = DateTime('0000-00-00')
 
@@ -362,11 +383,19 @@ ERROR: undefined country Greenland
                                     picked_temp.extend([str(trange)])
                             else:
                                 picked_temp.append(tmp)
+                    if not picked_temp:
+                        all_mandatory = False
+
                     data_dict['temporalCoverage'] = picked_temp
 
                     picked_geo = []
                     for geo in geo_coverage.split(','):
                         geo = geo.strip()
+                        if geo == 'EFTA':
+                            geo = 'EFTA4'
+                        if geo in ['USA', 'Greenland']:
+                            data_dict['subject_existing_keywords'].append(geo)
+                            continue
                         countryCode = None
                         for country in countries:
                             if country[1] == geo:
@@ -385,12 +414,16 @@ ERROR: undefined country Greenland
                             picked_geo.extend(countryCode)
                         else:
                             info('ERROR: undefined country %s', geo)
+                    if not picked_geo:
+                        info('ERROR: no geographicCoverage defined')
+                        all_mandatory = False
                     data_dict['geographicCoverage'] = picked_geo
 
                     if owner:
                         owner_data = owner.split(',')
                         if len(owner_data) > 2:
                             info('ERROR: bad format Owner')
+                            all_mandatory = False
                         else:
                             owner_url = owner_data[0]
                             owner_title = ''
@@ -405,14 +438,25 @@ ERROR: undefined country Greenland
                                                   owner_url,
                                                   owner_title.strip())
                                 data_dict['dataOwner'] = [owner_url]
+                            else:
+                                all_mandatory = False
+                    else:
+                        all_mandatory = False
 
                     #TODO: processor data in current dump is wrong
                     #data_dict['processor'] = processor
 
-                    # Set state to 'content_pending'
+                    # Set state to 'content_pending' if not all mandatory
+                    # fields were filled in and 'published' otherwise.
                     try:
-                        wftool.doActionFor(fig_ob, 'submitContentReview',
-                                           comment='Set by migration script.')
+                        if all_mandatory:
+                            wftool.doActionFor(
+ fig_ob, 'quickPublish',
+ comment='Published by SOER2010 bulk import since all mandatory are present.')
+                        else:
+                            wftool.doActionFor(
+                                fig_ob, 'submitContentReview',
+                                comment='Set by SOER2010 bulk import script.')
                     except Exception, err:
                         info('ERROR: setting workflow')
                         #info_exception('Exception: %s ', err)
@@ -470,8 +514,8 @@ ERROR: undefined country Greenland
                         # Set state to 'content_pending'
                         try:
                             wftool.doActionFor(
-                                file_ob, 'submitContentReview',
-                                comment='Set by migration script.')
+                                file_ob, 'quickPublish',
+                                comment='Set by SOER2010 bulk import script.')
                         except Exception, err:
                             info('ERROR: error setting workflow')
                             #info_exception('Exception: %s ', err)
@@ -522,8 +566,8 @@ ERROR: undefined country Greenland
                         # Set state to 'content_pending'
                         try:
                             wftool.doActionFor(
-                                file_ob, 'submitContentReview',
-                                comment='Set by migration script.')
+                                file_ob, 'quickPublish',
+                                comment='Set by SOER2010 bulk import script.')
                         except Exception, err:
                             info('ERROR: error setting workflow')
                             #info_exception('Exception: %s ', err)
