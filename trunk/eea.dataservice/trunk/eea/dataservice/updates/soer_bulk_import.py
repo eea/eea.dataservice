@@ -249,6 +249,7 @@ ERROR: undefined country Greenland
         workflow_id = 'eea_data_workflow'
         current_parent = None
         counter = 0
+        data_counter = 0
 
         # countries data
         countriesView = getMultiAdapter((self.context, self.request),
@@ -260,10 +261,18 @@ ERROR: undefined country Greenland
         getCountriesByGroupView = getMultiAdapter(
             (self.context, self.request),
              name=u'getCountriesByGroup')
+             
+        # Debug
+        #for row in soer_data['rows']:
+	#    counter += 1
+    	#    info('INFO: %s ### %s' % (str(counter), row["Filepath"]))
+    	#    if row["Filepath"] == 'FINAL_FIGURES/CCM101_Fig2.5.eps':
+    	#	return 'Done'
 
         for row in soer_data['rows']:
             data_dict = {}
             all_mandatory = True
+            data_counter += 1
 
             additional_information = row["Additional information"]
             category = row["Category"]
@@ -602,8 +611,8 @@ ERROR: undefined country Greenland
                 info('ERROR: import error on %s', filepath)
                 info_exception(err)
 
-            info('INFO: objects added %s' % str(counter))
-            if counter % 10 == 0:
+            info('INFO: objects added %s // %s' % (str(counter), str(data_counter)))
+            if counter % 3 == 0:
                 info('INFO: Transaction commited, step %s' % str(counter))
                 transaction.commit()
 
