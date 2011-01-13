@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.24-dev - (unreleased)
------------------------
+1.24 - (2011-01-13)
+-------------------
 * Bug fix: Copied 'Fix low resolution images for EEA Figure Files' script
     from eea.dataservicemigration package as it was never ran on production
     and eea.dataservicemigration package is no longer available in
@@ -13,7 +13,7 @@ Changelog
 * Bug fix: Fixed Organisation vocabulary not to crash when duplicate titles
     were found. Now duplicate titles are listed as MyTitle, MyTitle (1), etc
     [ghicaale #4036]
-* Work in progress: Bulk import of SOER figures - first batch [ghicaale #3987]
+* Update: Bulk import of SOER figures - first batch [ghicaale #3987]
 
 1.23 - (2011-01-05)
 -------------------
