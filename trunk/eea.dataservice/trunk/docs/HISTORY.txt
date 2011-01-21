@@ -6,6 +6,7 @@ Changelog
 
 1.25-dev - (unreleased)
 -----------------------
+* disabled temporary soer bulk import file, it gives >660 pylint violations. it can be renamed when needed again.[demarant]
 
 1.24 - (2011-01-13)
 -------------------
