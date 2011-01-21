@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.25-dev - (unreleased)
------------------------
+1.25 - (2011-01-21)
+-------------------
 * disabled temporary soer bulk import file, it gives >660 pylint violations. it can be renamed when needed again.[demarant]
 
 1.24 - (2011-01-13)
