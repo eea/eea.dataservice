@@ -6,6 +6,7 @@ Changelog
 
 1.26-dev - (unreleased)
 -----------------------
+* Disable remaining soer_bulk_import modules as version 1.25 is broken [voineali]
 
 1.25 - (2011-01-21)
 -------------------
