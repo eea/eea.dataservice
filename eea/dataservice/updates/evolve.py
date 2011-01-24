@@ -22,12 +22,13 @@ def evolve1(self, portal):
 
     brains = ctool(**query)
     logger.info('Updating %s eea figure files ...', len(brains))
-    counter = 0
-    for brain in brains:
+    commit = 0
+    total = len(brains)
+    for counter, brain in enumerate(brains):
         doc = brain.getObject()
         convert = False
         for image in doc.objectIds():
-            if '75dpi' in image:
+            if '300dpi' in image:
                 convert = True
                 break
 
@@ -45,32 +46,41 @@ def evolve1(self, portal):
         if not error.startswith('Done'):
             logger.exception(error)
 
-        counter += 1
-        if counter % 25 == 0:
-            logger.info('Transaction commit: %s', counter)
+        commit += 1
+        if commit % 25 == 0:
+            logger.info('Transaction commit: %s. Status: %s/%s',
+                        commit, counter, total)
             transaction.commit()
 
-    logger.info('Updated %s eea figure files.', counter)
+    logger.info('Updated %s/%s eea figure files.', commit, total)
 
 functions = {
-    '#3595 - Fix low resolution images for EEA Figure Files': evolve1
+    '#4051 - Fix large size converted images for EEA Figure Files': evolve1
 }
 
 class Evolve(SetupWidget):
+    """ Migration script
+    """
     type = "EEA Dataservice"
     description = "EEA Dataservice updates"
 
     functions = functions
 
     def setup(self):
+        """ Setup
+        """
         pass
 
     def delItems(self, fns):
+        """ Delete items
+        """
         out = []
         out.append(('Currently there is no way to remove a function', INFO))
         return out
 
     def addItems(self, fns):
+        """ Add items
+        """
         out = []
         for fn in fns:
             self.functions[fn](self, self.portal)
@@ -78,6 +88,8 @@ class Evolve(SetupWidget):
         return out
 
     def installed(self):
+        """ Installed
+        """
         return []
 
     def available(self):

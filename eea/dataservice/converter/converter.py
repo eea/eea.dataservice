@@ -61,8 +61,8 @@ class ConvertMap(object):
             to_w = int(round(sh * width))
         return to_w, to_h
 
-    def handle_zoom(self, im, output):
-        """ Convert to PNG: 2048x2048px, 75dpi with a tolerance of 20%
+    def handle_image(self, im, output, fmt='PNG'):
+        """ Convert to fmt: 2048x2048px, 75dpi with a tolerance of 20%
         """
         width, height = im.size
         if width >= 1640 or height >= 1640:
@@ -80,7 +80,7 @@ class ConvertMap(object):
                 im = im.resize((width, height), Image.ANTIALIAS)
             except AttributeError:
                 im = im.resize((width, height))
-        im.save(output, 'PNG')
+        im.save(output, fmt)
 
     def __call__(self, cronjob=0, purge=True):
         err = 0
@@ -108,14 +108,9 @@ class ConvertMap(object):
                 try:
                     im = Image.open(StringIO(self.context.getFile().getBlob().open().read()))
                     if img_format == 'ZOOM':
-                        self.handle_zoom(im, outfile)
-                    elif img_dpi == 'default':
-                        im.dpi = 400
-                        im.save(outfile, img_format)
+                        self.handle_image(im, outfile, 'PNG')
                     else:
-                        im.dpi = int(img_dpi)
-                        p_dpi = (im.dpi, im.dpi)
-                        im.save(outfile, img_format, dpi=p_dpi)
+                        self.handle_image(im, outfile, img_format)
                 except IOError, err:
                     logger.exception('IOError: %s', err)
                     err = 1
