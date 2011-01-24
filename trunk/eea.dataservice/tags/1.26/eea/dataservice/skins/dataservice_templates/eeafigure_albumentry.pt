@@ -1,0 +1,33 @@
+<metal:entry define-macro="entry" tal:define="
+  css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry';
+  display obj/@@imgview/display|nothing;">
+  <tal:entry condition="display">
+    <metal:entry use-macro="here/atct_albumentry/macros/entry" />
+  </tal:entry>
+  <div tal:condition="not:display" class="figuresPhotoAlbumEntry">
+    <div class="figuresPhotoAlbumEntryTitle" tal:define="
+      field obj/getFile | nothing;
+      size field/get_size | nothing;
+      icon field/getBestIcon | nothing;"
+      tal:condition="not:display">
+
+      <div class="figuresByLine" tal:attributes="
+        style string:background-image: url($listing_url/image_thumb)">
+        <tal:size tal:condition="size" tal:define="
+          displaySize nocall:here/@@displaySize;
+          size python:size and displaySize(size);
+          ctype python:size and obj.lookupMime(field.getContentType());">
+          <img tal:condition="icon"
+            tal:attributes="src string:${context/portal_url}/$icon"/>
+          <span tal:content="ctype" /><br />
+          <span tal:content="size" />
+        </tal:size>
+      </div>
+      <a tal:define="suffix python:size and '/at_download/file' or ''"
+        tal:attributes="
+          href string:$listing_url$suffix;
+          title desc_or_title"
+          tal:content="obj_title">Title here</a>
+    </div>
+  </div>
+</metal:entry>
