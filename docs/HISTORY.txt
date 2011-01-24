@@ -6,7 +6,8 @@ Changelog
 
 1.27-dev - (unreleased)
 -----------------------
-* Fix test breakage caused by changes in eea.versions [tiberich #4000]
+* Bug fix: Fix test breakage caused by changes in eea.versions [tiberich #4000]
+* Change: Use permalinks macro from eea.versions [tiberich #3552]
 
 1.26 - (2011-01-24)
 -------------------
