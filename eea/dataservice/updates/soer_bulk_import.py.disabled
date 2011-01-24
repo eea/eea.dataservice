@@ -261,13 +261,13 @@ ERROR: undefined country Greenland
         getCountriesByGroupView = getMultiAdapter(
             (self.context, self.request),
              name=u'getCountriesByGroup')
-             
+
         # Debug
         #for row in soer_data['rows']:
-	#    counter += 1
-    	#    info('INFO: %s ### %s' % (str(counter), row["Filepath"]))
-    	#    if row["Filepath"] == 'FINAL_FIGURES/CCM101_Fig2.5.eps':
-    	#	return 'Done'
+        #    counter += 1
+        #    info('INFO: %s ### %s' % (str(counter), row["Filepath"]))
+        #    if row["Filepath"] == 'FINAL_FIGURES/CCM101_Fig2.5.eps':
+        #        return 'Done'
 
         for row in soer_data['rows']:
             data_dict = {}
@@ -301,6 +301,7 @@ ERROR: undefined country Greenland
             data_dict['description'] = description
             data_dict['creators'] = creators
             data_dict['rights'] = copyrights
+            data_dict['effectiveDate'] = DateTime()
 
             try:
                 if object_type == 'EEAFigure':
@@ -332,7 +333,8 @@ ERROR: undefined country Greenland
                         all_mandatory = False
                     else:
                         picked_themes = []
-                        themes = [th.strip().lower() for th in themes.split(',')]
+                        themes = [th.strip().lower()
+                            for th in themes.split(',')]
                         tagging = IThemeTagging(fig_ob)
                         if len(themes) > 3:
                             info('ERROR: more then 3 themes')
@@ -611,7 +613,8 @@ ERROR: undefined country Greenland
                 info('ERROR: import error on %s', filepath)
                 info_exception(err)
 
-            info('INFO: objects added %s // %s' % (str(counter), str(data_counter)))
+            info('INFO: objects added %s // %s' % (str(counter),
+                                                   str(data_counter)))
             if counter % 3 == 0:
                 info('INFO: Transaction commited, step %s' % str(counter))
                 transaction.commit()
