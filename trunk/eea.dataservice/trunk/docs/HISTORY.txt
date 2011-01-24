@@ -4,8 +4,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.27-dev - (unreleased)
------------------------
+1.27 - (2011-01-24)
+-------------------
 * Bug fix: Fix large size for EEA Figures converted images [voineali #4051]
 * Bug fix: Fix test breakage caused by changes in eea.versions [tiberich #4000]
 * Change: Use permalinks macro from eea.versions [tiberich #3552]
