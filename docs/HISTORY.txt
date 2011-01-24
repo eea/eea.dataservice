@@ -6,6 +6,7 @@ Changelog
 
 1.27-dev - (unreleased)
 -----------------------
+* Fix test breakage caused by changes in eea.versions [tiberich #4000]
 
 1.26 - (2011-01-24)
 -------------------

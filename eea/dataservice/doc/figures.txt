@@ -90,10 +90,9 @@ Lets verify if properties were copyed on the new version.
     >>> dataVer.getDataSource() == figure1.getDataSource()
     True
 
-Effective date of the new version object should be greater then its
-parent effective date.
+Effective date of the new version object shouldn't be set.
 
-    >>> dataVer.getEffectiveDate() > figure1.getEffectiveDate()
+    >>> dataVer.getEffectiveDate() == None
     True
 
 Both objects should have the same version ID.
