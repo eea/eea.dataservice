@@ -4,6 +4,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.27-dev - (unreleased)
+-----------------------
+
 1.26 - (2011-01-24)
 -------------------
 * Disable remaining soer_bulk_import modules as version 1.25 is broken [voineali]
