@@ -4,6 +4,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.28-dev - (unreleased)
+-----------------------
+
 1.27 - (2011-01-24)
 -------------------
 * Bug fix: Fix large size for EEA Figures converted images [voineali #4051]
