@@ -1,53 +1,59 @@
 Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
+[Alin Voinea - alin.voinea@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
 1.28-dev - (unreleased)
 -----------------------
+ * Bug fix: Fixed display of location on organisations view when location
+     has no value [ghicaale #3575]
+ * Bug fix: Fixed organisation URL validator to consider URLs ending
+     with '/' equal [ghicaale #3575]
 
 1.27 - (2011-01-24)
 -------------------
-* Bug fix: Fix large size for EEA Figures converted images [voineali #4051]
-* Bug fix: Fix test breakage caused by changes in eea.versions [tiberich #4000]
-* Change: Use permalinks macro from eea.versions [tiberich #3552]
+ * Bug fix: Fixed large size for EEA Figures converted images [voineali #4051]
+ * Bug fix: Fixed test breakage caused by changes in eea.versions [tiberich #4000]
+ * Change: Use permalinks macro from eea.versions [tiberich #3552]
 
 1.26 - (2011-01-24)
 -------------------
-* Disable remaining soer_bulk_import modules as version 1.25 is broken [voineali]
+ * Disable remaining soer_bulk_import modules as version 1.25 is broken [voineali]
 
 1.25 - (2011-01-21)
 -------------------
-* disabled temporary soer bulk import file, it gives >660 pylint violations. it can be renamed when needed again.[demarant]
+ * Disabled temporary soer bulk import file, it gives >660 pylint violations.
+     It can be renamed when needed again.[demarant]
 
 1.24 - (2011-01-13)
 -------------------
-* Bug fix: Copied 'Fix low resolution images for EEA Figure Files' script
-    from eea.dataservicemigration package as it was never ran on production
-    and eea.dataservicemigration package is no longer available in
-    EEA buildout [voineali ##3595]
-* Bug fix: Fixed Organisation vocabulary not to crash when duplicate titles
-    were found. Now duplicate titles are listed as MyTitle, MyTitle (1), etc
-    [ghicaale #4036]
-* Update: Bulk import of SOER figures - first batch [ghicaale #3987]
+ * Bug fix: Copied 'Fix low resolution images for EEA Figure Files' script
+     from eea.dataservicemigration package as it was never ran on production
+     and eea.dataservicemigration package is no longer available in
+     EEA buildout [voineali ##3595]
+ * Bug fix: Fixed Organisation vocabulary not to crash when duplicate titles
+     were found. Now duplicate titles are listed as MyTitle, MyTitle (1), etc
+     [ghicaale #4036]
+ * Update: Bulk import of SOER figures - first batch [ghicaale #3987]
 
 1.23 - (2011-01-05)
 -------------------
-* Change: Activated annual management plan validator for datasets [ghicaale #4023]
+ * Change: Activated annual management plan validator for datasets [ghicaale #4023]
 
 1.22 - (2010-12-21)
 -------------------
-* Bug fix: Implemented correct annual management plan validator, fixes #4019 [demarant]
-* Change: Fixed intendation in Data.py [ghicaale]
+ * Bug fix: Implemented correct annual management plan validator, fixes #4019 [demarant]
+ * Change: Fixed intendation in Data.py [ghicaale]
 
 1.21 - (2010-12-13)
 -------------------
-* Bug fix: Fixed jslint warnings [voineali #3821]
+ * Bug fix: Fixed jslint warnings [voineali #3821]
 
 1.20 - (2010-11-12)
 -------------------
-* Change: Added cache metadata to images [ghicaale #3667]
+ * Change: Added cache metadata to images [ghicaale #3667]
 
 1.19 - (2010-11-04)
 -------------------
@@ -182,7 +188,8 @@ Changelog
  * Change: Link of owners and processors are pointing to related organisation,
      no more externals links. [ghicaale]
  * Change: Organisation view labels updated. [ghicaale]
- * Change: Data viewers listing on datasets view showing thumb and real actual link to the viewer. [ghicaale #2852]
+ * Change: Data viewers listing on datasets view showing thumb and real
+     actual link to the viewer. [ghicaale #2852]
  * Bug fix: Fixed that 'installVocabularies' import step is only run if
      we are in eea.dataservice profile. [ghicaale]
  * Change: Categories sort order of datasets based on order of vocabulary items order

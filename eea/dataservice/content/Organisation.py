@@ -11,6 +11,7 @@ from Products.Archetypes.Field import decode
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.CMFCore.permissions import ModifyPortalContent
 
 from eea.dataservice.config import *
 from eea.dataservice.interfaces import IOrganisation
@@ -39,6 +40,8 @@ schema = Schema((
     StringField(
         name='location',
         searchable=True,
+        accessor='getLocation',
+        mutator='setLocation',
         widget = LocationWidget(
             description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
             description_msgid = "dataservice_help_address",
@@ -89,5 +92,18 @@ class Organisation(ATFolder):
         """ """
         field = self.getField('organisationUrl')
         return field.getAccessor(self)()
+
+    security.declareProtected(ModifyPortalContent, 'setLocation')
+    def setLocation(self, value, **kw):
+        """ Location mutator. """
+        value = value.replace('<street address>, <city>, <country>', '')
+        self.getField('location').set(self, value)
+
+    security.declareProtected(permissions.View, 'getLocation')
+    def getLocation(self):
+        """ Location accessor. """
+        value = self.getField('location').get(self)
+        value = value.replace('<street address>, <city>, <country>', '')
+        return value
 
 registerType(Organisation, PROJECTNAME)
