@@ -64,9 +64,17 @@ class UniqueOrganisationUrlValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
+
+        # http://eea.eu == http://eea.eu/
+        if value.endswith('/'):
+            value = [value, value[:len(value)-1]]
+        else:
+            value = [value, '%s/' % value]
+
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
         brains = cat.searchResults({'portal_type': 'Organisation',
                                     'getUrl': value})
+
         if len(brains):
             for brain in brains:
                 org_ob = brain.getObject()
