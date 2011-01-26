@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+
+<body>
+
+<div metal:fill-slot="main"
+     tal:define="action python:request.get('action', '')"
+     tal:condition="python:not portal.portal_membership.isAnonymousUser()">
+<h1>Organisations overview</h1>
+
+<fieldset id="organisations-quick-overview"
+          tal:condition="python:action == 'organisations-quick-overview'">
+  <legend>Quick overview</legend>
+
+  <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+    <li tal:repeat="org organisations">
+      <a tal:attributes="href string:${org/getURL};
+                         title org/Title"
+         tal:content="org/Title" /><br />
+      ( <span tal:content="org/getUrl" /> )
+    </li>
+  </ul>
+
+</fieldset>
+
+<fieldset id="duplicate-organisations"
+          tal:condition="python:action == 'duplicate-organisations'">
+  <legend>Duplicate organisations</legend>
+
+<!-- #TODO: to be implemented -->
+<span>NOT IMPLEMENTED</span>
+
+</fieldset>
+
+<fieldset id="organisations-with-wrong-title"
+          tal:condition="python:action == 'organisations-with-wrong-title'">
+  <legend>Organisations with wrong title</legend>
+
+  <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+    <tal:block repeat="org organisations">
+    <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
+      <a tal:attributes="href string:${org/getURL};
+                         title org/Title"
+         tal:content="org/Title" /><br />
+      ( <span tal:content="org/getUrl" /> )
+    </li>
+    </tal:block>
+  </ul>
+
+</fieldset>
+
+<fieldset id="organisations-with-no-reference"
+          tal:condition="python:action == 'organisations-with-no-reference'">
+  <legend>Organisations with no reference</legend>
+
+  <ul tal:define="organisations context/organisations_overview_data">
+    <li tal:repeat="org organisations">
+      <a tal:attributes="href org/getURL;
+                         title org/Title"
+         tal:content="org/Title" />
+    </li>
+  </ul>
+
+</fieldset>
+
+</div>
+
+</body>
+</html>
