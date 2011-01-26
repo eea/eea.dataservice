@@ -1,0 +1,38 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+  i18n:domain="plone">
+<body>
+
+<div metal:define-macro="portlet"
+     tal:condition="python:not portal.portal_membership.isAnonymousUser()">
+
+<fieldset>
+  <legend>Organisations overview</legend>
+  <ul>
+    <li>
+      <a tal:attributes="href string:$portal_url/data-and-maps/data-providers-and-partners/organisations_overview?action=organisations-quick-overview"
+         title="">
+        Quick overview</a>
+    </li>
+    <li>
+      <a tal:attributes="href string:$portal_url/data-and-maps/data-providers-and-partners/organisations_overview?action=duplicate-organisations"
+         title="">
+        Duplicate organisations</a>
+    </li>
+    <li>
+      <a tal:attributes="href string:$portal_url/data-and-maps/data-providers-and-partners/organisations_overview?action=organisations-with-wrong-title"
+         title="">
+        Organisations with wrong title</a>
+    </li>
+    <li>
+      <a tal:attributes="href string:$portal_url/data-and-maps/data-providers-and-partners/organisations_overview?action=organisations-with-no-reference"
+         title="">
+        Organisations with no reference</a>
+    </li>
+  </ul>
+</fieldset>
+<br />
+
+</div>
+
+</body>
+</html>
