@@ -7,7 +7,7 @@ Changelog
 
 1.28-dev - (unreleased)
 -----------------------
- * Feature (work in progress): Added "organisations overview" portlet in order to simplify the
+ * Feature: Added "organisations overview" portlet in order to simplify the
      management of duplicates and wrong metadata on organisations [ghicaale #3575]
  * Bug fix: Fixed display of location on organisations view when location
      has no value [ghicaale #3575]
