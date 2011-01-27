@@ -10,60 +10,69 @@
      tal:condition="python:not portal.portal_membership.isAnonymousUser()">
 <h1>Organisations overview</h1>
 
-<fieldset id="organisations-quick-overview"
-          tal:condition="python:action == 'organisations-quick-overview'">
-  <legend>Quick overview</legend>
-
+<tal:block condition="python:action == 'organisations-quick-overview'">
+  <h2>Quick overview</h2>
+  <p>Below is the full list of organisations.</p>
   <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
     <li tal:repeat="org organisations">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      ( <span tal:content="org/getUrl" /> )
+      <strong>organisation URL:</strong> <span tal:content="org/getUrl" />
     </li>
   </ul>
+</tal:block>
 
-</fieldset>
+<tal:block condition="python:action == 'duplicate-organisations'">
+  <h2>Duplicate organisations</h2>
+  <p></p>
+  <ul tal:define="urls python:context.organisations_overview_data(info='duplicates')"
+      tal:condition="urls">
+    <li tal:repeat="org_url python:urls.keys()">
+      <tal:block define="organisations python:urls[org_url]"
+                 condition="python:len(organisations) > 1">
+      <a tal:attributes="href org_url" tal:content="org_url" /><br />
+      <ul>
+        <li tal:repeat="org organisations">
+          <a tal:attributes="href string:${org/getURL};
+                             title org/Title"
+             tal:content="org/Title" /><br />
+          <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+        </li>
+      </ul>
+      </tal:block>
+    </li>
+  </ul>
+</tal:block>
 
-<fieldset id="duplicate-organisations"
-          tal:condition="python:action == 'duplicate-organisations'">
-  <legend>Duplicate organisations</legend>
-
-<!-- #TODO: to be implemented -->
-<span>NOT IMPLEMENTED</span>
-
-</fieldset>
-
-<fieldset id="organisations-with-wrong-title"
-          tal:condition="python:action == 'organisations-with-wrong-title'">
-  <legend>Organisations with wrong title</legend>
-
+<tal:block condition="python:action == 'organisations-with-wrong-title'">
+  <h2>Organisations with wrong title</h2>
+  <p>Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
   <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
     <tal:block repeat="org organisations">
     <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      ( <span tal:content="org/getUrl" /> )
+      <strong>organisation title:</strong> <span tal:content="org/Title" /><br />
+      <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
     </li>
     </tal:block>
   </ul>
+</tal:block>
 
-</fieldset>
-
-<fieldset id="organisations-with-no-reference"
-          tal:condition="python:action == 'organisations-with-no-reference'">
-  <legend>Organisations with no reference</legend>
-
-  <ul tal:define="organisations context/organisations_overview_data">
+<tal:block condition="python:action == 'organisations-with-no-reference'">
+  <h2>Organisations with no reference</h2>
+  <p>Below is a list of organisations on which no content is pointing at.</p>
+  <ul tal:define="organisations python:context.organisations_overview_data(info='references')"
+      tal:condition="organisations">
     <li tal:repeat="org organisations">
       <a tal:attributes="href org/getURL;
                          title org/Title"
          tal:content="org/Title" />
     </li>
   </ul>
-
-</fieldset>
+</tal:block>
 
 </div>
 
