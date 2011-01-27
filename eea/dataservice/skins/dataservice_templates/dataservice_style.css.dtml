@@ -132,6 +132,17 @@
   padding-top: 3.5em;
 }
 
+#portlet-organisations-overview {
+  margin-bottom: 0.5em;
+  padding-right: 0.1em;
+}
+
+#portlet-organisations-overview legend {
+  padding: 2px;
+  font-weight: bold;
+  font-size: 110%;
+}
+
 /* A small css fix for IE8
     <!--[if lte IE 8]>
       .figuresByLine {
