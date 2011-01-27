@@ -44,7 +44,8 @@ elif info == 'duplicates':
  urls = []
  res = {}
  for k in brains:
-  org_url = k.getUrl
+  org_url = 'URL: %s' % k.getUrl
+  org_title = 'Title: %s' % k.Title.strip()
   urls.append(org_url)
   if org_url.endswith('/'):
    org_url = org_url[:len(org_url)-1]
@@ -53,6 +54,11 @@ elif info == 'duplicates':
    res[org_url].append(k)
   else:
    res[org_url] = [k]
+
+  if res.has_key(org_title):
+   res[org_title].append(k)
+  else:
+   res[org_title] = [k]
 else:
  res = None
 

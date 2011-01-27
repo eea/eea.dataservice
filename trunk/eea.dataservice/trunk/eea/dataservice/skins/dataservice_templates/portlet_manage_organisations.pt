@@ -2,10 +2,9 @@
   i18n:domain="plone">
 <body>
 
-<div metal:define-macro="portlet"
-     tal:condition="python:not portal.portal_membership.isAnonymousUser()">
+<fieldset metal:define-macro="portlet" id="portlet-organisations-overview"
+          tal:condition="python:not portal.portal_membership.isAnonymousUser()">
 
-<fieldset>
   <legend>Organisations overview</legend>
   <ul>
     <li>
@@ -29,10 +28,8 @@
         Organisations with no reference</a>
     </li>
   </ul>
-</fieldset>
-<br />
 
-</div>
+</fieldset>
 
 </body>
 </html>
