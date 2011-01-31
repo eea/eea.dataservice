@@ -3,6 +3,11 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea.translations">
 
+<metal:javascript fill-slot="javascript_head_slot">
+  <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.organisations.js"
+    type="text/javascript"></script>
+</metal:javascript>
+
 <body>
 
 <div metal:fill-slot="main"
@@ -11,19 +16,25 @@
 <h1>Organisations overview</h1>
 
 <tal:block condition="python:action == 'organisations-quick-overview'">
-  <h2>Quick overview</h2>
+  <h2 id="organisations-quick-overview">Quick overview</h2>
   <p>Below is the full list of organisations.</p>
-  <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
-    <li tal:repeat="org organisations">
+  <ul id="organisations-container"
+      tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+    <tal:organisations repeat="org organisations">
+    <li tal:define="org_id org/getId" tal:attributes="id org_id">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+      <strong>organisation URL:</strong>
+      <span tal:attributes="id string:${org_id}-url" tal:content="org/getUrl" /><br />
       <strong>Google search:</strong>
       <a target="_blank"
          title="Google search"
-         tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a>
+         tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a><br />
+      <strong>URL status:</strong>
+      <em tal:attributes="id string:${org_id}-loading">loading ...</em>
     </li>
+    </tal:organisations>
   </ul>
 </tal:block>
 
