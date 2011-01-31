@@ -29,13 +29,35 @@ if info == 'references':
   data[org_url] = 0
   full_data[org_url] = k
 
-  query = {'portal_type':['EEAFigure','Data'], 'getDataOwner': org_url}
+  query = {'portal_type':['EEAFigure','Data'],
+           'getDataOwner': org_url,
+           'show_inactive':True}
   owner_brains = cat(**query)
   data[org_url] = data[org_url] + len(owner_brains)
 
-  query = {'portal_type':['EEAFigure','Data'], 'getProcessor': org_url}
+  query = {'portal_type':['EEAFigure','Data'],
+           'getProcessor': org_url,
+           'show_inactive':True}
   proc_brains = cat(**query)
   data[org_url] = data[org_url] + len(proc_brains)
+
+  query = {'portal_type':['Specification'],
+           'getOwnership': org_url,
+           'show_inactive':True}
+  spec_brains = cat(**query)
+  data[org_url] = data[org_url] + len(spec_brains)
+
+ query = {'portal_type':['ExternalDataSpec'],
+          'show_inactive':True}
+ externals = cat(**query)
+ for ext in externals:
+  ext_ob = ext.getObject()
+  org_url = ext_ob.getProvider_url()
+  if len(org_url) == 1:
+   org_url = org_url[0]
+  if org_url:
+   if data.has_key(org_url):
+    data[org_url] = data[org_url] + 1
 
  for k in data.keys():
   if data[k] == 0:
