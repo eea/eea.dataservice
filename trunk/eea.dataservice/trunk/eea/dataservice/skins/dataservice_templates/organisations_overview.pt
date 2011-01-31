@@ -18,7 +18,11 @@
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      <strong>organisation URL:</strong> <span tal:content="org/getUrl" />
+      <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+      <strong>Google search:</strong>
+      <a target="_blank"
+         title="Google search"
+         tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a>
     </li>
   </ul>
 </tal:block>
@@ -28,9 +32,9 @@
   <p></p>
   <ul tal:define="urls python:context.organisations_overview_data(info='duplicates')"
       tal:condition="urls">
-    <li tal:repeat="org_url python:urls.keys()">
-      <tal:block define="organisations python:urls[org_url]"
-                 condition="python:len(organisations) > 1">
+    <tal:block repeat="org_url python:urls.keys()">
+    <li tal:define="organisations python:urls[org_url]"
+        tal:condition="python:len(organisations) > 1">
       <a tal:attributes="href org_url" tal:content="org_url" /><br />
       <ul>
         <li tal:repeat="org organisations">
@@ -40,8 +44,8 @@
           <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
         </li>
       </ul>
-      </tal:block>
     </li>
+    </tal:block>
   </ul>
 </tal:block>
 
