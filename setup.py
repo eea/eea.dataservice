@@ -8,7 +8,7 @@ version = open(join(*path)).read().strip()
 
 setup(name=name,
       version=version,
-      description="EEA Dataservice",
+      description="EEA Data service",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -17,10 +17,10 @@ setup(name=name,
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='eea, dataservice, data, service',
-      author='European Environment Agency',
-      author_email='alec.ghica@eaudeweb.ro',
-      url='http://dataservice.eea.europa.eu',
+      keywords='eea, dataservice, data, service, datasets',
+      author='Alec Ghica (Eaudeweb), Alin Voinea (Eaudeweb), Antonio De Marinis (EEA), European Environment Agency',
+      author_email='webadmin@eea.europa.eu',
+      url='http://www.eea.europa.eu/data-and-maps',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea'],
