@@ -16,10 +16,14 @@
 <h1>Organisations overview</h1>
 
 <tal:block condition="python:action == 'organisations-quick-overview'">
+  <tal:quickOverview define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
   <h2 id="organisations-quick-overview">Quick overview</h2>
   <p>Below is the full list of organisations.</p>
-  <ul id="organisations-container"
-      tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+  <p id="organisations-status">
+     URLs status checked: <span id="org-status-checked"
+                                tal:content="python:'0/'+str(len(organisations))"></span>
+  </p>
+  <ul id="organisations-container">
     <tal:organisations repeat="org organisations">
     <li tal:define="org_id python:org.getId.replace('.', '-')"
         tal:attributes="id org_id">
@@ -37,6 +41,7 @@
     </li>
     </tal:organisations>
   </ul>
+  </tal:quickOverview>
 </tal:block>
 
 <tal:block condition="python:action == 'duplicate-organisations'">

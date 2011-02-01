@@ -7,6 +7,7 @@ Changelog
 
 1.29-dev - (unreleased)
 -----------------------
+ * Feature: Added progress status of URLs checked by linkchecker [ghicaale #3575]
 
 1.28 - (2011-02-01)
 -------------------
