@@ -21,7 +21,8 @@
   <ul id="organisations-container"
       tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
     <tal:organisations repeat="org organisations">
-    <li tal:define="org_id org/getId" tal:attributes="id org_id">
+    <li tal:define="org_id python:org.getId.replace('.', '-')"
+        tal:attributes="id org_id">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
