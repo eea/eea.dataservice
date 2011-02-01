@@ -1,7 +1,7 @@
-function set_url_status(org_id, org_url) {
+function set_url_status(org_id, org_url, update_status, organisations_length, organisations_updated) {
   jQuery.ajax({
     type: "POST",
-    url: "/www/SITE/@@migration_link_checker",
+    url: "/@@migration_link_checker",
     data: "urls:list="+org_url,
     dataType: 'json',
     success: function(data){
@@ -16,24 +16,42 @@ function set_url_status(org_id, org_url) {
         msg = '<span style="color: green">OK</span>';
       }
       org_container.append(msg);
+
+      //Update status
+      update_status.html(organisations_updated + '/' + organisations_length);
     }
   });
-
-  setTimeout(set_url_status, 1000);
 }
 
 jQuery(document).ready(function() {
   var overview_detected = $('#organisations-quick-overview');
 
   if (overview_detected.html()) {
-    var organisation = $('#organisations-container li');
-    if (organisation.length) {
-      jQuery.each(organisation, function(i, value) {
+    var organisations = jQuery.makeArray($('#organisations-container li'));
+    var update_status = $('#org-status-checked');
+    var organisations_length = organisations.length;
+    var organisations_updated = 0;
+
+    organisations.reverse();
+    if (organisations_length) {
+
+      function call_next() {
+        pop_and_print();
+        if(organisations.length > 0) {
+          setTimeout(call_next, 0);
+        }
+      }
+
+      function pop_and_print() {
+        var value = organisations.pop();
         var org_id = value.id;
         var org_url = $('#' + org_id + '-url').html();
 
-        set_url_status(org_id, org_url);
-      });
+        organisations_updated += 1;
+        set_url_status(org_id, org_url, update_status, organisations_length, organisations_updated);
+      }
+
+      call_next();
     }
   }
 });
