@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.29-dev - (unreleased)
+-----------------------
+
 1.28 - (2011-02-01)
 -------------------
  * Feature: Added "organisations overview" portlet in order to simplify the
