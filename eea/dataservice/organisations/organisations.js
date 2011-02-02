@@ -1,5 +1,7 @@
 function set_url_status(org_id, org_url, update_status,
                         organisations_length, organisations_updated) {
+
+  /*
   jQuery.ajax({
     type: "POST",
     url: "/@@migration_link_checker",
@@ -22,6 +24,8 @@ function set_url_status(org_id, org_url, update_status,
       update_status.html(organisations_updated + '/' + organisations_length);
     }
   });
+  */
+  update_status.html(organisations_updated + '/' + organisations_length);
 }
 
 jQuery(document).ready(function() {
