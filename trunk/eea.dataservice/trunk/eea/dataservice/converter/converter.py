@@ -120,6 +120,10 @@ class ConvertMap(object):
                                      img_dpi, err)
                     err = 1
                     continue
+                except OverflowError, err:
+                    logger.exception('OverflowError: %s', err)
+                    err = 1
+                    continue
 
                 file_data = outfile.getvalue()
                 if not getattr(self.context, im_id, None):
