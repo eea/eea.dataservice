@@ -20,6 +20,8 @@
   <h2 id="organisations-quick-overview">Quick overview</h2>
   <p>Below is the full list of organisations.</p>
   <p id="organisations-status">
+     <img id="organisations-loading"
+          tal:attributes="src string:${context/absolute_url}/ajax-loader-small.gif" />
      URLs status checked: <span id="org-status-checked"
                                 tal:content="python:'0/'+str(len(organisations))"></span>
   </p>

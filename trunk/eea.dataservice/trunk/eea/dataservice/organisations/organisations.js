@@ -1,7 +1,6 @@
 function set_url_status(org_id, org_url, update_status,
                         organisations_length, organisations_updated) {
 
-  /*
   jQuery.ajax({
     type: "POST",
     url: "/@@migration_link_checker",
@@ -21,11 +20,16 @@ function set_url_status(org_id, org_url, update_status,
       org_container.append(msg);
 
       //Update status
-      update_status.html(organisations_updated + '/' + organisations_length);
+      if (organisations_updated > update_status.html().split('/')[0]) {
+        update_status.html(organisations_updated + '/' + organisations_length);
+      }
+      if (organisations_updated == organisations_length) {
+        var org_loading = $('#organisations-loading');
+        org_loading.css('display', 'none');
+      }
     }
   });
-  */
-  update_status.html(organisations_updated + '/' + organisations_length);
+
 }
 
 jQuery(document).ready(function() {
