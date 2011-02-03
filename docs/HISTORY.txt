@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.30-dev - (unreleased)
+-----------------------
+
 1.29 - (2011-02-03)
 -------------------
  * Feature: Added progress status of URLs checked by linkchecker [ghicaale #3575]
