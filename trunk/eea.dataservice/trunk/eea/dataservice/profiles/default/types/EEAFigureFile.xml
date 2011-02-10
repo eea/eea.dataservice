@@ -15,7 +15,7 @@
   <element value="ImageFS"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">folder_summary_view</property>
+ <property name="default_view">eeafigurefile_view</property>
  <property name="view_methods">
   <element value="folder_summary_view"/>
   <element value="folder_tabular_view"/>

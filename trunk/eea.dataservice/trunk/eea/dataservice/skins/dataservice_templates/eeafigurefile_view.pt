@@ -48,6 +48,7 @@
     </tal:block>
 
     <div class="visualClear">&nbsp;</div>
+    <metal:listing use-macro="here/folder_summary_view/macros/listing" />
 
 </div>
 
