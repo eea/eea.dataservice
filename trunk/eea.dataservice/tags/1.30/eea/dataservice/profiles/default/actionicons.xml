@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<action-icons>
+ <action-icon category="object_buttons"
+              action_id="dataset_to_external"
+              title="Migrate Data to ExternalDataSpec"
+              priority="0"
+              icon_expr="book_next.png"/>
+</action-icons>
