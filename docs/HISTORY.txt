@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.31-dev - (unreleased)
+-----------------------
+
 1.30 - (2011-02-10)
 -------------------
  * Bug fix: Set default view for EEAFigureFile to eeafigurefile_view [voineali #4125]
