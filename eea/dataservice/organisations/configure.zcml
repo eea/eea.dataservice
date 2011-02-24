@@ -9,4 +9,11 @@
       file="organisations.js"
      />
 
+  <browser:page
+      for="*"
+      name="moveOrganisationReferences"
+      permission="cmf.ModifyPortalContent"
+      class=".organisations.MoveOrganisationReferences"
+     />
+
 </configure>

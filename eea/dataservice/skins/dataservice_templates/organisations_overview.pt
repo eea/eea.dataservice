@@ -13,7 +13,7 @@
 <div metal:fill-slot="main"
      tal:define="action python:request.get('action', '')"
      tal:condition="python:not portal.portal_membership.isAnonymousUser()">
-<h1>Organisations overview</h1>
+<h1>Organisations control panel</h1>
 
 <tal:block condition="python:action == 'organisations-quick-overview'">
   <tal:quickOverview define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
@@ -25,9 +25,15 @@
      URLs status checked: <span id="org-status-checked"
                                 tal:content="python:'0/'+str(len(organisations))"></span>
   </p>
+  <form action="@@moveOrganisationReferences"
+        method="get" name="quick-overview-form" id="quick-overview-form"
+        tal:attributes="action string:${portal_url}/@@moveOrganisationReferences">
+  <input type="submit" value="Transfer references" />
+
   <ul id="organisations-container">
     <tal:organisations repeat="org organisations">
-    <li tal:define="org_id python:org.getId.replace('.', '-')"
+    <li tal:define="org_id python:org.getId.replace('.', '-');
+                    org_uid org/getId"
         tal:attributes="id org_id">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
@@ -40,9 +46,24 @@
          tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a><br />
       <strong>URL status:</strong>
       <em tal:attributes="id string:${org_id}-loading">loading ...</em>
+      <br />
+      <input type="radio" name="transfer_from" title="Transfer from"
+             value="" id="transfer-from"
+             tal:attributes="id string:transfer-from-${org_id};
+                             value org_uid" />
+      <label for="transfer-from" title="Transfer from"
+             tal:attributes="for string:transfer-from-${org_id}">Transfer from</label>
+      <input type="radio" name="transfer_to" title="Transfer to"
+             value="" id="transfer-to"
+             tal:attributes="id string:transfer-to-${org_id};
+                             value org_uid" />
+      <label for="transfer-to" title="Transfer to"
+             tal:attributes="for string:transfer-to-${org_id}">Transfer to</label>
     </li>
     </tal:organisations>
   </ul>
+
+  </form>
   </tal:quickOverview>
 </tal:block>
 
