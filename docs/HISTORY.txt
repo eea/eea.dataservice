@@ -9,6 +9,8 @@ Changelog
 -----------------------
  * Feature: added functionality to transfer references from one organisation
      to another [ghicaale #3575]
+ * Change: URLs status is now triggered by the user (not in automatic). Some
+     cosmetics on listing display [ghicaale #3575]
 
 1.30 - (2011-02-10)
 -------------------

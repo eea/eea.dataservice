@@ -3,13 +3,13 @@ function set_url_status(org_id, org_url, update_status,
 
   jQuery.ajax({
     type: "POST",
-    url: "/@@migration_link_checker",
+    url: "/www/SITE/@@migration_link_checker",
     data: "urls:list="+org_url,
     dataType: 'json',
     success: function(data){
       var loading_img = $('#' + org_id + '-loading');
       loading_img.css('display', 'none');
-      var org_container = $('#' + org_id);
+      var org_container = $('#' + org_id + '-status-container');
       var msg = data[org_url];
       if (msg == 'Connection timed out' || msg == 'Not Found') {
         msg = '<span style="color: red">Not Found</span>';
@@ -32,7 +32,7 @@ function set_url_status(org_id, org_url, update_status,
 
 }
 
-jQuery(document).ready(function() {
+function check_organisations_urls() {
 
   function call_next() {
     pop_and_print();
@@ -51,6 +51,8 @@ jQuery(document).ready(function() {
                    organisations_length, organisations_updated);
   }
 
+  var org_loading = $('#organisations-loading');
+  org_loading.css('display', 'inline');
   var overview_detected = $('#organisations-quick-overview');
 
   if (overview_detected.html()) {
@@ -64,4 +66,4 @@ jQuery(document).ready(function() {
       call_next();
     }
   }
-});
+}
