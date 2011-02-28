@@ -22,12 +22,13 @@
   <p id="organisations-status">
      <img id="organisations-loading"
           tal:attributes="src string:${context/absolute_url}/ajax-loader-small.gif" />
-     URLs status checked: <span id="org-status-checked"
-                                tal:content="python:'0/'+str(len(organisations))"></span>
+     URLs status checked: <strong id="org-status-checked"
+                                  tal:content="python:'0/'+str(len(organisations))"></strong>
   </p>
   <form action="@@moveOrganisationReferences"
         method="get" name="quick-overview-form" id="quick-overview-form"
-        tal:attributes="action string:${portal_url}/@@moveOrganisationReferences">
+        tal:attributes="action string:${context/absolute_url}/@@moveOrganisationReferences">
+  <input type="button" value="Check URLs status" onclick="javascript:check_organisations_urls()" />
   <input type="submit" value="Transfer references" />
 
   <ul id="organisations-container">
@@ -44,9 +45,11 @@
       <a target="_blank"
          title="Google search"
          tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a><br />
-      <strong>URL status:</strong>
-      <em tal:attributes="id string:${org_id}-loading">loading ...</em>
-      <br />
+      <div id="status-container"
+           tal:attributes="id string:${org_id}-status-container">
+        <strong>URL status:</strong>
+        <em tal:attributes="id string:${org_id}-loading">loading ...</em>
+      </div>
       <input type="radio" name="transfer_from" title="Transfer from"
              value="" id="transfer-from"
              tal:attributes="id string:transfer-from-${org_id};

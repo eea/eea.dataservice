@@ -19,3 +19,4 @@ Source files:
  eea.dataservice/skins/organisations_overview.pt
  eea.dataservice/skins/organisations_overview_data.py
  eea.dataservice/skins/portlet_manage_organisations.pt
+ eea.dataservice/skins/dataservice_style.css.dtml

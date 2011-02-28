@@ -4,6 +4,7 @@
 import transaction
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 
 
 class MoveOrganisationReferences(BrowserView):
@@ -113,4 +114,9 @@ class MoveOrganisationReferences(BrowserView):
                 obj.reindexObject()
                 transaction.commit()
 
-        return 'Done'
+        msg = 'References transfered from "%s" to "%s"' % \
+                  (tf_ob.Title(), tt_ob.Title())
+        IStatusMessage(self.context.request).addStatusMessage(msg,
+                                                               type='info')
+        return self.request.RESPONSE.redirect(self.context.absolute_url() +
+                '/organisations_overview?action=organisations-quick-overview')
