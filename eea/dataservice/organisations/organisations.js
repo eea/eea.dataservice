@@ -3,7 +3,7 @@ function set_url_status(org_id, org_url, update_status,
 
   jQuery.ajax({
     type: "POST",
-    url: "/www/SITE/@@migration_link_checker",
+    url: "/@@migration_link_checker",
     data: "urls:list="+org_url,
     dataType: 'json',
     success: function(data){
