@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.31-dev - (unreleased)
------------------------
+1.31 - (2011-03-02)
+-------------------
  * Feature: added functionality to transfer references from one organisation
      to another [ghicaale #3575]
  * Change: URLs status is now triggered by the user (not in automatic). Some
