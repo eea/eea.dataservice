@@ -1,69 +1,70 @@
-function set_url_status(org_id, org_url, update_status,
-                        organisations_length, organisations_updated) {
+var OrganisationsURLChecker = function(trigger){
+  var self = this;
 
-  jQuery.ajax({
-    type: "POST",
-    url: "/@@migration_link_checker",
-    data: "urls:list="+org_url,
-    dataType: 'json',
-    success: function(data){
-      var loading_img = $('#' + org_id + '-loading');
-      loading_img.css('display', 'none');
-      var org_container = $('#' + org_id + '-status-container');
-      var msg = data[org_url];
-      if (msg == 'Connection timed out' || msg == 'Not Found') {
-        msg = '<span style="color: red">Not Found</span>';
-      }
-      else {
-        msg = '<span style="color: green">OK</span>';
-      }
-      org_container.append(msg);
+  self.trigger = jQuery(trigger);
+  self.loading = jQuery('#organisations-loading');
+  self.status = jQuery('#org-status-checked');
+  self.context = jQuery('#quick-overview-form');
 
-      //Update status
-      if (organisations_updated > update_status.html().split('/')[0]) {
-        update_status.html(organisations_updated + '/' + organisations_length);
-      }
-      if (organisations_updated == organisations_length) {
-        var org_loading = $('#organisations-loading');
-        org_loading.css('display', 'none');
-      }
+  self.organisations = jQuery.makeArray(
+    jQuery('#organisations-container li', self.context));
+
+  self.organisations.reverse();
+  self.total = self.organisations.length;
+  self.updated = 0;
+};
+
+OrganisationsURLChecker.prototype = {
+  run: function(){
+    var self = this;
+    self.loading.show();
+    self.trigger.attr('disabled', true);
+    self.next();
+  },
+
+  next: function(){
+    var self = this;
+    self.status.html(self.updated + '/' + self.total);
+    if(!self.organisations.length){
+      self.loading.hide();
+      self.trigger.attr('disabled', false);
+      return;
     }
-  });
 
-}
+    var value = self.organisations.pop();
+    var name = value.id;
+    var url = jQuery('#' + name + '-url', self.context).html();
 
-function check_organisations_urls() {
+    self.updated += 1;
+    self.set_status(name, url);
+  },
 
-  function call_next() {
-    pop_and_print();
-    if(organisations.length > 0) {
-      setTimeout(call_next, 0);
+  set_status: function(name, url) {
+    var self = this;
+    var query = {"urls:list": url};
+    var action = "@@migration_link_checker";
+    jQuery.getJSON(action, query, function(data){
+      self.handle_response(data, name, url);
+      self.next();
+    });
+  },
+
+  handle_response: function(data, name, url){
+    var self = this;
+    var output = jQuery('#' + name + '-loading', self.context);
+
+    var msg = data[url];
+    if (msg === 'Connection timed out' || msg === 'Not Found') {
+      msg = jQuery('<span>').css({color: 'red'}).text('Not Found');
     }
-  }
-
-  function pop_and_print() {
-    var value = organisations.pop();
-    var org_id = value.id;
-    var org_url = $('#' + org_id + '-url').html();
-
-    organisations_updated += 1;
-    set_url_status(org_id, org_url, update_status,
-                   organisations_length, organisations_updated);
-  }
-
-  var org_loading = $('#organisations-loading');
-  org_loading.css('display', 'inline');
-  var overview_detected = $('#organisations-quick-overview');
-
-  if (overview_detected.html()) {
-    var organisations = jQuery.makeArray($('#organisations-container li'));
-    var update_status = $('#org-status-checked');
-    var organisations_length = organisations.length;
-    var organisations_updated = 0;
-
-    organisations.reverse();
-    if (organisations_length) {
-      call_next();
+    else {
+      msg = jQuery('<span>').css({color: 'green'}).text('OK');
     }
+    output.html(msg);
   }
-}
+};
+
+var check_organisations_urls = function(trigger) {
+  var checker = new OrganisationsURLChecker(trigger);
+  checker.run();
+};
