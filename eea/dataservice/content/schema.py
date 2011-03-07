@@ -110,7 +110,7 @@ dataservice_base_schema = Schema((
     ManagementPlanField(
         name='eeaManagementPlan',
         languageIndependent=True,
-        required=False,
+        required=True,
         default=(datetime.now().year, ''),
         validators = ('management_plan_code_validator',),
         vocabulary=DatasetYears(),
