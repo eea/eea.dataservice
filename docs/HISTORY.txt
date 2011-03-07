@@ -7,6 +7,8 @@ Changelog
 
 1.32-dev - (unreleased)
 -----------------------
+ * Change: moved "management_plan_code_validator" validator or under
+     Products.EEAContentTypes package as was used before being registered [ghicaale #4174]
  * Bug fix: Fixed organisations portlet JS for IE [ghicaale #3575]
  * Change: make code required and enable validator for figures refs #4174 [demarant]
 
