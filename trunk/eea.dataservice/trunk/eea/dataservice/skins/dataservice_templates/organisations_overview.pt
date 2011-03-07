@@ -28,7 +28,7 @@
   <form action="@@moveOrganisationReferences"
         method="get" name="quick-overview-form" id="quick-overview-form"
         tal:attributes="action string:${context/absolute_url}/@@moveOrganisationReferences">
-  <input type="button" value="Check URLs status" onclick="javascript:check_organisations_urls()" />
+  <input type="button" value="Check URLs status" onclick="javascript:check_organisations_urls(this)" />
   <input type="submit" value="Transfer references" />
 
   <ul id="organisations-container">
@@ -48,7 +48,7 @@
       <div id="status-container"
            tal:attributes="id string:${org_id}-status-container">
         <strong>URL status:</strong>
-        <em tal:attributes="id string:${org_id}-loading">loading ...</em>
+        <em tal:attributes="id string:${org_id}-loading">NOT CHECKED</em>
       </div>
       <input type="radio" name="transfer_from" title="Transfer from"
              value="" id="transfer-from"
