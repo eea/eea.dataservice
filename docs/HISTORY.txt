@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
-1.32-dev - (unreleased)
------------------------
+1.32 - (2011-03-08)
+-------------------
  * Change: moved "management_plan_code_validator" validator under
      Products.EEAContentTypes package as was used before being registered [ghicaale #4174]
  * Bug fix: Fixed organisations portlet JS for IE [ghicaale #3575]
