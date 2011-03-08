@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step
+      id="eea.dataservice-install-vocabularies"
+      handler="eea.dataservice.setuphandlers.installVocabularies"
+      title="Install Vocabularies for eea.dataservice"
+      version="2009/08/31">
+     Installs the vocabulary files into vocabulary library for eea.dataservice
+  </import-step>
+</import-steps>
