@@ -5,7 +5,7 @@ __docformat__ = 'plaintext'
 
 import operator
 import xmlrpclib
-from datetime import datetime
+#from datetime import datetime
 
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
@@ -13,7 +13,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.app.schema.vocabulary import IVocabularyFactory
 from Products.Archetypes.interfaces.vocabulary import IVocabulary
 
-from eea.dataservice.config import *
+from eea.dataservice.config import STARTING_YEAR, ROD_SERVER
 
 # Temporal coverage vocabulary
 class DatasetYears:
@@ -23,7 +23,7 @@ class DatasetYears:
 
     def getDisplayList(self, instance):
         """ """
-        now = datetime.now()
+        #now = datetime.now()
         #end_year = now.year + 3
         end_year = 2099
         terms = []
@@ -68,7 +68,7 @@ class MainKeywords:
         [words.append(k) for k in values]
         words = sorted(words, key=operator.itemgetter(1))
         words = words[-words_length:]
-        [res.append((k[0], k[0])) for k in words]
+        [res.append((w[0], w[0])) for w in words]
         return res
 
     def getVocabularyDict(self, instance):

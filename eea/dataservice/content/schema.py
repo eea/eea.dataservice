@@ -6,7 +6,11 @@ __docformat__ = 'plaintext'
 from datetime import datetime
 from DateTime import DateTime
 
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, LinesField, LinesWidget
+from Products.Archetypes.atapi import MultiSelectionWidget, TextField 
+from Products.Archetypes.atapi import CalendarWidget, DateTimeField
+from Products.Archetypes.atapi import TextAreaWidget, RichWidget
+from Products.Archetypes.atapi import StringWidget, StringField
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary

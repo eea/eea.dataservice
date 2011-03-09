@@ -5,9 +5,8 @@ __docformat__ = 'plaintext'
 
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes.Field import decode, encode
-from Products.Archetypes.atapi import ObjectField, StringField
-
+from Products.Archetypes.Field import decode #, encode
+from Products.Archetypes.atapi import StringField # ,ObjectField 
 
 class OrganisationField(StringField):
     """ """

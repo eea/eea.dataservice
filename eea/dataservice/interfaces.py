@@ -11,11 +11,11 @@ class IDataset(Interface):
     """ Objects which have dataset information.
     """
 
-    def getKeywords(obj):
+    def getKeywords(obj): #pylint: disable-msg = E0213
         """ Return formated keywords list
         """
 
-    def getOrganisationName(obj):
+    def getOrganisationName(obj): #pylint: disable-msg = E0213
         """ Return organisation name
         """
 

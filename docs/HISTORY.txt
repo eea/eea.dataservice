@@ -7,6 +7,8 @@ Changelog
 
 1.33-dev - (unreleased)
 -----------------------
+ * Change: clean-up of pyflakes high and normal compiler errors [ichimdav #4141]
+ * Change: clean-up of pylint high and normal violations [ichimdav #4140]
 
 1.32 - (2011-03-08)
 -------------------

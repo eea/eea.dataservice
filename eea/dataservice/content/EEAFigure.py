@@ -5,22 +5,22 @@ __docformat__ = 'plaintext'
 
 
 from zope.interface import implements
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, StringField, registerType
 from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes.configuration import zconf
+#from Products.ATContentTypes.configuration import zconf
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
-from Products.ATContentTypes.content.folder import ATFolderSchema
-from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+#from Products.ATContentTypes.content.folder import ATFolderSchema
+#from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.OrderableReferenceField._field import OrderableReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 
-from eea.dataservice.config import *
+from eea.dataservice.config import PROJECTNAME 
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.vocabulary import FigureTypes
 from eea.dataservice.content.schema import dataservice_schema
@@ -99,7 +99,8 @@ class EEAFigure(ATFolder, ThemeTaggable):
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
                                     'getUrl': url})
-        if brains: res = brains[0]
+        if brains: 
+            res = brains[0]
         return res
 
     security.declareProtected(permissions.View, 'getKeywords')
@@ -140,7 +141,7 @@ class EEAFigure(ATFolder, ThemeTaggable):
 
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        value = filter(None, value)
+        value = [val for val in value if val] #value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 

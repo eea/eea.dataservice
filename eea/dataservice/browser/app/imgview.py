@@ -60,18 +60,18 @@ class ImageViewFigureFile(BrowserView):
         }, full_objects = True)
 
         # Get *.zoom.png
-        children = [img for img in images
-                    if img.getId().lower().endswith('.zoom.png')]
+        children = [zimg for zimg in images
+                    if zimg.getId().lower().endswith('.zoom.png')]
 
         # Fallback to *.png
         if not children:
-            children = [img for img in images
-                        if img.getId().lower().endswith('.png')]
+            children = [pimg for pimg in images
+                        if pimg.getId().lower().endswith('.png')]
 
         #Fallback to *.gif
         if not children:
-            children = [img for img in images
-                        if img.getId().lower().endswith('.gif')]
+            children = [gimg for gimg in images
+                        if gimg.getId().lower().endswith('.gif')]
 
         self.original = None
         if children:

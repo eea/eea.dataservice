@@ -19,7 +19,7 @@ from Products.Archetypes.public import PrimaryFieldMarshaller
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 
-from eea.dataservice.config import *
+from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IImageFS
 
 
