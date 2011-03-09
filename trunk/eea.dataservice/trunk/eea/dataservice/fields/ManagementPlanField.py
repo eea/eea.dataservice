@@ -4,7 +4,7 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from Products.Archetypes.atapi import ObjectField, StringField
-from Products.Archetypes.Field import decode, encode
+from Products.Archetypes.Field import encode #, decode
 
 
 class ManagementPlanField(StringField):

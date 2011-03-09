@@ -4,7 +4,10 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from zope.interface import implements
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
+from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
+from Products.Archetypes.atapi import registerType, IntegerField, IntegerWidget
+from Products.Archetypes.atapi import MultiSelectionWidget
 from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
@@ -17,7 +20,7 @@ from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import Reference
 from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 
-from eea.dataservice.config import *
+from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
@@ -239,7 +242,7 @@ class Data(ATFolder, ThemeTaggable):
 
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
-        value = filter(None, value)
+        value = [val for val in value if val]#value = filter(None, value)
         tagging = IThemeTagging(self)
         tagging.tags = value
 

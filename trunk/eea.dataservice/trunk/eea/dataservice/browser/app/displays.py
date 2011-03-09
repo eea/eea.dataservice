@@ -88,7 +88,9 @@ class GetDataForRedirect(object):
         self.context = context
         self.request = request
 
-    def __call__(self, query={}):
+    def __call__(self, query=None):
+        if query is None:
+            query = {}
         res = []
         cat = getToolByName(self.context, 'portal_catalog')
         res = cat(**query)
@@ -111,7 +113,7 @@ class DatasetRelatedProducts(object):
         res = {'figures': [], 'reports': [], \
                'datasets': [], 'other': [], \
                'data_viewers':[], 'has_data': False}
-        has_data = False
+        #has_data = False
 
         references = []
         forwards = self.context.getRelatedProducts()
@@ -120,7 +122,7 @@ class DatasetRelatedProducts(object):
         # make sure we don't get duplicates
         references = backs
         ruids = [ref.UID() for ref in references]
-        references += [ref for ref in forwards if ref.UID() not in ruids]
+        references += [fref for fref in forwards if fref.UID() not in ruids]
 
         for ob in references:
             # Only published objects
@@ -150,7 +152,8 @@ class DatasetRelatedProducts(object):
 
         # Determine if any values
         for key in res.keys():
-            if res[key]: res['has_data'] = True
+            if res[key]: 
+                res['has_data'] = True
 
         return res
 
@@ -282,7 +285,7 @@ def _getGroupCountries(context, group_code):
     terms = vocab.getVocabularyDict()
     for key in terms.keys():
         if group_code.lower() == terms[key][0].lower():
-            return [term for term, childs in terms[key][1].values()]
+            return [term for term, _childs in terms[key][1].values()]
     return []
 
 def _getCountryInfo(context):
@@ -366,9 +369,10 @@ class GetCountriesDisplay(object):
         self.context = context
         self.request = request
 
-    def __call__(self, country_codes=[]):
+    def __call__(self, country_codes=None):
         data = []
-        if country_codes == 'null': country_codes = []
+        if country_codes is None: 
+            country_codes = []
         if not isinstance(country_codes, (list, tuple)):
             data.append(country_codes)
         else:

@@ -4,16 +4,17 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from zope.interface import implements
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, StringWidget, StringField
+from Products.Archetypes.atapi import TextField, TextAreaWidget, registerType
 from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.Field import decode
-from Products.CMFCore.utils import getToolByName
+#from Products.Archetypes.Field import decode
+#from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.CMFCore.permissions import ModifyPortalContent
 
-from eea.dataservice.config import *
+from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
 from eea.locationwidget.locationwidget import LocationWidget
