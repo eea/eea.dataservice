@@ -68,10 +68,12 @@ class LinkChecker(BrowserView):
             h.putrequest('HEAD', p[2])
             h.endheaders()
             return h.getreply()[0]
-        except Exception, err:
+        except Exception:
             return 110
 
-    def __call__(self, urls=[]):
+    def __call__(self, urls = None):
+        if urls is None:
+            urls = []
         report = {}
 
         for url in urls:

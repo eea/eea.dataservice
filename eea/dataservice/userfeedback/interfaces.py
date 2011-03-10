@@ -10,11 +10,11 @@ class ISurveySupport(Interface):
 class ISurvey(Interface):
     """ Survey enable/disable
     """
-    def enable():
+    def enable(): #pylint: disable-msg = E0211
         """ Enable EEAUserFeedback
         """
 
-    def disable():
+    def disable(): #pylint: disable-msg = E0211
         """Disable EEAUserFeedback
         """
 

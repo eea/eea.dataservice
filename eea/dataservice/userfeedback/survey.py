@@ -6,7 +6,8 @@ from zope.component import queryUtility, getMultiAdapter
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.app.schema.vocabulary import IVocabularyFactory
-from interfaces import ISurvey, ISurveySupport, ISurveyView
+from eea.dataservice.userfeedback.interfaces import (
+                            ISurvey, ISurveySupport, ISurveyView )
 
 ANNO_KEY = 'EEAUserFeedback-DISABLED'
 

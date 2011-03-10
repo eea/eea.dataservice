@@ -1,18 +1,18 @@
 from Products.CMFPlone.CatalogTool import registerIndexableAttribute
 
-def getFileName(object, portal, **kwargs):
+def getFileName(obj, portal, **kwargs):
     """ Index for filename
     """
-    if not getattr(object, 'getField', None):
+    if not getattr(obj, 'getField', None):
         return ''
 
-    file_field = object.getField('file')
+    file_field = obj.getField('file')
     if not file_field:
         return ''
 
     if not getattr(file_field, 'getFilename', None):
         return ''
 
-    return file_field.getFilename(object)
+    return file_field.getFilename(obj)
 
 registerIndexableAttribute('filename', getFileName)

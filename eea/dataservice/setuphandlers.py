@@ -114,5 +114,5 @@ def installVocabularies(context):
             try:
                 wftool.doActionFor(vocabItem, 'publish',
                                    comment='Auto published by migration script.')
-            except:
-                pass
+            except Exception:
+                logger.debug("eea dataservice setuphandlers migration script couldn't auto publish")

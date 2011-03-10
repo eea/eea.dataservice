@@ -113,9 +113,9 @@ class Widget(CheckboxWidget):
 
             if not rset:
                 continue
-            rset, u = rset
+            rset, _u = rset
             rset = IISet(rset)
-            u, rset = weightedIntersection(brains, rset)
+            _u, rset = weightedIntersection(brains, rset)
             if isinstance(value, str):
                 value = value.decode('utf-8', 'replace')
             res[value] = len(rset)

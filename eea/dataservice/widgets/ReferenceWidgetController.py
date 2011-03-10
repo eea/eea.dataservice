@@ -12,11 +12,11 @@ class IReferenceWidgetController(Interface):
     Controller to be use within ReferenceBrowserWidget
     macro figure_referencebrowser
     """
-    def search(title):
+    def search(title): #pylint: disable-msg = E0213
         """ Search for publications with given title. Returns a json object.
         """
 
-    def add(title, eeaid='', **kwargs):
+    def add(title, eeaid='', **kwargs): #pylint: disable-msg = E0213
         """ Add publication with given title. Returns a string message.
         """
 
@@ -25,6 +25,7 @@ class ReferenceWidgetController(BrowserView):
     """
     implements(IReferenceWidgetController)
     def __init__(self, context, request):
+        BrowserView.__init__(self, context, request)
         self.context = context
         self.request = request
         self.catalog = getToolByName(context, 'portal_catalog')

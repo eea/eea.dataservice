@@ -4,7 +4,7 @@ from zope.interface import implements
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from eea.facetednavigation.widgets.widget import Widget as AbstractWidget
 
-from interfaces import ILastVersionWidget
+from eea.dataservice.facetednavigation.lastversion.interfaces import ILastVersionWidget
 
 class Widget(AbstractWidget):
     """ Widget
