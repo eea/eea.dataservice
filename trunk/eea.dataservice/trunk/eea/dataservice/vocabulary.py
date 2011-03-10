@@ -60,15 +60,13 @@ class MainKeywords:
     def getDisplayList(self, instance):
         """ """
         words_length = 30
-        words = []
-        res = []
         cat = getToolByName(instance, 'portal_catalog')
         index = cat.Indexes.get('Subject', None)
         values = index.uniqueValues(name=None, withLengths=1)
-        [words.append(k) for k in values]
+        words = [k for k in values]
         words = sorted(words, key=operator.itemgetter(1))
         words = words[-words_length:]
-        [res.append((w[0], w[0])) for w in words]
+        res = [(w[0], w[0]) for w in words]
         return res
 
     def getVocabularyDict(self, instance):
@@ -236,9 +234,10 @@ class Organisations:
         unique_org = {}
         cat = getToolByName(instance, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
-
-        [unique_org.setdefault(brain.getUrl, brain.Title)
-            for brain in res]
+        for brain in res:
+            unique_org.setdefault(brain.getUrl, brain.Title)
+        #[unique_org.setdefault(brain.getUrl, brain.Title)
+        #    for brain in res]
         unique_org = generateUniqueTitles(unique_org)
         organisations.extend((unique_org[url], url)
                              for url in unique_org.keys())
@@ -285,7 +284,7 @@ class Obligations:
         try:
             server = xmlrpclib.Server(ROD_SERVER)
             result = server.WebRODService.getActivities()
-        except:
+        except Exception:
             result = []
         if result:
             res.extend((formatTitle(obligation['TITLE']), int(obligation['PK_RA_ID']))

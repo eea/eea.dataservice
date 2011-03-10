@@ -19,7 +19,7 @@ By default PIL EPS plugin opens .eps files at a lower resolution. Fix this by
 adding dpi param to save function.
 """
 import logging
-import re, string
+import re 
 from PIL import Image
 from PIL.EpsImagePlugin import EpsImageFile as PILEpsImageFile
 from PIL.EpsImagePlugin import _accept, PSFile, i32, split, field
@@ -30,17 +30,17 @@ def Ghostscript(tile, size, fp, dpi=None):
     """Render an image using Ghostscript (Unix only)"""
 
     # Unpack decoder tile
-    decoder, tile, offset, data = tile[0]
+    _decoder, tile, offset, data = tile[0]
     length, bbox = data
 
     import tempfile, os
 
-    file = tempfile.mktemp()
+    efile = tempfile.mktemp()
 
     # Build ghostscript command
     try:
         dpi = int(dpi)
-    except (TypeError, ValueError), err:
+    except (TypeError, ValueError):
         dpi = 0
 
     if not dpi:
@@ -49,7 +49,7 @@ def Ghostscript(tile, size, fp, dpi=None):
                    "-g%dx%d" % size,        # set output geometry (pixels)
                    "-dNOPAUSE -dSAFER",     # don't pause between pages, safe mode
                    "-sDEVICE=ppmraw",       # ppm driver
-                   "-sOutputFile=%s" % file,# output file
+                   "-sOutputFile=%s" % efile,# output file
                    "- >/dev/null 2>/dev/null"]
     else:
         command = ["gs",
@@ -58,10 +58,10 @@ def Ghostscript(tile, size, fp, dpi=None):
                    "-dEPSCrop",             # crop
                    "-dNOPAUSE -dSAFER",     # don't pause between pages, safe mode
                    "-sDEVICE=ppmraw",       # ppm driver
-                   "-sOutputFile=%s" % file,# output file
+                   "-sOutputFile=%s" % efile,# output file
                    "- >/dev/null 2>/dev/null"]
 
-    command = string.join(command)
+    command = str.join(command)
 
     # push data through ghostscript
     try:
@@ -82,10 +82,10 @@ def Ghostscript(tile, size, fp, dpi=None):
         status = gs.close()
         if status:
             raise IOError("gs failed (status %d)" % status)
-        im = Image.core.open_ppm(file)
+        im = Image.core.open_ppm(efile)
     finally:
-        try: os.unlink(file)
-        except: pass
+        try: os.unlink(efile)
+        except OSError: pass
     return im
 
 class EpsImageFile(PILEpsImageFile):
@@ -146,12 +146,12 @@ class EpsImageFile(PILEpsImageFile):
                         # Note: The DSC spec says that BoundingBox
                         # fields should be integers, but some drivers
                         # put floating point values there anyway.
-                        box = map(int, map(float, string.split(v)))
+                        box = map(int, map(float, str.split(v))) #pylint: disable-msg = W0141
                         self.size = box[2] - box[0], box[3] - box[1]
                         offset = 0
                         self.tile = [("eps", (0,0) + self.size, offset,
                                       (length, box))]
-                    except:
+                    except Exception:
                         pass
 
             else:
@@ -193,8 +193,8 @@ class EpsImageFile(PILEpsImageFile):
 
             if s[:11] == "%ImageData:":
 
-                [x, y, bi, mo, z3, z4, en, id] =\
-                    string.split(s[11:], maxsplit=7)
+                [x, y, bi, mo, _z3, _z4, en, eid] =\
+                    str.split(s[11:], maxsplit=7)
 
                 x = int(x); y = int(y)
 
@@ -220,15 +220,15 @@ class EpsImageFile(PILEpsImageFile):
                 else:
                     break
 
-                if id[:1] == id[-1:] == '"':
-                    id = id[1:-1]
+                if eid[:1] == eid[-1:] == '"':
+                    eid = eid[1:-1]
 
                 # Scan forward to the actual image data
                 while 1:
                     s = fp.readline()
                     if not s:
                         break
-                    if s[:len(id)] == id:
+                    if s[:len(eid)] == eid:
                         self.size = x, y
                         self.tile2 = [(decoder,
                                        (0, 0, x, y),

@@ -179,8 +179,8 @@ class PublicationBasedOn(object):
     def __call__(self):
         cat = getToolByName(self.context, 'portal_catalog')
         references = IRelations(self.context).backReferences(relatesTo='relatesToProducts')
-        uids = []
-        [uids.append(ob.UID()) for ob in references]
+        #uids = []
+        uids = [ob.UID() for ob in references]
         query = {'UID': uids, 'review_state':'published'}
         brains = [b for b in cat.searchResults(query)]
         return brains
@@ -260,13 +260,13 @@ class DataViewers(object):
         self.request = request
 
     def __call__(self):
-        res = []
+        #res = []
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : ['Promotion',
                                                      'GIS Map Application'],
                                     'Title': 'data viewer',
                                     'review_state': 'published'})
-        [res.append(brain.getObject()) for brain in brains]
+        res = [brain.getObject() for brain in brains]
         return res
 
 def _getCountryName(country_code):
@@ -398,8 +398,9 @@ class GetCountriesDisplay(object):
         if len(res):
             res_string = ', '.join(res)
         if len(data):
-            countries = []
-            [countries.append(_getCountryName(code)) for code in data]
+            #countries = []
+            #[countries.append(_getCountryName(code)) for code in data]
+            countries = [_getCountryName(code) for code in data]
             countries.sort()
             if res_string:
                 res_string += ', '
@@ -413,13 +414,12 @@ class GetDataFiles(object):
         self.request = request
 
     def __call__(self):
-        res = []
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({
             'portal_type' : ['DataFile'],
             'path': '/'.join(self.context.getPhysicalPath()),
             'review_state': 'published'})
-        [res.append(brain.getObject()) for brain in brains]
+        res = [brain.getObject() for brain in brains]
 
         # Sort DataFiles by filename
         comp = lambda x,y: cmp(x.getFilename(), y.getFilename())

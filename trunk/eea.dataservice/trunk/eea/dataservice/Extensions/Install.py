@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
-
+import logging
+logger = logging.getLogger("eea.dataservice.extensions.install")
 def install(portal):
     setup_tool = getToolByName(portal, 'portal_setup')
 
@@ -8,7 +9,7 @@ def install(portal):
     try:
         del ir._registered['eea.mapsandgraphs-install-vocabularies']
     except KeyError:
-        pass
+        logger.debug("eea.dataservice found no deprecated eea.mapsandgraphs import steps")
 
     # Dataservice import steps
     setup_tool.setImportContext('profile-eea.dataservice:default')

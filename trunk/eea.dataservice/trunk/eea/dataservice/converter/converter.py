@@ -4,14 +4,14 @@ from PIL import Image
 from cStringIO import StringIO
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.WorkflowCore import WorkflowException
+#from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
 
 logger = logging.getLogger('eea.dataservice.converter')
-info = logger.info
+log = logger.info
 
 class ConvertMap(object):
     """ Convert the map in different image formats
@@ -149,7 +149,7 @@ class ConvertMap(object):
             err = 1
 
         msg = 'Done converting "%s".' % self.context.title_or_id()
-        info('INFO: %s', msg)
+        log('INFO: %s', msg)
         if err:
             msg = 'Some error(s) occured during conversion of "%s".' % self.context.title_or_id()
 
@@ -186,9 +186,9 @@ class CheckFiguresConvertion(object):
                 msg += '%s\r\n' % ff_ob.absolute_url()
         else:
             for ff_ob in notConverted:
-                info('INFO: Start converting %s', ff_ob.getId())
+                log('INFO: Start converting %s', ff_ob.getId())
                 convertFigureView = ff_ob.unrestrictedTraverse('@@convertMap')
-                convtmp = convertFigureView(cronjob=1)
+                convertFigureView(cronjob=1)
                 msg += 'CONVERTED: %s \r\n' % ff_ob.absolute_url()
                 transaction.savepoint()
 

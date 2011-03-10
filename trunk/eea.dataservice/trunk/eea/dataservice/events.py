@@ -31,7 +31,8 @@ def handle_eeafigure_state_change(figure, event):
     backreferences = IRelations(figure).backReferences()
     assessments = [aq_parent(aq_inner(a)) for a in backreferences 
                                           if a.meta_type == "AssessmentPart"]
-    ifs = filter(lambda o:o.meta_type=="IndicatorFactSheet", backreferences)
+    #ifs = filter(lambda o:o.meta_type=="IndicatorFactSheet", backreferences)
+    ifs = [o for o in backreferences if o.meta_type=="IndicatorFactSheet"]
 
     for obj in assessments + ifs:
         obj.reindexObject()

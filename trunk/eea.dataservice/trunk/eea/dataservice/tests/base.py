@@ -1,12 +1,17 @@
 import os
 from StringIO import StringIO
 from Products.Five import zcml
-from Globals import package_home
-from plone.app.blob.tests import db
+#from Globals import package_home
+#without this import the test database isn't created and tests fail
+from plone.app.blob.tests import db 
+db # pylint pyflakes call 
 from Products.Five import fiveconfigure
 from Testing import ZopeTestCase as ztc
 from zope.app.component.hooks import setSite
-from eea.dataservice.config import product_globals
+#from eea.dataservice.config import product_globals
+import logging
+logger = logging.getLogger('eea.dataservice')
+
 
 # Let Zope know about the two products we require above-and-beyond a basic
 # Plone install (PloneTestCase takes care of these).
@@ -22,8 +27,8 @@ from Products.PloneTestCase.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
 from Products.PloneTestCase.PloneTestCase import setupPloneSite
 from Products.PloneTestCase.layer import onsetup
-from cgi import FieldStorage
-from ZPublisher.HTTPRequest import FileUpload
+#from cgi import FieldStorage
+#from ZPublisher.HTTPRequest import FileUpload
 
 
 @onsetup
@@ -53,7 +58,7 @@ def setup_eea_dataservice():
         ztc.installPackage('eea.dataservice')
     except AttributeError:
         # Old ZopeTestCase
-        pass
+        logger.debug("eea.dataservice AttributeError for old ZopeTestCase")
 
 # The order here is important: We first call the (deferred) function which
 # installs the products we need for the Optilux package. Then, we let
@@ -68,9 +73,10 @@ EXTRA_PRODUCTS = [
 ]
 try:
     import plone.app.blob
+    plone.app.blob
 except ImportError, error:
     # No plone.app.blob installed
-    pass
+    logger.debug("eea.dataservice plone.app.blog not installed")
 else:
     EXTRA_PRODUCTS.append('plone.app.blob')
 
@@ -109,7 +115,7 @@ class DataserviceFunctionalTestCase(FunctionalTestCase, DataserviceTestCase):
         file_path = os.path.join(storage_path, rel_filename)
         file_ob = open(file_path, 'rb')
         file_data = file_ob.read()
-        size = len(file_data)
+        #size = len(file_data)
         filename = file_path.split('/')[-1]
         filename = str(filename)
         fp = StringIO(file_data)
