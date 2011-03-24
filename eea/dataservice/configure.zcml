@@ -51,6 +51,6 @@
         Products.CMFCore.interfaces.IActionSucceededEvent
         " />
 
-    <adapter factory=".marshaller.ManagementField2RdfSchema" />
+    <adapter factory=".marshaller.ManagementPlanField2Surf" />
 
 </configure>
