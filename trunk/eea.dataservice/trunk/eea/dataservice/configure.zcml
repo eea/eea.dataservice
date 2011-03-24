@@ -22,33 +22,35 @@
     <include file="profiles.zcml" />
 
     <utility
-      component=".vocabulary.OrganisationsVocabulary"
-      name="Organisations"
-      />
+        component=".vocabulary.OrganisationsVocabulary"
+        name="Organisations"
+        />
 
     <utility
-      component=".vocabulary.FigureTypesVocabulary"
-      name="Figure types"
-      />
+        component=".vocabulary.FigureTypesVocabulary"
+        name="Figure types"
+        />
 
     <utility
-      component=".vocabulary.ObligationsVocabulary"
-      name="Obligations"
-      />
+        component=".vocabulary.ObligationsVocabulary"
+        name="Obligations"
+        />
 
     <utility
-      component=".vocabulary.DatasetYearsVocabulary"
-      name="Temporal coverage"
-      />
+        component=".vocabulary.DatasetYearsVocabulary"
+        name="Temporal coverage"
+        />
 
     <utility
-      component=".vocabulary.MainKeywordsVocabulary"
-      name="Main keywords"
-      />
+        component=".vocabulary.MainKeywordsVocabulary"
+        name="Main keywords"
+        />
 
-   <subscriber handler=".events.handle_eeafigure_state_change"
-       for="eea.dataservice.interfaces.IEEAFigure
-           Products.CMFCore.interfaces.IActionSucceededEvent
-           " />
+    <subscriber handler=".events.handle_eeafigure_state_change"
+        for="eea.dataservice.interfaces.IEEAFigure
+        Products.CMFCore.interfaces.IActionSucceededEvent
+        " />
+
+    <adapter factory=".marshaller.ManagementField2RdfSchema" />
 
 </configure>
