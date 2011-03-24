@@ -12,6 +12,7 @@ Changelog
    version [voineali #4139]
  * Change: clean-up of pyflakes high and normal compiler errors [ichimdav #4141]
  * Change: clean-up of pylint high and normal violations [ichimdav #4140]
+ * Bug fix: join year and code in @@rdf view for management plan field [tiberich #4119]
 
 1.32 - (2011-03-08)
 -------------------
