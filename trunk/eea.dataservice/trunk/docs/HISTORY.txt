@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.34-dev - (unreleased)
+-----------------------
+
 1.33 - (2011-03-25)
 -------------------
  * Cleanup: Removed portal_migration scripts as portal_migration is deprecated.
