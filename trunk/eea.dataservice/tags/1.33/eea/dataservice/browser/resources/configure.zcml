@@ -1,0 +1,18 @@
+<configure xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea.facetednavigation">
+
+  <browser:page
+    for="*"
+    name="figures.view.js"
+    class=".javascript.ViewJavascript"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="figures.view.css"
+    class=".css.ViewCSS"
+    permission="zope.Public"
+    />
+
+</configure>
