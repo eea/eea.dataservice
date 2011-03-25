@@ -16,7 +16,7 @@ class ManagementPlanField2Surf(ATField2Surf):
     def value(self, context):
         v = self.field.getAccessor(context)()
         if v and (len(v) == 2):
-            return "Year: %s, code: %s" % (v[0], v[1])
+            return "%s %s" % (v[0], v[1])
         return " - ".join(v)
 
 
