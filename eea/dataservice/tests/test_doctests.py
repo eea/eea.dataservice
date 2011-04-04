@@ -26,9 +26,8 @@ def test_suite():
                   optionflags=OPTIONFLAGS,
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,
-            #TODO: fix figure_file.txt
-            #Suite('doc/figure_file.txt',
-                  #optionflags=OPTIONFLAGS,
-                  #package='eea.dataservice',
-                  #test_class=DataserviceFunctionalTestCase) ,
+            Suite('doc/figure_file.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.dataservice',
+                  test_class=DataserviceFunctionalTestCase) ,
               ))
