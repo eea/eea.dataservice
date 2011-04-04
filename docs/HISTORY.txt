@@ -10,6 +10,7 @@ Changelog
 
 1.33 - (2011-03-25)
 -------------------
+ * Bug fix: fixed creation of imagefs that I broke during cleanup [ichimdav #4239]
  * Cleanup: Removed portal_migration scripts as portal_migration is deprecated.
    Please check that all migration scripts where run before upgrading to this
    version [voineali #4139]

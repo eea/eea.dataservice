@@ -61,7 +61,7 @@ def Ghostscript(tile, size, fp, dpi=None):
                    "-sOutputFile=%s" % efile,# output file
                    "- >/dev/null 2>/dev/null"]
 
-    command = str.join(command)
+    command = " ".join(command)
 
     # push data through ghostscript
     try:
