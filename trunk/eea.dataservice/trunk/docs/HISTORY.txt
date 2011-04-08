@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.36-dev - (unreleased)
+-----------------------
+
 1.35 - (2011-04-08)
 -------------------
  * Feature: added managementplan formlib widget [tiberich #4215]
