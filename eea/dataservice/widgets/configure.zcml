@@ -11,4 +11,12 @@
       allowed_interface=".ReferenceWidgetController.IReferenceWidgetController"
       />
 
+  <view
+      type="zope.publisher.interfaces.browser.IBrowserRequest"
+      for=".ManagementPlanWidget.IManagementPlanCode"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".ManagementPlanWidget.FormlibManagementPlanWidget"
+      permission="zope.Public"
+      />
+
 </configure>
