@@ -45,23 +45,29 @@
     </tal:block>
 
     <fieldset><legend>Files</legend>
-        <tal:block repeat="file python:context.objectValues('DataFile')">
+        <div style="padding: 1em;" tal:repeat="file python:context.objectValues('DataFile')">
             <tal:block define="field python:file.getField('file');
                                accessor python:field.getAccessor(file)();
                                icon accessor/getBestIcon | nothing;
                                filename accessor/filename | nothing;
                                size accessor/get_size | python:accessor and len(accessor) or 0;">
 
-                <a href="" tal:attributes="href string:${file/absolute_url}/at_download/file">
+                <strong>
                     <img tal:condition="icon" src=""
                          tal:attributes="src string:${context/portal_url}/$icon"/>
                     <span tal:content="filename" />
-                </a>
-                (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>
-                <tal:size content="python:'%sKb' % (size / 1024)">0Kb</tal:size>)
-                <br />
+                </strong>
+                (<span tal:content="python:file.lookupMime(field.getContentType(file))">ContentType</span>)
+                <div style="padding-left: 2em;">
+                <span tal:content="python:'%sKb' % (size / 1024)">0Kb</span>
+                <a tal:attributes="href string:${file/absolute_url}/at_download/file"
+                   i18n:translate="">Download file</a>
+                <a tal:attributes="href string:${file/absolute_url}/"
+                   tal:condition="exists: file/@@daviz-view.html"
+                   i18n:translate="">View and interact online</a>
+                </div>
             </tal:block>
-        </tal:block>
+        </div>
     </fieldset>
 
     <!-- Dataset ID -->
