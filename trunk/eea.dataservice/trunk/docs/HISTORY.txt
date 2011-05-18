@@ -7,7 +7,7 @@ Changelog
 
 1.36-dev - (unreleased)
 -----------------------
- * Feature: Support DaViz enabled files in datatable view [voineali #4270]
+ * Feature: Support DaViz enabled files in dataset and datatable view [voineali #4270]
 
 1.35 - (2011-04-08)
 -------------------
