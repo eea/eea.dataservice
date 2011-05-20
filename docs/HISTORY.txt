@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.37-dev - (unreleased)
+-----------------------
+
 1.36 - (2011-05-20)
 -------------------
  * Feature: Support DaViz enabled files in dataset and datatable view [voineali #4270]
