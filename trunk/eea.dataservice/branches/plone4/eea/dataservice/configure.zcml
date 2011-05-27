@@ -1,57 +1,58 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="eea">
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
 
-    <include file="profiles.zcml" />
+  <include package="Products.ATVocabularyManager" />
 
-    <include package=".userfeedback" />
-    <include package=".browser" />
-    <include package=".converter" />
-    <include package=".cache" />
-    <include package=".templates" />
-    <include package=".google" />
-    <include package=".content" />
-    <include package=".widgets" />
-    <include package=".versions" />
-    <include package=".facetednavigation.lastversion" />
-    <include package=".facetednavigation.geocoverage" />
-    <include package=".updates" />
-    <include package=".organisations" />
+  <include file="skins.zcml" />
+  <include file="profiles.zcml" />
 
-    <adapter factory=".catalog.getFileName" name="filename" />
+  <include package=".userfeedback" />
+  <include package=".browser" />
+  <include package=".converter" />
+  <include package=".cache" />
+  <include package=".templates" />
+  <include package=".google" />
+  <include package=".content" />
+  <include package=".widgets" />
+  <include package=".versions" />
+  <include package=".facetednavigation.lastversion" />
+  <include package=".facetednavigation.geocoverage" />
+  <include package=".updates" />
+  <include package=".organisations" />
 
-    <utility
-        component=".vocabulary.OrganisationsVocabulary"
-        name="Organisations"
-        />
+  <adapter factory=".catalog.getFileName" name="filename" />
 
-    <utility
-        component=".vocabulary.FigureTypesVocabulary"
-        name="Figure types"
-        />
+  <utility
+    component=".vocabulary.OrganisationsVocabulary"
+    name="Organisations"
+    />
 
-    <utility
-        component=".vocabulary.ObligationsVocabulary"
-        name="Obligations"
-        />
+  <utility
+    component=".vocabulary.FigureTypesVocabulary"
+    name="Figure types"
+    />
 
-    <utility
-        component=".vocabulary.DatasetYearsVocabulary"
-        name="Temporal coverage"
-        />
+  <utility
+    component=".vocabulary.ObligationsVocabulary"
+    name="Obligations"
+    />
 
-    <utility
-        component=".vocabulary.MainKeywordsVocabulary"
-        name="Main keywords"
-        />
+  <utility
+    component=".vocabulary.DatasetYearsVocabulary"
+    name="Temporal coverage"
+    />
 
-    <subscriber handler=".events.handle_eeafigure_state_change"
-        for="eea.dataservice.interfaces.IEEAFigure
-        Products.CMFCore.interfaces.IActionSucceededEvent
-        " />
+  <utility
+    component=".vocabulary.MainKeywordsVocabulary"
+    name="Main keywords"
+    />
 
-    <adapter factory=".marshaller.ManagementPlanField2Surf" />
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigure
+      Products.CMFCore.interfaces.IActionSucceededEvent"
+    handler=".events.handle_eeafigure_state_change"/>
+
+  <adapter factory=".marshaller.ManagementPlanField2Surf" />
 
 </configure>

@@ -6,14 +6,22 @@ __docformat__ = 'plaintext'
 import operator
 import xmlrpclib
 
-from zope.component import queryMultiAdapter
+from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from Products.PloneLanguageTool.availablelanguages import getCountries
+from plone.i18n.locales.interfaces import IContentLanguageAvailability
 
 from eea.dataservice.config import ROD_SERVER
-from Products.EEAContentTypes.interfaces import IRelations
-from eea.reports.interfaces import IReportContainerEnhanced
+from eea.dataservice.relations import IRelations
+
+try:
+    from eea.reports import interfaces as ireport
+    IReportContainerEnhanced = ireport.IReportContainerEnhanced
+except ImportError:
+    from zope.interface import Interface
+    class IReportContainerEnhanced(Interface):
+        """ eea.reports is not present """
+
 from eea.dataservice.vocabulary import (
     QUALITY_DICTIONARY_ID,
     COUNTRIES_DICTIONARY_ID,
@@ -117,7 +125,11 @@ class DatasetRelatedProducts(object):
 
         references = []
         forwards = self.context.getRelatedProducts()
-        backs = IRelations(self.context).backReferences(relatesTo='relatesToProducts')
+        rel = queryAdapter(self.context, IRelations)
+        if not rel:
+            return res
+
+        backs = rel.backReferences(relatesTo='relatesToProducts')
 
         # make sure we don't get duplicates
         references = backs
@@ -152,7 +164,7 @@ class DatasetRelatedProducts(object):
 
         # Determine if any values
         for key in res.keys():
-            if res[key]: 
+            if res[key]:
                 res['has_data'] = True
 
         return res
@@ -178,7 +190,11 @@ class PublicationBasedOn(object):
 
     def __call__(self):
         cat = getToolByName(self.context, 'portal_catalog')
-        references = IRelations(self.context).backReferences(relatesTo='relatesToProducts')
+        rel = queryAdapter(self.context, IRelations)
+        if not rel:
+            return []
+
+        references = rel.backReferences(relatesTo='relatesToProducts')
         #uids = []
         uids = [ob.UID() for ob in references]
         query = {'UID': uids, 'review_state':'published'}
@@ -193,8 +209,12 @@ class DatasetBasedOn(object):
         self.request = request
 
     def __call__(self):
-        return [rel for rel in IRelations(self.context).backReferences()
-                    if rel.portal_type == 'Data']
+        relations = queryAdapter(self.context, IRelations)
+        if not relations:
+            return []
+
+        return [rel for rel in relations.backReferences()
+                if rel.portal_type == 'Data']
 
 class DatasetDerivedFrom(object):
     """ Returns 'derived from' datasets
@@ -204,8 +224,12 @@ class DatasetDerivedFrom(object):
         self.request = request
 
     def __call__(self):
-        return [rel for rel in IRelations(self.context).forwardReferences()
-                    if rel.portal_type == 'Data']
+        relations = queryAdapter(self.context, IRelations)
+        if not relations:
+            return []
+
+        return [rel for rel in relations.forwardReferences()
+                if rel.portal_type == 'Data']
 
 class Obligations(object):
     """ Returns obligations
@@ -271,7 +295,8 @@ class DataViewers(object):
 
 def _getCountryName(country_code):
     """ """
-    res = getCountries().get(country_code.upper(), country_code)
+    util = getUtility(IContentLanguageAvailability)
+    res = util.getCountries().get(country_code.upper(), country_code)
     if res.lower() == 'me':
         res = 'Montenegro'
     elif res.lower() == 'rs':
@@ -371,7 +396,7 @@ class GetCountriesDisplay(object):
 
     def __call__(self, country_codes=None):
         data = []
-        if country_codes is None: 
+        if country_codes is None:
             country_codes = []
         if not isinstance(country_codes, (list, tuple)):
             data.append(country_codes)

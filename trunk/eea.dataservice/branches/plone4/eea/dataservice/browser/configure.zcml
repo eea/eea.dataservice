@@ -1,7 +1,8 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           i18n_domain="eea">
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
 
   <include package=".resources" />
 
@@ -219,22 +220,6 @@
 
   <browser:page
     for="..interfaces.IEEAFigureFile"
-    name="imgview"
-    class=".app.imgview.ImageViewFigureFile"
-    permission="zope.Public"
-    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
-    />
-
-  <browser:page
-    for="..interfaces.IEEAFigure"
-    name="imgview"
-    class=".app.imgview.ImageViewFigure"
-    permission="zope.Public"
-    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
-    />
-
-  <browser:page
-    for="..interfaces.IEEAFigureFile"
     name="fancybox.html"
     class=".app.fancybox.FancyBox"
     template="template/fancybox.pt"
@@ -265,5 +250,24 @@
     permission="cmf.ManagePortal"
     class=".app.migrate.MigrateDatasetsToExternalDatasets"
     />
+
+  <!-- Valentine imagescales -->
+  <configure zcml:condition="installed valentine.imagescale">
+    <browser:page
+      for="..interfaces.IEEAFigureFile"
+      name="imgview"
+      class=".app.imgview.ImageViewFigureFile"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+
+    <browser:page
+      for="..interfaces.IEEAFigure"
+      name="imgview"
+      class=".app.imgview.ImageViewFigure"
+      permission="zope.Public"
+      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      />
+  </configure>
 
 </configure>

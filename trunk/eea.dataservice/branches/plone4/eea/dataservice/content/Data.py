@@ -4,6 +4,7 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from zope.interface import implements
+from zope.component import queryAdapter
 from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
 from Products.Archetypes.atapi import registerType, IntegerField, IntegerWidget
@@ -17,8 +18,8 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.OrderableReferenceField._field import OrderableReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
-from eea.themecentre.interfaces import IThemeTagging
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from eea.dataservice.content.themes import IThemeTagging
+from eea.dataservice.content.themes import ThemeTaggable
 
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IDataset
@@ -243,7 +244,8 @@ class Data(ATFolder, ThemeTaggable):
     def setThemes(self, value, **kw):
         """ Use the tagging adapter to set the themes. """
         value = [val for val in value if val]#value = filter(None, value)
-        tagging = IThemeTagging(self)
-        tagging.tags = value
+        tagging = queryAdapter(self, IThemeTagging)
+        if tagging:
+            tagging.tags = value
 
 registerType(Data, PROJECTNAME)

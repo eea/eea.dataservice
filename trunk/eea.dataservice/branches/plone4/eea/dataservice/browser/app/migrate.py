@@ -1,8 +1,9 @@
 import logging
+from zope.component import queryAdapter
 from Products.Five import BrowserView
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
-from Products.EEAContentTypes.interfaces import IRelations
+from eea.dataservice.relations import IRelations
 from Products.statusmessages.interfaces import IStatusMessage
 
 # Logging
@@ -55,28 +56,35 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
             # Map relatedItems. All forward and backward references of the
             # data object are removed
             forwards = data_ob.getRelatedItems()
-            backs = IRelations(data_ob).backReferences()
+
+            backs = []
+            relations = queryAdapter(data_ob, IRelations)
+            if relations:
+                backs = relations.backReferences()
+
             if forwards:
                 eds_ob.setRelatedItems(forwards)
                 data_ob.setRelatedItems([])
-            if backs:
-                for ob in backs:
-                    related = ob.getRelatedItems()
-                    del related[related.index(data_ob)]
-                    related.append(eds_ob)
-                    ob.setRelatedItems(related)
+
+            for ob in backs:
+                related = ob.getRelatedItems()
+                del related[related.index(data_ob)]
+                related.append(eds_ob)
+                ob.setRelatedItems(related)
 
             forwards = data_ob.getRelatedProducts()
-            backs = IRelations(data_ob).backReferences(relatesTo='relatesToProducts')
+            if relations:
+                backs = relations.backReferences(relatesTo='relatesToProducts')
+
             if forwards:
                 eds_ob.setRelatedItems(forwards)
                 data_ob.setRelatedProducts([])
-            if backs:
-                for ob in backs:
-                    related = ob.getRelatedProducts()
-                    del related[related.index(data_ob)]
-                    related.append(eds_ob)
-                    ob.setRelatedProducts(related)
+
+            for ob in backs:
+                related = ob.getRelatedProducts()
+                del related[related.index(data_ob)]
+                related.append(eds_ob)
+                ob.setRelatedProducts(related)
 
             # Migrate DataSource
             datasource = data_ob.getDataSource()

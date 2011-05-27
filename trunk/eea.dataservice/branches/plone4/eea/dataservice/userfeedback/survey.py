@@ -1,7 +1,7 @@
 """ Survey for download files
 """
 from zope.interface import implements
-from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAnnotations
 from zope.component import queryUtility, getMultiAdapter
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -11,8 +11,26 @@ from eea.dataservice.userfeedback.interfaces import (
 
 ANNO_KEY = 'EEAUserFeedback-DISABLED'
 
-class SurveySupport(BrowserView):
+class SurveyPublicSupport(BrowserView):
+    """ Public survey support
+    """
     implements(ISurveySupport)
+
+    @property
+    def disabled(self):
+        """ Can enable
+        """
+        return False
+
+    @property
+    def enabled(self):
+        """ Can disable
+        """
+        return False
+
+class SurveySupport(SurveyPublicSupport):
+    """ Survey support
+    """
     @property
     def disabled(self):
         """ Can enable

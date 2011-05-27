@@ -14,7 +14,7 @@ from Products.Archetypes.atapi import StringWidget, StringField
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from eea.dataservice.content.themes import ThemeTaggable
 
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget

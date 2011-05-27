@@ -1,13 +1,26 @@
 <?xml version="1.0"?>
 <object name="portal_actions" meta_type="Plone Actions Tool">
- <action-provider name="portal_actions">
-  <action title="Migrate Data to ExternalDataSpec"
-          action_id="dataset_to_external"
-          category="object_buttons"
-          condition_expr="python:object.portal_type == 'Data'"
-          url_expr="string:${object/absolute_url}/@@migrateToExternal"
-          visible="True">
-   <permission>Manage Portal</permission>
+  <action-provider name="portal_actions">
+    <action title="Migrate Data to ExternalDataSpec" action_id="dataset_to_external"
+      condition_expr="python:object.portal_type == 'Data'"
+      url_expr="string:${object/absolute_url}/@@migrateToExternal"
+      category="object_buttons"
+      visible="True">
+      <permission>Manage Portal</permission>
+    </action>
+  <action title="Disable user feedback" action_id="dataset_disbale_feedback"
+    condition_expr="object/@@survey_support/enabled"
+    url_expr="string:${object/absolute_url}/@@survey/disable"
+    category="object_buttons"
+    visible="True">
+    <permission>Modify portal content</permission>
   </action>
- </action-provider>
+  <action title="Enable user feedback" action_id="dataset_enable_feedback"
+    condition_expr="object/@@survey_support/disabled"
+    url_expr="string:${object/absolute_url}/@@survey/enable"
+    category="object_buttons"
+    visible="True">
+    <permission>Modify portal content</permission>
+  </action>
+</action-provider>
 </object>
