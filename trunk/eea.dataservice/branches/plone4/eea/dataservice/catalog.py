@@ -1,5 +1,9 @@
-from Products.CMFPlone.CatalogTool import registerIndexableAttribute
+""" Catalog custom indexes
+"""
+from zope.interface import Interface
+from plone.indexer import indexer
 
+@indexer(Interface)
 def getFileName(obj, portal, **kwargs):
     """ Index for filename
     """
@@ -14,5 +18,3 @@ def getFileName(obj, portal, **kwargs):
         return ''
 
     return file_field.getFilename(obj)
-
-registerIndexableAttribute('filename', getFileName)

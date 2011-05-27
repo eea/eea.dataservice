@@ -4,7 +4,7 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
 from zope.interface import implements
-from Products.Archetypes.atapi import Schema, StringField, StringWidget 
+from Products.Archetypes.atapi import Schema, StringField, StringWidget
 from Products.Archetypes.atapi import SelectionWidget, FileWidget, registerType
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
@@ -40,7 +40,7 @@ schema = Schema((
             description = ("Category description."),
             label_msgid='dataservice_label_category',
             description_msgid='dataservice_help_category',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -52,7 +52,7 @@ schema = Schema((
             description = ("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 

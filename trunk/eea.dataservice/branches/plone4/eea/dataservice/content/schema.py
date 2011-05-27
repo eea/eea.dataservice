@@ -7,7 +7,7 @@ from datetime import datetime
 from DateTime import DateTime
 
 from Products.Archetypes.atapi import Schema, LinesField, LinesWidget
-from Products.Archetypes.atapi import MultiSelectionWidget, TextField 
+from Products.Archetypes.atapi import MultiSelectionWidget, TextField
 from Products.Archetypes.atapi import CalendarWidget, DateTimeField
 from Products.Archetypes.atapi import TextAreaWidget, RichWidget
 from Products.Archetypes.atapi import StringWidget, StringField
@@ -80,7 +80,7 @@ dataservice_base_schema = Schema((
             description="The geographical extent of the content of the data resource.",
             label_msgid='dataservice_label_geographic',
             description_msgid='dataservice_help_geographic',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -97,7 +97,7 @@ dataservice_base_schema = Schema((
             description = ("EEA Management plan code."),
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -113,7 +113,7 @@ dataservice_base_schema = Schema((
             description="Date when the data resource was last uploaded in EEA data service. If not manually provided it will coincide with publishing date. It can later be used when a dataset is re-uploaded due to corrections and when a whole new version is not necessary.",
             label_msgid='dataservice_label_last_upload',
             description_msgid='dataservice_help_last_upload',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         ),
     ),
 
@@ -131,7 +131,7 @@ dataservice_base_schema = Schema((
             description="An entity or set of entities that owns the data resource. It coincides with the entity that first makes the data public available. The data owner is primarly responsible for the dataset harmonisation, quality assurance and collection from other reporting organisations.",
             label_msgid='dataservice_label_owner',
             description_msgid='dataservice_help_owner',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -149,7 +149,7 @@ dataservice_base_schema = Schema((
             description="The technical producer or processor of the data.",
             label_msgid='dataservice_label_processor',
             description_msgid='dataservice_help_processor',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -167,7 +167,7 @@ dataservice_base_schema = Schema((
             description="The temporal scope of the content of the data resource. Temporal coverage will typically include a set of years or a time range.",
             label_msgid='dataservice_label_coverage',
             description_msgid='dataservice_help_coverage',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -180,7 +180,7 @@ dataservice_base_schema = Schema((
             description="Outside person to be contacted by EEA if questions regarding the data resource arise at a later date, responsible project manager at EEA.",
             label_msgid='dataservice_label_dataset_contact',
             description_msgid='dataservice_help_dataset_contact',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -196,7 +196,7 @@ dataservice_base_schema = Schema((
             description="A reference to a resource from which the present data resource is derived. Details such exact body or department, date of delivery, original database, table or GIS layer, scientific literature ...",
             label_msgid="dataservice_label_source",
             description_msgid="dataservice_help_source",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
             rows=5,
         ),
     ),
@@ -213,7 +213,7 @@ dataservice_base_schema = Schema((
             description="Other relevant information.",
             label_msgid="dataservice_label_moreInfo",
             description_msgid="dataservice_help_moreInfo",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
             rows=5,
         ),
     ),
@@ -230,7 +230,7 @@ dataservice_base_schema = Schema((
             description="Description of how the resource was compiled: used tools, applied procedures, additional information to understand the data, further references to used methodologies.",
             label_msgid="dataservice_label_methodology",
             description_msgid="dataservice_help_methodology",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
             rows=5,
         ),
     ),
@@ -247,7 +247,7 @@ dataservice_base_schema = Schema((
             description="Describes the unit(s) taken in account for the measurement values(s) of the data resource.",
             label_msgid="dataservice_label_unit",
             description_msgid="dataservice_help_unit",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
             rows=5,
         ),
     ),
@@ -261,7 +261,7 @@ dataservice_base_schema = Schema((
             description = ("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -275,7 +275,7 @@ dataservice_base_schema = Schema((
             description="External links, non EEA websites. Please write http:// in front of the links.",
             label_msgid='dataservice_label_external',
             description_msgid='dataservice_help_external',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 ),)

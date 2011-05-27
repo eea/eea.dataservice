@@ -2,9 +2,9 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="eea.dataservice">
+    i18n_domain="eea">
 
-    <five:registerPackage package="." initialize=".initialize" />
+    <include file="profiles.zcml" />
 
     <include package=".userfeedback" />
     <include package=".browser" />
@@ -19,7 +19,8 @@
     <include package=".facetednavigation.geocoverage" />
     <include package=".updates" />
     <include package=".organisations" />
-    <include file="profiles.zcml" />
+
+    <adapter factory=".catalog.getFileName" name="filename" />
 
     <utility
         component=".vocabulary.OrganisationsVocabulary"

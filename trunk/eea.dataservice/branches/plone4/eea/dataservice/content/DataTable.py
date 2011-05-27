@@ -3,9 +3,9 @@
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 
-from Products.Archetypes.atapi import Schema, StringField, StringWidget 
-from Products.Archetypes.atapi import SelectionWidget, TextField, RichWidget 
-from Products.Archetypes.atapi import registerType 
+from Products.Archetypes.atapi import Schema, StringField, StringWidget
+from Products.Archetypes.atapi import SelectionWidget, TextField, RichWidget
+from Products.Archetypes.atapi import registerType
 #from Products.CMFCore import permissions
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
@@ -29,7 +29,7 @@ schema = Schema((
             description = ("Category description."),
             label_msgid='dataservice_label_category',
             description_msgid='dataservice_help_category',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -40,7 +40,7 @@ schema = Schema((
             description = ("Records description."),
             label_msgid='dataservice_label_records',
             description_msgid='dataservice_help_records',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -55,7 +55,7 @@ schema = Schema((
             description="Table definition description.",
             label_msgid="dataservice_label_table_definition",
             description_msgid="dataservice_help_table_definition",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
             rows=10,
         ),
     ),

@@ -20,7 +20,7 @@ from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import Reference
 from eea.themecentre.interfaces import IThemeTagging
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 
-from eea.dataservice.config import PROJECTNAME 
+from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.vocabulary import FigureTypes
 from eea.dataservice.content.schema import dataservice_schema
@@ -41,7 +41,7 @@ schema = Schema((
             description="Figure type description.",
             label_msgid="dataservice_type",
             description_msgid="dataservice_help_type",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
         ),
     ),
 
@@ -99,7 +99,7 @@ class EEAFigure(ATFolder, ThemeTaggable):
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
                                     'getUrl': url})
-        if brains: 
+        if brains:
             res = brains[0]
         return res
 

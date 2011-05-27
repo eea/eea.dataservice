@@ -1,6 +1,6 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  i18n_domain="eea.dataservice">
+  i18n_domain="eea">
 
   <subscriber
     for="eea.dataservice.interfaces.IDatafile

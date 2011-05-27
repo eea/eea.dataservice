@@ -34,7 +34,7 @@ schema = Schema((
                            "Add http:// for external links."),
             label_msgid='dataservice_label_url',
             description_msgid='dataservice_help_url',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -48,7 +48,7 @@ schema = Schema((
             description_msgid = "dataservice_help_address",
             label = "Organisation address",
             label_msgid = "dataservice_label_address",
-            i18n_domain = "eea.dataservice"
+            i18n_domain = "eea"
         )
     ),
 
@@ -60,7 +60,7 @@ schema = Schema((
             description="Data policy description.",
             label_msgid='dataservice_label_policy',
             description_msgid='dataservice_help_policy',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 ),

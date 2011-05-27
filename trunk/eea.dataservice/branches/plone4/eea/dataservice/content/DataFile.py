@@ -35,7 +35,7 @@ schema = Schema((
             description = ("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
     ),

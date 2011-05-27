@@ -39,7 +39,7 @@ schema = Schema((
             description="It is applicable to GIS datasets. It indicates the geographic accuracy of location, ground distance as a value in meters.",
             label_msgid='dataservice_label_accurracy',
             description_msgid='dataservice_help_accurracy',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -52,7 +52,7 @@ schema = Schema((
             description="Disclaimer description.",
             label_msgid='dataservice_label_disclaimer',
             description_msgid='A disclaimer is a statement which generally states that the entity authoring the disclaimer is not responsible for something in some manner.',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -67,7 +67,7 @@ schema = Schema((
             label_msgid='dataservice_label_scale',
             description = ("Gives a rough value of accuracy for the GIS dataset. Example: 1:1000"),
             description_msgid='dataservice_help_scale',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
             size=20,
         )
     ),
@@ -83,7 +83,7 @@ schema = Schema((
             description="Coordinate reference system used for the GIS dataset. Example: Lambert Azimutal",
             label_msgid="dataservice_label_system",
             description_msgid="dataservice_help_system",
-            i18n_domain="eea.dataservice",
+            i18n_domain="eea",
         ),
     ),
 
@@ -98,7 +98,7 @@ schema = Schema((
             description = ("Geographic information quality."),
             label_msgid='dataservice_label_geoQuality',
             description_msgid='dataservice_help_geoQuality',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
@@ -115,7 +115,7 @@ schema = Schema((
             description="The environmental reporting obligations used to optain the data. Reporting obligations are requirements to provide information agreed between countries and international bodies such as the EEA or international conventions.",
             label_msgid='dataservice_label_obligations',
             description_msgid='dataservice_help_obligations',
-            i18n_domain='eea.dataservice',
+            i18n_domain='eea',
         )
     ),
 
