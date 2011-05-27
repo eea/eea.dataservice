@@ -127,10 +127,6 @@ function showDefinition(context) {
                             <img tal:condition="icon" src=""
                                  tal:attributes="src string:${context/portal_url}/$icon"/>
                             <span tal:content="filename" />
-                            <span
-                              style="display: none"
-                              class="google-analytics-path"
-                              tal:content="filePath" />
                         </strong>
 
                         <span tal:content="python:'(' + file.lookupMime(field.getContentType()) + ')'" />
@@ -142,8 +138,12 @@ function showDefinition(context) {
                         <a tal:attributes="
                             class python:survey and 'feedback-survey google-analytics' or 'google-analytics';
                             id file/UID;
-                            href string:${file/absolute_url}/at_download/file;"
-                            i18n:translate="">Download file</a>
+                            href string:${file/absolute_url}/at_download/file;">
+                            <span i18n:translate="">Download file</span>
+                            <span style="display: none"
+                              class="google-analytics-path"
+                              tal:content="filePath" />
+                        </a>
                         <a tal:attributes="href string:${file/absolute_url}/"
                             tal:condition="exists: file/@@daviz-view.html"
                             i18n:translate="">View and interact online</a>
