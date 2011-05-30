@@ -17,7 +17,9 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
-from eea.locationwidget.locationwidget import LocationWidget
+
+# TODO Plone4 Fixme
+#from eea.locationwidget.locationwidget import LocationWidget
 
 
 schema = Schema((
@@ -38,19 +40,20 @@ schema = Schema((
         )
     ),
 
-    StringField(
-        name='location',
-        searchable=True,
-        accessor='getLocation',
-        mutator='setLocation',
-        widget = LocationWidget(
-            description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
-            description_msgid = "dataservice_help_address",
-            label = "Organisation address",
-            label_msgid = "dataservice_label_address",
-            i18n_domain = "eea"
-        )
-    ),
+    # TODO Plone4 Fix me
+    #StringField(
+        #name='location',
+        #searchable=True,
+        #accessor='getLocation',
+        #mutator='setLocation',
+        #widget = LocationWidget(
+            #description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
+            #description_msgid = "dataservice_help_address",
+            #label = "Organisation address",
+            #label_msgid = "dataservice_label_address",
+            #i18n_domain = "eea"
+        #)
+    #),
 
     TextField(
         name='data_policy',

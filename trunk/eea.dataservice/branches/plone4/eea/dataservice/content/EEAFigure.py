@@ -8,7 +8,10 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
-from Products.OrderableReferenceField._field import OrderableReferenceField
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.Field import ReferenceField as OrderableReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 

@@ -34,13 +34,14 @@
       class=".templates.SelectTemplate"
       />
 
-  <browser:menuItem
-      for="eea.dataservice.templates.interfaces.IProvideTemplates"
-      menu="object_buttons"
-      title="Copy from template"
-      action="@@selectTemplate"
-      description="Copy common metadata from a template"
-      permission="cmf.ModifyPortalContent"
-      />
+  <!-- TODO Plone4 Fix me -->
+  <!--<browser:menuItem-->
+      <!--for="eea.dataservice.templates.interfaces.IProvideTemplates"-->
+      <!--menu="object_buttons"-->
+      <!--title="Copy from template"-->
+      <!--action="@@selectTemplate"-->
+      <!--description="Copy common metadata from a template"-->
+      <!--permission="cmf.ModifyPortalContent"-->
+      <!--/>-->
 
 </configure>

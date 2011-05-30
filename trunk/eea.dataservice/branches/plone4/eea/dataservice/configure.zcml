@@ -1,5 +1,6 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <include package="Products.ATVocabularyManager" />
@@ -10,14 +11,12 @@
   <include package=".userfeedback" />
   <include package=".browser" />
   <include package=".converter" />
-  <include package=".cache" />
   <include package=".templates" />
   <include package=".google" />
   <include package=".content" />
   <include package=".widgets" />
   <include package=".versions" />
-  <include package=".facetednavigation.lastversion" />
-  <include package=".facetednavigation.geocoverage" />
+  <include package=".facetednavigation" />
   <include package=".updates" />
   <include package=".organisations" />
 
@@ -53,6 +52,8 @@
       Products.CMFCore.interfaces.IActionSucceededEvent"
     handler=".events.handle_eeafigure_state_change"/>
 
-  <adapter factory=".marshaller.ManagementPlanField2Surf" />
+  <configure zcml:condition="installed eea.rdfmarshaller">
+    <adapter factory=".marshaller.ManagementPlanField2Surf" />
+  </configure>
 
 </configure>

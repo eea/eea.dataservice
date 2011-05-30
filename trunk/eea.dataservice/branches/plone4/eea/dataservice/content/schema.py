@@ -6,6 +6,7 @@ __docformat__ = 'plaintext'
 from datetime import datetime
 from DateTime import DateTime
 
+from zope.interface import implements
 from Products.Archetypes.atapi import Schema, LinesField, LinesWidget
 from Products.Archetypes.atapi import MultiSelectionWidget, TextField
 from Products.Archetypes.atapi import CalendarWidget, DateTimeField
@@ -29,8 +30,8 @@ from eea.dataservice.vocabulary import (
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
 
-class UniqueOrganisationUrlValidator:
-    __implements__ = IValidator
+class UniqueOrganisationUrlValidator(object):
+    implements(IValidator)
 
     def __init__(self,
                  name,
@@ -286,4 +287,6 @@ dataservice_schema = ATFolderSchema.copy() + \
 
 dataservice_schema['description'].widget.rows = 15
 dataservice_schema['description'].required = True
-dataservice_schema['themes'].required = True
+
+# TODO Plone4 Fix me
+#dataservice_schema['themes'].required = True

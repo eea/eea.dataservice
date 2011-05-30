@@ -10,16 +10,15 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-
+from plone.app.blob.field import BlobField
 from eea.dataservice.config import PROJECTNAME
-from eea.dataservice.fields import EventFileField
 from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
 # Schema
 schema = Schema((
 
-    EventFileField('file',
+    BlobField('file',
               required=False,
               primary=True,
               widget = FileWidget(

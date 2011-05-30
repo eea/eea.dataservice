@@ -10,13 +10,13 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
 from zope.interface import implements
 from AccessControl import ClassSecurityInfo
+from plone.app.blob.field import BlobField
 
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IDatafile
-from eea.dataservice.fields import EventFileField
 
 schema = Schema((
-    EventFileField('file',
+    BlobField('file',
               required=False,
               primary=True,
               widget = FileWidget(

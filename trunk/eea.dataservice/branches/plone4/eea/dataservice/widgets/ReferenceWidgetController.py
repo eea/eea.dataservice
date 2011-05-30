@@ -1,7 +1,6 @@
-import simplejson as json
+import json
 from zope.interface import Interface
 from zope.interface import implements
-from p4a.subtyper.interfaces import ISubtyper
 from zope.component import getUtility
 
 from Products.Five.browser import BrowserView
@@ -92,10 +91,8 @@ class ReferenceWidgetController(BrowserView):
             index += 1
             new_id = '%s-%d' % (uid, index)
 
-        fid = container.invokeFactory('Folder', new_id, title=title)
+        fid = container.invokeFactory('Report', new_id, title=title)
         publication = container._getOb(fid)
-        subtyper = getUtility(ISubtyper)
-        subtyper.change_type(publication, 'eea.reports.FolderReport')
         publication.getField('eeaid').getMutator(publication)(eeaid)
         self.catalog.reindexObject(publication)
         return 'Publication added'

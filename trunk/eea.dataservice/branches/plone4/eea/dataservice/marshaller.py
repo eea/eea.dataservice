@@ -18,5 +18,3 @@ class ManagementPlanField2Surf(ATField2Surf):
         if v and (len(v) == 2):
             return "%s %s" % (v[0], v[1])
         return " - ".join(v)
-
-
