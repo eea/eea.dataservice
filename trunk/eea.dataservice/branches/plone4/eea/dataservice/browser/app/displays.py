@@ -296,7 +296,7 @@ class DataViewers(object):
 def _getCountryName(country_code):
     """ """
     util = getUtility(IContentLanguageAvailability)
-    res = util.getCountries().get(country_code.upper(), country_code)
+    res = util.getLanguages().get(country_code.upper(), country_code)
     if res.lower() == 'me':
         res = 'Montenegro'
     elif res.lower() == 'rs':

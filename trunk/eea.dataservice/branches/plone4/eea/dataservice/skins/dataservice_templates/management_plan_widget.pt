@@ -34,17 +34,14 @@
                     <tal:radios repeat="item vocab">
 
                         <input class="noborder"
-                               tabindex=""
                                type="radio"
-                               tal:define="tabindex tabindex/next"
                                tal:attributes="name fieldName;
                                                id string:${fieldName}_${repeat/item/number};
                                                checked python:here.checkSelected(item, value);
-                                               value item;
-                                               tabindex tabindex;"
+                                               value item;"
                                />
 
-                        <label tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                        <label tal:content="python:vocab.getValue(item)"
                                i18n:translate=""
                                tal:attributes="for string:${fieldName}_${repeat/item/number}" />
 
@@ -72,14 +69,13 @@
         <td>
 <!-- Management plan year -->
 <select tal:attributes="name string:${fieldName}Year;
-                        id string:${fieldName}Year;
-                        tabindex tabindex/next;">
+                        id string:${fieldName}Year">
 
     <option value=""></option>
     <option tal:repeat="item vocab"
             tal:attributes="value item;
                             selected python:here.checkSelected(item, mp_year) and 'selected' or None"
-            tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+            tal:content="python:vocab.getValue(item)"
             i18n:translate=""
             />
 
@@ -90,8 +86,7 @@
 <input type="text" tal:attributes="
   id string:${fieldName}Code;
   name string:${fieldName}Code;
-  value mp_code;
-  tabindex tabindex/next;" />
+  value mp_code;" />
         </td>
     </tr>
 </tal:block>

@@ -34,17 +34,14 @@
                     <tal:radios repeat="item vocab">
 
                         <input class="noborder"
-                               tabindex=""
                                type="radio"
-                               tal:define="tabindex tabindex/next"
                                tal:attributes="name fieldName;
                                                id string:${fieldName}_${repeat/item/number};
                                                checked python:here.checkSelected(item, value);
-                                               value item;
-                                               tabindex tabindex;"
+                                               value item"
                                />
 
-                        <label tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                        <label tal:content="python:vocab.getValue(item)"
                                i18n:translate=""
                                tal:attributes="for string:${fieldName}_${repeat/item/number}" />
 
@@ -70,11 +67,10 @@
         <td>&nbsp;&nbsp;</td>
     </tr></tbody></table>
     <select tal:attributes="name string:${fieldName}Com;
-                            id string:${fieldName}Com;
-                            tabindex tabindex/next;">
+                            id string:${fieldName}Com">
         <tal:block repeat="item vocab">
         <option tal:define="lbl item;
-                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                            val python:vocab.getValue(item)"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_com) and 'selected' or None"
                 tal:content="lbl"
@@ -91,11 +87,10 @@
         <td>&nbsp;&nbsp;</td>
     </tr></tbody></table>
     <select tal:attributes="name string:${fieldName}Log;
-                            id string:${fieldName}Log;
-                            tabindex tabindex/next;">
+                            id string:${fieldName}Log">
         <tal:block repeat="item vocab">
         <option tal:define="lbl item;
-                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                            val python:vocab.getValue(item)"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_log) and 'selected' or None"
                 tal:content="lbl"
@@ -112,11 +107,10 @@
         <td>&nbsp;&nbsp;</td>
     </tr></tbody></table>
     <select tal:attributes="name string:${fieldName}Pos;
-                            id string:${fieldName}Pos;
-                            tabindex tabindex/next;">
+                            id string:${fieldName}Pos">
         <tal:block repeat="item vocab">
         <option tal:define="lbl item;
-                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                            val python:vocab.getValue(item)"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_pos) and 'selected' or None"
                 tal:content="lbl"
@@ -133,11 +127,10 @@
         <td>&nbsp;&nbsp;</td>
     </tr></tbody></table>
     <select tal:attributes="name string:${fieldName}Tem;
-                            id string:${fieldName}Tem;
-                            tabindex tabindex/next;">
+                            id string:${fieldName}Tem">
         <tal:block repeat="item vocab">
         <option tal:define="lbl item;
-                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                            val python:vocab.getValue(item)"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_tem) and 'selected' or None"
                 tal:content="lbl"
@@ -154,11 +147,10 @@
         <td>&nbsp;&nbsp;</td>
     </tr></tbody></table>
     <select tal:attributes="name string:${fieldName}The;
-                            id string:${fieldName}The;
-                            tabindex tabindex/next;">
+                            id string:${fieldName}The">
         <tal:block repeat="item vocab">
         <option tal:define="lbl item;
-                            val python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+                            val python:vocab.getValue(item)"
                 tal:attributes="value val;
                                 selected python:here.checkSelected(val, gq_the) and 'selected' or None"
                 tal:content="lbl"

@@ -27,17 +27,16 @@
                  tal:attributes="name string:$fieldName:default:list;" />
           <span tal:repeat="item vocab" tal:omit-tag=""
                 tal:condition="python:format=='checkbox'">
-            <tal:block tal:define="tabindex tabindex/next">
+            <tal:block>
                 <div class="ArchetypesMultiSelectionValue" id=""
                         tal:attributes="id string:archetypes-value-${fieldName}_${repeat/item/number}">
               <input
                tal:attributes="type string:checkbox;
                name string:$fieldName:list;
                id string:${fieldName}_${repeat/item/number};
-               tabindex tabindex;
                checked python:test(here.unicodeTestIn(item, value), 'checked', None);
                value nocall:item;"/>
-          <label tal:content="python:here.translate(vocab.getMsgId(item), default=vocab.getValue(item))"
+          <label tal:content="python:vocab.getValue(item)"
                  i18n:translate=""
                  tal:attributes="for string:${fieldName}_${repeat/item/number}" />
               </div>
@@ -52,8 +51,7 @@
                   tal:condition="python:format=='select'"
                   tal:attributes="name string:${fieldName}_groups:list;
                                   id string:${fieldName}_groups;
-                                  size widget/size;
-                                  tabindex tabindex/next;"
+                                  size widget/size;"
                   tal:define="groups here/@@getCountryGroups"
                   class="countries-widget-select">
 
@@ -70,8 +68,7 @@
                   tal:condition="python:format=='select'"
                   tal:attributes="name string:${fieldName}:list;
                                   id fieldName;
-                                  size widget/size;
-                                  tabindex tabindex/next;"
+                                  size widget/size;"
                   tal:define="coutries here/@@getCountries"
                   class="countries-widget-select">
 
@@ -100,10 +97,8 @@
              tal:define="value python:accessor()"
              name=""
              value=""
-             tabindex="#"
              tal:attributes="name fieldName;
-                             value python:'\n'.join(value);
-                             tabindex tabindex/next;" />
+                             value python:'\n'.join(value);" />
     </metal:hidden_macro>
 
   </body>

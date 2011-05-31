@@ -19,7 +19,7 @@ By default PIL EPS plugin opens .eps files at a lower resolution. Fix this by
 adding dpi param to save function.
 """
 import logging
-import re 
+import re
 from PIL import Image
 from PIL.EpsImagePlugin import EpsImageFile as PILEpsImageFile
 from PIL.EpsImagePlugin import _accept, PSFile, i32, split, field

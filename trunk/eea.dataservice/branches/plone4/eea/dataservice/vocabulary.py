@@ -9,7 +9,7 @@ import xmlrpclib
 
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.app.schema.vocabulary import IVocabularyFactory
 from Products.Archetypes.interfaces.vocabulary import IVocabulary
 
@@ -19,7 +19,7 @@ from eea.dataservice.config import STARTING_YEAR, ROD_SERVER
 class DatasetYears:
     """
     """
-    __implements__ = (IVocabulary,)
+    implements(IVocabulary)
 
     def getDisplayList(self, instance):
         """ """
@@ -280,16 +280,25 @@ class Obligations:
     def getDisplayList(self, instance):
         """ Returns vocabulary
         """
-        res = []
+        res = {}
         try:
             server = xmlrpclib.Server(ROD_SERVER)
             result = server.WebRODService.getActivities()
         except Exception:
             result = []
-        if result:
-            res.extend((formatTitle(obligation['TITLE']), int(obligation['PK_RA_ID']))
-                        for obligation in result)
-        return sorted(res, key=operator.itemgetter(1))
+
+        for obligation in result:
+            key = int(obligation['PK_RA_ID'])
+            title = formatTitle(obligation['TITLE'])
+            try:
+                title = title.decode('utf-8')
+            except Exception:
+                continue
+            res[key] = title
+
+        items = res.items()
+        items.sort()
+        return items
 
     def getVocabularyDict(self, instance):
         return {}
@@ -307,7 +316,9 @@ class ObligationsVocabularyFactory(object):
         if hasattr(context, 'context'):
             context = context.context
         data = Obligations().getDisplayList(context)
-        return SimpleVocabulary.fromItems(data)
+        items = [SimpleTerm(str(item[0]), str(item[0]), item[1])
+                 for item in data]
+        return SimpleVocabulary(items)
 
 ObligationsVocabulary = ObligationsVocabularyFactory()
 

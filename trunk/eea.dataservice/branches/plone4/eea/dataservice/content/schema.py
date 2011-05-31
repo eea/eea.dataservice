@@ -19,11 +19,7 @@ from eea.dataservice.content.themes import ThemeTaggable
 
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
-from eea.dataservice.vocabulary import (
-    COUNTRIES_DICTIONARY_ID,
-    DatasetYears,
-    Organisations
-)
+from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 
 
 # Validators
@@ -91,7 +87,7 @@ dataservice_base_schema = Schema((
         required=True,
         default=(datetime.now().year, ''),
         validators = ('management_plan_code_validator',),
-        vocabulary=DatasetYears(),
+        vocabulary_factory=u"Temporal coverage",
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
@@ -123,7 +119,7 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         multiValued=1,
         required=True,
-        vocabulary=Organisations(),
+        vocabulary_factory=u'Organisations',
         widget=MultiSelectionWidget(
             macro="organisations_widget",
             helper_js=("multiselectautocomplete_widget.js",),
@@ -141,7 +137,7 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         required=False,
         multiValued=1,
-        vocabulary=Organisations(),
+        vocabulary_factory=u"Organisations",
         widget=MultiSelectionWidget(
             macro="organisations_widget",
             helper_js=("multiselectautocomplete_widget.js",),
@@ -159,7 +155,7 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         required=True,
         multiValued=1,
-        vocabulary=DatasetYears(),
+        vocabulary_factory=u"Temporal coverage",
         widget=MultiSelectionWidget(
             macro="temporal_widget",
             helper_js=("temporal_widget.js",),

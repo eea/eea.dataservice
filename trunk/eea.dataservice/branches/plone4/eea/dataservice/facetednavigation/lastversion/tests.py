@@ -5,6 +5,12 @@ import unittest
 from Testing.ZopeTestCase import FunctionalDocFileSuite as Suite
 from eea.dataservice.tests.base import DataserviceFunctionalTestCase
 
+FACETED = True
+try:
+    from eea.facetednavigation import interfaces
+except ImportError:
+    FACETED = False
+
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
@@ -12,9 +18,14 @@ OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
 def test_suite():
     """ Suite
     """
-    return unittest.TestSuite((
+    suite = ()
+
+    if FACETED:
+        suite += (
             Suite('facetednavigation/lastversion/widget.txt',
                   optionflags=OPTIONFLAGS,
                   package='eea.dataservice',
                   test_class=DataserviceFunctionalTestCase) ,
-              ))
+        )
+
+    return unittest.TestSuite(suite)

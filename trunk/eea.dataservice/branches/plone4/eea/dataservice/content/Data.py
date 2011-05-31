@@ -30,7 +30,7 @@ from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
-from eea.dataservice.vocabulary import Obligations, REFERENCE_DICTIONARY_ID
+from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 
 
 # Schema
@@ -113,7 +113,7 @@ schema = Schema((
         name='reportingObligations',
         languageIndependent=True,
         multiValued=1,
-        vocabulary=Obligations(),
+        vocabulary_factory=u"Obligations",
         widget=MultiSelectionWidget(
             macro="obligations_widget",
             label="Environmental reporting obligations (ROD)",
