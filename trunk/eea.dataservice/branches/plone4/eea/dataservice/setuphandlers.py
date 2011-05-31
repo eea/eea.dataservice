@@ -1,9 +1,10 @@
+""" Various setup
+"""
 import logging
-
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from Products.ATVocabularyManager.utils.vocabs import createHierarchicalVocabs, createSimpleVocabs
-
+from Products.ATVocabularyManager.utils.vocabs import createHierarchicalVocabs
+from Products.ATVocabularyManager.utils.vocabs import createSimpleVocabs
 from eea.dataservice.vocabulary import (
     CATEGORIES_DICTIONARY,
     CATEGORIES_DICTIONARY_ID,
@@ -24,24 +25,18 @@ from eea.dataservice.vocabulary import (
 
 logger = logging.getLogger('eea.dataservice: setuphandlers')
 
-
 def installVocabularies(context):
-    """creates/imports the atvm vocabs."""
-
+    """ Creates/imports the atvm vocabs.
+    """
     # only run this step if we are in eea.dataservice profile
-    if context.readDataFile('eeadataservice_vocabularies.txt') is None:
+    if context.readDataFile('eea.dataservice.txt') is None:
         return
 
     site = context.getSite()
-    try:
-        atvm = getToolByName(site, ATVOCABULARYTOOL)
-    except AttributeError:
-        qinstaller = getToolByName(site, 'portal_quickinstaller')
-        qinstaller.installProduct('ATVocabularyManager')
-        atvm = getToolByName(site, ATVOCABULARYTOOL)
+    atvm = getToolByName(site, ATVOCABULARYTOOL)
 
     # Creat countries vocabulary
-    if not COUNTRIES_DICTIONARY_ID in atvm.contentIds():
+    if COUNTRIES_DICTIONARY_ID not in atvm.contentIds():
         hierarchicalVocab = {}
         hierarchicalVocab[(COUNTRIES_DICTIONARY_ID, 'European Countries')] = {}
         createHierarchicalVocabs(atvm, hierarchicalVocab)
@@ -52,42 +47,45 @@ def installVocabularies(context):
             vocab.invokeFactory('TreeVocabularyTerm', term[0], title=term[1])
             for subterm in countries[term].keys():
                 subvocab = vocab[term[0]]
-                subvocab.invokeFactory('TreeVocabularyTerm', subterm[0], title=subterm[1])
+                subvocab.invokeFactory('TreeVocabularyTerm',
+                                       subterm[0], title=subterm[1])
                 subvocab.reindexObject()
             vocab.reindexObject()
     else:
         logger.warn('eea.dataservice countries vocabulary already exist.')
 
     # Create reference vocabulary
-    if not REFERENCE_DICTIONARY_ID in atvm.contentIds():
+    if REFERENCE_DICTIONARY_ID not in atvm.contentIds():
         createSimpleVocabs(atvm, REFERENCE_DICTIONARY)
         atvm[REFERENCE_DICTIONARY_ID].setTitle('Coordinate reference system')
     else:
         logger.warn('eea.dataservice reference vocabulary already exist.')
 
     # Create quality vocabulary
-    if not QUALITY_DICTIONARY_ID in atvm.contentIds():
+    if QUALITY_DICTIONARY_ID not in atvm.contentIds():
         createSimpleVocabs(atvm, QUALITY_DICTIONARY)
         atvm[QUALITY_DICTIONARY_ID].setTitle('Geographic information quality')
     else:
         logger.warn('eea.dataservice quality vocabulary already exist.')
 
     # Create quick link vocabulary for datasets
-    if not QLD_DICTIONARY_ID in atvm.contentIds():
+    if QLD_DICTIONARY_ID not in atvm.contentIds():
         createSimpleVocabs(atvm, QLD_DICTIONARY)
         atvm[QLD_DICTIONARY_ID].setTitle('Datasets quick links')
     else:
-        logger.warn('eea.dataservice quick link vocabulary for datasets already exist.')
+        logger.warn('eea.dataservice quick link vocabulary for datasets '
+                    'already exist.')
 
     # Create quick link vocabulary for maps and graphs
-    if not QLMG_DICTIONARY_ID in atvm.contentIds():
+    if QLMG_DICTIONARY_ID not in atvm.contentIds():
         createSimpleVocabs(atvm, QLMG_DICTIONARY)
         atvm[QLMG_DICTIONARY_ID].setTitle('Maps & graphs quick links')
     else:
-        logger.warn('eea.dataservice quick link vocabulary for maps and graphs already exist.')
+        logger.warn('eea.dataservice quick link vocabulary for maps and graphs '
+                    'already exist.')
 
     # Create categories vocabulary
-    if not CATEGORIES_DICTIONARY_ID in atvm.contentIds():
+    if CATEGORIES_DICTIONARY_ID not in atvm.contentIds():
         createSimpleVocabs(atvm, CATEGORIES_DICTIONARY)
         atvm[CATEGORIES_DICTIONARY_ID].setTitle('Dataservice categories')
     else:
@@ -95,10 +93,11 @@ def installVocabularies(context):
 
     # Create conversions vocabulary
     convertion_fresh_install = False
-    if not CONVERSIONS_DICTIONARY_ID in atvm.contentIds():
+    if CONVERSIONS_DICTIONARY_ID not in atvm.contentIds():
         convertion_fresh_install = True
         createSimpleVocabs(atvm, CONVERSIONS_DICTIONARY)
-        atvm[CONVERSIONS_DICTIONARY_ID].setTitle('Conversion format for dataservice')
+        atvm[CONVERSIONS_DICTIONARY_ID].setTitle(
+            'Conversion format for dataservice')
     else:
         logger.warn('eea.dataservice conversion vocabulary already exist.')
 
@@ -113,6 +112,7 @@ def installVocabularies(context):
                 continue
             try:
                 wftool.doActionFor(vocabItem, 'publish',
-                                   comment='Auto published by migration script.')
+                    comment='Auto published by migration script.')
             except Exception:
-                logger.debug("eea dataservice setuphandlers migration script couldn't auto publish")
+                logger.debug("eea dataservice setuphandlers migration script "
+                             "couldn't auto publish")

@@ -14,4 +14,11 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
+  <genericsetup:importStep
+    name="eea.dataservice-install-vocabularies"
+    title="EEA Dataservice Vocabularies"
+    description="Install Vocabularies for eea.dataservice"
+    handler="eea.dataservice.setuphandlers.installVocabularies"
+    />
+
 </configure>
