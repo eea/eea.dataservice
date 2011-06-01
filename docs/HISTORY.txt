@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.38-dev - (unreleased)
+-----------------------
+
 1.37 - (2011-06-01)
 -------------------
  * Bug fix: Fixed Google Analytics for datafiles download [voineali #4317]
