@@ -21,7 +21,7 @@
 
 <body>
 
-<div metal:fill-slot="main" tal:define="
+<div metal:fill-slot="content-core" tal:define="
   lastVersion context/@@getLatestVersionLink;
   datasetVersionId context/id;
   versions nocall:here/@@getVersions;
@@ -52,36 +52,13 @@ function showDefinition(context) {
 //-->
     </script>
 
- <!-- BASIC PROPERTIES -->
- <metal:basic define-macro="basic">
-    <h1 tal:content="object_title" class="documentFirstHeading">
-      Title or id
-    </h1>
-
-    <div metal:use-macro="here/document_actions/macros/document_actions">
-        Document actions (print, sendto etc)
-    </div>
-
-    <div metal:use-macro="here/document_byline/macros/byline">
-      Get the byline - contains details about author and modification date.
-    </div>
-
-    <p class="documentDescription"
-       tal:content="here/Description"
-       tal:condition="here/Description">
-        Description
-    </p>
-
- </metal:basic>
-
-
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions">
       <metal:new fill-slot="old" />
     </metal:versions>
 
-    <!-- Themes -->
-    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+    <!-- XXX FIX ME plone4 -- Themes -->
+    <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
 
     <!-- Tables -->
     <tal:tables define="tablesData context/@@getTablesByCategory;
@@ -414,7 +391,7 @@ function showDefinition(context) {
                define="field python:context.getField('geoAccuracy');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt>
+        <dt style="clear: left">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_accuracy">Geographic accuracy:</span>
         </dt>
@@ -429,7 +406,7 @@ function showDefinition(context) {
                            value python:field.getAccessor(context)();
                            facetId facetId"
                    condition="value">
-            <dt>
+            <dt style="clear: left">
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_keywords">Tags:</span>
             </dt>
@@ -449,7 +426,7 @@ function showDefinition(context) {
                define="field python:context.getField('scale');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt>
+        <dt style="clear: left">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_scale">Scale of the data set:</span>
         </dt>
@@ -599,7 +576,7 @@ function showDefinition(context) {
     <dl>
     <!-- EEA management plan code -->
     <tal:block metal:define-macro="eea-mp-code"
-               tal:condition="not: portal/portal_membership/isAnonymousUser"
+               tal:condition="not: context/@@plone_portal_state/anonymous"
                define="field python:context.getField('eeaManagementPlan');
                        value python:field.getAccessor(context)()">
         <dt>
@@ -617,7 +594,7 @@ function showDefinition(context) {
 
     <!-- Contact persons for EEA -->
     <metal:contacts define-macro="eea-contact-reference"
-                    tal:condition="not: portal/portal_membership/isAnonymousUser">
+                    tal:condition="not: context/@@plone_portal_state/anonymous">
         <tal:block define="field python:context.getField('contact');
                            value python:field.getAccessor(context)()"
                    condition="value">

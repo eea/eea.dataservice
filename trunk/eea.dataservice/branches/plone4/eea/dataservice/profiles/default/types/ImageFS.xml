@@ -25,17 +25,13 @@
  <alias from="properties" to="base_metadata"/>
  <alias from="sharing" to="folder_localrole_form"/>
  <alias from="view" to="(selected layout)"/>
+
  <action title="View" action_id="view" category="object" condition_expr=""
     url_expr="string:${object_url}/view" visible="True">
   <permission value="View"/>
  </action>
  <action title="Edit" action_id="edit" category="object" condition_expr=""
     url_expr="string:${object_url}/edit" visible="True">
-  <permission value="Modify portal content"/>
- </action>
- <action title="Properties" action_id="metadata" category="object"
-    condition_expr="" url_expr="string:${object_url}/properties"
-    visible="True">
   <permission value="Modify portal content"/>
  </action>
  <action title="References" action_id="references" category="object"
@@ -49,24 +45,5 @@
     url_expr="string:${object_url}/atct_image_transform" visible="True">
   <permission value="Modify portal content"/>
  </action>
- <action title="Download" action_id="download" category="object"
-    condition_expr="member" url_expr="string:${object_url}/download"
-    visible="False">
-  <permission value="View"/>
- </action>
- <action title="External Edit" action_id="external_edit" category="object"
-    condition_expr="object/externalEditorEnabled"
-    url_expr="string:${object_url}/external_edit" visible="False">
-  <permission value="Modify portal content"/>
- </action>
- <action title="Sharing" action_id="local_roles" category="object"
-    condition_expr="" url_expr="string:${object_url}/sharing" visible="True">
-  <permission value="Manage properties"/>
- </action>
- <action title="State" action_id="content_status_history"
-    category="object_tabs"
-    condition_expr="python:object and portal.portal_workflow.getTransitionsFor(object, object.getParentNode())"
-    url_expr="string:$object_url/content_status_history" visible="False">
-  <permission value="View"/>
- </action>
+
 </object>

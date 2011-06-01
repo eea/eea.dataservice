@@ -49,16 +49,18 @@
                   id fieldName;
                   size widget/size"
                   class="dummy-org-selector">
-            <option selected=""
-                    tal:repeat="item vocab"
-                    tal:attributes="value python:vocab.getValue(item);
-                    selected python:test(here.unicodeTestIn(vocab.getValue(item), value), 'selected', None);"
-                    tal:content="nocall:item"
-                    i18n:translate="" />
+            <option tal:repeat="item vocab" tal:attributes="
+              value python:item;
+              selected python:'selected' if (item == value) else None"
+              tal:content="python:vocab.getValue(item)" i18n:translate="" />
           </select>
           <p />
 
-          <script tal:content="string:jQuery(window).load(function(){new MultiSelectAutocompleteWidget($$('#$fieldName'))});" />
+          <script tal:content="string:
+            jQuery(window).load(function(){
+              new MultiSelectAutocompleteWidget($$('#$fieldName'))
+            });
+          "></script>
 
         </metal:fill>
       </metal:use>

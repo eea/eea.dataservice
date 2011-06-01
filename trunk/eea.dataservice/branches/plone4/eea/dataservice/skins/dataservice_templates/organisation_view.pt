@@ -5,9 +5,7 @@
 
 <body>
 
-<div metal:fill-slot="main">
-
-    <metal:basic use-macro="here/dataset_view/macros/basic" />
+<div metal:fill-slot="content-core">
 
     <!-- Statistics -->
     <tal:block define="data context/@@organisationStatistics;

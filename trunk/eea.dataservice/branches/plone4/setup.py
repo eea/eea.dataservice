@@ -33,6 +33,7 @@ setup(name=name,
       install_requires=[
           'setuptools',
           'Products.ATVocabularyManager',
+          'eea.versions',
       ],
       entry_points="""
       # -*- Entry points: -*-

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+import logging
 import operator
 import xmlrpclib
 #from datetime import datetime
@@ -15,79 +13,36 @@ from Products.Archetypes.interfaces.vocabulary import IVocabulary
 
 from eea.dataservice.config import STARTING_YEAR, ROD_SERVER
 
+logger = logging.getLogger('eea.dataservice.vocabulary')
+
 # Temporal coverage vocabulary
-class DatasetYears:
-    """
-    """
-    implements(IVocabulary)
-
-    def getDisplayList(self, instance):
-        """ """
-        #now = datetime.now()
-        #end_year = now.year + 3
-        end_year = 2099
-        terms = []
-        terms.extend((str(key), str(key))
-                     for key in reversed(range(STARTING_YEAR, end_year)))
-        return terms
-
-    def getVocabularyDict(self, instance):
-        return {}
-
-    def isFlat(self):
-        return False
-
-    def showLeafsOnly(self):
-        return False
-
-class DatasetYearsVocabularyFactory(object):
+class DatasetYears(object):
     """ Dataset years vocabulary
     """
     implements(IVocabularyFactory)
 
     def __call__(self, context=None):
-        data = DatasetYears().getDisplayList(context)
-        return SimpleVocabulary.fromItems(data)
-
-DatasetYearsVocabulary = DatasetYearsVocabularyFactory()
+        end_year = 2099
+        terms = [SimpleTerm(str(key), str(key), str(key))
+                 for key in reversed(range(STARTING_YEAR, end_year))]
+        return SimpleVocabulary(terms)
 
 # Main keywords vocabulary
-class MainKeywords:
-    """
-    """
-    __implements__ = (IVocabulary,)
-
-    def getDisplayList(self, instance):
-        """ """
-        words_length = 30
-        cat = getToolByName(instance, 'portal_catalog')
-        index = cat.Indexes.get('Subject', None)
-        values = index.uniqueValues(name=None, withLengths=1)
-        words = [k for k in values]
-        words = sorted(words, key=operator.itemgetter(1))
-        words = words[-words_length:]
-        res = [(w[0], w[0]) for w in words]
-        return res
-
-    def getVocabularyDict(self, instance):
-        return {}
-
-    def isFlat(self):
-        return False
-
-    def showLeafsOnly(self):
-        return False
-
-class MainKeywordsVocabularyFactory(object):
+class MainKeywords(object):
     """ Main keywords vocabulary
     """
     implements(IVocabularyFactory)
 
     def __call__(self, context=None):
-        data = MainKeywords().getDisplayList(context)
-        return SimpleVocabulary.fromItems(data)
-
-MainKeywordsVocabulary = MainKeywordsVocabularyFactory()
+        words_length = 30
+        cat = getToolByName(context, 'portal_catalog')
+        index = cat.Indexes.get('Subject', None)
+        values = index.uniqueValues(name=None, withLengths=1)
+        words = [k for k in values]
+        words = sorted(words, key=operator.itemgetter(1))
+        words = words[-words_length:]
+        words = [SimpleTerm(w[0], w[0], w[0]) for w in words]
+        return SimpleVocabulary(words)
 
 # Coordinate reference system
 REFERENCE_DICTIONARY_ID = 'reference_system'
@@ -165,34 +120,17 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
 )
 
 # Figures type vocabulary
-class FigureTypes:
-    """
-    """
-    __implements__ = (IVocabulary,)
-
-    def getDisplayList(self, instance):
-        """ """
-        return [('map', 'Map'), ('graph', 'Graph')]
-
-    def getVocabularyDict(self, instance):
-        return {}
-
-    def isFlat(self):
-        return False
-
-    def showLeafsOnly(self):
-        return False
-
-class FigureTypesVocabularyFactory(object):
+class FigureTypes(object):
     """ Figure types vocabulary
     """
     implements(IVocabularyFactory)
 
     def __call__(self, context=None):
-        data = FigureTypes().getDisplayList(context)
-        return SimpleVocabulary.fromItems(data)
-
-FigureTypesVocabulary = FigureTypesVocabularyFactory()
+        items = [
+            SimpleTerm('map', 'map', 'Map'),
+            SimpleTerm('graph', 'graph', 'Graph')
+        ]
+        return SimpleVocabulary(items)
 
 # Conversion format for EEAFigureFiles
 CONVERSIONS_DICTIONARY_ID = 'conversions'
@@ -222,47 +160,29 @@ def generateUniqueTitles(data):
         data_unique_titles[url] = title
     return data_unique_titles
 
-class Organisations:
-    """ Return organisations as vocabulary
+class Organisations(object):
+    """ Organisations
     """
-    __implements__ = (IVocabulary,)
-
-    def getDisplayList(self, instance):
-        """ Returns vocabulary
-        """
-        organisations = []
-        unique_org = {}
-        cat = getToolByName(instance, 'portal_catalog')
-        res = cat.searchResults({'portal_type' : 'Organisation'})
-        for brain in res:
-            unique_org.setdefault(brain.getUrl, brain.Title)
-        #[unique_org.setdefault(brain.getUrl, brain.Title)
-        #    for brain in res]
-        unique_org = generateUniqueTitles(unique_org)
-        organisations.extend((unique_org[url], url)
-                             for url in unique_org.keys())
-        organisations.sort()
-        return organisations
-
-    def getVocabularyDict(self, instance):
-        return {}
-
-    def isFlat(self):
-        return False
-
-    def showLeafsOnly(self):
-        return False
-
-class OrganisationsVocabularyFactory(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
         if hasattr(context, 'context'):
             context = context.context
-        data = Organisations().getDisplayList(context)
-        return SimpleVocabulary.fromItems(data)
 
-OrganisationsVocabulary = OrganisationsVocabularyFactory()
+        organisations = []
+        unique_org = {}
+        cat = getToolByName(context, 'portal_catalog')
+        res = cat.searchResults({'portal_type' : 'Organisation'})
+        for brain in res:
+            unique_org.setdefault(brain.getURL(), brain.Title)
+
+        unique_org = generateUniqueTitles(unique_org)
+
+        organisations = unique_org.items()
+        organisations.sort(key=operator.itemgetter(1))
+
+        items = [SimpleTerm(key, key, value) for key, value in organisations]
+        return SimpleVocabulary(items)
 
 # Obligations vocabulary
 def formatTitle(title):
@@ -272,19 +192,19 @@ def formatTitle(title):
         res += ' ...'
     return res
 
-class Obligations:
-    """ Return obligations as vocabulary
-    """
-    __implements__ = (IVocabulary,)
+class Obligations(object):
+    implements(IVocabularyFactory)
 
-    def getDisplayList(self, instance):
-        """ Returns vocabulary
-        """
+    def __call__(self, context):
+        if hasattr(context, 'context'):
+            context = context.context
+
         res = {}
         try:
             server = xmlrpclib.Server(ROD_SERVER)
             result = server.WebRODService.getActivities()
-        except Exception:
+        except Exception, err:
+            logger.exception(err)
             result = []
 
         for obligation in result:
@@ -292,35 +212,17 @@ class Obligations:
             title = formatTitle(obligation['TITLE'])
             try:
                 title = title.decode('utf-8')
-            except Exception:
+            except Exception, err:
+                logger.exception(err)
                 continue
             res[key] = title
 
         items = res.items()
         items.sort()
-        return items
+        items = [SimpleTerm(str(key), str(key), value)
+                 for key, value in items]
 
-    def getVocabularyDict(self, instance):
-        return {}
-
-    def isFlat(self):
-        return False
-
-    def showLeafsOnly(self):
-        return False
-
-class ObligationsVocabularyFactory(object):
-    implements(IVocabularyFactory)
-
-    def __call__(self, context):
-        if hasattr(context, 'context'):
-            context = context.context
-        data = Obligations().getDisplayList(context)
-        items = [SimpleTerm(str(item[0]), str(item[0]), item[1])
-                 for item in data]
         return SimpleVocabulary(items)
-
-ObligationsVocabulary = ObligationsVocabularyFactory()
 
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'

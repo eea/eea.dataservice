@@ -264,7 +264,7 @@ dataservice_base_schema = Schema((
 
     # Fields for 'relations' schemata
     LinesField(
-        schemata = "relations",
+        schemata="categorization",
         name='externalRelations',
         languageIndependent=True,
         widget=LinesWidget(

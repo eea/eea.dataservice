@@ -9,7 +9,7 @@ import xmlrpclib
 from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from plone.i18n.locales.interfaces import IContentLanguageAvailability
+from plone.i18n.locales.interfaces import ICountryAvailability
 
 from eea.dataservice.config import ROD_SERVER
 from eea.dataservice.relations import IRelations
@@ -295,8 +295,11 @@ class DataViewers(object):
 
 def _getCountryName(country_code):
     """ """
-    util = getUtility(IContentLanguageAvailability)
-    res = util.getLanguages().get(country_code.upper(), country_code)
+    util = getUtility(ICountryAvailability)
+    countries = util.getCountries()
+    res = countries.get(country_code.lower(), {})
+    res = res.get('name', country_code)
+
     if res.lower() == 'me':
         res = 'Montenegro'
     elif res.lower() == 'rs':

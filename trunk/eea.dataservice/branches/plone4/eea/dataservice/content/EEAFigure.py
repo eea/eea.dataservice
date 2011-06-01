@@ -17,7 +17,6 @@ from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import Reference
 
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IEEAFigure
-from eea.dataservice.vocabulary import FigureTypes
 from eea.dataservice.content.schema import dataservice_schema
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
@@ -30,7 +29,7 @@ schema = Schema((
         name='figureType',
         languageIndependent=False,
         required=True,
-        vocabulary=FigureTypes(),
+        vocabulary_factory=u"Figure types",
         widget=FigureTypeWidget(
             label="Figure type",
             format="select",

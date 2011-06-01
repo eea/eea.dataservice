@@ -109,7 +109,7 @@ schema = Schema((
 
     # Fields for 'relations' schemata
     LinesField(
-        schemata = "relations",
+        schemata="categorization",
         name='reportingObligations',
         languageIndependent=True,
         multiValued=1,
@@ -126,7 +126,7 @@ schema = Schema((
 
     OrderableReferenceField(
         'relatedProducts',
-        schemata = 'relations',
+        schemata="categorization",
         relationship = 'relatesToProducts',
         multiValued = True,
         isMetadata = True,
@@ -150,7 +150,7 @@ schema = Schema((
 
     OrderableReferenceField(
         'relatedItems',
-        schemata = "relations",
+        schemata="categorization",
         relationship = 'relatesTo',
         multiValued = True,
         isMetadata = True,

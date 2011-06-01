@@ -4,6 +4,7 @@
   i18n_domain="eea">
 
   <include package="Products.ATVocabularyManager" />
+  <include package="eea.versions" />
 
   <include file="skins.zcml" />
   <include file="profiles.zcml" />
@@ -23,27 +24,27 @@
   <adapter factory=".catalog.getFileName" name="filename" />
 
   <utility
-    component=".vocabulary.OrganisationsVocabulary"
+    factory=".vocabulary.Organisations"
     name="Organisations"
     />
 
   <utility
-    component=".vocabulary.FigureTypesVocabulary"
+    factory=".vocabulary.FigureTypes"
     name="Figure types"
     />
 
   <utility
-    component=".vocabulary.ObligationsVocabulary"
+    factory=".vocabulary.Obligations"
     name="Obligations"
     />
 
   <utility
-    component=".vocabulary.DatasetYearsVocabulary"
+    factory=".vocabulary.DatasetYears"
     name="Temporal coverage"
     />
 
   <utility
-    component=".vocabulary.MainKeywordsVocabulary"
+    factory=".vocabulary.MainKeywords"
     name="Main keywords"
     />
 

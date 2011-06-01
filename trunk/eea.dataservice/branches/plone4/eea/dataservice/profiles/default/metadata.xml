@@ -3,5 +3,6 @@
  <version>4.0</version>
  <dependencies>
   <dependency>profile-Products.ATVocabularyManager:default</dependency>
+  <dependency>profile-eea.versions:default</dependency>
  </dependencies>
 </metadata>

@@ -50,9 +50,9 @@
                   size widget/size">
             <option selected=""
                     tal:repeat="item vocab"
-                    tal:attributes="value python:vocab.getValue(item);
-                    selected python:test(here.unicodeTestIn(vocab.getValue(item), value), 'selected', None);"
-                    tal:content="python:'('+str(vocab.getValue(item))+') '+item"
+                    tal:attributes="value item;
+                    selected python:'selected' if item == value else None;"
+                    tal:content="python:'(%s) %s' % (item, vocab.getValue(item))"
                     i18n:translate="" />
           </select>
           <p />
