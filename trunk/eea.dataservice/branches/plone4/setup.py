@@ -34,6 +34,7 @@ setup(name=name,
           'setuptools',
           'Products.ATVocabularyManager',
           'eea.versions',
+          'eea.locationwidget',
       ],
       entry_points="""
       # -*- Entry points: -*-

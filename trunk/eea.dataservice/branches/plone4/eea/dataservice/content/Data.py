@@ -227,17 +227,22 @@ class Data(ATFolder, ThemeTaggable):
         else:
             ownerfield = self.getField('dataOwner')
             urls = ownerfield.getAccessor(self)()
-            orgnames = ""
+            orgnames = []
             copyrightholders = ""
             for url in urls:
                 orgob = self.getOrganisationName(url)
-                orgname = orgob.Title
-                orgnames = orgnames + orgname + ', '
-            if len(orgnames)>0:
-                copyrightholders = 'Copyright holder: ' + orgnames
-                copyrightholders = copyrightholders[:-2] + '.'
+                if not orgob:
+                    continue
+                orgnames.append(orgob.Title)
 
-            return "EEA standard re-use policy: unless otherwise indicated, re-use of content on the EEA website for commercial or non-commercial purposes is permitted free of charge, provided that the source is acknowledged (http://www.eea.europa.eu/legal/copyright). " + copyrightholders
+            if orgnames:
+                copyrightholders = 'Copyright holder: %s.' % ', '.join(orgnames)
+            return ("EEA standard re-use policy: unless otherwise indicated, "
+                    "re-use of content on the EEA website for commercial or "
+                    "non-commercial purposes is permitted free of charge, "
+                    "provided that the source is acknowledged "
+                    "(http://www.eea.europa.eu/legal/copyright). "
+                    "%s" % copyrightholders)
 
     security.declarePublic('getThemeVocabs')
     def getThemeVocabs(self):

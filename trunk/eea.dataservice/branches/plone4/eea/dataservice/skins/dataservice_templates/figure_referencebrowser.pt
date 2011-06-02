@@ -13,6 +13,7 @@
 
     <metal:reference_edit define-macro="reference_edit"
              tal:define="multiVal           python:test(field.multiValued, 1, 0);
+                         helper nocall:here/refbrowserhelper;
                          show_path          field/widget/show_path|nothing;
                          image_portal_types widget/image_portal_types;
                          image_method       widget/image_method|string:;
@@ -122,7 +123,7 @@
               </div>
           </tal:multi>
           <div style="clear: both"
-               tal:define="startup_directory python:here.referencebrowser_startupDirectory (widget.startup_directory);
+               tal:define="startup_directory python:helper.getStartupDirectory(field);
                            global at_url at_url|python:'/'.join(here.getPhysicalPath())">
               <input type="button"
                      class="searchButton"

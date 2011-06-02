@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Organisation
+"""
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringWidget, StringField
 from Products.Archetypes.atapi import TextField, TextAreaWidget, registerType
 from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
-#from Products.Archetypes.Field import decode
-#from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.CMFCore.permissions import ModifyPortalContent
@@ -17,9 +12,7 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
-
-# TODO Plone4 Fixme
-#from eea.locationwidget.locationwidget import LocationWidget
+from eea.locationwidget.locationwidget import LocationWidget
 
 
 schema = Schema((
@@ -39,22 +32,19 @@ schema = Schema((
             i18n_domain='eea',
         )
     ),
-
-    # TODO Plone4 Fix me
-    #StringField(
-        #name='location',
-        #searchable=True,
-        #accessor='getLocation',
-        #mutator='setLocation',
-        #widget = LocationWidget(
-            #description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
-            #description_msgid = "dataservice_help_address",
-            #label = "Organisation address",
-            #label_msgid = "dataservice_label_address",
-            #i18n_domain = "eea"
-        #)
-    #),
-
+    StringField(
+        name='location',
+        searchable=True,
+        accessor='getLocation',
+        mutator='setLocation',
+        widget = LocationWidget(
+            description = "Use the address to retrieve the location <em>(e.g. Kongens Nytorv 6, 1050 Copenhagen K, Denmark)</em>",
+            description_msgid = "dataservice_help_address",
+            label = "Organisation address",
+            label_msgid = "dataservice_label_address",
+            i18n_domain = "eea"
+        )
+    ),
     TextField(
         name='data_policy',
         searchable=True,

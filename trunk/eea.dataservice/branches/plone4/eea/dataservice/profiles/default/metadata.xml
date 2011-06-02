@@ -4,5 +4,6 @@
  <dependencies>
   <dependency>profile-Products.ATVocabularyManager:default</dependency>
   <dependency>profile-eea.versions:default</dependency>
+  <dependency>profile-eea.locationwidget:default</dependency>
  </dependencies>
 </metadata>

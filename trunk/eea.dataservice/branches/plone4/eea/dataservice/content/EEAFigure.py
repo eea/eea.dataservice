@@ -8,10 +8,7 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.Field import ReferenceField as OrderableReferenceField
+from Products.Archetypes.Field import ReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 
@@ -41,8 +38,8 @@ schema = Schema((
     ),
 
     # Fields for 'relations' schemata
-    OrderableReferenceField('relatedProducts',
-        schemata = 'relations',
+    ReferenceField('relatedProducts',
+        schemata = 'categorization',
         relationship = 'relatesToProducts',
         multiValued = True,
         isMetadata = True,

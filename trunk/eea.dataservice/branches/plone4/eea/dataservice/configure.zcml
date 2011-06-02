@@ -5,6 +5,7 @@
 
   <include package="Products.ATVocabularyManager" />
   <include package="eea.versions" />
+  <include package="eea.locationwidget" />
 
   <include file="skins.zcml" />
   <include file="profiles.zcml" />

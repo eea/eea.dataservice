@@ -74,13 +74,13 @@
     </tal:block>
 
     <!-- Map -->
-    <tal:block define="field python:context.getField('location');
-                       value python:field.getAccessor(context)()"
-              condition="value">
+    <tal:block define="
+        field python:context.getField('location');
+        value python:field.getAccessor(context)();
+        map context/@@geopositionMap|nothing"
+        condition="python:value and map">
         <dt i18n:translate="organisation_map">Map location</dt>
-        <tal:block tal:condition="context/@@geopositionMap|nothing">
-            <tal:map replace="structure context/@@geopositionMap" /><br />
-        </tal:block>
+        <tal:map replace="structure map" /><br />
     </tal:block>
 
 </div>
