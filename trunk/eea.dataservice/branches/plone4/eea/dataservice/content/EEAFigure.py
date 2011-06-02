@@ -9,9 +9,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.Archetypes.Field import ReferenceField
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
-
-
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema

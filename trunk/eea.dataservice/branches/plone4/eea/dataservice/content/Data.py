@@ -15,12 +15,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.Field import ReferenceField as OrderableReferenceField
-
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from Products.Archetypes.Field import ReferenceField
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
 from eea.dataservice.content.themes import IThemeTagging
 from eea.dataservice.content.themes import ThemeTaggable
@@ -124,7 +120,7 @@ schema = Schema((
         )
     ),
 
-    OrderableReferenceField(
+    ReferenceField(
         'relatedProducts',
         schemata="categorization",
         relationship = 'relatesToProducts',
@@ -148,7 +144,7 @@ schema = Schema((
             )
         ),
 
-    OrderableReferenceField(
+    ReferenceField(
         'relatedItems',
         schemata="categorization",
         relationship = 'relatesTo',
