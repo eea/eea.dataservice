@@ -30,5 +30,6 @@
  <column value="getVersionId"/>
  <column value="getGeographicCoverage"/>
  <column value="getTemporalCoverage"/>
+ <column value="filename"/>
  <column value="getUrl"/>
 </object>

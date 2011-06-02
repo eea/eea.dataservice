@@ -29,6 +29,8 @@ def setup_eea_dataservice():
     zcml.load_config('configure.zcml', eea.dataservice)
     fiveconfigure.debug_mode = False
 
+    PloneTestCase.installPackage('eea.dataservice')
+
 setup_eea_dataservice()
 PloneTestCase.setupPloneSite(extension_profiles=('eea.dataservice:default', ))
 

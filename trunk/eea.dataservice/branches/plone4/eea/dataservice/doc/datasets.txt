@@ -19,6 +19,9 @@ Lets add an Organisation.
     ...   'location': 'Denmark, Copenhagen',
     ...   'data_policy': 'Some policy',
     ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
     ... }
     >>> org1.processForm(values=form, data=1, metadata=1)
 
@@ -33,12 +36,14 @@ Check see if properties applyed.
     >>> org1.getData_policy()
     'Some policy'
     >>> org1.getEffectiveDate()
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
 
 Verify if organisation vocabulary contains correct data.
 
-    >>> from eea.dataservice.vocabulary import Organisations
-    >>> Organisations().getDisplayList(org1)
+    >>> from zope.app.schema.vocabulary import IVocabularyFactory
+    >>> from zope.component import getUtility
+    >>> voc = getUtility(IVocabularyFactory, 'Organisations')
+    >>> [(term.title, term.value) for term in voc(org1)]
     [('Organisation 1', 'http://organisation.url')]
 
 Lets add a Dataset.
@@ -49,10 +54,16 @@ Lets add a Dataset.
     ...   'title': 'Data 1',
     ...   'description': 'Organisation description 1',
     ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
     ...   'geoQuality': ('1', '2', '1', '-1', '0'),
     ...   'eeaManagementPlan': (2010, ''),
     ...   'lastUpload': '11/11/2008',
+    ...   'lastUpload_year': '2008',
+    ...   'lastUpload_month': '11',
+    ...   'lastUpload_day': '11',
     ...   'scale': '1000000',
     ...   'dataOwner': 'http://organisation.url',
     ...   'processor': 'http://organisation.url',
@@ -82,13 +93,13 @@ Check see if properties applyed.
     >>> data1.Description()
     'Organisation description 1'
     >>> data1.getEffectiveDate()
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
     >>> data1.getGeographicCoverage()
     ('ro', 'it', 'dk')
     >>> data1.getGeoQuality()
     ('-1', '-1', '-1', '-1', '-1')
     >>> data1.lastUpload
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
     >>> data1.getScale()
     1000000
     >>> data1.getDataOwner()
@@ -124,6 +135,9 @@ Lets add a DataTable under the above Dataset.
     ...   'title': 'DataTable 1',
     ...   'description': 'DataTable description 1',
     ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
     ...   'category': 'rod',
     ...   'records': '38000',
     ...   'tableDefinition': 'A table definition.',
@@ -137,7 +151,7 @@ Check see if properties applyed.
     >>> dt1.Description()
     'DataTable description 1'
     >>> dt1.getEffectiveDate()
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
     >>> dt1.getCategory()
     'rod'
     >>> dt1.getRecords()
@@ -153,6 +167,9 @@ Lets add a DataFile under the above DataTable.
     ...   'title': 'DataFile 1',
     ...   'description': 'DataFile description 1',
     ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
     ...   'shortId': '2222',
     ... }
     >>> df1.processForm(values=form, data=1, metadata=1)
@@ -164,7 +181,7 @@ Check see if properties applyed.
     >>> df1.Description()
     'DataFile description 1'
     >>> df1.getEffectiveDate()
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
     >>> df1.getShortId()
     '2222'
 

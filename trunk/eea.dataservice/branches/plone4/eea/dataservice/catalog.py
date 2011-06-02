@@ -4,17 +4,19 @@ from zope.interface import Interface
 from plone.indexer import indexer
 
 @indexer(Interface)
-def getFileName(obj, portal, **kwargs):
+def getFileName(obj, **kwargs):
     """ Index for filename
     """
-    if not getattr(obj, 'getField', None):
+    getField = getattr(obj, 'getField', None)
+    if not getField:
         return ''
 
-    file_field = obj.getField('file')
-    if not file_field:
+    field = getField('file')
+    if not field:
         return ''
 
-    if not getattr(file_field, 'getFilename', None):
+    getFilename = getattr(field, 'getFilename', None)
+    if not getFilename:
         return ''
 
-    return file_field.getFilename(obj)
+    return getFilename(obj)

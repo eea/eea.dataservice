@@ -5,7 +5,7 @@ Set up
 ------
 
     >>> self.loginAsPortalOwner()
-    >>> fid = folder.invokeFactory('DataFile', 'data-file')
+    >>> fid = folder.invokeFactory('DataFile', 'some-data-file')
     >>> data = folder._getOb(fid)
     >>> form = {
     ...   'title': 'Some data file',

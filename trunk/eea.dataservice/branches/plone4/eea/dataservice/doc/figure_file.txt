@@ -31,7 +31,7 @@ Check see if properties applyed.
     >>> ff1.Description()
     'EEAFigureFile description 1'
     >>> ff1.getEffectiveDate()
-    DateTime('2008/11/11')
+    DateTime('2008/11/11...')
 
 Lets upload a source image.
 

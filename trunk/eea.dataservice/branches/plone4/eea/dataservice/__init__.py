@@ -4,8 +4,6 @@ from Products.CMFCore import utils as cmfutils
 from Products.Archetypes.atapi import process_types, listTypes
 from eea.dataservice.config import PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION
 from eea.dataservice import pil
-# inserted to shut off pylint about unused import
-pil
 
 def initialize(context):
     """ Initialize product (called by zope2)

@@ -174,7 +174,7 @@ class Organisations(object):
         cat = getToolByName(context, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
         for brain in res:
-            unique_org.setdefault(brain.getURL(), brain.Title)
+            unique_org.setdefault(brain.getUrl, brain.Title)
 
         unique_org = generateUniqueTitles(unique_org)
 
