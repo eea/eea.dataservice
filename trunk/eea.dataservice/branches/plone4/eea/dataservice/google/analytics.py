@@ -1,3 +1,5 @@
+""" Google Analytics
+"""
 import logging
 from zope.component import getMultiAdapter
 from Products.Five import BrowserView
@@ -57,7 +59,8 @@ class TopDatasets(BrowserView):
 
         table = getMultiAdapter((report, self.request), name=u'index.table')
         if not table:
-            logger.exception('No index.table for report %s' % report.absolute_url())
+            logger.exception(
+                'No index.table for report %s' % report.absolute_url())
             return []
         datasets = table()
 

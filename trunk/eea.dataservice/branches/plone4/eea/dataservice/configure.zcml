@@ -4,8 +4,11 @@
   i18n_domain="eea">
 
   <include package="Products.ATVocabularyManager" />
-  <include package="eea.versions" />
+
+  <!-- Dependencies -->
+  <include package="eea.jquery" />
   <include package="eea.locationwidget" />
+  <include package="eea.versions" />
 
   <include file="skins.zcml" />
   <include file="profiles.zcml" />

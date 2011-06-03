@@ -1,3 +1,5 @@
+""" Migrate
+"""
 import logging
 from zope.component import queryAdapter
 from Products.Five import BrowserView
@@ -47,7 +49,7 @@ class MigrateDatasetsToExternalDatasets(BrowserView):
             temporal = data_ob.getTemporalCoverage()
             if temporal:
                 FormatTempCoverage = getMultiAdapter((data_ob, request),
-                                                      name=u'formatTempCoverage')
+                                                     name=u'formatTempCoverage')
                 eds_ob.setTimeliness(FormatTempCoverage())
 
             eds_ob.setOther_comments(data_ob.getMoreInfo())

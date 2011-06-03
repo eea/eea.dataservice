@@ -1,3 +1,5 @@
+""" Map Converter
+"""
 import logging
 import transaction
 from PIL import Image
@@ -23,6 +25,8 @@ class ConvertMap(object):
         self.formats = []
 
     def getFormats(self):
+        """ Get formats
+        """
         if self.formats:
             return self.formats
 
@@ -94,19 +98,23 @@ class ConvertMap(object):
         field = self.context.getField('file')
         accessor = field.getAccessor(self.context)()
         if accessor:
-            for format in self.getFormats():
-                img_format, img_dpi = format.split('-')
+            for fmt in self.getFormats():
+                img_format, img_dpi = fmt.split('-')
 
                 if img_dpi == 'default':
-                    im_id = '.'.join((accessor.filename, img_format[:3].lower()))
+                    im_id = '.'.join((
+                        accessor.filename, img_format[:3].lower()))
                 elif img_format == 'ZOOM':
                     im_id = '.'.join((accessor.filename, 'zoom.png'))
                 else:
-                    im_id = '.'.join((accessor.filename, img_dpi + 'dpi', img_format[:3].lower()))
+                    im_id = '.'.join((
+                        accessor.filename, img_dpi + 'dpi',
+                        img_format[:3].lower()))
 
                 outfile = StringIO()
                 try:
-                    im = Image.open(StringIO(self.context.getFile().getBlob().open().read()))
+                    im = Image.open(StringIO(
+                        self.context.getFile().getBlob().open().read()))
                     if img_format == 'ZOOM':
                         self.handle_image(im, outfile, 'PNG')
                     else:
@@ -130,20 +138,6 @@ class ConvertMap(object):
                     im_id = self.context.invokeFactory('ImageFS', id=im_id)
                 im_ob = getattr(self.context, im_id)
                 im_ob.setImage(file_data)
-
-                # We changed ImageFS worflow from eea_data_workflow to eea_imagefs_workflow
-                # and we dont need anymore the below transitions
-
-                ## Set state
-                #wftool = getToolByName(self.context, 'portal_workflow')
-                #try:
-                    #wftool.doActionFor(im_ob, 'quickPublish',
-                                       #comment='Set by convert figure action.')
-                    #wftool.doActionFor(im_ob, 'hide',
-                                       #comment='Set by convert figure action.')
-                    #info('INFO: Convertion created %s', im_ob.getId())
-                #except WorkflowException, err:
-                    #logger.exception('WorkflowException: %s ImageFS %s', err, im_ob.absolute_url())
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1
@@ -151,7 +145,9 @@ class ConvertMap(object):
         msg = 'Done converting "%s".' % self.context.title_or_id()
         log('INFO: %s', msg)
         if err:
-            msg = 'Some error(s) occured during conversion of "%s".' % self.context.title_or_id()
+            msg = 'Some error(s) occured during conversion of "%s".' % (
+                self.context.title_or_id(),
+            )
 
         if not self.request or cronjob:
             return msg
@@ -179,7 +175,10 @@ class CheckFiguresConvertion(object):
                 notConverted.append(ff_ob)
 
         if info:
-            msg = "Total EEAFigureFile(s): %s , from which %s are not converted.\r\n" % (str(len(res)), str(len(notConverted)))
+            msg = ("Total EEAFigureFile(s): %s , "
+                   "from which %s are not converted."
+                   "\r\n" % (str(len(res)), str(len(notConverted))))
+
             if len(notConverted):
                 msg += '\r\nNot converted EEAFigureFile(s):\r\n'
             for ff_ob in notConverted:

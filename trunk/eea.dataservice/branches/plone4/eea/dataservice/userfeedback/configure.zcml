@@ -4,12 +4,12 @@
   i18n_domain="eea">
 
   <utility
-    component=".vocabularies.EconomicSectorsFactory"
+    factory=".vocabularies.EconomicSectors"
     name="eea.dataservice.vocabularies.economic-sectors"
     />
 
   <utility
-    component=".vocabularies.EnvironmentalDomainsFactory"
+    factory=".vocabularies.EnvironmentalDomains"
     name="eea.dataservice.vocabularies.environmental-domains"
     />
 

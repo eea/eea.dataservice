@@ -1,28 +1,17 @@
+""" Widget Controller
+"""
 import json
-from zope.interface import Interface
 from zope.interface import implements
-from zope.component import getUtility
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-
-class IReferenceWidgetController(Interface):
-    """
-    Controller to be use within ReferenceBrowserWidget
-    macro figure_referencebrowser
-    """
-    def search(title): #pylint: disable-msg = E0213
-        """ Search for publications with given title. Returns a json object.
-        """
-
-    def add(title, eeaid='', **kwargs): #pylint: disable-msg = E0213
-        """ Add publication with given title. Returns a string message.
-        """
+from eea.dataservice.widgets.interfaces import IReferenceWidgetController
 
 class ReferenceWidgetController(BrowserView):
     """ Reference Widget Controller
     """
     implements(IReferenceWidgetController)
+
     def __init__(self, context, request):
         BrowserView.__init__(self, context, request)
         self.context = context

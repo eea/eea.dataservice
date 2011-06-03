@@ -8,12 +8,12 @@
       class=".ReferenceWidgetController.ReferenceWidgetController"
       for="eea.dataservice.interfaces.IEEAFigure"
       permission="cmf.ModifyPortalContent"
-      allowed_interface=".ReferenceWidgetController.IReferenceWidgetController"
+      allowed_interface=".interfaces.IReferenceWidgetController"
       />
 
   <view
       type="zope.publisher.interfaces.browser.IBrowserRequest"
-      for=".ManagementPlanWidget.IManagementPlanCode"
+      for=".interfaces.IManagementPlanCode"
       provides="zope.app.form.interfaces.IInputWidget"
       factory=".ManagementPlanWidget.FormlibManagementPlanWidget"
       permission="zope.Public"

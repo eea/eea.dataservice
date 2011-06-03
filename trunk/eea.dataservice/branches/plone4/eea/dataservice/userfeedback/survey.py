@@ -57,6 +57,8 @@ class Survey(BrowserView):
     # Private interface
     #
     def _redirect(self, msg):
+        """ Redirect
+        """
         if self.request:
             url = self.context.absolute_url()
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
@@ -65,6 +67,8 @@ class Survey(BrowserView):
 
     @property
     def _versions(self):
+        """ Versions
+        """
         versions = getMultiAdapter((self.context, self.request),
                                    name=u'getVersions')
         if not versions:
@@ -97,6 +101,8 @@ class SurveyView(BrowserView):
     """
     implements(ISurveyView)
     def vocabulary(self, name):
+        """ Vocabulary
+        """
         vocab = queryUtility(IVocabularyFactory, name=name.decode('utf-8'))
         if not vocab:
             raise StopIteration

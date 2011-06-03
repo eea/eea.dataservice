@@ -1,6 +1,5 @@
-
-__author__ = """European Environment Agency <alec.ghica@eaudeweb.ro>"""
-__docformat__ = 'plaintext'
+""" Package config
+"""
 
 PROJECTNAME = "eea.dataservice"
 product_globals = globals()

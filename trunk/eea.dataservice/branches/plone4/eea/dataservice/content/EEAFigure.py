@@ -1,21 +1,15 @@
 """ EEA Figure
 """
 from zope.interface import implements
-from zope.component import queryAdapter
-from Products.Archetypes.atapi import Schema, StringField, registerType
-from Products.CMFCore import permissions
-from AccessControl import ClassSecurityInfo
-from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.atapi import Schema, StringField
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.Archetypes.Field import ReferenceField
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
-from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IEEAFigure
-from eea.dataservice.content.schema import dataservice_schema
+from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
-from eea.dataservice.content.themes import IThemeTagging
 
 # Schema
 schema = Schema((
@@ -37,28 +31,29 @@ schema = Schema((
 
     # Fields for 'relations' schemata
     ReferenceField('relatedProducts',
-        schemata = 'categorization',
-        relationship = 'relatesToProducts',
-        multiValued = True,
-        isMetadata = True,
-        languageIndependent = False,
-        index = 'KeywordIndex',
-        write_permission = ModifyPortalContent,
-        widget = ReferenceBrowserWidget(
-            macro = "figure_referencebrowser",
-            helper_css = ("figure_widget.css",),
-            helper_js = ('referencebrowser.js', 'select_lists.js', 'figure_widget.js'),
-            allow_search = True,
-            allow_browse = True,
-            allow_sorting = True,
-            show_indexes = False,
-            force_close_on_insert = True,
-            label = "Relations to other EEA products",
-            label_msgid = "label_related_products",
-            description = "Specify relations to other EEA products within Plone.",
-            description_msgid = "help_related_products",
-            i18n_domain = "plone",
-            visible = {'edit' : 'visible', 'view' : 'invisible' }
+        schemata='categorization',
+        relationship='relatesToProducts',
+        multiValued=True,
+        isMetadata=True,
+        languageIndependent=False,
+        index='KeywordIndex',
+        write_permission=ModifyPortalContent,
+        widget=ReferenceBrowserWidget(
+            macro="figure_referencebrowser",
+            helper_css=("figure_widget.css",),
+            helper_js=('referencebrowser.js', 'select_lists.js',
+                         'figure_widget.js'),
+            allow_search=True,
+            allow_browse=True,
+            allow_sorting=True,
+            show_indexes=False,
+            force_close_on_insert=True,
+            label="Relations to other EEA products",
+            label_msgid="label_related_products",
+            description="Specify relations to other EEA products within Plone.",
+            description_msgid="help_related_products",
+            i18n_domain="plone",
+            visible={'edit' : 'visible', 'view' : 'invisible' }
         )
     ),
 ),)
@@ -68,78 +63,12 @@ eeafigure_schema = dataservice_schema.copy() + schema.copy()
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
 
-class EEAFigure(ATFolder, ThemeTaggable):
+class EEAFigure(DataMixin, ATFolder, ThemeTaggable):
     """ EEAFigure Content Type
     """
     implements(IEEAFigure)
-    security = ClassSecurityInfo()
-
-    archetype_name  = 'EEAFigure'
-    portal_type     = 'EEAFigure'
-    meta_type       = 'EEAFigure'
-    allowed_content_types = ['ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
+    archetype_name = portal_type = meta_type = 'EEAFigure'
+    allowed_content_types = [
+        'ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
     _at_rename_after_creation = True
-
     schema = eeafigure_schema
-
-    security.declareProtected(permissions.View, 'getOrganisationName')
-    def getOrganisationName(self, url):
-        """ """
-        res = None
-        cat = getToolByName(self, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : 'Organisation',
-                                    'getUrl': url})
-        if brains:
-            res = brains[0]
-        return res
-
-    security.declareProtected(permissions.View, 'getKeywords')
-    def getKeywords(self):
-        res = list(self.Subject())
-        res.sort(key=str.lower)
-        return ', '.join(res)
-
-    security.declarePublic('Rights')
-    def Rights(self):
-        """
-         return standard EEA copyrights policy information otherwise return the specific one if present.
-        """
-        value = self.schema['rights'].getRaw(self)
-
-        if value:
-            return value
-        else:
-            ownerfield = self.getField('dataOwner')
-            urls = ownerfield.getAccessor(self)()
-            orgnames = []
-            copyrightholders = ""
-            for url in urls:
-                orgob = self.getOrganisationName(url)
-                if not orgob:
-                    continue
-                orgnames.append(orgob.Title)
-
-            if orgnames:
-                copyrightholders = 'Copyright holder: %s.' % ', '.join(orgnames)
-
-            return ("EEA standard re-use policy: unless otherwise indicated, "
-                    "re-use of content on the EEA website for commercial or "
-                    "non-commercial purposes is permitted free of charge, "
-                    "provided that the source is acknowledged "
-                    "(http://www.eea.europa.eu/legal/copyright). "
-                    "%s" % copyrightholders)
-
-    security.declarePublic('getThemeVocabs')
-    def getThemeVocabs(self):
-        """
-        """
-        pass
-
-    def setThemes(self, value, **kw):
-        """ Use the tagging adapter to set the themes. """
-        value = [val for val in value if val] #value = filter(None, value)
-        tagging = queryAdapter(self, IThemeTagging)
-        if tagging:
-            tagging.tags = value
-
-registerType(EEAFigure, PROJECTNAME)

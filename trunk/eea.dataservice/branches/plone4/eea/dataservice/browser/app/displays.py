@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Displays
+"""
 import operator
 import xmlrpclib
 
@@ -76,17 +73,17 @@ class DisplaySize(object):
         self.request = request
 
     def __call__(self, size=0):
-        bytes = float(size)
-        if bytes >= 1000:
-            bytes = bytes/1024
+        size = float(size)
+        if size >= 1000:
+            size = size/1024
             ftype = 'KB'
-            if bytes >= 1000:
-                bytes = bytes/1024
+            if size >= 1000:
+                size = size/1024
                 ftype = 'MB'
-            res = '%s %s' % ('%4.2f' % bytes, ftype)
+            res = '%s %s' % ('%4.2f' % size, ftype)
         else:
             ftype = 'Bytes'
-            res = '%s %s' % ('%4.0f' % bytes, ftype)
+            res = '%s %s' % ('%4.0f' % size, ftype)
         return res
 
 class GetDataForRedirect(object):
@@ -145,10 +142,12 @@ class DatasetRelatedProducts(object):
                     res['figures'].append(ob)
                 elif IReportContainerEnhanced.providedBy(ob):
                     res['reports'].append(ob)
-                elif 'data viewer' in ob.Title() and ob.portal_type in ['Promotion', 'GIS Map Application']:
+                elif ('data viewer' in ob.Title() and
+                      ob.portal_type in ['Promotion', 'GIS Map Application']):
                     res['data_viewers'].append(ob)
                 else:
-                    if self.context.portal_type == 'EEAFigure' and ob.portal_type == 'Data':
+                    if (self.context.portal_type == 'EEAFigure' and
+                        ob.portal_type == 'Data'):
                         res['datasets'].append(ob)
                     else:
                         res['other'].append(ob)
@@ -272,12 +271,13 @@ class MainDatasets(object):
                 latest_version = versions[versions_num]
                 if not latest_version in res:
                     res.append(latest_version)
-            if len(res) == count: break
+            if len(res) == count:
+                break
 
         return res
 
 class DataViewers(object):
-    """
+    """ Data Viewers
     """
     def __init__(self, context, request):
         self.context = context
@@ -294,7 +294,8 @@ class DataViewers(object):
         return res
 
 def _getCountryName(country_code):
-    """ """
+    """ Country Name
+    """
     util = getUtility(ICountryAvailability)
     countries = util.getCountries()
     res = countries.get(country_code.lower(), {})
@@ -307,7 +308,8 @@ def _getCountryName(country_code):
     return res
 
 def _getGroupCountries(context, group_code):
-    """ """
+    """ Group Countries
+    """
     atvm = getToolByName(context, ATVOCABULARYTOOL)
     vocab = atvm[COUNTRIES_DICTIONARY_ID]
     terms = vocab.getVocabularyDict()
@@ -317,7 +319,8 @@ def _getGroupCountries(context, group_code):
     return []
 
 def _getCountryInfo(context):
-    """ """
+    """ Country Info
+    """
     res = {'groups': {}, 'countries': {}}
     atvm = getToolByName(context, ATVOCABULARYTOOL)
     vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
@@ -334,7 +337,8 @@ def _getCountryInfo(context):
     return res
 
 class GetCountryGroups(object):
-    """ """
+    """ Country Groups
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -343,7 +347,8 @@ class GetCountryGroups(object):
         return _getCountryInfo(self.context)['groups']
 
 class GetCountries(object):
-    """ """
+    """ Countries
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -354,7 +359,8 @@ class GetCountries(object):
         return sorted(res, key=operator.itemgetter(1))
 
 class GetCountryGroupsData(object):
-    """ """
+    """ Country Groups Data
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -373,7 +379,8 @@ class GetCountryGroupsData(object):
         return res
 
 class GetCountriesByGroup(object):
-    """ """
+    """ Countries by group
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -392,7 +399,8 @@ class GetCountriesByGroup(object):
         return res
 
 class GetCountriesDisplay(object):
-    """ """
+    """ Countries Display
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -413,14 +421,16 @@ class GetCountriesDisplay(object):
             for country_code in data:
                 if country_code in tmp_match:
                     tmp_match.remove(country_code)
-            if not len(tmp_match): res.append(group_code)
+            if not len(tmp_match):
+                res.append(group_code)
 
         for group_code in res:
             group_countries = _getGroupCountries(context, group_code)
             for country_code in group_countries:
                 if country_code in data:
                     data.remove(country_code)
-                    if not len(data): break
+                    if not len(data):
+                        break
 
         res_string = ''
         if len(res):
@@ -450,7 +460,7 @@ class GetDataFiles(object):
         res = [brain.getObject() for brain in brains]
 
         # Sort DataFiles by filename
-        comp = lambda x,y: cmp(x.getFilename(), y.getFilename())
+        comp = lambda x, y: cmp(x.getFilename(), y.getFilename())
         res.sort(comp)
         return res
 
@@ -463,10 +473,12 @@ class GetTablesByCategory(object):
     def __call__(self):
         res = {}
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({'portal_type': ['DataTable'],
-                                    'path': '/'.join(self.context.getPhysicalPath()),
-                                    'sort_on': 'sortable_title',
-                                    'review_state':'published'})
+        brains = cat.searchResults({
+            'portal_type': ['DataTable'],
+            'path': '/'.join(self.context.getPhysicalPath()),
+            'sort_on': 'sortable_title',
+            'review_state':'published'
+        })
 
         # Get DataTable files
         for brain in brains:
@@ -545,12 +557,15 @@ class GetOrganisationSnippet(object):
                 brain = res[0]
                 view = 'block'
                 location = brain.location
-                if not location: view = 'none'
-                res = ORGANISATION_SNIPPET % {'title': brain.Title,
-                                              'url': brain.getUrl,
-                                              'address': location,
-                                              'description': brain.Description,
-                                              'view': view}
+                if not location:
+                    view = 'none'
+                res = ORGANISATION_SNIPPET % {
+                    'title': brain.Title,
+                    'url': brain.getUrl,
+                    'address': location,
+                    'description': brain.Description,
+                    'view': view
+                }
         return res
 
 class GeographicalCoverageMap(object):
@@ -564,7 +579,8 @@ class GeographicalCoverageMap(object):
         res = ''
         if cc:
             cc_list = ':2,'.join(cc) + ':2'
-            res = "http://map.eea.europa.eu/getmap.asp?Fullextent=1&size=W200&PredefShade=Dataservice&Q=%s" % cc_list
+            res = ("http://map.eea.europa.eu/getmap.asp?Fullextent=1&"
+                   "size=W200&PredefShade=Dataservice&Q=%s" % cc_list)
         return res
 
 class GetReferenceSystemKupu(object):
@@ -598,7 +614,12 @@ class GetQualityDisplay(object):
                 label = key
                 break
 
-        template_style = [['cell1', 'white'], ['cell2', 'white'], ['cell3', 'white']]
+        template_style = [
+            ['cell1', 'white'],
+            ['cell2', 'white'],
+            ['cell3', 'white']
+        ]
+
         for k in range(int(value)):
             template_style[k][1] = 'LightGreen'
         template_style = dict(template_style)
@@ -616,6 +637,8 @@ class GetEEAFigureFiles(object):
 
     @property
     def brains(self):
+        """ ZCatalog brains
+        """
         if not self._brains:
             self._brains = self.context.getFolderContents(contentFilter={
                 'portal_type': 'EEAFigureFile',
@@ -624,6 +647,8 @@ class GetEEAFigureFiles(object):
         return self._brains
 
     def figures(self):
+        """ Figures
+        """
         if self._figures:
             return self._figures
 
@@ -639,12 +664,16 @@ class GetEEAFigureFiles(object):
         return self._figures
 
     def singlefigure(self):
+        """ Figure
+        """
         figures = self.figures()
         if len(figures) == 1:
             return figures[0]
         return None
 
     def categories(self):
+        """ Categories
+        """
         res = {}
         singlefigure = self.singlefigure()
         for brain in self.brains:
@@ -702,7 +731,9 @@ QUALITY_TEMPLATE = """
 ORGANISATION_SNIPPET = """
   <fieldset style="padding:0 1em 1em 1em; margin: 0 1em">
     <legend>
-      <span style="color: red; cursor: pointer; margin:0.3em" title="Remove snippet" class="dummy-remove">[x]</span>Organisation snippet
+      <span style="color: red; cursor: pointer; margin:0.3em"
+            title="Remove snippet"
+            class="dummy-remove">[x]</span> Organisation snippet
     </legen>
     <h4>%(title)s</h4>
     <p>%(description)s</p>

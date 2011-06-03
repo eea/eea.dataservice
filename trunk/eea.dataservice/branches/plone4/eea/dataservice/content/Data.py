@@ -1,29 +1,19 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Data
+"""
 from zope.interface import implements
-from zope.component import queryAdapter
 from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
-from Products.Archetypes.atapi import registerType, IntegerField, IntegerWidget
+from Products.Archetypes.atapi import IntegerField, IntegerWidget
 from Products.Archetypes.atapi import MultiSelectionWidget
-from Products.CMFCore import permissions
-from AccessControl import ClassSecurityInfo
-from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Field import ReferenceField
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
-from eea.dataservice.content.themes import IThemeTagging
 from eea.dataservice.content.themes import ThemeTaggable
-
-from eea.dataservice.config import PROJECTNAME
 from eea.dataservice.interfaces import IDataset
-from eea.dataservice.content.schema import dataservice_schema
+from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.fields.GeoQualityField import GeoQualityField
 from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
@@ -37,7 +27,9 @@ schema = Schema((
         languageIndependent=True,
         widget=TextAreaWidget(
             label="Geographic accuracy",
-            description="It is applicable to GIS datasets. It indicates the geographic accuracy of location, ground distance as a value in meters.",
+            description=("It is applicable to GIS datasets. It indicates the "
+                         "geographic accuracy of location, ground distance as "
+                         "a value in meters."),
             label_msgid='dataservice_label_accurracy',
             description_msgid='dataservice_help_accurracy',
             i18n_domain='eea',
@@ -52,7 +44,10 @@ schema = Schema((
             label="Disclaimer",
             description="Disclaimer description.",
             label_msgid='dataservice_label_disclaimer',
-            description_msgid='A disclaimer is a statement which generally states that the entity authoring the disclaimer is not responsible for something in some manner.',
+            description_msgid=('A disclaimer is a statement which generally '
+                               'states that the entity authoring the '
+                               'disclaimer is not responsible for something '
+                               'in some manner.'),
             i18n_domain='eea',
         )
     ),
@@ -61,12 +56,13 @@ schema = Schema((
         name='scale',
         languageIndependent=True,
         required=False,
-        validators = ('isInt',),
+        validators=('isInt',),
         widget=IntegerWidget(
             macro='scale_widget',
             label='Scale of the dataset',
             label_msgid='dataservice_label_scale',
-            description = ("Gives a rough value of accuracy for the GIS dataset. Example: 1:1000"),
+            description=("Gives a rough value of accuracy for the GIS "
+                           "dataset. Example: 1:1000"),
             description_msgid='dataservice_help_scale',
             i18n_domain='eea',
             size=20,
@@ -81,7 +77,8 @@ schema = Schema((
         widget=SelectionWidget(
             macro="reference_widget",
             label="Coordinate reference system",
-            description="Coordinate reference system used for the GIS dataset. Example: Lambert Azimutal",
+            description=("Coordinate reference system used for the GIS "
+                         "dataset. Example: Lambert Azimutal"),
             label_msgid="dataservice_label_system",
             description_msgid="dataservice_help_system",
             i18n_domain="eea",
@@ -93,10 +90,10 @@ schema = Schema((
         languageIndependent=True,
         default=('-1', '-1', '-1', '-1', '-1'),
         vocabulary=NamedVocabulary("quality"),
-        widget = GeoQualityWidget(
+        widget=GeoQualityWidget(
             format="select",
             label="Geographic information quality",
-            description = ("Geographic information quality."),
+            description=("Geographic information quality."),
             label_msgid='dataservice_label_geoQuality',
             description_msgid='dataservice_help_geoQuality',
             i18n_domain='eea',
@@ -113,7 +110,11 @@ schema = Schema((
         widget=MultiSelectionWidget(
             macro="obligations_widget",
             label="Environmental reporting obligations (ROD)",
-            description="The environmental reporting obligations used to optain the data. Reporting obligations are requirements to provide information agreed between countries and international bodies such as the EEA or international conventions.",
+            description=("The environmental reporting obligations used to "
+                         "optain the data. Reporting obligations are "
+                         "requirements to provide information agreed between "
+                         "countries and international bodies such as the EEA "
+                         "or international conventions."),
             label_msgid='dataservice_label_obligations',
             description_msgid='dataservice_help_obligations',
             i18n_domain='eea',
@@ -123,49 +124,50 @@ schema = Schema((
     ReferenceField(
         'relatedProducts',
         schemata="categorization",
-        relationship = 'relatesToProducts',
-        multiValued = True,
-        isMetadata = True,
-        languageIndependent = False,
-        index = 'KeywordIndex',
-        write_permission = ModifyPortalContent,
-        widget = ReferenceBrowserWidget(
-            allow_search = True,
-            allow_browse = True,
-            allow_sorting = True,
-            show_indexes = False,
-            force_close_on_insert = True,
-            label = "Relations to other EEA products",
-            label_msgid = "label_related_products",
-            description = "Specify relations to other EEA products within Plone.",
-            description_msgid = "help_related_products",
-            i18n_domain = "plone",
-            visible = {'edit' : 'visible', 'view' : 'invisible' }
+        relationship='relatesToProducts',
+        multiValued=True,
+        isMetadata=True,
+        languageIndependent=False,
+        index='KeywordIndex',
+        write_permission=ModifyPortalContent,
+        widget=ReferenceBrowserWidget(
+            allow_search=True,
+            allow_browse=True,
+            allow_sorting=True,
+            show_indexes=False,
+            force_close_on_insert=True,
+            label="Relations to other EEA products",
+            label_msgid="label_related_products",
+            description="Specify relations to other EEA products within Plone.",
+            description_msgid="help_related_products",
+            i18n_domain="plone",
+            visible={'edit' : 'visible', 'view' : 'invisible' }
             )
         ),
 
     ReferenceField(
         'relatedItems',
         schemata="categorization",
-        relationship = 'relatesTo',
-        multiValued = True,
-        isMetadata = True,
-        languageIndependent = False,
-        index = 'KeywordIndex',
-        write_permission = ModifyPortalContent,
-        widget = ReferenceBrowserWidget(
-            allow_search = True,
-            allow_browse = True,
-            allow_sorting = True,
-            show_indexes = False,
-            force_close_on_insert = True,
-            label = "This dataset is derived from",
-            label_msgid = "dataservice_label_related_items",
-            description = "Specify the datasets from which this dataset is derived.",
-            description_msgid = "dataservice_help_related_items",
-            i18n_domain = "plone",
-            startup_directory = 'data',
-            visible = {'edit' : 'visible', 'view' : 'invisible' }
+        relationship='relatesTo',
+        multiValued=True,
+        isMetadata=True,
+        languageIndependent=False,
+        index='KeywordIndex',
+        write_permission=ModifyPortalContent,
+        widget=ReferenceBrowserWidget(
+            allow_search=True,
+            allow_browse=True,
+            allow_sorting=True,
+            show_indexes=False,
+            force_close_on_insert=True,
+            label="This dataset is derived from",
+            label_msgid="dataservice_label_related_items",
+            description=("Specify the datasets from which this dataset "
+                         "is derived."),
+            description_msgid="dataservice_help_related_items",
+            i18n_domain="plone",
+            startup_directory='data',
+            visible={'edit' : 'visible', 'view' : 'invisible' }
             )
         )
 ),)
@@ -180,77 +182,11 @@ dataset_schema.moveField('referenceSystem', before='geoQuality')
 dataset_schema.moveField('scale', before='referenceSystem')
 dataset_schema.moveField('relatedItems', pos='bottom')
 
-
-class Data(ATFolder, ThemeTaggable):
+class Data(DataMixin, ATFolder, ThemeTaggable):
     """ Dataset Content Type
     """
     implements(IDataset)
-    security = ClassSecurityInfo()
-
-    archetype_name  = 'Data'
-    portal_type     = 'Data'
-    meta_type       = 'Data'
+    archetype_name = portal_type = meta_type = 'Data'
     allowed_content_types = ['ATImage', 'File', 'Folder', 'DataTable']
     _at_rename_after_creation = True
-
     schema = dataset_schema
-
-    security.declareProtected(permissions.View, 'getKeywords')
-    def getKeywords(self):
-        res = list(self.Subject())
-        res.sort(key=str.lower)
-        return ', '.join(res)
-
-    security.declareProtected(permissions.View, 'getOrganisationName')
-    def getOrganisationName(self, url):
-        """ """
-        res = None
-        cat = getToolByName(self, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : 'Organisation',
-                                    'getUrl': url})
-        if brains: res = brains[0]
-        return res
-
-    security.declarePublic('Rights')
-    def Rights(self):
-        """
-         return standard EEA copyrights policy information otherwise return the specific one if present.
-        """
-        value = self.schema['rights'].getRaw(self)
-
-        if value:
-            return value
-        else:
-            ownerfield = self.getField('dataOwner')
-            urls = ownerfield.getAccessor(self)()
-            orgnames = []
-            copyrightholders = ""
-            for url in urls:
-                orgob = self.getOrganisationName(url)
-                if not orgob:
-                    continue
-                orgnames.append(orgob.Title)
-
-            if orgnames:
-                copyrightholders = 'Copyright holder: %s.' % ', '.join(orgnames)
-            return ("EEA standard re-use policy: unless otherwise indicated, "
-                    "re-use of content on the EEA website for commercial or "
-                    "non-commercial purposes is permitted free of charge, "
-                    "provided that the source is acknowledged "
-                    "(http://www.eea.europa.eu/legal/copyright). "
-                    "%s" % copyrightholders)
-
-    security.declarePublic('getThemeVocabs')
-    def getThemeVocabs(self):
-        """
-        """
-        pass
-
-    def setThemes(self, value, **kw):
-        """ Use the tagging adapter to set the themes. """
-        value = [val for val in value if val]#value = filter(None, value)
-        tagging = queryAdapter(self, IThemeTagging)
-        if tagging:
-            tagging.tags = value
-
-registerType(Data, PROJECTNAME)

@@ -4,8 +4,6 @@
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
-  <include package=".resources" />
-
   <browser:page
       name="organisationStatistics"
       class=".app.displays.OrganisationStatistics"

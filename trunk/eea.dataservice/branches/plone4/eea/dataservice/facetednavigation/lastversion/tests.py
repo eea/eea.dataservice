@@ -5,9 +5,10 @@ import unittest
 from Testing.ZopeTestCase import FunctionalDocFileSuite as Suite
 from eea.dataservice.tests.base import DataserviceFunctionalTestCase
 
-FACETED = True
 try:
     from eea.facetednavigation import interfaces
+    # See http://goo.gl/eHbyY
+    FACETED = True if interfaces.IFacetedNavigable else False
 except ImportError:
     FACETED = False
 

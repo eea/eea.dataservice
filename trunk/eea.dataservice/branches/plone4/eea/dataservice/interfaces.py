@@ -1,6 +1,7 @@
+""" Public interfaces
+"""
 from zope.interface import Interface, alsoProvides
 from zope.app.content import interfaces as contentifaces
-
 
 class IDatasetEnhanced(Interface):
     """ Marker interface for datasets.
@@ -11,11 +12,11 @@ class IDataset(Interface):
     """ Objects which have dataset information.
     """
 
-    def getKeywords(obj): #pylint: disable-msg = E0213
+    def getKeywords(obj):
         """ Return formated keywords list
         """
 
-    def getOrganisationName(obj): #pylint: disable-msg = E0213
+    def getOrganisationName(obj):
         """ Return organisation name
         """
 

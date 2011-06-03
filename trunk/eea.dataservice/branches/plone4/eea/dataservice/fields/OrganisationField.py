@@ -1,16 +1,17 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
+""" Organisation
+"""
 
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.Field import decode #, encode
-from Products.Archetypes.atapi import StringField # ,ObjectField 
+from Products.Archetypes.atapi import StringField # ,ObjectField
 
 class OrganisationField(StringField):
-    """ """
+    """ Organisation Field
+    """
     def set(self, instance, value, **kwargs):
+        """ Setter
+        """
         old_url = getattr(instance, 'organisationUrl', '')
         kwargs['field'] = self
         # Remove acquisition wrappers
@@ -28,7 +29,8 @@ class OrganisationField(StringField):
                     val = [value]
                     k_ob = k.getObject()
                     for url in k_ob.getDataOwner():
-                        if url != old_url: val.append(url)
+                        if url != old_url:
+                            val.append(url)
                     values = {'dataOwner': val}
                     k_ob.processForm(data=1, metadata=1, values=values)
                     k_ob.reindexObject()
@@ -38,7 +40,8 @@ class OrganisationField(StringField):
                     val = [value]
                     k_ob = k.getObject()
                     for url in k_ob.getProcessor():
-                        if url != old_url: val.append(url)
+                        if url != old_url:
+                            val.append(url)
                     values = {'processor': val}
                     k_ob.processForm(data=1, metadata=1, values=values)
                     k_ob.reindexObject()

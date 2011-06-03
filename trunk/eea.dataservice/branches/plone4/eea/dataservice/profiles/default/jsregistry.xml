@@ -3,7 +3,7 @@
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python: request.get('jsdisable','') != 'jquery'"
-    id="figures.view.js" inline="False"/>
+    id="++resource++eea.dataservice.view.js" inline="False"/>
  <!-- <javascript cacheable="True" compression="safe" cookable="True" -->
  <!--    enabled="True" -->
  <!--    expression="python: request.get('jsdisable','') != 'jquery'" -->

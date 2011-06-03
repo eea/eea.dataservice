@@ -1,3 +1,5 @@
+""" Fancybox
+"""
 from zope.component import queryMultiAdapter
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -43,6 +45,8 @@ class FancyBox(BrowserView):
 
     @property
     def vocabulary(self):
+        """ Vocabulary
+        """
         brains = self.context.getFolderContents(contentFilter={
             'portal_type': 'ImageFS',
             'review_state': ['published', 'visible'],
@@ -68,13 +72,19 @@ class ContainerFancyBox(BrowserView):
     """
     @property
     def box(self):
-        imgview = queryMultiAdapter((self.context, self.request), name=u'imgview')
+        """ Box
+        """
+        imgview = queryMultiAdapter(
+            (self.context, self.request), name=u'imgview')
+
         childview = getattr(imgview, 'img', None)
         child = getattr(childview, 'context', None)
         if not child:
             return self.context.title_or_id()
 
-        fancybox = queryMultiAdapter((child, self.request), name=u'fancybox.html')
+        fancybox = queryMultiAdapter(
+            (child, self.request), name=u'fancybox.html')
+
         if not fancybox:
             return self.context.title_or_id()
         return fancybox()

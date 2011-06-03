@@ -1,17 +1,13 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Figure type
+"""
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.Widget import TypesWidget
-from Products.Archetypes.Registry import registerWidget
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
-
 from eea.dataservice import interfaces
 
-
 class FigureTypeWidget(TypesWidget):
+    """ Figure Type Widget
+    """
     _properties = TypesWidget._properties.copy()
     _properties.update({
         'format': "flex", # possible values: flex, select, radio
@@ -29,11 +25,14 @@ class FigureTypeWidget(TypesWidget):
         old_value = instance.getFigureType()
 
         if old_value == 'map':
-            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureMap)
+            directlyProvides(instance,
+                directlyProvidedBy(instance)-interfaces.IEEAFigureMap)
         elif old_value == 'graph':
-            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureGraph)
+            directlyProvides(instance,
+                directlyProvidedBy(instance)-interfaces.IEEAFigureGraph)
         elif old_value == 'table':
-            directlyProvides(instance, directlyProvidedBy(instance)-interfaces.IEEAFigureTable)
+            directlyProvides(instance,
+                directlyProvidedBy(instance)-interfaces.IEEAFigureTable)
 
         if value == 'map':
             alsoProvides(instance, interfaces.IEEAFigureMap)
@@ -47,10 +46,3 @@ class FigureTypeWidget(TypesWidget):
         if emptyReturnsMarker and value == '':
             return empty_marker
         return value, {}
-
-registerWidget(FigureTypeWidget,
-               title='EEA Fugure Type',
-               description=('EEA Figure Type description.'),
-               used_for=('Products.Archetypes.Field.StringField',
-                         'Products.Archetypes.Field.LinesField',)
-               )

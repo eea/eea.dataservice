@@ -4,9 +4,11 @@ import logging
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from BTrees.IIBTree import weightedIntersection, IISet
-from eea.facetednavigation.widgets.checkbox.widget import Widget as CheckboxWidget
+from eea.facetednavigation.widgets.checkbox.widget import (
+    Widget as CheckboxWidget,
+    EditSchema as CheckboxSchema,
+)
 from eea.facetednavigation.widgets.widget import CommonEditSchema
-from eea.facetednavigation.widgets.checkbox.widget import EditSchema as CheckboxSchema
 
 logger = logging.getLogger('eea.dataservice.facetednavigation.geocoverage')
 GeoSchema = CommonEditSchema + CheckboxSchema.copy()

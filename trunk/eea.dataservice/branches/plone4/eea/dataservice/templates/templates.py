@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Custom templates
+"""
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
@@ -10,6 +7,8 @@ TEMPLATE_CONTAINER = 'templates'
 TEMPLATE_TYPES = ['EEAFigure', 'Data']
 
 def getTemplatesPath(context):
+    """ Get template path
+    """
     phy_path = []
     phy_path.extend(context.getPhysicalPath()[:-1])
     phy_path.extend([TEMPLATE_CONTAINER])

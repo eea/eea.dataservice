@@ -33,8 +33,9 @@ setup(name=name,
       install_requires=[
           'setuptools',
           'Products.ATVocabularyManager',
-          'eea.versions',
+          'eea.jquery',
           'eea.locationwidget',
+          'eea.versions',
       ],
       entry_points="""
       # -*- Entry points: -*-

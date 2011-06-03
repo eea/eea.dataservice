@@ -12,32 +12,44 @@ class MoveOrganisationReferences(BrowserView):
     """
 
     def get_related_objects(self, org_url, cat):
-        """ """
+        """ Related objects
+        """
         data = []
+        query = {
+            'portal_type': ['EEAFigure', 'Data'],
+            'getDataOwner': org_url,
+            'show_inactive': True
+        }
 
-        query = {'portal_type':['EEAFigure','Data'],
-                 'getDataOwner': org_url,
-                 'show_inactive':True}
         owner_brains = cat(**query)
         for brain in owner_brains:
             data.append(brain.getObject())
 
-        query = {'portal_type':['EEAFigure','Data'],
-                 'getProcessor': org_url,
-                 'show_inactive':True}
+        query = {
+            'portal_type': ['EEAFigure','Data'],
+            'getProcessor': org_url,
+            'show_inactive': True
+        }
+
         proc_brains = cat(**query)
         for brain in proc_brains:
             data.append(brain.getObject())
 
-        query = {'portal_type':['Specification'],
-                 'getOwnership': org_url,
-                 'show_inactive':True}
+        query = {
+            'portal_type': ['Specification'],
+            'getOwnership': org_url,
+            'show_inactive': True
+        }
+
         spec_brains = cat(**query)
         for brain in spec_brains:
             data.append(brain.getObject())
 
-        query = {'portal_type':['ExternalDataSpec'],
-                 'show_inactive':True}
+        query = {
+            'portal_type': ['ExternalDataSpec'],
+            'show_inactive': True
+        }
+
         externals = cat(**query)
         for ext in externals:
             ext_ob = ext.getObject()
@@ -57,14 +69,20 @@ class MoveOrganisationReferences(BrowserView):
         tt_ob = None
 
         if transfer_from and transfer_to:
-            query = {'getId': transfer_from,
-                     'portal_type': 'Organisation'}
+            query = {
+                'getId': transfer_from,
+                'portal_type': 'Organisation'
+            }
+
             res = cat.searchResults(query)
             if res:
                 tf_ob = res[0].getObject()
 
-            query = {'getId': transfer_to,
-                     'portal_type': 'Organisation'}
+            query = {
+                'getId': transfer_to,
+                'portal_type': 'Organisation'
+            }
+
             res = cat.searchResults(query)
             if res:
                 tt_ob = res[0].getObject()
@@ -76,7 +94,7 @@ class MoveOrganisationReferences(BrowserView):
 
             for obj in related_objects:
                 ptype = obj.portal_type
-                if ptype in ['EEAFigure','Data']:
+                if ptype in ['EEAFigure', 'Data']:
                     references = obj.getDataOwner()
                     if old_ref in references:
                         references = list(references)

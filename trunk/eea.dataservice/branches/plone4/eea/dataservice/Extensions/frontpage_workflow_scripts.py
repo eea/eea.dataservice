@@ -3,6 +3,8 @@
 from zope.component import queryMultiAdapter
 
 def sendWorkflowEmail(self, state_change, **kw):
+    """ Send email
+    """
     obj = getattr(state_change, 'object', None)
     request = getattr(obj, 'REQUEST', None)
     wfsupport = queryMultiAdapter((obj, request), name=u'eea-workflow-support')

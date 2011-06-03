@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Management Plan
+"""
 from Products.Archetypes.atapi import ObjectField, StringField
-from Products.Archetypes.Field import encode #, decode
-
+from Products.Archetypes.Field import encode
 
 class ManagementPlanField(StringField):
     """ Save management plan year and code

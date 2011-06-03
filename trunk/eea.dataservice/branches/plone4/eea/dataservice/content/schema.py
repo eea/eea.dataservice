@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Common schema
+"""
 from datetime import datetime
 from DateTime import DateTime
 
+from zope.component import queryAdapter
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, LinesField, LinesWidget
 from Products.Archetypes.atapi import MultiSelectionWidget, TextField
@@ -20,13 +18,80 @@ from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
-
+from eea.dataservice.content.themes import IThemeTagging
 
 # Validators
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
 
+class DataMixin(object):
+    """ Common data methods
+    """
+    def getOrganisationName(self, url):
+        """ Organisation Name
+        """
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({
+            'portal_type' : 'Organisation',
+            'getUrl': url
+        })
+
+        if brains:
+            return brains[0]
+
+    def getKeywords(self):
+        """ Keywords
+        """
+        res = list(self.Subject())
+        res.sort(key=str.lower)
+        return ', '.join(res)
+
+    def Rights(self):
+        """ Return standard EEA copyrights policy information otherwise
+            return the specific one if present.
+        """
+        value = self.schema['rights'].getRaw(self)
+
+        if value:
+            return value
+        else:
+            ownerfield = self.getField('dataOwner')
+            urls = ownerfield.getAccessor(self)()
+            orgnames = []
+            copyrightholders = ""
+            for url in urls:
+                orgob = self.getOrganisationName(url)
+                if not orgob:
+                    continue
+                orgnames.append(orgob.Title)
+
+            if orgnames:
+                copyrightholders = 'Copyright holder: %s.' % ', '.join(orgnames)
+
+            return ("EEA standard re-use policy: unless otherwise indicated, "
+                    "re-use of content on the EEA website for commercial or "
+                    "non-commercial purposes is permitted free of charge, "
+                    "provided that the source is acknowledged "
+                    "(http://www.eea.europa.eu/legal/copyright). "
+                    "%s" % copyrightholders)
+
+    def getThemeVocabs(self):
+        """ Themes vocabulary
+        """
+        return None
+
+    def setThemes(self, value, **kw):
+        """ Use the tagging adapter to set the themes.
+        """
+        value = [val for val in value if val is not None]
+        tagging = queryAdapter(self, IThemeTagging)
+        if tagging:
+            tagging.tags = value
+
+
 class UniqueOrganisationUrlValidator(object):
+    """ Validator
+    """
     implements(IValidator)
 
     def __init__(self,
@@ -41,7 +106,7 @@ class UniqueOrganisationUrlValidator(object):
 
         # http://eea.eu == http://eea.eu/
         if value.endswith('/'):
-            value = [value, value[:len(value)-1]]
+            value = [value, value[:len(value) - 1]]
         else:
             value = [value, '%s/' % value]
 
@@ -53,10 +118,12 @@ class UniqueOrganisationUrlValidator(object):
             for brain in brains:
                 org_ob = brain.getObject()
                 if kwargs['instance'].UID() != org_ob.UID():
-                    return ("Validation failed, there is already an organisation poiting to this URL.")
+                    return ("Validation failed, there is already an "
+                            "organisation poiting to this URL.")
         return 1
 
-validation.register(UniqueOrganisationUrlValidator('unique_organisation_url_validator'))
+validation.register(
+    UniqueOrganisationUrlValidator('unique_organisation_url_validator'))
 
 # Base schema for datasets and figures
 dataservice_base_schema = Schema((
@@ -74,7 +141,8 @@ dataservice_base_schema = Schema((
             helper_css=("countries_widget.css",),
             size=15,
             label="Geographical coverage",
-            description="The geographical extent of the content of the data resource.",
+            description=("The geographical extent of the content of "
+                         "the data resource."),
             label_msgid='dataservice_label_geographic',
             description_msgid='dataservice_help_geographic',
             i18n_domain='eea',
@@ -86,12 +154,12 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         required=True,
         default=(datetime.now().year, ''),
-        validators = ('management_plan_code_validator',),
+        validators=('management_plan_code_validator',),
         vocabulary_factory=u"Temporal coverage",
-        widget = ManagementPlanWidget(
+        widget=ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
-            description = ("EEA Management plan code."),
+            description=("EEA Management plan code."),
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea',
@@ -107,7 +175,11 @@ dataservice_base_schema = Schema((
         widget=CalendarWidget(
             show_hm=False,
             label="Last upload",
-            description="Date when the data resource was last uploaded in EEA data service. If not manually provided it will coincide with publishing date. It can later be used when a dataset is re-uploaded due to corrections and when a whole new version is not necessary.",
+            description=("Date when the data resource was last uploaded in "
+                         "EEA data service. If not manually provided it will "
+                         "coincide with publishing date. It can later be used "
+                         "when a dataset is re-uploaded due to corrections "
+                         "and when a whole new version is not necessary."),
             label_msgid='dataservice_label_last_upload',
             description_msgid='dataservice_help_last_upload',
             i18n_domain='eea',
@@ -125,7 +197,12 @@ dataservice_base_schema = Schema((
             helper_js=("multiselectautocomplete_widget.js",),
             size=15,
             label="Owner",
-            description="An entity or set of entities that owns the data resource. It coincides with the entity that first makes the data public available. The data owner is primarly responsible for the dataset harmonisation, quality assurance and collection from other reporting organisations.",
+            description=("An entity or set of entities that owns the data "
+                         "resource. It coincides with the entity that first "
+                         "makes the data public available. The data owner is "
+                         "primarly responsible for the dataset harmonisation, "
+                         "quality assurance and collection from other "
+                         "reporting organisations."),
             label_msgid='dataservice_label_owner',
             description_msgid='dataservice_help_owner',
             i18n_domain='eea',
@@ -161,7 +238,9 @@ dataservice_base_schema = Schema((
             helper_js=("temporal_widget.js",),
             size=15,
             label="Temporal coverage",
-            description="The temporal scope of the content of the data resource. Temporal coverage will typically include a set of years or a time range.",
+            description=("The temporal scope of the content of the data "
+                         "resource. Temporal coverage will typically include "
+                         "a set of years or a time range."),
             label_msgid='dataservice_label_coverage',
             description_msgid='dataservice_help_coverage',
             i18n_domain='eea',
@@ -174,7 +253,9 @@ dataservice_base_schema = Schema((
         required=True,
         widget=TextAreaWidget(
             label="Contact person(s) for EEA",
-            description="Outside person to be contacted by EEA if questions regarding the data resource arise at a later date, responsible project manager at EEA.",
+            description=("Outside person to be contacted by EEA if questions "
+                         "regarding the data resource arise at a later date, "
+                         "responsible project manager at EEA."),
             label_msgid='dataservice_label_dataset_contact',
             description_msgid='dataservice_help_dataset_contact',
             i18n_domain='eea',
@@ -190,7 +271,10 @@ dataservice_base_schema = Schema((
         default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Source",
-            description="A reference to a resource from which the present data resource is derived. Details such exact body or department, date of delivery, original database, table or GIS layer, scientific literature ...",
+            description=("A reference to a resource from which the present "
+                         "data resource is derived. Details such exact body "
+                         "or department, date of delivery, original database, "
+                         "table or GIS layer, scientific literature ..."),
             label_msgid="dataservice_label_source",
             description_msgid="dataservice_help_source",
             i18n_domain="eea",
@@ -224,7 +308,10 @@ dataservice_base_schema = Schema((
         default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Methodology",
-            description="Description of how the resource was compiled: used tools, applied procedures, additional information to understand the data, further references to used methodologies.",
+            description=("Description of how the resource was compiled: used "
+                         "tools, applied procedures, additional information "
+                         "to understand the data, further references to used "
+                         "methodologies."),
             label_msgid="dataservice_label_methodology",
             description_msgid="dataservice_help_methodology",
             i18n_domain="eea",
@@ -241,7 +328,8 @@ dataservice_base_schema = Schema((
         default_output_type='text/x-html-safe',
         widget=RichWidget(
             label="Unit",
-            description="Describes the unit(s) taken in account for the measurement values(s) of the data resource.",
+            description=("Describes the unit(s) taken in account for the "
+                         "measurement values(s) of the data resource."),
             label_msgid="dataservice_label_unit",
             description_msgid="dataservice_help_unit",
             i18n_domain="eea",
@@ -252,10 +340,10 @@ dataservice_base_schema = Schema((
     # Fields used only for redirects to old http://dataservice.eea.europa.eu
     StringField(
         name='shortId',
-        widget = StringWidget(
+        widget=StringWidget(
             label="Short ID",
-            visible=-1,
-            description = ("Short ID description."),
+            visible= -1,
+            description=("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
             i18n_domain='eea',
@@ -269,7 +357,8 @@ dataservice_base_schema = Schema((
         languageIndependent=True,
         widget=LinesWidget(
             label="External links, non EEA websites",
-            description="External links, non EEA websites. Please write http:// in front of the links.",
+            description=("External links, non EEA websites. "
+                         "Please write http:// in front of the links."),
             label_msgid='dataservice_label_external',
             description_msgid='dataservice_help_external',
             i18n_domain='eea',

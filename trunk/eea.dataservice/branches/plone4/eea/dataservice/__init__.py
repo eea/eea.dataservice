@@ -3,7 +3,21 @@
 from Products.CMFCore import utils as cmfutils
 from Products.Archetypes.atapi import process_types, listTypes
 from eea.dataservice.config import PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION
+
+# Register PIL plugins
 from eea.dataservice import pil
+pil.register()
+
+from eea.dataservice import fields
+fields.register()
+
+# Register custom widgets
+from eea.dataservice import widgets
+widgets.register()
+
+# Register custom content
+from eea.dataservice import content
+content.register()
 
 def initialize(context):
     """ Initialize product (called by zope2)

@@ -22,7 +22,7 @@ import logging
 import re
 from PIL import Image
 from PIL.EpsImagePlugin import EpsImageFile as PILEpsImageFile
-from PIL.EpsImagePlugin import _accept, PSFile, i32, split, field
+from PIL.EpsImagePlugin import PSFile, i32, split, field
 
 logger = logging.getLogger('eea.dataservice.pil.EpsImagePlugin')
 
@@ -47,7 +47,7 @@ def Ghostscript(tile, size, fp, dpi=None):
         command = ["gs",
                    "-q",                    # quite mode
                    "-g%dx%d" % size,        # set output geometry (pixels)
-                   "-dNOPAUSE -dSAFER",     # don't pause between pages, safe mode
+                   "-dNOPAUSE -dSAFER",     # don't pause between pages
                    "-sDEVICE=ppmraw",       # ppm driver
                    "-sOutputFile=%s" % efile,# output file
                    "- >/dev/null 2>/dev/null"]
@@ -56,7 +56,7 @@ def Ghostscript(tile, size, fp, dpi=None):
                    "-q",                    # quite mode
                    "-r%d" % dpi,            # set output resolution (pixels)
                    "-dEPSCrop",             # crop
-                   "-dNOPAUSE -dSAFER",     # don't pause between pages, safe mode
+                   "-dNOPAUSE -dSAFER",     # don't pause between pages
                    "-sDEVICE=ppmraw",       # ppm driver
                    "-sOutputFile=%s" % efile,# output file
                    "- >/dev/null 2>/dev/null"]
@@ -84,15 +84,18 @@ def Ghostscript(tile, size, fp, dpi=None):
             raise IOError("gs failed (status %d)" % status)
         im = Image.core.open_ppm(efile)
     finally:
-        try: os.unlink(efile)
-        except OSError: pass
+        try:
+            os.unlink(efile)
+        except OSError, err:
+            logger.debug(err)
     return im
 
 class EpsImageFile(PILEpsImageFile):
     """EPS File Parser for the Python Imaging Library"""
 
     def _open(self):
-
+        """ Open
+        """
         # FIXME: should check the first 512 bytes to see if this
         # really is necessary (platform-dependent, though...)
 
@@ -146,14 +149,13 @@ class EpsImageFile(PILEpsImageFile):
                         # Note: The DSC spec says that BoundingBox
                         # fields should be integers, but some drivers
                         # put floating point values there anyway.
-                        box = map(int, map(float, str.split(v))) #pylint: disable-msg = W0141
+                        box = [int(float(x)) for x in str.split(v)]
                         self.size = box[2] - box[0], box[3] - box[1]
                         offset = 0
-                        self.tile = [("eps", (0,0) + self.size, offset,
+                        self.tile = [("eps", (0, 0) + self.size, offset,
                                       (length, box))]
-                    except Exception:
-                        pass
-
+                    except Exception, err:
+                        logger.debug(err)
             else:
 
                 m = field.match(s)
@@ -193,11 +195,11 @@ class EpsImageFile(PILEpsImageFile):
 
             if s[:11] == "%ImageData:":
 
-                [x, y, bi, mo, _z3, _z4, en, eid] =\
-                    str.split(s[11:], maxsplit=7)
+                [x, y, bi, mo,
+                 _z3, _z4, en, eid] = str.split(s[11:], maxsplit=7)
 
-                x = int(x); y = int(y)
-
+                x = int(x)
+                y = int(y)
                 bi = int(bi)
                 mo = int(mo)
 
@@ -244,6 +246,8 @@ class EpsImageFile(PILEpsImageFile):
             raise IOError, "cannot determine EPS bounding box"
 
     def load(self):
+        """ Load
+        """
         # Load EPS via Ghostscript
         if not self.tile:
             return
@@ -253,5 +257,3 @@ class EpsImageFile(PILEpsImageFile):
         self.mode = self.im.mode
         self.size = self.im.size
         self.tile = []
-
-Image.register_open(EpsImageFile.format, EpsImageFile, _accept)

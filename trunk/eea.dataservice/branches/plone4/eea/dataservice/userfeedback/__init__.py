@@ -1,1 +1,2 @@
-# Module.
+""" User feedback
+"""

@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-
+""" Widgets
+"""
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.Registry import registerWidget
 from Products.Archetypes.Widget import TypesWidget
 from zope.app.form.browser.interfaces import IBrowserWidget
 from zope.app.form.interfaces import IInputWidget
@@ -12,13 +8,13 @@ from zope.app.form.interfaces import WidgetInputError
 from zope.app.pagetemplate import ViewPageTemplateFile
 from zope.interface import implements
 from zope.schema import Field
-from zope.schema.interfaces import IField
-from zope.app.form.browser.interfaces import IWidgetInputErrorView
-from zope.component import getMultiAdapter
 from zope.schema.vocabulary import getVocabularyRegistry
 
+from eea.dataservice.widgets.interfaces import IManagementPlanCode
 
 class ManagementPlanWidget(TypesWidget):
+    """ Management Plan Widget
+    """
     _properties = TypesWidget._properties.copy()
     _properties.update({
         'format': "flex", # possible values: flex, select, radio
@@ -40,19 +36,6 @@ class ManagementPlanWidget(TypesWidget):
 
         return (mp_year, mp_code), {}
 
-registerWidget(ManagementPlanWidget,
-               title='EEA Management Plan Code',
-               description=('Renders a HTML selection widget, to'
-                            ' allow you enter the year and the'
-                            ' EEA management plan code'),
-               used_for=('eea.dataservice.fields.ManagementPlanField.ManagementPlanField')
-               )
-
-
-class IManagementPlanCode(IField):
-    """The management plan field interface"""
-
-
 class ManagementPlanCode(Field):
     """The management plan field"""
 
@@ -61,17 +44,21 @@ class ManagementPlanCode(Field):
     years_vocabulary = None
 
     _type = (tuple, list)
-    
+
     def __init__(self, *args, **kwds):
         self.years_vocabulary = kwds['years_vocabulary']
         del kwds['years_vocabulary']
         Field.__init__(self, *args, **kwds)
 
     def get(self, adapter):
+        """ Getter
+        """
         value = getattr(adapter, self.__name__, ())
         return value
 
     def set(self, adapter, value):
+        """ Setter
+        """
         if self.readonly:
             raise TypeError("Can't set values on read-only fields "
                             "(name=%s, class=%s.%s)"
@@ -82,7 +69,8 @@ class ManagementPlanCode(Field):
         setattr(adapter, self.__name__, value)
 
     def constraint(self, value):
-
+        """ Constraint
+        """
         if not self.required:
             return True
         if len(value) != 2:
@@ -101,7 +89,7 @@ class ManagementPlanCode(Field):
 
         if year:
             try:
-                term = vocab.getTermByToken(year)
+                vocab.getTermByToken(year)
             except KeyError:
                 return False
 
@@ -114,12 +102,16 @@ class ManagementPlanCode(Field):
         return True
 
     def getVocabulary(self):
+        """ Vocabulary
+        """
         vocab = self.years_vocabulary
         context = self.context.context
         return getVocabularyRegistry().get(context, vocab)
 
 
 class FormlibManagementPlanWidget(object):
+    """ Management Plan widget for formlib
+    """
     implements(IBrowserWidget, IInputWidget)
     template = ViewPageTemplateFile("managementplan.pt")
 
@@ -142,7 +134,8 @@ class FormlibManagementPlanWidget(object):
         self._value = field.query(field.context)
 
     def applyChanges(self, content):
-        """See zope.app.form.interfaces.IInputWidget"""
+        """ See zope.app.form.interfaces.IInputWidget
+        """
         field = self.context
         new_value = self.getInputValue()
         old_value = field.query(content, self)
@@ -153,7 +146,8 @@ class FormlibManagementPlanWidget(object):
         return True
 
     def setPrefix(self, prefix):
-        """See zope.app.form.interfaces.IWidget"""
+        """ See zope.app.form.interfaces.IWidget
+        """
         # Set the prefix locally
         if not prefix.endswith("."):
             prefix += '.'
@@ -161,28 +155,32 @@ class FormlibManagementPlanWidget(object):
         self.name = prefix + self.context.__name__
 
     def setRenderedValue(self, value):
-        """See zope.app.form.interfaces.IWidget"""
+        """ See zope.app.form.interfaces.IWidget
+        """
         self._value = value
 
     def getInputValue(self):
-        """See zope.app.form.interfaces.IInputWidget"""
+        """ See zope.app.form.interfaces.IInputWidget
+        """
         self._error = None
 
         year = self.request.form.get(self.name + "Year")
         code = self.request.form.get(self.name + "Code")
 
         if not self.hasValidInput():
-            self._error = WidgetInputError(self.context.__name__, 
-                                           self.label, (year, code))
-            raise self._error
+            error = WidgetInputError(self.context.__name__,
+                                     self.label, (year, code))
+            self._error = error
+            raise error
 
-        year = int(year.strip())        
+        year = int(year.strip())
         code = code.strip()
 
         return (year, code)
 
     def hasInput(self):
-        """See zope.app.form.interfaces.IInputWidget"""
+        """ See zope.app.form.interfaces.IInputWidget
+        """
 
         code = self.request.form.get(self.name + "Code", '').strip()
         year = self.request.form.get(self.name + "Year", '').strip()
@@ -190,7 +188,8 @@ class FormlibManagementPlanWidget(object):
         return bool(code or year)
 
     def hasValidInput(self):
-        """See zope.app.form.interfaces.IInputWidget"""
+        """ See zope.app.form.interfaces.IInputWidget
+        """
 
         code = self.request.form.get(self.name + "Code")
         year = self.request.form.get(self.name + "Year")
@@ -198,17 +197,15 @@ class FormlibManagementPlanWidget(object):
         return self.context.constraint((year, code))
 
     def hidden(self):
-        """See zope.app.form.browser.interfaces.IBrowserWidget"""
+        """ See zope.app.form.browser.interfaces.IBrowserWidget
+        """
         return False
 
     def error(self):
-        """See zope.app.form.browser.interfaces.IBrowserWidget"""
+        """ See zope.app.form.browser.interfaces.IBrowserWidget
+        """
         if self._error:
             return "Need valid input"
 
-        #getMultiAdapter((self._error, self.request), 
-        #                IWidgetInputErrorView).snippet()
-
     def __call__(self):
         return self.template()
-

@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
+""" Geo quality
+"""
 
 from Products.Archetypes.atapi import ObjectField, StringField
-from Products.Archetypes.Field import encode #, decode
+from Products.Archetypes.Field import encode
 
 
 class GeoQualityField(StringField):
     """ Save geographic information quality data
     """
-
     def set(self, instance, value, **kwargs):
         """
         Set geographic information quality data

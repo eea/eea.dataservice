@@ -1,1 +1,2 @@
-# Module
+""" eea.facetednavigation custom widgets
+"""

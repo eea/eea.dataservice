@@ -1,7 +1,8 @@
+""" IMS
+"""
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
 from zope.publisher.interfaces import NotFound
-
 
 class GetIMSimage(object):
     """ Get image to be displayed on IMS portal

@@ -1,1 +1,2 @@
-# Module
+""" Geocoverage widget for eea.facetednavigation
+"""

@@ -1,3 +1,5 @@
+""" User feedback interfaces
+"""
 from zope.interface import Interface
 from zope import schema
 
@@ -10,11 +12,11 @@ class ISurveySupport(Interface):
 class ISurvey(Interface):
     """ Survey enable/disable
     """
-    def enable(): #pylint: disable-msg = E0211
+    def enable():
         """ Enable EEAUserFeedback
         """
 
-    def disable(): #pylint: disable-msg = E0211
+    def disable():
         """Disable EEAUserFeedback
         """
 

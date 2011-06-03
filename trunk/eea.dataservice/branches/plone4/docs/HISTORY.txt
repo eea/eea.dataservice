@@ -8,6 +8,9 @@ Changelog
 4.0-dev - (unreleased)
 ----------------------
 
+* Feature: Fixed all pylint, pyflakes warnings
+  [voineali #4302]
+
 * Feature: Plone 4.0.4 compatible
   [voineali $4302]
 
