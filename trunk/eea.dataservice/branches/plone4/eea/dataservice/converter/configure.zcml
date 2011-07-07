@@ -39,25 +39,6 @@
       class=".converter.ConvertionInfo"
       />
 
-  <!-- TODO Plone4 Fix me -->
-  <!--<browser:menuItem-->
-      <!--for="eea.dataservice.interfaces.IEEAFigureFile"-->
-      <!--menu="object_buttons"-->
-      <!--title="Convert figure"-->
-      <!--action="@@convertFigure"-->
-      <!--description="Convert figure to predefined formats and resolutions"-->
-      <!--permission="cmf.ModifyPortalContent"-->
-      <!--/>-->
-
-  <!--<browser:menuItem-->
-      <!--for="eea.dataservice.interfaces.IEEAFigure"-->
-      <!--menu="object_buttons"-->
-      <!--title="Convert all figures"-->
-      <!--action="@@convertFigures"-->
-      <!--description="Convert all figures to predefined formats and resolutions"-->
-      <!--permission="cmf.ModifyPortalContent"-->
-      <!--/>-->
-
   <browser:resource
       name="eea.dataservice.convert_figure.js"
       file="convert_figure.js"

@@ -5,19 +5,8 @@
 
 <body>
 
-<div metal:fill-slot="main">
-
-<metal:main_macro define-macro="main">
-
-  <div metal:use-macro="here/document_actions/macros/document_actions">
-    Document actions (print, sendto etc) </div>
-
-  <h1 tal:content="here/pretty_title_or_id" class="documentFirstHeading">Title or id</h1>
-
-
-  <div tal:content="here/Description" tal:condition="here/Description" class="documentDescription">
-    Description
-  </div>
+<div metal:fill-slot="content-core">
+<metal:main_macro define-macro="content-core">
 
   <metal:mainservices use-macro="here/atct_album_view/macros/listing" />
   <h2>Top content</h2>
@@ -26,9 +15,7 @@
   <metal:topcontent use-macro="here/portlet_dataviewers/macros/portlet" />
 
 </metal:main_macro>
-
 </div>
 
 </body>
-
 </html>

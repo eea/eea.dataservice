@@ -10,7 +10,7 @@
 
 <body>
 
-<div metal:fill-slot="main">
+<div metal:fill-slot="content-core">
 
  <h1 class="documentFirstHeading" i18n:translate="">Convert figure</h1>
 

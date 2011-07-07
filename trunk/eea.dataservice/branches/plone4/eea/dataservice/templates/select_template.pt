@@ -5,9 +5,7 @@
 
 <body>
 
-<div metal:fill-slot="main">
-
-<h1 tal:content="context/title_or_id" />
+<div metal:fill-slot="content-core">
 
 <p i18n:translate="">Select one of the below templates to apply its metadata.</p>
 

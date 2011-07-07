@@ -1,21 +1,16 @@
-""" Interfaces
+""" Backward compatible
 """
-# TODO Plone4 Fix me
-#from eea.versions.interfaces import IVersionControl as EVersionControl
-#from eea.versions.interfaces import IVersionEnhanced as EVersionEnhanced
-#from eea.versions.interfaces import IGetVersions as EGetVersions
+from eea.versions.interfaces import IVersionControl
+from eea.versions.interfaces import IVersionEnhanced
+from eea.versions.interfaces import IGetVersions
 
-## don't know if this is necessery if these classes are
-## needed anymore (ichimdav)
+__all__ = [
+    IVersionControl.__name__,
+    IVersionEnhanced.__name__,
+    IGetVersions.__name__,
+]
 
-#class IVersionControl(EVersionControl):
-    #""" Objects which have versions.
-    #"""
-
-#class IVersionEnhanced(EVersionEnhanced):
-    #""" Objects which have versions.
-    #"""
-
-#class IGetVersions(EGetVersions):
-    #""" Get container versions.
-    #"""
+from Products.CMFPlone.log import log_deprecated
+log_deprecated("eea.dataservice.versions.interfaces is deprecated and it "
+               " will be removed in eea.dataservice > 4.0 "
+               "Please use eea.versions.interfaces instead.")

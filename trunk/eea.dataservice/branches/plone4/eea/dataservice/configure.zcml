@@ -61,4 +61,6 @@
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
   </configure>
 
+  <include package=".upgrades" />
+
 </configure>

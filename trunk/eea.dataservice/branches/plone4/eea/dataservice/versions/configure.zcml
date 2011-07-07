@@ -4,79 +4,32 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="eea">
 
-    <!-- TODO Plone4 Fix me -->
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IEEAFigure"-->
-        <!--menu="object_buttons"-->
-        <!--title="Create new version"-->
-        <!--action="@@createVersion"-->
-        <!--description="Create a new version"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
+    <class class="eea.dataservice.content.EEAFigure.EEAFigure">
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+    </class>
 
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IEEAFigure"-->
-        <!--menu="object_buttons"-->
-        <!--title="Re-assign version"-->
-        <!--action="@@assignVersion"-->
-        <!--description="Re-assign to another version ID"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
+    <class class="eea.dataservice.content.Data.Data">
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+    </class>
 
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IEEAFigure"-->
-        <!--menu="object_buttons"-->
-        <!--title="Revoke version"-->
-        <!--action="@@revokeVersion"-->
-        <!--description="Revoke a version"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
+    <subscriber
+         for="eea.dataservice.interfaces.IDataset
+              zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
 
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IDataset"-->
-        <!--menu="object_buttons"-->
-        <!--title="Create new version"-->
-        <!--action="@@createVersion"-->
-        <!--description="Create a new version"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
+    <subscriber
+         for="eea.dataservice.interfaces.IDataset
+              zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
 
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IDataset"-->
-        <!--menu="object_buttons"-->
-        <!--title="Re-assign version"-->
-        <!--action="@@assignVersion"-->
-        <!--description="Re-assign to another version ID"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
+    <subscriber
+         for="eea.dataservice.interfaces.IEEAFigure
+              zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
 
-    <!--<browser:menuItem-->
-        <!--for="eea.dataservice.interfaces.IDataset"-->
-        <!--menu="object_buttons"-->
-        <!--title="Revoke version"-->
-        <!--action="@@revokeVersion"-->
-        <!--description="Revoke a version"-->
-        <!--permission="cmf.ModifyPortalContent"-->
-        <!--/>-->
-
-    <!--<subscriber-->
-         <!--for="eea.dataservice.interfaces.IDataset-->
-              <!--zope.app.event.interfaces.IObjectCreatedEvent"-->
-         <!--handler="eea.versions.versions.versionIdHandler" />-->
-
-    <!--<subscriber-->
-         <!--for="eea.dataservice.interfaces.IDataset-->
-              <!--zope.app.event.interfaces.IObjectModifiedEvent"-->
-         <!--handler="eea.versions.versions.versionIdHandler" />-->
-
-    <!--<subscriber-->
-         <!--for="eea.dataservice.interfaces.IEEAFigure-->
-              <!--zope.app.event.interfaces.IObjectCreatedEvent"-->
-         <!--handler="eea.versions.versions.versionIdHandler" />-->
-
-    <!--<subscriber-->
-         <!--for="eea.dataservice.interfaces.IEEAFigure-->
-              <!--zope.app.event.interfaces.IObjectModifiedEvent"-->
-         <!--handler="eea.versions.versions.versionIdHandler" />-->
+    <subscriber
+         for="eea.dataservice.interfaces.IEEAFigure
+              zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+         handler="eea.versions.versions.versionIdHandler" />
 
 </configure>

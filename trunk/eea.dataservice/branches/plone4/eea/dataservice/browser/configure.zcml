@@ -208,15 +208,6 @@
     <implements interface="..interfaces.IWorkingList" />
   </class>
 
-  <!-- TODO Plone4 Fix me -->
-  <!--<browser:menuItem-->
-    <!--for="..interfaces.IWorkingList"-->
-    <!--menu="object"-->
-    <!--title="Working list"-->
-    <!--action="folder_contents"-->
-    <!--permission="cmf.ModifyPortalContent"-->
-    <!--/>-->
-
   <browser:page
     for="..interfaces.IEEAFigureFile"
     name="fancybox.html"

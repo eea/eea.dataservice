@@ -12,21 +12,18 @@
 
 <body>
 
-<div metal:fill-slot="main" tal:define="
+<div metal:fill-slot="content-core" tal:define="
   lastVersion context/@@getLatestVersionLink;
   versions nocall:here/@@getVersions;
   isVersionEnhanced here/@@isVersionEnhanced;">
-    <!-- BASIC PROPERTIES -->
-
-    <metal:basic use-macro="here/dataset_view/macros/basic" />
 
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions">
       <metal:new fill-slot="old" />
     </metal:versions>
 
-    <!-- Themes -->
-    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
+    <!-- XXX Plone4 Fix ME Themes -->
+    <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
 
   <!-- EEAFigureFiles -->
   <tal:figurefiles define="
@@ -52,7 +49,7 @@
         <h4 tal:content="categ_name" tal:attributes="
           id string:fancy-$categ;
           title categ_name;"/>
-        <metal:figures use-macro="here/atct_album_view/macros/listing" />
+        <metal:figures use-macro="here/atct_album_view/macros/content-core" />
       </tal:child>
     </div>
   </tal:figurefiles>

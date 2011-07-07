@@ -7,13 +7,13 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* TODO: Fix eea.themecentre dependency
+* TODO: Fix Geographical Coverage JS
+* TODO: Convert all figures JS
 
-* Feature: Fixed all pylint, pyflakes warnings
-  [voineali #4302]
-
-* Feature: Plone 4.0.4 compatible
-  [voineali $4302]
-
+* Feature: Fixed all pylint, pyflakes warnings [voineali #4302]
+* Feature: Added upgrade steps [voineali #4392]
+* Feature: Plone 4.0.4 compatible [voineali $4302]
 
 1.37-dev - (unreleased)
 -----------------------

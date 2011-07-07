@@ -1,4 +1,4 @@
-<tal:fancybox replace="structure python:template.box" />
+<tal:fancybox replace="structure python:view.box" />
 <div class="fancybox-more-details">
   <a tal:attributes="
     href context/absolute_url;

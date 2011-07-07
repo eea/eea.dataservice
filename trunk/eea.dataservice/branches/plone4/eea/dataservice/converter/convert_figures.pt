@@ -10,19 +10,12 @@
 
 <body>
 
-<div metal:fill-slot="main"
+<div metal:fill-slot="content-core"
      tal:define="convert python:request.get('convert', None);
                  figures python:request.get('figures', None)">
  <h1 i18n:translate="">Convert figures</h1>
 
  <div tal:condition="convert">
-   <p class="documentDescription" i18n:translate="">
-     This operation might take a while.
-   </p>
-   <p class="documentDescription" i18n:translate="">
-     The following figures will be converted:
-   </p>
-
    <ul id="figures-to-convert">
      <tal:figures repeat="figure figures">
        <li tal:define="figure_ob python:context[figure];
@@ -76,7 +69,9 @@
    </dd>
    <dd tal:define="info figure/@@convertionInfo">
      last converted:
-     <tal:date condition="info" content="python:toLocalizedTime(info, long_format=1)" />
+     <tal:date
+      define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;"
+      condition="info" content="python:toLocalizedTime(info, long_format=1)" />
      <tal:date condition="not:info"> - </tal:date>
    </dd>
   </tal:figures>
