@@ -6,7 +6,10 @@
 <div metal:define-macro="portlet"
        i18n:domain="plone"
        tal:omit-tag=""
-       tal:define="view context/@@getMainDatasets">
+       tal:define="view context/@@getMainDatasets;
+       normalizeString nocall: context/@@plone/normalizeString;
+       wtool context/portal_workflow;">
+
 
 <dl class="portlet portlet-rss"
     style="">
