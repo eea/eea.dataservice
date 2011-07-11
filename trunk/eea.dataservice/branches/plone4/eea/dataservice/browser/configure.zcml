@@ -242,7 +242,7 @@
     />
 
   <!-- Valentine imagescales -->
-  <configure zcml:condition="installed valentine.imagescale">
+  <configure zcml:condition="installed valentine.imagescales">
     <browser:page
       for="..interfaces.IEEAFigureFile"
       name="imgview"
