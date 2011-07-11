@@ -82,9 +82,9 @@ class ImageViewFigureFile(BrowserView):
             self.original = children[0]
 
         if self.original:
-            self.img = atfield.ImageView(self.original, request)
+            self.img = atfield.ATFieldImageView(self.original, request)
         else:
-            self.img = atfolder.ImageView(context, request)
+            self.img = atfolder.FolderImageView(context, request)
 
     def display(self, scalename='thumb'):
         """ Display?
