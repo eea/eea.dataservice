@@ -1,6 +1,5 @@
 """ Widgets custom interfaces
 """
-from zope.schema.interfaces import IField
 from zope.interface import Interface
 
 class IReferenceWidgetController(Interface):
@@ -16,5 +15,3 @@ class IReferenceWidgetController(Interface):
         """ Add publication with given title. Returns a string message.
         """
 
-class IManagementPlanCode(IField):
-    """The management plan field interface"""

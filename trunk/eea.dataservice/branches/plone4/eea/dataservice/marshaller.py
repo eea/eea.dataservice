@@ -3,7 +3,7 @@
 from eea.rdfmarshaller.interfaces import ISurfSession
 from eea.rdfmarshaller.marshaller import ATField2Surf
 from zope.component import adapts
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
 
 class ManagementPlanField2Surf(ATField2Surf):
     """ Base implementation of IATField2Surf

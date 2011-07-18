@@ -11,6 +11,8 @@ Changelog
 * TODO: Fix Geographical Coverage JS
 * TODO: Convert all figures JS
 
+* Change: Moved ManagementPlan Field and Widget to eea.forms [szabozo0 #4423]
+
 * Feature: Fixed all pylint, pyflakes warnings [voineali #4302]
 * Feature: Added upgrade steps [voineali #4392]
 * Feature: Plone 4.0.4 compatible [voineali $4302]

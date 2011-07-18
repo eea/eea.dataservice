@@ -15,8 +15,8 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from eea.dataservice.content.themes import ThemeTaggable
 
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.content.themes import IThemeTagging
 

@@ -8,13 +8,6 @@ from eea.dataservice.config import PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION
 from eea.dataservice import pil
 pil.register()
 
-from eea.dataservice import fields
-fields.register()
-
-# Register custom widgets
-from eea.dataservice import widgets
-widgets.register()
-
 # Register custom content
 from eea.dataservice import content
 content.register()
