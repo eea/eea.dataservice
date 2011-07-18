@@ -36,6 +36,7 @@ setup(name=name,
           'eea.jquery',
           'eea.locationwidget',
           'eea.versions',
+          'eea.forms'
       ],
       entry_points="""
       # -*- Entry points: -*-
