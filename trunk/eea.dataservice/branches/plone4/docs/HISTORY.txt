@@ -7,9 +7,10 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
-* TODO: Fix eea.themecentre dependency
-* TODO: Fix Geographical Coverage JS
 * TODO: Convert all figures JS
+
+* Bugfix: Fixed Geographical Coverage [szabozo0 #4423]
+* Change: Enabled themecentre using macros [szabozo0 #4423]
 
 * Change: Moved ManagementPlan Field and Widget to eea.forms [szabozo0 #4423]
 

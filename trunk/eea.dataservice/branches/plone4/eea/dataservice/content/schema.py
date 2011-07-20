@@ -373,5 +373,4 @@ dataservice_schema = ATFolderSchema.copy() + \
 dataservice_schema['description'].widget.rows = 15
 dataservice_schema['description'].required = True
 
-# TODO Plone4 Fix me
-#dataservice_schema['themes'].required = True
+dataservice_schema['themes'].required = True

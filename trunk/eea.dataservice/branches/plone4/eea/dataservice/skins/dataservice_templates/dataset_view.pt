@@ -57,8 +57,7 @@ function showDefinition(context) {
       <metal:new fill-slot="old" />
     </metal:versions>
 
-    <!-- XXX FIX ME plone4 -- Themes -->
-    <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
+    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
     <!-- Tables -->
     <tal:tables define="tablesData context/@@getTablesByCategory;

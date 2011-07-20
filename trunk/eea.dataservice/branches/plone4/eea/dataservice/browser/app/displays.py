@@ -2,6 +2,7 @@
 """
 import operator
 import xmlrpclib
+import json
 
 from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
@@ -376,7 +377,7 @@ class GetCountryGroupsData(object):
                 res[terms[key][0]] = []
                 for c_key in terms[key][1].keys():
                     res[terms[key][0]].append(terms[key][1][c_key][0])
-        return res
+        return json.dumps(res)
 
 class GetCountriesByGroup(object):
     """ Countries by group

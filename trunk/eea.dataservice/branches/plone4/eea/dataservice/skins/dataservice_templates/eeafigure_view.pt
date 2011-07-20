@@ -22,8 +22,7 @@
       <metal:new fill-slot="old" />
     </metal:versions>
 
-    <!-- XXX Plone4 Fix ME Themes -->
-    <!--<metal:themes use-macro="here/portlet_themes_object/macros/portlet" />-->
+    <metal:themes use-macro="here/portlet_themes_object/macros/portlet" />
 
   <!-- EEAFigureFiles -->
   <tal:figurefiles define="
