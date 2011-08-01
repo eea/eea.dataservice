@@ -18,7 +18,7 @@
  <property name="default_view">datatable_view</property>
  <property name="view_methods">
   <element value="folder_listing"/>
-  <element value="organisation_view"/>
+  <element value="datatable_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>
