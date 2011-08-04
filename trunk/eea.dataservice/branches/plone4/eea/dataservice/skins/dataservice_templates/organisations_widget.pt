@@ -51,7 +51,7 @@
                   class="dummy-org-selector">
             <option tal:repeat="item vocab" tal:attributes="
               value python:item;
-              selected python:'selected' if (item == value) else None"
+              selected python:'selected' if ((item in value) or item==value) else None"
               tal:content="python:vocab.getValue(item)" i18n:translate="" />
           </select>
           <p />
