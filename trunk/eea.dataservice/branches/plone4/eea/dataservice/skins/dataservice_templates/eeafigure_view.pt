@@ -48,7 +48,7 @@
         <h4 tal:content="categ_name" tal:attributes="
           id string:fancy-$categ;
           title categ_name;"/>
-        <metal:figures use-macro="here/atct_album_view/macros/content-core" />
+        <metal:figures use-macro="here/atct_album_view/macros/listing" />
       </tal:child>
     </div>
   </tal:figurefiles>
