@@ -5,6 +5,7 @@
       <property name="title" i18n:translate="">Migrate Data to ExternalDataSpec</property>
       <property name="description" i18n:translate=""/>
       <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@migrateToExternal</property>
+      <property name="icon_expr">string:$portal_url/book_next.png</property>
       <property name="available_expr">python:object.portal_type == 'Data'</property>
       <property name="permissions">
         <element value="Manage Portal"/>
