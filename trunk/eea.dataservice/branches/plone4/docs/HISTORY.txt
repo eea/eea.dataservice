@@ -9,6 +9,8 @@ Changelog
 ----------------------
 * TODO: Convert all figures JS
 
+* Change: removed the old themes portlet, now part of the main template as viewlet [demarant].
+
 * Bugfix: Fixed file type on album view for EEAFigure [szabozo0 #4446]
 
 * Bugfix: Fixed Geographical Coverage [szabozo0 #4423]
