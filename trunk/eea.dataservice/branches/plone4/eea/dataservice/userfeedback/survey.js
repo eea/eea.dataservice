@@ -196,6 +196,6 @@ DataService.Load = function(){
 };
 
 /* Add this line into your html template:
-  <script language="javascript" type="text/javascript"
+  <script type="text/javascript"
     tal:content="string:jQuery(document).ready(DataService.Load);"></script>
 */
