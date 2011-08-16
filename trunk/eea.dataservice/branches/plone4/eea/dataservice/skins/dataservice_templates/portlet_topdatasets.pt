@@ -30,7 +30,7 @@
         <span i18n:translate="">downloads</span>
       </dd>
       <dd class="portletItem">
-        <br clear="all"/>
+        <br />
       </dd>
     </tal:datasets>
 </dl>
