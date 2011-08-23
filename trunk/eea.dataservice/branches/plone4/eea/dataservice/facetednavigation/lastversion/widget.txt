@@ -74,6 +74,7 @@ Set up
 
     >>> createVersionView = data1.unrestrictedTraverse('@@createVersion')
     >>> _ = createVersionView()
+    Event: ...
     >>> dataVer = sandbox._getOb('dataset-1')
 
 Add widgets

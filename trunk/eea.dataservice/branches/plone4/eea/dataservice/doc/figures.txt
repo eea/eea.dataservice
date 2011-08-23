@@ -85,6 +85,7 @@ Now lets create a new version of the above EEA figure.
 
     >>> createVersionView = figure1.unrestrictedTraverse('@@createVersion')
     >>> vertmp = createVersionView()
+    Event: ...
     >>> dataVer = sandbox._getOb('figure-first-1')
 
 Lets verify if properties were copyed on the new version.
