@@ -9,6 +9,8 @@ Changelog
 ----------------------
 * TODO: Convert all figures JS
 
+* Bugfix: Fixed wrong date formats [szabozo0 #4510]
+
 * Change: removed the old themes portlet, now part of the main template as viewlet [demarant].
 
 * Bugfix: Fixed file type on album view for EEAFigure [szabozo0 #4446]
