@@ -7,6 +7,8 @@ Changelog
 
 1.38-dev - (unreleased)
 -----------------------
+ * Big fix: Completed the default template for the EEAFigureFile by calling the fancybox view template.
+   [demarant]
 
 1.37 - (2011-06-01)
 -------------------
