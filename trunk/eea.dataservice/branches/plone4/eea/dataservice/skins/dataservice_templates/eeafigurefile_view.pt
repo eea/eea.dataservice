@@ -3,6 +3,14 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea">
 
+
+<head>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript"
+          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
+    </metal:javascript>
+</head>      
+      
 <body>
 
 <div metal:fill-slot="content-core">
@@ -13,23 +21,17 @@
             float: left;
             margin-right: 10px;
             margin-top: 3px; }
+            
+        #figures-fancyimage {
+               margin: 0;
+           }
     </style>
 
-    <!-- Short ID (debug) -->
-    <tal:block define="field python:context.getField('shortId');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_shortid">Short ID:</dt>
-        <dd tal:content="structure value">Short ID</dd>
-    </tal:block>
+    <tal:fancybox replace="structure context/@@fancybox.html" />
 
-    <!-- Category -->
-    <tal:block define="field python:context.getField('category');
-                       value python:field.getAccessor(context)()"
-              condition="value">
-        <dt i18n:translate="dataset_category">Category</dt>
-        <dd tal:content="value" />
-    </tal:block>
+    <div class="visualClear"></div>
+    
+
 
     <div class="visualClear">&nbsp;</div>
     <metal:listing use-macro="here/folder_listing/macros/listing" />
