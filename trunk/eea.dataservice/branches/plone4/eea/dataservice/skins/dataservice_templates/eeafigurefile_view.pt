@@ -26,9 +26,9 @@
                margin: 0;
            }
     </style>
-
-    <tal:fancybox replace="structure context/@@fancybox.html" />
-
+    <div class="map-singlefile">
+       <tal:fancybox replace="structure context/@@fancybox.html" />
+    </div>
     <div class="visualClear"></div>
     
 
