@@ -2,19 +2,15 @@
       lang="en-US"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea.translations">
-
+<head>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript"
+          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
+    </metal:javascript>
+</head>  
 <body>
 
 <div metal:fill-slot="main">
-    <style>
-        dd {margin-left: 3em}
-
-        #map_canvas {
-            float: left;
-            margin-right: 10px;
-            margin-top: 3px; }
-    </style>
-
     <!-- BASIC PROPERTIES -->
     <!-- Title -->
     <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
@@ -30,23 +26,24 @@
         <strong tal:content="context/Description" />
     </div>
 
+    <style>
+        dd {margin-left: 3em}
 
-    <!-- Short ID (debug) -->
-    <tal:block define="field python:context.getField('shortId');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt i18n:translate="dataset_shortid">Short ID:</dt>
-        <dd tal:content="structure value">Short ID</dd>
-    </tal:block>
-
-    <!-- Category -->
-    <tal:block define="field python:context.getField('category');
-                       value python:field.getAccessor(context)()"
-              condition="value">
-        <dt i18n:translate="dataset_category">Category</dt>
-        <dd tal:content="value" />
-    </tal:block>
-
+        #map_canvas {
+            float: left;
+            margin-right: 10px;
+            margin-top: 3px; }
+            
+        #figures-fancyimage {
+               margin: 0;
+           }
+    </style>
+    
+    <div class="map-singlefile">
+       <tal:fancybox replace="structure context/@@fancybox.html" />
+    </div>
+    <div class="visualClear"></div>
+  
     <div class="visualClear">&nbsp;</div>
     <metal:listing use-macro="here/folder_summary_view/macros/listing" />
 
