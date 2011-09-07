@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis@eea.europa.eu]
 [Tiberiu Ichim - tiberiu@eaudeweb.ro]
 
+1.39-dev - (unreleased)
+-----------------------
+
 1.38 - (2011-09-07)
 -------------------
  * Big fix: Completed the default template for the EEAFigureFile by calling the fancybox view template.
