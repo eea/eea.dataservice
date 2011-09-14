@@ -1,35 +1,42 @@
-<html xmlns:metal="http://xml.zope.org/namespaces/metal"
-  i18n:domain="plone">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
 <body>
 
-<fieldset metal:define-macro="portlet" id="portlet-organisations-overview"
-          tal:condition="python:not portal.portal_membership.isAnonymousUser()">
+<div metal:define-macro="portlet"
+     id="portlet-organisations-overview"
+     i18n:domain="plone"
+     tal:omit-tag=""
+     tal:condition="not:context/@@plone_portal_state/anonymous">
 
-  <legend>Organisations control panel</legend>
-  <ul>
-    <li>
+<dl class="portlet portlet-rss">
+
+    <dt class="portletHeader" i18n:translate="">Organisations control panel</dt>
+
+    <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-quick-overview"
          title="">
         Quick overview</a>
-    </li>
-    <li>
+    </dt>
+    <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=duplicate-organisations"
          title="">
         Duplicate organisations</a>
-    </li>
-    <li>
+    </dt>
+    <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-wrong-title"
          title="">
         Organisations with wrong title</a>
-    </li>
-    <li>
+    </dt>
+    <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-no-reference"
          title="">
         Organisations with no reference</a>
-    </li>
-  </ul>
+    </dt>
 
-</fieldset>
+</dl>
+
+</div>
 
 </body>
 </html>
