@@ -9,6 +9,9 @@ Changelog
 ----------------------
 * TODO: Convert all figures JS
 
+* Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+  with other JS frameworks [szabozo0 #4542]
+
 * Bug fix: Completed the default template for the EEAFigureFile by calling the
   fancybox view.
   [demarant #4522]

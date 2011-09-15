@@ -37,19 +37,19 @@ SelectAutocompleteWidget = function(context){
     self.build_widget();
 
     self.options = _make_values(self.select);
-    $(self.select).css('display','none');
+    jQuery(self.select).css('display','none');
     self.set_select_values(self.available_choices_box, self.options);
 
-    // $(self.filter).css('display','none');
-    // $(self.info).css('display','none');
+    // jQuery(self.filter).css('display','none');
+    // jQuery(self.info).css('display','none');
 
     var preselected = self.get_selected_option(self.select);
     self.set_selection(self.available_choices_box, preselected);
 
     self.refresh_info();
 
-    $(self.filter_box).bind('keyup', function(e){
-        $(self.info).css('display','block');
+    jQuery(self.filter_box).bind('keyup', function(e){
+        jQuery(self.info).css('display','block');
         var filtered = self.filter_values(self.options, this.value);
         self.set_select_values(self.available_choices_box, filtered);
         self.refresh_info();
@@ -57,36 +57,36 @@ SelectAutocompleteWidget = function(context){
         return true;
     });
 
-    $(self.clear_filter_btn).bind('click', function(e){
+    jQuery(self.clear_filter_btn).bind('click', function(e){
         self.filter_box.value = "";
         var selected_option = self.get_selected_option(self.available_choices_box);
         self.set_select_values(self.available_choices_box, self.options);
         self.set_selection(self.available_choices_box, selected_option);
         self.refresh_info();
         self.commit_to_form();
-        // $(self.info).css('display','none');
+        // jQuery(self.info).css('display','none');
         return true;
     });
 
-    $(self.available_choices_box).bind('change', function(e){
+    jQuery(self.available_choices_box).bind('change', function(e){
         self.commit_to_form();
     });
 
-    // $(self.widget).bind('mouseover', function(e){
-    //     $(self.filter).css('display','block');
+    // jQuery(self.widget).bind('mouseover', function(e){
+    //     jQuery(self.filter).css('display','block');
     // });
 
-    // $(self.widget).bind('mouseout', function(e){
-    //     $(self.filter).css('display','none');
-    //     // $(self.info).css('display','none');
+    // jQuery(self.widget).bind('mouseout', function(e){
+    //     jQuery(self.filter).css('display','none');
+    //     // jQuery(self.info).css('display','none');
     // });
 };
 
 SelectAutocompleteWidget.prototype.build_widget = function(){
-    var select = $(this.select);
+    var select = jQuery(this.select);
     var parent = select.parent();
 
-    parent.append($(
+    parent.append(jQuery(
         "<div style='width:650px; text-align:right' class='selectautocomplete_widget'>" +
         "<div class='info'>Showing <span class='x'>x</span> of <span class='y'>y</span>. Choose one.</div>" +
         "<select style='width:100%; text-align:left' class='available_choices' />" +
@@ -107,7 +107,7 @@ SelectAutocompleteWidget.prototype.build_widget = function(){
 
 SelectAutocompleteWidget.prototype.set_select_values = function(selectbox, values){
     this.clear_select_box(selectbox);
-    $(values).each(function(i, o){
+    jQuery(values).each(function(i, o){
         var label = _short(o.label);
         selectbox.options[i] = new Option(label, o.key, false, false ); //new Option(text, value, defaultSelected, selected)
     });
@@ -151,7 +151,7 @@ SelectAutocompleteWidget.prototype.get_selected_option = function(selectbox){
 
 SelectAutocompleteWidget.prototype.filter_values = function(values, criteria){
     var res = [];
-    $(values).each(function(i, o) {
+    jQuery(values).each(function(i, o) {
         if (o.label.toLowerCase().search(criteria.toLowerCase()) != -1) {
             res.push(o);
         }
@@ -160,8 +160,8 @@ SelectAutocompleteWidget.prototype.filter_values = function(values, criteria){
 };
 
 SelectAutocompleteWidget.prototype.refresh_info = function(){
-    $(this.info_x).html(this.available_choices_box.length);
-    $(this.info_y).html(this.options.length);
+    jQuery(this.info_x).html(this.available_choices_box.length);
+    jQuery(this.info_y).html(this.options.length);
 };
 
 // vim: set ts=4 sw=4 et ai:

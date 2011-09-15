@@ -1,4 +1,5 @@
 var convertFigure = function() {
+(function($) {
  jQuery.post('@@convertMap', {cronjob: 1}, function(data){
   var label = $('#convert-label');
   var image = $('#convert-loading');
@@ -11,8 +12,9 @@ var convertFigure = function() {
     status.css('color', 'red');
   }
  });
+})(jQuery);
 };
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function($){
  convertFigure();
 });

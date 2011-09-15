@@ -1,4 +1,5 @@
 function convertFigures() {
+(function($) {
   var figures = $('#figures-to-convert span');
 
   if (figures.length) {
@@ -17,9 +18,10 @@ function convertFigures() {
       });
     });
   }
+})(jQuery);
 }
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
   convertFigures();
 
   $('#checkAll').click(function(){

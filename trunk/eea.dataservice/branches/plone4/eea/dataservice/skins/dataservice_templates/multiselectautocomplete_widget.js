@@ -30,7 +30,7 @@ function _make_values(optionbox) {
 function _indexOf(arr, k){
     // returns the position of k in array arr, otherwise return -1
     var res = -1;
-    $(arr).each(function(i, v){
+    jQuery(arr).each(function(i, v){
         if (v.key == k) {
             res = i;
             return false;
@@ -42,7 +42,7 @@ function _indexOf(arr, k){
 function _combine(a1, a2) {
     // add two arrays: to a1, add the unique elements from a2
 
-    $(a2).each(function(i, v){
+    jQuery(a2).each(function(i, v){
         if(_indexOf(a1, v.key) == -1){
             a1.push(v);
         }
@@ -54,7 +54,7 @@ function _remove(a1, a2) {
     // remove stuff a1 from a2 and return result
 
     var res = [];
-    $(a2).each(function(i, v){
+    jQuery(a2).each(function(i, v){
         if (_indexOf(a1, v.key) == -1){
             res.push(v);
         }
@@ -77,26 +77,26 @@ MultiSelectAutocompleteWidget = function(context){
 
     self.options = _make_values(self.select);
 
-    $(self.select).css('display','none');
+    jQuery(self.select).css('display','none');
     self.set_select_values(self.available_choices_box, self.options);
     self.set_select_values(self.selected_choices_box,
                            self.get_selected_options(self.select));
 
-    $(self.available_choices_box).bind('click', function(e){
+    jQuery(self.available_choices_box).bind('click', function(e){
         self.selected_choices_box.selectedIndex = -1;
     });
 
-    $(self.selected_choices_box).bind('click', function(e){
+    jQuery(self.selected_choices_box).bind('click', function(e){
         self.available_choices_box.selectedIndex = -1;
     });
 
-    $(self.filter_box).bind('keyup', function(e){
+    jQuery(self.filter_box).bind('keyup', function(e){
         var filtered = self.filter_values(self.options, this.value);
         self.set_select_values(self.available_choices_box, filtered);
         return true;
     });
 
-    $(self.move_right_btn).bind('click', function(e){
+    jQuery(self.move_right_btn).bind('click', function(e){
         var choice = self.get_selected_options(self.available_choices_box);
         var selected = _make_values(self.selected_choices_box);
         var combined = _combine(choice, selected);
@@ -105,7 +105,7 @@ MultiSelectAutocompleteWidget = function(context){
         return true;
     });
 
-    $(self.move_left_btn).bind('click', function(e){
+    jQuery(self.move_left_btn).bind('click', function(e){
         var choice = self.get_selected_options(self.selected_choices_box);
         var selected = _make_values(self.selected_choices_box);
         var combined = _remove(choice, selected);
@@ -114,15 +114,15 @@ MultiSelectAutocompleteWidget = function(context){
         return true;
     });
 
-    $(self.available_choices_box).bind('dblclick', function(e){
-        $(self.move_right_btn).trigger('click');
+    jQuery(self.available_choices_box).bind('dblclick', function(e){
+        jQuery(self.move_right_btn).trigger('click');
     });
 
-    $(self.selected_choices_box).bind('dblclick', function(e){
-        $(self.move_left_btn).trigger('click');
+    jQuery(self.selected_choices_box).bind('dblclick', function(e){
+        jQuery(self.move_left_btn).trigger('click');
     });
 
-    $(self.clear_filter_btn).bind('click', function(e){
+    jQuery(self.clear_filter_btn).bind('click', function(e){
         self.filter_box.value = "";
         self.set_select_values(self.available_choices_box, self.options);
         return true;
@@ -156,7 +156,7 @@ MultiSelectAutocompleteWidget.prototype.clear_select_box = function(selectbox){
 
 MultiSelectAutocompleteWidget.prototype.filter_values = function(values, criteria){
     var res = [];
-    $(values).each(function(i, o){
+    jQuery(values).each(function(i, o){
         if (o.label.toLowerCase().search(criteria.toLowerCase()) != -1) {
             res.push(o);
         }
@@ -166,7 +166,7 @@ MultiSelectAutocompleteWidget.prototype.filter_values = function(values, criteri
 
 MultiSelectAutocompleteWidget.prototype.set_select_values = function(selectbox, values){
     this.clear_select_box(selectbox);
-    $(values).each(function(i, o){
+    jQuery(values).each(function(i, o){
         var label = _short(o.label);
         selectbox.options[i] = new Option(label, o.key, false, false ); //new Option(text, value, defaultSelected, selected)
     });
@@ -179,10 +179,10 @@ MultiSelectAutocompleteWidget.prototype.build_widget = function(){
     // the filter input text box and its clear button
     // move left & move right btn
 
-    var select = $(this.select);
+    var select = jQuery(this.select);
     var parent = select.parent();
 
-    parent.append($(
+    parent.append(jQuery(
         "<table><tr>" +
         "<td valign='top' with='400'>Available choices: <br/>" +
         "<select multiple='multiple' style='width:450px; height:300px;' class='available_choices' /></td>" +
@@ -208,7 +208,7 @@ function make_multiselectautocomplete_widget(elements) {
     // multiselect widgets into versions that have autocomplete.
     // The elements should be a jQuery collection (selector result)
     // that points to the <select /> elements of the multiselect widget
-    $(elements).each(function(i, v){
+    jQuery(elements).each(function(i, v){
         var widget = new MultiSelectAutocompleteWidget(el);
     });
 }
