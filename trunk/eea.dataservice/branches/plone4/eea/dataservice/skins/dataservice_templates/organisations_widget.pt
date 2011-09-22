@@ -58,7 +58,7 @@
 
           <script tal:content="string:
             jQuery(window).load(function(){
-              new MultiSelectAutocompleteWidget($$('#$fieldName'))
+              new MultiSelectAutocompleteWidget(jQuery('#$fieldName'))
             });
           "></script>
 
