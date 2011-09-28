@@ -11,7 +11,7 @@
        wtool context/portal_workflow;">
 
 
-<dl class="portlet featured">
+<dl class="portlet featured" id="featured-datasets">
 
     <dt class="portletHeader" i18n:translate="">Featured datasets</dt>
     <dd class="portletItem" tal:repeat="dataset view">
