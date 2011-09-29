@@ -6,7 +6,7 @@ import xmlrpclib
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.config import STARTING_YEAR, ROD_SERVER
 
 logger = logging.getLogger('eea.dataservice.vocabulary')

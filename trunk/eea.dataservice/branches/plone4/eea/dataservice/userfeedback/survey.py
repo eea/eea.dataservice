@@ -5,7 +5,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component import queryUtility, getMultiAdapter
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.userfeedback.interfaces import (
                             ISurvey, ISurveySupport, ISurveyView )
 
