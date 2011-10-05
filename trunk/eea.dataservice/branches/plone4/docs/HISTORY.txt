@@ -7,6 +7,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bugfix: Fixed the ROD, to display the previously applied selection [szabozo0 #4607]
+
 * TODO: Convert all figures JS
 
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
