@@ -1,5 +1,5 @@
 /* EEAFigure and Data (index) */
-.metadata-container dd {
+#content .metadata-container dd {
     margin-left: 3em; }
 
 #map_canvas {
