@@ -361,28 +361,6 @@ function showDefinition(context) {
         </dd>
     </tal:block>
 
-    <!-- Geographic information quality -->
-    <tal:block metal:define-macro="geo-quality"
-               define="field python:context.getField('geoQuality');
-                       value python:field.getAccessor(context)()"
-               condition="python:value != ('-1', '-1', '-1', '-1', '-1')">
-        <dt>
-            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_quality">Geographic information quality label:</span>
-        </dt>
-        <dd tal:define="quality_view nocall:context/@@getQualityDisplay">
-            <span i18n:translate="completeness">Completeness:</span>
-            <tal:quality content="structure python:quality_view(value=value[0])" />
-            <span i18n:translate="logical_consistency">Logical consistency:</span>
-            <tal:quality content="structure python:quality_view(value=value[1])" />
-            <span i18n:translate="position_accuracy">Position accuracy:</span>
-            <tal:quality content="structure python:quality_view(value=value[2])" />
-            <span i18n:translate="temporal_accuracy">Temporal accuracy:</span>
-            <tal:quality content="structure python:quality_view(value=value[3])" />
-            <span i18n:translate="thematic_accuracy">Thematic accuracy:</span>
-            <tal:quality content="structure python:quality_view(value=value[4])" />
-        </dd>
-    </tal:block>
     <!-- Geographic accuracy -->
     <tal:block metal:define-macro="geo-accuracy"
                define="field python:context.getField('geoAccuracy');

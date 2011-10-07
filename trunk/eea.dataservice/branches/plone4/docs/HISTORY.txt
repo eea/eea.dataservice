@@ -7,6 +7,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Feature: removed "Geographic quality" field and related logic [ghicaale #4601]
+
 * Bugfix: Fixed the ROD, to display the previously applied selection [szabozo0 #4607]
 
 * TODO: Convert all figures JS
@@ -17,7 +19,7 @@ Changelog
 * Bug fix: Completed the default template for the EEAFigureFile by calling the
   fancybox view.
   [demarant #4522]
-  
+
 * Bugfix: Fixed wrong date formats [szabozo0 #4510]
 
 * Change: removed the old themes portlet, now part of the main template as viewlet [demarant].
