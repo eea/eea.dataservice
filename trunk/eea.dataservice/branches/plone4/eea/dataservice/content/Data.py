@@ -14,8 +14,6 @@ from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
-from eea.dataservice.fields.GeoQualityField import GeoQualityField
-from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 
 
@@ -83,21 +81,6 @@ schema = Schema((
             description_msgid="dataservice_help_system",
             i18n_domain="eea",
         ),
-    ),
-
-    GeoQualityField(
-        name='geoQuality',
-        languageIndependent=True,
-        default=('-1', '-1', '-1', '-1', '-1'),
-        vocabulary=NamedVocabulary("quality"),
-        widget=GeoQualityWidget(
-            format="select",
-            label="Geographic information quality",
-            description=("Geographic information quality."),
-            label_msgid='dataservice_label_geoQuality',
-            description_msgid='dataservice_help_geoQuality',
-            i18n_domain='eea',
-        )
     ),
 
     # Fields for 'relations' schemata
@@ -177,8 +160,7 @@ dataset_schema = dataservice_schema.copy() + schema.copy()
 # Set position on form
 dataset_schema.moveField('disclaimer', after='contact')
 dataset_schema.moveField('geoAccuracy', before='contact')
-dataset_schema.moveField('geoQuality', before='geoAccuracy')
-dataset_schema.moveField('referenceSystem', before='geoQuality')
+dataset_schema.moveField('referenceSystem', before='geoAccuracy')
 dataset_schema.moveField('scale', before='referenceSystem')
 dataset_schema.moveField('relatedItems', pos='bottom')
 

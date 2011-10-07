@@ -47,7 +47,6 @@ Set up
     ...   'effectiveDate_month': '11',
     ...   'effectiveDate_day': '11',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
-    ...   'geoQuality': ('1', '2', '1', '-1', '0'),
     ...   'eeaManagementPlan': ('2008', '123456'),
     ...   'lastUpload': '11/11/2008',
     ...   'lastUpload_year': '2008',

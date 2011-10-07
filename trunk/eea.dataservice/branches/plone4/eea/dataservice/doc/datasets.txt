@@ -58,7 +58,6 @@ Lets add a Dataset.
     ...   'effectiveDate_month': '11',
     ...   'effectiveDate_day': '11',
     ...   'geographicCoverage': ['ro', 'it', 'dk'],
-    ...   'geoQuality': ('1', '2', '1', '-1', '0'),
     ...   'eeaManagementPlan': (2010, ''),
     ...   'lastUpload': '11/11/2008',
     ...   'lastUpload_year': '2008',
@@ -96,8 +95,6 @@ Check see if properties applyed.
     DateTime('2008/11/11...')
     >>> data1.getGeographicCoverage()
     ('ro', 'it', 'dk')
-    >>> data1.getGeoQuality()
-    ('-1', '-1', '-1', '-1', '-1')
     >>> data1.lastUpload
     DateTime('2008/11/11...')
     >>> data1.getScale()

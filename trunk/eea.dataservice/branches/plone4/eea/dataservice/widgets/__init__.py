@@ -12,8 +12,3 @@ def register():
         description=('EEA Figure Type description.'),
         used_for=('Products.Archetypes.Field.StringField',
                   'Products.Archetypes.Field.LinesField',))
-
-    registerWidget(GeoQualityWidget,
-        title='Geographic information quality',
-        description=('Geographic information quality label.'),
-        used_for=('eea.dataservice.fields.GeoQualityField.GeoQualityField'))
