@@ -2,7 +2,6 @@
 """
 from Products.Archetypes.Registry import registerWidget
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
-from eea.dataservice.widgets.GeoQualityWidget import GeoQualityWidget
 
 def register():
     """ Custom AT registrations
