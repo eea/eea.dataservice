@@ -3,14 +3,7 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea">
 
-<metal:css fill-slot="css_slot">
-  <style type="text/css" tal:content="
-    string:@import url(${portal_url}/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css);"></style>
-</metal:css>
-
 <metal:javascript fill-slot="javascript_head_slot">
-  <script tal:attributes="src string:$portal_url/++resource++jquery.ui-1.7.js"
-    type="text/javascript"></script>
   <script tal:attributes="src string:$portal_url/++resource++jquery.cookie.js"
     type="text/javascript"></script>
   <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.survey.js"
