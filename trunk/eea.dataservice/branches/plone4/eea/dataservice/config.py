@@ -13,3 +13,6 @@ STARTING_YEAR = 1750
 
 #Obligations vocabulary
 ROD_SERVER = 'http://rod.eionet.europa.eu/rpcrouter'
+
+#
+FILE_FIELDS = ['file', 'image', 'blob']

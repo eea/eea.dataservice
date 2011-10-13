@@ -5,8 +5,13 @@ Use for debug: import pdb; pdb.set_trace()
 
 Lets use the sandbox.
 
-    >>> self.loginAsPortalOwner()
-    >>> _ = self.portal.invokeFactory('Folder', 'sandbox')
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
     >>> sandbox = portal._getOb('sandbox')
 
 Lets add a EEAFigure.
@@ -85,7 +90,6 @@ Now lets create a new version of the above EEA figure.
 
     >>> createVersionView = figure1.unrestrictedTraverse('@@createVersion')
     >>> vertmp = createVersionView()
-    Event: ...
     >>> dataVer = sandbox._getOb('figure-first-1')
 
 Lets verify if properties were copyed on the new version.

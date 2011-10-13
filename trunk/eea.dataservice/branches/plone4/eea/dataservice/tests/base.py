@@ -1,56 +1,36 @@
 """ Base test cases
 """
-import os
-from StringIO import StringIO
-from Products.Five import zcml
-from plone.app.blob.tests import db
-from Products.Five import fiveconfigure
-from Testing import ZopeTestCase as ztc
+from plone.testing import z2
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
 
-ztc.installProduct('ATVocabularyManager')
-
-from Products.PloneTestCase import PloneTestCase
-from Products.PloneTestCase.layer import onsetup
-
-@property
-def blobstorage():
-    """ Return blobstorage database """
-    return db
-
-@onsetup
-def setup_eea_dataservice():
-    """Set up the additional products required for the Dataservice Content.
-
-    The @onsetup decorator causes the execution of this body to be deferred
-    until the setup of the Plone site testing layer.
+class EEAFixture(PloneSandboxLayer):
+    """ Custom fixture
     """
-    fiveconfigure.debug_mode = True
-    import eea.dataservice
-    zcml.load_config('configure.zcml', eea.dataservice)
-    fiveconfigure.debug_mode = False
-
-    PloneTestCase.installPackage('eea.dataservice')
-
-setup_eea_dataservice()
-PloneTestCase.setupPloneSite(extension_profiles=('eea.dataservice:default', ))
-
-class DataserviceFunctionalTestCase(PloneTestCase.FunctionalTestCase):
-    """ Base class for functional integration tests for
-        the 'eea.dataservice' product.
-    """
-
-    def loadblobfile(self, context, rel_filename, ctype='application/pdf'):
-        """ load a file
+    def setUpZope(self, app, configurationContext):
+        """ Setup Zope
         """
-        storage_path = os.path.join(os.path.dirname(__file__))
-        file_path = os.path.join(storage_path, rel_filename)
-        file_ob = open(file_path, 'rb')
-        file_data = file_ob.read()
-        #size = len(file_data)
-        filename = file_path.split('/')[-1]
-        filename = str(filename)
-        fp = StringIO(file_data)
-        fp.filename = filename
-        context.setFile(fp)
+        import eea.dataservice
+        self.loadZCML(package=eea.dataservice)
 
-        return 'File uploaded.'
+        import Products.ATVocabularyManager
+        self.loadZCML(package=Products.ATVocabularyManager)
+
+        z2.installProduct(app, 'Products.ATVocabularyManager')
+        z2.installProduct(app, 'eea.dataservice')
+
+    def tearDownZope(self, app):
+        """ Uninstall Zope
+        """
+        z2.uninstallProduct(app, 'Products.ATVocabularyManager')
+        z2.uninstallProduct(app, 'eea.dataservice')
+
+    def setUpPloneSite(self, portal):
+        """ Setup Plone
+        """
+        applyProfile(portal, 'eea.dataservice:default')
+
+EEAFIXTURE = EEAFixture()
+FUNCTIONAL_TESTING = FunctionalTesting(bases=(EEAFIXTURE,),
+                                       name='EEADataservice:Functional')

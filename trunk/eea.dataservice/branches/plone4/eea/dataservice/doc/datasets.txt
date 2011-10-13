@@ -5,8 +5,14 @@ Use for debug: import pdb; pdb.set_trace()
 
 Lets use the sandbox.
 
-    >>> self.loginAsPortalOwner()
-    >>> _ = self.portal.invokeFactory('Folder', 'sandbox')
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import loadblobfile
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
     >>> sandbox = portal._getOb('sandbox')
 
 Lets add an Organisation.
@@ -184,7 +190,7 @@ Check see if properties applyed.
 
 Lets upload a file
 
-    >>> self.loadblobfile(df1, 'sample.pdf')
+    >>> loadblobfile(df1, 'sample.pdf')
     'File uploaded.'
     >>> df1.getFile().filename
     'sample.pdf'

@@ -5,8 +5,13 @@ Use for debug: import pdb; pdb.set_trace()
 
 Lets use the sandbox.
 
-    >>> self.loginAsPortalOwner()
-    >>> _ = self.portal.invokeFactory('Folder', 'sandbox')
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import loadblobfile
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
     >>> sandbox = portal._getOb('sandbox')
 
 Lets add a EEAFigure.
@@ -35,7 +40,7 @@ Check see if properties applyed.
 
 Lets upload a source image.
 
-    >>> self.loadblobfile(ff1, 'source_image.eps')
+    >>> loadblobfile(ff1, 'source_image.eps')
     'File uploaded.'
     >>> ff1.getFile().filename
     'source_image.eps'
@@ -68,7 +73,7 @@ Lets check if thumbs were created.
 
 Check the convertion of another EPS format and test if old converted images were deleted.
 
-    >>> self.loadblobfile(ff1, 'source_image2.eps')
+    >>> loadblobfile(ff1, 'source_image2.eps')
     'File uploaded.'
     >>> cvtimg = convertImg()
     >>> len(ff1.objectValues('ImageFS'))
@@ -79,5 +84,5 @@ Check the convertion of another EPS format and test if old converted images were
 
 Try to download the image with index_html method
 
-    >>> ff1['source_image2.eps.zoom.png'].index_html(self.portal.REQUEST, self.portal.REQUEST.response)
+    >>> ff1['source_image2.eps.zoom.png'].index_html(portal.REQUEST, portal.REQUEST.response)
     <plone.app.blob.iterators.BlobStreamIterator object at ...>

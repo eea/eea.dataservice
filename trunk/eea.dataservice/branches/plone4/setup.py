@@ -38,6 +38,9 @@ setup(name=name,
           'eea.versions',
           'eea.forms'
       ],
+      extras_require={
+          'test': ['plone.app.testing',]
+      },
       entry_points="""
       # -*- Entry points: -*-
       """,

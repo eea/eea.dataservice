@@ -6,6 +6,9 @@ Widget for eea.facetednavigation to show only last version of datasets
 Imports
 -------
 
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+
     >>> from DateTime import DateTime
     >>> from zope.component import getMultiAdapter
     >>> from Products.CMFCore.utils import getToolByName
@@ -16,9 +19,11 @@ Set up
 
   Lets use the sandbox.
 
-    >>> self.loginAsPortalOwner()
-    >>> _ = self.portal.invokeFactory('Folder', 'sandbox')
-    >>> sandbox = portal._getOb('sandbox')
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> sid = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb(sid)
     >>> request = sandbox.REQUEST
 
     >>> subtyper = getMultiAdapter((sandbox, request), name=u'faceted_subtyper')
@@ -73,7 +78,6 @@ Set up
 
     >>> createVersionView = data1.unrestrictedTraverse('@@createVersion')
     >>> _ = createVersionView()
-    Event: ...
     >>> dataVer = sandbox._getOb('dataset-1')
 
 Add widgets
