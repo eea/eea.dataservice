@@ -21,6 +21,9 @@
  <index name="filename" meta_type="FieldIndex">
   <indexed_attr value="filename"/>
  </index>
+ <index name="filetype" meta_type="KeywordIndex">
+  <indexed_attr value="filetype"/>
+ </index>
  <index name="getUrl" meta_type="FieldIndex">
   <indexed_attr value="getUrl"/>
  </index>
@@ -31,5 +34,6 @@
  <column value="getGeographicCoverage"/>
  <column value="getTemporalCoverage"/>
  <column value="filename"/>
+ <column value="filetype"/>
  <column value="getUrl"/>
 </object>

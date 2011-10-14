@@ -21,7 +21,7 @@ Set up
     ... }
     >>> data.processForm(values=form, data=1, metadata=1)
     >>> _ = loadblobfile(data, 'sample.pdf')
-    >>> data.reindexObject(idxs=['filename',])
+    >>> data.reindexObject(idxs=['filename', 'filetype'])
 
 Search by filename
 ------------------
@@ -37,3 +37,78 @@ Search by filename
     >>> for brain in brains:
     ...     print brain.getURL(1)
     /plone/folder/some-data-file
+
+
+Search by filetype
+------------------
+
+    >>> data.getField('file').getContentType(data)
+    'application/pdf'
+
+    >>> 'filetype' in ctool.Indexes.keys()
+    True
+
+    >>> brains = ctool(filetype='application/pdf', portal_type='DataFile')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-file
+
+Search in ZIP
+-------------
+
+    >>> _ = loadblobfile(data, 'sample.zip')
+    >>> data.reindexObject(idxs=['filename', 'filetype'])
+
+  File is zipped
+
+    >>> brains = ctool(filetype='application/zip', portal_type='DataFile')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-file
+
+
+  File is zipped and containes an excel file inside
+
+    >>> query = {'query': ['application/zip', 'application/vnd.ms-excel'], 'operator': 'and'}
+    >>> brains = ctool(filetype=query)
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-file
+
+Dataset filetype
+----------------
+Dataset filetype should be computed from Datafile children filetypes.
+
+    >>> dataset = folder.invokeFactory('Data', 'some-data-set')
+    >>> dataset = folder._getOb(dataset)
+
+    >>> datatable = dataset.invokeFactory('DataTable', 'some-data-table')
+    >>> datatable = dataset._getOb(datatable)
+
+    >>> afile = datatable.invokeFactory('DataFile', 'another-data-file')
+    >>> afile = datatable._getOb(afile)
+    >>> _ = loadblobfile(afile, 'sample.pdf')
+    >>> datatable.portal_workflow.doActionFor(afile, 'quickPublish')
+    >>> afile.reindexObject(idxs=['filetype'])
+
+    >>> afile = datatable.invokeFactory('DataFile', 'another-data-file-2')
+    >>> afile = datatable._getOb(afile)
+    >>> _ = loadblobfile(afile, 'sample.zip')
+    >>> datatable.portal_workflow.doActionFor(afile, 'quickPublish')
+    >>> afile.reindexObject(idxs=['filetype'])
+
+    >>> dataset.reindexObject(idxs=['filetype'])
+
+Now let's search for our dataset
+
+    >>> query = {'query': ['application/zip', 'application/pdf'], 'operator': 'and'}
+    >>> brains = ctool(filetype=query)
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set
+
+    >>> query = {'query': ['application/pdf', 'text/plain'], 'operator': 'and'}
+    >>> brains = ctool(filetype=query)
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set

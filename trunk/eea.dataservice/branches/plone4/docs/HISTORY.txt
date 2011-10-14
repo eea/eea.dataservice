@@ -7,6 +7,10 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Feature: Added filetype index in order to be able to search Files, Dataset,
+  DataFiles by mime-type
+  [voineali #2754]
+
 * Bug fix: use eea.relations widget for Related EEA Products for EEAFigure [tiberich 4628]
 
 * Feature: removed "Geographic quality" field and related logic [ghicaale #4601]

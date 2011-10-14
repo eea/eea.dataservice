@@ -4,8 +4,8 @@ from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
-from Products.Archetypes.Field import ReferenceField
-from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+#from Products.Archetypes.Field import ReferenceField
+#from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
@@ -53,7 +53,7 @@ schema = Schema((
             #force_close_on_insert=True,
             #label="Relations to other EEA products",
             #label_msgid="label_related_products",
-            #description="Specify relations to other EEA products within Plone.",
+           #description="Specify relations to other EEA products within Plone.",
             #description_msgid="help_related_products",
             #i18n_domain="plone",
             #visible={'edit' : 'visible', 'view' : 'invisible' }

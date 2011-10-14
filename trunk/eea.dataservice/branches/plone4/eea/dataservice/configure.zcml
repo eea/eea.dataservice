@@ -26,6 +26,8 @@
   <include package=".organisations" />
 
   <adapter factory=".catalog.getFileName" name="filename" />
+  <adapter factory=".catalog.getFileType" name="filetype" />
+  <adapter factory=".catalog.getDatasetFileTypes" name="filetype" />
 
   <utility
     factory=".vocabulary.Organisations"
