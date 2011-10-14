@@ -10,6 +10,9 @@ from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+
 
 # Schema
 schema = Schema((
@@ -30,32 +33,54 @@ schema = Schema((
     ),
 
     # Fields for 'relations' schemata
-    ReferenceField('relatedProducts',
+    #ReferenceField('relatedProducts',
+        #schemata='categorization',
+        #relationship='relatesToProducts',
+        #multiValued=True,
+        #isMetadata=True,
+        #languageIndependent=False,
+        #index='KeywordIndex',
+        #write_permission=ModifyPortalContent,
+        #widget=ReferenceBrowserWidget(
+            #macro="figure_referencebrowser",
+            #helper_css=("figure_widget.css",),
+            #helper_js=('referencebrowser.js', 'select_lists.js',
+                         #'figure_widget.js'),
+            #allow_search=True,
+            #allow_browse=True,
+            #allow_sorting=True,
+            #show_indexes=False,
+            #force_close_on_insert=True,
+            #label="Relations to other EEA products",
+            #label_msgid="label_related_products",
+            #description="Specify relations to other EEA products within Plone.",
+            #description_msgid="help_related_products",
+            #i18n_domain="plone",
+            #visible={'edit' : 'visible', 'view' : 'invisible' }
+        #)
+    #),
+
+
+    EEAReferenceField(
+        name='relatedProducts',
         schemata='categorization',
         relationship='relatesToProducts',
-        multiValued=True,
         isMetadata=True,
+        multiValued=True,
         languageIndependent=False,
         index='KeywordIndex',
         write_permission=ModifyPortalContent,
-        widget=ReferenceBrowserWidget(
-            macro="figure_referencebrowser",
-            helper_css=("figure_widget.css",),
-            helper_js=('referencebrowser.js', 'select_lists.js',
-                         'figure_widget.js'),
-            allow_search=True,
-            allow_browse=True,
-            allow_sorting=True,
-            show_indexes=False,
-            force_close_on_insert=True,
+
+        keepReferencesOnCopy=True,
+        widget=EEAReferenceBrowserWidget(
+            visible={'view':'invisible', 'edit':'visible'},
             label="Relations to other EEA products",
             label_msgid="label_related_products",
             description="Specify relations to other EEA products within Plone.",
             description_msgid="help_related_products",
-            i18n_domain="plone",
-            visible={'edit' : 'visible', 'view' : 'invisible' }
         )
-    ),
+        ),
+
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()

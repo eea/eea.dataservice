@@ -7,6 +7,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bug fix: use eea.relations widget for Related EEA Products for EEAFigure [tiberich 4628]
+
 * Feature: removed "Geographic quality" field and related logic [ghicaale #4601]
 
 * Bugfix: Fixed the ROD, to display the previously applied selection [szabozo0 #4607]
