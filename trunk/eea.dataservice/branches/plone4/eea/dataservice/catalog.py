@@ -6,7 +6,7 @@ from zope.interface import Interface
 from plone.indexer import indexer
 from plone.app.blob.utils import guessMimetype
 from eea.dataservice.config import FILE_FIELDS
-from eea.dataservice.interfaces import IDataset
+from eea.dataservice.interfaces import IDataset, IDatatable
 from Products.CMFCore.utils import getToolByName
 
 @indexer(Interface)
@@ -27,9 +27,9 @@ def getFileName(obj, **kwargs):
 
     return getFilename(obj)
 
-@indexer(IDataset)
-def getDatasetFileTypes(obj, **kwargs):
-    """ Index for dataset containing mime-types.
+@indexer(IDatatable)
+def getDatatableFileTypes(obj, **kwargs):
+    """ Index for datatables containing mime-types.
     """
     mimetypes = set()
     try:
@@ -43,13 +43,18 @@ def getDatasetFileTypes(obj, **kwargs):
 
     brains = ctool(
         portal_type='DataFile',
-        path=path,
-        review_state='published')
+        path=path)
 
     for brain in brains:
         mimetypes.update(brain.filetype)
 
     return tuple(mimetypes)
+
+@indexer(IDataset)
+def getDatasetFileTypes(obj, **kwargs):
+    """ Index for dataset containing mime-types.
+    """
+    return getDatatableFileTypes(obj, **kwargs)
 
 @indexer(Interface)
 def getFileType(obj, **kwargs):

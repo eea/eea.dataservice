@@ -3,8 +3,8 @@
 import os
 from StringIO import StringIO
 
-def loadblobfile(context, rel_filename, ctype='application/pdf'):
-    """ load a file
+def preparefile(rel_filename, ctype='application/pdf'):
+    """ Prepare a file for upload
     """
     storage_path = os.path.join(os.path.dirname(__file__))
     file_path = os.path.join(storage_path, rel_filename)
@@ -15,6 +15,10 @@ def loadblobfile(context, rel_filename, ctype='application/pdf'):
     filename = str(filename)
     fp = StringIO(file_data)
     fp.filename = filename
-    context.setFile(fp)
+    return fp
 
+def loadblobfile(context, rel_filename, ctype='application/pdf'):
+    """ load a file
+    """
+    context.setFile(preparefile(rel_filename, ctype))
     return 'File uploaded.'

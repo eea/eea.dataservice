@@ -14,9 +14,6 @@ class EEAFixture(PloneSandboxLayer):
         import eea.dataservice
         self.loadZCML(package=eea.dataservice)
 
-        import Products.ATVocabularyManager
-        self.loadZCML(package=Products.ATVocabularyManager)
-
         z2.installProduct(app, 'Products.ATVocabularyManager')
         z2.installProduct(app, 'eea.dataservice')
 

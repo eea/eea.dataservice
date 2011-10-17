@@ -5,7 +5,7 @@ Set up
 ------
     >>> from plone.app.testing import TEST_USER_ID
     >>> from plone.app.testing import setRoles
-    >>> from eea.dataservice.tests.utils import loadblobfile
+    >>> from eea.dataservice.tests.utils import preparefile
 
     >>> portal = layer['portal']
     >>> setRoles(portal, TEST_USER_ID, ['Manager'])
@@ -17,11 +17,10 @@ Set up
     >>> data = folder._getOb(fid)
     >>> form = {
     ...   'title': 'Some data file',
-    ...   'description': 'a data file'
+    ...   'description': 'a data file',
+    ...   'file_file': preparefile('sample.pdf')
     ... }
-    >>> data.processForm(values=form, data=1, metadata=1)
-    >>> _ = loadblobfile(data, 'sample.pdf')
-    >>> data.reindexObject(idxs=['filename', 'filetype'])
+    >>> _ = data.processForm(values=form, data=1, metadata=1)
 
 Search by filename
 ------------------
@@ -56,8 +55,8 @@ Search by filetype
 Search in ZIP
 -------------
 
-    >>> _ = loadblobfile(data, 'sample.zip')
-    >>> data.reindexObject(idxs=['filename', 'filetype'])
+    >>> _ = data.processForm(values={'file_file': preparefile('sample.zip')},
+    ...                      data=1, metadata=1)
 
   File is zipped
 
@@ -77,7 +76,8 @@ Search in ZIP
 
 Dataset filetype
 ----------------
-Dataset filetype should be computed from Datafile children filetypes.
+Dataset filetype should be computed from Datafile children filetypes. Same for
+Datatables
 
     >>> dataset = folder.invokeFactory('Data', 'some-data-set')
     >>> dataset = folder._getOb(dataset)
@@ -87,28 +87,58 @@ Dataset filetype should be computed from Datafile children filetypes.
 
     >>> afile = datatable.invokeFactory('DataFile', 'another-data-file')
     >>> afile = datatable._getOb(afile)
-    >>> _ = loadblobfile(afile, 'sample.pdf')
+    >>> afile.processForm(
+    ...     values={'file_file': preparefile('sample.pdf')},
+    ...     data=1, metadata=1)
     >>> datatable.portal_workflow.doActionFor(afile, 'quickPublish')
-    >>> afile.reindexObject(idxs=['filetype'])
 
     >>> afile = datatable.invokeFactory('DataFile', 'another-data-file-2')
     >>> afile = datatable._getOb(afile)
-    >>> _ = loadblobfile(afile, 'sample.zip')
+    >>> afile.processForm(
+    ...     values={'file_file': preparefile('sample.zip')},
+    ...     data=1, metadata=1)
     >>> datatable.portal_workflow.doActionFor(afile, 'quickPublish')
-    >>> afile.reindexObject(idxs=['filetype'])
 
-    >>> dataset.reindexObject(idxs=['filetype'])
+Search for our datafiles
 
-Now let's search for our dataset
+    >>> brains = ctool(filetype='application/pdf', portal_type='DataFile',
+    ...                path='/plone/folder/some-data-set')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set/some-data-table/another-data-file
+
+    >>> brains = ctool(filetype='text/plain', portal_type='DataFile',
+    ...                path='/plone/folder/some-data-set')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set/some-data-table/another-data-file-2
+
+
+Now lets search for our datatable
 
     >>> query = {'query': ['application/zip', 'application/pdf'], 'operator': 'and'}
-    >>> brains = ctool(filetype=query)
+    >>> brains = ctool(filetype=query, portal_type='DataTable')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set/some-data-table
+
+    >>> query = {'query': ['application/pdf', 'text/plain'], 'operator': 'and'}
+    >>> brains = ctool(filetype=query, portal_type='DataTable')
+    >>> for brain in brains:
+    ...     print brain.getURL(1)
+    /plone/folder/some-data-set/some-data-table
+
+
+... and for our dataset
+
+    >>> query = {'query': ['application/zip', 'application/pdf'], 'operator': 'and'}
+    >>> brains = ctool(filetype=query, portal_type='Data')
     >>> for brain in brains:
     ...     print brain.getURL(1)
     /plone/folder/some-data-set
 
     >>> query = {'query': ['application/pdf', 'text/plain'], 'operator': 'and'}
-    >>> brains = ctool(filetype=query)
+    >>> brains = ctool(filetype=query, portal_type='Data')
     >>> for brain in brains:
     ...     print brain.getURL(1)
     /plone/folder/some-data-set

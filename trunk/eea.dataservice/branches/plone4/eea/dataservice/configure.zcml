@@ -27,6 +27,7 @@
 
   <adapter factory=".catalog.getFileName" name="filename" />
   <adapter factory=".catalog.getFileType" name="filetype" />
+  <adapter factory=".catalog.getDatatableFileTypes" name="filetype" />
   <adapter factory=".catalog.getDatasetFileTypes" name="filetype" />
 
   <utility
@@ -58,6 +59,11 @@
     for="eea.dataservice.interfaces.IEEAFigure
       Products.CMFCore.interfaces.IActionSucceededEvent"
     handler=".events.handle_eeafigure_state_change"/>
+
+  <subscriber
+    for="eea.dataservice.interfaces.IDatafile
+      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".events.reindex_filetype" />
 
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
