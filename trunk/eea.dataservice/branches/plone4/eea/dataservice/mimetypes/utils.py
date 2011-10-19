@@ -15,6 +15,8 @@ def register_mimetypes(registry, mimetypes):
     for mimetype in mimetypes:
         extensions = mimetype.get('extensions')
         mt = mimetype.get('mimetype')
+        title = mimetype.get('title')
+        icon = mimetype.get('icon')
 
         ext_exists = False
         for ext in extensions:
@@ -36,7 +38,7 @@ def register_mimetypes(registry, mimetypes):
         if not mto:
             isBin = mt.split('/', 1)[0] != "text"
             registry.register(
-                MimeTypeItem(mt, (mt,), tuple(extensions), isBin))
+                MimeTypeItem(title, (mt,), tuple(extensions), isBin, icon))
             continue
 
         # Edit existing mimetype

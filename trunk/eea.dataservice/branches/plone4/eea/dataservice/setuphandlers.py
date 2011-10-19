@@ -23,6 +23,7 @@ from eea.dataservice.vocabulary import (
     REFERENCE_DICTIONARY_ID
 )
 from eea.dataservice.mimetypes.database import MIMETYPES as DB_MIMETYPES
+from eea.dataservice.mimetypes.geographic import MIMETYPES as GEO_MIMETYPES
 from eea.dataservice.mimetypes.utils import register_mimetypes
 
 logger = logging.getLogger('eea.dataservice: setuphandlers')
@@ -126,6 +127,10 @@ def installMimeTypes(context):
     if context.readDataFile('eea.dataservice.txt') is None:
         return
 
-    # Database
     registry = getToolByName(context, 'mimetypes_registry')
+
+    # Database
     register_mimetypes(registry, DB_MIMETYPES)
+
+    # Geographic
+    register_mimetypes(registry, GEO_MIMETYPES)

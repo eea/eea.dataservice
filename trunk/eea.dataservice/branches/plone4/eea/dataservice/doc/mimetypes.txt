@@ -14,6 +14,7 @@ Set up
     >>> registry = portal.mimetypes_registry
     >>> setRoles(portal, TEST_USER_ID, ['Manager'])
 
+
 Database mimetypes
 ------------------
 
@@ -28,3 +29,22 @@ Database mimetypes
 
     >>> guessMimetype(StringIO('database'), filename="a.db.fp7.apr")
     'application/vnd.lotus-approach'
+
+
+Geographic mimetypes
+--------------------
+
+    >>> registry.lookupExtension('kml')
+    <mimetype application/vnd.google-earth.kml+xml>
+
+    >>> registry.lookupExtension('shp')
+    <mimetype application/x-qgis>
+
+    >>> registry.lookupExtension('geotiff')
+    <mimetype image/geotiff>
+
+    >>> guessMimetype(StringIO('TIFF'), filename="a.kml.geotiff")
+    'image/geotiff'
+
+    >>> guessMimetype(StringIO('SHP'), filename="a.kml.geotiff.shp")
+    'application/x-qgis'
