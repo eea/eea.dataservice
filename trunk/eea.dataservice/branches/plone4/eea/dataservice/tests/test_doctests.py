@@ -16,6 +16,12 @@ def test_suite():
     suite.addTests([
         layered(
             doctest.DocFileSuite(
+                'doc/mimetypes.txt',
+                optionflags=OPTIONFLAGS,
+                package='eea.dataservice'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'doc/catalog.txt',
                 optionflags=OPTIONFLAGS,
                 package='eea.dataservice'),

@@ -22,6 +22,8 @@ from eea.dataservice.vocabulary import (
     REFERENCE_DICTIONARY,
     REFERENCE_DICTIONARY_ID
 )
+from eea.dataservice.mimetypes.database import MIMETYPES as DB_MIMETYPES
+from eea.dataservice.mimetypes.utils import register_mimetypes
 
 logger = logging.getLogger('eea.dataservice: setuphandlers')
 
@@ -116,3 +118,14 @@ def installVocabularies(context):
             except Exception:
                 logger.debug("eea dataservice setuphandlers migration script "
                              "couldn't auto publish")
+
+def installMimeTypes(context):
+    """ Add new mimetypes
+    """
+    # only run this step if we are in eea.dataservice profile
+    if context.readDataFile('eea.dataservice.txt') is None:
+        return
+
+    # Database
+    registry = getToolByName(context, 'mimetypes_registry')
+    register_mimetypes(registry, DB_MIMETYPES)

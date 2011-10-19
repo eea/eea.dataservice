@@ -21,4 +21,11 @@
     handler="eea.dataservice.setuphandlers.installVocabularies"
     />
 
+  <genericsetup:importStep
+    name="eea.dataservice-install-mimetypes"
+    title="EEA Dataservice mime-types"
+    description="Install mime-types for eea.dataservice"
+    handler="eea.dataservice.setuphandlers.installMimeTypes"
+    />
+
 </configure>
