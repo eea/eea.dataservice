@@ -7,6 +7,10 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bugfix: Reduced the length of Obligation titles in vocabulary in order to 
+  fix covered fields
+  [szabozo0 #4661]
+
 * Feature: Added filetype index in order to be able to search Files, Dataset,
   DataFiles by mime-type
   [voineali #2754]

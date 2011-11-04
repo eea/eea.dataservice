@@ -189,8 +189,8 @@ def formatTitle(title):
     """ Format title
     """
     res = title
-    if len(title) > 80:
-        res = title[:80]
+    if len(title) > 70:
+        res = title[:70]
         res += ' ...'
     return res
 
