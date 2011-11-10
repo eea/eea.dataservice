@@ -38,7 +38,11 @@
             </a>
         </span>
     </dt>
-    <dd class="portletFooter"></dd>
+    <dd class="portletFooter">
+        <a href="http://www.eea.europa.eu/data-and-maps/data/data-viewers" title="More interactive data viewers" class="moreLink">
+            <span>More data viewers</span>
+        </a>
+    </dd>
 </dl>
 
 </div>
