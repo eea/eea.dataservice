@@ -46,7 +46,62 @@
         <h4 tal:content="categ_name" tal:attributes="
           id string:fancy-$categ;
           title categ_name;"/>
-        <metal:figures use-macro="here/atct_album_view/macros/listing" />
+
+       <!-- NEW MACRO FOR DAVIZ -->
+       <!-- metal:figures use-macro="here/atct_album_view/macros/listing" / -->
+
+          <tal:listingmacro tal:define="
+    entry_macro entry_macro | here/atct_albumentry/macros/entry;
+    folderContents folderContents|nothing">
+
+  <tal:folderContents condition="folderContents" tal:define="batch folderContents">
+    <div metal:use-macro="here/batch_macros/macros/navigation" />
+    <tal:images tal:repeat="brain folderContents">
+      <tal:entry tal:define="
+        obj brain/getObject;
+        obj_title python:obj.pretty_title_or_id();
+        desc_or_title python:brain.Description or obj_title;
+        urlview obj/@@url;
+        listing_url obj/absolute_url;
+        is_video python:'p4a.video.interfaces.IVideoEnhanced' in brain.object_provides">
+
+        <!-- a class="moreLink" tal:attributes="href string:${obj/absolute_url}/" 
+ 		                            tal:condition="exists: obj/@@daviz-view.html" 
+ 		                            i18n:translate="">View and interact online</a -->
+
+        <tal:block condition="not:exists: obj/@@daviz-view.html">
+           <metal:entry use-macro="entry_macro" />
+        </tal:block>
+        <tal:block condition="exists: obj/@@daviz-view.html"
+                   define="suffix string:;
+                           bgimg string:background-image: url(/valentine-imagescales/daviz/image_thumb)">
+           <metal:entry use-macro="entry_macro" />
+        </tal:block>
+
+
+          <!-- div tal:condition="not:exists:obj/@@daviz-view.html" tal:define="
+             css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry'"
+             tal:attributes="class css">
+                  <a tal:attributes="
+                        href string:${obj/absolute_url};
+                        class python:test(is_video, 'video-fancybox', '');
+                        title desc_or_title">
+                        <span class="photoAlbumEntryWrapper">
+                          <img style="border: none" tal:attributes="
+                             title desc_or_title;
+                                   alt obj/pretty_title_or_id;
+                                   src string:${obj/absolute_url}/image_thumb"/>
+                          </span>
+                          <span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" />
+                   </a>
+              </div -->
+      </tal:entry>
+    </tal:images>
+    <div class="visualClear"><!-- --></div>
+    <div metal:use-macro="here/batch_macros/macros/navigation" />
+  </tal:folderContents>
+  </tal:listingmacro>
+       <!-- END NEW MACRO FOR DAVIZ -->
       </tal:child>
     </div>
   </tal:figurefiles>

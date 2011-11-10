@@ -7,7 +7,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
-* Change: Migrated eeafigure_albumentry from custom [szabozo0 #4161]
+* Change: Migrated eeafigure_albumentry, eeafigure_view from custom [szabozo0 #4161]
 
 * Bugfix: Reduced the length of Obligation titles in vocabulary in order to 
   fix covered fields
