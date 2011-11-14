@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea.translations">
+<head>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript"
+          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
+    </metal:javascript>
+</head>  
+<body>
+
+<div metal:fill-slot="main">
+    <!-- BASIC PROPERTIES -->
+    <!-- Title -->
+    <h1 tal:content="context/pretty_title_or_id">Title of the Dataset</h1>
+    <div class="documentActions languages">
+        <tal:lang tal:condition="exists: here/global_languageselector">
+            <metal:lang use-macro="here/global_languageselector/macros/language" />
+        </tal:lang>
+    </div>
+    <div class="visualClear">&nbsp;</div>
+
+    <!-- Description -->
+    <div class="publicationDescription">
+        <strong tal:content="context/Description" />
+    </div>
+
+    <style>
+        dd {margin-left: 3em}
+
+        #map_canvas {
+            float: left;
+            margin-right: 10px;
+            margin-top: 3px; }
+            
+        #figures-fancyimage {
+               margin: 0;
+           }
+    </style>
+    
+    <div class="map-singlefile">
+       <tal:fancybox replace="structure context/@@fancybox.html" />
+    </div>
+    <div class="visualClear"></div>
+  
+    <div class="visualClear">&nbsp;</div>
+    <metal:listing use-macro="here/folder_summary_view/macros/listing" />
+
+</div>
+
+</body>
+</html>
