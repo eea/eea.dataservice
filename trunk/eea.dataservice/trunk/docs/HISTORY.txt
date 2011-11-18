@@ -5,8 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.1-dev - (unreleased)
-----------------------
+4.1 - (2011-11-18)
+------------------
+* Rerelease broken egg  
 
 4.0 - (2011-11-18)
 ------------------
