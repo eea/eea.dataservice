@@ -5,46 +5,31 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.0-dev - (unreleased)
-----------------------
+4.0 - (2011-11-18)
+------------------
 * TODO: Fix more link on portlet_dataviewers
-
 * Change: Migrated eeafigure_albumentry, eeafigure_view, portlet_dataviewers from custom [szabozo0 #4161]
-
 * Bugfix: Reduced the length of Obligation titles in vocabulary in order to 
   fix covered fields
   [szabozo0 #4661]
-
 * Feature: Added filetype index in order to be able to search Files, Dataset,
   DataFiles by mime-type
   [voineali #2754]
-
 * Bug fix: use eea.relations widget for Related EEA Products for EEAFigure [tiberich 4628]
-
 * Feature: removed "Geographic quality" field and related logic [ghicaale #4601]
-
 * Bugfix: Fixed the ROD, to display the previously applied selection [szabozo0 #4607]
-
 * TODO: Convert all figures JS
-
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
   with other JS frameworks [szabozo0 #4542]
-
 * Bug fix: Completed the default template for the EEAFigureFile by calling the
   fancybox view.
   [demarant #4522]
-
 * Bugfix: Fixed wrong date formats [szabozo0 #4510]
-
 * Change: removed the old themes portlet, now part of the main template as viewlet [demarant].
-
 * Bugfix: Fixed file type on album view for EEAFigure [szabozo0 #4446]
-
 * Bugfix: Fixed Geographical Coverage [szabozo0 #4423]
 * Change: Enabled themecentre using macros [szabozo0 #4423]
-
 * Change: Moved ManagementPlan Field and Widget to eea.forms [szabozo0 #4423]
-
 * Feature: Fixed all pylint, pyflakes warnings [voineali #4302]
 * Feature: Added upgrade steps [voineali #4392]
 * Feature: Plone 4.0.4 compatible [voineali $4302]
