@@ -7,6 +7,7 @@ Changelog
 
 4.2-dev - (unreleased)
 ----------------------
+ * Strip titles of first/last whitespace for Organisations vocab [tiberich #4745]
 
 4.1 - (2011-11-18)
 ------------------
