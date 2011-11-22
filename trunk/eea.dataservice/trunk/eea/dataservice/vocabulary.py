@@ -166,7 +166,6 @@ class Organisations(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        import pdb; pdb.set_trace()
         if hasattr(context, 'context'):
             context = context.context
 
