@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.3-dev - (unreleased)
-----------------------
+4.3 - (2011-11-24)
+------------------
  * Change: Allow registered browser_views to be customized by portal_view_customizations by making them inherit 
    from BrowserView instead of object [ichimdav #4783]
  * Bug fix: fixed organisations edit widget [tiberich #4775]
