@@ -2,6 +2,7 @@
 """
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.Five import BrowserView
 
 TEMPLATE_CONTAINER = 'templates'
 TEMPLATE_TYPES = ['EEAFigure', 'Data']
@@ -28,7 +29,7 @@ class GetTemplates(object):
         return cat(portal_type = TEMPLATE_TYPES,
                    path = path)
 
-class SelectTemplate(object):
+class SelectTemplate(BrowserView):
     """ Select template view
     """
     def __init__(self, context, request):
