@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.4-dev - (unreleased)
-----------------------
+4.4 - (2011-11-28)
+------------------
 * Bug fix: Required themes and subject is handled by EEAContentTypes
   [voineali #4694]
 
