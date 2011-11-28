@@ -372,6 +372,3 @@ dataservice_schema = ATFolderSchema.copy() + \
 
 dataservice_schema['description'].widget.rows = 15
 dataservice_schema['description'].required = True
-
-dataservice_schema['themes'].required = True
-dataservice_schema['subject'].required = True

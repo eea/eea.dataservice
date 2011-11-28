@@ -7,27 +7,29 @@ Changelog
 
 4.4-dev - (unreleased)
 ----------------------
+* Bug fix: Required themes and subject is handled by EEAContentTypes
+  [voineali #4694]
 
 4.3 - (2011-11-24)
 ------------------
- * Change: Allow registered browser_views to be customized by portal_view_customizations by making them inherit 
-   from BrowserView instead of object [ichimdav #4783]
- * Bug fix: fixed organisations edit widget [tiberich #4775]
+* Change: Allow registered browser_views to be customized by portal_view_customizations by making them inherit
+  from BrowserView instead of object [ichimdav #4783]
+* Bug fix: fixed organisations edit widget [tiberich #4775]
 
 4.2 - (2011-11-22)
 ------------------
- * Bug fix: Switch value and title for organisations widget [tiberich #4745]
- * Optimization: Strip titles of first/last whitespace for Organisations vocab [tiberich #4745]
+* Bug fix: Switch value and title for organisations widget [tiberich #4745]
+* Optimization: Strip titles of first/last whitespace for Organisations vocab [tiberich #4745]
 
 4.1 - (2011-11-18)
 ------------------
-* Rerelease broken egg  
+* Rerelease broken egg
 
 4.0 - (2011-11-18)
 ------------------
 * TODO: Fix more link on portlet_dataviewers
 * Change: Migrated eeafigure_albumentry, eeafigure_view, portlet_dataviewers from custom [szabozo0 #4161]
-* Bugfix: Reduced the length of Obligation titles in vocabulary in order to 
+* Bugfix: Reduced the length of Obligation titles in vocabulary in order to
   fix covered fields
   [szabozo0 #4661]
 * Feature: Added filetype index in order to be able to search Files, Dataset,
