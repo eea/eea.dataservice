@@ -10,6 +10,7 @@ Changelog
  * Bug fix: added widget labels and descriptions for countries widget,
    organisations widget and temporal coverage; They are hidden by default by
    Plone 4 because they are MultiSelectWidget [tiberich #4809]
+ * Bug fix: fix problem with duplicated figure type label in figure edit [tiberich #4809]
 
 4.4 - (2011-11-28)
 ------------------
