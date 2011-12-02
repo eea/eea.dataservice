@@ -1,0 +1,42 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plone">
+<body>
+
+<div metal:define-macro="portlet"
+     id="portlet-organisations-overview"
+     i18n:domain="plone"
+     tal:omit-tag=""
+     tal:condition="not:context/@@plone_portal_state/anonymous">
+
+<dl class="portlet portlet-rss">
+
+    <dt class="portletHeader" i18n:translate="">Organisations control panel</dt>
+
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-quick-overview"
+         title="">
+        Quick overview</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=duplicate-organisations"
+         title="">
+        Duplicate organisations</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-wrong-title"
+         title="">
+        Organisations with wrong title</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-no-reference"
+         title="">
+        Organisations with no reference</a>
+    </dt>
+
+</dl>
+
+</div>
+
+</body>
+</html>
