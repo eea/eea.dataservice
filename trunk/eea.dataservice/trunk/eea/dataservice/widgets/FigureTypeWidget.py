@@ -16,6 +16,9 @@ class FigureTypeWidget(TypesWidget):
 
     security = ClassSecurityInfo()
 
+    def getName(self):
+        return "SelectionWidget"
+
     security.declarePublic('process_form')
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False, validating=True):
