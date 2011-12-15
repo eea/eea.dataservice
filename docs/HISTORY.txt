@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+4.7-dev - (unreleased)
+----------------------
+
 4.6 - (2011-12-15)
 ------------------
  * Bug fix: Enabled relations for eea figure
