@@ -7,6 +7,7 @@ Changelog
 
 4.7-dev - (unreleased)
 ----------------------
+ * Change: Corrected metadata description tooltip for owner. [demarant]
 
 4.6 - (2011-12-15)
 ------------------

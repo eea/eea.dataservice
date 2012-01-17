@@ -197,12 +197,9 @@ dataservice_base_schema = Schema((
             helper_js=("multiselectautocomplete_widget.js",),
             size=15,
             label="Owner",
-            description=("An entity or set of entities that owns the data "
-                         "resource. It coincides with the entity that first "
-                         "makes the data public available. The data owner is "
-                         "primarly responsible for the dataset harmonisation, "
-                         "quality assurance and collection from other "
-                         "reporting organisations."),
+            description=("An entity or set of entities that owns the "
+                         "resource. The owner is responsible for the "
+                         "reliability of the resource."),
             label_msgid='dataservice_label_owner',
             description_msgid='dataservice_help_owner',
             i18n_domain='eea',
@@ -220,7 +217,7 @@ dataservice_base_schema = Schema((
             helper_js=("multiselectautocomplete_widget.js",),
             size=15,
             label="Processor",
-            description="The technical producer or processor of the data.",
+            description="The technical producer or processor of the resource.",
             label_msgid='dataservice_label_processor',
             description_msgid='dataservice_help_processor',
             i18n_domain='eea',
@@ -240,7 +237,7 @@ dataservice_base_schema = Schema((
             label="Temporal coverage",
             description=("The temporal scope of the content of the data "
                          "resource. Temporal coverage will typically include "
-                         "a set of years or a time range."),
+                         "a set of years or time ranges."),
             label_msgid='dataservice_label_coverage',
             description_msgid='dataservice_help_coverage',
             i18n_domain='eea',
@@ -272,7 +269,7 @@ dataservice_base_schema = Schema((
         widget=RichWidget(
             label="Source",
             description=("A reference to a resource from which the present "
-                         "data resource is derived. Details such exact body "
+                         "resource is derived. Details such exact body "
                          "or department, date of delivery, original database, "
                          "table or GIS layer, scientific literature ..."),
             label_msgid="dataservice_label_source",
