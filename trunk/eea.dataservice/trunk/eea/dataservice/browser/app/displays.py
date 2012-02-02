@@ -34,35 +34,69 @@ class OrganisationStatistics(object):
         self.context = context
         self.request = request
 
+    def getOnlyLastVersion(self, brains):
+        """ Filter brains to get only last versions
+        """
+        last_versions = {}
+        brains = [brain for brain in brains]
+        for brain in brains:
+            version_id = getattr(brain, 'getVersionId', '')
+            if version_id:
+                effective_date = getattr(brain, 'EffectiveDate', DateTime(1970))
+                if len(version_id):
+                    if last_versions.has_key(version_id):
+                        current_date = getattr(
+                            last_versions[version_id], 'EffectiveDate',
+                            DateTime(1970))
+                        if current_date < effective_date:
+                            last_versions[version_id] = brain
+                    else:
+                        last_versions[version_id] = brain
+
+        versions = [k.data_record_id_ for k in last_versions.values()]
+        for brain in brains:
+            version_id = getattr(brain, 'getVersionId', '')
+            if version_id:
+                if brain.data_record_id_ in versions:
+                    yield brain
+            else:
+                yield brain
+
     def __call__(self):
-        data = {'owners': ([], []), 'processor': ([], [])}
+        data = {'owners': ([], [], []), 'processor': ([], [])}
         cat = getToolByName(self.context, 'portal_catalog')
 
         # Owner statistics
-        query = { 'portal_type':'EEAFigure',
-                  'getDataOwner': self.context.org_url(),
-                  'review_state': 'published'}
+        query = { 'portal_type':'ExternalDataSpec',
+                  'getDataOwner': self.context.org_url(),}
+#                  'review_state': 'published'}
         brains = cat(**query)
-        data['owners'][1].extend(brains)
+        data['owners'][2].extend(self.getOnlyLastVersion(brains))
+
+        query = { 'portal_type':'EEAFigure',
+                  'getDataOwner': self.context.org_url(),}
+#                  'review_state': 'published'}
+        brains = cat(**query)
+        data['owners'][1].extend(self.getOnlyLastVersion(brains))
 
         query = { 'portal_type':'Data',
-                  'getDataOwner': self.context.org_url(),
-                  'review_state': 'published'}
+                  'getDataOwner': self.context.org_url(),}
+#                  'review_state': 'published'}
         brains = cat(**query)
-        data['owners'][0].extend(brains)
+        data['owners'][0].extend(self.getOnlyLastVersion(brains))
 
         # Processor statistics
         query = { 'portal_type':'EEAFigure',
-                  'getProcessor': self.context.org_url(),
-                  'review_state': 'published'}
+                  'getProcessor': self.context.org_url(),}
+#                  'review_state': 'published'}
         brains = cat(**query)
-        data['processor'][1].extend(brains)
+        data['processor'][1].extend(self.getOnlyLastVersion(brains))
 
         query = { 'portal_type':'Data',
-                  'getProcessor': self.context.org_url(),
-                  'review_state': 'published'}
+                  'getProcessor': self.context.org_url(),}
+#                  'review_state': 'published'}
         brains = cat(**query)
-        data['processor'][0].extend(brains)
+        data['processor'][0].extend(self.getOnlyLastVersion(brains))
 
         return data
 

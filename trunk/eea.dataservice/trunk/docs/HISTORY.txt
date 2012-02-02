@@ -7,6 +7,10 @@ Changelog
 
 4.7-dev - (unreleased)
 ----------------------
+ * WIP -> Feature: Under organisations view also count external data spec relations
+   [ghicaale #4659, #3474]
+ * WIP -> Feature: Count only last version under organisation view relations
+   [ghicaale #4485]
  * Change: "Migrate Data to ExternalDataSpec" action is now available for "Content Manager" role
    [ghicaale]
  * Change: Corrected metadata description tooltip for owner.
