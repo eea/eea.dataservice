@@ -11,6 +11,7 @@
     <tal:block define="data context/@@organisationStatistics;
                        odatasets python:data['owners'][0];
                        ofigures python:data['owners'][1];
+                       oexternal python:data['owners'][2];
                        pdatasets python:data['processor'][0];
                        pfigures python:data['processor'][1]">
 
@@ -31,6 +32,11 @@
                 <tal:rows content="python:len(ofigures)" />
                 <span i18n:translate="">figures</span>
                 ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&b_start=0&c6=${context/org_url}">see more</a> )
+            </p>
+            <p tal:condition="oexternal">
+                <tal:rows content="python:len(oexternal)" />
+                <span i18n:translate="">external data specs</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&b_start=0&c6=${context/org_url}">see more</a> )
             </p>
 
             <!-- Processor -->
