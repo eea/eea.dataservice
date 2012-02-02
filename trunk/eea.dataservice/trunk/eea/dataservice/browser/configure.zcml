@@ -237,7 +237,7 @@
   <browser:page
     for="eea.dataservice.interfaces.IDataset"
     name="migrateToExternal"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     class=".app.migrate.MigrateDatasetsToExternalDatasets"
     />
 

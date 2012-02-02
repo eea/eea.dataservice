@@ -7,7 +7,10 @@ Changelog
 
 4.7-dev - (unreleased)
 ----------------------
- * Change: Corrected metadata description tooltip for owner. [demarant]
+ * Change: "Migrate Data to ExternalDataSpec" action is now available for "Content Manager" role
+   [ghicaale]
+ * Change: Corrected metadata description tooltip for owner.
+   [demarant]
 
 4.6 - (2011-12-15)
 ------------------
@@ -18,8 +21,10 @@ Changelog
 ------------------
  * Bug fix: added widget labels and descriptions for countries widget,
    organisations widget and temporal coverage; They are hidden by default by
-   Plone 4 because they are MultiSelectWidget [tiberich #4809]
- * Bug fix: fix problem with duplicated figure type label in figure edit [tiberich #4809]
+   Plone 4 because they are MultiSelectWidget
+   [tiberich #4809]
+ * Bug fix: fix problem with duplicated figure type label in figure edit
+   [tiberich #4809]
 
 4.4 - (2011-11-28)
 ------------------
