@@ -13,11 +13,17 @@
                        ofigures python:data['owners'][1];
                        oexternal python:data['owners'][2];
                        pdatasets python:data['processor'][0];
-                       pfigures python:data['processor'][1]">
+                       pfigures python:data['processor'][1];
+                       isAnon python: here.portal_membership.isAnonymousUser();">
 
         <fieldset class="organisation-statistics"
                   tal:condition="python:len(odatasets) or len(ofigures)">
           <legend i18n:translate="contribution">Contribution</legend>
+
+          <p tal:condition="not:isAnon" class="portalMessage info"
+             i18n:translate="">
+              Note that for authenticated users the info below also include the unpublished content.
+          </p>
 
             <!-- Owner -->
             <h5 class="organisation-header-top"

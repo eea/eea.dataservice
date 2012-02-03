@@ -66,37 +66,39 @@ class OrganisationStatistics(object):
     def __call__(self):
         data = {'owners': ([], [], []), 'processor': ([], [])}
         cat = getToolByName(self.context, 'portal_catalog')
+        memtool = getToolByName(self.context, 'portal_membership')
+        query = {}
+
+        # Only published content for authenticated
+        if memtool.isAnonymousUser():
+            query['review_state'] = 'published'
+            query['effectiveRange'] = DateTime()
 
         # Owner statistics
-        query = { 'portal_type':'ExternalDataSpec',
-                  'getDataOwner': self.context.org_url(),}
-#                  'review_state': 'published'}
-        brains = cat(**query)
+        query['portal_type'] = 'ExternalDataSpec'
+        query['getDataOwner'] = self.context.org_url()
+        brains = cat.searchResults(query)
         data['owners'][2].extend(self.getOnlyLastVersion(brains))
 
-        query = { 'portal_type':'EEAFigure',
-                  'getDataOwner': self.context.org_url(),}
-#                  'review_state': 'published'}
-        brains = cat(**query)
+        query['portal_type'] = 'EEAFigure'
+        query['getDataOwner'] = self.context.org_url()
+        brains = cat.searchResults(query)
         data['owners'][1].extend(self.getOnlyLastVersion(brains))
 
-        query = { 'portal_type':'Data',
-                  'getDataOwner': self.context.org_url(),}
-#                  'review_state': 'published'}
-        brains = cat(**query)
+        query['portal_type'] = 'Data'
+        query['getDataOwner'] = self.context.org_url()
+        brains = cat.searchResults(query)
         data['owners'][0].extend(self.getOnlyLastVersion(brains))
 
         # Processor statistics
-        query = { 'portal_type':'EEAFigure',
-                  'getProcessor': self.context.org_url(),}
-#                  'review_state': 'published'}
-        brains = cat(**query)
+        query['portal_type'] = 'EEAFigure'
+        query['getProcessor'] = self.context.org_url()
+        brains = cat.searchResults(query)
         data['processor'][1].extend(self.getOnlyLastVersion(brains))
 
-        query = { 'portal_type':'Data',
-                  'getProcessor': self.context.org_url(),}
-#                  'review_state': 'published'}
-        brains = cat(**query)
+        query['portal_type'] = 'Data'
+        query['getProcessor'] = self.context.org_url()
+        brains = cat.searchResults(query)
         data['processor'][0].extend(self.getOnlyLastVersion(brains))
 
         return data
