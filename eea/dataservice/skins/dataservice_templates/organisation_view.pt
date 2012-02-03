@@ -12,12 +12,14 @@
                        odatasets python:data['owners'][0];
                        ofigures python:data['owners'][1];
                        oexternal python:data['owners'][2];
+                       oassessments python:data['owners'][3];
                        pdatasets python:data['processor'][0];
                        pfigures python:data['processor'][1];
                        isAnon python: here.portal_membership.isAnonymousUser();">
 
         <fieldset class="organisation-statistics"
-                  tal:condition="python:len(odatasets) or len(ofigures)">
+                  tal:condition="python:len(odatasets) or len(ofigures) or len(oexternal) or
+                                        len(pdatasets) or len(pfigures) or len(oassessments)">
           <legend i18n:translate="contribution">Contribution</legend>
 
           <p tal:condition="not:isAnon" class="portalMessage info"
@@ -43,6 +45,11 @@
                 <tal:rows content="python:len(oexternal)" />
                 <span i18n:translate="">external data specs</span>
                 ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&b_start=0&c6=${context/org_url}">see more</a> )
+            </p>
+            <p tal:condition="oassessments">
+                <tal:rows content="python:len(oassessments)" />
+                <span i18n:translate="">indicator assessments</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/indicators#c7=all&c5=&c0=10&b_start=0&c12=${context/org_url}">see more</a> )
             </p>
 
             <!-- Processor -->
