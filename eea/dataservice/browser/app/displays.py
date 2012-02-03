@@ -8,6 +8,7 @@ from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from plone.i18n.locales.interfaces import ICountryAvailability
+from DateTime import DateTime
 
 from eea.dataservice.config import ROD_SERVER
 from eea.dataservice.relations import IRelations
