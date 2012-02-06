@@ -24,7 +24,7 @@
 
           <p tal:condition="not:isAnon" class="portalMessage info"
              i18n:translate="">
-              Note that for authenticated users the info below also include the unpublished content.
+              Note that for authenticated users the info below include the unpublished content.
           </p>
 
             <!-- Owner -->
