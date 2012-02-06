@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.7-dev - (unreleased)
-----------------------
+4.7 - (2012-02-06)
+------------------
  * Bug fix: show label for organisation widget [tiberich #4927]
  * Bug fix: show an empty option as first line in organisation select widget [tiberich #4927]
  * Upgrade step: reindex all External Data Spec objects [ghicaale #4485]
