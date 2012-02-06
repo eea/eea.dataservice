@@ -7,6 +7,8 @@ Changelog
 
 4.7-dev - (unreleased)
 ----------------------
+ * Bug fix: show label for organisation widget [tiberich #4927]
+ * Bug fix: show an empty option as first line in organisation select widget [tiberich #4927]
  * Upgrade step: reindex all External Data Spec objects [ghicaale #4485]
  * Feature: Under organisations view also count external data spec and
    indicator assessment relations
