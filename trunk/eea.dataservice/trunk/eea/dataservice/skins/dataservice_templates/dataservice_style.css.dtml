@@ -1,3 +1,6 @@
+/* <dtml-with base_properties> (do not remove this :) */
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
 /* EEAFigure and Data (index) */
 #content .metadata-container dd {
     margin-left: 3em; }
@@ -94,34 +97,51 @@
 /* Download figure on album view */
 
 .figuresPhotoAlbumEntry {
-  float: left;
-  height: 195px;
-  width: 143px;
-  margin: 0em;
-  padding: 0px 6px 0px 9px;
-  background-image: url('&dtml-portal_url;/polaroid-single.png');
-  background-repeat: no-repeat;
+    border: 1px solid #DFDFDF;
+    background-color: #FFFFFF;
+    float: left;
+    height: 190px;
+    width: 135px;
+    margin: 0 10px 10px 0;
+    padding: 0px 10px;
+    text-align: center;
+    -webkit-box-shadow: 1px 1px 2px #BFBFBF;
+       -moz-box-shadow: 1px 1px 2px #BFBFBF;
+        -ms-box-shadow: 1px 1px 2px #BFBFBF;
+         -o-box-shadow: 1px 1px 2px #BFBFBF;
+            box-shadow: 1px 1px 2px #BFBFBF;
 }
+
+.figuresPhotoAlbumEntry:hover {
+    background: #FBFBFB;
+}
+
 .figuresPhotoAlbumEntry img {
-  border: none;
-  display: block;
-  margin: 0 auto;
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
 }
 
 .figuresPhotoAlbumEntryTitle {
-  margin-top: 20px;
-  text-align: center;
-  width: 130px;
-  margin-left: 5px;
-  font-weight: bold;
+    display: block;
+    overflow: hidden;
+    width: 128px;
+    height: 3.6em;
+    margin-top: 0.4em;
+    font-weight: bold;
+    color: #76797C;
 }
 
 .figuresPhotoAlbumEntry a {
-  text-decoration: none;
-  overflow: hidden;
-  display: block;
-  height: 4em;
+    display: block;
+    text-decoration: none;
+    font-size: &dtml-fontSmallSize;;
+    height: 169px;
+    width: 130px;
+    margin: 16px auto 0px;
+    overflow: hidden;
 }
+
 .figuresByLine {
   background: transparent url('&dtml-portal_url;/atct_album_blank.jpg') no-repeat;
   margin-left: 2em;
@@ -163,3 +183,5 @@
       }
     <![endif]-->
 */
+
+/* </dtml-with> */
