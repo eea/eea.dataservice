@@ -7,21 +7,9 @@ from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
-from eea.dataservice.config import STARTING_YEAR, ROD_SERVER
+from eea.dataservice.config import ROD_SERVER
 
 logger = logging.getLogger('eea.dataservice.vocabulary')
-
-# Temporal coverage vocabulary
-class DatasetYears(object):
-    """ Dataset years vocabulary
-    """
-    implements(IVocabularyFactory)
-
-    def __call__(self, context=None):
-        end_year = 2099
-        terms = [SimpleTerm(str(key), str(key), str(key))
-                 for key in reversed(range(STARTING_YEAR, end_year))]
-        return SimpleVocabulary(terms)
 
 # Main keywords vocabulary
 class MainKeywords(object):
@@ -174,7 +162,7 @@ class Organisations(object):
         cat = getToolByName(context, 'portal_catalog')
         res = cat.searchResults({'portal_type' : 'Organisation'})
         for brain in res:
-            unique_org.setdefault(brain.getUrl, 
+            unique_org.setdefault(brain.getUrl,
                              brain.Title and brain.Title.strip())
 
         unique_org = generateUniqueTitles(unique_org)
