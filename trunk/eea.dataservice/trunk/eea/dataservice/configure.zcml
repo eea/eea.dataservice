@@ -6,6 +6,8 @@
   <include package="Products.ATVocabularyManager" />
 
   <!-- Dependencies -->
+  <include package="eea.forms" />
+  <include package="eea.vocab" />
   <include package="eea.jquery" />
   <include package="eea.locationwidget" />
   <include package="eea.versions" />
@@ -43,11 +45,6 @@
   <utility
     factory=".vocabulary.Obligations"
     name="Obligations"
-    />
-
-  <utility
-    factory=".vocabulary.DatasetYears"
-    name="Temporal coverage"
     />
 
   <utility

@@ -36,7 +36,8 @@ setup(name=name,
           'eea.jquery',
           'eea.locationwidget',
           'eea.versions',
-          'eea.forms'
+          'eea.forms',
+          'eea.vocab',
       ],
       extras_require={
           'test': ['plone.app.testing',]

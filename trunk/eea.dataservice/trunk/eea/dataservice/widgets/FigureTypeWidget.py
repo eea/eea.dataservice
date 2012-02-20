@@ -17,6 +17,8 @@ class FigureTypeWidget(TypesWidget):
     security = ClassSecurityInfo()
 
     def getName(self):
+        """ Name
+        """
         return "SelectionWidget"
 
     security.declarePublic('process_form')
