@@ -7,6 +7,9 @@ Changelog
 
 4.8-dev - (unreleased)
 ----------------------
+ * Change: relabeled relatedProducts field; hide otherSources from edit [tiberich #4982]
+ * Change: also use relatedProducts to get information for Sources 
+   [tiberich #4982]
  * Bug fix: Moved 'Temporal coverage' vocabulary to eea.vocab as it's also used
    by eea.reports [voineali]
  * Bug fix: changed style of album listing for figure files if image is missing

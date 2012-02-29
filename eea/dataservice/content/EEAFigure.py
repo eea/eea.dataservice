@@ -45,7 +45,8 @@ schema = Schema((
         keepReferencesOnCopy=True,
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'visible'},
-            label="Relations to other EEA products",
+            #label="Relations to other EEA products",
+            label="References to Date Sources and Publications",
             label_msgid="label_related_products",
             description="Specify relations to other EEA products within Plone.",
             description_msgid="help_related_products",
@@ -55,6 +56,7 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
+eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
