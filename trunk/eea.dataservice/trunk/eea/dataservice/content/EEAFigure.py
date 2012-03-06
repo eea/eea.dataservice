@@ -56,8 +56,7 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
-#This needs to be uncommented, only temporary for egg release
-#eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
+eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)

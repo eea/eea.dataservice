@@ -7,6 +7,7 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+ * Change: hide field otherSources from edit [tiberich #4982]
 
 4.8 - (2012-03-05)
 ------------------
