@@ -62,7 +62,7 @@
 
           </select>
           <p />
-          <script tal:content="string: jQuery(window).load(function(){new SelectAutocompleteWidget($$('#$fieldName'))});"> </script>
+          <script tal:content="string: jQuery(document).ready(function(){new SelectAutocompleteWidget($$('#$fieldName'))});"></script>
 
         </metal:fill>
 
