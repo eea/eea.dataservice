@@ -7,6 +7,8 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+ * Feature: mapped 'xk' country code for Kosovo
+   [ghicaale #2829]
  * Change: hide field otherSources from edit [tiberich #4982]
  * Change: init SelectAutocompleteWidget on document.ready [tiberich #4982]
 

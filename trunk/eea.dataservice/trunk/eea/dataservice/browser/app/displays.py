@@ -349,6 +349,8 @@ def _getCountryName(country_code):
         res = 'Montenegro'
     elif res.lower() == 'rs':
         res = 'Serbia'
+    elif res.lower() == 'xk':
+        res = 'Kosovo'
     return res
 
 def _getGroupCountries(context, group_code):
