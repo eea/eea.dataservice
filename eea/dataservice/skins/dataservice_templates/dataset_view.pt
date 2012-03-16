@@ -470,10 +470,13 @@ function showDefinition(context) {
                        vocab python:field.Vocabulary(context);
                        values python:field.getAccessor(context)();
                        value python:context.displayValue(vocab, values);
-                       related python:[o for o in context.getRelatedProducts() 
-                                         if o.meta_type in ('ExternalDataSpec', 'Data')]
+                       related python:False;
                         ">
-        <tal:cond condition="python:value or related">
+                        <!--TODO: fix this-->
+                       <!--related python:[o for o in context.getRelatedProducts() -->
+                                         <!--if o.meta_type in ('ExternalDataSpec', 'Data')]-->
+
+        <tal:cond condition="python:value">
             <dt i18n:translate="dataset_source">
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_source">Source:</span>
