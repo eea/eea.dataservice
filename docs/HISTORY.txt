@@ -11,7 +11,7 @@ Changelog
    [ghicaale #2829]
  * Change: hide field otherSources from edit [tiberich #4982]
  * Change: init SelectAutocompleteWidget on document.ready [tiberich #4982]
- * Bug fix: temporarily disable code that checks relatedProducts in dataset_view [tiberich #5015]
+ * Bug fix: fixed EEAFigure view due to unauthorized error [tiberich #4982]
 
 4.8 - (2012-03-05)
 ------------------
