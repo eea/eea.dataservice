@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.9-dev - (unreleased)
-----------------------
+4.9 - (2012-03-30)
+------------------
  * Feature: mapped 'xk' country code for Kosovo
    [ghicaale #2829]
  * Change: hide field otherSources from edit [tiberich #4982]
