@@ -20,12 +20,20 @@ class WidgetFilterBrains(object):
         for brain in brains:
             version_id = getattr(brain, 'getVersionId', '')
             if version_id:
-                effective_date = getattr(brain, 'EffectiveDate', DateTime(1970))
+                effective_date = (
+                    getattr(brain, 'EffectiveDate', None) or
+                    getattr(brain, 'CreationDate', None) or
+                    DateTime(1970)
+                )
                 if len(version_id):
                     if last_versions.has_key(version_id):
-                        current_date = getattr(
-                            last_versions[version_id], 'EffectiveDate',
-                            DateTime(1970))
+                        current_date = (
+                            getattr(last_versions[version_id],
+                                    'EffectiveDate', None) or
+                            getattr(last_versions[version_id],
+                                    'CreationDate', None) or
+                            DateTime(1970)
+                        )
                         if current_date < effective_date:
                             last_versions[version_id] = brain
                     else:
