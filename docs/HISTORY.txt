@@ -5,8 +5,8 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.10-dev - (unreleased)
------------------------
+4.10 - (2012-04-03)
+-------------------
  * Bug fix: Fixed faceted "show only last version" widget to fallback on
    "CreationDate" if "EffectiveDate" is not set
    [voineali #5068]
@@ -237,7 +237,7 @@ Changelog
      to be used in the Organisations widget [tiberich #3530]
 
 1.14 - (2010-07-01)
-------------------
+-------------------
  * Feature: Make use of eea.versions package. [ghicaale #3462]
  * Bug fix: Fixed "assign version to" action [ghicaale #2883]
 
