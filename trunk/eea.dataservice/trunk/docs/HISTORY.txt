@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+4.11-dev - (unreleased)
+-----------------------
+
 4.10 - (2012-04-03)
 -------------------
  * Bug fix: Fixed faceted "show only last version" widget to fallback on
