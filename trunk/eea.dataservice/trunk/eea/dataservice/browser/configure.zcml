@@ -260,4 +260,27 @@
       />
   </configure>
 
+    <browser:page
+      for="zope.interface.Interface"
+      name="related_title"
+      template="template/generic_related_title.pt"
+      permission="zope.Public"
+      />
+
+    <browser:page
+      for="..interfaces.IDataset"
+      name="related_title"
+      template="template/data_related_title.pt"
+      permission="zope.Public"
+      />
+
+  <configure zcml:condition="installed eea.indicators">
+    <browser:page
+      for="eea.indicators.content.interfaces.IExternalDataSpec"
+      name="related_title"
+      template="template/externaldataspec_related_title.pt"
+      permission="zope.Public"
+      />
+  </configure>
+
 </configure>

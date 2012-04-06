@@ -177,9 +177,7 @@ function showDefinition(context) {
             <h4 i18n:translate="original_data_used">Original data used to produce the analysis</h4>
             <ul>
                 <li tal:repeat="ob value">
-                    <a tal:attributes="href ob/absolute_url;
-                                       title ob/Title"
-                       tal:content="ob/Title" />
+                    <span tal:replace="structure ob/@@related_title" />
                 </li>
             </ul>
         </tal:block>
@@ -227,9 +225,7 @@ function showDefinition(context) {
             <h4 i18n:translate="relations_to_other">Relations to other EEA products</h4>
             <ul>
                 <li tal:repeat="ob value">
-                    <a tal:attributes="href ob/absolute_url;
-                                       title ob/Title"
-                       tal:content="ob/Title" />
+                    <span tal:replace="structure ob/@@related_title" />
                 </li>
             </ul>
         </tal:block>
