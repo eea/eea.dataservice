@@ -34,7 +34,7 @@ schema = Schema((
 
     EEAReferenceField(
         name='relatedProducts',
-        schemata='categorization',
+        schemata='default',
         relationship='relatesToProducts',
         isMetadata=True,
         multiValued=True,
@@ -56,10 +56,11 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
-eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
+#eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
+eeafigure_schema.moveField('dataSource', after="relatedProducts")
 
 class EEAFigure(DataMixin, ATFolder, ThemeTaggable):
     """ EEAFigure Content Type
