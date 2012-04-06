@@ -1,0 +1,9 @@
+<tal:def 
+    tal:define="field python:context.getField('provider_url'); value python:field.getAccessor(context)()" 
+>
+<a tal:attributes="href python:value" >
+    <strong tal:content="python:context.getOrganisationByUrl(value).Title" >EEA</strong>
+</a>: <a 
+    tal:content="context/Title" 
+    tal:attributes="href python:context.getDataset_url() or value">External Data Spec</a>
+</tal:def>

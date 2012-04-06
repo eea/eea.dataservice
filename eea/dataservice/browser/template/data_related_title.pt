@@ -1,0 +1,8 @@
+<a tal:attributes="href python:owner[0]" 
+    tal:define="owner python:context.getDataOwner()" 
+    >
+    <strong tal:content="python: context.getOrganisationName(owner).Title">EEA</strong>
+</a>: <a tal:attributes="href context/absolute_url;
+                   title context/Title"
+   tal:content="context/Title">Data Title</a>
+
