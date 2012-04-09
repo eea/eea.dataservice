@@ -7,7 +7,7 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
- * Bug fix: Show and move dataSource field after relatedProducts; put relatedProducts in 
+ * Bug fix: Show as read-only and move dataSource field after relatedProducts; put relatedProducts in 
    default schemata [tiberich #4066]
 
 4.10 - (2012-04-03)

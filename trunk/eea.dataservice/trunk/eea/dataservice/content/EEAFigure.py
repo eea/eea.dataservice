@@ -56,7 +56,12 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
-#eeafigure_schema['dataSource'].widget.visible = {'edit':'hidden'}
+#eeafigure_schema['dataSource'].mode = "r"
+#eeafigure_schema['dataSource'].widget.modes = ['view']
+eeafigure_schema['dataSource'].widget.macro = "readonlytext_widget"
+eeafigure_schema['dataSource'].widget.label = "Source (deprecated)"
+eeafigure_schema['dataSource'].widget.description = """Please 
+    use the References field above to select the relevant data sources"""
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
