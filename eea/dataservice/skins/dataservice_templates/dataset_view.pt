@@ -476,13 +476,12 @@ function showDefinition(context) {
                 <span i18n:translate="dataset_source">Source:</span>
             </dt>
         </tal:cond>
-        <dd tal:content="structure value" tal:condition="value">source</dd>
+        <dd tal:content="structure value" tal:condition="python: value and not related">source</dd>
 
         <dd tal:condition="related">
             <ul>
                 <li tal:repeat="item related">
-                    <a tal:content="item/Title" 
-                       tal:attributes="href item/absolute_url">Data Item</a>
+                    <a tal:replace="structure item/@@related_title">Data Item</a>
                 </li>
             </ul>
         </dd>
