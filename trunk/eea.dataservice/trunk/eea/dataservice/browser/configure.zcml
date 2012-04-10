@@ -283,4 +283,7 @@
       />
   </configure>
 
+  <adapter factory=".app.ims.FigureObjectReadiness" 
+        for="eea.dataservice.interfaces.IEEAFigure" />
+
 </configure>
