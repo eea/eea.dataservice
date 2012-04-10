@@ -7,6 +7,7 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Feature: show readiness portlet for EEAFigures [tiberich #5065]
  * Bug fix: Show as read-only and move dataSource field after relatedProducts; 
    put relatedProducts in default schemata [tiberich #5066]
  * Bug fix: Only show dataSource value in figure view if there are not related

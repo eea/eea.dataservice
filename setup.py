@@ -38,6 +38,7 @@ setup(name=name,
           'eea.versions',
           'eea.forms',
           'eea.vocab',
+          'eea.workflow',
       ],
       extras_require={
           'test': ['plone.app.testing',]
