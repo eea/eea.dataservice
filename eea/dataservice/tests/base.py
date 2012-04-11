@@ -4,6 +4,7 @@ from plone.testing import z2
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
+import eea.workflow
 
 class EEAFixture(PloneSandboxLayer):
     """ Custom fixture
@@ -13,6 +14,7 @@ class EEAFixture(PloneSandboxLayer):
         """
         import eea.dataservice
         self.loadZCML(package=eea.dataservice)
+        self.loadZCML(package=eea.workflow)
 
         z2.installProduct(app, 'Products.ATVocabularyManager')
         z2.installProduct(app, 'eea.dataservice')
