@@ -13,7 +13,8 @@ Changelog
    [demarant fixes #5039]
  * Feature: show readiness portlet for EEAFigures [tiberich #5065]
  * Bug fix: Show as read-only and move dataSource field after relatedProducts; 
-   put relatedProducts in default schemata [tiberich #5066]
+   put relatedProducts in default schemata; make dataSource field optional
+   [tiberich #5066]
  * Bug fix: Only show dataSource value in figure view if there are not related
    ExternalDataSpec or Data [tiberich #5066]
  * Upgrade step: modifications to eea_data_workflow [tiberich #5065]
