@@ -7,6 +7,10 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Feature: show images when figure is in public draft, in accordance with
+   the indicator assessment, where the figures are also shown when assessment is
+   in public draft/visible with direct link.
+   [demarant fixes #5039]
  * Feature: show readiness portlet for EEAFigures [tiberich #5065]
  * Bug fix: Show as read-only and move dataSource field after relatedProducts; 
    put relatedProducts in default schemata [tiberich #5066]
