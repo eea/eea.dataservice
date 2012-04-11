@@ -28,12 +28,13 @@ Changelog
    Trigger type: initiated by user action
    Script (before): fake_transition
    Script (after): None
+   Roles: Manager, Reviewer
    Guard Expression: python:not path('here/@@get_readiness').is_ready_for('published')
    Display name: Publish
    Category: workflow
    >-----------------
    Add the fake_publish transition as a possible transition to the following states
-   (wherever the publish transition is also available): 
+   (everywhere the "publish" transition is also available): 
    content_pending, published_eionet, visible
    >-----------------
    To check if the workflow works as desired, go to a figure that doesn't have the
