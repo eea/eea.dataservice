@@ -28,7 +28,7 @@ Changelog
    Trigger type: initiated by user action
    Script (before): fake_transition
    Script (after): None
-   Roles: Manager, Reviewer
+   Roles: Manager; Reviewer
    Guard Expression: python:not path('here/@@get_readiness').is_ready_for('published')
    Display name: Publish
    Category: workflow
@@ -36,6 +36,9 @@ Changelog
    Add the fake_publish transition as a possible transition to the following states
    (everywhere the "publish" transition is also available): 
    content_pending, published_eionet, visible
+   >-----------------
+   In portal_skins/manage_main, move the eea_workflow_template skin layer
+   above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins 
    >-----------------
    To check if the workflow works as desired, go to a figure that doesn't have the
    relatedProducts set and see if the id of the Publish action is fake_publish (look
