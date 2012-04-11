@@ -58,6 +58,7 @@ schema = Schema((
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
 #eeafigure_schema['dataSource'].mode = "r"
 #eeafigure_schema['dataSource'].widget.modes = ['view']
+eeafigure_schema['dataSource'].required = False
 eeafigure_schema['dataSource'].widget.macro = "readonlytext_widget"
 eeafigure_schema['dataSource'].widget.label = "Source (deprecated)"
 eeafigure_schema['dataSource'].widget.description = """Please 
