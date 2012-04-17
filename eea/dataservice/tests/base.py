@@ -4,7 +4,6 @@ from plone.testing import z2
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
-import eea.workflow
 
 class EEAFixture(PloneSandboxLayer):
     """ Custom fixture
@@ -13,6 +12,7 @@ class EEAFixture(PloneSandboxLayer):
         """ Setup Zope
         """
         import eea.dataservice
+        import eea.workflow
         self.loadZCML(package=eea.dataservice)
         self.loadZCML(package=eea.workflow)
 
