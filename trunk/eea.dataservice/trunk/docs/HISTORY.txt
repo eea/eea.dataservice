@@ -7,12 +7,16 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Bug fix: Fixed 'Last Version' facetednavigation widget to show only the
+   latest versions of documents. This implicitly fixes the faceted
+   counting issue.
+   [voineali #4859]
  * Feature: show images when figure is in public draft, in accordance with
    the indicator assessment, where the figures are also shown when assessment is
    in public draft/visible with direct link.
    [demarant fixes #5039]
  * Feature: show readiness portlet for EEAFigures [tiberich #5065]
- * Bug fix: Show as read-only and move dataSource field after relatedProducts; 
+ * Bug fix: Show as read-only and move dataSource field after relatedProducts;
    put relatedProducts in default schemata; make dataSource field optional
    [tiberich #5066]
  * Bug fix: Only show dataSource value in figure view if there are not related
@@ -39,11 +43,11 @@ Changelog
    Category: workflow
    >-----------------
    Add the fake_publish transition as a possible transition to the following states
-   (everywhere the "publish" transition is also available): 
+   (everywhere the "publish" transition is also available):
    content_pending, published_eionet, visible
    >-----------------
    In portal_skins/manage_main, move the eea_workflow_template skin layer
-   above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins 
+   above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins
    >-----------------
    To check if the workflow works as desired, go to a figure that doesn't have the
    relatedProducts set and see if the id of the Publish action is fake_publish (look
