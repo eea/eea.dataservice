@@ -7,6 +7,9 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Bug fix: link to external data source object, as there is more info about 
+   the dataset. Also reformatted the display of data sources information.
+   [demarant fixes #5066] 
  * Bug fix: Fixed 'Last Version' facetednavigation widget to show only the
    latest versions of documents. This implicitly fixes the faceted
    counting issue.
