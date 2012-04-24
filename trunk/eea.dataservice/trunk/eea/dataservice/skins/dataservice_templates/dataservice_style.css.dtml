@@ -100,7 +100,6 @@
     border: 1px solid #DFDFDF;
     background-color: #FFFFFF;
     float: left;
-    height: 190px;
     width: 135px;
     margin: 0 10px 10px 0;
     padding: 0px 10px;
@@ -136,20 +135,16 @@
     display: block;
     text-decoration: none;
     font-size: &dtml-fontSmallSize;;
-    height: 169px;
     width: 130px;
     margin: 16px auto 0px;
     overflow: hidden;
 }
 
 .figuresByLine {
-  background: transparent url('&dtml-portal_url;/atct_album_blank.jpg') no-repeat;
   margin-left: 2em;
   width: 91px;
   font-weight: normal;
   color: #bbbbbb;
-  height: 6em;
-  padding-top: 3.5em;
 }
 
 /* Organisations overview */
