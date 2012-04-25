@@ -19,7 +19,7 @@ from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.content.themes import IThemeTagging
-
+from eea.dataservice.widgets import MultiOrganisationsWidget
 # Validators
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
@@ -192,10 +192,7 @@ dataservice_base_schema = Schema((
         multiValued=1,
         required=True,
         vocabulary_factory=u'Organisations',
-        widget=MultiSelectionWidget(
-            macro="organisations_widget",
-            helper_js=("multiselectautocomplete_widget.js",),
-            size=15,
+        widget=MultiOrganisationsWidget(
             label="Owner",
             description=("An entity or set of entities that owns the "
                          "resource. The owner is responsible for the "
@@ -212,10 +209,7 @@ dataservice_base_schema = Schema((
         required=False,
         multiValued=1,
         vocabulary_factory=u"Organisations",
-        widget=MultiSelectionWidget(
-            macro="organisations_widget",
-            helper_js=("multiselectautocomplete_widget.js",),
-            size=15,
+        widget=MultiOrganisationsWidget(
             label="Processor",
             description="The technical producer or processor of the resource.",
             label_msgid='dataservice_label_processor',

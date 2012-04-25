@@ -20,26 +20,6 @@
 
     <metal:define define-macro="edit">
 
-      <label class="formQuestion"
-        tal:attributes="for python:fieldName">
-        <span tal:replace="python:widget.Label(here)" 
-          i18n:translate="" />
-        <span class="required"
-          tal:condition="field/required"
-          title="Required"
-          i18n:attributes="title title_required;"
-          style="color: #f00;">
-          &#x25a0;
-        </span>
-      </label>
-      <div class="formHelp"
-        tal:define="description python:widget.Description(here)"
-        tal:content="structure description"
-        tal:attributes="id string:${fieldName}_help"
-        i18n:translate="">
-        Help
-      </div>
-
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
 
         <metal:fill fill-slot="widget_body"
@@ -59,9 +39,7 @@
               tal:content="python:vocab.getValue(item)"
               i18n:translate=""
               />
-
           </select>
-          <p />
           <script tal:content="string: jq(document).ready(function(){new SelectAutocompleteWidget(jq('#$fieldName'))});"></script>
 
         </metal:fill>
