@@ -7,10 +7,14 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Feature: Added OrganisationsWidget and MultiOrganisationsWidget in order
+   to be reused outside eea.dataservice
+   [voineali refs #5072]
+ * Bug fix: link to external data source object, as there is more info about
  * Bug fix: fix loading times for eeafigure edit page [tiberich #5106]
- * Bug fix: link to external data source object, as there is more info about 
+ * Bug fix: link to external data source object, as there is more info about
    the dataset. Also reformatted the display of data sources information.
-   [demarant fixes #5066] 
+   [demarant fixes #5066]
  * Bug fix: Fixed 'Last Version' facetednavigation widget to show only the
    latest versions of documents. This implicitly fixes the faceted
    counting issue.
