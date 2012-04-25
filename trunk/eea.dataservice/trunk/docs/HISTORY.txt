@@ -7,6 +7,7 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Bug fix: fix loading times for eeafigure edit page [tiberich #5106]
  * Bug fix: link to external data source object, as there is more info about 
    the dataset. Also reformatted the display of data sources information.
    [demarant fixes #5066] 
