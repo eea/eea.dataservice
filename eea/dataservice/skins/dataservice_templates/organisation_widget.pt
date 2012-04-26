@@ -40,7 +40,10 @@
               i18n:translate=""
               />
           </select>
-          <script tal:content="string: jq(document).ready(function(){new SelectAutocompleteWidget(jq('#$fieldName'))});"></script>
+          <script tal:content="string:
+            jq(document).ready(function(){
+              return jq('#$fieldName').SelectAutocompleteWidget();
+            });"></script>
 
         </metal:fill>
 

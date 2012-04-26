@@ -164,4 +164,14 @@ SelectAutocompleteWidget.prototype.refresh_info = function(){
     jQuery(this.info_y).html(this.options.length);
 };
 
+jQuery.fn.SelectAutocompleteWidget = function(options){
+    return this.each(function(){
+        var context = jQuery(this);
+        if(!context.data('SelectAutocompleteWidget')){
+            var select = new SelectAutocompleteWidget(context);
+            context.data('SelectAutocompleteWidget', select);
+        }
+    });
+};
+
 // vim: set ts=4 sw=4 et ai:
