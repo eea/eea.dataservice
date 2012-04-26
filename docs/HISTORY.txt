@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+4.12-dev - (unreleased)
+-----------------------
+
 4.11 - (2012-04-26)
 -------------------
  * Bug fix: optimize load times for figure view [tiberich #5106]
