@@ -466,8 +466,20 @@ class GetCountriesDisplay(object):
         res = []
         context = self.context
         _country_groups = GetCountryGroups(context, self.request)()
+
+        atvm = getToolByName(context, ATVOCABULARYTOOL)
+        vocab = atvm[COUNTRIES_DICTIONARY_ID]
+        terms = vocab.getVocabularyDict()
+
+        def _group_countries(group_code):
+            for key in terms.keys():
+                if group_code.lower() == terms[key][0].lower():
+                    return [term for term, _childs in terms[key][1].values()]
+            return []
+
+
         for group_code in _country_groups:
-            tmp_match = _getGroupCountries(context, group_code)
+            tmp_match = _group_countries(context, group_code)
             for country_code in data:
                 if country_code in tmp_match:
                     tmp_match.remove(country_code)
@@ -475,7 +487,7 @@ class GetCountriesDisplay(object):
                 res.append(group_code)
 
         for group_code in res:
-            group_countries = _getGroupCountries(context, group_code)
+            group_countries = _group_countries(context, group_code)
             for country_code in group_countries:
                 if country_code in data:
                     data.remove(country_code)
@@ -489,10 +501,22 @@ class GetCountriesDisplay(object):
         util = getUtility(ICountryAvailability)
         countries = util.getCountries()
 
+        def _country_name(code):
+            res = countries.get(country_code.lower(), {})
+            res = res.get('name', country_code)
+
+            if res.lower() == 'me':
+                res = 'Montenegro'
+            elif res.lower() == 'rs':
+                res = 'Serbia'
+            elif res.lower() == 'xk':
+                res = 'Kosovo'
+            return res
+
         if len(data):
             #countries = []
             #[countries.append(_getCountryName(code)) for code in data]
-            countries = [_getCountryName(code, countries) for code in data]
+            countries = [_country_name(code) for code in data]
             countries.sort()
             if res_string:
                 res_string += ', '
