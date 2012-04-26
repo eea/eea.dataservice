@@ -472,6 +472,8 @@ class GetCountriesDisplay(object):
         terms = vocab.getVocabularyDict()
 
         def _group_countries(group_code):
+            """ Get countries for group
+            """
             for key in terms.keys():
                 if group_code.lower() == terms[key][0].lower():
                     return [term for term, _childs in terms[key][1].values()]
@@ -502,6 +504,8 @@ class GetCountriesDisplay(object):
         countries = util.getCountries()
 
         def _country_name(code):
+            """ Get country name
+            """
             res = countries.get(country_code.lower(), {})
             res = res.get('name', country_code)
 
