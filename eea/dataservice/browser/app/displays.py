@@ -479,7 +479,7 @@ class GetCountriesDisplay(object):
 
 
         for group_code in _country_groups:
-            tmp_match = _group_countries(context, group_code)
+            tmp_match = _group_countries(group_code)
             for country_code in data:
                 if country_code in tmp_match:
                     tmp_match.remove(country_code)
@@ -487,7 +487,7 @@ class GetCountriesDisplay(object):
                 res.append(group_code)
 
         for group_code in res:
-            group_countries = _group_countries(context, group_code)
+            group_countries = _group_countries(group_code)
             for country_code in group_countries:
                 if country_code in data:
                     data.remove(country_code)
