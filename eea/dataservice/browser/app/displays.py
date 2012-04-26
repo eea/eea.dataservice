@@ -337,11 +337,12 @@ class DataViewers(object):
         res = [brain.getObject() for brain in brains]
         return res
 
-def _getCountryName(country_code):
+def _getCountryName(country_code, countries=None):
     """ Country Name
     """
-    util = getUtility(ICountryAvailability)
-    countries = util.getCountries()
+    if countries == None:
+        util = getUtility(ICountryAvailability)
+        countries = util.getCountries()
     res = countries.get(country_code.lower(), {})
     res = res.get('name', country_code)
 
@@ -373,13 +374,16 @@ def _getCountryInfo(context):
     if not vocab:
         return res
 
+    util = getUtility(ICountryAvailability)
+    countries = util.getCountries()
+
     terms = vocab.getVocabularyDict()
     for key in terms.keys():
         code = terms[key][0]
         if terms[key][1].keys():
             res['groups'][code] = code
         else:
-            res['countries'][code] = _getCountryName(code)
+            res['countries'][code] = _getCountryName(code, countries)
     return res
 
 class GetCountryGroups(object):
@@ -461,8 +465,8 @@ class GetCountriesDisplay(object):
             data.extend(country_codes)
         res = []
         context = self.context
-        viewGetCountryGroups = GetCountryGroups(context, self.request)
-        for group_code in viewGetCountryGroups():
+        _country_groups = GetCountryGroups(context, self.request)()
+        for group_code in _country_groups:
             tmp_match = _getGroupCountries(context, group_code)
             for country_code in data:
                 if country_code in tmp_match:
@@ -481,14 +485,19 @@ class GetCountriesDisplay(object):
         res_string = ''
         if len(res):
             res_string = ', '.join(res)
+
+        util = getUtility(ICountryAvailability)
+        countries = util.getCountries()
+
         if len(data):
             #countries = []
             #[countries.append(_getCountryName(code)) for code in data]
-            countries = [_getCountryName(code) for code in data]
+            countries = [_getCountryName(code, countries) for code in data]
             countries.sort()
             if res_string:
                 res_string += ', '
             res_string += ', '.join(countries)
+
         return res_string
 
 class GetDataFiles(object):
