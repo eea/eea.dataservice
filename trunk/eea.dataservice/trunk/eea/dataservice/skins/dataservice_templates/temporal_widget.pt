@@ -66,9 +66,6 @@
             </tal:block>
           </span>
 
-<div tal:content="vocab" />
-<h1 tal:content="value" />
-
           <select multiple="multiple"
                   tal:condition="python:format=='select'"
                   tal:attributes="name string:${fieldName}:list;
