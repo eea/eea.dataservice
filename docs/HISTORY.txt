@@ -5,6 +5,9 @@ Changelog
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+4.13-dev - (unreleased)
+-----------------------
+
 4.12 - (2012-04-27)
 -------------------
  * Bug fix: remove debugging prints from temporal coverage widget [tiberich #5106]
