@@ -1,4 +1,4 @@
-"" Adapters                                                                                                                                          
+""" Adapters                                                                                                                                          
 """                                                                                                                                                   
 from zope.interface import implements                                                                                                                 
 from eea.facetednavigation.interfaces import IWidgetFilterBrains                                                                                      
