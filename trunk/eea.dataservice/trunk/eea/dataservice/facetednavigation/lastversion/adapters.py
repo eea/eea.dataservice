@@ -2,7 +2,7 @@
 """
 from zope.interface import implements
 from eea.facetednavigation.interfaces import IWidgetFilterBrains
-from DateTime import DateTim
+from DateTime import DateTime
 
 class WidgetFilterBrains(object):
     """ Filter brains after query
