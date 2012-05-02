@@ -500,27 +500,8 @@ class GetCountriesDisplay(object):
         if len(res):
             res_string = ', '.join(res)
 
-        util = getUtility(ICountryAvailability)
-        countries = util.getCountries()
-
-        def _country_name(code):
-            """ Get country name
-            """
-            res = countries.get(country_code.lower(), {})
-            res = res.get('name', country_code)
-
-            if res.lower() == 'me':
-                res = 'Montenegro'
-            elif res.lower() == 'rs':
-                res = 'Serbia'
-            elif res.lower() == 'xk':
-                res = 'Kosovo'
-            return res
-
         if len(data):
-            #countries = []
-            #[countries.append(_getCountryName(code)) for code in data]
-            countries = [_country_name(code) for code in data]
+            countries = [_getCountryName(code) for code in data]
             countries.sort()
             if res_string:
                 res_string += ', '

@@ -7,6 +7,8 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed display of non EU countries for geographical coverage 
+   [ichimdav #5136]
  * Bug fix: reverted previous change on latest version facetednavigation widget
    as generate slowness and errors for anonymous access
    [ghicaale refs #4859]
