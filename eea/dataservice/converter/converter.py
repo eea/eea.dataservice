@@ -4,11 +4,13 @@ import logging
 import transaction
 from PIL import Image
 from cStringIO import StringIO
+from zope.component import queryUtility
 
 from Products.CMFCore.utils import getToolByName
 #from Products.CMFCore.WorkflowCore import WorkflowException
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
 
@@ -95,6 +97,7 @@ class ConvertMap(object):
                 self.context.manage_delObjects([convimg.getId()])
 
         # Create converted images
+        normalizer = queryUtility(IIDNormalizer)
         field = self.context.getField('file')
         accessor = field.getAccessor(self.context)()
         if accessor:
@@ -110,6 +113,9 @@ class ConvertMap(object):
                     im_id = '.'.join((
                         accessor.filename, img_dpi + 'dpi',
                         img_format[:3].lower()))
+
+                im_id = normalizer.normalize(im_id)
+                print im_id
 
                 outfile = StringIO()
                 try:
