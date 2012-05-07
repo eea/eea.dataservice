@@ -90,6 +90,8 @@ class ConvertMap(object):
 
 
     def is_image(self, im_id):
+        """ Check if attachment is an image
+        """
         data_sufixes = ['doc', 'pdf', 'docx', 'xls', 'xlsx', 'zip', 'ai',
                         'csv', 'ppt', 'txt', 'xlsm', ]
         for s in data_sufixes:
