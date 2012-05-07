@@ -7,6 +7,8 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: skip converting figure file if id sufix is a data file (doc, pdf,
+   etc) [tiberich #5113]
  * Bug fix: fix converting of ImageFS files when they have invalid ids
  * [tiberich #5113]
  * Bug fix: fixed display of non EU countries for geographical coverage 

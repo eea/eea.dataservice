@@ -88,13 +88,22 @@ class ConvertMap(object):
                 im = im.resize((width, height))
         im.save(output, fmt)
 
+
+    def is_image(self, im_id):
+        data_sufixes = ['doc', 'pdf', 'docx', 'xls', 'xlsx', 'zip', 'ai',
+                        'csv', 'ppt', 'txt', 'xlsm', ]
+        for s in data_sufixes:
+            if im_id.endswith(s):
+                return False
+        return True
+
     def __call__(self, cronjob=0, purge=True):
         err = 0
 
         # Delete (if neccesary) old converted images
         if purge:
-            for convimg in self.context.objectValues('ImageFS'):
-                self.context.manage_delObjects([convimg.getId()])
+            for cid in self.context.objectIds('ImageFS'):
+                self.context.manage_delObjects([cid])
 
         # Create converted images
         normalizer = queryUtility(IIDNormalizer)
@@ -103,6 +112,8 @@ class ConvertMap(object):
         if accessor:
             for fmt in self.getFormats():
                 img_format, img_dpi = fmt.split('-')
+                if not self.is_image(accessor.filename):
+                    continue
 
                 if img_dpi == 'default':
                     im_id = '.'.join((
