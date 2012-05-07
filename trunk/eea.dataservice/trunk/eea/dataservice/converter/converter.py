@@ -126,7 +126,6 @@ class ConvertMap(object):
                         img_format[:3].lower()))
 
                 im_id = normalizer.normalize(im_id)
-                print im_id
 
                 outfile = StringIO()
                 try:
