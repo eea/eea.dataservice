@@ -20,13 +20,13 @@
      <tal:figures repeat="figure figures">
        <li tal:define="figure_ob python:context[figure];
                        figure_title python:figure_ob.pretty_title_or_id;
-                       figure_id python:figure_ob.getId()">
+                       figure_id python:figure_ob.getId().replace('.','').replace(' ', '');
+                       figure_url figure_ob/absolute_url">
           <img tal:attributes="id string:${figure_id}-loading;
                                src string:${context/absolute_url}/ajax-loader-small.gif" />
           <strong style="color: red" i18n:translate=""
                   tal:attributes="id string:${figure_id}-label">converting</strong>
-          <span tal:content="figure_title"
-                tal:attributes="id figure_id" />
+          <span tal:content="figure_title" tal:attributes="id figure_id; rel figure_url;" />
           <p tal:attributes="id string:${figure_id}-status" />
        </li>
      </tal:figures>

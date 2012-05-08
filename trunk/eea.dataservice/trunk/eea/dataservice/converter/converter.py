@@ -14,6 +14,7 @@ from zope.component import getUtility
 from zope.component import queryUtility
 import logging
 import transaction
+import zc.twist
 
 logger = logging.getLogger('eea.dataservice.converter')
 log = logger.info
@@ -92,15 +93,12 @@ class Convertor(object):
         im.save(output, fmt)
 
     def is_image(self, im_id):
-        """Is this name an image?
-        """
-
         """ Check if attachment is an image
         """
         data_sufixes = ['doc', 'pdf', 'docx', 'xls', 'xlsx', 'zip', 'ai',
                         'csv', 'ppt', 'txt', 'xlsm', ]
         im_id = im_id.lower()
-        return bool( map(lambda s:im_id.endswith(s), data_sufixes))
+        return not bool([x for x in data_sufixes if im_id.endswith(x)])
 
     def run(self, cronjob=0, purge=True):
         """ call
@@ -120,6 +118,7 @@ class Convertor(object):
             for fmt in self.getFormats():
                 img_format, img_dpi = fmt.split('-')
                 if not self.is_image(accessor.filename):
+                    err = 1
                     continue
 
                 if img_dpi == 'default':
@@ -252,8 +251,11 @@ class ConvertionInfo(object):
 
 
 def task_convert_figure(figure,):
-    job = Convertor(figure)
-    job.run(cronjob=1)
+    """A plone.app.async task that converts figures
+    """
+    c = Convertor(figure)
+    result = c.run(cronjob=1)
+    return result
 
 
 class QueueConvert(BrowserView):
@@ -276,4 +278,9 @@ class GetJobStatus(BrowserView):
         if not job:
             return "nojob"
         else:
-            return job.status
+            status = job.status
+            result = job.result
+            if status == 'completed-status' and \
+                (isinstance(result, zc.twist.Failure) or result == 1):
+                status = 'error-status'
+            return status
