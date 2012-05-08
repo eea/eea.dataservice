@@ -1,24 +1,46 @@
+var conversion_statuses = {
+    'completed-status':'Conversion completed',
+    'active-status':'Conversion running',
+    'pending-status':'Conversion waiting to be processed',
+    'error-status':'Conversion did not complete succesful',
+}
 function convertFigures() {
 (function($) {
   var figures = $('#figures-to-convert span');
 
   if (figures.length) {
     jQuery.each(figures, function(i, value) {
-      jQuery.post(value.id + '/@@queueConvert', {}, function(data){
+      var figure_url = $(value).attr('rel');
+      jQuery.post(figure_url + '/@@queueConvert', {}, function(data){
 
-        var tid = setTimeout(function(){
-            jQuery.post(value.id + '/@@jobStatus', {}, function(data){
+        var tid = setInterval(function(){
+            jQuery.post(figure_url + '/@@jobStatus', {}, function(data){
                 var label = $('#' + value.id + '-label');
                 var image = $('#' + value.id + '-loading');
                 var status = $('#' + value.id + '-status');
-                label.html('done');
-                label.css('color', 'green');
-                image.css('display', 'none');
-                status.html('Status: ' + data);
-                window.clearTimeout(tid);
-                //if (data == 'S') {
-                  //status.css('color', 'red');
-                //}
+
+                if (data in conversion_statuses) {
+                    state = conversion_statuses[data];
+                } else {
+                    state = 'Conversion in unknown state';
+                }
+
+                label.html(state);
+
+                if (data == 'completed-status') {
+                    label.css('color', 'green');
+                    image.css('display', 'none');
+                    status.html("");
+                    window.clearInterval(tid);
+                }
+
+                if (data == 'error-status') {
+                    label.css('color', 'red');
+                    image.css('display', 'none');
+                    status.html("");
+                    window.clearInterval(tid);
+                }
+
             });
         }, 1000);
 
