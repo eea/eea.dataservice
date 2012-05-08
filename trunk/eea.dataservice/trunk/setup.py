@@ -39,6 +39,8 @@ setup(name=name,
           'eea.forms',
           'eea.vocab',
           'eea.workflow',
+          'five.intid',
+          'plone.app.async',
       ],
       extras_require={
           'test': ['plone.app.testing',]

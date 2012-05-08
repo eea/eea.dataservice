@@ -4,17 +4,24 @@ function convertFigures() {
 
   if (figures.length) {
     jQuery.each(figures, function(i, value) {
-      jQuery.post(value.id + '/@@convertMap', {cronjob: 1}, function(data){
-        var label = $('#' + value.id + '-label');
-        var image = $('#' + value.id + '-loading');
-        var status = $('#' + value.id + '-status');
-        label.html('done');
-        label.css('color', 'green');
-        image.css('display', 'none');
-        status.html('Status: ' + data);
-        if (data.charAt(0) == 'S') {
-          status.css('color', 'red');
-        }
+      jQuery.post(value.id + '/@@queueConvert', {}, function(data){
+
+        var tid = setTimeout(function(){
+            jQuery.post(value.id + '/@@jobStatus', {}, function(data){
+                var label = $('#' + value.id + '-label');
+                var image = $('#' + value.id + '-loading');
+                var status = $('#' + value.id + '-status');
+                label.html('done');
+                label.css('color', 'green');
+                image.css('display', 'none');
+                status.html('Status: ' + data);
+                window.clearTimeout(tid);
+                //if (data == 'S') {
+                  //status.css('color', 'red');
+                //}
+            });
+        }, 1000);
+
       });
     });
   }

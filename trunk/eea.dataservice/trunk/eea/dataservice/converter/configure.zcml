@@ -39,6 +39,20 @@
       class=".converter.ConvertionInfo"
       />
 
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="queueConvert"
+      class=".converter.QueueConvert"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="jobStatus"
+      class=".converter.GetJobStatus"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <browser:resource
       name="eea.dataservice.convert_figure.js"
       file="convert_figure.js"

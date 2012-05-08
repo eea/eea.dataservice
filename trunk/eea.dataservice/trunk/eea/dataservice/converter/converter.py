@@ -263,7 +263,7 @@ class QueueConvert(BrowserView):
     def __call__(self):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, self.context)
-        self.context['_convertjob'] = job
+        self.context._convertjob = job
         return "OK"
 
         
@@ -272,7 +272,7 @@ class GetJobStatus(BrowserView):
     """
 
     def __call__(self):
-        job = self.context.get('_convertjob')
+        job = getattr(self.context, '_convertjob', None)
         if not job:
             return "nojob"
         else:
