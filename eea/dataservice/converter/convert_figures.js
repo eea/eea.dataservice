@@ -2,8 +2,8 @@ var conversion_statuses = {
     'completed-status':'Conversion completed',
     'active-status':'Conversion running',
     'pending-status':'Conversion waiting to be processed',
-    'error-status':'Conversion did not complete succesful',
-}
+    'error-status':'Conversion did not complete succesful'
+};
 function convertFigures() {
 (function($) {
   var figures = $('#figures-to-convert span');
