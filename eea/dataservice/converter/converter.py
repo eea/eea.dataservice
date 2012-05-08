@@ -1,29 +1,32 @@
 """ Map Converter
 """
+
+from PIL import Image
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from cStringIO import StringIO
+from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
+from plone.app.async.interfaces import IAsyncService
+from plone.i18n.normalizer.interfaces import IFileNameNormalizer
+from zope.component import getUtility
+from zope.component import queryUtility
 import logging
 import transaction
-from PIL import Image
-from cStringIO import StringIO
-from zope.component import queryUtility
-
-from Products.CMFCore.utils import getToolByName
-#from Products.CMFCore.WorkflowCore import WorkflowException
-from Products.statusmessages.interfaces import IStatusMessage
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from plone.i18n.normalizer.interfaces import IIDNormalizer
-
-from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
 
 logger = logging.getLogger('eea.dataservice.converter')
 log = logger.info
 
-class ConvertMap(object):
-    """ Convert the map in different image formats
+#from Products.CMFCore.WorkflowCore import WorkflowException
+
+
+class Convertor(object):
+    """Convert an ImageFS to a usable image file
     """
 
-    def __init__(self, context, request):
+    def __init__(self, context):
         self.context = context
-        self.request = request
         self.formats = []
 
     def getFormats(self):
@@ -88,18 +91,20 @@ class ConvertMap(object):
                 im = im.resize((width, height))
         im.save(output, fmt)
 
-
     def is_image(self, im_id):
+        """Is this name an image?
+        """
+
         """ Check if attachment is an image
         """
         data_sufixes = ['doc', 'pdf', 'docx', 'xls', 'xlsx', 'zip', 'ai',
                         'csv', 'ppt', 'txt', 'xlsm', ]
-        for s in data_sufixes:
-            if im_id.endswith(s):
-                return False
-        return True
+        im_id = im_id.lower()
+        return bool( map(lambda s:im_id.endswith(s), data_sufixes))
 
-    def __call__(self, cronjob=0, purge=True):
+    def run(self, cronjob=0, purge=True):
+        """ call
+        """
         err = 0
 
         # Delete (if neccesary) old converted images
@@ -108,7 +113,7 @@ class ConvertMap(object):
                 self.context.manage_delObjects([cid])
 
         # Create converted images
-        normalizer = queryUtility(IIDNormalizer)
+        normalizer = queryUtility(IFileNameNormalizer)
         field = self.context.getField('file')
         accessor = field.getAccessor(self.context)()
         if accessor:
@@ -160,8 +165,24 @@ class ConvertMap(object):
             logger.exception('Empty accessor: %s', accessor)
             err = 1
 
+        return err
+
+
+class ConvertMap(object):
+    """ Convert the map in different image formats
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, cronjob=0, purge=True):
+        job = Convertor(self.context)
+        err = job.run(cronjob, purge)
+
         msg = 'Done converting "%s".' % self.context.title_or_id()
         log('INFO: %s', msg)
+
         if err:
             msg = 'Some error(s) occured during conversion of "%s".' % (
                 self.context.title_or_id(),
@@ -169,8 +190,10 @@ class ConvertMap(object):
 
         if not self.request or cronjob:
             return msg
+
         IStatusMessage(self.request).addStatusMessage(msg, type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url())
+
 
 class CheckFiguresConvertion(object):
     """ Check all EEAFigureFiles if are converted and converts them if not
@@ -211,6 +234,7 @@ class CheckFiguresConvertion(object):
 
         return msg
 
+
 class ConvertionInfo(object):
     """ Return info about the last convertion(s)
     """
@@ -225,3 +249,31 @@ class ConvertionInfo(object):
         if images:
             res = images[0].ModificationDate()
         return res
+
+
+def task_convert_figure(figure,):
+    job = Convertor(figure)
+    job.run(cronjob=1)
+
+
+class QueueConvert(BrowserView):
+    """Use plone.async to queue a task to convert this ImageFS object
+    """
+
+    def __call__(self):
+        async = getUtility(IAsyncService)
+        job = async.queueJob(task_convert_figure, self.context)
+        self.context['_convertjob'] = job
+        return "OK"
+
+        
+class GetJobStatus(BrowserView):
+    """Gets the status for convert jobs
+    """
+
+    def __call__(self):
+        job = self.context.get('_convertjob')
+        if not job:
+            return "nojob"
+        else:
+            return job.status
