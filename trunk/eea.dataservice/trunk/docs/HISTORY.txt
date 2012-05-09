@@ -14,6 +14,8 @@ Changelog
  * Feature: use plone.app.async to put conversion of figures in a queue. 
    The conversion will only run in a dedicated zope instance (serviceWWW)
    [tiberich #5113]
+ * Feature: automatically queue a convert job for EEAFigureFile that 
+   change their file [tiberich #5113]
  * Bug fix: skip converting figure file if id sufix is a data file (doc, pdf,
    etc) [tiberich #5113]
  * Bug fix: fix converting of ImageFS files when they have invalid ids
