@@ -62,6 +62,16 @@
       zope.lifecycleevent.interfaces.IObjectModifiedEvent"
     handler=".events.reindex_filetype" />
 
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".events.handle_eeafigurefile_modified"/>
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".events.handle_eeafigurefile_modified"/>
+
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
   </configure>

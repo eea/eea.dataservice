@@ -1,10 +1,15 @@
 """ New events
 """
-from zope.component import queryAdapter
+
 from Acquisition import aq_inner, aq_parent
-from eea.dataservice.relations import IRelations
-from eea.dataservice.interfaces import IDataset, IDatatable
 from Products.CMFPlone import utils
+from Products.statusmessages.interfaces import IStatusMessage
+from eea.dataservice.converter.converter import task_convert_figure
+from eea.dataservice.interfaces import IDataset, IDatatable
+from eea.dataservice.relations import IRelations
+from plone.app.async.interfaces import IAsyncService
+from zope.component import queryAdapter, getUtility
+
 
 def handle_eeafigure_state_change(figure, event):
     """Handler for EEAFigure workflow state change"""
@@ -25,6 +30,7 @@ def handle_eeafigure_state_change(figure, event):
     for obj in assessments + ifs:
         obj.reindexObject()
 
+
 def reindex_filetype(obj, event):
     """ Reindex datatable and dataset parents filetype index onn DataFile change
     """
@@ -35,3 +41,19 @@ def reindex_filetype(obj, event):
     parent = utils.parent(parent)
     if IDataset.providedBy(parent):
         parent.reindexObject(idxs=['filetype'])
+
+
+def handle_eeafigurefile_modified(obj, event):
+    """Handles creation or editing of EEAFigureFile
+
+    Creates a new plone.app.async job that converts the file
+    """
+
+    if obj.REQUEST.form.get('file_file'):
+        async = getUtility(IAsyncService)
+        job = async.queueJob(task_convert_figure, obj)
+        obj._convertjob = job
+        IStatusMessage(obj.REQUEST).add(
+                 "Figure will be automatically converted, please "
+                 "wait a few minutes", type="INFO")
+    
