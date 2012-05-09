@@ -11,14 +11,14 @@ function convertFigures() {
   if (figures.length) {
     jQuery.each(figures, function(i, value) {
       var figure_url = $(value).attr('rel');
+      var label = $('#' + value.id + '-label');
+      var image = $('#' + value.id + '-loading');
+      var status = $('#' + value.id + '-status');
+
       jQuery.post(figure_url + '/@@queueConvert', {}, function(data){
 
         var tid = setInterval(function(){
             jQuery.post(figure_url + '/@@jobStatus', {}, function(data){
-                var label = $('#' + value.id + '-label');
-                var image = $('#' + value.id + '-loading');
-                var status = $('#' + value.id + '-status');
-
                 if (data in conversion_statuses) {
                     state = conversion_statuses[data];
                 } else {
