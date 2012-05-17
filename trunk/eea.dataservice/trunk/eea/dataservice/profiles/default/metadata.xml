@@ -5,7 +5,7 @@
   <dependency>profile-eea.forms:default</dependency>
   <dependency>profile-Products.ATVocabularyManager:default</dependency>
   <dependency>profile-eea.versions:default</dependency>
-  <dependency>profile-eea.locationwidget:default</dependency>
+  <dependency>profile-eea.geotags:default</dependency>
   <dependency>profile-eea.jquery:09-jqzoom</dependency>
  </dependencies>
 </metadata>
