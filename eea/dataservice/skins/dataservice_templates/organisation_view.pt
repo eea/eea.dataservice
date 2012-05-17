@@ -89,17 +89,18 @@
                        value python:field.getAccessor(context)()"
               condition="value">
         <dt i18n:translate="organisation_location">Location</dt>
-        <dd tal:content="structure value" />
-    </tal:block>
-
+                <tal:hideMap tal:define="events python:True">
+                    <metal:field use-macro="python:context.widget('location', mode='view')">
+                        <metal:geo fill-slot="geotags"></metal:geo>
+                    </metal:field>
+                </tal:hideMap>
     <!-- Map -->
-    <tal:block define="
-        field python:context.getField('location');
-        value python:field.getAccessor(context)();
-        map context/@@geopositionMap|nothing"
-        condition="python:value and map">
         <dt i18n:translate="organisation_map">Map location</dt>
-        <tal:map replace="structure map" /><br />
+        <tal:hideMap define="hideMap python:False;">
+           <metal:field use-macro="python:context.widget('location', mode='view')">
+                <metal:location fill-slot="location-listing"></metal:location>
+            </metal:field>
+        </tal:hideMap>
     </tal:block>
 
 </div>

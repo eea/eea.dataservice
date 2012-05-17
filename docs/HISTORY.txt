@@ -7,6 +7,7 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Feature: use geotags widget for location field [ichimdav #4788]
  * Upgrade step: run /www/@@checkFiguresConvertion on serviceWWW 
    Running it will take about 20-30 minutes (might be faster) and can be done
    at the end of the servers upgrade
