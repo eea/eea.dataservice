@@ -623,6 +623,8 @@ class GetOrganisationSnippet(object):
                 location = brain.location
                 if not location:
                     view = 'none'
+                else:
+                    location = location[0]
                 res = ORGANISATION_SNIPPET % {
                     'title': brain.Title,
                     'url': brain.getUrl,
