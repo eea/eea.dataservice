@@ -10,8 +10,6 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
-from eea.geotags.field.location import GeotagsLinesField
-from eea.geotags.widget.location import GeotagsWidget
 
 schema = Schema((
     OrganisationField(
@@ -30,18 +28,6 @@ schema = Schema((
         )
     ),
 
-    GeotagsLinesField('location',
-        schemata='default',
-        widget= GeotagsWidget(
-            description='Geographical location '
-                             'related to this content. Click Edit button '
-                             'to select a location',
-            description_msgid="dataservice_help_address",
-            label="Organisation address",
-            label_msgid="dataservice_label_address",
-            i18n_domain="eea"
-        )
-    ),
     TextField(
         name='data_policy',
         searchable=True,

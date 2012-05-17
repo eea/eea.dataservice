@@ -7,7 +7,10 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
- * Change: use geotags widget for location field instead of locationwidget
+ * Change: removed dependency on eea.locationwidget as we no longer store a
+   custom location field [ichimdav #4788]
+ * Change: removed customized location field from Organisation in favor of
+   the default plone location which uses geotags widget
    [ichimdav #4788]
  * Upgrade step: run /www/@@checkFiguresConvertion on serviceWWW 
    Running it will take about 20-30 minutes (might be faster) and can be done
