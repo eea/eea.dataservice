@@ -9,7 +9,7 @@
   <include package="eea.forms" />
   <include package="eea.vocab" />
   <include package="eea.jquery" />
-  <include package="eea.locationwidget" />
+  <include package="eea.geotags" />
   <include package="eea.versions" />
 
   <include file="skins.zcml" />
