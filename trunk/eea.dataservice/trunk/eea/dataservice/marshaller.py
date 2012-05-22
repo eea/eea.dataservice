@@ -1,9 +1,12 @@
 """ eea.rdfmarshaller customizations for eea.dataservice
 """
 from eea.rdfmarshaller.interfaces import ISurfSession
-from eea.rdfmarshaller.marshaller import ATField2Surf
-from zope.component import adapts
+from eea.rdfmarshaller.marshaller import ATField2Surf, ATCT2Surf
+from zope.component import adapts, getMultiAdapter
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from Products.CMFPlone.utils import getToolByName
+from eea.dataservice.interfaces import IDatafile
+
 
 class ManagementPlanField2Surf(ATField2Surf):
     """ Base implementation of IATField2Surf
@@ -17,3 +20,20 @@ class ManagementPlanField2Surf(ATField2Surf):
         if v and (len(v) == 2):
             return "%s %s" % (v[0], v[1])
         return " - ".join(v)
+
+
+class ExtraMimetype2Surf(ATCT2Surf):
+    """generic adapter for content types that want to publish info about
+    their file mimetypes
+    """
+    adapts(IDatafile, ISurfSession)
+
+    def _schema2surf(self):
+        """override"""
+        resource = super(ExtraMimetype2Surf, self)._schema2surf()
+        catalog = getToolByName(self.context, "portal_catalog")
+        indexer = getMultiAdapter((self.context, catalog), name="filetype")
+        mimetypes = indexer()
+        setattr(resource, "dcterms_format", [(m, None) for m in mimetypes])
+        resource.save()
+        return resource
