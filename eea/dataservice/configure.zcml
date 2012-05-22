@@ -73,6 +73,8 @@
 
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
+    <adapter factory=".marshaller.ExtraMimetype2Surf" />
+
   </configure>
 
   <include package=".upgrades" />
