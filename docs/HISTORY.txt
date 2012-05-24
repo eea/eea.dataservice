@@ -7,6 +7,7 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: empty dataSource field on EEAFigure versioning [tiberich #5114]
  * Feature: added mimetype as dcterms:format tags in @@rdf for content types
    that are file [tiberich #5127]
  * Change: removed dependency on eea.locationwidget as we no longer store a
