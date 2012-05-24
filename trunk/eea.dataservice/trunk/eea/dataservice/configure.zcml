@@ -71,6 +71,11 @@
       Products.Archetypes.interfaces.IObjectEditedEvent"
     handler=".events.handle_eeafigurefile_modified"/>
 
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigure
+         eea.versions.interfaces.IVersionCreatedEvent"
+    handler=".events.handle_eeafigure_versioned"/>
+
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
     <adapter factory=".marshaller.ExtraMimetype2Surf" 

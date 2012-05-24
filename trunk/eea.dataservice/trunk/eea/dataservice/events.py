@@ -57,3 +57,9 @@ def handle_eeafigurefile_modified(obj, event):
                  "Figure will be automatically converted, please "
                  "wait a few minutes", type="INFO")
     
+def handle_eeafigure_versioned(obj, event):
+    """Handles versioning of eeafigure
+    """
+    copy = event.object
+    copy.setDataSource("")
+
