@@ -98,7 +98,10 @@ Lets verify if properties were copyed on the new version.
     True
     >>> dataVer.getContact() == figure1.getContact()
     True
-    >>> dataVer.getDataSource() == figure1.getDataSource()
+
+DataSource is not copied over to the new version:
+
+    >>> dataVer.getDataSource() != figure1.getDataSource()
     True
 
 Effective date of the new version object shouldn't be set.
