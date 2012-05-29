@@ -7,6 +7,8 @@ Changelog
 
 4.13-dev - (unreleased)
 -----------------------
+ * Bug fix: check View permission when showing relatedProducts in dataset_view
+   [tiberich #5221]
  * Bug fix: empty dataSource field on EEAFigure versioning [tiberich #5114]
  * Feature: added mimetype as dcterms:format tags in @@rdf for content types
    that are file [tiberich #5127]
