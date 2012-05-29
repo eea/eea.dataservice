@@ -5,6 +5,13 @@
   i18n_domain="eea">
 
   <browser:page
+      name="visible_related_products"
+      class=".app.utils.VisibleRelatedProducts"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="organisationStatistics"
       class=".app.displays.OrganisationStatistics"
       for="..interfaces.IOrganisation"

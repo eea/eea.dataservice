@@ -466,8 +466,9 @@ function showDefinition(context) {
                        vocab python:field.Vocabulary(context);
                        values python:field.getAccessor(context)();
                        value python:context.displayValue(vocab, values);
-                       related python:[o for o in context.getRelatedProducts()
-                                         if o.portal_type in ('ExternalDataSpec', 'Data')];
+                       products context/@@visible_related_products;
+                       related python:[o for o in products
+                                         if  o.portal_type in ('ExternalDataSpec', 'Data')];
                         ">
 
         <tal:cond condition="python:value">
