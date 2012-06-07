@@ -7,6 +7,8 @@
 
 4.13-dev - (unreleased)
 -----------------------
+* Feature: Also support RAR files for zCatalog 'filetype' index
+  [voineali fixes #5253]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
 * Bug fix: check View permission when showing relatedProducts in dataset_view
@@ -22,14 +24,14 @@
 * Change: removed customized location field from Organisation in favor of
   the default plone location which uses geotags widget
   [ichimdav #4788]
-* Upgrade step: run /www/@@checkFiguresConvertion on serviceWWW 
+* Upgrade step: run /www/@@checkFiguresConvertion on serviceWWW
   Running it will take about 20-30 minutes (might be faster) and can be done
   at the end of the servers upgrade
   [tiberich #5113]
-* Feature: use plone.app.async to put conversion of figures in a queue. 
+* Feature: use plone.app.async to put conversion of figures in a queue.
   The conversion will only run in a dedicated zope instance (serviceWWW)
   [tiberich #5113]
-* Feature: automatically queue a convert job for EEAFigureFile that 
+* Feature: automatically queue a convert job for EEAFigureFile that
   change their file
   [tiberich #5113]
 * Bug fix: skip converting figure file if id sufix is a data file (doc, pdf,
@@ -37,7 +39,7 @@
   [tiberich #5113]
 * Bug fix: fix converting of ImageFS files when they have invalid ids
 * [tiberich #5113]
-* Bug fix: fixed display of non EU countries for geographical coverage 
+* Bug fix: fixed display of non EU countries for geographical coverage
   [ichimdav #5136]
 * Bug fix: reverted previous change on latest version facetednavigation widget
   as generate slowness and errors for anonymous access

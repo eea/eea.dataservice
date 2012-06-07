@@ -32,6 +32,7 @@ setup(name=name,
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'rarfile',
           'Products.ATVocabularyManager',
           'eea.jquery',
           'eea.versions',
