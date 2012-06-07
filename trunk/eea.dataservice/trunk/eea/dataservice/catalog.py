@@ -1,6 +1,8 @@
 """ Catalog custom indexes
 """
+from tempfile import NamedTemporaryFile
 from zipfile import ZipFile
+from rarfile import RarFile
 from StringIO import StringIO
 from zope.interface import Interface
 from plone.indexer import indexer
@@ -85,22 +87,50 @@ def getMimeTypes(obj, fieldname):
     mimetype = field.getContentType(obj)
     mimetypes.add(mimetype)
 
-    if 'zip' not in mimetype.lower():
-        return mimetypes
-
-    # Handle ZIP archive
-    zfile = field.getAccessor(obj)()
-    zfile = StringIO(zfile.data)
-    zfile = ZipFile(zfile)
-
-    for zchild in zfile.infolist():
-        data = StringIO(zchild.FileHeader())
-        filename = zchild.filename
-        mimetype = guessMimetype(data, filename)
-
-        if not mimetype:
-            continue
-
-        mimetypes.add(mimetype)
-
+    # Handle archives
+    blobfile = field.getAccessor(obj)()
+    if 'zip' in mimetype.lower():
+        mimetypes.update(getZipMimeTypes(blobfile))
+    elif 'rar' in mimetype.lower():
+        mimetypes.update(getRarMimeTypes(blobfile))
     return mimetypes
+#
+# Handle archives
+#
+def getZipMimeTypes(blobfile):
+    """ Get mime-types from ZIP archive
+    """
+    filename = getattr(blobfile, 'filename', '')
+    if hasattr(blobfile, 'getIterator'):
+        blobfile = blobfile.getIterator()
+    with NamedTemporaryFile(suffix=filename) as tmpfile:
+        for chunk in blobfile:
+            tmpfile.write(chunk)
+        tmpfile.flush()
+        zfile = ZipFile(tmpfile.name)
+        for zchild in zfile.infolist():
+            data = StringIO(zchild.FileHeader())
+            filename = getattr(zchild, 'filename', None)
+            mimetype = guessMimetype(data, filename)
+            if not mimetype:
+                continue
+            yield mimetype
+
+def getRarMimeTypes(blobfile):
+    """ Get mime-types from RAR archive
+    """
+    filename = getattr(blobfile, 'filename', '')
+    if hasattr(blobfile, 'getIterator'):
+        blobfile = blobfile.getIterator()
+    with NamedTemporaryFile(suffix=filename) as tmpfile:
+        for chunk in blobfile:
+            tmpfile.write(chunk)
+        tmpfile.flush()
+        zfile = RarFile(tmpfile.name)
+        for zchild in zfile.infolist():
+            data = StringIO(zchild.header_data)
+            filename = getattr(zchild, 'filename', None)
+            mimetype = guessMimetype(data, filename)
+            if not mimetype:
+                continue
+            yield mimetype
