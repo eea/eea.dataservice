@@ -5,12 +5,6 @@
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.15-dev - (unreleased)
------------------------
-
-4.14 - (2012-06-12)
--------------------
-
 4.13 - (2012-06-12)
 -------------------
 * Feature: Also support RAR files for zCatalog 'filetype' index
