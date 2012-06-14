@@ -90,7 +90,7 @@ class Convertor(object):
                 im = im.resize((width, height), Image.ANTIALIAS)
             except AttributeError:
                 im = im.resize((width, height))
-        im.save(output, fmt)
+        im.convert('RGB').save(output, fmt)
 
     def is_image(self, im_id):
         """ Check if attachment is an image

@@ -7,9 +7,13 @@
 
 4.15-dev - (unreleased)
 -----------------------
+* Bug fix: force convertion to RGB when converting a figure, because PNG files
+  only support RGB
+  [tiberich refs #5113]
 
 4.14 - (2012-06-12)
 -------------------
+* no changes
 
 4.13 - (2012-06-12)
 -------------------
