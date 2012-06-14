@@ -5,6 +5,9 @@
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+4.16-dev - (unreleased)
+-----------------------
+
 4.15 - (2012-06-14)
 -------------------
 * Bug fix: force convertion to RGB when converting a figure, because PNG files
