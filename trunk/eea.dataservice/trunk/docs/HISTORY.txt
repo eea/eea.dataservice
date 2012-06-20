@@ -5,8 +5,8 @@
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-4.16-dev - (unreleased)
------------------------
+5.0 - (2012-06-20)
+------------------
 * Feature: list DataFileLink in templates, these are links to
   external files, e.g. large files on other servers.
   [demarant fixes #5291 refs #5255]
