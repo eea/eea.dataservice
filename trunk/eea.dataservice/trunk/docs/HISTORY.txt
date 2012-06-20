@@ -7,6 +7,9 @@
 
 4.16-dev - (unreleased)
 -----------------------
+* Feature: list DataFileLink in templates, these are links to
+  external files, e.g. large files on other servers.
+  [demarant fixes #5291 refs #5255]
 
 4.15 - (2012-06-14)
 -------------------

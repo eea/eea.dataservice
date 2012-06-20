@@ -143,6 +143,13 @@
       for="*"
       permission="zope2.View"
       />
+      
+  <browser:page
+      name="getDataFileLinks"
+      class=".app.displays.GetDataFileLinks"
+      for="*"
+      permission="zope2.View"
+      />
 
   <browser:page
       name="getTablesByCategory"
