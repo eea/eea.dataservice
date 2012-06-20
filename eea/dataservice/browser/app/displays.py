@@ -527,6 +527,25 @@ class GetDataFiles(object):
         comp = lambda x, y: cmp(x.getFilename(), y.getFilename())
         res.sort(comp)
         return res
+    
+class GetDataFileLinks(object):
+    """ Return DataFileLinks objects. These are links to external files. """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        cat = getToolByName(self.context, 'portal_catalog')
+        brains = cat.searchResults({
+            'portal_type' : ['DataFileLink'],
+            'path': '/'.join(self.context.getPhysicalPath()),
+            'review_state': 'published'})
+        res = [brain.getObject() for brain in brains]
+
+        # Sort by title
+        comp = lambda x, y: cmp(x.Title(), y.Title())
+        res.sort(comp)
+        return res
 
 class GetTablesByCategory(object):
     """ Return categories and related files """

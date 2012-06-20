@@ -32,7 +32,8 @@
         <dd tal:content="structure value" />
     </tal:block>
 
-    <fieldset><legend>Files</legend>
+    <fieldset>
+        <legend>Files</legend>
         <div style="padding: 1em;" tal:repeat="file python:context.objectValues('DataFile')">
             <tal:block define="field python:file.getField('file');
                                accessor python:field.getAccessor(file)();
@@ -56,6 +57,13 @@
                 </div>
             </tal:block>
         </div>
+        <div style="padding: 1em;" 
+                     tal:repeat="file python:context.objectValues('ATLink')">
+                 <strong><a tal:attributes="href string:${file/remoteUrl}"
+                   i18n:translate="" tal:content="file/Title">Data link</a>
+                 </strong>
+        </div>
+
     </fieldset>
 
     <!-- Dataset ID -->
