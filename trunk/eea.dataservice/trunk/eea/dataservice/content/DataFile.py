@@ -1,17 +1,19 @@
 """ Data File
 """
-from Products.Archetypes.atapi import Schema, StringField
-from Products.Archetypes.atapi import FileWidget, StringWidget
-from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.folder import ATFolder
-from zope.interface import implements
-from plone.app.blob.field import BlobField
+from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.Archetypes.atapi import FileWidget, StringWidget
+from Products.Archetypes.atapi import Schema, StringField
+from Products.validation import V_REQUIRED
 from eea.dataservice.interfaces import IDatafile
+from plone.app.blob.field import BlobField
+from zope.interface import implements
 
 schema = Schema((
     BlobField('file',
               required=False,
               primary=True,
+              validators = (('checkFileMaxSize', V_REQUIRED), ),
               widget=FileWidget(
                         description=("Select the file to be added by "
                                        "clicking the 'Browse' button."),

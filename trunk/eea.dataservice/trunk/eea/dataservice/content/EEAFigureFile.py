@@ -9,12 +9,14 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from plone.app.blob.field import BlobField
 from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
+from Products.validation import V_REQUIRED
 
 # Schema
 schema = Schema((
     BlobField('file',
               required=False,
               primary=True,
+              validators = (('checkFileMaxSize', V_REQUIRED), ),
               widget=FileWidget(
                         description=("Select the file to be added by "
                                        "clicking the 'Browse' button."),
