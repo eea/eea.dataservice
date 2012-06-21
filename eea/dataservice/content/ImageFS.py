@@ -51,7 +51,9 @@ imagefs_schema = ATContentTypeSchema.copy() + Schema((
                 'listing' :  (16, 16),
                },
         validators=(('isNonEmptyFile', V_REQUIRED),
-                      ('checkImageMaxSize', V_REQUIRED)),
+                    ('checkImageMaxSize', V_REQUIRED),
+                    ('checkFileMaxSize', V_REQUIRED)
+                   ),
         widget=ImageWidget(
                  description="",
                  label="Image",

@@ -7,6 +7,8 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
+  [tiberich refs #5259]
 
 5.0 - (2012-06-20)
 ------------------
