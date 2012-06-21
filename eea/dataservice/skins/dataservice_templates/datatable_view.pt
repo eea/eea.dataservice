@@ -33,7 +33,7 @@
     </tal:block>
 
     <fieldset>
-        <legend>Files</legend>
+        <legend i18n:translate="">Files</legend>
         <div style="padding: 1em;" tal:repeat="file python:context.objectValues('DataFile')">
             <tal:block define="field python:file.getField('file');
                                accessor python:field.getAccessor(file)();

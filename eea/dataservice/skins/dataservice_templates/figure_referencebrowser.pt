@@ -91,9 +91,9 @@
               </label>
 
               <tal:sorting condition="widget/allow_sorting">
-                <a href="" title="Move up"
+                <a href="" title="Move up" i18n:attributes="title"
                   onclick="javascript:refbrowser_moveReferenceUp(this); return false">&#x25b2;</a>
-                <a href="" title="Move down"
+                <a href="" title="Move down" i18n:attributes="title"
                   onclick="javascript:refbrowser_moveReferenceDown(this); return false">&#x25bc;</a>
               </tal:sorting>
 
@@ -115,7 +115,7 @@
           i18n:attributes="value label_remove_reference;"
           tal:condition="not:multiValued"
           tal:attributes="onclick string:javascript:refbrowser_removeReference('ref_browser_${fieldName}', ${multiValued})" />
-        </div><div id="atrb" tal:attributes="id overlay_id" class="overlay overlay-ajax"><div class="close"><span>Close</span></div>
+        </div><div id="atrb" tal:attributes="id overlay_id" class="overlay overlay-ajax"><div class="close"><span i18n:translate="">Close</span></div>
         <div class="pb-ajax">
           <!-- <a href="" i18n:translate="referencebrowser_back" class="refbrowser_back">Back</a> -->
           <div class="overlaycontent" style="font-size: 125%"></div>
@@ -148,7 +148,7 @@
             id string:${fieldName}_title;
             title string:${fieldName}_ajax_search_title"
             value="" />
-          <input type="submit" name="form.actions.search" value="Search" />
+          <input type="submit" name="form.actions.search" value="Search" i18n:attributes="value" />
           <span class="figure_widget_errors"></span>
           <div class="figure_widget_results"></div>
         </div>
@@ -159,7 +159,7 @@
           <div class="field ArchetypesStringWidget">
             <label class="formQuestion" tal:attributes="
               for string:${fieldName}_title" i18n:translate="">EEA Publication title</label>
-            <span class="fieldRequired" title="Required">  (Required) </span>
+            <span class="fieldRequired" title="Required" i18n:attributes="title" i18n:translate="">  (Required) </span>
             <div class="formHelp figure_widget_errors"></div>
             <input tal:attributes="
               id string:${fieldName}_title;
@@ -176,8 +176,8 @@
               type="text" maxlength="255" name="eeaid"/>
           </div -->
           <div class="figure_widget_new_publication_buttons">
-            <input type="submit" name="form.actions.add" value="Add" />
-            <input type="submit" name="form.actions.cancel" value="Cancel" />
+            <input type="submit" name="form.actions.add" value="Add" i18n:attributes="value" />
+            <input type="submit" name="form.actions.cancel" value="Cancel" i18n:attributes="value" />
           </div>
         </fieldset>
       </div>

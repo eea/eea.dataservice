@@ -2,7 +2,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="plone">
+      i18n:domain="eea">
   <head><title></title></head>
   <body>
 
@@ -67,7 +67,7 @@
           </span>
 
           <p id="show-map-preview">
-            <span id="map_btn" style="cursor: pointer; color: green">[-]</span> Show map preview
+            <span id="map_btn" style="cursor: pointer; color: green">[-]</span> <tal:block i18n:translate="">Show map preview</tal:block>
           </p>
           <!-- Country groups -->
           <select multiple="multiple"
