@@ -15,23 +15,24 @@
   portal context/@@plone_portal_state/portal;"
   tal:condition="python:not portal.portal_membership.isAnonymousUser()">
 
-<h1>Organisations control panel</h1>
+<h1 i18n:translate="">Organisations control panel</h1>
 
 <tal:block condition="python:action == 'organisations-quick-overview'">
   <tal:quickOverview define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
-  <h2 id="organisations-quick-overview">Quick overview</h2>
-  <p>Below is the full list of organisations.</p>
+  <h2 id="organisations-quick-overview" i18n:translate="">Quick overview</h2>
+  <p i18n:translate="">Below is the full list of organisations.</p>
   <p id="organisations-status">
      <img id="organisations-loading"
           tal:attributes="src string:${context/absolute_url}/ajax-loader-small.gif" />
-     URLs status checked: <strong id="org-status-checked"
+     <tal:block i18n:translate="">URLs status checked:</tal:block>
+     <strong id="org-status-checked"
                                   tal:content="python:'0/'+str(len(organisations))"></strong>
   </p>
   <form action="@@moveOrganisationReferences"
         method="get" name="quick-overview-form" id="quick-overview-form"
         tal:attributes="action string:${context/absolute_url}/@@moveOrganisationReferences">
-  <input type="button" value="Check URLs status" onclick="javascript:check_organisations_urls(this)" />
-  <input type="submit" value="Transfer references" />
+  <input type="button" value="Check URLs status" i18n:attributes="value" onclick="javascript:check_organisations_urls(this)" />
+  <input type="submit" value="Transfer references" i18n:attributes="value" />
 
   <ul id="organisations-container">
     <tal:organisations repeat="org organisations">
@@ -41,29 +42,33 @@
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      <strong>organisation URL:</strong>
-      <span tal:attributes="id string:${org_id}-url" tal:content="org/getUrl" /><br />
-      <strong>Google search:</strong>
+      <strong i18n:translate="">organisation URL:</strong>
+        <span tal:attributes="id string:${org_id}-url" tal:content="org/getUrl" /><br />
+      <strong i18n:translate="">Google search:</strong>
       <a target="_blank"
          title="Google search"
-         tal:attributes="href python:'http://www.google.ro/search?q=%s&ie=utf-8&oe=utf-8&aq=t' % org.Title.replace(' ', '+')">see more ...</a><br />
+         i18n:attributes="title"
+         tal:attributes="href python:'http://www.google.ro/search?q=%s&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t' % org.Title.replace(' ', '+')"
+         i18n:translate="">see more ...</a><br />
       <div id="status-container"
            tal:attributes="id string:${org_id}-status-container">
-        <strong>URL status:</strong>
-        <em tal:attributes="id string:${org_id}-loading">NOT CHECKED</em>
+        <strong i18n:translate="">URL status:</strong>
+        <em tal:attributes="id string:${org_id}-loading" i18n:translate="">NOT CHECKED</em>
       </div>
       <input type="radio" name="transfer_from" title="Transfer from"
+             i18n:attributes="title" 
              value="" id="transfer-from"
              tal:attributes="id string:transfer-from-${org_id};
                              value org_uid" />
-      <label for="transfer-from" title="Transfer from"
-             tal:attributes="for string:transfer-from-${org_id}">Transfer from</label>
+      <label for="transfer-from" title="Transfer from" i18n:attributes="title"
+             tal:attributes="for string:transfer-from-${org_id}" i18n:translate="">Transfer from</label>
       <input type="radio" name="transfer_to" title="Transfer to"
+             i18n:attributes="title"
              value="" id="transfer-to"
              tal:attributes="id string:transfer-to-${org_id};
                              value org_uid" />
-      <label for="transfer-to" title="Transfer to"
-             tal:attributes="for string:transfer-to-${org_id}">Transfer to</label>
+      <label for="transfer-to" title="Transfer to" i18n:attributes="title"
+             tal:attributes="for string:transfer-to-${org_id}" i18n:translate="">Transfer to</label>
     </li>
     </tal:organisations>
   </ul>
@@ -73,7 +78,7 @@
 </tal:block>
 
 <tal:block condition="python:action == 'duplicate-organisations'">
-  <h2>Duplicate organisations</h2>
+  <h2 i18n:translate="">Duplicate organisations</h2>
   <p></p>
   <ul tal:define="urls python:context.organisations_overview_data(info='duplicates')"
       tal:condition="urls">
@@ -86,7 +91,7 @@
           <a tal:attributes="href string:${org/getURL};
                              title org/Title"
              tal:content="org/Title" /><br />
-          <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+          <strong i18n:translate="">organisation URL:</strong> <span tal:content="org/getUrl" /><br />
         </li>
       </ul>
     </li>
@@ -95,24 +100,24 @@
 </tal:block>
 
 <tal:block condition="python:action == 'organisations-with-wrong-title'">
-  <h2>Organisations with wrong title</h2>
-  <p>Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
+  <h2 i18n:translate="">Organisations with wrong title</h2>
+  <p i18n:translate="organisation-wrong-title">Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
   <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
     <tal:block repeat="org organisations">
     <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      <strong>organisation title:</strong> <span tal:content="org/Title" /><br />
-      <strong>organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+      <strong i18n:translate="">organisation title:</strong> <span tal:content="org/Title" /><br />
+      <strong i18n:translate="">organisation URL:</strong> <span tal:content="org/getUrl" /><br />
     </li>
     </tal:block>
   </ul>
 </tal:block>
 
 <tal:block condition="python:action == 'organisations-with-no-reference'">
-  <h2>Organisations with no reference</h2>
-  <p>Below is a list of organisations on which no content is pointing at.</p>
+  <h2 i18n:translate="">Organisations with no reference</h2>
+  <p i18n:translate="org-no-refs-desc">Below is a list of organisations on which no content is pointing at.</p>
   <ul tal:define="organisations python:context.organisations_overview_data(info='references')"
       tal:condition="organisations">
     <li tal:repeat="org organisations">

@@ -4,12 +4,15 @@
 [Alin Voinea - alin.voinea at eaudeweb.ro]
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
+[Christian-Xavier prosperini - Christian.Prosperini at eea.europa.eu]
 
 5.1-dev - (unreleased)
 ----------------------
 * Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
   [tiberich refs #5259]
-
+* Bug Fix: Fixed i18n missing tags in eea.dataservice 
+  [prospchr refs #5162]
+  
 5.0 - (2012-06-20)
 ------------------
 * Feature: list DataFileLink in templates, these are links to

@@ -19,7 +19,7 @@
 </tal:block>
 
 <br /><br />
-<input class="context" type="submit" value="Apply template" />
+<input class="context" type="submit" value="Apply template" i18n:attributes="value" />
 
 </form>
 

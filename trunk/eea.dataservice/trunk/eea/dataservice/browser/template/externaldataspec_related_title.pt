@@ -3,5 +3,5 @@
 >
   <a tal:content="context/Title" 
     tal:attributes="href context/absolute_url;">External Data Spec</a>
- provided by <strong tal:content="python:context.getOrganisationByUrl(value).Title" >EEA</strong>
+ <tal:block i18n:translate="">provided by</tal:block>&nbsp;<strong tal:content="python:context.getOrganisationByUrl(value).Title" >EEA</strong>
 </tal:def>

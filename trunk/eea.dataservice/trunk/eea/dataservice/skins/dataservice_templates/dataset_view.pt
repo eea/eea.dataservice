@@ -395,7 +395,7 @@ function showDefinition(context) {
             <dd>
                 <tal:tags repeat="tag value">
                     <a tal:attributes="title tag;
-                                       href string:$portal_url/data-and-maps/tags#c5=all&c0=5&b_start=0&${facetId}=${tag};"
+                                       href string:$portal_url/data-and-maps/tags#c5=all&amp;c0=5&amp;b_start=0&amp;${facetId}=${tag};"
                        tal:content="tag" />
                     <tal:block condition="not:repeat/tag/end"> | </tal:block>
                 </tal:tags>
@@ -424,7 +424,7 @@ function showDefinition(context) {
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_rights">Rights:</span>
         </dt>
-        <dd tal:content="structure python:value.replace('\n', '<br />')" />
+        <dd tal:content="structure python:value.replace('\n', ' <br /> ')" />
     </tal:block>
 
     <!-- Disclaimer -->

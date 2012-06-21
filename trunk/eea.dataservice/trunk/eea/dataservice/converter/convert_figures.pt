@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="eea">
 
 <metal:javascript fill-slot="javascript_head_slot">
   <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.convert_figures.js"
@@ -41,11 +41,11 @@
     Select figures to be converted.
   </p>
 
-  <input class="context" type="submit" name="convert" value="Convert" />
+  <input class="context" type="submit" name="convert" value="Convert" i18n:attributes="value" />
 
   <br /><br />
-  <input type="checkbox" name="checkAll" id="checkAll" value="Check all" title="Check all" />
-  <label for="checkAll" title="Check all" i18n:translate="">Check all</label>
+  <input type="checkbox" name="checkAll" id="checkAll" value="Check all" title="Check all" i18n:attributes="title" />
+  <label for="checkAll" title="Check all" i18n:attributes="title" i18n:translate="">Check all</label>
 
  <dl class="convert-all-figures">
   <tal:figures repeat="figure python:context.objectValues('EEAFigureFile')">
@@ -60,15 +60,15 @@
                             for figure_id"/>
    </dt>
    <dd>
-     state:
+     <tal:block i18n:translate="">state:</tal:block>
      <tal:state content="python:context.portal_workflow.getInfoFor(figure, 'review_state', 'Unknown')" />
    </dd>
    <dd>
-     filename:
+     <tal:block i18n:translate="">filename:</tal:block>
      <tal:filename content="figure/getFilename" />
    </dd>
    <dd tal:define="info figure/@@convertionInfo">
-     last converted:
+     <tal:block i18n:translate="">last converted:</tal:block>
      <tal:date
       define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;"
       condition="info" content="python:toLocalizedTime(info, long_format=1)" />

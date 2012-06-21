@@ -34,22 +34,22 @@
             <p tal:condition="odatasets">
                 <tal:rows content="python:len(odatasets)" />
                 <span i18n:translate="">datasets</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&b_start=0&c15=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&amp;b_start=0&amp;c15=${context/org_url}" i18n:translate="">see more</a> )
             </p>
             <p tal:condition="ofigures">
                 <tal:rows content="python:len(ofigures)" />
                 <span i18n:translate="">figures</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&b_start=0&c6=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&amp;b_start=0&amp;c6=${context/org_url}" i18n:translate="">see more</a> )
             </p>
             <p tal:condition="oexternal">
                 <tal:rows content="python:len(oexternal)" />
                 <span i18n:translate="">external data specs</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&b_start=0&c6=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&amp;b_start=0&amp;c6=${context/org_url}" i18n:translate="">see more</a> )
             </p>
             <p tal:condition="oassessments">
                 <tal:rows content="python:len(oassessments)" />
                 <span i18n:translate="">indicator assessments</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/indicators#c7=all&c5=&c0=10&b_start=0&c12=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/indicators#c7=all&amp;c5=&amp;c0=10&amp;b_start=0&amp;c12=${context/org_url}" i18n:translate="">see more</a> )
             </p>
 
             <!-- Processor -->
@@ -58,12 +58,12 @@
             <p tal:condition="pdatasets">
                 <tal:rows content="python:len(pdatasets)" />
                 <span i18n:translate="datasets">datasets</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&b_start=0&c16=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&amp;b_start=0&amp;c16=${context/org_url}" i18n:translate="">see more</a> )
             </p>
             <p tal:condition="pfigures">
                 <tal:rows content="python:len(pfigures)" />
                 <span i18n:translate="figures">figures</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&b_start=0&c17=${context/org_url}">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&amp;b_start=0&amp;c17=${context/org_url}" i18n:translate="">see more</a> )
             </p>
         </fieldset>
     </tal:block>

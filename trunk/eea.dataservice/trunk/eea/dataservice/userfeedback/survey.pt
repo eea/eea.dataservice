@@ -4,7 +4,7 @@
 help us improving our online services. <strong>One question only.</strong>
   </div>
 </div>
-<h2>In which sectors/topics you intend to use this dataset?</h2>
+<h2 i18n:translate="">In which sectors/topics you intend to use this dataset?</h2>
 <form id="survey-content" action="." tal:define="
   sectors python:view.vocabulary(u'eea.dataservice.vocabularies.economic-sectors');
   domains python:view.vocabulary(u'eea.dataservice.vocabularies.environmental-domains');">
