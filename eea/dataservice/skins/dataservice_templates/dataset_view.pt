@@ -424,7 +424,7 @@ function showDefinition(context) {
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_rights">Rights:</span>
         </dt>
-        <dd tal:content="structure python:value.replace('\n', ' <br /> ')" />
+        <dd tal:content="structure python:value.replace('\n', ' &lt;br /&gt; ')" />
     </tal:block>
 
     <!-- Disclaimer -->
@@ -581,8 +581,8 @@ function showDefinition(context) {
             <span i18n:translate="dataset_plan_code">EEA management plan code:</span>
         </dt>
         <dd tal:condition="python:value != ('', '')">
-            <span>year:</span>&nbsp;<tal:block content="python:value[0]" />,
-            <span>code:</span>&nbsp;<tal:block content="python:value[1]" />
+            <span i18n:translate="">year:</span>&nbsp;<tal:block content="python:value[0]" />,
+            <span i18n:translate="">code:</span>&nbsp;<tal:block content="python:value[1]" />
         </dd>
         <dd tal:condition="python:value == ('', '')">
            unplanned as usual :D
@@ -599,7 +599,7 @@ function showDefinition(context) {
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_contact">Contact references at EEA:</span>
            </dt>
-           <dd tal:content="structure python:value.replace('\r\n', '<br />')">Contact persons for EEA</dd>
+           <dd tal:content="structure python:value.replace('\r\n', '&lt;br /&gt;')">Contact persons for EEA</dd>
         </tal:block>
     </metal:contacts>
 
