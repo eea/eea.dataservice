@@ -37,7 +37,7 @@
             <td valign="top"><tal:block i18n:translate="">Flattening ratio</tal:block><br />
             <span class="subscript" i18n:translate="">Radius of the equatorial axis of the
             ellipsoid</span></td>
-            <td valign="top" class="subscript" tal:contet="string:3.35281068118232E-03"></td>
+            <td valign="top" class="subscript" tal:content="string:3.35281068118232E-03"></td>
         </tr>
     </table>
 
