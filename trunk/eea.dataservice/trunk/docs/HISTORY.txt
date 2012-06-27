@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Upgrade Step: from www/portal_view_customizations/manage_main remove 	
+  eea.indicators.content.interfaces.iexternaldataspec-related_title
+  [ichimdav #5305]
 * Bug fix: check if organisation exists before asking for title on
   external_datasource
   [ichimdav #5305]
