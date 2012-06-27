@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: check if organisation exists before asking for title on
+  external_datasource
+  [ichimdav #5305]
 * Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
   [tiberich refs #5259]
 * Bug Fix: Fixed i18n missing tags in eea.dataservice 
