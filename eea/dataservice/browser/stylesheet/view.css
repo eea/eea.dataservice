@@ -30,6 +30,7 @@ a#fancybox-left, a#fancybox-right {
   filter:alpha(opacity=70);
   /* CSS3 standard */
   display: block;
+  font-size: 150%;
 }
 
 #fancybox-title-wrap span {
@@ -62,6 +63,20 @@ a#fancybox-left, a#fancybox-right {
   margin: 2em 5em;
 }
 
+/* map/graph takes the full content width by default */
+img.eea-image-width-control {
+  min-width: 600px; 
+  width: 100%;
+}
+
+/* image in fancybox gets a minimum height to fit on screen */
+#fancybox-content img.eea-image-width-control {
+  max-height: 400px;
+  min-width: 0;
+  width: auto;
+}
+
+
 /* Update jqzoom image paths
 */
 .preload {
@@ -77,21 +92,6 @@ a#fancybox-left, a#fancybox-right {
 
 .map-photo-album {
   padding-bottom: 1em;
-}
-
-.figures-fancyimage-left {
-  float: left;
-  width: auto;
-}
-
-.figures-fancyimage-left img {
-  border: 1px dotted #000000;
-}
-
-.figures-fancyimage-right {
-  padding-left: 1em;
-  float: left;
-  width: auto;
 }
 
 .figures-empty {
@@ -130,5 +130,7 @@ a#fancybox-left, a#fancybox-right {
 
 .fancybox-more-details {
   clear: both;
+  font-size: 150%;
   text-align: center;
+  padding-bottom: 1em;
 }
