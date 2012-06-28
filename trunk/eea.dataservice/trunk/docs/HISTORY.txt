@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Change: Removed unused and cumbersome zoom functionality on figures
+  made figure larger instead. improved the fancybox title and style.
+  [demarant refs #5323]
 * Upgrade Step: from www/portal_view_customizations/manage_main remove 	
   eea.indicators.content.interfaces.iexternaldataspec-related_title
   [ichimdav #5305]

@@ -5,21 +5,18 @@
   <span id="google-analytics" style="display: none"
     tal:content="string:/data-and-maps/figures/ga-downloads/$lastVersion/$thisVersionId" />
 
-  <div class="figures-fancyimage-left">
-    <a class="jqzoom"
-     tal:attributes="href string:${context/absolute_url}/image_original">
+  <div class="figures-fancyimage">
+    <a tal:attributes="href string:${context/absolute_url}/image_original">
       <img tal:attributes="
         title string:${context/title_or_id};
         alt string:${context/absolute_url}/image_original;
-        src string:${context/absolute_url}/image_preview;" />
+        src string:${context/absolute_url}/image_large;" 
+        class="eea-image-width-control"/>
     </a>
   </div>
-  <div class="figures-fancyimage-right">
-    <div class="figures-empty" i18n:translate="">
-      *Move your mouse over image to zoom in.
-    </div>
+
     <h4 i18n:translate="">Download</h4>
-    <ul>
+    <ul class="figures-download-links">
       <li tal:repeat="item python:view.vocabulary">
         <a tal:define="
           uid python:item[0];
@@ -27,19 +24,21 @@
           size python:item[2]"
           tal:attributes="href string:${context/absolute_url}/$uid/at_download/image"
           class="google-analytics">
-          <span i18n:translate="" tal:content="title" />
+          <span i18n:translate="" tal:content="uid" />
           <span tal:content="string:($size)" />
         </a>
       </li>
       <li>
         <a tal:attributes="href string:${context/absolute_url}/at_download/file"
-           tal:define="size python:context.getFile().get_size()"
+           tal:define="size python:context.getFile().get_size();
+                       mimetype python:context.getFile().getContentType()"
            class="google-analytics">
           <span i18n:translate="">Original file </span>
-          <span tal:define="displaySize nocall:context/displaySize"
-                tal:content="python:displaySize(size)" />
+          <span tal:content="mimetype">mimetype</span>
+          (<span tal:define="displaySize nocall:context/displaySize"
+                tal:content="python:displaySize(size)" />)
         </a>
       </li>
     </ul>
-  </div>
+
 </div>
