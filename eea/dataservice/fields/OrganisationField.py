@@ -20,7 +20,8 @@ class OrganisationField(StringField):
             # Remove acquisition wrappers
             if not getattr(self, 'raw', False):
                 value = decode(aq_base(value), instance, **kwargs)
-            self.getStorage(instance).set(self.getName(), instance, value, **kwargs)
+            self.getStorage(instance).set(self.getName(), instance, value,
+                                                                    **kwargs)
 
             # Update organisation URL to depedencies
             #TODO: make the below dynamic
