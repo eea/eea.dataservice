@@ -8,15 +8,17 @@
 
 5.1-dev - (unreleased)
 ----------------------
-* Change: Removed unused and cumbersome zoom functionality on figures
-  made figure larger instead. improved the fancybox title and style.
-  [demarant refs #5323 fixes #4631]
+* Bug fix: check if organisation url has changed when setting organisationField
+  [ichimdav #5312]
 * Upgrade Step: from www/portal_view_customizations/manage_main remove 	
   eea.indicators.content.interfaces.iexternaldataspec-related_title
   [ichimdav #5305]
 * Bug fix: check if organisation exists before asking for title on
   external_datasource
   [ichimdav #5305]
+* Change: Removed unused and cumbersome zoom functionality on figures
+  made figure larger instead. improved the fancybox title and style.
+  [demarant refs #5323 fixes #4631]
 * Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
   [tiberich refs #5259]
 * Bug Fix: Fixed i18n missing tags in eea.dataservice 
