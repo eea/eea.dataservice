@@ -76,15 +76,6 @@ img.eea-image-width-control {
   width: auto;
 }
 
-
-/* Update jqzoom image paths
-*/
-.preload {
-  background-image: url(../../++resource++jqzoom/zoomloader.gif);
-  z-index: 1000;
-}
-
-
 #map_canvas {
   float: left;
   margin-right: 10px;

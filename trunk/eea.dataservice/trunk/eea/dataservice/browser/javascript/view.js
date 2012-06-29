@@ -1,7 +1,6 @@
 var Figures = {version: '1.0.0'};
 
 Figures.fancybox = null;
-Figures.jqzoom = null;
 
 Figures.PhotoAlbum = function(context){
   this.context = context;
@@ -36,7 +35,6 @@ Figures.PhotoAlbum = function(context){
 Figures.PhotoAlbum.prototype = {
   init_zoom: function(){
     jQuery(document).trigger('JQ-DEACTIVATE');
-    Figures.jqzoom = new Figures.FancyBoxZoom();
   },
 
   close: function(){
@@ -44,40 +42,10 @@ Figures.PhotoAlbum.prototype = {
   }
 };
 
-Figures.FancyBoxZoom = function(closed){
-  var startOpened = closed ? false: true;
-  this.context = jQuery('#figures-fancyimage');
-
-  var images = jQuery('a.jqzoom', this.context);
-  images.css('cursor', 'default');
-  images.click(function(){
-    return false;
-  });
-
-  // Google Analytics
-  var tracker = window.pageTracker;
-  if(tracker){
-    var links = jQuery('a.google-analytics', this.context);
-    var path = jQuery('span#google-analytics', this.context).text();
-    links.click(function(){
-      tracker._trackPageview(path);
-    });
-  }
-
-  jQuery('a.jqzoom', this.context).jqzoom({
-    title: false,
-    startOpened: startOpened
-  });
-};
-
 Figures.FancyBoxZoom.prototype = {
 };
 
 Figures.Load = function(){
   var context = jQuery('#region-content');
-  if(jQuery('.map-singlefile', context).length){
-    Figures.jqzoom = new Figures.FancyBoxZoom(true);
-  }else{
     Figures.fancybox = new Figures.PhotoAlbum(context);
-  }
 };
