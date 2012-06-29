@@ -8,6 +8,8 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Cleanup: removed code related to jqzoom from eea.dataservice
+  [ichimdav #5323]
 * Bug fix: check if organisation url has changed when setting organisationField
   [ichimdav #5312]
 * Upgrade Step: from www/portal_view_customizations/manage_main remove 	
