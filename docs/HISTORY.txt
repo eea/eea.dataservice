@@ -4,15 +4,17 @@
 [Alin Voinea - alin.voinea at eaudeweb.ro]
 [Antonio De Marinis - demarinis at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
-[Christian-Xavier prosperini - Christian.Prosperini at eea.europa.eu]
+[Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
 
 5.1-dev - (unreleased)
 ----------------------
+* Feature: added DataFileLink content type to eea.dataservice profile
+  [ghicaale]
 * Cleanup: removed code related to jqzoom from eea.dataservice
   [ichimdav #5323]
 * Bug fix and cleanup: check if organisation url has changed when setting organisationField
   [ichimdav, tiberich refs #5312]
-* Upgrade Step: from www/portal_view_customizations/manage_main remove 	
+* Upgrade Step: from www/portal_view_customizations/manage_main remove
   eea.indicators.content.interfaces.iexternaldataspec-related_title
   [ichimdav #5305]
 * Bug fix: check if organisation exists before asking for title on
