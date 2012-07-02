@@ -15,7 +15,7 @@ class OrganisationField(StringField):
         """ Setter
         """
 
-        fname = kwargs['field']
+        fname = instance
         
         if not getattr(self, 'raw', False): # Remove acquisition wrappers
             value = decode(aq_base(value), instance, **kwargs)
