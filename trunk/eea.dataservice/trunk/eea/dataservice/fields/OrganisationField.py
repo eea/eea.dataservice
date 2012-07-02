@@ -6,52 +6,58 @@ from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.Field import decode #, encode
 from Products.Archetypes.atapi import StringField # ,ObjectField
 
+
 class OrganisationField(StringField):
     """ Organisation Field
     """
+
     def set(self, instance, value, **kwargs):
         """ Setter
         """
 
-        old_url = getattr(instance, 'organisationUrl', '')
+        fname = kwargs['field']
+        
+        if not getattr(self, 'raw', False): # Remove acquisition wrappers
+            value = decode(aq_base(value), instance, **kwargs)
+
+        new_value = value
+        old_value = instance.getField(fname).getAccessor(instance)()
+
         # make changes only if new value is different from old value
-        if value != old_url:
+        if new_value != old_value:
             kwargs['field'] = self
-            # Remove acquisition wrappers
-            if not getattr(self, 'raw', False):
-                value = decode(aq_base(value), instance, **kwargs)
-            self.getStorage(instance).set(self.getName(), instance, value,
+            self.getStorage(instance).set(self.getName(), instance, new_value,
                                                                     **kwargs)
 
+            if not old_value:
+                return
+
+            #ZZZ: doing this in field set code is weird, should
+            #have been done by definining a new event
+            #this would have avoided hardcoding field here
+
             # Update organisation URL to depedencies
-            #TODO: make the below dynamic
-            if len(old_url):
-                cat = getToolByName(instance, 'portal_catalog')
-                brains1 = cat.searchResults({'getDataOwner': old_url})
-                if len(brains1):
-                    for k in brains1:
-                        val = [value]
-                        k_ob = k.getObject()
-                        data_owner = k_ob.getDataOwner()
-                        # data owner can be a list, tuple or string
-                        if type(data_owner) in (list, tuple):
-                            for url in data_owner:
-                                if url != old_url:
-                                    val.append(url)
-                        else:
-                            if data_owner != old_url:
-                                val.append(url)
-                        values = {'dataOwner': val}
-                        k_ob.processForm(data=1, metadata=1, values=values)
-                        k_ob.reindexObject()
-                brains2 = cat.searchResults({'getProcessor': old_url})
-                if len(brains2):
-                    for k in brains2:
-                        val = [value]
-                        k_ob = k.getObject()
-                        for url in k_ob.getProcessor():
-                            if url != old_url:
-                                val.append(url)
-                        values = {'processor': val}
-                        k_ob.processForm(data=1, metadata=1, values=values)
-                        k_ob.reindexObject()
+            fields = {'dataOwner':'getDataOwner', 
+                      'processor':'getProcessor'}
+
+            cat = getToolByName(instance, 'portal_catalog')
+
+            for fieldname, index in fields.items():
+                for b in cat.searchResults({index: old_value}):
+                    obj = b.getObject()
+
+                    field = obj.getField(fieldname)
+                    if not field:
+                        continue
+
+                    val = [new_value]   #we're dealing with LinesField fields
+
+                    fvalue = field.getAccessor(obj)()
+                    if isinstance(fvalue, (list, tuple)):
+                        val = list(set(val + list(fvalue)))
+
+                    mutator = field.getMutator(obj)
+                    mutator(val)
+
+                    obj.reindexObject()
+
