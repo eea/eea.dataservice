@@ -42,9 +42,6 @@ Figures.PhotoAlbum.prototype = {
   }
 };
 
-Figures.FancyBoxZoom.prototype = {
-};
-
 Figures.Load = function(){
   var context = jQuery('#region-content');
     Figures.fancybox = new Figures.PhotoAlbum(context);
