@@ -10,8 +10,8 @@
 ----------------------
 * Cleanup: removed code related to jqzoom from eea.dataservice
   [ichimdav #5323]
-* Bug fix: check if organisation url has changed when setting organisationField
-  [ichimdav #5312]
+* Bug fix and cleanup: check if organisation url has changed when setting organisationField
+  [ichimdav, tiberich refs #5312]
 * Upgrade Step: from www/portal_view_customizations/manage_main remove 	
   eea.indicators.content.interfaces.iexternaldataspec-related_title
   [ichimdav #5305]
