@@ -21,5 +21,8 @@
   <type type_id="ImageFS">
    <bound-workflow workflow_id="eea_imagefs_workflow"/>
   </type>
+  <type type_id="DataFileLink">
+   <bound-workflow workflow_id="eea_data_workflow"/>
+  </type>
  </bindings>
 </object>
