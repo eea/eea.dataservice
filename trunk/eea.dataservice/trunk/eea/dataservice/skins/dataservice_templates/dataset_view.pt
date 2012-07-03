@@ -50,6 +50,7 @@ function showDefinition(context) {
       <metal:new fill-slot="old" />
     </metal:versions>
 
+
     <!-- Tables -->
     <tal:tables define="tablesData context/@@getTablesByCategory;
                         categories python:tablesData[0];
@@ -131,8 +132,8 @@ function showDefinition(context) {
                               tal:content="filePath" />
                     </li>
                 </tal:block>
-                  
-                <li tal:repeat="file python:table.objectValues('Sparql')">
+
+                <li tal:repeat="file python:table.getFolderContents(contentFilter={'portal_type':'Sparql'})">
                     <span style="padding:1em 1em 1em 2em; position: relative; 
                        background: transparent url(/++resource++eea.sparql.images/rdf-icon.gif) no-repeat left center;">
                      <strong><a tal:attributes="href string:${file/absolute_url}"
