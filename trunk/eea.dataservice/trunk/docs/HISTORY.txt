@@ -8,6 +8,11 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Feature: template changes to show Sparql inside EEA Dataservice.
+  This allow us to register linked open dataset from semantic.eea.europa.eu or
+  any other rdf store. 
+  Generic data set metadata is available following the isPartOf relations.
+  [demarant fixes #5102]
 * Feature: added DataFileLink content type to eea.dataservice profile
   [ghicaale]
 * Cleanup: removed code related to jqzoom from eea.dataservice
