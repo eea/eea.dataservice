@@ -15,13 +15,16 @@ class OrganisationField(StringField):
         """ Setter
         """
 
-        fname = instance
+        fname = self.getName()
         
         if not getattr(self, 'raw', False): # Remove acquisition wrappers
             value = decode(aq_base(value), instance, **kwargs)
 
         new_value = value
-        old_value = instance.getField(fname).getAccessor(instance)()
+        try:
+            old_value = self.getStorage(instance).get(fname, instance)
+        except AttributeError:
+            old_value = None
 
         # make changes only if new value is different from old value
         if new_value != old_value:
