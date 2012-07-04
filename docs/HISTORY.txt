@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: implemented render_own_label method in order to prevent label
+  and description for FigureTypeWidget from appearing twice
+  [ichimdav #5331]
 * Bug fix: readded fix for label of MultiSelectWidget done in ticket #4927
   that got removed in ticket #5072
   [ichimdav #5331]

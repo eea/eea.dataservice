@@ -21,6 +21,13 @@ class FigureTypeWidget(TypesWidget):
         """
         return "SelectionWidget"
 
+    security.declarePublic('render_own_label') 
+    def render_own_label(self): 
+        """ #5331 we need to implement our own render_own_label otherwise
+        the selection widget loads the label and description twice
+        """ 
+        return True
+
     security.declarePublic('process_form')
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False, validating=True):
