@@ -161,9 +161,9 @@ function showDefinition(context) {
 
     <!-- Tooltip macro -->
     <metal:tooltip define-macro="tooltip"
-                   tal:define="tooltip field/widget/description|nothing"
+                   tal:define="tooltip tooltip|field/widget/description|nothing"
                    tal:condition="tooltip">
-        <img class="eea-flexible-tooltip-bottom"
+        <img class="eea-flexible-tooltip-right"
              src="information.png"
              title=""
              tal:attributes="src string:${portal_url}/information.png;
@@ -509,13 +509,15 @@ function showDefinition(context) {
                                          if  o.portal_type in ('ExternalDataSpec', 'Data')];
                         ">
 
-        <tal:cond condition="python:value">
-            <dt>
-                <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                <span i18n:translate="dataset_source">Source:</span>
-            </dt>
-        </tal:cond>
-        <dd tal:content="structure value" tal:condition="python: value and not related">source</dd>
+
+        <dt tal:condition="python:value or related" 
+            tal:define="tooltip string:Data sources used to produce this resource.">
+            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+            <span i18n:translate="">Data sources:</span>
+        </dt>
+        
+        <dd tal:content="structure value" 
+            tal:condition="python: value and not related">source</dd>
 
         <dd tal:condition="related">
             <ul>
