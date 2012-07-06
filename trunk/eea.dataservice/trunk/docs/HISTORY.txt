@@ -36,7 +36,7 @@
   [demarant refs #5323 fixes #4631]
 * Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
   [tiberich refs #5259]
-* Bug Fix: Fixed i18n missing tags and i18n:domain in *.zpt 
+* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate keys in *.zpt 
   [prospchr refs #5162]
   
 5.0 - (2012-06-20)

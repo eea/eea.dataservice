@@ -11,7 +11,7 @@
     <tal:block define="field python:context.getField('category');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_category">Category</dt>
+        <dt i18n:translate="">Category</dt>
         <dd tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(value);"
             tal:content="categ_name" />
     </tal:block>
@@ -20,7 +20,7 @@
     <tal:block define="field python:context.getField('records');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_category">Records</dt>
+        <dt i18n:translate="">Records</dt>
         <dd tal:content="value" />
     </tal:block>
 
@@ -28,7 +28,7 @@
     <tal:block define="field python:context.getField('tableDefinition');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_tableDefinition">Table definition</dt>
+        <dt i18n:translate="">Table definition</dt>
         <dd tal:content="structure value" />
     </tal:block>
 
