@@ -21,7 +21,7 @@
     <metal:define define-macro="edit">
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
 
-       <tal:comment tal:replace="nothing">
+       <tal:comment replace="nothing">
        #5331 don't remove this label tal otherwise the multiselect widgets 
         will be displayed without title and description
        </tal:comment>
