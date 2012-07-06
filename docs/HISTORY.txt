@@ -8,6 +8,10 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed case when "Data source" was not shown. Improved tooltip by 
+  having text on the right, it was not readable on small screen width.
+  Use another tooltip text for deprecated source description (used on in edit).
+  [demarant refs #4982]
 * Bug fix: implemented render_own_label method in order to prevent label
   and description for FigureTypeWidget from appearing twice
   [ichimdav #5331]
