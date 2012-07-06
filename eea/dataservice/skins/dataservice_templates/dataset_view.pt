@@ -260,7 +260,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-others"
                    define="value python:related_products['other']"
                    condition="value">
-            <h4 i18n:translate="relations_to_other">Relations to other EEA products</h4>
+            <h4 i18n:translate="">See also</h4>
             <ul>
                 <li tal:repeat="ob value">
                     <span tal:replace="structure ob/@@related_title" />
