@@ -78,7 +78,7 @@
                 <a tal:attributes="href string:${file/absolute_url}/download.json"
                    i18n:translate="">JSON</a>
                 <a tal:attributes="href string:${file/absolute_url}/download.schema.xml"
-                   i18n:translate="">XML with schema</a><br><br>
+                   i18n:translate="">XML with schema</a><br /><br />
                 <a tal:attributes="href string:${file/absolute_url}"
                    i18n:translate="">See all formats + SPARQL query details</a>
                 </div>
