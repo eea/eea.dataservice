@@ -464,7 +464,7 @@ function showDefinition(context) {
                define="field python:context.getField('methodology');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <dt i18n:translate="dataset_methodology">
+        <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="dataset_methodology">Methodology:</span>
         </dt>
@@ -510,7 +510,7 @@ function showDefinition(context) {
                         ">
 
         <tal:cond condition="python:value">
-            <dt i18n:translate="dataset_source">
+            <dt>
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                 <span i18n:translate="dataset_source">Source:</span>
             </dt>

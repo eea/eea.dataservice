@@ -284,8 +284,8 @@
         <tr>
             <td valign="top"><tal:block i18n:translate="">Semi-major axis</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="semimajor-axis-desc">The equatorial radius of a spheroid, Often known as "a"</span></td><td valign="top" class="subscript">6378137 <tal:block i18n:translate="">Meters</tal:block></td>
-        </tr>
+            <span class="subscript" i18n:translate="semimajor-axis-desc">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top" class="subscript">6378137 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>                                                            
     </table>
 
 
