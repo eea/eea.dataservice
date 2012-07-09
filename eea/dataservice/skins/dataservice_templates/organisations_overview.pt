@@ -44,7 +44,7 @@
          tal:content="org/Title" /><br />
       <strong i18n:translate="">organisation URL:</strong>
         <span tal:attributes="id string:${org_id}-url" tal:content="org/getUrl" /><br />
-      <strong i18n:translate="">Google search:</strong>
+      <strong i18n:translate="">Google search</strong><strong>:</strong>
       <a target="_blank"
          title="Google search"
          i18n:attributes="title"
