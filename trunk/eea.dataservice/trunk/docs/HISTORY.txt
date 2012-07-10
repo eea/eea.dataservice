@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: Fix case when the data table view was asking for login, when certain
+  files where not published, now just skip those files.
+  [demarant]
 * Bug fix: Fixed case when "Data source" was not shown. Improved tooltip by 
   having text on the right, it was not readable on small screen width.
   Use another tooltip text for deprecated source description (used on in edit).

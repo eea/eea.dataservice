@@ -39,7 +39,8 @@
                                accessor python:field.getAccessor(file)();
                                icon accessor/getBestIcon | nothing;
                                filename accessor/filename | nothing;
-                               size accessor/get_size | python:accessor and len(accessor) or 0;">
+                               size accessor/get_size | python:accessor and len(accessor) or 0;"  
+                               tal:on-error="nothing">
 
                 <strong>
                     <img tal:condition="icon" src=""
