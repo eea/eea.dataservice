@@ -69,9 +69,9 @@ function showDefinition(context) {
                       condition="value">
                 <p>
                   <span class="table-definition-show" >[+]</span>
-                  <span i18n:translate="show_table_definition">Show table definition</span>
+                  <span i18n:translate="">Show table definition</span>
                   <tal:records condition="table/records">
-                    (<span class="table-records" i18n:translate="records">records:</span>
+                    (<span class="table-records" i18n:translate="">records:</span>
                     &nbsp;
                     <span class="table-records" tal:content="table/records" />)
                   </tal:records>
@@ -175,7 +175,7 @@ function showDefinition(context) {
                define="field python:context.getField('moreInfo');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <h3 i18n:translate="dataset_aditional_info">Additional information</h3>
+        <h3 i18n:translate="">Additional information</h3>
         <div class="additionalInfo" tal:content="structure value">Additional information</div>
     </tal:block>
 
@@ -186,7 +186,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-figures"
                    define="value python:related_products['figures']"
                    condition="value">
-            <h3 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h3>
+            <h3 i18n:translate="">Produced maps and graphs</h3>
             <div tal:define="Batch python:modules['Products.CMFPlone'].Batch;
                              b_start python:request.get('b_start', 0);
                              folderContents python:Batch(value, 12, int(b_start), orphan=1)">
@@ -198,7 +198,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-publications"
                    define="value python:related_products['reports']"
                    condition="value">
-            <h3 i18n:translate="used_in_publications">Used in the following publications</h3>
+            <h3 i18n:translate="">Used in the following publications</h3>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -212,7 +212,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-datasets"
                    define="value python:related_products['datasets']"
                    condition="value">
-            <h3 i18n:translate="original_data_used">Original data used to produce the analysis</h3>
+            <h3 i18n:translate="">Original data used to produce the analysis</h3>
             <ul>
                 <li tal:repeat="ob value">
                     <span tal:replace="structure ob/@@related_title" />
@@ -224,7 +224,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-data-viewers"
                    define="value python:related_products['data_viewers']"
                    condition="value">
-            <h3 i18n:translate="interactive_data_viewer">Interactive data viewer</h3>
+            <h3 i18n:translate="">Interactive data viewer</h3>
 
             <tal:dataViewers repeat="viewer value">
             <div class="visualClear">
@@ -276,7 +276,7 @@ function showDefinition(context) {
                        view nocall:context/@@getObligations"
                condition="value"
                on-error="nothing">
-        <h3 i18n:translate="reporting_obligations">Reporting obligations (ROD)</h3>
+        <h3 i18n:translate="">Reporting obligations (ROD)</h3>
         <ul tal:define="data python:view()">
             <li tal:repeat="ob_nr value">
                 <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
@@ -293,7 +293,7 @@ function showDefinition(context) {
     <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
                condition="value">
-        <h3 i18n:translate="related_websites">Related websites</h3>
+        <h3 i18n:translate="">Related websites</h3>
         <ul>
            <tal:block repeat="url value">
             <li tal:condition="python:url.find('http:',0,5)>-1" >
@@ -313,7 +313,7 @@ function showDefinition(context) {
                define="parents context/@@getDerivedFrom;
                        derived context/@@getBasedOn"
                condition="python:parents or derived">
-        <dt i18n:translate="dataset_relation">Relation:</dt>
+        <dt i18n:translate="">Relation:</dt>
         <tal:block condition="parents">
             <dd tal:repeat="par parents">
                 <span i18n:translate="">Parent data set:</span>&nbsp;
@@ -339,7 +339,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_temporalCoverage">Temporal coverage:</span>
+            <span i18n:translate="">Temporal coverage:</span>
         </dt>
         <dd tal:content="context/@@formatTempCoverage" />
     </tal:block>
@@ -351,7 +351,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_last_upload">Last upload:</span>
+            <span i18n:translate="">Last upload:</span>
         </dt>
         <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)">Last upload</dd>
     </tal:block>
@@ -363,7 +363,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_geographical">Geographical coverage:</span>
+            <span i18n:translate="">Geographical coverage:</span>
         </dt>
 
         <dd>
@@ -383,7 +383,7 @@ function showDefinition(context) {
                condition="value">
         <dt style="clear: left">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_accuracy">Geographic accuracy:</span>
+            <span i18n:translate="">Geographic accuracy:</span>
         </dt>
         <dd tal:content="structure value">Geographic accuracy</dd>
     </tal:block>
@@ -398,7 +398,7 @@ function showDefinition(context) {
                    condition="value">
             <dt style="clear: left">
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                <span i18n:translate="dataset_keywords">Tags:</span>
+                <span i18n:translate="">Tags:</span>
             </dt>
             <dd>
                 <tal:tags repeat="tag value">
@@ -418,7 +418,7 @@ function showDefinition(context) {
                condition="value">
         <dt style="clear: left">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_scale">Scale of the data set:</span>
+            <span i18n:translate="">Scale of the data set:</span>
         </dt>
         <dd><span>1:</span><tal:scale content="structure value" /></dd>
     </tal:block>
@@ -430,7 +430,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_rights">Rights:</span>
+            <span i18n:translate="">Rights:</span>
         </dt>
         <dd tal:content="structure python:value.replace('\n', ' &lt;br /&gt; ')" />
     </tal:block>
@@ -442,7 +442,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_disclaimer">Disclaimer:</span>
+            <span i18n:translate="">Disclaimer:</span>
         </dt>
         <dd tal:content="structure value">Disclaimer</dd>
     </tal:block>
@@ -454,7 +454,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_methodology">Methodology:</span>
+            <span i18n:translate="">Methodology:</span>
         </dt>
         <dd tal:content="structure value">Methodology</dd>
     </tal:block>
@@ -466,7 +466,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_unit">Units:</span>
+            <span i18n:translate="">Units:</span>
         </dt>
         <dd tal:content="structure value">Units</dd>
     </tal:block>
@@ -481,7 +481,7 @@ function showDefinition(context) {
                condition="value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_reference">Coordinate reference system:</span>
+            <span i18n:translate="">Coordinate reference system:</span>
         </dt>
         <dd tal:content="structure value">Coordinate reference system</dd>
     </tal:block>
@@ -523,7 +523,7 @@ function showDefinition(context) {
                condition="urls">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_owner">Owners:</span>
+            <span i18n:translate="">Owners:</span>
         </dt>
         <tal:block repeat="url urls">
             <tal:block define="value python:context.getOrganisationName(url)"
@@ -544,7 +544,7 @@ function showDefinition(context) {
                condition="urls">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_processor">Processors:</span>
+            <span i18n:translate="">Processors:</span>
         </dt>
         <tal:block repeat="url urls">
             <tal:block define="value python:context.getOrganisationName(url)"
@@ -564,14 +564,14 @@ function showDefinition(context) {
     <div tal:replace="nothing">
     <!--<metal:basicmeta define-macro="basicmeta">-->
         <!--[> GID (persistent link)  <]-->
-        <!--<dt i18n:translate="dataset_gid">Permalink to this version</dt>-->
+        <!--<dt i18n:translate="">Permalink to this version</dt>-->
         <!--<dd tal:define="uid context/UID">-->
             <!--<a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${uid};-->
                                <!--title uid"-->
                <!--tal:content="uid" />-->
         <!--</dd>-->
        <!--[> permalink to latest version <]-->
-       <!--<dt i18n:translate="dataset_lastVersion">Permalink to latest version</dt>-->
+       <!--<dt i18n:translate="">Permalink to latest version</dt>-->
        <!--<dd>-->
         <!--<a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};-->
                            <!--title lastVersion"-->
@@ -588,11 +588,11 @@ function showDefinition(context) {
                        value python:field.getAccessor(context)()">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataset_plan_code">EEA management plan code:</span>
+            <span i18n:translate="">EEA management plan code:</span>
         </dt>
         <dd tal:condition="python:value != ('', '')">
-            <span i18n:translate="">year:</span>&nbsp;<tal:block content="python:value[0]" />,
-            <span i18n:translate="">code:</span>&nbsp;<tal:block content="python:value[1]" />
+            <span i18n:translate="" />,
+            <span i18n:translate="" />
         </dd>
         <dd tal:condition="python:value == ('', '')">
            unplanned as usual :D
@@ -607,7 +607,7 @@ function showDefinition(context) {
                    condition="value">
            <dt>
                 <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                <span i18n:translate="dataset_contact">Contact references at EEA:</span>
+                <span i18n:translate="">Contact references at EEA:</span>
            </dt>
            <dd tal:content="structure python:value.replace('\r\n', '&lt;br /&gt;')">Contact persons for EEA</dd>
         </tal:block>

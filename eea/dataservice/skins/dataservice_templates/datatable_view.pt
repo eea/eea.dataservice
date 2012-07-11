@@ -61,7 +61,7 @@
         <div style="padding: 1em;" 
                      tal:repeat="file python:context.objectValues('ATLink')">
                  <strong><a tal:attributes="href string:${file/remoteUrl}"
-                   i18n:translate="" tal:content="file/Title">Data link</a>
+                   i18n:translate="">Data link</a>
                  </strong>
         </div>
         <div tal:repeat="file python:context.objectValues('Sparql')">
@@ -69,7 +69,7 @@
                     background: transparent url(/++resource++eea.sparql.images/rdf-icon.gif) no-repeat left center;
                     ">
                   <strong><a tal:attributes="href string:${file/absolute_url}"
-                   i18n:translate="" tal:content="file/Title">Sparql</a> (<span i18n:translate="">Linked Open Data</span>)
+                   i18n:translate="">Linked Open Data</span>)
                  </strong></span>
                 <div style="padding-left: 2em;padding-top:1em;">
                 <a tal:attributes="href string:${file/absolute_url}/download.table"
@@ -91,7 +91,7 @@
     <!-- tal:block define="field python:context.getField('dataset_id');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
+        <dt i18n:translate="">Dataset ID</dt>
         <dd tal:content="value" />
     </tal:block -->
 

@@ -91,7 +91,7 @@
           <a tal:attributes="href string:${org/getURL};
                              title org/Title"
              tal:content="org/Title" /><br />
-          <strong i18n:translate="">organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+          <strong i18n:translate="" /><br />
         </li>
       </ul>
     </li>
@@ -101,15 +101,15 @@
 
 <tal:block condition="python:action == 'organisations-with-wrong-title'">
   <h2 i18n:translate="">Organisations with wrong title</h2>
-  <p i18n:translate="organisation-wrong-title">Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
+  <p i18n:translate="">Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
   <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
     <tal:block repeat="org organisations">
     <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
       <a tal:attributes="href string:${org/getURL};
                          title org/Title"
          tal:content="org/Title" /><br />
-      <strong i18n:translate="">organisation title:</strong> <span tal:content="org/Title" /><br />
-      <strong i18n:translate="">organisation URL:</strong> <span tal:content="org/getUrl" /><br />
+      <strong i18n:translate="" /><br />
+      <strong i18n:translate="" /><br />
     </li>
     </tal:block>
   </ul>
@@ -117,7 +117,7 @@
 
 <tal:block condition="python:action == 'organisations-with-no-reference'">
   <h2 i18n:translate="">Organisations with no reference</h2>
-  <p i18n:translate="org-no-refs-desc">Below is a list of organisations on which no content is pointing at.</p>
+  <p i18n:translate="">Below is a list of organisations on which no content is pointing at.</p>
   <ul tal:define="organisations python:context.organisations_overview_data(info='references')"
       tal:condition="organisations">
     <li tal:repeat="org organisations">

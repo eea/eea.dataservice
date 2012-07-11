@@ -14,7 +14,7 @@
                        filename accessor/filename | nothing;
                        size accessor/get_size | python:accessor and len(accessor) or 0;"
               condition="filename">
-        <dt i18n:translate="dataset_download_link">Uploaded file</dt>
+        <dt i18n:translate="">Uploaded file</dt>
         <dd>
             <a href="" tal:attributes="href string:${context/absolute_url}/at_download/file">
                 <img tal:condition="icon" src=""
@@ -30,7 +30,7 @@
     <!-- tal:block define="field python:context.getField('category');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_category">Category</dt>
+        <dt i18n:translate="">Category</dt>
         <dd tal:content="value" />
     </tal:block -->
 
@@ -38,7 +38,7 @@
     <!-- tal:block define="field python:context.getField('download_link');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_download_link">Original download link</dt>
+        <dt i18n:translate="">Original download link</dt>
         <dd><a tal:attributes="href value" tal:content="value" title="download" /></dd>
     </tal:block -->
 
@@ -46,7 +46,7 @@
     <!-- tal:block define="field python:context.getField('shortId');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_shortId">Short ID</dt>
+        <dt i18n:translate="">Short ID</dt>
         <dd tal:content="value" />
     </tal:block -->
 
@@ -54,7 +54,7 @@
     <!-- tal:block define="field python:context.getField('table_id');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_tableId">Table ID</dt>
+        <dt i18n:translate="">Table ID</dt>
         <dd tal:content="value" />
     </tal:block -->
 
@@ -62,7 +62,7 @@
     <!-- tal:block define="field python:context.getField('dataset_id');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_datasetId">Dataset ID</dt>
+        <dt i18n:translate="">Dataset ID</dt>
         <dd tal:content="value" />
     </tal:block -->
 
@@ -70,7 +70,7 @@
     <!-- tal:block define="field python:context.getField('data_filename');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_filename">Filename</dt>
+        <dt i18n:translate="">Filename</dt>
         <dd tal:content="value" />
     </tal:block -->
 
@@ -78,7 +78,7 @@
     <!-- tal:block define="field python:context.getField('filesize');
                        value python:field.getAccessor(context)()"
               condition="value">
-        <dt i18n:translate="dataset_filesize">Filesize</dt>
+        <dt i18n:translate="">Filesize</dt>
         <dd tal:content="value" />
     </tal:block -->
 

@@ -44,7 +44,7 @@
               tal:attributes="src string:${obj/absolute_url}/$image_method"
               />
 
-            <tal:if condition="show_path" i18n:translate="label_directory">
+            <tal:if condition="show_path" i18n:translate="">
               (Directory: <span i18n:name="directory"
                 tal:replace="python: obj_path.replace(portal_path + '/', '')"
                 >directory</span>)
@@ -117,9 +117,9 @@
           tal:attributes="onclick string:javascript:refbrowser_removeReference('ref_browser_${fieldName}', ${multiValued})" />
         </div><div id="atrb" tal:attributes="id overlay_id" class="overlay overlay-ajax"><div class="close"><span i18n:translate="">Close</span></div>
         <div class="pb-ajax">
-          <!-- <a href="" i18n:translate="referencebrowser_back" class="refbrowser_back">Back</a> -->
+          <!-- <a href="" i18n:translate="">Back</a> -->
           <div class="overlaycontent" style="font-size: 125%"></div>
-          <!-- <a href="" i18n:translate="referencebrowser_back" class="refbrowser_back">Back</a> -->
+          <!-- <a href="" i18n:translate="">Back</a> -->
         </div>
       </div>
       <!-- Todo? -->
