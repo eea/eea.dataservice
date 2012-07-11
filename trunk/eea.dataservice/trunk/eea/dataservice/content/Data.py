@@ -9,13 +9,24 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Field import ReferenceField
-from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
+import logging
 
+logger = logging.getLogger('eea.dataservice')
+#
+# eea.relations
+#
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+EEAReferenceBrowserWidget = ReferenceBrowserWidget
+
+try:
+    from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+except ImportError:
+    logger.warn('eea.relations is not installed')
 
 # Schema
 schema = Schema((
@@ -113,7 +124,7 @@ schema = Schema((
         languageIndependent=False,
         index='KeywordIndex',
         write_permission=ModifyPortalContent,
-        widget=ReferenceBrowserWidget(
+        widget=EEAReferenceBrowserWidget(
             allow_search=True,
             allow_browse=True,
             allow_sorting=True,
@@ -137,7 +148,7 @@ schema = Schema((
         languageIndependent=False,
         index='KeywordIndex',
         write_permission=ModifyPortalContent,
-        widget=ReferenceBrowserWidget(
+        widget=EEAReferenceBrowserWidget(
             allow_search=True,
             allow_browse=True,
             allow_sorting=True,

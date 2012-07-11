@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Feature: use eea.relations widget for relatedItems if available for Data
+  contenttype
+  [ichimdav #4705]
 * Change: removed publishing date from templates since this is part of 
   the document_byline.
   [demarant]
