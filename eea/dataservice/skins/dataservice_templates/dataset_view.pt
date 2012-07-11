@@ -57,7 +57,7 @@ function showDefinition(context) {
                         data python:tablesData[1]"
                 repeat="categ categories">
         <tal:table condition="python:data.has_key(categ)">
-        <h4 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
+        <h3 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
             tal:content="categ_name" />
         <tal:block repeat="table python:data[categ]">
             <h5 class="datatable-title" tal:content="table/title" />
@@ -175,7 +175,7 @@ function showDefinition(context) {
                define="field python:context.getField('moreInfo');
                        value python:field.getAccessor(context)()"
                condition="value">
-        <h4 i18n:translate="dataset_aditional_info">Additional information</h4>
+        <h3 i18n:translate="dataset_aditional_info">Additional information</h3>
         <div class="additionalInfo" tal:content="structure value">Additional information</div>
     </tal:block>
 
@@ -186,7 +186,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-figures"
                    define="value python:related_products['figures']"
                    condition="value">
-            <h4 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h4>
+            <h3 i18n:translate="produced_maps_and_graphs">Produced maps and graphs</h3>
             <div tal:define="Batch python:modules['Products.CMFPlone'].Batch;
                              b_start python:request.get('b_start', 0);
                              folderContents python:Batch(value, 12, int(b_start), orphan=1)">
@@ -198,7 +198,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-publications"
                    define="value python:related_products['reports']"
                    condition="value">
-            <h4 i18n:translate="used_in_publications">Used in the following publications</h4>
+            <h3 i18n:translate="used_in_publications">Used in the following publications</h3>
             <ul>
                 <li tal:repeat="ob value">
                     <a tal:attributes="href ob/absolute_url;
@@ -212,7 +212,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-datasets"
                    define="value python:related_products['datasets']"
                    condition="value">
-            <h4 i18n:translate="original_data_used">Original data used to produce the analysis</h4>
+            <h3 i18n:translate="original_data_used">Original data used to produce the analysis</h3>
             <ul>
                 <li tal:repeat="ob value">
                     <span tal:replace="structure ob/@@related_title" />
@@ -224,7 +224,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-data-viewers"
                    define="value python:related_products['data_viewers']"
                    condition="value">
-            <h4 i18n:translate="interactive_data_viewer">Interactive data viewer</h4>
+            <h3 i18n:translate="interactive_data_viewer">Interactive data viewer</h3>
 
             <tal:dataViewers repeat="viewer value">
             <div class="visualClear">
@@ -260,7 +260,7 @@ function showDefinition(context) {
         <tal:block metal:define-macro="related-others"
                    define="value python:related_products['other']"
                    condition="value">
-            <h4 i18n:translate="">See also</h4>
+            <h3 i18n:translate="">See also</h3>
             <ul>
                 <li tal:repeat="ob value">
                     <span tal:replace="structure ob/@@related_title" />
@@ -276,7 +276,7 @@ function showDefinition(context) {
                        view nocall:context/@@getObligations"
                condition="value"
                on-error="nothing">
-        <h4 i18n:translate="reporting_obligations">Reporting obligations (ROD)</h4>
+        <h3 i18n:translate="reporting_obligations">Reporting obligations (ROD)</h3>
         <ul tal:define="data python:view()">
             <li tal:repeat="ob_nr value">
                 <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
@@ -293,7 +293,7 @@ function showDefinition(context) {
     <!-- Related website(s)/service(s) -->
     <tal:block define="value context/getExternalRelations"
                condition="value">
-        <h4 i18n:translate="related_websites">Related websites</h4>
+        <h3 i18n:translate="related_websites">Related websites</h3>
         <ul>
            <tal:block repeat="url value">
             <li tal:condition="python:url.find('http:',0,5)>-1" >
