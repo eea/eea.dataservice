@@ -56,10 +56,10 @@
 <table>
     <tr>
         <td>
-<label tal:attributes="for string:${fieldName}Year" i18n:translate="label_management_year">Year</label><br />
+<label tal:attributes="for string:${fieldName}Year" i18n:translate="">Year</label><br />
         </td>
         <td>
-<label tal:attributes="for string:${fieldName}Code" i18n:translate="label_management_code">Code</label><br />
+<label tal:attributes="for string:${fieldName}Code" i18n:translate="">Code</label><br />
         </td>
     </tr>
 <tal:block define="value python:test(len(value)==2, value, ('',''));

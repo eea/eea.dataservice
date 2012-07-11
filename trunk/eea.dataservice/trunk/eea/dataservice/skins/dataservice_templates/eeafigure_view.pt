@@ -136,7 +136,7 @@
                   condition="value">
           <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span i18n:translate="dataservice_type">Figure type:</span>
+            <span i18n:translate="">Figure type:</span>
           </dt>
           <dd tal:content="structure value">Figure type</dd>
        </tal:block>
@@ -146,7 +146,7 @@
 
     <tal:related define="related_products context/@@getRelatedProducts;
                          has_content python:related_products['has_data']">
-        <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="related_content">
+        <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="">
             Related content
         </h2>
 

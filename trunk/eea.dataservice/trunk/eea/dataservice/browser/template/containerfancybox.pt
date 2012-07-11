@@ -3,7 +3,7 @@
 <div class="fancybox-more-details">
   <a tal:attributes="
     href context/absolute_url;
-    title context/title_or_id" i18n:translate="" class="standardButton">
+    title context/title_or_id" i18n:translate="">
     Data sources and more details
   </a>
 </div>
