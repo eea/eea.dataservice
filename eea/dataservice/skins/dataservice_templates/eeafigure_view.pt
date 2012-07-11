@@ -113,7 +113,6 @@
 
     <div class="metadata-container">
     <dl>
-       <metal:related use-macro="here/dataset_view/macros/publish-date" />
        <metal:related use-macro="here/dataset_view/macros/last-upload" />
        <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
        <tal:tags define="facetId string:c9">

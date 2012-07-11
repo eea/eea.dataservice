@@ -332,18 +332,6 @@ function showDefinition(context) {
         </tal:block>
     </tal:block>
 
-    <!-- Publish date -->
-    <tal:block metal:define-macro="publish-date"
-               define="field python:context.getField('effectiveDate');
-                       value python:field.getAccessor(context)()"
-               condition="value">
-        <dt>
-            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-            <span  i18n:translate="publish_date">Publish date:</span>
-        </dt>
-        <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)" />
-    </tal:block>
-
     <!-- Temporal coverage -->
     <tal:block metal:define-macro="temp-coverage"
                define="field python:context.getField('temporalCoverage');

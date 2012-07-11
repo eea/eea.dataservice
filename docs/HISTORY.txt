@@ -8,6 +8,9 @@
 
 5.1-dev - (unreleased)
 ----------------------
+* Change: removed publishing date from templates since this is part of 
+  the document_byline.
+  [demarant]
 * Bug fix: Fix case when the data table view was asking for login, when certain
   files where not published, now just skip those files.
   [demarant]
