@@ -591,8 +591,8 @@ function showDefinition(context) {
             <span i18n:translate="">EEA management plan code:</span>
         </dt>
         <dd tal:condition="python:value != ('', '')">
-            <span i18n:translate="" />,
-            <span i18n:translate="" />
+            <span i18n:translate="">year:</span>&nbsp;<tal:block content="python:value[0]" />,
+            <span i18n:translate="">code:</span>&nbsp;<tal:block content="python:value[1]" />
         </dd>
         <dd tal:condition="python:value == ('', '')">
            unplanned as usual :D
