@@ -1,4 +1,4 @@
-="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
       lang="en-US"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="eea">
@@ -77,3 +77,58 @@
   </tal:quickOverview>
 </tal:block>
 
+<tal:block condition="python:action == 'duplicate-organisations'">
+  <h2 i18n:translate="">Duplicate organisations</h2>
+  <p></p>
+  <ul tal:define="urls python:context.organisations_overview_data(info='duplicates')"
+      tal:condition="urls">
+    <tal:block repeat="org_url python:urls.keys()">
+    <li tal:define="organisations python:urls[org_url]"
+        tal:condition="python:len(organisations) > 1">
+      <a tal:attributes="href org_url" tal:content="org_url" /><br />
+      <ul>
+        <li tal:repeat="org organisations">
+          <a tal:attributes="href string:${org/getURL};
+                             title org/Title"
+             tal:content="org/Title" /><br />
+          <strong i18n:translate="" /><br />
+        </li>
+      </ul>
+    </li>
+    </tal:block>
+  </ul>
+</tal:block>
+
+<tal:block condition="python:action == 'organisations-with-wrong-title'">
+  <h2 i18n:translate="">Organisations with wrong title</h2>
+  <p i18n:translate="">Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
+  <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+    <tal:block repeat="org organisations">
+    <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
+      <a tal:attributes="href string:${org/getURL};
+                         title org/Title"
+         tal:content="org/Title" /><br />
+      <strong i18n:translate="" /><br />
+      <strong i18n:translate="" /><br />
+    </li>
+    </tal:block>
+  </ul>
+</tal:block>
+
+<tal:block condition="python:action == 'organisations-with-no-reference'">
+  <h2 i18n:translate="">Organisations with no reference</h2>
+  <p i18n:translate="">Below is a list of organisations on which no content is pointing at.</p>
+  <ul tal:define="organisations python:context.organisations_overview_data(info='references')"
+      tal:condition="organisations">
+    <li tal:repeat="org organisations">
+      <a tal:attributes="href org/getURL;
+                         title org/Title"
+         tal:content="org/Title" />
+    </li>
+  </ul>
+</tal:block>
+
+</div>
+
+</body>
+</html>
