@@ -1,5 +1,9 @@
-ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
-        </tr>
+<tal:block define="tpl python:request.get('tpl', '')"> 
+
+<table tal:condition="python:tpl == 'ETRS89'">
+ <tr> 
+  <td valign="middle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
+    </tr>
 
         <tr>
             <td valign="top"><tal:block i18n:translate="">Datum</tal:block><br />
@@ -128,7 +132,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 Longitute of Projection Center
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="longitude-desc">The longitude that defines the center (and sometimes origin) of a projection.</span></td>
+            <span class="subscript" i18n:translate="">The longitude that defines the center (and sometimes origin) of a projection.</span></td>
             <td valign="top">20°00'00''</td>
         </tr>
         <tr>
@@ -137,7 +141,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 Latitute of Projection Center
             </tal:block>
             <br/>
-            <span  class="subscript" i18n:translate="latitude-desc">The latitude that defines the center (and sometimes origin)
+            <span  class="subscript" i18n:translate="">The latitude that defines the center (and sometimes origin)
                 of a projection.</span></td>
             <td valign="top">52°00'00''</td>
         </tr>
@@ -147,7 +151,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 Ellipsoid
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="ellipsoid-desc">When used to represent the earth,
+            <span class="subscript" i18n:translate="">When used to represent the earth,
                 the three-dimensional shape obtained by rotating an ellipse about its minor axis.
                 This is an oblate ellipsoid of revolution, also called a spheroid. <b tal:content="string:sphere"></b> A three-dimensional shape by revolving a circle arround its diameter.</span></td>
             <td valign="top" i18n:translate="">Sphere: radius 6378137</td>
@@ -158,7 +162,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 Axis Units
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="axis-unit-desc">Unit the x,y-coordinates are specified.</span></td>
+            <span class="subscript" i18n:translate="">Unit the x,y-coordinates are specified.</span></td>
             <td valign="top" i18n:translate="">Meters</td>
         </tr>
         <tr>
@@ -167,7 +171,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 False Easting
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="false-easting-desc">A linear value added to the x-coordinate values,
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values,
                 usually to ensure that all map coordinates are positive.</span></td>
             <td valign="top">5071000.0
             <tal:block i18n:translate="">
@@ -180,7 +184,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 False Northing
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="false-northing-desc">A linear value added to the y-coordinate values,
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values,
                 usually to ensure that all map coordinates are positive.</span></td>
             <td valign="top">3210000.0
             <tal:block i18n:translate="">
@@ -193,7 +197,7 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
                 Semimajor Axis
             </tal:block>
             <br/>
-            <span class="subscript" i18n:translate="semimajor-axis-desc">The equatorial radius of a spheroid. Often known as "a"</span></td>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td>
             <td valign="top">6378137
             <tal:block i18n:translate="">Meters</tal:block></td>
 
@@ -208,43 +212,43 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Longitute of Central Meridian</tal:block>
             <br/>
-            <span  class="subscript" i18n:translate="longitude-central-desc">The Longitute that defines the origin of the x-coordinate values for a projection.</span></td>
+            <span  class="subscript" i18n:translate="">The Longitute that defines the origin of the x-coordinate values for a projection.</span></td>
             <td valign="top"> 22 39 00</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Latitute of Projection Origin</tal:block>
             <br/>
-            <span  class="subscript" i18n:translate="latitude-projection-desc">The latitute that defines the origin of the y-coordinate values for a projection</span></td><td valign="top">51 24 00</td>
+            <span  class="subscript" i18n:translate="">The latitute that defines the origin of the y-coordinate values for a projection</span></td><td valign="top">51 24 00</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Ellipsoid</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="ellipsoid-conical-desc">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" i18n:translate="">Spheroid WGS72</td>
+            <span class="subscript" i18n:translate="">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" i18n:translate="">Spheroid WGS72</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Standard Parallel</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="standard-parallel-desc">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" i18n:translate="">1st standard parallel 32 30 00, 2nd standard parallel 54 30 00</td>
+            <span class="subscript" i18n:translate="">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" i18n:translate="">1st standard parallel 32 30 00, 2nd standard parallel 54 30 00</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Axis Units</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="axis-conical-desc">Unit the x,y-coordinates are specified.</span></td><td valign="top" i18n:translate="">Meters</td>
+            <span class="subscript" i18n:translate="">Unit the x,y-coordinates are specified.</span></td><td valign="top" i18n:translate="">Meters</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">False Easting</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="false-easting-conical-desc">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">False Northing</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="false-northing-conical-desc">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Semimajor Axis</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="semimajor-axis-desc">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">-</td>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">-</td>
         </tr></table>
 
 
@@ -255,32 +259,32 @@ ddle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
         <tr>
             <td valign="top" class="subscript"><tal:block i18n:translate="">Ellipsoid</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="ellipsoid-mercator-desc">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. Sphere: a three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" class="subscript" i18n:translate="">D_WGS_1984</td>
+            <span class="subscript" i18n:translate="">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. Sphere: a three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" class="subscript" i18n:translate="">D_WGS_1984</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Standard parallel</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="parallel-mercator-desc">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" class="subscript">0.0</td>
+            <span class="subscript" i18n:translate="">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" class="subscript">0.0</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Axis units</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="axis-mercator-desc">The x,y-coordinates are specified.</span></td><td valign="top" class="subscript" i18n:translate="">Meters</td>
+            <span class="subscript" i18n:translate="">The x,y-coordinates are specified.</span></td><td valign="top" class="subscript" i18n:translate="">Meters</td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">False easting</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="easting-mercator-desc">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">False northing</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="northing-mercator-desc">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
         </tr>
         <tr>
             <td valign="top"><tal:block i18n:translate="">Semi-major axis</tal:block>
             <br/>
-            <span class="subscript" i18n:translate="semimajor-axis-desc">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top" class="subscript">6378137 <tal:block i18n:translate="">Meters</tal:block></td>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top" class="subscript">6378137 <tal:block i18n:translate="">Meters</tal:block></td>
         </tr>                                                            
     </table>
 
