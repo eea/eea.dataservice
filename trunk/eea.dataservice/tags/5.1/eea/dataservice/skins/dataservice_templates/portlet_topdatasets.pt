@@ -1,0 +1,41 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+  i18n:domain="eea">
+<body>
+<div metal:define-macro="portlet"
+  tal:define="
+    google_report google_report|here/google_analytics_report|string:portal_google/analytics/top-datasets;
+    portlet_title portlet_title|string:Top 5 data sets;
+    top_datasets nocall:here/@@top_datasets;
+    datasets python:top_datasets(google_analytics_report=google_report);">
+
+<dl class="portlet">
+  <dt class="portletHeader" tal:content="portlet_title"
+    i18n:translate="">Top 5 data sets</dt>
+    <tal:datasets repeat="dataset datasets">
+      <dt class="portletItem">
+        <a tal:attributes="
+          href dataset/link;
+          title dataset/title"
+          tal:content="dataset/title" />
+      </dt>
+      <dd class="portletItem thumbnail-right"
+        tal:condition="dataset/image|nothing">
+        <img tal:attributes="
+          src string:${dataset/image}/image_thumb;
+          alt dataset/title;
+          title dataset/title" />
+      </dd>
+      <dd class="portletItem">
+        <span tal:content="dataset/views">4543</span>
+        <span i18n:translate="">downloads</span>
+      </dd>
+      <dd class="portletItem">
+        <br />
+      </dd>
+    </tal:datasets>
+</dl>
+
+</div>
+
+</body>
+</html>

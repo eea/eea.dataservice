@@ -1,0 +1,9 @@
+<div id="fancybox-title-wrap" tal:content="context/title_or_id"></div>
+<tal:fancybox replace="structure python:view.box" />
+<div class="fancybox-more-details">
+  <a tal:attributes="
+    href context/absolute_url;
+    title context/title_or_id" i18n:translate="" class="standardButton"> 
+    Data sources and more details
+  </a>
+</div>

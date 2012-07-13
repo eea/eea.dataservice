@@ -1,0 +1,292 @@
+<tal:block define="tpl python:request.get('tpl', '')"> 
+
+<table tal:condition="python:tpl == 'ETRS89'">
+ <tr> 
+  <td valign="middle" colspan="2"><b tal:content="string:ETRS89"></b> </td>
+    </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Datum</tal:block><br />
+            <span class="subscript" i18n:translate="">defines the position of the ellipsoid
+            (spheroid) relative to the center of the earth</span></td>
+            <td valign="top" class="subscript" tal:content="string:D_ETRS_1989"></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Ellipsoid</tal:block><br />
+            <span class="subscript" i18n:translate="">When used to represent the earth, the
+            three-dimensional shape obtained by rotating an ellipse about its
+            minor axis.</span></td>
+            <td valign="top" class="subscript" tal:content="string:GRS_1980"></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Semi-major axis</tal:block><br />
+            <span class="subscript" i18n:translate="">Radius of the equatorial axis of the
+            ellipsoid</span></td>
+            <td valign="top" class="subscript">6378137</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Axis units</tal:block><br />
+            <span class="subscript" i18n:translate="">Unit of the semi-major axis</span></td>
+            <td valign="top" class="subscript" i18n:translate="">Degrees</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Flattening ratio</tal:block><br />
+            <span class="subscript" i18n:translate="">Radius of the equatorial axis of the
+            ellipsoid</span></td>
+            <td valign="top" class="subscript" tal:content="string:3.35281068118232E-03"></td>
+        </tr>
+    </table>
+
+
+    <table tal:condition="python:tpl == 'ETRS'">
+        <tr>
+            <td valign="middle" colspan="2"><b i18n:translate="">ETRS - Lambert Azimutal Equal Area</b></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Datum</tal:block><br />
+            <span class="subscript" i18n:translate="">defines the position of the ellipsoid
+            (spheroid) relative to the center of the earth</span></td>
+            <td valign="top" class="subscript" tal:content="string:D_ETRS_1989"></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Ellipsoid</tal:block><br />
+            <span class="subscript" i18n:translate="">When used to represent the earth, the
+            three-dimensional shape obtained by rotating an ellipse about its
+            minor axis.</span></td>
+            <td valign="top" class="subscript" tal:content="string:GRS_1980"></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Semi-major axis</tal:block><br />
+            <span class="subscript" i18n:translate="">Radius of the equatorial axis of the
+            ellipsoid</span></td>
+            <td valign="top" class="subscript">6378137</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Axis units</tal:block><br />
+            <span class="subscript" i18n:translate="">Unit of the semi-major axis</span></td>
+            <td valign="top" class="subscript" i18n:translate="">Degrees</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Flattening ratio</tal:block><br />
+            <span class="subscript" i18n:translate="">Radius of the equatorial axis of the
+            ellipsoid</span></td>
+            <td valign="top" class="subscript" tal:content="string:3.35281068118232E-03"></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Projection</tal:block><br />
+            <span class="subscript" i18n:translate="">a projected coordinate system designed for
+            two-dimensional surface mapping</span></td>
+            <td valign="top" class="subscript" i18n:translate="">Lambert_Azimutal_Equal_Area</td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False easting</tal:block><br />
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate
+            values, usually to ensure that all map coordinates are
+            positive.</span></td>
+            <td valign="top" class="subscript">4321000 <tal:block i18n:translate="">meters</tal:block></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False northing</tal:block><br />
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate
+            values, usually to ensure that all map coordinates are
+            positive.</span></td>
+            <td valign="top" class="subscript">3210000 <tal:block i18n:translate="">meters</tal:block></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Central median</tal:block><br />
+            <span class="subscript" i18n:translate="">Line of longitude at the centre of a map
+            projection generally used as the basis for constructing the
+            projection</span></td>
+            <td valign="top" class="subscript">10 <tal:block i18n:translate="">degrees</tal:block></td>
+        </tr>
+
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Latitude of origin</tal:block><br />
+            <span class="subscript" i18n:translate="">Latitude chosen as the origin of
+            rectangular coordinates for a map projection</span></td>
+            <td valign="top" class="subscript">52 <tal:block i18n:translate="">degrees</tal:block></td>
+        </tr>
+    </table>
+
+
+<table tal:condition="python:tpl == 'Lambert'">
+        <tr>
+            <td valign="middle" colspan="2"><b i18n:translate="">Lambert Azimutal</b></td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                Longitute of Projection Center
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The longitude that defines the center (and sometimes origin) of a projection.</span></td>
+            <td valign="top">20°00'00''</td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                Latitute of Projection Center
+            </tal:block>
+            <br/>
+            <span  class="subscript" i18n:translate="">The latitude that defines the center (and sometimes origin)
+                of a projection.</span></td>
+            <td valign="top">52°00'00''</td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                Ellipsoid
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">When used to represent the earth,
+                the three-dimensional shape obtained by rotating an ellipse about its minor axis.
+                This is an oblate ellipsoid of revolution, also called a spheroid. <b tal:content="string:sphere"></b> A three-dimensional shape by revolving a circle arround its diameter.</span></td>
+            <td valign="top" i18n:translate="">Sphere: radius 6378137</td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                Axis Units
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">Unit the x,y-coordinates are specified.</span></td>
+            <td valign="top" i18n:translate="">Meters</td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                False Easting
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values,
+                usually to ensure that all map coordinates are positive.</span></td>
+            <td valign="top">5071000.0
+            <tal:block i18n:translate="">
+                Meters
+            </tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                False Northing
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values,
+                usually to ensure that all map coordinates are positive.</span></td>
+            <td valign="top">3210000.0
+            <tal:block i18n:translate="">
+                Meters
+            </tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top">
+            <tal:block i18n:translate="">
+                Semimajor Axis
+            </tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td>
+            <td valign="top">6378137
+            <tal:block i18n:translate="">Meters</tal:block></td>
+
+        </tr>
+    </table>
+
+
+<table tal:condition="python:tpl == 'ALBERS'">
+        <tr>
+            <td valign="middle" colspan="2"><b i18n:translate="">ALBERS Conical Equal Area</b></td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Longitute of Central Meridian</tal:block>
+            <br/>
+            <span  class="subscript" i18n:translate="">The Longitute that defines the origin of the x-coordinate values for a projection.</span></td>
+            <td valign="top"> 22 39 00</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Latitute of Projection Origin</tal:block>
+            <br/>
+            <span  class="subscript" i18n:translate="">The latitute that defines the origin of the y-coordinate values for a projection</span></td><td valign="top">51 24 00</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Ellipsoid</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. <b>sphere</b> A three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" i18n:translate="">Spheroid WGS72</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Standard Parallel</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" i18n:translate="">1st standard parallel 32 30 00, 2nd standard parallel 54 30 00</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Axis Units</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">Unit the x,y-coordinates are specified.</span></td><td valign="top" i18n:translate="">Meters</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False Easting</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False Northing</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Semimajor Axis</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top">-</td>
+        </tr></table>
+
+
+<table tal:condition="python:tpl == 'WGS'">
+        <tr>
+            <td valign="middle" colspan="2"><b i18n:translate="">WGS_1984_Web_Mercator</b></td>
+        </tr>
+        <tr>
+            <td valign="top" class="subscript"><tal:block i18n:translate="">Ellipsoid</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">When used to represent the earth, the three-dimensional shape obtained by rotating an ellipse about its minor axis. This is an oblate ellipsoid of revolution, also called a spheroid. Sphere: a three-dimensional shape by revolving a circle arround its diameter.</span></td><td valign="top" class="subscript" i18n:translate="">D_WGS_1984</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Standard parallel</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The line of latitude where the projection surface touches the surface. A tangent conic or cylindrical projection has one standard parallel, while a secant conic or cylindrical projection has two. A standard parrallel has no distortion.</span></td><td valign="top" class="subscript">0.0</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Axis units</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The x,y-coordinates are specified.</span></td><td valign="top" class="subscript" i18n:translate="">Meters</td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False easting</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the x-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">False northing</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">A linear value added to the y-coordinate values, usually to ensure that all map coordinates are positive.</span></td><td valign="top" class="subscript">0.0 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>
+        <tr>
+            <td valign="top"><tal:block i18n:translate="">Semi-major axis</tal:block>
+            <br/>
+            <span class="subscript" i18n:translate="">The equatorial radius of a spheroid. Often known as "a"</span></td><td valign="top" class="subscript">6378137 <tal:block i18n:translate="">Meters</tal:block></td>
+        </tr>                                                            
+    </table>
+
+
+</tal:block>
