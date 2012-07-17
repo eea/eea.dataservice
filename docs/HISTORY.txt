@@ -6,6 +6,9 @@
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
 
+5.3-dev - (unreleased)
+----------------------
+
 5.2 - (2012-07-17)
 ------------------
 * Bug fix: use getFolderContents instead of objectValues to avoid
