@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea">
+
+  <head><title></title></head>
+
+  <body>
+
+    <metal:view_macro define-macro="view">
+    </metal:view_macro>
+
+    <metal:reference_edit
+      define-macro="reference_edit"
+      tal:define="show_path          field/widget/show_path|nothing;
+      image_portal_types widget/image_portal_types|string:;
+      image_method       widget/image_method|string:;
+      helper nocall:here/refbrowserhelper;
+      portal_path        helper/getPortalPath;
+      multiValued python:test(field.multiValued, 1, 0);
+      refs python:helper.getFieldRelations(field, value);
+      overlay_id string:atrb_${fieldName}">
+
+      <input type="hidden" value=""
+        tal:condition="multiValued"
+        tal:attributes="name string:$fieldName:default:list"
+        />
+
+      <tal:single tal:condition="not:multiValued" >
+        <tal:value tal:condition="value">
+          <tal:block tal:define="
+            obj python:refs[0];
+            obj_path python: '/'.join(obj.getPhysicalPath())" >
+
+            <input size="" type="text" value="" id="" readonly="readonly"
+              tal:attributes="
+              value obj/title_or_id;
+              size python:test(widget.size=='', 30, widget.size);
+              id string:ref_browser_${fieldName}_label"
+              />
+
+            <img tal:condition="python: obj.portal_type in image_portal_types"
+              tal:attributes="src string:${obj/absolute_url}/$image_method"
+              />
+
+            <tal:if condition="show_path" i18n:translate="">
+              (Directory: <span i18n:name="directory"
+                tal:replace="python: obj_path.replace(portal_path + '/', '')"
+                >directory</span>)
+            </tal:if>
+
+          </tal:block>
+        </tal:value>
+        <input id="" size="50" type="text" readonly="readonly"
+          value="No reference set. Click the add button to select."
+          i18n:attributes="value"
+          tal:condition="not:value"
+          tal:attributes="id string:ref_browser_${fieldName}_label"
+          />
+        <input type="hidden" value="" name=""
+          tal:attributes="name fieldName;
+          value value;
+          id string:ref_browser_${fieldName}"
+          />
+
+      </tal:single>
+      <tal:multi tal:condition="multiValued">
+
+        <input type="hidden" value="0"
+          tal:attributes="name string:$fieldName-sortable;
+          value python:test(widget.allow_sorting, 1, 0);"
+          />
+
+        <div style="float: left"> <!-- don't remove this. it is needed for DOM traversal -->
+
+          <ul class="visualNoMarker"
+            tal:attributes="id string:ref_browser_items_${fieldName};"
+            tal:condition="refs">
+            <li tal:repeat="set refs"
+              tal:attributes="
+              id string:ref-${fieldName}-${repeat/set/index};">
+              <label tal:define="
+                title set/title_or_id | string:Undisclosed;
+                obj_path python: '/'.join(set.getPhysicalPath());">
+                <input type="checkbox"
+                  tal:attributes="name string:${fieldName}:list;
+                  value python:helper.getUidFromReference(set);"
+                  checked="checked" />
+                <tal:block replace="python: show_path and '%s (%s)' % (title, obj_path.replace(portal_path, '')) or title" />
+              </label>
+
+              <tal:sorting condition="widget/allow_sorting">
+                <a href="" title="Move up" i18n:attributes="title"
+                  onclick="javascript:refbrowser_moveReferenceUp(this); return false">&#x25b2;</a>
+                <a href="" title="Move down" i18n:attributes="title"
+                  onclick="javascript:refbrowser_moveReferenceDown(this); return false">&#x25bc;</a>
+              </tal:sorting>
+
+            </li>
+          </ul>
+        </div>
+      </tal:multi>
+      <div style="clear: both"
+        tal:define="
+        at_url helper/getAtURL;
+        startup_directory python:helper.getStartupDirectory(field)">
+        <input type="button" class="searchButton addreference" value="Add..."
+          i18n:attributes="value"
+          tal:define="popup_width widget/popup_width|string:500;
+          popup_height widget/popup_height|string:550;"
+          tal:attributes="src string:${startup_directory}/refbrowser_popup?fieldName=${fieldName}&amp;fieldRealName=${field/getName}&amp;at_url=${at_url};
+          rel string:#${overlay_id}" />            
+        <input type="button" class="destructive" value="Clear reference" onclick=""
+          i18n:attributes="value"
+          tal:condition="not:multiValued"
+          tal:attributes="onclick string:javascript:refbrowser_removeReference('ref_browser_${fieldName}', ${multiValued})" />
+        </div><div id="atrb" tal:attributes="id overlay_id" class="overlay overlay-ajax"><div class="close"><span i18n:translate="">Close</span></div>
+        <div class="pb-ajax">
+          <!-- <a href="" i18n:translate="">Back</a> -->
+          <div class="overlaycontent" style="font-size: 125%"></div>
+          <!-- <a href="" i18n:translate="">Back</a> -->
+        </div>
+      </div>
+      <!-- Todo? -->
+      <metal:addable metal:use-macro="here/widgets/addable_support/macros/addable"/>
+    </metal:reference_edit>
+
+
+    <metal:edit_macro define-macro="edit">
+    <fieldset class="figure_widget_container">
+      <legend><span class="formQuestion" tal:content="field/widget/label" /></legend>
+      <div class="figure_widget_left">
+        <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+          <metal:fill fill-slot="widget_body">
+            <metal:use use-macro="here/figure_referencebrowser/macros/reference_edit" />
+          </metal:fill>
+        </metal:use>
+      </div>
+      <div class="figure_widget_right" style="display: none">
+        <!-- Search for publications -->
+        <div class="figure_widget_search">
+          <label class="formQuestion" tal:attributes="
+            for string:${fieldName}_title"
+            i18n:translate="">Search for Publication by title</label>
+          <div class="formHelp" i18n:translate="">Insert publication keywords to search for</div>
+          <input type="text" tal:attributes="
+            id string:${fieldName}_title;
+            title string:${fieldName}_ajax_search_title"
+            value="" />
+          <input type="submit" name="form.actions.search" value="Search" i18n:attributes="value" />
+          <span class="figure_widget_errors"></span>
+          <div class="figure_widget_results"></div>
+        </div>
+
+        <!-- Add new publication -->
+        <fieldset class="figure_widget_new_publication" style="display: none">
+          <legend i18n:translate="">Add new publication</legend>
+          <div class="field ArchetypesStringWidget">
+            <label class="formQuestion" tal:attributes="
+              for string:${fieldName}_title" i18n:translate="">EEA Publication title</label>
+            <span class="fieldRequired" title="Required" i18n:attributes="title" i18n:translate="">  (Required) </span>
+            <div class="formHelp figure_widget_errors"></div>
+            <input tal:attributes="
+              id string:${fieldName}_title;
+              title string:${fieldName}_ajax_add_title"
+              type="text" maxlength="255"/>
+          </div>
+          <!-- eeaid is now deprecated -->
+          <!-- div class="field ArchetypesStringWidget">
+            <label class="formQuestion" tal:attributes="
+              for string:${fieldName}_eeaid_new" i18n:translate="">EEA Publication Id</label>
+            <span class="fieldRequired" title="Required">  (Required) </span>
+            <div class="formHelp figure_widget_errors"></div>
+            <input tal:attributes="id string:${fieldName}_eeaid_new"
+              type="text" maxlength="255" name="eeaid"/>
+          </div -->
+          <div class="figure_widget_new_publication_buttons">
+            <input type="submit" name="form.actions.add" value="Add" i18n:attributes="value" />
+            <input type="submit" name="form.actions.cancel" value="Cancel" i18n:attributes="value" />
+          </div>
+        </fieldset>
+      </div>
+      </fieldset>
+
+      <div class="figure_clear"> </div>
+    </metal:edit_macro>
+
+    <metal:search_macro define-macro="search">
+      <div metal:use-macro="here/widgets/reference/macros/edit"></div>
+    </metal:search_macro>
+  </body>
+</html>

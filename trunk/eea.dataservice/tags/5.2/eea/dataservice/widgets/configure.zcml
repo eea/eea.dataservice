@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea">
+
+  <browser:page
+      name="figure_reference_widget"
+      class=".ReferenceWidgetController.ReferenceWidgetController"
+      for="eea.dataservice.interfaces.IEEAFigure"
+      permission="cmf.ModifyPortalContent"
+      allowed_interface=".interfaces.IReferenceWidgetController"
+      />
+
+</configure>
