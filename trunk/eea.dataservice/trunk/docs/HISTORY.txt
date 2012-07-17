@@ -8,6 +8,9 @@
 
 5.2-dev - (unreleased)
 ----------------------
+* Bug fix: use getFolderContents instead of objectValues to avoid
+  Unauthorized for anonymous when contained link is not published
+  [tiberich]
 
 5.1 - (2012-07-13)
 ------------------

@@ -34,7 +34,7 @@
 
     <fieldset>
         <legend i18n:translate="">Files</legend>
-        <div style="padding: 1em;" tal:repeat="file python:context.objectValues('DataFile')">
+        <div style="padding: 1em;" tal:repeat="file python:context.getFolderContents(contentFilter={'portal_type':'DataFile'})">
             <tal:block define="field python:file.getField('file');
                                accessor python:field.getAccessor(file)();
                                icon accessor/getBestIcon | nothing;
@@ -59,12 +59,12 @@
             </tal:block>
         </div>
         <div style="padding: 1em;" 
-                     tal:repeat="file python:context.objectValues('ATLink')">
+                     tal:repeat="file python:context.getFolderContents(contentFilter={'portal_type':'ATLink'})">
                  <strong><a tal:attributes="href string:${file/remoteUrl}"
                    i18n:translate="">Data link</a>
                  </strong>
         </div>
-        <div tal:repeat="file python:context.objectValues('Sparql')">
+        <div tal:repeat="file python:context.getFolderContents(contentFilter={'portal_type':'Sparql'})">
                  <span style="padding:1em 1em 1em 2em; position: relative; 
                     background: transparent url(/++resource++eea.sparql.images/rdf-icon.gif) no-repeat left center;
                     ">
@@ -102,3 +102,4 @@
 
 </body>
 </html>
+
