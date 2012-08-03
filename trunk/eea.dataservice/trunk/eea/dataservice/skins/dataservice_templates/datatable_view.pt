@@ -69,21 +69,21 @@
                     background: transparent url(/++resource++eea.sparql.images/rdf-icon.gif) no-repeat left center;
                     ">
                   <strong>
-                   <a tal:attributes="href string:${file/absolute_url}"
+                   <a tal:attributes="href string:${file/getURL}"
                       i18n:translate="" 
                       tal:content="file/Title">Sparql</a>&nbsp;
                      (<span i18n:translate="">Linked Open Data</span>) 
                  </strong></span>
                 <div style="padding-left: 2em;padding-top:1em;">
-                <a tal:attributes="href string:${file/absolute_url}/download.table"
+                <a tal:attributes="href string:${file/getURL}/download.table"
                    i18n:translate="">HTML table</a>
-                <a tal:attributes="href string:${file/absolute_url}/download.csv"
+                <a tal:attributes="href string:${file/getURL}/download.csv"
                    i18n:translate="">CSV</a>
-                <a tal:attributes="href string:${file/absolute_url}/download.json"
+                <a tal:attributes="href string:${file/getURL}/download.json"
                    i18n:translate="">JSON</a>
-                <a tal:attributes="href string:${file/absolute_url}/download.schema.xml"
+                <a tal:attributes="href string:${file/getURL}/download.schema.xml"
                    i18n:translate="">XML with schema</a><br /><br />
-                <a tal:attributes="href string:${file/absolute_url}"
+                <a tal:attributes="href string:${file/getURL}"
                    i18n:translate="">See all formats + SPARQL query details</a>
                 </div>
         </div>
