@@ -8,6 +8,8 @@
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: fixed URL for sparql.
+  [demarant fixes #5408]
 
 5.2 - (2012-07-17)
 ------------------
