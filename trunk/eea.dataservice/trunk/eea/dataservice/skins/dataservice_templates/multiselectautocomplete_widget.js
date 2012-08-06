@@ -64,6 +64,11 @@ function _remove(a1, a2) {
 
 MultiSelectAutocompleteWidget = function(context){
     var self = this;
+    // #5336 check if widget has already loded for the given context to avoid
+    // table duplication
+    if(jQuery(context).hasClass('loaded')) {
+        return;
+    }
     self.select = context.get(0);
 
     self.filter_box = null;   // the search input box
@@ -127,6 +132,7 @@ MultiSelectAutocompleteWidget = function(context){
         self.set_select_values(self.available_choices_box, self.options);
         return true;
     });
+    jQuery(context).addClass('loaded');
 };
 
 MultiSelectAutocompleteWidget.prototype.commit_to_form = function(){
@@ -181,7 +187,6 @@ MultiSelectAutocompleteWidget.prototype.build_widget = function(){
 
     var select = jQuery(this.select);
     var parent = select.parent();
-
     parent.append(jQuery(
         "<table><tr>" +
         "<td valign='top' with='400'>Available choices: <br/>" +

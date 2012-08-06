@@ -8,6 +8,9 @@
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: check if widget has already loded for the given context 
+  to avoid table duplication for MultiSelectWidget 
+  [ichimdav fixes #5336]
 * Bug fix: fixed URL for sparql.
   [demarant fixes #5408]
 
