@@ -33,7 +33,7 @@ class TopDatasets(BrowserView):
             # Get image
             doc = brain.getObject()
             for child in doc.objectValues('EEAFigureFile'):
-                for image in child.objectValues(['ImageFS', 'Image']):
+                for image in child.objectValues(['ImageFS', 'ATBlob']):
                     if image.getId().lower().endswith('.gif'):
                         res['image'] = image.absolute_url()
                         break

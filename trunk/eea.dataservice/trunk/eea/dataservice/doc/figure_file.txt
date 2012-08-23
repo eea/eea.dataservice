@@ -57,7 +57,7 @@ Lets convert the EEAFigureFile above.
     >>> cvtimg = convertImg()
 
     >>> ff1['source_image.eps.zoom.png']
-    <Image at ...>
+    <ATImage at ...>
 
 Lets test if converted images contain converted formats.
 
@@ -68,18 +68,20 @@ Lets test if converted images contain converted formats.
 Lets check if thumbs were created.
 
     >>> thumb = img_zoom.unrestrictedTraverse('image_thumb')
-    >>> thumb.image
-    <plone.app.blob.field.BlobWrapper object at ...>
+    >>> thumb
+    <ImageScale at ...>
+    >>> thumb.getObjSize()
+    '1... kB'
 
 Check the convertion of another EPS format and test if old converted images were deleted.
 
     >>> loadblobfile(ff1, 'source_image2.eps')
     'File uploaded.'
     >>> cvtimg = convertImg()
-    >>> len(ff1.objectValues('Image'))
+    >>> len(ff1.objectValues('ATBlob'))
     1
     >>> ff1['source_image2.eps.zoom.png']
-    <Image at ...>
+    <ATImage at ...>
 
 
 Try to download the image with index_html method
