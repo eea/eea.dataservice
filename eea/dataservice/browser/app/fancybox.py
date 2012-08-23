@@ -48,7 +48,7 @@ class FancyBox(BrowserView):
         """ Vocabulary
         """
         brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'ImageFS',
+            'portal_type': ['ImageFS', 'Image'],
             'review_state': ['published', 'visible'],
         })
         vtool = getToolByName(self.context, 'portal_vocabularies')

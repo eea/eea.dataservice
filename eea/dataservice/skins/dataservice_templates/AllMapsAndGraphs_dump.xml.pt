@@ -85,7 +85,7 @@
         </tal:simplefiles>
         <tal:efiles repeat="efile eps">
         <tal:efile define="
-          eimg python:[img for img in efile.objectIds('ImageFS') if img.lower().endswith('.gif')];
+          eimg python:[img for img in efile.objectIds('Image') if img.lower().endswith('.gif')];
           eimg python:eimg and eimg[0]" tal:condition="eimg">
           <ds:downloadlink tal:content="string:${efile/absolute_url}/$eimg/download" />
         </tal:efile>
