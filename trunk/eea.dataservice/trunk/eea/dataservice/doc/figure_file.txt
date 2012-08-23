@@ -57,7 +57,7 @@ Lets convert the EEAFigureFile above.
     >>> cvtimg = convertImg()
 
     >>> ff1['source_image.eps.zoom.png']
-    <ImageFS at ...>
+    <Image at ...>
 
 Lets test if converted images contain converted formats.
 
@@ -76,10 +76,10 @@ Check the convertion of another EPS format and test if old converted images were
     >>> loadblobfile(ff1, 'source_image2.eps')
     'File uploaded.'
     >>> cvtimg = convertImg()
-    >>> len(ff1.objectValues('ImageFS'))
+    >>> len(ff1.objectValues('Image'))
     1
     >>> ff1['source_image2.eps.zoom.png']
-    <ImageFS at ...>
+    <Image at ...>
 
 
 Try to download the image with index_html method

@@ -19,11 +19,8 @@ import zc.twist
 logger = logging.getLogger('eea.dataservice.converter')
 log = logger.info
 
-#from Products.CMFCore.WorkflowCore import WorkflowException
-
-
 class Convertor(object):
-    """Convert an ImageFS to a usable image file
+    """Convert an Image to a usable image file
     """
 
     def __init__(self, context):
@@ -107,7 +104,7 @@ class Convertor(object):
 
         # Delete (if neccesary) old converted images
         if purge:
-            for cid in self.context.objectIds('ImageFS'):
+            for cid in self.context.objectIds(['ImageFS', 'Image']):
                 self.context.manage_delObjects([cid])
 
         # Create converted images
@@ -157,7 +154,7 @@ class Convertor(object):
 
                 file_data = outfile.getvalue()
                 if not getattr(self.context, im_id, None):
-                    im_id = self.context.invokeFactory('ImageFS', id=im_id)
+                    im_id = self.context.invokeFactory('Image', id=im_id)
                 im_ob = getattr(self.context, im_id)
                 im_ob.setImage(file_data)
         else:
@@ -211,7 +208,7 @@ class CheckFiguresConvertion(object):
         notConverted = []
         for brain in res:
             ff_ob = brain.getObject()
-            if not ff_ob.objectValues('ImageFS'):
+            if not ff_ob.objectValues(['ImageFS', 'Image']):
                 notConverted.append(ff_ob)
 
         if info:
@@ -244,7 +241,7 @@ class ConvertionInfo(object):
 
     def __call__(self):
         res = None
-        images = self.context.objectValues('ImageFS')
+        images = self.context.objectValues(['ImageFS', 'Image'])
         if images:
             res = images[0].ModificationDate()
         return res
@@ -259,7 +256,7 @@ def task_convert_figure(figure,):
 
 
 class QueueConvert(BrowserView):
-    """Use plone.async to queue a task to convert this ImageFS object
+    """Use plone.async to queue a task to convert this Image object
     """
 
     def __call__(self):
