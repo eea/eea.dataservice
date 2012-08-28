@@ -14,14 +14,14 @@
     <dt class="portletHeader" i18n:translate="">Organisations control panel</dt>
 
     <dt class="portletItem">
-      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-quick-overview"
-         title="" i18n:translate="">
-        Quick overview</a>
-    </dt>
-    <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=duplicate-organisations"
          title="" i18n:translate="">
-        Duplicate organisations</a>
+        Detect duplicates</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-quick-overview"
+         title="" i18n:translate="">
+        Transfer relations</a>
     </dt>
     <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-wrong-title"
@@ -31,7 +31,7 @@
     <dt class="portletItem">
       <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-no-reference"
          title="" i18n:translate="">
-        Organisations with no reference</a>
+        Organisations not in use</a>
     </dt>
 
 </dl>
