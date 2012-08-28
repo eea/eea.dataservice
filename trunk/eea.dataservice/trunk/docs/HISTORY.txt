@@ -8,6 +8,14 @@
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed display of Provider relations on Organisation statistics
+  [ghicaale refs #5485]
+* Bug fix: Assessments are now also reindex when relations are transfer from
+  an Organisation to another. Till now only parent Specifications were reindexed
+  ending the Assessments indexed to the original Organisation.
+  [ghicaale refs #5485]
+* Feature: Indicator Specifications are now listed under Organisations statistics
+  [ghicaale refs #5485]
 * Feature: Update logic to work with Image in parallel with ImageFS,
   not to have missing thumbs for EEAFigureFiles till migration
   from ImageFS to Image is done

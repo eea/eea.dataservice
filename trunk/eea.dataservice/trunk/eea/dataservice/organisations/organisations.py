@@ -125,6 +125,11 @@ class MoveOrganisationReferences(BrowserView):
                     pass
 
                 obj.reindexObject()
+                # Reindex all child assessment objects
+                if ptype == 'Specification':
+                    for assessment in obj.objectValues('Assessment'):
+                        assessment.reindexObject()
+
                 transaction.commit()
 
         msg = 'References transfered from "%s" to "%s"' % \
