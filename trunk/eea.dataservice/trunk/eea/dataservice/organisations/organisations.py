@@ -54,7 +54,7 @@ class MoveOrganisationReferences(BrowserView):
         for ext in externals:
             ext_ob = ext.getObject()
             ext_org_url = ext_ob.getProvider_url()
-            if len(ext_org_url) == 1:
+            if ext_org_url and len(ext_org_url) == 1:
                 ext_org_url = ext_org_url[0]
             if ext_org_url and ext_org_url == org_url:
                 data.append(ext_ob)
@@ -119,13 +119,8 @@ class MoveOrganisationReferences(BrowserView):
                         references = tuple(references)
                         obj.setOwnership(references)
                 elif ptype == 'ExternalDataSpec':
-                    references = obj.getProvider_url()
-                    if old_ref in references:
-                        references = list(references)
-                        references.remove(old_ref)
-                        references.append(new_ref)
-                        references = tuple(references)
-                        obj.setProvider_url(references)
+                    if old_ref == obj.getProvider_url():
+                        obj.setProvider_url(new_ref)
                 else:
                     pass
 
@@ -134,7 +129,7 @@ class MoveOrganisationReferences(BrowserView):
 
         msg = 'References transfered from "%s" to "%s"' % \
                   (tf_ob.Title(), tt_ob.Title())
-        IStatusMessage(self.context.request).addStatusMessage(msg,
+        IStatusMessage(self.request).addStatusMessage(msg,
                                                                type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url() +
                 '/organisations_overview?action=organisations-quick-overview')
