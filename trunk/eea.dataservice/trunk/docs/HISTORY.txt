@@ -6,8 +6,8 @@
 [Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-5.3-dev - (unreleased)
-----------------------
+5.3 - (2012-08-29)
+------------------
 * Bug fix: Fixed display of Provider relations on Organisation statistics
   [ghicaale refs #5485]
 * Bug fix: Assessments are now also reindex when relations are transfer from
