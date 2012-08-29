@@ -1,0 +1,90 @@
+Overview
+========
+
+Use for debug: import pdb; pdb.set_trace()
+
+Lets use the sandbox.
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import loadblobfile
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb('sandbox')
+
+Lets add a EEAFigure.
+
+    >>> _ = sandbox.invokeFactory('EEAFigure', 'f1')
+    >>> f1 = sandbox.f1
+
+Now, lets add a EEAFigureFile.
+
+    >>> form = {
+    ...   'title': 'EEAFigureFile 1',
+    ...   'description': 'EEAFigureFile description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ... }
+    >>> _ = f1.invokeFactory('EEAFigureFile', 'ff1', **form)
+    >>> ff1 = f1.ff1
+
+Check see if properties applyed.
+
+    >>> ff1.Title()
+    'EEAFigureFile 1'
+    >>> ff1.Description()
+    'EEAFigureFile description 1'
+    >>> ff1.getEffectiveDate()
+    DateTime('2008/11/11...')
+
+Lets upload a source image.
+
+    >>> loadblobfile(ff1, 'source_image.eps')
+    'File uploaded.'
+    >>> ff1.getFile().filename
+    'source_image.eps'
+    >>> ff1.getFile().getBestIcon()
+    'ps.png'
+    >>> print ff1.getFile().get_size()
+    5054507
+    >>> ff1.getFile().getContentType()
+    'application/postscript'
+
+Lets convert the EEAFigureFile above.
+
+    >>> convertImg = ff1.unrestrictedTraverse('@@convertMap')
+    >>> cvtimg = convertImg()
+
+    >>> ff1['source_image.eps.zoom.png']
+    <ATImage at ...>
+
+Lets test if converted images contain converted formats.
+
+    >>> img_zoom = ff1._getOb('source_image.eps.zoom.png')
+    >>> img_zoom.getObjSize()
+    '1... MB'
+
+Lets check if thumbs were created.
+
+    >>> thumb = img_zoom.unrestrictedTraverse('image_thumb')
+    >>> thumb
+    <ImageScale at ...>
+    >>> thumb.getObjSize()
+    '1... kB'
+
+Check the convertion of another EPS format and test if old converted images were deleted.
+
+    >>> loadblobfile(ff1, 'source_image2.eps')
+    'File uploaded.'
+    >>> cvtimg = convertImg()
+    >>> len(ff1.objectValues('ATBlob'))
+    1
+    >>> ff1['source_image2.eps.zoom.png']
+    <ATImage at ...>
+
+
+Try to download the image with index_html method
+
+    >>> ff1['source_image2.eps.zoom.png'].index_html(portal.REQUEST, portal.REQUEST.response)
+    <plone.app.blob.iterators.BlobStreamIterator object at ...>
