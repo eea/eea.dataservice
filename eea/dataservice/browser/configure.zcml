@@ -143,7 +143,7 @@
       for="*"
       permission="zope2.View"
       />
-      
+
   <browser:page
       name="getDataFileLinks"
       class=".app.displays.GetDataFileLinks"
@@ -255,14 +255,14 @@
     class=".app.migrate.MigrateDatasetsToExternalDatasets"
     />
 
-  <!-- Valentine imagescales -->
-  <configure zcml:condition="installed valentine.imagescales">
+  <!-- EEA Image Scales -->
+  <configure zcml:condition="installed eea.imagescales">
     <browser:page
       for="..interfaces.IEEAFigureFile"
       name="imgview"
       class=".app.imgview.ImageViewFigureFile"
       permission="zope.Public"
-      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      allowed_interface="eea.imagescales.browser.interfaces.IImageView"
       />
 
     <browser:page
@@ -270,7 +270,7 @@
       name="imgview"
       class=".app.imgview.ImageViewFigure"
       permission="zope.Public"
-      allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+      allowed_interface="eea.imagescales.browser.interfaces.IImageView"
       />
   </configure>
 
@@ -297,7 +297,7 @@
       />
   </configure>
 
-  <adapter factory=".app.ims.FigureObjectReadiness" 
+  <adapter factory=".app.ims.FigureObjectReadiness"
         for="eea.dataservice.interfaces.IEEAFigure" />
 
 </configure>

@@ -8,6 +8,8 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Change: Update references to eea.imagescales (formerly valentine.imagescales)
+  [voineali refs #5497]
 
 5.3 - (2012-08-29)
 ------------------
@@ -23,8 +25,8 @@
   not to have missing thumbs for EEAFigureFiles till migration
   from ImageFS to Image is done
   [ghicaale refs #4190]
-* Bug fix: check if widget has already loded for the given context 
-  to avoid table duplication for MultiSelectWidget 
+* Bug fix: check if widget has already loded for the given context
+  to avoid table duplication for MultiSelectWidget
   [ichimdav fixes #5336]
 * Bug fix: fixed URL for sparql.
   [demarant fixes #5408]
@@ -40,13 +42,13 @@
 * Feature: use eea.relations widget for relatedItems if available for Data
   contenttype
   [ichimdav #4705]
-* Change: removed publishing date from templates since this is part of 
+* Change: removed publishing date from templates since this is part of
   the document_byline.
   [demarant]
 * Bug fix: Fix case when the data table view was asking for login, when certain
   files where not published, now just skip those files.
   [demarant]
-* Bug fix: Fixed case when "Data source" was not shown. Improved tooltip by 
+* Bug fix: Fixed case when "Data source" was not shown. Improved tooltip by
   having text on the right, it was not readable on small screen width.
   Use another tooltip text for deprecated source description (used on in edit).
   [demarant refs #4982]
@@ -58,7 +60,7 @@
   [ichimdav #5331]
 * Feature: template changes to show Sparql inside EEA Dataservice.
   This allow us to register linked open dataset from semantic.eea.europa.eu or
-  any other rdf store. 
+  any other rdf store.
   Generic data set metadata is available following the isPartOf relations.
   [demarant fixes #5102]
 * Feature: added DataFileLink content type to eea.dataservice profile
@@ -78,7 +80,7 @@
   [demarant refs #5323 fixes #4631]
 * Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
   [tiberich refs #5259]
-* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate keys in .zpt 
+* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate keys in .zpt
   [prospchr refs #5162]
 
 5.0 - (2012-06-20)
