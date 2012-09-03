@@ -11,6 +11,10 @@
 * Change: Update references to eea.depiction (formerly valentine.imagescales)
   [voineali refs #5497]
 
+* Feature: Added subscriber to add on all EEAFigureFiles on add/edit the
+  local workflow policy for Images
+  [ghicaale refs #5499]
+
 5.3 - (2012-08-29)
 ------------------
 * Bug fix: Fixed display of Provider relations on Organisation statistics

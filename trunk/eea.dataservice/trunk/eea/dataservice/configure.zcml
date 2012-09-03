@@ -72,6 +72,11 @@
     handler=".events.handle_eeafigurefile_modified"/>
 
   <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".events.eeafigurefile_local_policy" />
+
+  <subscriber
     for="eea.dataservice.interfaces.IEEAFigure
          eea.versions.interfaces.IVersionCreatedEvent"
     handler=".events.handle_eeafigure_versioned"/>

@@ -9,14 +9,12 @@ from eea.dataservice.interfaces import IDataset, IDatatable
 from eea.dataservice.relations import IRelations
 from plone.app.async.interfaces import IAsyncService
 from zope.component import queryAdapter, getUtility
-
+from Products.CMFCore.utils import getToolByName
 
 def handle_eeafigure_state_change(figure, event):
     """Handler for EEAFigure workflow state change"""
 
     #reindex all Assessments and IndicatorFactSheets that point to this figure
-
-
     adapter = queryAdapter(figure, IRelations)
     if not adapter:
         return
@@ -30,7 +28,6 @@ def handle_eeafigure_state_change(figure, event):
     for obj in assessments + ifs:
         obj.reindexObject()
 
-
 def reindex_filetype(obj, event):
     """ Reindex datatable and dataset parents filetype index onn DataFile change
     """
@@ -41,7 +38,6 @@ def reindex_filetype(obj, event):
     parent = utils.parent(parent)
     if IDataset.providedBy(parent):
         parent.reindexObject(idxs=['filetype'])
-
 
 def handle_eeafigurefile_modified(obj, event):
     """Handles creation or editing of EEAFigureFile
@@ -56,10 +52,19 @@ def handle_eeafigurefile_modified(obj, event):
         IStatusMessage(obj.REQUEST).add(
                  "Figure will be automatically converted, please "
                  "wait a few minutes", type="INFO")
-    
+
 def handle_eeafigure_versioned(obj, event):
     """Handles versioning of eeafigure
     """
     copy = event.object
     copy.setDataSource("")
 
+def eeafigurefile_local_policy(obj, event):
+    """ Setup local workflow policy for Image inside EEAFigureFiles
+    """
+    ppw = getToolByName(obj, 'portal_placeful_workflow')
+    config = ppw.getWorkflowPolicyConfig(obj)
+    if not config:
+            obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
+            config = ppw.getWorkflowPolicyConfig(obj)
+            config.setPolicyBelow('eeafigurefile_image_workflow', False)
