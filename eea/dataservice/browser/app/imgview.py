@@ -5,8 +5,8 @@ from zope.interface import implements
 from zope.component import queryMultiAdapter
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser import BrowserView
-from eea.imagescales.browser.interfaces import IImageView
-from eea.imagescales.browser import atfield, atfolder
+from eea.depiction.browser.interfaces import IImageView
+from eea.depiction.browser import atfield, atfolder
 
 logger = logging.getLogger("eea.dataservice")
 
