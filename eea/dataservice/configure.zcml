@@ -4,6 +4,7 @@
   i18n_domain="eea">
 
   <include package="Products.ATVocabularyManager" />
+  <include package="Products.CMFPlacefulWorkflow" />
 
   <!-- Dependencies -->
   <include package="eea.forms" />
