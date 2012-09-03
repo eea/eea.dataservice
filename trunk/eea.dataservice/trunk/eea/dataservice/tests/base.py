@@ -17,12 +17,14 @@ class EEAFixture(PloneSandboxLayer):
         self.loadZCML(package=eea.workflow)
 
         z2.installProduct(app, 'Products.ATVocabularyManager')
+        z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
         z2.installProduct(app, 'eea.dataservice')
 
     def tearDownZope(self, app):
         """ Uninstall Zope
         """
         z2.uninstallProduct(app, 'Products.ATVocabularyManager')
+        z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
         z2.uninstallProduct(app, 'eea.dataservice')
 
     def setUpPloneSite(self, portal):

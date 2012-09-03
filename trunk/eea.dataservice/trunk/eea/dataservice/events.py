@@ -65,6 +65,7 @@ def eeafigurefile_local_policy(obj, event):
     ppw = getToolByName(obj, 'portal_placeful_workflow')
     config = ppw.getWorkflowPolicyConfig(obj)
     if not config:
-        obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
+        package_name = 'CMFPlacefulWorkflow'
+        obj.manage_addProduct[package_name].manage_addWorkflowPolicyConfig()
         config = ppw.getWorkflowPolicyConfig(obj)
         config.setPolicyBelow('eeafigurefile_image_workflow', False)
