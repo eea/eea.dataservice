@@ -8,6 +8,27 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Feature: Added test to cover local workflow policy of EEAFigureFiles
+  [ghicaale refs #5499]
+
+* Cleanup: Removed all references to ImageFS
+  [ghicaale refs #5499]
+
+* Upgrade step:
+    - under /www/portal_types/EEAFigureFile/manage_propertiesForm remove ImageFS
+      from the 'Allowed content types' list
+    - under /www/@@caching-controlpanel remove ImageFS from:
+       - "Caching proxies" -> Content types to purge
+       - "Caching operations" -> Ruleset -> "Content files and images"
+    - under /www/portal_factory/manage_portal_factory_types uncheck "ImageFS"
+    - under /www/portal_tinymce/@@tinymce-controlpanel -> "Image Objects" remove "ImageFS"
+    - under /www/portal_tinymce/@@tinymce-controlpanel -> "Linkable Objects" remove "ImageFS"
+    - under /www/portal_properties/navtree_properties/manage_propertiesForm -> "metaTypesNotToList"
+      remove ImageFS
+    - under /www/portal_types/manage_main delete imageFS
+    - under /www/portal_workflow/manage_main delete eea_imagefs_workflow
+    - [ghicaale refs #5499]
+
 * Change: Update references to eea.depiction (formerly valentine.imagescales)
   [voineali refs #5497]
 
@@ -178,37 +199,31 @@
   ExternalDataSpec or Data
   [tiberich #5066]
 * Upgrade step: modifications to eea_data_workflow
-  [tiberich #5065]
-  >-----------------
-  In portal_workflow > eea_data_workflow > Scripts, add a new External Method:
-  Script id: fake_transition, module name: eea.workflow.workflow_scripts,
-  function: fake_transition
-  >-----------------
-  Go to portal_workflow > eea_data_workflow/transitions/publish/manage_properties
-  Set the following expression in the Guard expression:
-  python:path('here/@@get_readiness').is_ready_for('published')
-  >------------------
-  Add a new transition in eea_data_workflow, called fake_publish, with data:
-  Title: Pre-publish check
-  Destination state: (Remain in state)
-  Trigger type: initiated by user action
-  Script (before): fake_transition
-  Script (after): None
-  Roles: Manager; Reviewer
-  Guard Expression: python:not path('here/@@get_readiness').is_ready_for('published')
-  Display name: Publish
-  Category: workflow
-  >-----------------
-  Add the fake_publish transition as a possible transition to the following states
-  (everywhere the "publish" transition is also available):
-  content_pending, published_eionet, visible
-  >-----------------
-  In portal_skins/manage_main, move the eea_workflow_template skin layer
-  above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins
-  >-----------------
-  To check if the workflow works as desired, go to a figure that doesn't have the
-  relatedProducts set and see if the id of the Publish action is fake_publish (look
-  in the URL)
+    - [tiberich #5065]
+    - In portal_workflow > eea_data_workflow > Scripts, add a new External Method:
+      Script id: fake_transition, module name: eea.workflow.workflow_scripts,
+      function: fake_transition
+    - Go to portal_workflow > eea_data_workflow/transitions/publish/manage_properties
+      Set the following expression in the Guard expression:
+      python:path('here/@@get_readiness').is_ready_for('published')
+    - Add a new transition in eea_data_workflow, called fake_publish, with data:
+      Title: Pre-publish check
+      Destination state: (Remain in state)
+      Trigger type: initiated by user action
+      Script (before): fake_transition
+      Script (after): None
+      Roles: Manager; Reviewer
+      Guard Expression: python:not path('here/@@get_readiness').is_ready_for('published')
+      Display name: Publish
+      Category: workflow
+    - Add the fake_publish transition as a possible transition to the following states
+      (everywhere the "publish" transition is also available):
+      content_pending, published_eionet, visible
+    - In portal_skins/manage_main, move the eea_workflow_template skin layer
+      above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins
+    - To check if the workflow works as desired, go to a figure that doesn't have the
+      relatedProducts set and see if the id of the Publish action is fake_publish (look
+      in the URL)
 
 4.10 - (2012-04-03)
 -------------------
@@ -723,4 +738,3 @@
 -----------------
 * Initial release
   [ghicaale]
-

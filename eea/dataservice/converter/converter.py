@@ -104,7 +104,7 @@ class Convertor(object):
 
         # Delete (if neccesary) old converted images
         if purge:
-            for cid in self.context.objectIds(['ImageFS', 'ATBlob']):
+            for cid in self.context.objectIds('ATBlob'):
                 self.context.manage_delObjects([cid])
 
         # Create converted images
@@ -208,7 +208,7 @@ class CheckFiguresConvertion(object):
         notConverted = []
         for brain in res:
             ff_ob = brain.getObject()
-            if not ff_ob.objectValues(['ImageFS', 'ATBlob']):
+            if not ff_ob.objectValues('ATBlob'):
                 notConverted.append(ff_ob)
 
         if info:
@@ -241,7 +241,7 @@ class ConvertionInfo(object):
 
     def __call__(self):
         res = None
-        images = self.context.objectValues(['ImageFS', 'ATBlob'])
+        images = self.context.objectValues('ATBlob')
         if images:
             res = images[0].ModificationDate()
         return res

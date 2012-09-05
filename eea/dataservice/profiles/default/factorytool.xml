@@ -7,7 +7,6 @@
   <type portal_type="EEAFigure"/>
   <type portal_type="EEAFigureFile"/>
   <type portal_type="Organisation"/>
-  <type portal_type="ImageFS"/>
   <type portal_type="DataFileLink"/>
  </factorytypes>
 </object>

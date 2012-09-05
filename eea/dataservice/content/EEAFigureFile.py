@@ -58,6 +58,6 @@ class EEAFigureFile(ATFolder):
     implements(IEEAFigureFile)
     archetype_name = portal_type = meta_type = 'EEAFigureFile'
     allowed_content_types = [
-        'ATImage', 'ImageFS', 'File', 'Folder', 'DataFile', 'DataTable']
+        'ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
     _at_rename_after_creation = True
     schema = eeafigurefile_schema
