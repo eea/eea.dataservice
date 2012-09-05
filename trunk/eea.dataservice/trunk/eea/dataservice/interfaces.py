@@ -1,13 +1,11 @@
 """ Public interfaces
 """
-from zope.interface import Interface, alsoProvides
-from zope.app.content import interfaces as contentifaces
+from zope.interface import Interface
 
 class IDatasetEnhanced(Interface):
     """ Marker interface for datasets.
     """
 
-alsoProvides(IDatasetEnhanced, contentifaces.IContentType)
 class IDataset(Interface):
     """ Objects which have dataset information.
     """
