@@ -20,7 +20,6 @@
   <include package=".converter" />
   <include package=".templates" />
   <include package=".google" />
-  <include package=".content" />
   <include package=".widgets" />
   <include package=".versions" />
   <include package=".facetednavigation" />

@@ -9,7 +9,6 @@ from eea.dataservice.content import DataFile
 from eea.dataservice.content import DataTable
 from eea.dataservice.content import EEAFigure
 from eea.dataservice.content import EEAFigureFile
-from eea.dataservice.content import ImageFS
 
 def register():
     """ Register AT Content-Types
@@ -20,4 +19,3 @@ def register():
     registerType(DataTable.DataTable, PROJECTNAME)
     registerType(EEAFigure.EEAFigure, PROJECTNAME)
     registerType(EEAFigureFile.EEAFigureFile, PROJECTNAME)
-    registerType(ImageFS.ImageFS, PROJECTNAME)

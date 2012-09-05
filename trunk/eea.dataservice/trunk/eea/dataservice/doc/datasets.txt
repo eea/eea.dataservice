@@ -1,8 +1,6 @@
 Overview
 ========
 
-Use for debug: import pdb; pdb.set_trace()
-
 Lets use the sandbox.
 
     >>> from plone.app.testing import TEST_USER_ID

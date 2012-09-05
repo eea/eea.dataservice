@@ -26,7 +26,7 @@ class ImageViewFigure(BrowserView):
         eeafile = None
         for brain in brains:
             children = brain.getFolderContents(contentFilter={
-                'portal_type': ['ImageFS', 'Image'],
+                'portal_type': ['Image'],
                 'review_state': ['published', 'visible']
             })
             if not len(children):
@@ -57,7 +57,7 @@ class ImageViewFigureFile(BrowserView):
     def __init__(self, context, request):
         super(ImageViewFigureFile, self).__init__(context, request)
         images = context.getFolderContents(contentFilter={
-            'portal_type': ['ImageFS', 'Image'],
+            'portal_type': ['Image'],
             'review_state': ['published', 'visible'],
             'sort_on': 'getId',
             'sort_order': 'reverse',

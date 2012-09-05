@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <object name="eea_data_workflow" meta_type="Workflow"/>
- <object name="eea_imagefs_workflow" meta_type="Workflow"/>
+ <object name="eeafigurefile_image_workflow" meta_type="Workflow"/>
  <bindings>
   <type type_id="Data">
    <bound-workflow workflow_id="eea_data_workflow"/>
@@ -17,9 +17,6 @@
   </type>
   <type type_id="EEAFigureFile">
    <bound-workflow workflow_id="eea_data_workflow"/>
-  </type>
-  <type type_id="ImageFS">
-   <bound-workflow workflow_id="eea_imagefs_workflow"/>
   </type>
   <type type_id="DataFileLink">
    <bound-workflow workflow_id="eea_data_workflow"/>

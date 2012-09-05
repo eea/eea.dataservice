@@ -56,10 +56,6 @@ class IEEAFigureFile(Interface):
     """ Marker interface for Figure File
     """
 
-class IImageFS(Interface):
-    """ Marker interface for Image Filesystem
-    """
-
 class IWorkingList(Interface):
     """ Marker interface for ATTopic
     """

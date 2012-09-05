@@ -1,13 +1,12 @@
 Overview
 ========
 
-Use for debug: import pdb; pdb.set_trace()
-
 Lets use the sandbox.
 
     >>> from plone.app.testing import TEST_USER_ID
     >>> from plone.app.testing import setRoles
     >>> from eea.dataservice.tests.utils import loadblobfile
+    >>> from Products.CMFCore.utils import getToolByName
 
     >>> portal = layer['portal']
     >>> setRoles(portal, TEST_USER_ID, ['Manager'])
@@ -88,3 +87,12 @@ Try to download the image with index_html method
 
     >>> ff1['source_image2.eps.zoom.png'].index_html(portal.REQUEST, portal.REQUEST.response)
     <plone.app.blob.iterators.BlobStreamIterator object at ...>
+
+Check if EEAFigureFile has its local workflow policy set
+
+    >>> ppw = getToolByName(ff1, 'portal_placeful_workflow')
+    >>> config = ppw.getWorkflowPolicyConfig(ff1)
+    >>> config
+    <WorkflowPolicyConfig at ...>
+    >>> config.getPolicyBelowId()
+    'eeafigurefile_image_workflow'
