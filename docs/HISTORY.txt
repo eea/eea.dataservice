@@ -8,12 +8,17 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Bug fix: Cleanup zope.app.content.interfaces.IContentType dependency
+  [voineali]
 * Feature: Added test to cover local workflow policy of EEAFigureFiles
   [ghicaale refs #5499]
-
 * Cleanup: Removed all references to ImageFS
   [ghicaale refs #5499]
-
+* Change: Update references to eea.depiction (formerly valentine.imagescales)
+  [voineali refs #5497]
+* Feature: Added subscriber to add on all EEAFigureFiles on add/edit the
+  local workflow policy for Images
+  [ghicaale refs #5499]
 * Upgrade step:
     - under /www/portal_types/EEAFigureFile/manage_propertiesForm remove ImageFS
       from the 'Allowed content types' list
@@ -29,12 +34,6 @@
     - under /www/portal_workflow/manage_main delete eea_imagefs_workflow
     - [ghicaale refs #5499]
 
-* Change: Update references to eea.depiction (formerly valentine.imagescales)
-  [voineali refs #5497]
-
-* Feature: Added subscriber to add on all EEAFigureFiles on add/edit the
-  local workflow policy for Images
-  [ghicaale refs #5499]
 
 5.3 - (2012-08-29)
 ------------------
