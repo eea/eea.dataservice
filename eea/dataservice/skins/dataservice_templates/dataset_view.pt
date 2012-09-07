@@ -133,7 +133,7 @@ function showDefinition(context) {
                     </li>
                 </tal:block>
 
-                <li tal:repeat="fileb python:table.getFolderContents(contentFilter={'portal_type':'Sparql'})">            
+                <li tal:repeat="file python:table.getFolderContents(contentFilter={'portal_type':'Sparql'})">            
                     <span style="padding:1em 1em 1em 2em; position: relative; 
                        background: transparent url(/++resource++eea.sparql.images/rdf-icon.gif) no-repeat left center;">
                      <strong><a tal:attributes="href string:${file/getURL}"
