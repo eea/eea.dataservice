@@ -6,6 +6,12 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 
+# Logging
+import logging
+logger = logging.getLogger('eea.dataservice.organisations')
+info = logger.info
+info_exception = logger.exception
+
 
 class MoveOrganisationReferences(BrowserView):
     """ Transfer references from one organisation to another
@@ -68,6 +74,7 @@ class MoveOrganisationReferences(BrowserView):
         tf_ob = None
         tt_ob = None
 
+        info('starting moving organisation references')
         if transfer_from and transfer_to:
             query = {
                 'getId': transfer_from,
@@ -91,8 +98,11 @@ class MoveOrganisationReferences(BrowserView):
             related_objects = self.get_related_objects(tf_ob.getUrl(), cat)
             old_ref = tf_ob.getUrl()
             new_ref = tt_ob.getUrl()
+            count = 0
+            tot = len(related_objects)
 
             for obj in related_objects:
+                count += 1
                 ptype = obj.portal_type
                 if ptype in ['EEAFigure', 'Data']:
                     references = obj.getDataOwner()
@@ -131,9 +141,12 @@ class MoveOrganisationReferences(BrowserView):
                         assessment.reindexObject()
 
                 transaction.commit()
+                info('committed transaction %s of total %s' % \
+                     (count,tot))
 
-        msg = 'References transfered from "%s" to "%s"' % \
-                  (tf_ob.Title(), tt_ob.Title())
+        msg = '%s references transferred from "%s" to "%s"' % \
+                  (tot, tf_ob.Title(), tt_ob.Title())
+        info(msg)
         IStatusMessage(self.request).addStatusMessage(msg,
                                                                type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url() +

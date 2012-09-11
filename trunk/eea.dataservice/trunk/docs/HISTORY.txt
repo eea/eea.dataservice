@@ -8,6 +8,8 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Feature: Added logging when running move references on organisation.
+  [demarant refs #5485]
 * Bug fix: Cleanup zope.app.content.interfaces.IContentType dependency
   [voineali]
 * Feature: Added test to cover local workflow policy of EEAFigureFiles
