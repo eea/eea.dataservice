@@ -8,6 +8,8 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Change: use IVideo when checking for videos
+  [ichimdav #5480]
 * Feature: Added logging when running move references on organisation.
   [demarant refs #5485]
 * Bug fix: Cleanup zope.app.content.interfaces.IContentType dependency
