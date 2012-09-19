@@ -63,7 +63,7 @@
         desc_or_title python:brain.Description or obj_title;
         urlview obj/@@url;
         listing_url obj/absolute_url;
-        is_video python:'p4a.video.interfaces.IVideoEnhanced' in brain.object_provides">
+        is_video python:'eea.mediacentre.interfaces.IVideo' in brain.object_provides">
 
         <!-- a class="moreLink" tal:attributes="href string:${obj/absolute_url}/"
  		                            tal:condition="exists: obj/@@daviz-view.html"
