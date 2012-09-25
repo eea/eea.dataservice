@@ -8,6 +8,9 @@
 
 5.4-dev - (unreleased)
 ----------------------
+* Bug fix: don't fail on assessment view if Organisation is missing;
+  Instead, insert its owner.
+  [tiberich #5544]
 * Change: use IVideo when checking for videos
   [ichimdav #5480]
 * Feature: Added logging when running move references on organisation.
