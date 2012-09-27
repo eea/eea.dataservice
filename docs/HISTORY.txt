@@ -6,6 +6,9 @@
 [Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
+5.5-dev - (unreleased)
+----------------------
+
 5.4 - (2012-09-27)
 ------------------
 * Bug fix: don't fail on assessment view if Organisation is missing;
