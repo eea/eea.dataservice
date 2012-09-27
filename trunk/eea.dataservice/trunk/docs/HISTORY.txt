@@ -6,8 +6,8 @@
 [Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 
-5.4-dev - (unreleased)
-----------------------
+5.4 - (2012-09-27)
+------------------
 * Bug fix: don't fail on assessment view if Organisation is missing;
   Instead, insert its owner.
   [tiberich #5544]
@@ -40,7 +40,6 @@
     - under /www/portal_types/manage_main delete imageFS
     - under /www/portal_workflow/manage_main delete eea_imagefs_workflow
     - [ghicaale refs #5499]
-
 
 5.3 - (2012-08-29)
 ------------------
@@ -744,3 +743,4 @@
 -----------------
 * Initial release
   [ghicaale]
+
