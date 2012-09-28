@@ -4,6 +4,7 @@
 [Alin Voinea - alin.voinea at eaudeweb.ro]
 [Antonio De Marinis - Antonio.DeMarinis at eea.europa.eu]
 [Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
+[Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
 5.5-dev - (unreleased)
