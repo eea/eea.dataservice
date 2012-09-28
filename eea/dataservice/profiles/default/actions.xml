@@ -67,7 +67,7 @@
     <object name="working_list" meta_type="CMF Action" i18n:domain="eea">
       <property name="title" i18n:translate="">Working list</property>
       <property name="description" i18n:translate="">Working list</property>
-      <property name="url_expr">string:${globals_view/getCurrentFolderUrl}/folder_contents</property>
+      <property name="url_expr">string:${object_url}/folder_contents</property>
       <property name="available_expr">python:'eea.dataservice.interfaces.IWorkingList' in object.restrictedTraverse('@@get_interfaces')()</property>
       <property name="permissions">
         <element value="Modify portal content"/>

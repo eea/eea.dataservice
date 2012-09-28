@@ -222,6 +222,12 @@
     <implements interface="..interfaces.IWorkingList" />
   </class>
 
+  <configure zcml:condition="installed plone.app.collection">
+    <class class="plone.app.collection.collection.Collection">
+        <implements interface="..interfaces.IWorkingList" />
+    </class>
+  </configure>
+
   <browser:page
     for="..interfaces.IEEAFigureFile"
     name="fancybox.html"
