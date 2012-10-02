@@ -2,7 +2,6 @@
 """
 from datetime import datetime
 from DateTime import DateTime
-
 from zope.component import queryAdapter
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, LinesField, LinesWidget
@@ -14,13 +13,11 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from eea.dataservice.content.themes import ThemeTaggable
-
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.content.themes import IThemeTagging
 from eea.dataservice.widgets import MultiOrganisationsWidget
-# Validators
 from Products.validation.interfaces.IValidator import IValidator
 from Products.validation import validation
 

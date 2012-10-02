@@ -4,15 +4,28 @@ from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
-#from Products.Archetypes.Field import ReferenceField
-#from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+import logging
 
+logger = logging.getLogger('eea.dataservice')
+#
+# eea.relations
+#
+from Products.Archetypes.Field import ReferenceField
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+EEAReferenceBrowserWidget = ReferenceBrowserWidget
+EEAReferenceField = ReferenceField
+
+try:
+    from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+    from eea.relations.field import EEAReferenceField
+except ImportError:
+    logger.warn('eea.relations is not installed')
 
 # Schema
 schema = Schema((
@@ -56,8 +69,6 @@ schema = Schema((
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
-#eeafigure_schema['dataSource'].mode = "r"
-#eeafigure_schema['dataSource'].widget.modes = ['view']
 eeafigure_schema['dataSource'].required = False
 eeafigure_schema['dataSource'].widget.macro = "readonlytext_widget"
 eeafigure_schema['dataSource'].widget.label = "Source (deprecated)"

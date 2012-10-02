@@ -9,7 +9,6 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.Field import ReferenceField
-
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
