@@ -11,7 +11,7 @@
 ----------------------
 * Feature: dataOwner field under DavizVisualization content type
   is now moved then references are moved between two Organisations.
-  DavizVisualization statistics are noe listed under Organisation
+  DavizVisualization statistics are now listed under Organisation
   view only for authenticated users.
   [ghicaale fixes #5485]
 * Upgrade step:
