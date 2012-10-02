@@ -22,7 +22,7 @@ class MoveOrganisationReferences(BrowserView):
         """
         data = []
         query = {
-            'portal_type': ['EEAFigure', 'Data'],
+            'portal_type': ['EEAFigure', 'Data', 'DavizVisualization'],
             'getDataOwner': org_url,
             'show_inactive': True
         }
@@ -32,7 +32,7 @@ class MoveOrganisationReferences(BrowserView):
             data.append(brain.getObject())
 
         query = {
-            'portal_type': ['EEAFigure','Data'],
+            'portal_type': ['EEAFigure', 'Data', 'DavizVisualization'],
             'getProcessor': org_url,
             'show_inactive': True
         }
@@ -104,7 +104,7 @@ class MoveOrganisationReferences(BrowserView):
             for obj in related_objects:
                 count += 1
                 ptype = obj.portal_type
-                if ptype in ['EEAFigure', 'Data']:
+                if ptype in ['EEAFigure', 'Data', 'DavizVisualization']:
                     references = obj.getDataOwner()
                     if old_ref in references:
                         references = list(references)
