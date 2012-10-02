@@ -9,7 +9,6 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from eea.dataservice.interfaces import IDatatable
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 
-
 schema = Schema((
     StringField(
         name='category',

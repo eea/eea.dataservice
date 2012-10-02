@@ -7,7 +7,6 @@ from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
-
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
 
@@ -69,4 +68,3 @@ class Organisation(ATFolder):
         """ URL """
         field = self.getField('organisationUrl')
         return field.getAccessor(self)()
-
