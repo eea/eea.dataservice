@@ -8,8 +8,6 @@ from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
 import logging
 
 logger = logging.getLogger('eea.dataservice')
