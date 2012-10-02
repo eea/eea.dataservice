@@ -9,6 +9,11 @@
 
 5.5-dev - (unreleased)
 ----------------------
+* Feature: dataOwner field under DavizVisualization content type
+  is now moved then references are moved between two Organisations.
+  DavizVisualization statistics are noe listed under Organisation
+  view only for authenticated users.
+  [ghicaale fixes #5485]
 * Upgrade step:
    - under www/portal_actions/object/working_list change url expression to:
    - string:${object_url}/folder_contents

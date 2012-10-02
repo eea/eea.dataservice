@@ -12,8 +12,9 @@
                        odatasets python:data['owners'][0];
                        ofigures python:data['owners'][1];
                        oexternal python:data['owners'][2];
-                       oassessments python:data['owners'][3];
-                       ospecifications python:data['owners'][4];
+                       ovisualization python:data['owners'][3];
+                       oassessments python:data['owners'][4];
+                       ospecifications python:data['owners'][5];
                        pdatasets python:data['processor'][0];
                        pfigures python:data['processor'][1];
                        isAnon python: here.portal_membership.isAnonymousUser();">
@@ -56,6 +57,10 @@
             <p tal:condition="python:not isAnon and ospecifications">
                 <tal:rows content="python:len(ospecifications)" />
                 <span i18n:translate="">indicator specification</span>
+            </p>
+            <p tal:condition="python:not isAnon and ovisualization">
+                <tal:rows content="python:len(ovisualization)" />
+                <span i18n:translate="">data visualization</span>
             </p>
 
             <!-- Processor -->

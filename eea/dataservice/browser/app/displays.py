@@ -64,7 +64,7 @@ class OrganisationStatistics(object):
                 yield brain
 
     def __call__(self):
-        data = {'owners': ([], [], [], [], []), 'processor': ([], [])}
+        data = {'owners': ([], [], [], [], [], []), 'processor': ([], [])}
         cat = getToolByName(self.context, 'portal_catalog')
         memtool = getToolByName(self.context, 'portal_membership')
         query = {}
@@ -78,13 +78,18 @@ class OrganisationStatistics(object):
         query['portal_type'] = 'Specification'
         query['getOwnership'] = self.context.org_url()
         brains = cat.searchResults(query)
-        data['owners'][4].extend(self.getOnlyLastVersion(brains))
+        data['owners'][5].extend(self.getOnlyLastVersion(brains))
 
         query['portal_type'] = 'Assessment'
         query['getOwnership'] = self.context.org_url()
         brains = cat.searchResults(query)
-        data['owners'][3].extend(self.getOnlyLastVersion(brains))
+        data['owners'][4].extend(self.getOnlyLastVersion(brains))
         del query['getOwnership']
+
+        query['portal_type'] = 'DavizVisualization'
+        query['getDataOwner'] = self.context.org_url()
+        brains = cat.searchResults(query)
+        data['owners'][3].extend(self.getOnlyLastVersion(brains))
 
         query['portal_type'] = 'ExternalDataSpec'
         query['getDataOwner'] = self.context.org_url()
