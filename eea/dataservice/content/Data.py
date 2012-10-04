@@ -29,7 +29,6 @@ except ImportError:
 
 # Schema
 schema = Schema((
-    # Metadata
     TextField(
         name='geoAccuracy',
         languageIndependent=True,
@@ -93,7 +92,6 @@ schema = Schema((
         ),
     ),
 
-    # Fields for 'relations' schemata
     LinesField(
         schemata="categorization",
         name='reportingObligations',
@@ -134,35 +132,35 @@ schema = Schema((
             description="Specify relations to other EEA products within Plone.",
             description_msgid="help_related_products",
             i18n_domain="plone",
-            visible={'edit' : 'visible', 'view' : 'invisible' }
+            visible={'edit' : 'invisible', 'view' : 'invisible' }
             )
         ),
 
-    ReferenceField(
-        'relatedItems',
-        schemata="categorization",
-        relationship='relatesTo',
-        multiValued=True,
-        isMetadata=True,
-        languageIndependent=False,
-        index='KeywordIndex',
-        write_permission=ModifyPortalContent,
-        widget=EEAReferenceBrowserWidget(
-            allow_search=True,
-            allow_browse=True,
-            allow_sorting=True,
-            show_indexes=False,
-            force_close_on_insert=True,
-            label="This dataset is derived from",
-            label_msgid="dataservice_label_related_items",
-            description=("Specify the datasets from which this dataset "
-                         "is derived."),
-            description_msgid="dataservice_help_related_items",
-            i18n_domain="plone",
-            startup_directory='data',
-            visible={'edit' : 'visible', 'view' : 'invisible' }
-            )
-        )
+#    ReferenceField(
+#        'relatedItems',
+#        schemata="categorization",
+#        relationship='relatesTo',
+#        multiValued=True,
+#        isMetadata=True,
+#        languageIndependent=False,
+#        index='KeywordIndex',
+#        write_permission=ModifyPortalContent,
+#        widget=EEAReferenceBrowserWidget(
+#            allow_search=True,
+#            allow_browse=True,
+#            allow_sorting=True,
+#            show_indexes=False,
+#            force_close_on_insert=True,
+#            label="This dataset is derived from",
+#            label_msgid="dataservice_label_related_items",
+#            description=("Specify the datasets from which this dataset "
+#                         "is derived."),
+#            description_msgid="dataservice_help_related_items",
+#            i18n_domain="plone",
+#            startup_directory='data',
+#            visible={'edit' : 'visible', 'view' : 'invisible' }
+#            )
+ #       )
 ),)
 
 dataset_schema = dataservice_schema.copy() + schema.copy()

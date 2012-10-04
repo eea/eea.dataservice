@@ -5,7 +5,8 @@ try:
     ThemeTaggable = ThemeTaggable.ThemeTaggable
 except ImportError:
     class ThemeTaggable(object):
-        """ Empty """
+        """ Empty
+        """
 
 try:
     from eea.themecentre import interfaces
@@ -13,4 +14,5 @@ try:
 except ImportError:
     from zope.interface import Interface
     class IThemeTagging(Interface):
-        """ Theme tagging interface """
+        """ Theme tagging interface
+        """

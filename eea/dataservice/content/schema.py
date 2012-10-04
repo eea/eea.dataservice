@@ -124,7 +124,6 @@ validation.register(
 
 # Base schema for datasets and figures
 dataservice_base_schema = Schema((
-    # Metadata
     LinesField(
         name='geographicCoverage',
         languageIndependent=True,
@@ -325,7 +324,7 @@ dataservice_base_schema = Schema((
         ),
     ),
 
-    # Fields used only for redirects to old http://dataservice.eea.europa.eu
+    # Field used only for redirects to old http://dataservice.eea.europa.eu
     StringField(
         name='shortId',
         widget=StringWidget(
