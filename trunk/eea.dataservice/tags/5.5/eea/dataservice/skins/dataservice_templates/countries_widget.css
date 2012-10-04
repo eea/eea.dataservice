@@ -1,0 +1,18 @@
+#map_canvas {
+  margin-top: 3px;
+  display: none;
+}
+
+#show-map-preview {
+  margin-bottom: 3px
+}
+
+.countries-widget-select {
+  padding: 2px;
+  float: left;
+  margin-right: 1em
+}
+
+.countries-widget-select option {
+  padding: 1px 8px 1px 8px;
+}
