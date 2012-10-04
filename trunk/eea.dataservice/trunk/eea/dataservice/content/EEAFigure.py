@@ -27,7 +27,6 @@ except ImportError:
 
 # Schema
 schema = Schema((
-    # Metadata
     StringField(
         name='figureType',
         languageIndependent=False,
@@ -55,8 +54,7 @@ schema = Schema((
 
         keepReferencesOnCopy=True,
         widget=EEAReferenceBrowserWidget(
-            visible={'view':'invisible', 'edit':'visible'},
-            #label="Relations to other EEA products",
+            visible={'view':'invisible', 'edit':'invisible'},
             label="References to Data Sources and Publications",
             label_msgid="label_related_products",
             description="Specify relations to other EEA products within Plone.",
