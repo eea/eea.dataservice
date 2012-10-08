@@ -51,7 +51,6 @@ schema = Schema((
         languageIndependent=False,
         index='KeywordIndex',
         write_permission=ModifyPortalContent,
-
         keepReferencesOnCopy=True,
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'invisible'},
