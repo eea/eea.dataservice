@@ -17,6 +17,10 @@
         - module name: eea.dataservice.move_related_items
         - function name: move_related_items
     - Execute it
+    - Create an external method with:
+        - module name: eea.dataservice.move_related_items
+        - function name: migrate_relations
+    - Execute it
     - [ghicaale refs #2790]
 
 5.5 - (2012-10-04)
