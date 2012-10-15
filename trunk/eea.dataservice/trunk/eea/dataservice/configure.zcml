@@ -83,16 +83,16 @@
 
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
-    <adapter factory=".marshaller.ExtraMimetype2Surf" 
-        for="eea.dataservice.interfaces.IDatafile eea.rdfmarshaller.interfaces.ISurfSession" />
-    <adapter factory=".marshaller.ExtraMimetype2Surf" 
-        for="eea.dataservice.interfaces.IEEAFigureFile eea.rdfmarshaller.interfaces.ISurfSession" />
-    <adapter factory=".marshaller.ExtraMimetype2Surf" 
-        for="Products.ATContentTypes.interfaces.IATImage eea.rdfmarshaller.interfaces.ISurfSession" />
-    <adapter factory=".marshaller.ExtraMimetype2Surf" 
-        for="Products.ATContentTypes.interfaces.IATFile eea.rdfmarshaller.interfaces.ISurfSession" />
-    <adapter factory=".marshaller.ExtraMimetype2Surf" 
-        for="Products.EEAContentTypes.content.interfaces.IFlashAnimation eea.rdfmarshaller.interfaces.ISurfSession" />
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+        for="eea.dataservice.interfaces.IDatafile" />
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+        for="eea.dataservice.interfaces.IEEAFigureFile" />
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+        for="Products.ATContentTypes.interfaces.IATImage" />
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+        for="Products.ATContentTypes.interfaces.IATFile" />
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+        for="Products.EEAContentTypes.content.interfaces.IFlashAnimation" />
   </configure>
 
   <include package=".upgrades" />

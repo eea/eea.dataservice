@@ -5,35 +5,40 @@
 
 from Products.CMFPlone.utils import getToolByName
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
+from eea.rdfmarshaller.archetypes.fields import ATField2Surf
+from eea.rdfmarshaller.interfaces import ISurfResourceModifier
 from eea.rdfmarshaller.interfaces import ISurfSession
-from eea.rdfmarshaller.marshaller import ATField2Surf, ATCT2Surf
 from zope.component import adapts, getMultiAdapter
-#from zope.interface import Interface
+from zope.interface import Interface, implements
 
 
 class ManagementPlanField2Surf(ATField2Surf):
     """ Base implementation of IATField2Surf
     """
-    adapts(ManagementPlanField, ISurfSession)
+    adapts(ManagementPlanField, Interface, ISurfSession)
 
-    def value(self, context):
+    def value(self):
         """ Value
         """
-        v = self.field.getAccessor(context)()
+        v = self.field.getAccessor(self.context)()
         if v and (len(v) == 2):
             return "%s %s" % (v[0], v[1])
         return " - ".join(v)
 
 
-class ExtraMimetype2Surf(ATCT2Surf):
-    """generic adapter for content types that want to publish info about
+class ExtraMimetype2SurfModifier(object):
+    """Modifier for content types that want to publish info about
     their file mimetypes
     """
-    #adapts(Interface, ISurfSession)
 
-    def _schema2surf(self):
-        """override"""
-        resource = super(ExtraMimetype2Surf, self)._schema2surf()
+    implements(ISurfResourceModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def run(self, resource, *args, **kwds):
+        """change the rdf resource
+        """
         catalog = getToolByName(self.context, "portal_catalog")
         indexer = getMultiAdapter((self.context, catalog), name="filetype")
         mimetypes = indexer()
