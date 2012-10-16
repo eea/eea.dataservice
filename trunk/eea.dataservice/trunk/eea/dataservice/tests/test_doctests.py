@@ -9,10 +9,27 @@ OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
 
+HAS_EEARDFMARSHALLER = True
+try:
+    import eea.rdfmarshaller
+except ImportError:
+    HAS_EEARDFMARSHALLER = False
+
 def test_suite():
     """ Suite
     """
     suite = unittest.TestSuite()
+    if HAS_EEARDFMARSHALLER:
+        suite.addTests([
+            layered(
+                doctest.DocFileSuite(
+                    'doc/marshaller.txt',
+                    optionflags=OPTIONFLAGS,
+                    package='eea.dataservice'),
+                layer=FUNCTIONAL_TESTING),])
+
+    return suite
+
     suite.addTests([
         layered(
             doctest.DocFileSuite(
