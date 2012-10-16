@@ -23,7 +23,7 @@ class ManagementPlanField2Surf(ATField2Surf):
         v = self.field.getAccessor(self.context)()
         if v and (len(v) == 2):
             return "%s %s" % (v[0], v[1])
-        return " - ".join(v)
+        return (" - ".join(v), None)
 
 
 class ExtraMimetype2SurfModifier(object):
