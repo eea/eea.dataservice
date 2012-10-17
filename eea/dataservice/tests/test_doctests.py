@@ -27,8 +27,6 @@ def test_suite():
                     package='eea.dataservice'),
                 layer=FUNCTIONAL_TESTING),])
 
-    return suite
-
     suite.addTests([
         layered(
             doctest.DocFileSuite(
