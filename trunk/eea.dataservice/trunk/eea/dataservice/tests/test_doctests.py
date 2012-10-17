@@ -9,11 +9,10 @@ OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
 
-HAS_EEARDFMARSHALLER = True
 try:
-    import eea.rdfmarshaller
+    import eea.rdfmarshaller as HAS_EEARDFMARSHALLER
 except ImportError:
-    HAS_EEARDFMARSHALLER = False
+    HAS_EEARDFMARSHALLER = None
 
 def test_suite():
     """ Suite
