@@ -4,6 +4,9 @@ from plone.testing import z2
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
+import logging
+
+logger = logging.getLogger('eea.dataservice.tests')
 
 
 class EEAFixture(PloneSandboxLayer):
@@ -21,7 +24,7 @@ class EEAFixture(PloneSandboxLayer):
             import eea.rdfmarshaller
             self.loadZCML(package=eea.rdfmarshaller)
         except ImportError:
-            pass
+            logger.debug("Disabling tests that depend on eea.rdfmarshaller")
 
         z2.installProduct(app, 'Products.ATVocabularyManager')
         z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
