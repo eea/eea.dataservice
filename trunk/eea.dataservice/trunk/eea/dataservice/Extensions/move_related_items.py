@@ -16,10 +16,12 @@ def move_related_items(self, **kw):
     query = {'Language': 'all',
              'portal_type': ['Data', 'EEAFigure']}
 
+    count = 0
     brains = catalog(**query)
     logger.info('Start moving data from relatedProducts to relatedItems')
 
     for brain in brains:
+        count += 1
         obj = brain.getObject()
         rel_prod = obj.getRelatedProducts()
         if rel_prod:
@@ -27,6 +29,9 @@ def move_related_items(self, **kw):
             rel.extend(rel_prod)
             obj.setRelatedItems(rel)
             logger.info('Relations merged: %s' % obj.absolute_url())
+
+        if not (count % 20):
+            transaction.commit()
 
     transaction.commit()
     logger.info('Done moving data from relatedProducts to relatedItems')
@@ -37,25 +42,32 @@ def migrate_relations(self, **kw):
         once relatedProducts field is deprecated
     """
     catalog = getToolByName(self, "portal_catalog")
+
+    # Fix bad relations of Data objects
     query = {'Language': 'all',
              'portal_type': ['Data']}
 
+    count = 0
     brains = catalog(**query)
-    logger.info('Start fixing bad relations')
+    logger.info('Start fixing relations')
 
     for brain in brains:
+        count += 1
         obj = brain.getObject()
         relations = obj.getRelatedItems()
 
         for rel in relations:
             if rel.portal_type == 'EEAFigure':
+                logger.info('Fixing relations for: /%s' % obj.absolute_url(1))
                 relations.remove(rel)
                 fig_rel = rel.getRelatedItems()
                 fig_rel.append(obj)
                 rel.setRelatedItems(fig_rel)
 
         obj.setRelatedItems(relations)
+        if not (count % 20):
+            transaction.commit()
 
     transaction.commit()
-    logger.info('Done fixing bad relations')
+    logger.info('Done fixing relations')
     return "Done"
