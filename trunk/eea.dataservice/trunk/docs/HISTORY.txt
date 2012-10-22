@@ -14,7 +14,7 @@
 * WIP :: Change: merged values from relatedProducts field to relatedItems
   field for EEAFigure and Data objects.
   [ghicaale refs #2790]
-* Upgrade step:
+* WIP :: Upgrade step:
     - Create an external method with:
         - module name: eea.dataservice.move_related_items
         - function name: move_related_items
@@ -23,6 +23,10 @@
         - module name: eea.dataservice.move_related_items
         - function name: migrate_relations
     - Execute it
+    - [ghicaale refs #2790]
+* Upgrade step:
+    - Go under /www/portal_relations/@@badrelations.html
+      and see/fix the remaining wrong relations
     - [ghicaale refs #2790]
 
 5.5 - (2012-10-04)
