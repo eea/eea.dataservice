@@ -4,21 +4,26 @@ import doctest
 import unittest
 from eea.dataservice.tests.base import FUNCTIONAL_TESTING
 from plone.testing import layered
+import logging
+
+logger = logging.getLogger("eea.dataservice")
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
 
+HAS_Marshaller = False
 try:
-    import eea.rdfmarshaller as HAS_EEARDFMARSHALLER
+    import eea.rdfmarshaller as HAS_Marshaller
 except ImportError:
-    HAS_EEARDFMARSHALLER = None
+    logger.warning("Could not find eea.rdfmarshaller package")
 
 def test_suite():
     """ Suite
     """
     suite = unittest.TestSuite()
-    if HAS_EEARDFMARSHALLER:
+
+    if HAS_Marshaller:
         suite.addTests([
             layered(
                 doctest.DocFileSuite(
