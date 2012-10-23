@@ -56,7 +56,7 @@ def migrate_relations(self, **kw):
         obj = brain.getObject()
         relations = obj.getRelatedItems()
 
-        for rel in relations:
+        for rel in obj.getRelatedItems():
             if rel.portal_type == 'EEAFigure':
                 logger.info('Fixing relations for: /%s' % obj.absolute_url(1))
                 relations.remove(rel)
