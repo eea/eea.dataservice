@@ -497,13 +497,12 @@ function showDefinition(context) {
                                          if  o.portal_type in ('ExternalDataSpec', 'Data')];
                         ">
 
-
         <dt tal:condition="python:value or related" 
             tal:define="tooltip string:Data sources used to produce this resource.">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="">Data sources</span>
         </dt>
-        
+
         <dd tal:content="structure value" 
             tal:condition="python: value and not related">source</dd>
 
