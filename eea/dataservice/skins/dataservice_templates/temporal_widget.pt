@@ -48,6 +48,7 @@
                  value=""
                  tal:condition="not:field/required|nothing"
                  tal:attributes="name string:$fieldName:default:list;" />
+         <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
           <span tal:repeat="item vocab" tal:omit-tag=""
                 tal:condition="python:format=='checkbox'">
             <tal:block>
@@ -86,7 +87,7 @@
                     i18n:translate="" />
           </select>
           <p style="margin-left: 90px">
-            <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" /><br />
+            <strong i18n:translate="">Current value:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span tal:content="here/@@formatTempCoverage" id="current_temporalCoverage" /><br />
              <strong i18n:translate="">Selected value:</strong>&nbsp;&nbsp;<span tal:attributes="id string:info_${fieldName}" tal:content="here/@@formatTempCoverage" />
           </p>
           <div class="visualClear">&nbsp;</div>

@@ -42,7 +42,7 @@ a#fancybox-left, a#fancybox-right {
   display: none;
 }
 
-#fancybox-title-right {
+#fancybox-title-right, #temporal_dynamic {
   display: none;
 }
 
