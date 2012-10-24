@@ -65,6 +65,10 @@
               </div>
             </tal:block>
           </span>
+          
+          <p>
+            <span id="temporal_btn" class="dataservice_btn">[-]</span> <tal:block i18n:translate="">Dynamic Temporal Coverage</tal:block>
+          </p>
 
           <select multiple="multiple"
                   tal:condition="python:format=='select'"
