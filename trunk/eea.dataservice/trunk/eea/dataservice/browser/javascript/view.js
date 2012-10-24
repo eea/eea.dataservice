@@ -50,6 +50,6 @@ Figures.Load = function(){
 jQuery(function($) {
    var tempCoverage = $("#tempCoverage"); 
    if(tempCoverage && tempCoverage.text() === "0000") {
-        tempCoverage.text('Dynamic');
+        tempCoverage.text($("#temporal_dynamic").text());
     }
 });
