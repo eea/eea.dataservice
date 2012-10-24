@@ -46,3 +46,10 @@ Figures.Load = function(){
   var context = jQuery('#region-content');
     Figures.fancybox = new Figures.PhotoAlbum(context);
 };
+
+jQuery(function($) {
+   var tempCoverage = $("#tempCoverage"); 
+   if(tempCoverage && tempCoverage.text() === "0000") {
+        tempCoverage.text('Dynamic');
+    }
+});

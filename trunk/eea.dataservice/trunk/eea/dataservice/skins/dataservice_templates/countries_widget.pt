@@ -67,7 +67,10 @@
           </span>
 
           <p id="show-map-preview">
-            <span id="map_btn" style="cursor: pointer; color: green">[-]</span> <tal:block i18n:translate="">Show map preview</tal:block>
+            <span id="map_btn" class="dataservice_btn">[-]</span> <tal:block i18n:translate="">Show map preview</tal:block>
+          </p>
+          <p>
+            <span id="geographical_btn" class="dataservice_btn">[-]</span> <tal:block i18n:translate="">Dynamic Geographical Coverage</tal:block>
           </p>
           <!-- Country groups -->
           <select multiple="multiple"

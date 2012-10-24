@@ -9,6 +9,9 @@
 
 5.6-dev - (unreleased)
 ----------------------
+* Feature: added 'dynamic' entry option for Temporal and Geographical coverage 
+  for situation where you don't know ahead of time these values
+  [ichimdav #5438]
 * Bug fix: conform to eea.rdfmarshaller API changes
   [tiberich #3981]
 * WIP :: Change: merged values from relatedProducts field to relatedItems

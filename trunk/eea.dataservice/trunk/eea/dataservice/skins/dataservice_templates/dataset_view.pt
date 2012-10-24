@@ -341,7 +341,7 @@ function showDefinition(context) {
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="">Temporal coverage:</span>
         </dt>
-        <dd tal:content="context/@@formatTempCoverage" />
+        <dd tal:content="context/@@formatTempCoverage" id="tempCoverage" />
     </tal:block>
 
     <!-- Last upload -->
@@ -360,7 +360,7 @@ function showDefinition(context) {
     <tal:block metal:define-macro="geo-coverage"
                define="field python:context.getField('geographicCoverage');
                        value python:field.getAccessor(context)()"
-               condition="value">
+               condition="python:value and '00' not in value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="">Geographical coverage:</span>
