@@ -48,8 +48,10 @@ Figures.Load = function(){
 };
 
 jQuery(function($) {
-   var tempCoverage = $("#tempCoverage"); 
-   if(tempCoverage && tempCoverage.text() === "-1") {
-        tempCoverage.text($("#temporal_dynamic").text());
+   var tempCoverage = $("#tempCoverage"),
+        temporalDynamicText = $("#temporal_dynamic").text(),
+       tempCoverageText = tempCoverage.text();
+   if(tempCoverage && tempCoverageText.indexOf('-1') !== -1) {
+        tempCoverage.text(tempCoverageText.replace('-1', temporalDynamicText));
    }
 });
