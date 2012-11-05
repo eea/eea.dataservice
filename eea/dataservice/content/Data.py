@@ -139,6 +139,12 @@ schema = Schema((
 
 dataset_schema = dataservice_schema.copy() + schema.copy()
 
+# require temporalCoverage and geographicCoverage only for publishing
+dataset_schema['temporalCoverage'].required_for_published = True
+dataset_schema['temporalCoverage'].required = False
+dataset_schema['geographicCoverage'].required = False
+dataset_schema['geographicCoverage'].required_for_published = True
+
 # Set position on form
 dataset_schema.moveField('disclaimer', after='contact')
 dataset_schema.moveField('geoAccuracy', before='contact')

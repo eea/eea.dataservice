@@ -49,7 +49,7 @@ Figures.Load = function(){
 
 jQuery(function($) {
    var tempCoverage = $("#tempCoverage"); 
-   if(tempCoverage && tempCoverage.text() === "0000") {
+   if(tempCoverage && tempCoverage.text() === "-1") {
         tempCoverage.text($("#temporal_dynamic").text());
-    }
+   }
 });

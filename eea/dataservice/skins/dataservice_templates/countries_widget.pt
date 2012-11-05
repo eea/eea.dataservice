@@ -81,6 +81,7 @@
                   tal:define="groups here/@@getCountryGroups"
                   class="countries-widget-select">
 
+
               <option tal:repeat="item python:groups.items()"
                       selected=""
                       tal:attributes="value python:item[0];
@@ -97,6 +98,11 @@
                                   size widget/size;"
                   tal:define="coutries here/@@getCountries"
                   class="countries-widget-select">
+
+                  <option id="dynamic_geographical" i18n:translate="" 
+                            tal:attributes="value string:Dynamic;
+                            selected python:test('Dynamic' in value, 'selected', None);" 
+                            i18n:attributes="value">Dynamic</option>
 
               <option tal:repeat="item coutries"
                       selected=""
