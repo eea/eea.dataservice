@@ -1,22 +1,19 @@
-function showCoverage() {
+function showCoverage(temporal_dynamic) {
     var $temporalCoverageVal = jQuery("#temporalCoverage").val(),
         $infoTemporal = jQuery("#info_temporalCoverage");
     if ($temporalCoverageVal[0] === '-1') {
-        $infoTemporal.html($("#temporal_dynamic").text());
+        $temporalCoverageVal[0] = temporal_dynamic;
     }
-    else {
-        $infoTemporal.html($temporalCoverageVal.reverse().join(', '));
-    }
+    $infoTemporal.html($temporalCoverageVal.reverse().join(', '));
 }
 
-function setCoverageInfo() {
+function setCoverageInfo(temporal_dynamic) {
     jQuery("#temporalCoverage").change(function () {
-        showCoverage();
+        showCoverage(temporal_dynamic);
     });
 }
 
 jQuery(document).ready(function($) {
-    setCoverageInfo();
 
     $("#temporal_btn, #geographical_btn").toggle(function() {
         var $this = $(this);
@@ -30,11 +27,12 @@ jQuery(document).ready(function($) {
     var temporal_dynamic = $("#temporal_dynamic").text(),
         current_temporalCoverage = $("#current_temporalCoverage"),
         info_temporalCoverage = $("#info_temporalCoverage");
-    if (current_temporalCoverage.text() === '-1') {
-        current_temporalCoverage.text(temporal_dynamic);
+    if (current_temporalCoverage.text().indexOf('-1') !== -1) {
+        current_temporalCoverage.text(current_temporalCoverage.text().replace('-1', temporal_dynamic));
     }
-    if (info_temporalCoverage.text() === '-1') {
-        info_temporalCoverage.text(temporal_dynamic);
+    if (info_temporalCoverage.text().indexOf('-1') !== -1) {
+        info_temporalCoverage.text(info_temporalCoverage.text().replace('-1', temporal_dynamic));
     }
 
+    setCoverageInfo(temporal_dynamic);
 });
