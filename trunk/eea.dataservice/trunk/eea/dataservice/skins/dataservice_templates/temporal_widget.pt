@@ -48,7 +48,6 @@
                  value=""
                  tal:condition="not:field/required|nothing"
                  tal:attributes="name string:$fieldName:default:list;" />
-         <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
           <span tal:repeat="item vocab" tal:omit-tag=""
                 tal:condition="python:format=='checkbox'">
             <tal:block>
@@ -78,6 +77,9 @@
                   size widget/size"
                   style="float:left; padding: 2px" 
                   >
+
+            <option id="temporal_dynamic" i18n:translate="" tal:attributes="value string:-1; selected python:test('-1' in value, 'selected', None)" i18n:attributes="value" >Dynamic</option>
+
             <option selected=""
                     tal:repeat="item vocab"
                     tal:attributes="value nocall:item;
