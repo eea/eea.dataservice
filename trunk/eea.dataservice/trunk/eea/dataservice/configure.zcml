@@ -83,6 +83,7 @@
 
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
+    <adapter factory=".marshaller.TemporalCoverageField2Surf" name="temporalCoverage" />
     <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
         for="eea.dataservice.interfaces.IDatafile" />
     <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
