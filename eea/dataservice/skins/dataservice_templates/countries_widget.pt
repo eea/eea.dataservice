@@ -67,7 +67,7 @@
           </span>
 
           <p>
-            <input type='checkbox' id="geographical_btn"  /> <span i18n:translate="">Dynamic Geographical Coverage</tal:span>
+            <input type='checkbox' id="geographical_btn"  /> <span i18n:translate="">Dynamic Geographical Coverage</span>
           </p>
           <!-- Country groups -->
           <select multiple="multiple"
