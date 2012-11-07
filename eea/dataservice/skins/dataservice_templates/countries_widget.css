@@ -21,3 +21,8 @@
     cursor: pointer;
     color: green;
 }
+
+option:disabled {
+    background: beige;
+    color: #DDD !important;
+}

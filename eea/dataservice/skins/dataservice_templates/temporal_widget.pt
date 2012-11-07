@@ -67,7 +67,7 @@
           </span>
           
           <p>
-            <span id="temporal_btn" class="dataservice_btn">[-]</span> <tal:block i18n:translate="">Dynamic Temporal Coverage</tal:block>
+            <input type="checkbox" id="temporal_btn"/> <span i18n:translate="">Dynamic Temporal Coverage</span>
           </p>
 
           <select multiple="multiple"
