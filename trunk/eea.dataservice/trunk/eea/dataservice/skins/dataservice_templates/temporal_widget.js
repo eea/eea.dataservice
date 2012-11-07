@@ -14,15 +14,24 @@ function setCoverageInfo(temporal_dynamic) {
 }
 
 jQuery(document).ready(function($) {
-
-    $("#temporal_btn, #geographical_btn").toggle(function() {
+    $("#temporal_btn, #geographical_btn").click(function() {
         var $this = $(this);
-        var $select = this.id === 'temporal_btn' ? $this.parent().next() : $this.parent().next().next();
+        var isTemporal = this.id === 'temporal_btn';
+        var $select =  isTemporal ? $this.parent().next() : $this.parent().next().next();
+    if($(this).is(":checked") ) {
         $select.val($select[0][0].value).trigger('change');
-        this.innerHTML = '[x]';
-    }, function() {
-        this.innerHTML = '[-]';
-    });
+        $select.find('option:not(":first-child)"').attr('disabled', true);
+        if (!isTemporal) {
+            $select.prev().hide();
+        }
+    }
+    else { 
+        $select.find('option:not(":first-child)"').attr('disabled', false);
+        if (!isTemporal) {
+            $select.prev().show();
+        }
+    }
+    }); 
 
     var temporal_dynamic = $("#temporal_dynamic").text(),
         current_temporalCoverage = $("#current_temporalCoverage"),
