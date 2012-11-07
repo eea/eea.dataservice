@@ -4,6 +4,7 @@
 #from eea.dataservice.interfaces import IDatafile
 
 from Products.CMFPlone.utils import getToolByName
+from Products.Archetypes.atapi import LinesField
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.rdfmarshaller.archetypes.fields import ATField2Surf
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
@@ -25,6 +26,17 @@ class ManagementPlanField2Surf(ATField2Surf):
             return "%s %s" % (v[0], v[1])
         return (" - ".join(v), None)
 
+class TemporalCoverageField2Surf(ATField2Surf):
+    """ temporalCoverage rdf export which removes export if it's value contains
+    -1 from the dynamic entry
+    """
+    adapts(LinesField, Interface, ISurfSession)
+
+    def value(self):
+        """ Value
+        """
+        v = self.field.getAccessor(self.context)()
+        return "" if v[0] == '-1' else v
 
 class ExtraMimetype2SurfModifier(object):
     """Modifier for content types that want to publish info about
