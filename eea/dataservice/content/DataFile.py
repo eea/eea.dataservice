@@ -1,4 +1,4 @@
-""" Data File
+""" Data File content type
 """
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema

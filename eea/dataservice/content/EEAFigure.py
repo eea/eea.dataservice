@@ -1,5 +1,6 @@
-""" EEA Figure
+""" EEA Figure content type
 """
+import logging
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField
 from Products.ATContentTypes.content.folder import ATFolder
@@ -8,22 +9,17 @@ from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
-import logging
-
-logger = logging.getLogger('eea.dataservice')
-#
-# eea.relations
-#
 from Products.Archetypes.Field import ReferenceField
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 EEAReferenceBrowserWidget = ReferenceBrowserWidget
 EEAReferenceField = ReferenceField
-
 try:
     from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
     from eea.relations.field import EEAReferenceField
 except ImportError:
     logger.warn('eea.relations is not installed')
+
+logger = logging.getLogger('eea.dataservice')
 
 # Schema
 schema = Schema((

@@ -1,5 +1,6 @@
-""" Data
+""" Data content type
 """
+import logging
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
@@ -13,22 +14,17 @@ from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
-import logging
-
-logger = logging.getLogger('eea.dataservice')
-#
-# eea.relations
-#
+from eea.geotags.field import GeotagsLinesField
+from eea.geotags.widget import GeotagsWidget
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 EEAReferenceBrowserWidget = ReferenceBrowserWidget
-
 try:
     from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 except ImportError:
     logger.warn('eea.relations is not installed')
 
-from eea.geotags.field import GeotagsLinesField
-from eea.geotags.widget import GeotagsWidget
+logger = logging.getLogger('eea.dataservice')
+
 # Schema
 schema = Schema((
     TextField(
