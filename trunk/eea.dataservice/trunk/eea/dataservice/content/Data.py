@@ -27,8 +27,8 @@ try:
 except ImportError:
     logger.warn('eea.relations is not installed')
 
-from eea.geotags import field
-from eea.geotags import widget
+from eea.geotags.field import GeotagsLinesField
+from eea.geotags.widget import GeotagsWidget
 # Schema
 schema = Schema((
     TextField(
@@ -137,13 +137,14 @@ schema = Schema((
             visible={'edit' : 'invisible', 'view' : 'invisible' }
             )
         ),
-        field.GeotagsLinesField('location',
+        GeotagsLinesField('location',
             schemata='categorization',
             required=False,
             required_for_published = True,
-            widget=widget.GeotagsWidget(
-                label='Location',
-                description="Multiple geo tags"
+            widget=GeotagsWidget(
+                label='Geotags',
+                description="Geotags: multiple geographical locations related"\
+                        " to this content."
             )
         ),
 ),)

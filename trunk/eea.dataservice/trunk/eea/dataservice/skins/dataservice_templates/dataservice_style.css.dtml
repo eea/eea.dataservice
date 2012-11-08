@@ -5,11 +5,6 @@
 #content .metadata-container dd {
     margin-left: 3em; }
 
-#map_canvas {
-    float: left;
-    margin-right: 10px;
-    margin-top: 3px; }
-
 .table-definition-show {
     cursor: pointer;
     color: green; }

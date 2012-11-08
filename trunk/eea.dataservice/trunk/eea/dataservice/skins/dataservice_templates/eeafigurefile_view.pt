@@ -16,12 +16,6 @@
 <div metal:fill-slot="content-core">
     <style>
         dd {margin-left: 3em}
-
-        #map_canvas {
-            float: left;
-            margin-right: 10px;
-            margin-top: 3px; }
-            
         #figures-fancyimage {
                margin: 0;
            }
