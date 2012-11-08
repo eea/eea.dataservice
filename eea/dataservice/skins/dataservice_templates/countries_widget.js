@@ -1,20 +1,3 @@
-// Show/Hide map preview
-function showMap() {
-  if (jQuery('#map_btn').html() == '[-]') {
-    jQuery('#map_canvas').css("display","block");
-    jQuery('#map_btn').html('[x]');
-  }
-  else {
-    jQuery('#map_canvas').css("display","none");
-    jQuery('#map_btn').html('[-]');
-  }
-}
-
-function setMapBtn() {
-  jQuery('#map_btn').click(function () {
-    showMap();
-  });
-}
 
 function showInfo() {
   var countries = jQuery('#geographicCoverage').val();
@@ -99,6 +82,5 @@ function setWidgetSync() {
 }
 
 jQuery(document).ready(function() {
-  setMapBtn();
   setWidgetSync();
 });

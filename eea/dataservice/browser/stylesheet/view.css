@@ -76,11 +76,6 @@ img.eea-image-width-control {
   width: auto;
 }
 
-#map_canvas {
-  float: left;
-  margin-right: 10px;
-  margin-top: 3px; }
-
 .map-photo-album {
   padding-bottom: 1em;
 }

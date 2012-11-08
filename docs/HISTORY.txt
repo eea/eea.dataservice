@@ -9,6 +9,10 @@
 
 5.6-dev - (unreleased)
 ----------------------
+* Change: removed map_canvas related code added in egg 1.0, which was suppose
+  to bring a map preview in the geographical Coverage widget but was never
+  completed
+  [ichimdav]
 * Change: added location field directly on the schema in order for it to be 
   only required_for_publish
   [ichimdav #9423]
@@ -98,7 +102,7 @@
   not to have missing thumbs for EEAFigureFiles till migration
   from ImageFS to Image is done
   [ghicaale refs #4190]
-* Bug fix: check if widget has already loded for the given context
+* Bug fix: check if widget has already loaded for the given context
   to avoid table duplication for MultiSelectWidget
   [ichimdav fixes #5336]
 * Bug fix: fixed URL for sparql.
