@@ -1,4 +1,4 @@
-""" EEA Figure File
+""" EEA Figure File content type
 """
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField, StringWidget

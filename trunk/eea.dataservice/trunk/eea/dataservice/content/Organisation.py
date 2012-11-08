@@ -1,4 +1,4 @@
-""" Organisation
+""" Organisation content type
 """
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringWidget
