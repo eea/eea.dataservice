@@ -6,7 +6,6 @@ from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
 from zope.publisher.interfaces import NotFound
 
-
 class GetIMSimage(object):
     """ Get image to be displayed on IMS portal
     """
@@ -30,14 +29,13 @@ class GetIMSimage(object):
         else:
             raise NotFound(self.request, image)
 
-
 class FigureObjectReadiness(ObjectReadiness):
-    """Object readiness state info for Figures
+    """ Object readiness state info for Figures
     """
     checks = {
         'published':[(
             lambda o:not bool(set(('Data','ExternalDataSpec')).intersection(
-                set([x.portal_type for x in o.getRelatedProducts()]))),
+                set([x.portal_type for x in o.getRelatedItems()]))),
             'At least one references to a data source is required'
         )]
     }
