@@ -21,10 +21,10 @@
   [ichimdav #5438]
 * Bug fix: conform to eea.rdfmarshaller API changes
   [tiberich #3981]
-* WIP :: Change: merged values from relatedProducts field to relatedItems
+* Change: merged values from relatedProducts field to relatedItems
   field for EEAFigure and Data objects.
-  [ghicaale refs #2790]
-* WIP :: Upgrade step:
+  [ghicaale refs #6773]
+* Upgrade step:
     - Create an external method with:
         - module name: eea.dataservice.move_related_items
         - function name: move_related_items
@@ -33,11 +33,17 @@
         - module name: eea.dataservice.move_related_items
         - function name: migrate_relations
     - Execute it
-    - [ghicaale refs #2790]
+    - [ghicaale refs #6773]
 * Upgrade step:
     - Go under /www/portal_relations/@@badrelations.html
       and see/fix the remaining wrong relations for EEAFigures and Data
-    - [ghicaale refs #2790]
+    - [ghicaale refs #6773]
+* Upgrade step:
+    - This step must be done last, once all the above are done
+    - Add in portal_skins/custom the following templates:
+        - dataset_view.pt: comment/delete logic from <metal:related-products>
+        - eeafigure_view.pt: comment/delete logic from <tal:related>
+    - [ghicaale refs #6773]
 
 5.5 - (2012-10-04)
 ------------------
