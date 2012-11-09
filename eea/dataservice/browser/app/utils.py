@@ -1,3 +1,5 @@
+""" EEA Dataservice browser utils 
+"""
 from Products.Five import BrowserView
 from Products.CMFPlone.utils import getToolByName
 
