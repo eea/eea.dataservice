@@ -43,6 +43,12 @@
     - Add in portal_skins/custom the following templates:
         - dataset_view.pt: comment/delete logic from <metal:related-products>
         - eeafigure_view.pt: comment/delete logic from <tal:related>
+    - Remove and svn commit any reference to "relatedProducts" from:
+        - eea.dataservice/content/Data.py
+        - eea.dataservice/content/EEAFigure.py
+        - eea.dataservice/browser/app/utils.py
+        - eea.dataservice/browser/app/display.py
+        - etc
     - [ghicaale refs #6773]
 
 5.5 - (2012-10-04)

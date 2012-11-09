@@ -4,7 +4,7 @@ from Products.Five import BrowserView
 from Products.CMFPlone.utils import getToolByName
 
 class VisibleRelatedProducts(BrowserView):
-    """Registered as @@related_products
+    """ Registered as @@related_products
     """
     def __call__(self):
         products = self.context.getRelatedProducts()
