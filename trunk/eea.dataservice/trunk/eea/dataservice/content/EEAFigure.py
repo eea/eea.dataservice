@@ -13,13 +13,14 @@ from Products.Archetypes.Field import ReferenceField
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 EEAReferenceBrowserWidget = ReferenceBrowserWidget
 EEAReferenceField = ReferenceField
+
+logger = logging.getLogger('eea.dataservice')
 try:
     from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
     from eea.relations.field import EEAReferenceField
 except ImportError:
     logger.warn('eea.relations is not installed')
 
-logger = logging.getLogger('eea.dataservice')
 
 # Schema
 schema = Schema((
