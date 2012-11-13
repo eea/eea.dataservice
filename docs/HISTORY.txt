@@ -16,9 +16,10 @@
 * Change: added location field directly on the schema in order for it to be 
   only required_for_publish
   [ichimdav #9423]
-* Feature: added 'dynamic' entry option for Temporal and Geographical coverage 
-  for situation where you don't know ahead of time these values
-  [ichimdav #5438]
+* Feature: added 'dynamic' entry option for Temporal, Geographical coverage 
+  and Geotags on Data and EEAFigure for situation where you don't know ahead 
+  of time these values
+  [ichimdav #5438 #9423]
 * Bug fix: conform to eea.rdfmarshaller API changes
   [tiberich #3981]
 * Change: merged values from relatedProducts field to relatedItems
