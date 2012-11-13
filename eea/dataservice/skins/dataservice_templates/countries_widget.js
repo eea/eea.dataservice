@@ -81,6 +81,35 @@ function setWidgetSync() {
   });
 }
 
+// add Dynamic Geotags checkbox on geotags widget in Data and EEAFigure edit form
+// TODO: #9423 move this code in a geotags related file
+function setDynamicGeotags() {
+  jQuery("<p><input type='checkbox' id='dynamic_geotags' />" +
+         "<span id='dynamic_geotags_span'>Dynamic Geotags Coverage</span></p>")
+        .insertAfter('#location_help');
+  jQuery('<span class="formHelp" id="dynamic_geotags_help">' +
+         'Warning: Checking this option will remove any previously set geotags</span>')
+        .insertAfter("#dynamic_geotags_span");
+  var location_edit = jQuery("#location-edit");
+  jQuery("#dynamic_geotags").click(function() {
+      if(jQuery(this).is(":checked") ) {
+          location_edit.attr('disabled', true);
+          jQuery("#location-geopreview").prev().text(
+            '{"type": "FeatureCollection", "features": [{"geometry":' +
+            '{"type": "Point", "coordinates": [0, 0]}, "type": "Feature",' + 
+            '"bbox": [], "properties": {"description": "", "tags": "area",' +
+            '"country": null, "center": [0, 0], "other": {"name": "Dynamic",' +
+            '"geonameId": 6295630, "toponymName": "Dynamic",' +
+            '"fclName": "parks,area, ...", "fcode": "AREA", "lat": 0, "lng": 0,' +
+            '"fcl": "L", "fcodeName": "area"}, "title": "Dynamic", "name": "6295630"}}]}');
+      }
+      else { 
+          location_edit.attr('disabled', false);
+      }
+  });
+
+}
 jQuery(document).ready(function() {
   setWidgetSync();
+  setDynamicGeotags();
 });
