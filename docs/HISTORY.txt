@@ -7,6 +7,9 @@
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+5.7-dev - (unreleased)
+----------------------
+
 5.6 - (2012-11-22)
 ------------------
 * Change: removed map_canvas related code added in egg 1.0, which was suppose
