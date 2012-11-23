@@ -69,8 +69,8 @@ Lets check if thumbs were created.
     >>> thumb = img_zoom.unrestrictedTraverse('image_thumb')
     >>> thumb
     <ImageScale at ...>
-    >>> thumb.getObjSize()
-    '1... kB'
+    >>> thumb.getObjSize().upper()
+    '1... KB'
 
 Check the convertion of another EPS format and test if old converted images were deleted.
 
