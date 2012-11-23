@@ -9,6 +9,9 @@
 
 5.7-dev - (unreleased)
 ----------------------
+* Bug fix: fixed figure.txt test for plone4 buildouts by passing upper to the
+  returned object size
+  [ichimdav]
 
 5.6 - (2012-11-22)
 ------------------
