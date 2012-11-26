@@ -144,19 +144,6 @@
     </dl>
     </div>
 
-    <tal:related define="related_products context/@@getRelatedProducts;
-                         has_content python:related_products['has_data']">
-        <h2 tal:condition="python:has_content or context.getExternalRelations()" i18n:translate="">
-            Related content
-        </h2>
-
-        <metal:related use-macro="here/dataset_view/macros/related-publications" />
-        <metal:related use-macro="here/dataset_view/macros/related-figures" />
-        <metal:related use-macro="here/dataset_view/macros/related-datasets" />
-        <metal:related use-macro="here/dataset_view/macros/related-others" />
-        <metal:related use-macro="here/dataset_view/macros/related-externals" />
-    </tal:related>
-
     <div class="visualClear">&nbsp;</div>
 
     <!-- Older versions -->
