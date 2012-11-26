@@ -111,39 +111,16 @@ schema = Schema((
         )
     ),
 
-    ReferenceField(
-        'relatedProducts',
-        schemata="categorization",
-        relationship='relatesToProducts',
-        multiValued=True,
-        isMetadata=True,
-        languageIndependent=False,
-        index='KeywordIndex',
-        write_permission=ModifyPortalContent,
-        widget=EEAReferenceBrowserWidget(
-            allow_search=True,
-            allow_browse=True,
-            allow_sorting=True,
-            show_indexes=False,
-            force_close_on_insert=True,
-            label="Relations to other EEA products",
-            label_msgid="label_related_products",
-            description="Specify relations to other EEA products within Plone.",
-            description_msgid="help_related_products",
-            i18n_domain="plone",
-            visible={'edit' : 'invisible', 'view' : 'invisible' }
-            )
-        ),
-        GeotagsLinesField('location',
-            schemata='categorization',
-            required=False,
-            required_for_published = True,
-            widget=GeotagsWidget(
-                label='Geotags',
-                description="Geotags: multiple geographical locations related"\
-                        " to this content."
-            )
-        ),
+    GeotagsLinesField('location',
+        schemata='categorization',
+        required=False,
+        required_for_published = True,
+        widget=GeotagsWidget(
+            label='Geotags',
+            description="Geotags: multiple geographical locations related"\
+                    " to this content."
+        )
+    ),
 ),)
 
 dataset_schema = dataservice_schema.copy() + schema.copy()

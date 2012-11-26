@@ -38,26 +38,6 @@ schema = Schema((
             i18n_domain="eea",
         ),
     ),
-
-    EEAReferenceField(
-        name='relatedProducts',
-        schemata='default',
-        relationship='relatesToProducts',
-        isMetadata=True,
-        multiValued=True,
-        languageIndependent=False,
-        index='KeywordIndex',
-        write_permission=ModifyPortalContent,
-        keepReferencesOnCopy=True,
-        widget=EEAReferenceBrowserWidget(
-            visible={'view':'invisible', 'edit':'invisible'},
-            label="References to Data Sources and Publications",
-            label_msgid="label_related_products",
-            description="Specify relations to other EEA products within Plone.",
-            description_msgid="help_related_products",
-        )
-        ),
-
 ),)
 
 eeafigure_schema = dataservice_schema.copy() + schema.copy()
@@ -69,7 +49,7 @@ eeafigure_schema['dataSource'].widget.description = """Please
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
-eeafigure_schema.moveField('dataSource', after="relatedProducts")
+eeafigure_schema.moveField('dataSource', after="units")
 
 class EEAFigure(DataMixin, ATFolder, ThemeTaggable):
     """ EEAFigure Content Type
