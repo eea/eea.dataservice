@@ -14,14 +14,8 @@ from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 from eea.geotags.field import GeotagsLinesField
 from eea.geotags.widget import GeotagsWidget
-from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
-EEAReferenceBrowserWidget = ReferenceBrowserWidget
 logger = logging.getLogger('eea.dataservice')
-try:
-    from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
-except ImportError:
-    logger.warn('eea.relations is not installed')
 
 
 # Schema
