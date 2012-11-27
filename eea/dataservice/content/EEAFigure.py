@@ -8,17 +8,8 @@ from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
 from eea.dataservice.content.themes import ThemeTaggable
-from Products.Archetypes.Field import ReferenceField
-from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
-EEAReferenceBrowserWidget = ReferenceBrowserWidget
-EEAReferenceField = ReferenceField
 
 logger = logging.getLogger('eea.dataservice')
-try:
-    from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
-    from eea.relations.field import EEAReferenceField
-except ImportError:
-    logger.warn('eea.relations is not installed')
 
 
 # Schema
