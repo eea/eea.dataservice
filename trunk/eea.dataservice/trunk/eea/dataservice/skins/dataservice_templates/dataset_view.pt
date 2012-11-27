@@ -402,27 +402,17 @@ function showDefinition(context) {
                        vocab python:field.Vocabulary(context);
                        values python:field.getAccessor(context)();
                        value python:context.displayValue(vocab, values);
-                       products context/@@visible_related_products;
-                       related python:[o for o in products
-                                         if  o.portal_type in ('ExternalDataSpec', 'Data')];
                         ">
 
-        <dt tal:condition="python:value or related" 
+        <dt tal:condition="python:value"
             tal:define="tooltip string:Data sources used to produce this resource.">
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="">Data sources</span>
         </dt>
 
-        <dd tal:content="structure value" 
-            tal:condition="python: value and not related">source</dd>
+        <dd tal:content="structure value"
+            tal:condition="python: value">source</dd>
 
-        <dd tal:condition="related">
-            <ul>
-                <li tal:repeat="item related">
-                    <a tal:replace="structure item/@@related_title">Data Item</a>
-                </li>
-            </ul>
-        </dd>
     </tal:block>
 
     <!-- Owner -->
