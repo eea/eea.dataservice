@@ -3,15 +3,18 @@
 import operator
 import xmlrpclib
 import json
-
 from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from plone.i18n.locales.interfaces import ICountryAvailability
 from DateTime import DateTime
-
 from eea.dataservice.config import ROD_SERVER
 from eea.dataservice.relations import IRelations
+from eea.dataservice.vocabulary import (
+    QUALITY_DICTIONARY_ID,
+    COUNTRIES_DICTIONARY_ID,
+    CATEGORIES_DICTIONARY_ID
+)
 
 try:
     from eea.reports import interfaces as ireport
@@ -20,13 +23,6 @@ except ImportError:
     from zope.interface import Interface
     class IReportContainerEnhanced(Interface):
         """ eea.reports is not present """
-
-from eea.dataservice.vocabulary import (
-    QUALITY_DICTIONARY_ID,
-    COUNTRIES_DICTIONARY_ID,
-    CATEGORIES_DICTIONARY_ID
-)
-
 
 class OrganisationStatistics(object):
     """ Returns number of owners and processors pointing to this organisation
@@ -160,67 +156,6 @@ class GetDataForRedirect(object):
             query['review_state'] = ['published', \
                                      'published_eionet']
             res = cat.unrestrictedSearchResults(**query)
-        return res
-
-class DatasetRelatedProducts(object):
-    """ Return related products
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self):
-        res = {'figures': [], 'reports': [], \
-               'datasets': [], 'other': [], \
-               'data_viewers':[], 'has_data': False}
-        #has_data = False
-
-        references = []
-        forwards = self.context.getRelatedProducts()
-        rel = queryAdapter(self.context, IRelations)
-        if not rel:
-            return res
-
-        backs = rel.backReferences(relatesTo='relatesToProducts')
-
-        # make sure we don't get duplicates
-        references = backs
-        ruids = [ref.UID() for ref in references]
-        references += [fref for fref in forwards if fref.UID() not in ruids]
-
-        for ob in references:
-            # Only published objects
-            wftool = getToolByName(self.context, 'portal_workflow')
-            state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
-            if state == 'published':
-                if ob.portal_type == 'EEAFigure':
-                    res['figures'].append(ob)
-                elif IReportContainerEnhanced.providedBy(ob):
-                    res['reports'].append(ob)
-                elif ('data viewer' in ob.Title() and
-                      ob.portal_type in ['Promotion', 'GIS Map Application']):
-                    res['data_viewers'].append(ob)
-                else:
-                    if (self.context.portal_type == 'EEAFigure' and
-                        ob.portal_type == 'Data'):
-                        res['datasets'].append(ob)
-                    else:
-                        res['other'].append(ob)
-
-        # Format figures for album view
-        uids = []
-        for ob in res['figures']:
-            uids.append(ob.UID())
-        cat = getToolByName(self.context, 'portal_catalog')
-        query = {'UID': uids,
-                 'review_state':'published'}
-        res['figures'] = cat(**query)
-
-        # Determine if any values
-        for key in res.keys():
-            if res[key]:
-                res['has_data'] = True
-
         return res
 
 class GetCategoryName(object):
