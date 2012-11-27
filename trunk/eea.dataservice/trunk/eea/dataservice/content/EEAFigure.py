@@ -4,7 +4,6 @@ import logging
 from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField
 from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFCore.permissions import ModifyPortalContent
 from eea.dataservice.interfaces import IEEAFigure
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
 from eea.dataservice.widgets.FigureTypeWidget import FigureTypeWidget
