@@ -7,8 +7,8 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-5.7-dev - (unreleased)
-----------------------
+5.7 - (2012-11-29)
+------------------
 * Bug fix: fixed figure.txt test for plone4 buildouts by passing upper to the
   returned object size
   [ichimdav]
