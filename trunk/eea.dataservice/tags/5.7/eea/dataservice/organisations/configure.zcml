@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/browser"
+           xmlns:zope="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea">
+
+  <browser:resource
+      name="eea.dataservice.organisations.js"
+      file="organisations.js"
+     />
+
+  <browser:page
+      for="*"
+      name="moveOrganisationReferences"
+      permission="cmf.ModifyPortalContent"
+      class=".organisations.MoveOrganisationReferences"
+     />
+
+</configure>

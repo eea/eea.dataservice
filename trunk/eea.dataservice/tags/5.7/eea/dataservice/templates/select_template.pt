@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+
+<p i18n:translate="">Select one of the below templates to apply its metadata.</p>
+
+<form name="frmSelectTemplate" action="@@applyTemplate" method="post">
+
+<tal:block repeat="template context/@@getTemplates">
+      <input type="radio" name="template"
+             tal:attributes="value template/getId" />
+      <span tal:content="template/Title" />
+      <br />
+</tal:block>
+
+<br /><br />
+<input class="context" type="submit" value="Apply template" i18n:attributes="value" />
+
+</form>
+
+</div>
+
+</body>
+</html>
