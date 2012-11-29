@@ -1,8 +1,6 @@
 """ eea.rdfmarshaller customizations for eea.dataservice
 """
 
-#from eea.dataservice.interfaces import IDatafile
-
 from Products.CMFPlone.utils import getToolByName
 from Products.Archetypes.atapi import LinesField
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
@@ -26,6 +24,7 @@ class ManagementPlanField2Surf(ATField2Surf):
             return "%s %s" % (v[0], v[1])
         return (" - ".join(v), None)
 
+
 class TemporalCoverageField2Surf(ATField2Surf):
     """ temporalCoverage rdf export which removes export if it's value contains
     -1 from the dynamic entry
@@ -36,7 +35,8 @@ class TemporalCoverageField2Surf(ATField2Surf):
         """ Value
         """
         v = self.field.getAccessor(self.context)()
-        return "" if v[0] == '-1' else v
+        return "" if (v and v[0] == '-1') else v
+
 
 class ExtraMimetype2SurfModifier(object):
     """Modifier for content types that want to publish info about

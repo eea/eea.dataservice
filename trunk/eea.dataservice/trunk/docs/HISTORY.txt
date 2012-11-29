@@ -1,4 +1,4 @@
-﻿Changelog
+Changelog
 =========
 [Alexandru Ghica - alec.ghica at eaudeweb.ro]
 [Alin Voinea - alin.voinea at eaudeweb.ro]
@@ -14,6 +14,9 @@
   [ichimdav]
 * Cleanup: removed all references of "relatedProducts"
   [ghicaale refs #6773]
+* Bug fix: fix temporalCoverage rdf value adapter for cases when the value is
+  an empty tuple
+  [tiberich #10130]
 
 5.6 - (2012-11-22)
 ------------------
