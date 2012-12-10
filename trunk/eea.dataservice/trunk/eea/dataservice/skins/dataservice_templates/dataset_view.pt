@@ -153,6 +153,11 @@ function showDefinition(context) {
                    </span>
                 </li>
 
+               <li tal:repeat="file python:table.getFolderContents(contentFilter={'portal_type':'File'})">            
+                      <a tal:attributes="href string:${file/getURL}/view" tal:content="file/Title">title</a>
+                      <br/><br/><a class="standardButton" tal:attributes="href string:${file/getURL}/view" 
+                         i18n:translate="">View and interact online</a>
+               </li>
             </ul>
 
         </tal:block>
