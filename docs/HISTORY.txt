@@ -9,6 +9,10 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Feature: Extended dataset view to list also File type, since in few cases we
+  have old-style daviz coverted files which are stored in a dataset. From now on
+  only pure Daviz Visualisation are allowed as sub-objects.
+  [demarant]
 
 5.7 - (2012-11-29)
 ------------------
