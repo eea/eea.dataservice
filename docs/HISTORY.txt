@@ -9,6 +9,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: fix display of thumbs for figures when the figurefiles are in draft
+  [tiberich #10186]
 * Feature: Extended dataset view to list also File type, since in few cases we
   have old-style daviz coverted files which are stored in a dataset. From now on
   only pure Daviz Visualisation are allowed as sub-objects.

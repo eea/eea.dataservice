@@ -1,12 +1,16 @@
 """ Imagescale adapters
 """
-import logging
-from zope.interface import implements
-from zope.component import queryMultiAdapter
-from zope.publisher.interfaces import NotFound
+from AccessControl import SpecialUsers
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from eea.depiction.browser.interfaces import IImageView
 from eea.depiction.browser import atfield, atfolder
+from eea.depiction.browser.interfaces import IImageView
+from zope.component import queryMultiAdapter
+from zope.interface import implements
+from zope.publisher.interfaces import NotFound
+import logging
 
 logger = logging.getLogger("eea.dataservice")
 
@@ -14,25 +18,34 @@ class ImageViewFigure(BrowserView):
     """ Get cover image from folder contents
     """
     implements(IImageView)
+    oldSecurityManager = None
 
     def __init__(self, context, request):
         super(ImageViewFigure, self).__init__(context, request)
 
-        brains = self.context.getFolderContents(contentFilter={
-            'portal_type': 'EEAFigureFile',
-            'review_state': ['published', 'visible'],
-        }, full_objects = True)
+        self.oldSecurityManager = getSecurityManager()
+        newSecurityManager(request, SpecialUsers.system)
+
+        wftool = getToolByName(context, "portal_workflow")
+        published_states = ['published', 'visible']
+        isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
+
+        q = {}
+        if not isdraft: #handle the case when the figure is "first draft"
+            q['review_state'] = published_states
+
+        objs = self.context.getFolderContents(
+                   contentFilter=dict(q, portal_type='EEAFigureFile'), 
+                   full_objects = True)
 
         eeafile = None
-        for brain in brains:
-            children = brain.getFolderContents(contentFilter={
-                'portal_type': ['Image'],
-                'review_state': ['published', 'visible']
-            })
+        for obj in objs:
+            children = obj.getFolderContents(
+                            contentFilter=dict(q, portal_type='Image'))
             if not len(children):
                 continue
 
-            eeafile = brain
+            eeafile = obj
             break
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
@@ -46,8 +59,13 @@ class ImageViewFigure(BrowserView):
 
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
-            return self.img(scalename)
+            res = self.img(scalename)
+            setSecurityManager(self.oldSecurityManager) 
+            return res
+
+        setSecurityManager(self.oldSecurityManager) 
         raise NotFound(self.request, scalename)
+
 
 class ImageViewFigureFile(BrowserView):
     """ Get cover image from folder contents
@@ -56,12 +74,22 @@ class ImageViewFigureFile(BrowserView):
 
     def __init__(self, context, request):
         super(ImageViewFigureFile, self).__init__(context, request)
-        images = context.getFolderContents(contentFilter={
+
+        self.oldSecurityManager = getSecurityManager()
+        newSecurityManager(request, SpecialUsers.system)
+
+        wftool = getToolByName(context, "portal_workflow")
+        published_states = ['published', 'visible']
+        isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
+        q = {
             'portal_type': ['Image'],
-            'review_state': ['published', 'visible'],
             'sort_on': 'getId',
             'sort_order': 'reverse',
-        }, full_objects = True)
+        }
+        if not isdraft:
+            q['review_state'] = published_states
+
+        images = context.getFolderContents(contentFilter=q, full_objects = True)
 
         # Get *.zoom.png
         children = [zimg for zimg in images
@@ -100,6 +128,9 @@ class ImageViewFigureFile(BrowserView):
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
             if scalename == 'original':
+                setSecurityManager(self.oldSecurityManager) 
                 return self.original
-            return self.img(scalename)
+            res = self.img(scalename)
+            setSecurityManager(self.oldSecurityManager) 
+            return res
         raise NotFound(self.request, scalename)
