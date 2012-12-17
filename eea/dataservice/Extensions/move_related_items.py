@@ -8,13 +8,50 @@ import logging
 
 logger = logging.getLogger("eea.dataservice.migration")
 
+to_migrate = [
+'/www/SITE/data-and-maps/figures/final-energy-consumption-by-sector-6', '/www/SITE/data-and-maps/figures/changes-in-wastewater-treatment-in-regions-of-europe-between-1990-and-1',
+'SITE/data-and-maps/figures/ozone-2010-target-value-for-2', '/www/SITE/data-and-maps/figures/index-of-final-energy-intensity-5', '/www/SITE/data-and-maps/figures/publications-on-natura-2000-per',
+'/www/SITE/data-and-maps/figures/benzene-2010-annual-limit-value-2',
+]
+
+def info_related_items(self, **kw):
+    """ """
+    catalog = getToolByName(self, "portal_catalog")
+    query = {'Language': 'all',
+             'portal_type': ['EEAFigure',]}
+
+    count = 0
+    brains = catalog(**query)
+    logger.info('Start info for %s' % str(len(brains)))
+
+    for brain in brains:
+        count += 1
+        obj = brain.getObject()
+        rel_prod = obj.getRelatedProducts()
+        rel_item = obj.getRelatedItems()
+        for k in rel_prod:
+            if not k in rel_item:
+                logger.info('Exception: %s' % obj.absolute_url())
+                ogger.info(rel_item)
+                ogger.info(rel_prod)
+                break
+
+        if not (count % 20):
+            transaction.commit()
+            logger.info('Another 20 processed')
+
+    transaction.commit()
+    logger.info('Done info')
+    return "Done" 
+
 def move_related_items(self, **kw):
     """ Copy values from relatedProducts field to relatedItems
         field for EEAFigure and Data objects
     """
     catalog = getToolByName(self, "portal_catalog")
     query = {'Language': 'all',
-             'portal_type': ['Data', 'EEAFigure']}
+             #'portal_type': ['Data', 'EEAFigure'],
+             'path': to_migrate,}
 
     count = 0
     brains = catalog(**query)
