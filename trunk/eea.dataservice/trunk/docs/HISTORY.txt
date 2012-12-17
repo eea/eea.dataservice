@@ -1,4 +1,4 @@
-Changelog
+﻿Changelog
 =========
 [Alexandru Ghica - alec.ghica at eaudeweb.ro]
 [Alin Voinea - alin.voinea at eaudeweb.ro]
@@ -18,6 +18,9 @@ Changelog
   only pure Daviz Visualisation are allowed as sub-objects.
   [demarant]
 * Bug fix: fixed migration script for relations
+  [ghicaale refs #10212]
+* Change: removed "source" maro from EEAFigure view as DataSource field
+  is deprecated for this content type, data sources should be referenced via relatedItems
   [ghicaale refs #10212]
 
 5.7 - (2012-11-29)
