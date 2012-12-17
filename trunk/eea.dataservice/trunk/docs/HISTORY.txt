@@ -17,6 +17,8 @@ Changelog
   have old-style daviz coverted files which are stored in a dataset. From now on
   only pure Daviz Visualisation are allowed as sub-objects.
   [demarant]
+* Bug fix: fixed migration script for relations
+  [ghicaale refs #10212]
 
 5.7 - (2012-11-29)
 ------------------
