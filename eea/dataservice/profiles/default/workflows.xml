@@ -15,9 +15,7 @@
   <type type_id="EEAFigure">
    <bound-workflow workflow_id="eea_data_workflow"/>
   </type>
-  <type type_id="EEAFigureFile">
-   <bound-workflow workflow_id="eea_data_workflow"/>
-  </type>
+  <type type_id="EEAFigureFile"></type>
   <type type_id="DataFileLink">
    <bound-workflow workflow_id="eea_data_workflow"/>
   </type>

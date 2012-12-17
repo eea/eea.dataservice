@@ -3,7 +3,7 @@
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-from Products.CMFCore.utils import getToolByName
+#from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from eea.depiction.browser import atfield, atfolder
 from eea.depiction.browser.interfaces import IImageView
@@ -26,13 +26,13 @@ class ImageViewFigure(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        wftool = getToolByName(context, "portal_workflow")
-        published_states = ['published', 'visible']
-        isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
+        #wftool = getToolByName(context, "portal_workflow")
+        #published_states = ['published', 'visible']
+        #isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
 
         q = {}
-        if not isdraft: #handle the case when the figure is "first draft"
-            q['review_state'] = published_states
+        #if not isdraft: #handle the case when the figure is "first draft"
+            #q['review_state'] = published_states
 
         objs = self.context.getFolderContents(
                    contentFilter=dict(q, portal_type='EEAFigureFile'), 
@@ -78,16 +78,16 @@ class ImageViewFigureFile(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        wftool = getToolByName(context, "portal_workflow")
-        published_states = ['published', 'visible']
-        isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
+        #wftool = getToolByName(context, "portal_workflow")
+        #published_states = ['published', 'visible']
+        #isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
         q = {
             'portal_type': ['Image'],
             'sort_on': 'getId',
             'sort_order': 'reverse',
         }
-        if not isdraft:
-            q['review_state'] = published_states
+        #if not isdraft:
+            #q['review_state'] = published_states
 
         images = context.getFolderContents(contentFilter=q, full_objects = True)
 
