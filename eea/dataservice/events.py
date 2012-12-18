@@ -3,8 +3,10 @@
 
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
 from Acquisition import aq_inner, aq_parent
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.dataservice.converter.converter import task_convert_figure
@@ -12,7 +14,7 @@ from eea.dataservice.interfaces import IDataset, IDatatable
 from eea.dataservice.relations import IRelations
 from plone.app.async.interfaces import IAsyncService
 from zope.component import queryAdapter, getUtility
-from Products.CMFCore.utils import getToolByName
+
 
 def handle_eeafigure_state_change(figure, event):
     """Handler for EEAFigure workflow state change"""

@@ -1,9 +1,10 @@
 """ Imagescale adapters
 """
+
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-#from Products.CMFCore.utils import getToolByName
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
 from Products.Five.browser import BrowserView
 from eea.depiction.browser import atfield, atfolder
 from eea.depiction.browser.interfaces import IImageView
@@ -11,6 +12,7 @@ from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.interfaces import NotFound
 import logging
+
 
 logger = logging.getLogger("eea.dataservice")
 
@@ -67,11 +69,6 @@ class ImageViewFigureFile(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        q = {
-            'portal_type': ['Image'],
-            'sort_on': 'getId',
-            'sort_order': 'reverse',
-        }
         images = sorted(context.objectValues("ATBlob"), 
                         lambda a,b:cmp(b.getId(), a.getId()))
 
