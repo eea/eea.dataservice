@@ -1,6 +1,9 @@
 """ New events
 """
 
+from AccessControl import SpecialUsers
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone import utils
 from Products.statusmessages.interfaces import IStatusMessage
@@ -62,10 +65,17 @@ def handle_eeafigure_versioned(obj, event):
 def eeafigurefile_local_policy(obj, event):
     """ Setup local workflow policy for Image inside EEAFigureFiles
     """
+
+    oldSecurityManager = getSecurityManager()
+    newSecurityManager(None, SpecialUsers.system)
+
     ppw = getToolByName(obj, 'portal_placeful_workflow')
     config = ppw.getWorkflowPolicyConfig(obj)
+
     if not config:
         package_name = 'CMFPlacefulWorkflow'
         obj.manage_addProduct[package_name].manage_addWorkflowPolicyConfig()
         config = ppw.getWorkflowPolicyConfig(obj)
         config.setPolicyBelow('eeafigurefile_image_workflow', False)
+
+    setSecurityManager(oldSecurityManager) 

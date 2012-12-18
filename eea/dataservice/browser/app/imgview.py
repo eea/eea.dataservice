@@ -26,22 +26,11 @@ class ImageViewFigure(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        #wftool = getToolByName(context, "portal_workflow")
-        #published_states = ['published', 'visible']
-        #isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
-
-        q = {}
-        #if not isdraft: #handle the case when the figure is "first draft"
-            #q['review_state'] = published_states
-
-        objs = self.context.getFolderContents(
-                   contentFilter=dict(q, portal_type='EEAFigureFile'), 
-                   full_objects = True)
+        objs = self.context.objectValues("EEAFigureFile")
 
         eeafile = None
         for obj in objs:
-            children = obj.getFolderContents(
-                            contentFilter=dict(q, portal_type='Image'))
+            children = obj.objectValues("ATBlob")
             if not len(children):
                 continue
 
@@ -78,18 +67,13 @@ class ImageViewFigureFile(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        #wftool = getToolByName(context, "portal_workflow")
-        #published_states = ['published', 'visible']
-        #isdraft = wftool.getInfoFor(context, 'review_state') not in published_states
         q = {
             'portal_type': ['Image'],
             'sort_on': 'getId',
             'sort_order': 'reverse',
         }
-        #if not isdraft:
-            #q['review_state'] = published_states
-
-        images = context.getFolderContents(contentFilter=q, full_objects = True)
+        images = sorted(context.objectValues("ATBlob"), 
+                        lambda a,b:cmp(b.getId(), a.getId()))
 
         # Get *.zoom.png
         children = [zimg for zimg in images
