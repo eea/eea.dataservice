@@ -9,6 +9,8 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: added missing label information for Data's MultiSelectWidget
+  [ichimdav #10215]
 * Bug fix: fix display of thumbs for figures when the figurefiles are in draft
   [tiberich #10186]
 * Change: EEAFigureFiles no longer have a workflow
