@@ -25,6 +25,23 @@
                  value=""
                  tal:condition="not:field/required|nothing"
                  tal:attributes="name string:$fieldName:default:list;" />
+
+        <div class="formQuestion label">
+            <span tal:replace="python:widget.Label(here)" 
+                  i18n:translate="" />
+            <span class="required"
+                  tal:condition="field/required"
+                  title="Required"
+                  i18n:attributes="title title_required;">&nbsp;</span>
+            <span class="formHelp"
+                 tal:define="description python:widget.Description(here)"
+                 tal:content="structure description"
+                 tal:attributes="id string:${fieldName}_help"
+                 i18n:translate="">
+              Help
+            </span>
+        </div>
+
           <span tal:repeat="item vocab" tal:omit-tag=""
                 tal:condition="python:format=='checkbox'">
             <tal:block>
