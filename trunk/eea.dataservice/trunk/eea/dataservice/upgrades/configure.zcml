@@ -15,4 +15,15 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="5.7"
+    destination="5.8"
+    profile="eea.dataservice:default">
+
+    <genericsetup:upgradeStep
+      title="Set no workflow for EEAFigureFiles"
+      handler="eea.dataservice.upgrades.evolve58.evolve"
+      />
+  </genericsetup:upgradeSteps>
+
 </configure>
