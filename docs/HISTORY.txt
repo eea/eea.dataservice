@@ -9,6 +9,9 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Change: removed publicationBasedOn browserView since it's logic duplicates
+  that of relations
+  [ichimdav #10182]
 * Bug fix: added missing label information for Data's MultiSelectWidget
   [ichimdav #10215]
 * Bug fix: fix display of thumbs for figures when the figurefiles are in draft
