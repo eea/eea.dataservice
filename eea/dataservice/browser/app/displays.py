@@ -374,67 +374,6 @@ class GetCountriesByGroup(object):
                 break
         return res
 
-class GetCountriesDisplay(object):
-    """ Countries Display
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self, country_codes=None):
-        data = []
-        if country_codes is None:
-            country_codes = []
-        if not isinstance(country_codes, (list, tuple)):
-            data.append(country_codes)
-        else:
-            data.extend(country_codes)
-        res = []
-        context = self.context
-        _country_groups = GetCountryGroups(context, self.request)()
-
-        atvm = getToolByName(context, ATVOCABULARYTOOL)
-        vocab = atvm[COUNTRIES_DICTIONARY_ID]
-        terms = vocab.getVocabularyDict()
-
-        def _group_countries(group_code):
-            """ Get countries for group
-            """
-            for key in terms.keys():
-                if group_code.lower() == terms[key][0].lower():
-                    return [term for term, _childs in terms[key][1].values()]
-            return []
-
-
-        for group_code in _country_groups:
-            tmp_match = _group_countries(group_code)
-            for country_code in data:
-                if country_code in tmp_match:
-                    tmp_match.remove(country_code)
-            if not len(tmp_match):
-                res.append(group_code)
-
-        for group_code in res:
-            group_countries = _group_countries(group_code)
-            for country_code in group_countries:
-                if country_code in data:
-                    data.remove(country_code)
-                    if not len(data):
-                        break
-
-        res_string = ''
-        if len(res):
-            res_string = ', '.join(res)
-
-        if len(data):
-            countries = [_getCountryName(code) for code in data]
-            countries.sort()
-            if res_string:
-                res_string += ', '
-            res_string += ', '.join(countries)
-
-        return res_string
-
 class GetDataFiles(object):
     """ Return DataFile objects """
     def __init__(self, context, request):
@@ -453,7 +392,7 @@ class GetDataFiles(object):
         comp = lambda x, y: cmp(x.getFilename(), y.getFilename())
         res.sort(comp)
         return res
-    
+
 class GetDataFileLinks(object):
     """ Return DataFileLinks objects. These are links to external files. """
     def __init__(self, context, request):

@@ -9,8 +9,11 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Feature: Show geographical coverage via standard EEA tooltip. List all 
+  countries instead of groups (as many users do not know them). Housekeeping.
+  [demarant fixes #10249] 
 * Bug fix: fixed dynamic entry appearing when there was -1 in the date range
-  [ichimdav 10242]
+  [ichimdav #10242]
 * Change: removed publicationBasedOn browserView since it's logic duplicates
   that of relations
   [ichimdav #10182]
