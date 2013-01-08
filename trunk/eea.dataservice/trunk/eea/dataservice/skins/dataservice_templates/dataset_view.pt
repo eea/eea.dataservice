@@ -274,19 +274,19 @@ function showDefinition(context) {
     <!-- Geographical coverage -->
     <tal:block metal:define-macro="geo-coverage"
                define="field python:context.getField('geographicCoverage');
-                       value python:field.getAccessor(context)()"
+                       value python:field.getAccessor(context)();"
                condition="python:value and '00' not in value">
         <dt>
             <metal:basic use-macro="here/dataset_view/macros/tooltip" />
             <span i18n:translate="">Geographical coverage:</span>
         </dt>
 
-        <dd>
-            <img tal:define="map nocall:context/@@getGeographicalCoverageMap; map python:map(cc=value);"
-                 tal:attributes="src map" />
-            <tal:block define="view nocall:context/@@getCountriesDisplay">
-                <p tal:content="python:view(list(value))" />
-            </tal:block>
+        <dd tal:define="countries nocall:context/@@getCountries;
+                        countriesview python:''.join([c[1]+', ' for c in countries() if c[0] in value]);
+                        map nocall:context/@@getGeographicalCoverageMap;
+                        map python:map(cc=value);">
+            <img class="eea-flexible-tooltip-right" tal:attributes="src map; title python:'Geographical coverage: '+ countriesview[:-2]" />
+            <br /><span i18n:translate="" class="discreet">Move mouse over the map for details.</span>
             <div class="visualClear">&nbsp;</div>
         </dd>
     </tal:block>

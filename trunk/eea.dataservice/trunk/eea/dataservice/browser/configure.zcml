@@ -82,13 +82,6 @@
       />
 
   <browser:page
-      name="getCountriesDisplay"
-      class=".app.displays.GetCountriesDisplay"
-      for="*"
-      permission="zope2.View"
-      />
-
-  <browser:page
       name="getCountryGroups"
       class=".app.displays.GetCountryGroups"
       for="*"
