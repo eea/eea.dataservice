@@ -21,13 +21,14 @@
 * Change: EEAFigureFiles no longer have a workflow
   [tiberich #9976]
 * Feature: Extended dataset view to list also File type, since in few cases we
-  have old-style daviz coverted files which are stored in a dataset. From now on
-  only pure Daviz Visualisation are allowed as sub-objects.
+  have old-style daviz coverted files which are stored in a dataset. From now 
+  on only pure Daviz Visualisation are allowed as sub-objects.
   [demarant]
 * Bug fix: fixed migration script for relations
   [ghicaale refs #10212]
-* Change: removed "source" maro from EEAFigure view as DataSource field
-  is deprecated for this content type, data sources should be referenced via relatedItems
+* Change: removed "source" macro from EEAFigure view as DataSource field
+  is deprecated for this content type, data sources should be referenced via 
+  relatedItems
   [ghicaale refs #10212]
 
 5.7 - (2012-11-29)

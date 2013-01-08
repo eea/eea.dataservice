@@ -1,11 +1,15 @@
+""" dataservice 5.8 upgrade steps
+"""
 import logging
 from Products.CMFCore.utils import getToolByName
-
+import transaction
 
 logger = logging.getLogger("eea.dataservice")
 
 
 def evolve(context):
+    """ Remove workflow assigment for EEAFigureFile
+    """
 
     catalog = getToolByName(context, 'portal_catalog')
     wftool = getToolByName(context, 'portal_workflow')
@@ -14,7 +18,8 @@ def evolve(context):
     logger.info("Changed workflow to None for EEAFigureFile")
 
     ffs = catalog.unrestrictedSearchResults(portal_type="EEAFigureFile")
-    logger.info("Starting to update workflow mappings for %s figurefiles" % len(ffs))
+    logger.info("Starting to update workflow mappings for %s figurefiles" % 
+                                                                    len(ffs))
     i = 0
     for brain in ffs:
         obj = brain.getObject()
