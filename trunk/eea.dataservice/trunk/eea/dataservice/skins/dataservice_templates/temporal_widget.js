@@ -36,11 +36,11 @@ jQuery(document).ready(function($) {
     var temporal_dynamic = $("#temporal_dynamic").text(),
         current_temporalCoverage = $("#current_temporalCoverage"),
         info_temporalCoverage = $("#info_temporalCoverage");
-    if (current_temporalCoverage.text().indexOf('-1') !== -1) {
-        current_temporalCoverage.text(current_temporalCoverage.text().replace('-1', temporal_dynamic));
+    if (current_temporalCoverage.text() === "-1") {
+        current_temporalCoverage.text(temporal_dynamic);
     }
-    if (info_temporalCoverage.text().indexOf('-1') !== -1) {
-        info_temporalCoverage.text(info_temporalCoverage.text().replace('-1', temporal_dynamic));
+    if (info_temporalCoverage.text() === "-1") {
+        info_temporalCoverage.text(temporal_dynamic);
     }
 
     setCoverageInfo(temporal_dynamic);
