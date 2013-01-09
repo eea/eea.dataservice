@@ -19,7 +19,6 @@
 
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions">
-      <metal:new fill-slot="old" />
     </metal:versions>
 
   <!-- EEAFigureFiles -->
@@ -143,11 +142,6 @@
     </div>
 
     <div class="visualClear">&nbsp;</div>
-
-    <!-- Older versions -->
-    <metal:versions use-macro="here/portlet_versions/macros/versions">
-      <metal:old fill-slot="new" />
-    </metal:versions>
 
 </div>
 
