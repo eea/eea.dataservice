@@ -9,6 +9,9 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Change:  moved the olderVersions to the portalMessage div that displays the 
+  old versions link for eea.dataservice templates
+  [ichimdav #10182]
 * Feature: Show geographical coverage via standard EEA tooltip. List all 
   countries instead of groups (as many users do not know them). Housekeeping.
   [demarant fixes #10249] 
