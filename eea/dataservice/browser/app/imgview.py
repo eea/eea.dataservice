@@ -45,8 +45,11 @@ class ImageViewFigure(BrowserView):
         """ Display?
         """
         if not self.img:
+            setSecurityManager(self.oldSecurityManager) 
             return False
-        return self.img.display(scalename)
+        res = self.img.display(scalename)
+        setSecurityManager(self.oldSecurityManager) 
+        return res
 
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
