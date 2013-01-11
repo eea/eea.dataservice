@@ -9,6 +9,9 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Change: use new interactive data viewer interface which include daviz 
+  for portlet "Data viewers" displayed on data-and-maps/data page.  
+  [demarant]
 * Change:  moved the olderVersions to the portalMessage div that displays the 
   old versions link for eea.dataservice templates
   [ichimdav #10182]

@@ -247,7 +247,7 @@ class MainDatasets(object):
         return res
 
 class DataViewers(object):
-    """ Data Viewers
+    """ Return top 5 latest published interactive Data Viewers
     """
     def __init__(self, context, request):
         self.context = context
@@ -255,11 +255,12 @@ class DataViewers(object):
 
     def __call__(self):
         #res = []
+        limit = 5
         cat = getToolByName(self, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : ['Promotion',
-                                                     'GIS Map Application'],
-                                    'Title': 'data viewer',
-                                    'review_state': 'published'})
+        brains = cat.searchResults({'object_provides' : ['Products.EEAContentTypes.content.interfaces.IInteractiveData'],
+                                    'sort_on': 'effective',
+                                    'sort_order': 'reverse',
+                                    'review_state': 'published'})[:limit]
         res = [brain.getObject() for brain in brains]
         return res
 
