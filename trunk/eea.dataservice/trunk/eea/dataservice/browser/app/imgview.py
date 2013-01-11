@@ -102,11 +102,16 @@ class ImageViewFigureFile(BrowserView):
         """ Display?
         """
         if scalename == 'original':
-            return not not self.original
+            res = bool(self.original)
+            setSecurityManager(self.oldSecurityManager) 
+            return res
         try:
-            return self.img.display(scalename)
+            res = self.img.display(scalename)
+            setSecurityManager(self.oldSecurityManager) 
+            return res
         except Exception, err:
             logger.exception(err)
+            setSecurityManager(self.oldSecurityManager) 
             return False
 
     def __call__(self, scalename='thumb'):
@@ -117,4 +122,5 @@ class ImageViewFigureFile(BrowserView):
             res = self.img(scalename)
             setSecurityManager(self.oldSecurityManager) 
             return res
+        setSecurityManager(self.oldSecurityManager) 
         raise NotFound(self.request, scalename)
