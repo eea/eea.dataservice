@@ -36,6 +36,12 @@
   is deprecated for this content type, data sources should be referenced via 
   relatedItems
   [ghicaale refs #10212]
+* Upgrade step:
+    * go to /@@types-controlpanel?type_id=EEAFigureFile
+    * Change workflow to "No Workflow"
+    * Click "Apply Changes". The request should be finished in less then 5
+      minutes
+  [tiberich refs #9976]
 
 5.7 - (2012-11-29)
 ------------------
