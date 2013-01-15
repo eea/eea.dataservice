@@ -1,4 +1,4 @@
-﻿Changelog
+Changelog
 =========
 [Alexandru Ghica - alec.ghica at eaudeweb.ro]
 [Alin Voinea - alin.voinea at eaudeweb.ro]
