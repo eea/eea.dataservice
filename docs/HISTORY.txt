@@ -9,6 +9,10 @@
 
 5.8-dev - (unreleased)
 ----------------------
+* Change: check if url contains data-and-maps/figures for photoAlbumEntry 
+  when changing it's href to append fancybox.html since now we have relations
+  that are also with photoAlbumEntry class
+  [ichimdav #6892]
 * Change: use new interactive data viewer interface which include daviz 
   for portlet "Data viewers" displayed on data-and-maps/data page.  
   [demarant]
