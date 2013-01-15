@@ -7,8 +7,8 @@
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-5.8-dev - (unreleased)
-----------------------
+5.8 - (2013-01-15)
+------------------
 * Change: check if url contains data-and-maps/figures for photoAlbumEntry 
   when changing it's href to append fancybox.html since now we have relations
   that are also with photoAlbumEntry class
