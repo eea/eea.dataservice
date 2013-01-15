@@ -4,32 +4,35 @@ Figures.fancybox = null;
 
 Figures.PhotoAlbum = function(context){
   this.context = context;
-  this.photos = jQuery('div.photoAlbumEntry', this.context);
+  this.photos = jQuery('.photoAlbumEntry', this.context);
   this.photos.removeClass('photoAlbumFolder');
+  var js_context = this;
 
   this.photos.each(function(){
     var photo = jQuery(this);
     var link = jQuery('a', photo);
+    if ( !link.length || link[0].href.indexOf("data-and-maps/figures") === -1 ) {
+        return;
+    }
     var img = jQuery('img', photo);
     var h4 = jQuery('h4', photo.parent());
     var preview = img.attr('src').replace('image_thumb', 'fancybox.html');
     link.attr('href', preview);
     link.attr('rel', h4.attr('id'));
+    link.fancybox({
+          type: 'ajax',
+          hideOnContentClick: false,
+          width: 870,
+          height: 680,
+          autoDimensions: false,
+          padding: 0,
+          margin: 0,
+          centerOnScroll: false,
+          onComplete: js_context.init_zoom,
+          onClosed: js_context.close
+      });
   });
 
-  var js_context = this;
-  jQuery('.photoAlbumEntry a').fancybox({
-    type: 'ajax',
-    hideOnContentClick: false,
-    width: 870,
-    height: 680,
-    autoDimensions: false,
-    padding: 0,
-    margin: 0,
-    centerOnScroll: false,
-    onComplete: js_context.init_zoom,
-    onClosed: js_context.close
-  });
 };
 
 Figures.PhotoAlbum.prototype = {
