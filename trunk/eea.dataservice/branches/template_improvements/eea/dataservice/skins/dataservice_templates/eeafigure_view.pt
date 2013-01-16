@@ -32,7 +32,8 @@
         <div class="visualClear"></div>
       </tal:doc>
     </div>
-    <div metal:define-macro="figures-album" class="map-photo-album"
+      <div class="paginate">
+    <tal:figures metal:define-macro="figures-album" 
       tal:repeat="child figurefiles">
       <tal:child define="
         Batch python:modules['Products.CMFPlone'].Batch;
@@ -42,13 +43,13 @@
         categ_name python:categView(categ);
         entry_macro here/eeafigure_albumentry/macros/entry;
         ">
-        <h4 tal:content="categ_name" tal:attributes="
+        <h3 tal:content="categ_name" tal:attributes="
           id string:fancy-$categ;
           title categ_name;"/>
 
        <!-- NEW MACRO FOR DAVIZ -->
        <!-- metal:figures use-macro="here/atct_album_view/macros/listing" / -->
-
+        <div class="map-photo-album">
           <tal:listingmacro tal:define="
     entry_macro entry_macro | here/atct_albumentry/macros/entry;
     folderContents folderContents|nothing">
@@ -100,9 +101,11 @@
     <div metal:use-macro="here/batch_macros/macros/navigation" />
   </tal:folderContents>
   </tal:listingmacro>
+          </div>
        <!-- END NEW MACRO FOR DAVIZ -->
       </tal:child>
-    </div>
+    </tal:figures>
+ </div>
   </tal:figurefiles>
 
     <!-- META DATA -->
