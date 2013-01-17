@@ -631,6 +631,7 @@ class GetEEAFigureFiles(object):
             if brain is singlefigure:
                 continue
             doc = brain.getObject()
+#            import pdb; pdb.set_trace()
             categ = doc.getCategory()
             res.setdefault(categ, [])
             res[categ].append(brain)
