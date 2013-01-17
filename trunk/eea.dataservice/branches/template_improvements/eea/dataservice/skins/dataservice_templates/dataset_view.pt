@@ -21,6 +21,8 @@
   isVersionEnhanced here/@@isVersionEnhanced;
 ">
 
+<tal:comment replace="nothing">
+    TODO: use me or remove me
     <script type="text/javascript">
 <!--
 // Show/Hide table definition
@@ -44,6 +46,7 @@ function showDefinition(context) {
 }
 //-->
     </script>
+</tal:comment>
 
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions">
@@ -51,6 +54,7 @@ function showDefinition(context) {
 
 
     <!-- Tables -->
+    <div class="paginate">
     <tal:tables define="tablesData context/@@getTablesByCategory;
                         categories python:tablesData[0];
                         data python:tablesData[1]"
@@ -58,6 +62,7 @@ function showDefinition(context) {
         <tal:table condition="python:data.has_key(categ)">
         <h3 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
             tal:content="categ_name" />
+        <div>
         <tal:block repeat="table python:data[categ]">
             <h5 class="datatable-title" tal:content="table/title" />
             <p tal:condition="table/Description"
@@ -160,8 +165,10 @@ function showDefinition(context) {
             </ul>
 
         </tal:block>
+        </div>
         </tal:table>
     </tal:tables>
+    </div>
 
     <!-- Tooltip macro -->
     <metal:tooltip define-macro="tooltip"

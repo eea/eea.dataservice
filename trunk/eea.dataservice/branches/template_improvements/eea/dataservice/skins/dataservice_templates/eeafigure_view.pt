@@ -78,6 +78,10 @@
            <metal:entry use-macro="entry_macro" />
         </tal:block>
 
+          <tal:comment tal:replace="nothing">
+              TODO: ichimdav see if this code will still be useful, I have
+              added it in a tal comment to avoid it being added to the html
+              document adding unnecessary file size
           <!-- div tal:condition="not:exists:obj/@@daviz-view.html" tal:define="
              css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry'"
              tal:attributes="class css">
@@ -94,6 +98,7 @@
                           <span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" />
                    </a>
               </div -->
+          </tal:comment>
 
       </tal:entry>
     </tal:images>
