@@ -102,7 +102,6 @@
 
       </tal:entry>
     </tal:images>
-    <div class="visualClear"><!-- --></div>
     <div metal:use-macro="here/batch_macros/macros/navigation" />
   </tal:folderContents>
   </tal:listingmacro>
