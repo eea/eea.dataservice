@@ -7,13 +7,19 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-5.8 - (2013-01-15)
-------------------
+5.9-dev - (unreleased)
+----------------------
+* Feature: grouped features and datasets categories as tabs with jquery 
+  pagination
+  [ichimdav #13639]
+* Bug fix: display title and file size information for non image 
+  photoAlbumEntry albums
+  [ichimdav #13639]
 * Change: removed extra visualClear div to avoid pagination count differences
   for figure files
   [ichimdav #13639]
 
-5.8-dev - (2013-01-15)
+5.8 - (2013-01-15)
 ------------------
 * Change: check if url contains data-and-maps/figures for photoAlbumEntry 
   when changing it's href to append fancybox.html since now we have relations
