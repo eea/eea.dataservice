@@ -15,10 +15,9 @@ Figures.PhotoAlbum = function(context){
         return;
     }
     var img = jQuery('img', photo);
-    var h4 = jQuery('h4', photo.parent());
     var preview = img.attr('src').replace('image_thumb', 'fancybox.html');
     link.attr('href', preview);
-    link.attr('rel', h4.attr('id'));
+    link.attr('rel', 'fancybox');
     link.fancybox({
           type: 'ajax',
           hideOnContentClick: false,
