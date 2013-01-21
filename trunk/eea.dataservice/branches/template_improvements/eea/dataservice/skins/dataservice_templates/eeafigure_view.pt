@@ -38,7 +38,7 @@
       <tal:child define="
         Batch python:modules['Products.CMFPlone'].Batch;
         b_start python:request.get('b_start', 0);
-        folderContents python:Batch(child[1], 100, int(b_start), orphan=1);
+        folderContents python:Batch(child[1], 150, int(b_start), orphan=1);
         categ python:child[0];
         categ_name python:categView(categ);
         entry_macro here/eeafigure_albumentry/macros/entry;
