@@ -167,6 +167,7 @@
     </tal:tables>
     </div>
 
+    <h2 i18n:translate="metadata">Metadata</h2>
     <!-- Tooltip macro -->
     <metal:tooltip define-macro="tooltip"
                    tal:define="tooltip tooltip|field/widget/description|nothing"
