@@ -257,10 +257,11 @@ class DataViewers(object):
         #res = []
         limit = 5
         cat = getToolByName(self, 'portal_catalog')
-        brains = cat.searchResults({'object_provides' : ['Products.EEAContentTypes.content.interfaces.IInteractiveData'],
-                                    'sort_on': 'effective',
-                                    'sort_order': 'reverse',
-                                    'review_state': 'published'})[:limit]
+        brains = cat.searchResults({'object_provides':
+            ['Products.EEAContentTypes.content.interfaces.IInteractiveData'],
+            'sort_on': 'effective',
+            'sort_order': 'reverse',
+            'review_state': 'published'})[:limit]
         res = [brain.getObject() for brain in brains]
         return res
 
