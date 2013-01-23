@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.0-dev - (unreleased)
+----------------------
+
 5.9 - (2013-01-23)
 ------------------
 * Feature: grouped features and datasets categories as tabs with jquery 
