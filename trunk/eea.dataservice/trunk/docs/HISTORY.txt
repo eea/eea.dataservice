@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.1-dev - (unreleased)
+----------------------
+
 6.0 - (2013-01-24)
 ------------------
 * Bug fix: fix figure display for anonymous
