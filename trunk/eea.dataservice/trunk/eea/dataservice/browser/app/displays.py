@@ -594,7 +594,7 @@ class GetEEAFigureFiles(object):
         if not self._brains:
             self._brains = self.context.getFolderContents(contentFilter={
                 'portal_type': 'EEAFigureFile',
-                #'review_state': ['published','visible']
+                'review_state': []
             })
         return self._brains
 
