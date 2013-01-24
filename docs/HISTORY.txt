@@ -9,6 +9,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* Bug fix: fix figure display for anonymous
+  [tiberich #13649]
 
 5.9 - (2013-01-23)
 ------------------
