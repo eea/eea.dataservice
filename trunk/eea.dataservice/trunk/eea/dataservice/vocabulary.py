@@ -8,6 +8,8 @@ from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.config import ROD_SERVER
+from time import time
+from eea.cache import cache as eeacache
 
 logger = logging.getLogger('eea.dataservice.vocabulary')
 
@@ -183,6 +185,34 @@ def formatTitle(title):
         res += ' ...'
     return res
 
+
+MEMCACHED_CACHE_SECONDS = 86400 # 1 day
+@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
+def _obligations():
+    """
+    :return: cached results of Environmental reporting obligations server for
+    24H cached in memcached
+    """
+    res = {}
+    try:
+        server = xmlrpclib.Server(ROD_SERVER)
+        result = server.WebRODService.getActivities()
+    except Exception, err:
+        logger.exception(err)
+        result = []
+
+    for obligation in result:
+        key = int(obligation['PK_RA_ID'])
+        title = formatTitle(obligation['TITLE'])
+        try:
+            title = title.decode('utf-8')
+        except Exception, err:
+            logger.exception(err)
+            continue
+        res[key] = title
+    return res
+
+
 class Obligations(object):
     """ Obligations
     """
@@ -191,24 +221,9 @@ class Obligations(object):
     def __call__(self, context):
         if hasattr(context, 'context'):
             context = context.context
-
-        res = {}
-        try:
-            server = xmlrpclib.Server(ROD_SERVER)
-            result = server.WebRODService.getActivities()
-        except Exception, err:
-            logger.exception(err)
-            result = []
-
-        for obligation in result:
-            key = int(obligation['PK_RA_ID'])
-            title = formatTitle(obligation['TITLE'])
-            try:
-                title = title.decode('utf-8')
-            except Exception, err:
-                logger.exception(err)
-                continue
-            res[key] = title
+        self.context = context
+        # use cached results from ROD SERVER
+        res = _obligations()
 
         items = res.items()
         items.sort()
@@ -217,8 +232,10 @@ class Obligations(object):
 
         return SimpleVocabulary(items)
 
+
 # Geographical coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'
+
 def getCountriesDictionary():
     """ Countries
     """

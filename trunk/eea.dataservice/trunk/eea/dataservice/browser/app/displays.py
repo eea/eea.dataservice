@@ -1,20 +1,19 @@
 """ Displays
 """
 import operator
-import xmlrpclib
 import json
 from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from plone.i18n.locales.interfaces import ICountryAvailability
 from DateTime import DateTime
-from eea.dataservice.config import ROD_SERVER
 from eea.dataservice.relations import IRelations
 from eea.dataservice.vocabulary import (
     QUALITY_DICTIONARY_ID,
     COUNTRIES_DICTIONARY_ID,
     CATEGORIES_DICTIONARY_ID
 )
+from eea.dataservice.vocabulary import _obligations
 
 try:
     from eea.reports import interfaces as ireport
@@ -200,6 +199,7 @@ class DatasetDerivedFrom(object):
         return [rel for rel in relations.forwardReferences()
                 if rel.portal_type == 'Data']
 
+
 class Obligations(object):
     """ Returns obligations
     """
@@ -208,13 +208,7 @@ class Obligations(object):
         self.request = request
 
     def __call__(self):
-        res = {}
-        server = xmlrpclib.Server(ROD_SERVER)
-        result = server.WebRODService.getActivities()
-        if result:
-            for obligation in result:
-                res[int(obligation['PK_RA_ID'])] =obligation['TITLE']
-        return res
+        return _obligations()
 
 class MainDatasets(object):
     """ Main datasets based on last modified and
