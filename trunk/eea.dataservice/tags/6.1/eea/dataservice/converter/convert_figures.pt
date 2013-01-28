@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<metal:javascript fill-slot="javascript_head_slot">
+  <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.convert_figures.js"
+    type="text/javascript"></script>
+</metal:javascript>
+
+<body>
+
+<div metal:fill-slot="content-core"
+     tal:define="convert python:request.get('convert', None);
+                 figures python:request.get('figures', None)">
+ <h1 i18n:translate="">Convert figures</h1>
+
+ <div tal:condition="convert">
+   <ul id="figures-to-convert">
+     <tal:figures repeat="figure figures">
+       <li tal:define="figure_ob python:context[figure];
+                       figure_title python:figure_ob.pretty_title_or_id;
+                       figure_id python:figure_ob.getId().replace('.','').replace(' ', '');
+                       figure_url figure_ob/absolute_url">
+          <img tal:attributes="id string:${figure_id}-loading;
+                               src string:${context/absolute_url}/ajax-loader-small.gif" />
+          <strong style="color: red" i18n:translate=""
+                  tal:attributes="id string:${figure_id}-label">converting</strong>
+          <span tal:content="figure_title" tal:attributes="id figure_id; rel figure_url;" />
+          <p tal:attributes="id string:${figure_id}-status" />
+       </li>
+     </tal:figures>
+   </ul>
+ </div>
+
+ <form name="frmConvert" method="put" id="convert-all"
+       tal:condition="not:convert"
+       tal:attributes="action string:${context/absolute_url}/@@convertFigures">
+
+  <p class="documentDescription" i18n:translate="">
+    Select figures to be converted.
+  </p>
+
+  <input class="context" type="submit" name="convert" value="Convert" i18n:attributes="value" />
+
+  <br /><br />
+  <input type="checkbox" name="checkAll" id="checkAll" value="Check all" title="Check all" i18n:attributes="title" />
+  <label for="checkAll" title="Check all" i18n:attributes="title" i18n:translate="">Check all</label>
+
+ <dl class="convert-all-figures">
+  <tal:figures repeat="figure python:context.objectValues('EEAFigureFile')">
+   <dt tal:define="figure_title figure/pretty_title_or_id;
+                   figure_id figure/getId">
+     <input type="checkbox" name="figures:list"
+            tal:attributes="value figure_id;
+                            id figure_id;
+                            title figure_title" />
+     <label tal:content="figure_title"
+            tal:attributes="title figure_title;
+                            for figure_id"/>
+   </dt>
+   <dd>
+     <tal:block i18n:translate="">state:</tal:block>
+     <tal:state content="python:context.portal_workflow.getInfoFor(figure, 'review_state', 'Unknown')" />
+   </dd>
+   <dd>
+     <tal:block i18n:translate="">filename:</tal:block>
+     <tal:filename content="figure/getFilename" />
+   </dd>
+   <dd tal:define="info figure/@@convertionInfo">
+     <tal:block i18n:translate="">last converted:</tal:block>
+     <tal:date
+      define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;"
+      condition="info" content="python:toLocalizedTime(info, long_format=1)" />
+     <tal:date condition="not:info"> - </tal:date>
+   </dd>
+  </tal:figures>
+ </dl>
+
+ </form>
+</div>
+
+</body>
+</html>
