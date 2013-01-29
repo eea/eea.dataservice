@@ -9,6 +9,9 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Change: cached methods in order to improove page load of datasets and 
+  indicators, see ticket number for details
+  [ichimdav #13677]
 
 6.1 - (2013-01-28)
 ------------------
