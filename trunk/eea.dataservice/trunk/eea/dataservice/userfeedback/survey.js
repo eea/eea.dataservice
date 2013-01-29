@@ -8,6 +8,10 @@ DataService.Survey = {
     this.cookie = null;
     this.survey_next = {};
 
+    if (!this.links.length){
+        return;
+    }
+
     /* Download files */
     var js_context = this;
     this.links.each(function(){
@@ -25,9 +29,7 @@ DataService.Survey = {
     });
 
     /* Dialog */
-    if(this.links.length){
       this.init_survey();
-    }
   },
 
   init_survey: function(){
@@ -162,6 +164,10 @@ DataService.Google = {
     this.context = context ? jQuery('#' + context) : jQuery('#region-content');
     this.links = jQuery('a.google-analytics', this.context);
 
+    if(!this.links.length){
+        return;
+    }
+
     var js_context = this;
     this.links.each(function(){
       var link = jQuery(this);
@@ -194,8 +200,3 @@ DataService.Load = function(){
   DataService.Survey.initialize();
   DataService.Google.initialize();
 };
-
-/* Add this line into your html template:
-  <script type="text/javascript"
-    tal:content="string:jQuery(document).ready(DataService.Load);"></script>
-*/
