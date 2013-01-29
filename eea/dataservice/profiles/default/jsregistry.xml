@@ -1,11 +1,21 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts" meta_type="JavaScripts Registry">
- <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="True"
-    expression="python: request.get('jsdisable','') != 'jquery'"
-    id="++resource++eea.dataservice.view.js" inline="False"/>
- <!-- <javascript cacheable="True" compression="safe" cookable="True" -->
- <!--    enabled="True" -->
- <!--    expression="python: request.get('jsdisable','') != 'jquery'" -->
- <!--    id="multiselectautocomplete_widget.js" inline="False"/> -->
+    <javascript cacheable="True" compression="safe" cookable="True"
+                enabled="True"
+                expression=""
+                id="++resource++eea.dataservice.view.js" inline="False"
+                insert-after="createversion.js"
+            />
+    <javascript cacheable="True" compression="safe" cookable="True"
+                enabled="True"
+                expression=""
+                id="++resource++eea.dataservice.survey.js" inline="False"
+                insert-after="++resource++eea.dataservice.survey.js"
+            />
+    <javascript cacheable="True" compression="safe" cookable="True"
+                enabled="True"
+                expression=""
+                id="dataset_view.js" inline="False"
+                insert-after="++resource++eea.dataservice.survey.js"
+            />
 </object>
