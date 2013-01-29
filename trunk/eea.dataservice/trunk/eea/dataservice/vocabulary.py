@@ -9,6 +9,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.config import ROD_SERVER
 from time import time
+
 from eea.cache import cache as eeacache
 
 logger = logging.getLogger('eea.dataservice.vocabulary')
@@ -193,6 +194,7 @@ def _obligations():
     :return: cached results of Environmental reporting obligations server for
     24H cached in memcached
     """
+    logger.log(logging.INFO, 'called obligations ROD server')
     res = {}
     try:
         server = xmlrpclib.Server(ROD_SERVER)

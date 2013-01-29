@@ -13,7 +13,9 @@ from eea.dataservice.vocabulary import (
     COUNTRIES_DICTIONARY_ID,
     CATEGORIES_DICTIONARY_ID
 )
-from eea.dataservice.vocabulary import _obligations
+from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS
+from eea.dataservice.vocabulary import _obligations, time, logger
+
 
 try:
     from eea.reports import interfaces as ireport
@@ -287,9 +289,13 @@ def _getGroupCountries(context, group_code):
             return [term for term, _childs in terms[key][1].values()]
     return []
 
+
+
+@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
 def _getCountryInfo(context):
     """ Country Info
     """
+    logger.info('calling getCountryInfo')
     res = {'groups': {}, 'countries': {}}
     atvm = getToolByName(context, ATVOCABULARYTOOL)
     vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
