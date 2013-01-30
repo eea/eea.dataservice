@@ -14,7 +14,8 @@ from eea.dataservice.vocabulary import (
     CATEGORIES_DICTIONARY_ID
 )
 from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS
-from eea.dataservice.vocabulary import _obligations, time, logger
+from eea.dataservice.vocabulary import _obligations, time
+from plone.memoize import request as cacherequest
 
 
 try:
@@ -24,6 +25,8 @@ except ImportError:
     from zope.interface import Interface
     class IReportContainerEnhanced(Interface):
         """ eea.reports is not present """
+
+
 
 class OrganisationStatistics(object):
     """ Returns number of owners and processors pointing to this organisation
@@ -167,8 +170,7 @@ class GetCategoryName(object):
         self.request = request
 
     def __call__(self, cat_code):
-        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
-        vocab = atvm[CATEGORIES_DICTIONARY_ID]
+        vocab = _categories_vocabulary(self, self.request)
         return getattr(vocab, cat_code).Title()
 
 class DatasetBasedOn(object):
@@ -281,31 +283,37 @@ def _getCountryName(country_code, countries=None):
 def _getGroupCountries(context, group_code):
     """ Group Countries
     """
-    atvm = getToolByName(context, ATVOCABULARYTOOL)
-    vocab = atvm[COUNTRIES_DICTIONARY_ID]
-    terms = vocab.getVocabularyDict()
+    terms = _country_terms(context)
     for key in terms.keys():
         if group_code.lower() == terms[key][0].lower():
             return [term for term, _childs in terms[key][1].values()]
     return []
 
 
+def cache_key(method, self, request):
+    """ cache_key for request cache expecting a method and a request instance
+    """
+    return method
+
+@cacherequest.cache(cache_key)
+def _categories_vocabulary(self, request):
+    """ Cache categories vocabulary for the duration of the request
+    """
+    atvm = getToolByName(self.context, ATVOCABULARYTOOL)
+    return atvm[CATEGORIES_DICTIONARY_ID]
 
 @eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
 def _getCountryInfo(context):
     """ Country Info
     """
-    logger.info('calling getCountryInfo')
     res = {'groups': {}, 'countries': {}}
-    atvm = getToolByName(context, ATVOCABULARYTOOL)
-    vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
-    if not vocab:
+    terms = _country_terms(context)
+    if not terms:
         return res
 
     util = getUtility(ICountryAvailability)
     countries = util.getCountries()
 
-    terms = vocab.getVocabularyDict()
     for key in terms.keys():
         code = terms[key][0]
         if terms[key][1].keys():
@@ -313,6 +321,15 @@ def _getCountryInfo(context):
         else:
             res['countries'][code] = _getCountryName(code, countries)
     return res
+
+
+@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
+def _country_terms(context):
+    """ Cache the value of the countries dictionary
+    """
+    atvm = getToolByName(context, ATVOCABULARYTOOL)
+    vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
+    return vocab.getVocabularyDict()
 
 class GetCountryGroups(object):
     """ Country Groups
@@ -344,11 +361,8 @@ class GetCountryGroupsData(object):
         self.request = request
 
     def __call__(self, group_id=''):
-        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
-        vocab = atvm[COUNTRIES_DICTIONARY_ID]
-
         res = {}
-        terms = vocab.getVocabularyDict()
+        terms = _country_terms(self)
         for key in terms.keys():
             if terms[key][1].keys():
                 res[terms[key][0]] = []
@@ -364,11 +378,8 @@ class GetCountriesByGroup(object):
         self.request = request
 
     def __call__(self, group_id=''):
-        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
-        vocab = atvm[COUNTRIES_DICTIONARY_ID]
-
         res = []
-        terms = vocab.getVocabularyDict()
+        terms = _country_terms(self)
         for key in terms.keys():
             if terms[key][0] == group_id:
                 for c_key in terms[key][1].keys():
@@ -383,6 +394,7 @@ class GetDataFiles(object):
         self.request = request
 
     def __call__(self):
+        #import pdb; pdb.set_trace()
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({
             'portal_type' : ['DataFile'],
@@ -439,8 +451,7 @@ class GetTablesByCategory(object):
             res[cat].append(table)
 
         # Get sorted categories (based on vocabulary items order)
-        atvm = getToolByName(self.context, ATVOCABULARYTOOL)
-        categories = atvm[CATEGORIES_DICTIONARY_ID]
+        categories = _categories_vocabulary(self, self.request)
 
         return (categories.keys(), res)
 
