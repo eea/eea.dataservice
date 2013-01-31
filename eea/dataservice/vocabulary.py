@@ -8,6 +8,7 @@ from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.config import ROD_SERVER
+from plone.memoize import request as cacherequest
 
 from eea.cache import cache as eeacache
 
@@ -150,22 +151,25 @@ def generateUniqueTitles(data):
         data_unique_titles[url] = title
     return data_unique_titles
 
+
 class Organisations(object):
     """ Organisations
     """
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        #logger.info('called organisations')
         if hasattr(context, 'context'):
             context = context.context
+        return self._organisations(context, context.REQUEST)
 
+    @cacherequest.cache(lambda method, self, context, request: method)
+    def _organisations(self, context, request):
         unique_org = {}
         cat = getToolByName(context, 'portal_catalog')
         res = cat.searchResults({'portal_type': 'Organisation'})
         for brain in res:
             unique_org.setdefault(brain.getUrl,
-                             brain.Title and brain.Title.strip())
+                                  brain.Title and brain.Title.strip())
 
         unique_org = generateUniqueTitles(unique_org)
 
