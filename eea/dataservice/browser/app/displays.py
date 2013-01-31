@@ -426,14 +426,12 @@ class GetDataFiles(object):
         brains = cat.searchResults({
             'portal_type': ['DataFile'],
             'path': '/'.join(self.context.getPhysicalPath()),
-            'review_state': 'published'})
+            'review_state': 'published',
+            'sort_on': 'filename'})
         if not brains:
             return False
         res = [brain.getObject() for brain in brains]
 
-        # Sort DataFiles by filename
-        comp = lambda x, y: cmp(x.getFilename(), y.getFilename())
-        res.sort(comp)
         return res
 
 
@@ -449,14 +447,12 @@ class GetDataFileLinks(object):
         brains = cat.searchResults({
             'portal_type': ['DataFileLink'],
             'path': '/'.join(self.context.getPhysicalPath()),
-            'review_state': 'published'})
+            'review_state': 'published',
+            'sort_on': 'filename'})
         if not brains:
             return False
         res = [brain.getObject() for brain in brains]
 
-        # Sort by title
-        comp = lambda x, y: cmp(x.Title(), y.Title())
-        res.sort(comp)
         return res
 
 
