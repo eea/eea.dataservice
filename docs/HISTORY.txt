@@ -9,6 +9,9 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Bug fix: removed showInfo function from country_widget.js which is not needed
+  anymore after the changes in ticket 10249 
+  [ichimdav #13677]
 * Change: cached methods in order to improove page load of datasets and 
   indicators, see ticket number for details
   [ichimdav #13677]

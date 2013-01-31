@@ -1,11 +1,4 @@
 
-function showInfo() {
-  var countries = jQuery('#geographicCoverage').val();
-  jQuery.get('@@getCountriesDisplay', {country_codes:countries}, function(data){
-    jQuery('#geo_coverage_info').html(data);
-  });
-}
-
 function syncCountries() {
   var detect = false;
   var res = [];
@@ -31,7 +24,6 @@ function syncCountries() {
   jQuery('#geographicCoverage_groups').val(res);
   oldGroups = jQuery('#geographicCoverage_groups').val();
   oldGroups = oldGroups ? oldGroups: [];
-  showInfo();
 }
 
 function syncGroups() {
@@ -61,7 +53,6 @@ function syncGroups() {
   syncCountries();
   oldGroups = jQuery('#geographicCoverage_groups').val();
   oldGroups = oldGroups ? oldGroups: [];
-  showInfo();
 }
 
 // Synchronize groups and countries
