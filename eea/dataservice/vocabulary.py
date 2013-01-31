@@ -8,7 +8,6 @@ from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.config import ROD_SERVER
-from time import time
 
 from eea.cache import cache as eeacache
 
@@ -157,13 +156,13 @@ class Organisations(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
+        #logger.info('called organisations')
         if hasattr(context, 'context'):
             context = context.context
 
-        organisations = []
         unique_org = {}
         cat = getToolByName(context, 'portal_catalog')
-        res = cat.searchResults({'portal_type' : 'Organisation'})
+        res = cat.searchResults({'portal_type': 'Organisation'})
         for brain in res:
             unique_org.setdefault(brain.getUrl,
                              brain.Title and brain.Title.strip())
@@ -187,8 +186,8 @@ def formatTitle(title):
     return res
 
 
-MEMCACHED_CACHE_SECONDS = 86400 # 1 day
-@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
+MEMCACHED_CACHE_SECONDS_KEY = 86400 # 1 day
+@eeacache(lambda *args: MEMCACHED_CACHE_SECONDS_KEY)
 def _obligations():
     """
     :return: cached results of Environmental reporting obligations server for

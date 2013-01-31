@@ -11,26 +11,27 @@ from eea.dataservice.relations import IRelations
 from eea.dataservice.vocabulary import (
     QUALITY_DICTIONARY_ID,
     COUNTRIES_DICTIONARY_ID,
-    CATEGORIES_DICTIONARY_ID
-)
-from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS
-from eea.dataservice.vocabulary import _obligations, time
+    CATEGORIES_DICTIONARY_ID)
+from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS_KEY
+from eea.dataservice.vocabulary import _obligations
 from plone.memoize import request as cacherequest
 
 
 try:
     from eea.reports import interfaces as ireport
+
     IReportContainerEnhanced = ireport.IReportContainerEnhanced
 except ImportError:
     from zope.interface import Interface
+
     class IReportContainerEnhanced(Interface):
         """ eea.reports is not present """
-
 
 
 class OrganisationStatistics(object):
     """ Returns number of owners and processors pointing to this organisation
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -120,9 +121,11 @@ class OrganisationStatistics(object):
 
         return data
 
+
 class DisplaySize(object):
     """ Transform a file size in Kb, Mb ..
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -130,10 +133,10 @@ class DisplaySize(object):
     def __call__(self, size=0):
         size = float(size)
         if size >= 1000:
-            size = size/1024
+            size = size / 1024
             ftype = 'KB'
             if size >= 1000:
-                size = size/1024
+                size = size / 1024
                 ftype = 'MB'
             res = '%s %s' % ('%4.2f' % size, ftype)
         else:
@@ -141,9 +144,11 @@ class DisplaySize(object):
             res = '%s %s' % ('%4.0f' % size, ftype)
         return res
 
+
 class GetDataForRedirect(object):
     """ Get objects to redirect
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -157,14 +162,15 @@ class GetDataForRedirect(object):
         if not res:
             # If no results published try searching for objects
             # in published_eionet state
-            query['review_state'] = ['published', \
-                                     'published_eionet']
+            query['review_state'] = ['published', 'published_eionet']
             res = cat.unrestrictedSearchResults(**query)
         return res
+
 
 class GetCategoryName(object):
     """ Return category name
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -173,9 +179,11 @@ class GetCategoryName(object):
         vocab = _categories_vocabulary(self, self.request)
         return getattr(vocab, cat_code).Title()
 
+
 class DatasetBasedOn(object):
     """ Returns 'based on' datasets
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -188,9 +196,11 @@ class DatasetBasedOn(object):
         return [rel for rel in relations.backReferences()
                 if rel.portal_type == 'Data']
 
+
 class DatasetDerivedFrom(object):
     """ Returns 'derived from' datasets
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -207,6 +217,7 @@ class DatasetDerivedFrom(object):
 class Obligations(object):
     """ Returns obligations
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -214,10 +225,12 @@ class Obligations(object):
     def __call__(self):
         return _obligations()
 
+
 class MainDatasets(object):
     """ Main datasets based on last modified and
         minimum 3 versions.
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -225,10 +238,10 @@ class MainDatasets(object):
     def __call__(self, count=5, ver_num=3):
         res = []
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : ['Data'],
+        brains = cat.searchResults({'portal_type': ['Data'],
                                     'sort_on': 'modified',
                                     'sort_order': 'reverse',
-                                    'review_state':'published'})
+                                    'review_state': 'published'})
 
         for brain in brains:
             dataset = brain.getObject()
@@ -244,9 +257,11 @@ class MainDatasets(object):
 
         return res
 
+
 class DataViewers(object):
     """ Return top 5 latest published interactive Data Viewers
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -263,10 +278,11 @@ class DataViewers(object):
         res = [brain.getObject() for brain in brains]
         return res
 
+
 def _getCountryName(country_code, countries=None):
     """ Country Name
     """
-    if countries == None:
+    if countries is None:
         util = getUtility(ICountryAvailability)
         countries = util.getCountries()
     res = countries.get(country_code.lower(), {})
@@ -279,6 +295,7 @@ def _getCountryName(country_code, countries=None):
     elif res.lower() == 'xk':
         res = 'Kosovo'
     return res
+
 
 def _getGroupCountries(context, group_code):
     """ Group Countries
@@ -293,7 +310,7 @@ def _getGroupCountries(context, group_code):
 def cache_key(method, self, request):
     """ cache_key for request cache expecting a method and a request instance
     """
-    return method
+    return MEMCACHED_CACHE_SECONDS_KEY
 
 @cacherequest.cache(cache_key)
 def _categories_vocabulary(self, request):
@@ -302,7 +319,8 @@ def _categories_vocabulary(self, request):
     atvm = getToolByName(self.context, ATVOCABULARYTOOL)
     return atvm[CATEGORIES_DICTIONARY_ID]
 
-@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
+
+@eeacache(lambda * args: MEMCACHED_CACHE_SECONDS_KEY)
 def _getCountryInfo(context):
     """ Country Info
     """
@@ -323,7 +341,7 @@ def _getCountryInfo(context):
     return res
 
 
-@eeacache(lambda *args: time() // MEMCACHED_CACHE_SECONDS)
+@eeacache(lambda *args: MEMCACHED_CACHE_SECONDS_KEY)
 def _country_terms(context):
     """ Cache the value of the countries dictionary
     """
@@ -331,9 +349,11 @@ def _country_terms(context):
     vocab = getattr(atvm, COUNTRIES_DICTIONARY_ID, None)
     return vocab.getVocabularyDict()
 
+
 class GetCountryGroups(object):
     """ Country Groups
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -341,9 +361,11 @@ class GetCountryGroups(object):
     def __call__(self):
         return _getCountryInfo(self.context)['groups']
 
+
 class GetCountries(object):
     """ Countries
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -353,9 +375,11 @@ class GetCountries(object):
         res = [(key, countries[key]) for key in countries.keys()]
         return sorted(res, key=operator.itemgetter(1))
 
+
 class GetCountryGroupsData(object):
     """ Country Groups Data
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -370,9 +394,11 @@ class GetCountryGroupsData(object):
                     res[terms[key][0]].append(terms[key][1][c_key][0])
         return json.dumps(res)
 
+
 class GetCountriesByGroup(object):
     """ Countries by group
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -387,19 +413,22 @@ class GetCountriesByGroup(object):
                 break
         return res
 
+
 class GetDataFiles(object):
     """ Return DataFile objects """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def __call__(self):
-        #import pdb; pdb.set_trace()
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({
-            'portal_type' : ['DataFile'],
+            'portal_type': ['DataFile'],
             'path': '/'.join(self.context.getPhysicalPath()),
             'review_state': 'published'})
+        if not brains:
+            return False
         res = [brain.getObject() for brain in brains]
 
         # Sort DataFiles by filename
@@ -407,8 +436,10 @@ class GetDataFiles(object):
         res.sort(comp)
         return res
 
+
 class GetDataFileLinks(object):
     """ Return DataFileLinks objects. These are links to external files. """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -416,9 +447,11 @@ class GetDataFileLinks(object):
     def __call__(self):
         cat = getToolByName(self.context, 'portal_catalog')
         brains = cat.searchResults({
-            'portal_type' : ['DataFileLink'],
+            'portal_type': ['DataFileLink'],
             'path': '/'.join(self.context.getPhysicalPath()),
             'review_state': 'published'})
+        if not brains:
+            return False
         res = [brain.getObject() for brain in brains]
 
         # Sort by title
@@ -426,8 +459,10 @@ class GetDataFileLinks(object):
         res.sort(comp)
         return res
 
+
 class GetTablesByCategory(object):
     """ Return categories and related files """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -439,7 +474,7 @@ class GetTablesByCategory(object):
             'portal_type': ['DataTable'],
             'path': '/'.join(self.context.getPhysicalPath()),
             'sort_on': 'sortable_title',
-            'review_state':'published'
+            'review_state': 'published'
         })
 
         # Get DataTable files
@@ -455,9 +490,11 @@ class GetTablesByCategory(object):
 
         return (categories.keys(), res)
 
+
 class FormatTempCoverage(object):
     """ Format temporal coverage display
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -479,7 +516,7 @@ class FormatTempCoverage(object):
             if len(tmp_res) == 0:
                 tmp_res.append(str(year))
             else:
-                if int(data[index-1]) + 1 == int(year):
+                if int(data[index - 1]) + 1 == int(year):
                     tmp_res.append('-%s' % str(year))
                 else:
                     tmp_res.append(str(year))
@@ -487,21 +524,24 @@ class FormatTempCoverage(object):
         for index, year in enumerate(tmp_res):
             if index == 0:
                 res += year
-            elif index+1 == len(tmp_res):
+            elif index + 1 == len(tmp_res):
                 res += ', %s' % year
             elif not year.startswith('-'):
                 res += ', %s' % year
-            elif not tmp_res[index+1].startswith('-'):
+            elif not tmp_res[index + 1].startswith('-'):
                 res += ', %s' % year
-            elif year.startswith('-') and not tmp_res[index+1].startswith('-'):
+            elif year.startswith('-') and not tmp_res[index + 1].startswith(
+                    '-'):
                 res += ', %s' % year
-            elif year.startswith('-') and tmp_res[index+1].startswith('-'):
+            elif year.startswith('-') and tmp_res[index + 1].startswith('-'):
                 pass
         return res.replace(', -', '-')
+
 
 class GetOrganisationSnippet(object):
     """ Organisation snippet
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -511,7 +551,7 @@ class GetOrganisationSnippet(object):
         org_url = self.request.get('url', None)
         if org_url is not None:
             cat = getToolByName(self.context, 'portal_catalog')
-            res = cat.searchResults({'portal_type' : 'Organisation',
+            res = cat.searchResults({'portal_type': 'Organisation',
                                      'getUrl': org_url})
             if res:
                 # Generate snippet
@@ -531,9 +571,11 @@ class GetOrganisationSnippet(object):
                 }
         return res
 
+
 class GeographicalCoverageMap(object):
     """ Return geographical coverage map
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -546,23 +588,29 @@ class GeographicalCoverageMap(object):
                    "size=W200&PredefShade=Dataservice&Q=%s" % cc_list)
         return res
 
+
 class GetReferenceSystemKupu(object):
     """ Return reference system select for Kupu
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
 
 class GetReferenceSystemTemplate(object):
     """ Return reference system templates
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
+
 class GetQualityDisplay(object):
     """ Return quality display
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -589,9 +637,11 @@ class GetQualityDisplay(object):
         template_style['label'] = label
         return QUALITY_TEMPLATE % template_style
 
+
 class GetEEAFigureFiles(object):
     """ Returns 'based on' figures
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -650,10 +700,12 @@ class GetEEAFigureFiles(object):
         for categ, brains in res.items():
             yield categ, brains
 
+
 class MainFigures(object):
     """ Main figures based on last modified and
         minimum 3 versions.
     """
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -661,10 +713,10 @@ class MainFigures(object):
     def __call__(self, count=5, ver_num=3):
         res = []
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({'portal_type' : ['EEAFigure'],
+        brains = cat.searchResults({'portal_type': ['EEAFigure'],
                                     'sort_on': 'modified',
                                     'sort_order': 'reverse',
-                                    'review_state':'published'})
+                                    'review_state': 'published'})
 
         for brain in brains:
             figure = brain.getObject()
@@ -679,6 +731,7 @@ class MainFigures(object):
                 break
 
         return res
+
 
 QUALITY_TEMPLATE = """
 <div>

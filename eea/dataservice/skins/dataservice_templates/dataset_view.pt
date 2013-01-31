@@ -21,10 +21,11 @@
     <div class="paginate">
     <tal:tables define="tablesData context/@@getTablesByCategory;
                         categories python:tablesData[0];
+                        categView nocall:context/@@getCategoryName;
                         data python:tablesData[1]"
                 repeat="categ categories">
         <tal:table condition="python:data.has_key(categ)">
-        <h3 tal:define="categView nocall:context/@@getCategoryName; categ_name python:categView(categ);"
+        <h3 tal:define="categ_name python:categView(categ);"
             tal:content="categ_name" />
             <div>
                 <tal:block repeat="table python:data[categ]">
