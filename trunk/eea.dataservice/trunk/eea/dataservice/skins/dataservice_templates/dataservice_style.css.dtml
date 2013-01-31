@@ -36,7 +36,6 @@
     margin-top: 0.5em; }
 
 .organisation-statistics h5 {
-    margin-bottom: 0.2 em;
     background-color: #f0f0f0;
     margin-bottom: 0;
     padding-left: 2px; }
