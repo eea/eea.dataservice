@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.3-dev - (unreleased)
+----------------------
+
 6.2 - (2013-02-04)
 ------------------
 * Bug fix: removed showInfo function from country_widget.js which is not needed
