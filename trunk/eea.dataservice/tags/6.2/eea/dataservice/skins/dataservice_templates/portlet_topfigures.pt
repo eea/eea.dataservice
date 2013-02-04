@@ -1,0 +1,14 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+  i18n:domain="eea">
+<body>
+
+<div metal:define-macro="portlet" tal:define="
+  google_report google_report|here/google_analytics_report|string:portal_google/analytics/top-figures;
+  portlet_title portlet_title|string:Top 5 maps/graphs;">
+
+  <dl metal:use-macro="here/portlet_topdatasets/macros/portlet" />
+
+</div>
+
+</body>
+</html>
