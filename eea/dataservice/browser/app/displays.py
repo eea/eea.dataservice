@@ -287,13 +287,6 @@ def _getCountryName(country_code, countries=None):
         countries = util.getCountries()
     res = countries.get(country_code.lower(), {})
     res = res.get('name', country_code)
-
-    if res.lower() == 'me':
-        res = 'Montenegro'
-    elif res.lower() == 'rs':
-        res = 'Serbia'
-    elif res.lower() == 'xk':
-        res = 'Kosovo'
     return res
 
 

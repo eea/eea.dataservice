@@ -9,6 +9,8 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: remove hardcoded Montenegro, Serbia, Kosovo countries
+  [tiberich #10255]
 
 6.2 - (2013-02-04)
 ------------------
