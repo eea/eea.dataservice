@@ -29,7 +29,7 @@ Changelog
 6.0 - (2013-01-24)
 ------------------
 * Bug fix: fix figure display for anonymous
-  [tiberich #13649]
+  [tiberich #9976]
 
 5.9 - (2013-01-23)
 ------------------
