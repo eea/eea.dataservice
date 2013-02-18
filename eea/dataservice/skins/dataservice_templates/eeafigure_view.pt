@@ -46,7 +46,7 @@
                     <h3 tal:content="categ_name" tal:attributes="
                                                                 id string:fancy-$categ;
                                                                 title categ_name;"/>
-                    <tal:comment tal:replace="nothing">
+                    <tal:comment replace="nothing">
                         TODO: use me or remove me
                         <!-- NEW MACRO FOR DAVIZ -->
                         <!-- metal:figures use-macro="here/atct_album_view/macros/listing" / -->
@@ -66,7 +66,7 @@
                                         listing_url obj/absolute_url;
                                         is_video python:'eea.mediacentre.interfaces.IVideo' in brain.object_provides">
 
-                                        <tal:comment tal:replace="nothing">
+                                        <tal:comment replace="nothing">
                                             TODO: use me or remove me
                                             <!-- a class="moreLink" tal:attributes="href string:${obj/absolute_url}/"
                                             tal:condition="exists: obj/@@daviz-view.html"
@@ -82,7 +82,7 @@
                                             <metal:entry use-macro="entry_macro" />
                                         </tal:block>
 
-                                        <tal:comment tal:replace="nothing">
+                                        <tal:comment replace="nothing">
                                             TODO: ichimdav see if this code will still be useful, I have
                                             added it in a tal comment to avoid it being added to the html
                                             document adding unnecessary file size
