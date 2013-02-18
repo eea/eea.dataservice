@@ -16,6 +16,8 @@ function setTableDefShow() {
 
 jQuery(document).ready(function() {
     setTableDefShow();
-    window.DataService.Load();
+    if (window.DataService) {
+        window.DataService.Load();
+    }
 });
 
