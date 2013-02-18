@@ -9,6 +9,12 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.dataservice
+  [ichimdav #13868]
+* Bug fix: added dataset_view.js and eea.dataservice.survey.js to 
+  jsregistry and added upgrade step to load them inside portal_javascript
+  [ichimdav #13868]
 * Bug fix: remove hardcoded Montenegro, Serbia, Kosovo countries
   [tiberich #10255]
 
@@ -17,7 +23,7 @@ Changelog
 * Bug fix: removed showInfo function from country_widget.js which is not needed
   anymore after the changes in ticket 10249 
   [ichimdav #13677]
-* Change: cached methods in order to improove page load of datasets and 
+* Change: cached methods in order to improve page load of datasets and 
   indicators, see ticket number for details
   [ichimdav #13677]
 
