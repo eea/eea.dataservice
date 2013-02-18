@@ -17,6 +17,9 @@ Changelog
   [ichimdav #13868]
 * Bug fix: remove hardcoded Montenegro, Serbia, Kosovo countries
   [tiberich #10255]
+* Bug fix: Removed useless 'tal' in tal:comment tag. because it raised an
+  error with i18ndude.
+  [prospchr refs #13827]
 
 6.2 - (2013-02-04)
 ------------------
