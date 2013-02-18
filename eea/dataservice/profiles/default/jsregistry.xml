@@ -10,7 +10,7 @@
                 enabled="True"
                 expression=""
                 id="++resource++eea.dataservice.survey.js" inline="False"
-                insert-after="++resource++eea.dataservice.survey.js"
+                insert-after="++resource++eea.dataservice.view.js"
             />
     <javascript cacheable="True" compression="safe" cookable="True"
                 enabled="True"

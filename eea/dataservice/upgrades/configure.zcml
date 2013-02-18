@@ -15,4 +15,15 @@
 
   </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+            source="*"
+            destination="6.3"
+            profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+                title="Import all steps from eea.dataservice jsregistry profile"
+                import_steps="jsregistry"
+                />
+
+    </genericsetup:upgradeSteps>
 </configure>
