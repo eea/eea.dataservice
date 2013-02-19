@@ -144,8 +144,7 @@
                        view nocall:context/@@getObligations"
                            condition="value"
                            on-error="nothing">
-                    <dt i18n:translate=""
-                        tal:define='tooltip python:context.translate("Reporting obligations", domain="eea")'>
+                    <dt tal:define='tooltip python:context.translate("Reporting obligations", domain="eea")'>
                         <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                         <span i18n:translate="">Reporting obligations (ROD)</span>
                     </dt>
@@ -170,8 +169,7 @@
                 <!-- Related website(s)/service(s) -->
                 <tal:block define="value context/getExternalRelations"
                            condition="value">
-                    <dt i18n:translate=""
-                        tal:define='tooltip python:context.translate("Related websites", domain="eea")'>
+                    <dt tal:define='tooltip python:context.translate("Related websites", domain="eea")'>
                         <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                         <span i18n:translate="">Related websites</span>
                     </dt>
