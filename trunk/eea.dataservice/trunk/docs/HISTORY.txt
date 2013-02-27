@@ -9,6 +9,9 @@ Changelog
 
 6.4-dev - (unreleased)
 ----------------------
+* Bug fix: disable required for publish code for Data ContentType for Temporal
+  Coverage, location and Geographical Coverage since it has the dynamic entry
+  [ichimdav #13985]
 
 6.3 - (2013-02-25)
 ------------------
