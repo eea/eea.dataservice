@@ -1,0 +1,13 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <configure zcml:condition="installed eea.facetednavigation">
+    <include package="eea.facetednavigation" file="meta.zcml" />
+    <include package="eea.facetednavigation" file="configure.zcml" />
+    <include package="eea.dataservice.facetednavigation.lastversion" />
+    <include package="eea.dataservice.facetednavigation.geocoverage" />
+  </configure>
+
+</configure>

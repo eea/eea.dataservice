@@ -1,0 +1,14 @@
+bin
+lib
+include
+develop-eggs
+eggs
+parts
+src
+var
+.mr.developer.cfg
+.installed.cfg
+.project
+.pydevproject
+*.wpr
+_eggmonkey.cache
