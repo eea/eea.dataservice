@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.5-dev - (unreleased)
+----------------------
+
 6.4 - (2013-02-27)
 ------------------
 * Bug fix: disable required for publish code for Data ContentType for Temporal
