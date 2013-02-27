@@ -105,8 +105,8 @@ schema = Schema((
 
     GeotagsLinesField('location',
         schemata='categorization',
-        required=False,
-        required_for_published = True,
+        required=True,
+        # required_for_published = True,
         widget=GeotagsWidget(
             label='Geotags',
             description="Geotags: multiple geographical locations related"\
@@ -118,10 +118,11 @@ schema = Schema((
 dataset_schema = dataservice_schema.copy() + schema.copy()
 
 # require temporalCoverage and geographicCoverage only for publishing
-dataset_schema['temporalCoverage'].required_for_published = True
-dataset_schema['temporalCoverage'].required = False
-dataset_schema['geographicCoverage'].required = False
-dataset_schema['geographicCoverage'].required_for_published = True
+# disabled because of 13985
+# dataset_schema['temporalCoverage'].required_for_published = True
+# dataset_schema['temporalCoverage'].required = False
+# dataset_schema['geographicCoverage'].required = False
+# dataset_schema['geographicCoverage'].required_for_published = True
 
 # Set position on form
 dataset_schema.moveField('disclaimer', after='contact')
