@@ -9,6 +9,12 @@ Changelog
 
 6.5-dev - (unreleased)
 ----------------------
+* Upgrade step:
+    - Go under site setup -> Add-ons: /www/prefs_install_products_form
+    - Hit Update button for eea.dataservice
+* Feature: added content rule for Data and EEAFigure which warns user when
+  geographicalCoverage is set to dynamic but not on location and vice versa
+  [ichimdav #13985]
 
 6.4 - (2013-02-27)
 ------------------
