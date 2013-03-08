@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <contentrules>
-    <rule name="rule-5"
+    <rule name="rule-6"
           title="Notify user when geographicalCoverage input is different from location input"
           description="This rule will display a warning to the user for Data and EEAFigure when the geographicalCoverage field value is different from that of the geotags location field."
           enabled="True" event="zope.lifecycleevent.interfaces.IObjectModifiedEvent"
@@ -25,7 +25,7 @@
             </action>
         </actions>
     </rule>
-    <assignment name="rule-5" bubbles="True" enabled="True"
+    <assignment name="rule-6" bubbles="True" enabled="True"
                 location="/SITE/data-and-maps"/>
 
     <rule name="rule-7"

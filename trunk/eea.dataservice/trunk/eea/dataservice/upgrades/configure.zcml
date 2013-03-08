@@ -27,15 +27,4 @@
 
     </genericsetup:upgradeSteps>
 
-    <genericsetup:upgradeSteps
-            source="*"
-            destination="6.5"
-            profile="eea.dataservice:default">
-
-        <genericsetup:upgradeDepends
-                title="Import modified steps from eea.dataservice profile: contentrules"
-                import_steps="contentrules"
-
-                />
-    </genericsetup:upgradeSteps>
 </configure>
