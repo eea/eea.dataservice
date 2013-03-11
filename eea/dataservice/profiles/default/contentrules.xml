@@ -25,8 +25,6 @@
             </action>
         </actions>
     </rule>
-    <assignment name="rule-6" bubbles="True" enabled="True"
-                location="/SITE/data-and-maps"/>
 
     <rule name="rule-7"
           title="Notify user when geographicalCoverage input is different from location input on content creation"
@@ -53,6 +51,4 @@
             </action>
         </actions>
     </rule>
-    <assignment name="rule-7" bubbles="True" enabled="True"
-                location="/SITE/data-and-maps"/>
 </contentrules>
