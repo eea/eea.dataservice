@@ -9,6 +9,9 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Change: hid geographicalCoverage field from view or editing since data is 
+  migrated to geotags
+  [ichimdav #8523]
 
 6.5 - (2013-03-15)
 ------------------
