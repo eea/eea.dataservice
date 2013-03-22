@@ -37,6 +37,10 @@ eeafigure_schema['dataSource'].widget.label = "Source (deprecated)"
 eeafigure_schema['dataSource'].widget.description = """Please 
     use the References field above to select the relevant data sources"""
 
+# 8523; hide geographicCoverage field since we migrated data to geotags
+eeafigure_schema['geographicCoverage'].widget.visible = \
+                            {'view':'invisible', 'edit':'invisible'}
+
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
 eeafigure_schema.moveField('dataSource', after="units")
