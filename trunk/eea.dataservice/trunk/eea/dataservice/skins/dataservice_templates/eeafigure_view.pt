@@ -29,7 +29,6 @@
         <div tal:condition="singlefile" class="map-singlefile">
             <tal:doc define="doc python:singlefile.getObject()">
                 <tal:fancybox replace="structure doc/@@fancybox.html" />
-                <div class="visualClear"></div>
             </tal:doc>
         </div>
 
@@ -124,6 +123,7 @@
                                 use-macro="here/dataset_view/macros/tags" />
                     </tal:tags>
                     <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
+
                     <metal:related use-macro="here/dataset_view/macros/methodology" />
                     <metal:related use-macro="here/dataset_view/macros/units" />
                     <metal:related use-macro="here/dataset_view/macros/rights" />
@@ -151,8 +151,21 @@
     </tal:figurefiles>
 
     <metal:related use-macro="here/dataset_view/macros/more-info" />
-    <div class="visualClear">&nbsp;</div>
 
+    <tal:hideMap
+            define="hideMap python:False;">
+        <metal:field use-macro="python:context.widget('location', mode='view')">
+            Location field view macro
+        </metal:field>
+    </tal:hideMap>
+    <script>
+        jQuery(function($){
+            $('body').bind('EEAGeotags.MapLoaded', function(ev) {
+                debugger;
+                $(".eea-location-listing, #eeaEsriMap").insertBefore('#dataset_rights');
+            });
+        });
+    </script>
 </div>
 
 </body>
