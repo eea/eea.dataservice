@@ -308,7 +308,7 @@
                            define="field python:context.getField('rights');
                        value python:field.getAccessor(context)()"
                            condition="value">
-                    <dt>
+                    <dt id="dataset_rights">
                         <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                         <span i18n:translate="">Rights:</span>
                     </dt>
