@@ -507,7 +507,7 @@
     </tal:block>
 
     <div class="visualClear">&nbsp;</div>
-
+    <metal:geotags use-macro="context/eeafigure_view/macros/geotags" />
 </div>
 </body>
 </html>
