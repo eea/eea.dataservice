@@ -152,20 +152,27 @@
 
     <metal:related use-macro="here/dataset_view/macros/more-info" />
 
-    <tal:hideMap
-            define="hideMap python:False;">
-        <metal:field use-macro="python:context.widget('location', mode='view')">
-            Location field view macro
-        </metal:field>
-    </tal:hideMap>
-    <script>
-        jQuery(function($){
-            $('body').bind('EEAGeotags.MapLoaded', function(ev) {
-                debugger;
-                $(".eea-location-listing, #eeaEsriMap").insertBefore('#dataset_rights');
+    <metal:geotagsMap define-macro="geotags">
+        <tal:hideMap
+                define="hideMap python:False;">
+            <metal:field use-macro="python:context.widget('location', mode='view')">
+
+                <dt metal:fill-slot="geotags">
+                    <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                    <span i18n:translate="">Geographical coverage:</span>
+                </dt>
+                Location field view macro
+            </metal:field>
+        </tal:hideMap>
+        <script>
+            jQuery(function($){
+                $('body').bind('EEAGeotags.MapLoaded', function(ev) {
+                    debugger;
+                    $(".eea-location-listing, #eeaEsriMap").insertBefore('#dataset_rights');
+                });
             });
-        });
-    </script>
+        </script>
+    </metal:geotagsMap>
 </div>
 
 </body>
