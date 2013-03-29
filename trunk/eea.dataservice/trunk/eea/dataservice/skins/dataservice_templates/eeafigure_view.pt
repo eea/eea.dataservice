@@ -167,8 +167,11 @@
         <script>
             jQuery(function($){
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
-                    debugger;
-                    $(".eea-location-listing, #eeaEsriMap").insertBefore('#dataset_rights');
+                    var $dataset_rights = $("#dataset_rights");
+                    if($dataset_rights.length) {
+                        $(".eea-location-listing, #eeaEsriMap")
+                                                  .insertBefore($dataset_rights);
+                    }
                 });
             });
         </script>
