@@ -9,8 +9,10 @@
     cursor: pointer;
     color: green; }
 
+.table-definition-map {
+    margin: 0.5em 0 0 0; }
+
 .table-definition-body {
-    border: 1px solid black;
     display: none; }
 
 .table-records {
