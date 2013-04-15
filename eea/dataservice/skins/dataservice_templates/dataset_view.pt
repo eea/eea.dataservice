@@ -529,10 +529,17 @@
             jQuery(function($){
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
                     var $geotags = $("#geotags");
+                    // append eeaEsriMap to geotags div for datasets and eeafigure
                     if($geotags.length) {
                         $(".eea-location-listing").appendTo($geotags);
                         $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
                     }
+                    // show div with map when clicking on a geotag
+                   $(".eea-location-listing").find('a').click(function() {
+                        if ($geotags.find('.table-definition-body').is(':hidden')) {
+                            $geotags.find('.table-definition-show').click();
+                        }
+                    });
                 });
             });
         </script>
