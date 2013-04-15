@@ -117,16 +117,13 @@ schema = Schema((
 
 dataset_schema = dataservice_schema.copy() + schema.copy()
 
-# require temporalCoverage and geographicCoverage only for publishing
-# disabled because of 13985
-# dataset_schema['temporalCoverage'].required_for_published = True
-# dataset_schema['temporalCoverage'].required = False
-# dataset_schema['geographicCoverage'].required = False
-# dataset_schema['geographicCoverage'].required_for_published = True
+# 8523 no longer require at all the geographical coverage
+dataset_schema['geographicCoverage'].required = False
 
 # 8523; hide geographicCoverage field since we migrated data to geotags
 dataset_schema['geographicCoverage'].widget.visible = \
                             {'view':'invisible', 'edit':'invisible'}
+
 # Set position on form
 dataset_schema.moveField('disclaimer', after='contact')
 dataset_schema.moveField('geoAccuracy', before='contact')

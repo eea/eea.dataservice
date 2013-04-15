@@ -38,6 +38,9 @@ eeafigure_schema['dataSource'].widget.description = """Please
     use the References field above to select the relevant data sources"""
 
 # 8523; hide geographicCoverage field since we migrated data to geotags
+# and no longer require this field
+
+eeafigure_schema['geographicCoverage'].required = False
 eeafigure_schema['geographicCoverage'].widget.visible = \
                             {'view':'invisible', 'edit':'invisible'}
 
