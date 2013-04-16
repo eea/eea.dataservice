@@ -122,8 +122,7 @@
                         <metal:related
                                 use-macro="here/dataset_view/macros/tags" />
                     </tal:tags>
-                    <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
-
+                    <metal:related use-macro="here/dataset_view/macros/geotags-listing" />
                     <metal:related use-macro="here/dataset_view/macros/methodology" />
                     <metal:related use-macro="here/dataset_view/macros/units" />
                     <metal:related use-macro="here/dataset_view/macros/rights" />

@@ -236,8 +236,8 @@
                     <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)">Last upload</dd>
                 </tal:block>
 
-                <!-- Geographical coverage -->
-                <tal:block metal:define-macro="geo-coverage">
+                <!-- Geotags -->
+                <tal:block metal:define-macro="geotags-listing">
                    <div id="geotags">
 
                        <dt
@@ -245,7 +245,6 @@
                            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                            <span i18n:translate="">Geographical coverage:</span>
                        </dt>
-
                        <p class="table-definition-map">
                            <span class="table-definition-show">[+]</span>
                            <span i18n:translate="">Show Map</span>
@@ -253,6 +252,16 @@
                        <div class="table-definition-body">
 
                        </div>
+
+                       <tal:geotagsListing
+                               define="hideMap python:True; modal python:False">
+                           <metal:field use-macro="python:context.widget('location', mode='view')">
+
+                               <tal:geotags-title metal:fill-slot="geotags" />
+
+                           </metal:field>
+                       </tal:geotagsListing>
+
                 </div>
                 </tal:block>
 
@@ -517,25 +526,21 @@
             </metal:field2>
         </tal:showMap>
 
-        <tal:geotagsListing
-                define="hideMap python:True; modal python:False">
-            <metal:field use-macro="python:context.widget('location', mode='view')">
-
-                <tal:geotags-title metal:fill-slot="geotags" />
-
-            </metal:field>
-        </tal:geotagsListing>
         <script>
             jQuery(function($){
+                var $geotags = $("#geotags");
+                var $eea_location_listing = $(".eea-location-listing");
+                if(!$eea_location_listing.length) {
+                    $geotags.hide();
+                }
+
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
-                    var $geotags = $("#geotags");
                     // append eeaEsriMap to geotags div for datasets and eeafigure
                     if($geotags.length) {
-                        $(".eea-location-listing").appendTo($geotags);
                         $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
                     }
                     // show div with map when clicking on a geotag
-                   $(".eea-location-listing").find('a').click(function() {
+                    $eea_location_listing.find('a').click(function() {
                         if ($geotags.find('.table-definition-body').is(':hidden')) {
                             $geotags.find('.table-definition-show').click();
                         }
