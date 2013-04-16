@@ -152,7 +152,7 @@
 
     <metal:related use-macro="here/dataset_view/macros/more-info" />
 
-    <metal:geotags use-macro="context/dataset_view/macros/geotags" />
+    <metal:geotags use-macro="context/dataset_view/macros/geotags-map" />
 </div>
 
 </body>
