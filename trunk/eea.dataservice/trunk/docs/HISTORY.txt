@@ -9,6 +9,9 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Change: use esri map for showing geotags instead of geographical Coverage
+  and it's corresponding map
+  [ichimdav #8523]
 * Change: hid geographicalCoverage field from view or editing since data is 
   migrated to geotags
   [ichimdav #8523]

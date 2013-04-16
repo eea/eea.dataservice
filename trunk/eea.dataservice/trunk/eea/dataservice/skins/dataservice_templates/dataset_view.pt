@@ -508,23 +508,23 @@
 
     <div class="visualClear">&nbsp;</div>
 
-    <metal:geotagsMap define-macro="geotags">
-        <tal:hideMap
+    <metal:geotagsMap define-macro="geotags-map">
+        <tal:showMap
                 define="hideMap python:False; modal python:False">
             <metal:field2
                     use-macro="python:context.widget('location', mode='view')">
                 <dt metal:fill-slot="location-listing" />
             </metal:field2>
-        </tal:hideMap>
+        </tal:showMap>
 
-        <tal:hideMap
+        <tal:geotagsListing
                 define="hideMap python:True; modal python:False">
             <metal:field use-macro="python:context.widget('location', mode='view')">
 
                 <tal:geotags-title metal:fill-slot="geotags" />
 
             </metal:field>
-        </tal:hideMap>
+        </tal:geotagsListing>
         <script>
             jQuery(function($){
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
