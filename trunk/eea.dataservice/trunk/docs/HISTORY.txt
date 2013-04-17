@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.7-dev - (unreleased)
+----------------------
+
 6.6 - (2013-04-17)
 ------------------
 * Change: use esri map for showing geotags instead of geographical Coverage
