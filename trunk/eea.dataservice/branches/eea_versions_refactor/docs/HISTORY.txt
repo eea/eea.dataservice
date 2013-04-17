@@ -9,6 +9,10 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Change: directly implement IVersionEnhanced for IEEAFigure and IDataset 
+  objects; they would get that interface imediately upon
+  creation/modification, anyway
+  [tiberich #14008]
 
 6.6 - (2013-04-17)
 ------------------
