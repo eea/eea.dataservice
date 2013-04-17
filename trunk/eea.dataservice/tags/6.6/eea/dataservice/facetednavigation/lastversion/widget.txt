@@ -1,0 +1,98 @@
+Faceted navigation last version widget
+======================================
+
+Widget for eea.facetednavigation to show only last version of datasets
+
+Imports
+-------
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+
+    >>> from DateTime import DateTime
+    >>> from zope.component import getMultiAdapter
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> from eea.facetednavigation.interfaces import ICriteria
+
+Set up
+------
+
+  Lets use the sandbox.
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> sid = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb(sid)
+    >>> request = sandbox.REQUEST
+
+    >>> subtyper = getMultiAdapter((sandbox, request), name=u'faceted_subtyper')
+    >>> subtyper.enable()
+
+    >>> handler = getMultiAdapter((sandbox, request), name=u'faceted_configure')
+    >>> query = getMultiAdapter((sandbox, request), name=u'faceted_query')
+
+  Cleanup default widgets
+
+    >>> cids = ICriteria(sandbox).keys()
+    >>> for cid in cids:
+    ...     ICriteria(sandbox).delete(cid)
+    >>> ICriteria(sandbox).keys()
+    []
+
+  Lets add a Dataset.
+
+    >>> _ = sandbox.invokeFactory('Data', 'dataset')
+    >>> data1 = sandbox.dataset
+    >>> form = {
+    ...   'title': 'Dataset',
+    ...   'description': 'Organisation description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ...   'geographicCoverage': ['ro', 'it', 'dk'],
+    ...   'eeaManagementPlan': ('2008', '123456'),
+    ...   'lastUpload': '11/11/2008',
+    ...   'lastUpload_year': '2008',
+    ...   'lastUpload_month': '11',
+    ...   'lastUpload_day': '11',
+    ...   'scale': '1000000',
+    ...   'dataOwner': 'http://organisation.url',
+    ...   'processor': 'http://organisation.url',
+    ...   'temporalCoverage': ['2008', '2009'],
+    ...   'disclaimer': 'Some disclaimer',
+    ...   'contact': 'Some contact',
+    ...   'geoAccuracy': 'Geographic accuracy',
+    ...   'referenceSystem': 'References system',
+    ...   'dataSource': 'Data source',
+    ...   'moreInfo': 'More info',
+    ...   'methodology': 'Methodology',
+    ...   'units': 'units',
+    ...   'shortId': '1111',
+    ... }
+    >>> data1.processForm(values=form, data=1, metadata=1)
+    >>> data1.setLanguage('en')
+
+  Now lets create a new version of the above dataset.
+
+    >>> createVersionView = data1.unrestrictedTraverse('@@createVersion')
+    >>> _ = createVersionView()
+    >>> dataVer = sandbox._getOb('dataset-1')
+
+Add widgets
+-----------
+
+    >>> _ = handler(addPropertiesWidget_button=True, wtype='select',
+    ...             wposition='top', title='Portal type', index='portal_type',
+    ...             hidden=True, default='Data')
+
+    >>> _ = handler(addPropertiesWidget_button=True, wtype='lastversion',
+    ...             wposition='top', title='Last Version', hidden=True)
+
+Query
+-----
+
+    >>> brains = query.query()
+    >>> [brain.getId for brain in brains]
+    ['dataset-1']

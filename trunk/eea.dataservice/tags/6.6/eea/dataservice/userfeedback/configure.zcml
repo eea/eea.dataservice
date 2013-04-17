@@ -1,0 +1,49 @@
+<configure
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
+
+  <utility
+    factory=".vocabularies.EconomicSectors"
+    name="eea.dataservice.vocabularies.economic-sectors"
+    />
+
+  <utility
+    factory=".vocabularies.EnvironmentalDomains"
+    name="eea.dataservice.vocabularies.environmental-domains"
+    />
+
+  <browser:resource
+    name="eea.dataservice.survey.js"
+    file="survey.js"
+   />
+
+  <browser:page name="survey"
+    for="..interfaces.IDataset"
+    class=".survey.Survey"
+    permission="cmf.ModifyPortalContent"
+    allowed_interface=".interfaces.ISurvey"
+    />
+
+  <browser:page name="survey_support"
+    for="zope.interface.Interface"
+    class=".survey.SurveyPublicSupport"
+    permission="zope.Public"
+    allowed_interface=".interfaces.ISurveySupport"
+    />
+
+  <browser:page name="survey_support"
+    for="..interfaces.IDataset"
+    class=".survey.SurveySupport"
+    permission="zope.Public"
+    allowed_interface=".interfaces.ISurveySupport"
+    />
+
+  <browser:page name="survey.html"
+    for="..interfaces.IDataset"
+    class=".survey.SurveyView"
+    template="survey.pt"
+    permission="zope.Public"
+    />
+
+</configure>

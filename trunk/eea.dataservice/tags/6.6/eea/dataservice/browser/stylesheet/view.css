@@ -1,0 +1,122 @@
+/* Update fancybox images paths
+*/
+span#fancybox-left-ico {
+  left: 1em;
+}
+
+a#fancybox-left:hover span {
+  left: 0.5em;
+}
+
+span#fancybox-right-ico {
+  left: 1em;
+}
+
+a#fancybox-right:hover span {
+  right: 0.5em;
+}
+
+a#fancybox-left, a#fancybox-right {
+  width: 5em;
+}
+
+/* Fancybox title */
+#fancybox-title-wrap {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  padding: 1em;
+  opacity: 0.7;
+  /* for IE */
+  filter:alpha(opacity=70);
+  /* CSS3 standard */
+  display: block;
+  font-size: 150%;
+}
+
+#fancybox-title-wrap span {
+  float: none;
+  height: auto;
+}
+
+#fancybox-title-left {
+  display: none;
+}
+
+#fancybox-title-right, #temporal_dynamic {
+  display: none;
+}
+
+#fancybox-title-main {
+  background: none;
+  line-height: 20px;
+}
+
+#fancybox-title {
+}
+
+.fancybox-title-outside {
+  padding-top: 0;
+}
+
+/* */
+#figures-fancyimage {
+  margin: 2em 5em;
+}
+
+/* map/graph takes the full content width by default */
+img.eea-image-width-control {
+  min-width: 600px; 
+  width: 100%;
+}
+
+/* image in fancybox gets a minimum height to fit on screen */
+#fancybox-content img.eea-image-width-control {
+  max-height: 400px;
+  min-width: 0;
+  width: auto;
+}
+
+.map-photo-album {
+  padding-bottom: 1em;
+}
+
+.figures-empty {
+  width: 195px;
+  padding: 85px 0;
+  border: 1px dotted #000000;
+  text-align: center;
+  cursor: crosshair;
+  color: #76797C;
+  font-size: 90%;
+}
+
+.map-singlefile {
+  padding: 1em 0;
+
+}
+
+.map-singlefile .figures-fancyimage-left {
+  width: auto;
+}
+
+.map-singlefile .figures-fancyimage-right {
+  width: 380px;
+}
+
+.map-singlefile .figures-empty {
+  width: auto;
+  padding: 0 2em 0 0;
+  border: none;
+  text-align: left;
+}
+
+.map-singlefile #figures-fancyimage {
+  margin: 0px;
+}
+
+.fancybox-more-details {
+  clear: both;
+  font-size: 150%;
+  text-align: center;
+  padding-bottom: 1em;
+}
