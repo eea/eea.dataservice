@@ -11,7 +11,7 @@ Override PIL EPS plugin to:
   have any usecase.
 
   from PIL.EpsImagePlugin import EpsImageFile, PSFile, i32, field
-  split = re.compile(r"^%[%!\w]([^:]*):[ \t]*(.*)[ \t]*$")
+  split = re.compile(r"^%[%!\\w]([^:]*):[ \t]*(.*)[ \t]*$")
 
 - Support bigger resolution
 

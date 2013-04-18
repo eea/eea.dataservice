@@ -60,7 +60,7 @@ class TopDatasets(BrowserView):
         table = getMultiAdapter((report, self.request), name=u'index.table')
         if not table:
             logger.exception(
-                'No index.table for report %s' % report.absolute_url())
+                'No index.table for report %s', report.absolute_url())
             return []
         datasets = table()
 
