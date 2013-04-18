@@ -164,6 +164,8 @@ class Organisations(object):
 
     @cacherequest.cache(lambda method, self, context, request: method)
     def _organisations(self, context, request):
+        """ Organisations
+        """
         unique_org = {}
         cat = getToolByName(context, 'portal_catalog')
         res = cat.searchResults({'portal_type': 'Organisation'})
