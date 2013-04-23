@@ -14,10 +14,9 @@ Figures.PhotoAlbum = function(context){
     if ( !link.length || link[0].href.indexOf("data-and-maps/figures") === -1 ) {
         return;
     }
-    var img = jQuery('img', photo);
-    var preview = img.attr('src').replace('image_thumb', 'fancybox.html');
-    link.attr('href', preview);
-    link.attr('rel', 'fancybox');
+
+    var href = link.attr('href') + '/fancybox.html';
+    link.attr({'href' : href, 'rel': 'fancybox'});
     link.fancybox({
           type: 'ajax',
           hideOnContentClick: false,
