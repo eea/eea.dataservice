@@ -12,6 +12,10 @@ Changelog
 * Bug fix: fixed issue where fancybox no longer worked on figures because of
   images coming from cdn
   [ichimdav #14382]
+* Change: directly implement IVersionEnhanced for IEEAFigure and IDataset 
+  objects; they would get that interface imediately upon
+  creation/modification, anyway
+  [tiberich #14008]
 
 6.6 - (2013-04-17)
 ------------------
