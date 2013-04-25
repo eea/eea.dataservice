@@ -21,10 +21,17 @@
   <include package=".templates" />
   <include package=".google" />
   <include package=".widgets" />
-  <include package=".versions" />
   <include package=".facetednavigation" />
   <include package=".updates" />
   <include package=".organisations" />
+
+  <class class="eea.dataservice.content.EEAFigure.EEAFigure">
+      <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+  </class>
+
+  <class class="eea.dataservice.content.Data.Data">
+      <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+  </class>
 
   <adapter factory=".catalog.getFileName" name="filename" />
   <adapter factory=".catalog.getFileType" name="filetype" />
