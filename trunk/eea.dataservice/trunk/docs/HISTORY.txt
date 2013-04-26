@@ -14,7 +14,8 @@ Changelog
   [ichimdav #14382]
 * Change: directly implement IVersionEnhanced for IEEAFigure and IDataset 
   objects; they would get that interface imediately upon
-  creation/modification, anyway
+  creation/modification, anyway. Changes to be compatible with latest 
+  eea.versions
   [tiberich #14008]
 
 6.6 - (2013-04-17)

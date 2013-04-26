@@ -6,7 +6,7 @@
 <body>
 
 <div metal:fill-slot="content-core" tal:define="
-  lastVersion context/@@getLatestVersionLink;
+  lastVersion context/@@getVersions/versionId;
   datasetVersionId context/id;
   versions nocall:here/@@getVersions;
   isVersionEnhanced here/@@isVersionEnhanced;

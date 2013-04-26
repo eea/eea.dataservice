@@ -1,6 +1,6 @@
 <div id="figures-fancyimage" tal:define="
   parent context/getParentNode;
-  lastVersion parent/@@getLatestVersionLink;
+  lastVersion parent/@@getVersions/versionId;
   thisVersionId parent/id;">
   <span id="google-analytics" style="display: none"
     tal:content="string:/data-and-maps/figures/ga-downloads/$lastVersion/$thisVersionId" />
