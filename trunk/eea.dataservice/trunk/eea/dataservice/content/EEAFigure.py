@@ -34,7 +34,7 @@ eeafigure_schema = dataservice_schema.copy() + schema.copy()
 eeafigure_schema['dataSource'].required = False
 eeafigure_schema['dataSource'].widget.macro = "readonlytext_widget"
 eeafigure_schema['dataSource'].widget.label = "Source (deprecated)"
-eeafigure_schema['dataSource'].widget.description = """Please 
+eeafigure_schema['dataSource'].widget.description = """Please
     use the References field above to select the relevant data sources"""
 
 # 8523; hide geographicCoverage field since we migrated data to geotags
