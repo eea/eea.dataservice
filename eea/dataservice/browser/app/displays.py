@@ -14,6 +14,7 @@ from eea.dataservice.vocabulary import (
     CATEGORIES_DICTIONARY_ID)
 from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS_KEY
 from eea.dataservice.vocabulary import _obligations
+from eea.versions.interfaces import IGetVersions
 from plone.memoize import request as cacherequest
 
 
