@@ -248,8 +248,6 @@ class MainDatasets(object):
             dataset = brain.getObject()
             api = IGetVersions(dataset)
             versions = api.enumerate_versions()
-#           versions_view = dataset.unrestrictedTraverse('@@getVersions')
-#           versions = versions_view()
             versions_num = len(versions)
             if versions_num > ver_num:
                 latest_version = versions[versions_num]
