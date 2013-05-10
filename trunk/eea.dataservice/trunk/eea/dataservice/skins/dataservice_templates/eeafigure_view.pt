@@ -12,10 +12,7 @@
 
 <body>
 
-<div metal:fill-slot="content-core" tal:define="
-    lastVersion context/@@getVersions/versionId;
-    versions nocall:here/@@getVersions;
-    isVersionEnhanced here/@@isVersionEnhanced;">
+<div metal:fill-slot="content-core">
 
     <!-- Versions -->
     <metal:versions use-macro="here/portlet_versions/macros/versions" />

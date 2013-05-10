@@ -69,12 +69,12 @@ class Survey(BrowserView):
     def _versions(self):
         """ Versions
         """
-        versions = getMultiAdapter((self.context, self.request),
+        api = getMultiAdapter((self.context, self.request),
                                    name=u'getVersions')
-        if not versions:
+        if not api:
             raise StopIteration
-        versions = versions()
-        for version in versions.values():
+        versions = api.versions()
+        for version in versions:
             yield version
     #
     # Public interface
