@@ -710,11 +710,11 @@ class MainFigures(object):
 
         for brain in brains:
             figure = brain.getObject()
-            versions_view = figure.unrestrictedTraverse('@@getVersions')
-            versions = versions_view()
+            api = IGetVersions(figure)
+            versions = api.versions()
             versions_num = len(versions)
             if versions_num > ver_num:
-                latest_version = versions[versions_num]
+                latest_version = api.latest_version()
                 if not latest_version in res:
                     res.append(latest_version)
             if len(res) == count:
