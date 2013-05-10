@@ -8,8 +8,6 @@
 <div metal:fill-slot="content-core" tal:define="
   lastVersion context/@@getVersions/versionId;
   datasetVersionId context/id;
-  versions nocall:here/@@getVersions;
-  isVersionEnhanced here/@@isVersionEnhanced;
 ">
 
     <!-- Versions -->
