@@ -17,6 +17,10 @@ Changelog
   creation/modification, anyway. Changes to be compatible with latest 
   eea.versions
   [tiberich #14008]
+* Bug fix: change tests to avoid using the plone.async job to convert images
+  and use the converter directly. This fixes tests in the -plone4 flavour on
+  jenkins
+  [tiberich]
 
 6.6 - (2013-04-17)
 ------------------

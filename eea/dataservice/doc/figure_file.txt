@@ -52,9 +52,9 @@ Lets upload a source image.
 
 Lets convert the EEAFigureFile above.
 
-    >>> convertImg = ff1.unrestrictedTraverse('@@convertMap')
-    >>> cvtimg = convertImg()
-
+    >>> from eea.dataservice.converter.converter import Convertor
+    >>> print Convertor(ff1).run(cronjob=1, purge=True)
+    0
     >>> ff1['source_image.eps.zoom.png']
     <ATImage at ...>
 
@@ -76,7 +76,8 @@ Check the convertion of another EPS format and test if old converted images were
 
     >>> loadblobfile(ff1, 'source_image2.eps')
     'File uploaded.'
-    >>> cvtimg = convertImg()
+    >>> print Convertor(ff1).run(cronjob=1, purge=True)
+    0
     >>> len(ff1.objectValues('ATBlob'))
     1
     >>> ff1['source_image2.eps.zoom.png']
