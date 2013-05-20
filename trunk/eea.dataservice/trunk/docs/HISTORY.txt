@@ -7,8 +7,8 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-6.7-dev - (unreleased)
-----------------------
+6.7 - (2013-05-20)
+------------------
 * Bug fix: fixed issue where fancybox no longer worked on figures because of
   images coming from cdn
   [ichimdav #14382]
