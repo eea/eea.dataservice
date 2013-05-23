@@ -47,7 +47,7 @@
             <p tal:condition="oexternal">
                 <tal:rows content="python:len(oexternal)" />
                 <span i18n:translate="">external data specs</span>
-                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&amp;b_start=0&amp;c6=${context/org_url}" i18n:translate="">see more</a> )
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&amp;b_start=0&amp;c8=${context/org_url}" i18n:translate="">see more</a> )
             </p>
             <p tal:condition="oassessments">
                 <tal:rows content="python:len(oassessments)" />
