@@ -91,15 +91,15 @@
   <configure zcml:condition="installed eea.rdfmarshaller">
     <adapter factory=".marshaller.ManagementPlanField2Surf" />
     <adapter factory=".marshaller.TemporalCoverageField2Surf" name="temporalCoverage" />
-    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier"
         for="eea.dataservice.interfaces.IDatafile" />
-    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier"
         for="eea.dataservice.interfaces.IEEAFigureFile" />
-    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier"
         for="Products.ATContentTypes.interfaces.IATImage" />
-    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier"
         for="Products.ATContentTypes.interfaces.IATFile" />
-    <adapter factory=".marshaller.ExtraMimetype2SurfModifier" 
+    <adapter factory=".marshaller.ExtraMimetype2SurfModifier"
         for="Products.EEAContentTypes.content.interfaces.IFlashAnimation" />
   </configure>
 

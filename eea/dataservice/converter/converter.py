@@ -265,7 +265,7 @@ class QueueConvert(BrowserView):
         self.context._convertjob = job
         return "OK"
 
-        
+
 class GetJobStatus(BrowserView):
     """Gets the status for convert jobs
     """

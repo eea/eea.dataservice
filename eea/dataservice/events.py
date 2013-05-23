@@ -49,7 +49,6 @@ def handle_eeafigurefile_modified(obj, event):
 
     Creates a new plone.app.async job that converts the file
     """
-
     if obj.REQUEST.form.get('file_file'):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, obj)
@@ -67,7 +66,6 @@ def handle_eeafigure_versioned(obj, event):
 def eeafigurefile_local_policy(obj, event):
     """ Setup local workflow policy for Image inside EEAFigureFiles
     """
-
     oldSecurityManager = getSecurityManager()
     newSecurityManager(None, SpecialUsers.system)
 
@@ -80,4 +78,4 @@ def eeafigurefile_local_policy(obj, event):
         config = ppw.getWorkflowPolicyConfig(obj)
         config.setPolicyBelow('eeafigurefile_image_workflow', False)
 
-    setSecurityManager(oldSecurityManager) 
+    setSecurityManager(oldSecurityManager)
