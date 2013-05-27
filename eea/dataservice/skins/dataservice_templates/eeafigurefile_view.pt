@@ -9,8 +9,8 @@
         <script type="text/javascript"
           tal:content="string:jQuery(document).ready(Figures.Load);"></script>
     </metal:javascript>
-</head>      
-      
+</head>
+
 <body>
 
 <div metal:fill-slot="content-core">
@@ -24,8 +24,6 @@
        <tal:fancybox replace="structure context/@@fancybox.html" />
     </div>
     <div class="visualClear"></div>
-    
-
 
     <div class="visualClear">&nbsp;</div>
     <metal:listing use-macro="here/folder_listing/macros/listing" />

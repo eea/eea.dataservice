@@ -10,7 +10,7 @@
       <img tal:attributes="
         title string:${context/title_or_id};
         alt string:${context/absolute_url}/image_original;
-        src string:${context/absolute_url}/image_large;" 
+        src string:${context/absolute_url}/image_large;"
         class="eea-image-width-control"/>
     </a>
   </div>
@@ -24,7 +24,7 @@
           size python:item[2]"
           tal:attributes="href string:${context/absolute_url}/$uid/at_download/image"
           class="google-analytics">
-          <span i18n:translate="" />
+          <span i18n:translate="" tal:content="uid" />
           <span tal:content="string:($size)" />
         </a>
       </li>
