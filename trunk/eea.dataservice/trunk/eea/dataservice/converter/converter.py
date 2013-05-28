@@ -157,6 +157,7 @@ class Convertor(object):
                     im_id = self.context.invokeFactory('Image', id=im_id)
                 im_ob = getattr(self.context, im_id)
                 im_ob.setImage(file_data)
+                im_ob.reindexObject()
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1

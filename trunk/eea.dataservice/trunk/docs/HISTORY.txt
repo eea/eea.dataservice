@@ -11,7 +11,9 @@ Changelog
 ----------------------
 * Bug fix: fixed list of external data sets from a data provider
   [ghicaale refs #14600]
-* Bug fix: fixed hidden filename for covnerted files for maps and graphs
+* Bug fix: fixed hidden filename for converted files for maps and graphs
+  [ghicaale refs #14648]
+* Bug fix: fixed zero size for converted files for maps and graphs
   [ghicaale refs #14648]
 
 6.7 - (2013-05-20)
