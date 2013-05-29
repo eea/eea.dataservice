@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+6.9-dev - (unreleased)
+----------------------
+
 6.8 - (2013-05-29)
 ------------------
 * Bug fix: fixed list of external data sets from a data provider
