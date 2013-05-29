@@ -15,6 +15,9 @@ Changelog
   [ghicaale refs #14648]
 * Bug fix: fixed zero size for converted files for maps and graphs
   [ghicaale refs #14648]
+* Bug fix: use objectValues('EEAFigureFile') when getting figuresfiles for
+  figure display
+  [tiberich #14669]
 
 6.7 - (2013-05-20)
 ------------------

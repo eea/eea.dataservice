@@ -635,19 +635,7 @@ class GetEEAFigureFiles(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self._brains = []
         self._figures = []
-
-    @property
-    def brains(self):
-        """ ZCatalog brains
-        """
-        if not self._brains:
-            self._brains = self.context.getFolderContents(contentFilter={
-                'portal_type': 'EEAFigureFile',
-                'review_state': []
-            })
-        return self._brains
 
     def figures(self):
         """ Figures
@@ -655,14 +643,13 @@ class GetEEAFigureFiles(object):
         if self._figures:
             return self._figures
 
-        for brain in self.brains:
-            doc = brain.getObject()
+        for doc in self.context.objectValues('EEAFigureFile'):
             imgview = queryMultiAdapter((doc, self.request), name=u'imgview')
             if not imgview:
                 continue
             if not imgview.display():
                 continue
-            self._figures.append(brain)
+            self._figures.append(doc)
 
         return self._figures
 
@@ -679,16 +666,15 @@ class GetEEAFigureFiles(object):
         """
         res = {}
         singlefigure = self.singlefigure()
-        for brain in self.brains:
-            if brain is singlefigure:
+        for doc in self.figures():
+            if doc == singlefigure:
                 continue
-            doc = brain.getObject()
             categ = doc.getCategory()
             res.setdefault(categ, [])
-            res[categ].append(brain)
+            res[categ].append(doc)
 
-        for categ, brains in res.items():
-            yield categ, brains
+        for categ, doc in res.items():
+            yield categ, doc
 
 
 class MainFigures(object):

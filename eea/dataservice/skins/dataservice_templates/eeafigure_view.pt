@@ -24,9 +24,7 @@
         figurefiles context/@@getEEAFigureFiles">
 
         <div tal:condition="singlefile" class="map-singlefile">
-            <tal:doc define="doc python:singlefile.getObject()">
-                <tal:fancybox replace="structure doc/@@fancybox.html" />
-            </tal:doc>
+            <tal:fancybox replace="structure singlefile/@@fancybox.html" />
         </div>
 
         <div class="paginate">
@@ -55,7 +53,7 @@
                                 <div metal:use-macro="here/batch_macros/macros/navigation" />
                                 <tal:images tal:repeat="brain folderContents">
                                     <tal:entry tal:define="
-                                        obj brain/getObject;
+                                        obj brain/getObject | brain;
                                         obj_title python:obj.pretty_title_or_id();
                                         desc_or_title python:brain.Description or obj_title;
                                         urlview obj/@@url;
