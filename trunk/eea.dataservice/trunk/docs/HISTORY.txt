@@ -9,6 +9,9 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Bug fix: fix a bug with figure view when dealing with multiple 
+  figure files
+  [tiberich #14699]
 
 6.8 - (2013-05-29)
 ------------------
