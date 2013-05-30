@@ -1,5 +1,5 @@
 <metal:entry define-macro="entry" tal:define="
-css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry';
+css python:brain.isPrincipiaFolderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry';
 display obj/@@imgview/display|nothing;">
 <tal:entry condition="display">
 <metal:entry use-macro="here/atct_albumentry/macros/entry" />

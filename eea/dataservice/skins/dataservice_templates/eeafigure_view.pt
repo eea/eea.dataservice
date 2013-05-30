@@ -53,12 +53,13 @@
                                 <div metal:use-macro="here/batch_macros/macros/navigation" />
                                 <tal:images tal:repeat="brain folderContents">
                                     <tal:entry tal:define="
-                                        obj brain/getObject | brain;
+                                        obj brain/getObject | nocall:brain;
                                         obj_title python:obj.pretty_title_or_id();
                                         desc_or_title python:brain.Description or obj_title;
                                         urlview obj/@@url;
                                         listing_url obj/absolute_url;
-                                        is_video python:'eea.mediacentre.interfaces.IVideo' in brain.object_provides">
+                                        is_video python:brain.restrictedTraverse('@@plone_interface_info').provides('eea.mediacentre.interfaces.IVideo');
+                                        ">
 
                                         <tal:comment replace="nothing">
                                             TODO: use me or remove me
