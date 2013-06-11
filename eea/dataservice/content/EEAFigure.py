@@ -11,7 +11,6 @@ from eea.dataservice.content.themes import ThemeTaggable
 
 logger = logging.getLogger('eea.dataservice')
 
-
 # Schema
 schema = Schema((
     StringField(
