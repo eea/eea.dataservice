@@ -10,6 +10,8 @@ from plone.app.blob.field import BlobField
 from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from Products.validation import V_REQUIRED
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore.permissions import View
 
 # Schema
 schema = Schema((
@@ -61,3 +63,31 @@ class EEAFigureFile(ATFolder):
         'ATImage', 'File', 'Folder', 'DataFile', 'DataTable']
     _at_rename_after_creation = True
     schema = eeafigurefile_schema
+
+    security = ClassSecurityInfo()
+
+    security.declareProtected(View, 'get_size')
+    def get_size(self):
+        """ ZMI / Plone get size method
+        """
+        f = self.getField('file')
+        if f is None:
+            return 0
+        return f.get_size(self) or 0
+
+    security.declareProtected(View, 'size')
+    def size(self):
+        """ Get size
+        """
+        return self.get_size()
+
+    security.declareProtected(View, 'download')
+    def download(self, REQUEST=None, RESPONSE=None):
+        """ Download the file
+        """
+        if REQUEST is None:
+            REQUEST = self.REQUEST
+        if RESPONSE is None:
+            RESPONSE = REQUEST.RESPONSE
+        field = self.getField('file')
+        return field.download(self, REQUEST, RESPONSE)
