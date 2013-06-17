@@ -637,13 +637,19 @@ class GetEEAFigureFiles(object):
         self.request = request
         self._figures = []
 
+    @property
+    def children(self):
+        """ EEAFigure children property
+        """
+        return self.context.objectValues('EEAFigureFile')
+
     def figures(self):
         """ Figures
         """
         if self._figures:
             return self._figures
 
-        for doc in self.context.objectValues('EEAFigureFile'):
+        for doc in self.children:
             imgview = queryMultiAdapter((doc, self.request), name=u'imgview')
             if not imgview:
                 continue
@@ -666,7 +672,7 @@ class GetEEAFigureFiles(object):
         """
         res = {}
         singlefigure = self.singlefigure()
-        for doc in self.figures():
+        for doc in self.children:
             if doc == singlefigure:
                 continue
             categ = doc.getCategory()

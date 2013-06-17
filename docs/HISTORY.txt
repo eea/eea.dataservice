@@ -9,6 +9,9 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Bug fix: restored ability to display EEAFigureFiles as categories lost in 
+  ticket #14699
+  [ichimdav refs #14712]
 * Bug fix: fix a bug with figure view when dealing with multiple
   figure files
   [tiberich #14699]
