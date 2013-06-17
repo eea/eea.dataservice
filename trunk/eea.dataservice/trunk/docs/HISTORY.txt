@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+7.0-dev - (unreleased)
+----------------------
+
 6.9 - (2013-06-17)
 ------------------
 * Bug fix: restored ability to display EEAFigureFiles as categories lost in 
