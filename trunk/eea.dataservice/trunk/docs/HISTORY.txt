@@ -151,9 +151,8 @@ Changelog
 * Upgrade step:
     * go to /@@types-controlpanel?type_id=EEAFigureFile
     * Change workflow to "No Workflow"
-    * Click "Apply Changes". The request should be finished in less then 5
-      minutes
-  [tiberich refs #9976]
+    * Click "Apply Changes". The request should be finished in less then 5 minutes
+    * [tiberich refs #9976]
 
 5.7 - (2012-11-29)
 ------------------
@@ -962,4 +961,3 @@ Changelog
 -----------------
 * Initial release
   [ghicaale]
-
