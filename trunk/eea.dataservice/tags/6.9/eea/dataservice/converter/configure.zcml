@@ -1,0 +1,66 @@
+<configure xmlns="http://namespaces.zope.org/browser"
+           xmlns:zope="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea">
+
+  <browser:page
+      for="*"
+      name="checkFiguresConvertion"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.CheckFiguresConvertion"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="convertMap"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertMap"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="convertFigure"
+      template="convert_figure.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigure"
+      name="convertFigures"
+      template="convert_figures.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="convertionInfo"
+      permission="cmf.ModifyPortalContent"
+      class=".converter.ConvertionInfo"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="queueConvert"
+      class=".converter.QueueConvert"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      name="jobStatus"
+      class=".converter.GetJobStatus"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:resource
+      name="eea.dataservice.convert_figure.js"
+      file="convert_figure.js"
+     />
+
+  <browser:resource
+      name="eea.dataservice.convert_figures.js"
+      file="convert_figures.js"
+     />
+
+</configure>
