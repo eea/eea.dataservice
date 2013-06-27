@@ -29,7 +29,7 @@ Lets add an Organisation.
     ... }
     >>> org1.processForm(values=form, data=1, metadata=1)
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> org1.Title()
     'Organisation 1'
@@ -89,7 +89,7 @@ Our dataset should provide IDataset interface.
     >>> IDataset.providedBy(data1)
     True
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> data1.Title()
     'Data 1'
@@ -145,7 +145,7 @@ Lets add a DataTable under the above Dataset.
     ... }
     >>> dt1.processForm(values=form, data=1, metadata=1)
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> dt1.Title()
     'DataTable 1'
@@ -175,7 +175,7 @@ Lets add a DataFile under the above DataTable.
     ... }
     >>> df1.processForm(values=form, data=1, metadata=1)
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> df1.Title()
     'DataFile 1'

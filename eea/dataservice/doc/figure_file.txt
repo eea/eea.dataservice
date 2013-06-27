@@ -24,11 +24,12 @@ Now, lets add a EEAFigureFile.
     ...   'title': 'EEAFigureFile 1',
     ...   'description': 'EEAFigureFile description 1',
     ...   'effectiveDate': '11/11/2008',
+    ...   'category': 'adin',
     ... }
     >>> _ = f1.invokeFactory('EEAFigureFile', 'ff1', **form)
     >>> ff1 = f1.ff1
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> ff1.Title()
     'EEAFigureFile 1'
@@ -72,7 +73,7 @@ Lets check if thumbs were created.
     >>> thumb.getObjSize().upper()
     '1... KB'
 
-Check the convertion of another EPS format and test if old converted images were deleted.
+Check the conversion of another EPS format and test if old converted images were deleted.
 
     >>> loadblobfile(ff1, 'source_image2.eps')
     'File uploaded.'
@@ -97,3 +98,19 @@ Check if EEAFigureFile has its local workflow policy set
     <WorkflowPolicyConfig at ...>
     >>> config.getPolicyBelowId()
     'eeafigurefile_image_workflow'
+
+
+Lets check the category feature of EEAFigureFile's.
+For that lets another EEAFigureFile with a different category from the ff1
+
+    >>> form = {
+    ...   'title': 'EEAFigureFile 2',
+    ...   'description': 'EEAFigureFile description 2',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'category': 'docu',
+    ... }
+    >>> _ = f1.invokeFactory('EEAFigureFile', 'ff2', **form)
+    >>> ff2 = f1.ff2
+
+    >>> loadblobfile(ff1, 'sample.pdf')
+    'File uploaded.'
