@@ -53,7 +53,7 @@ Our EEA figure should provide IEEAFigureMap interface.
     >>> IEEAFigureMap.providedBy(figure1)
     True
 
-Check see if properties applyed.
+Check see if properties applied.
 
     >>> figure1.Title()
     'Figure first'
@@ -90,7 +90,7 @@ Now lets create a new version of the above EEA figure.
     >>> vertmp = createVersionView()
     >>> dataVer = sandbox._getOb('figure-first-1')
 
-Lets verify if properties were copyed on the new version.
+Lets verify if properties were copied on the new version.
 
     >>> dataVer.Title() == figure1.Title()
     True
