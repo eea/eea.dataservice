@@ -9,6 +9,10 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Feature: added functional test covering the categories function found within
+  EEAFigureFiles through the testing of 'getCategoryName', 
+  'getSingleEEAFigureFile' and 'getEEAFigureFiles'
+  [ichimdav fixes #14712]
 
 6.9 - (2013-06-17)
 ------------------
