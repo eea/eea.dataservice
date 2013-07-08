@@ -1,0 +1,46 @@
+/* Widget left
+*/
+.figure_widget_container legend {
+  font-weight: bold;
+  padding-left: 0.5em;
+}
+
+.figure_widget_left {
+  /* float: left; */
+  width: 50%;
+  padding-left: 2em;
+  padding-top: 0.5em;
+}
+
+.figure_widget_left .figure_widget_select {
+  width: 20em;
+}
+
+/* Widget right
+*/
+.figure_widget_right {
+  padding-left: 2em;
+}
+
+.figure_clear {
+  clear: both;
+}
+
+.figure_input_error {
+  border: 1px solid #cd0a0a;
+  background-color: #fef1ec;
+}
+
+.figure_widget_errors {
+  color: #cd0a0a;
+}
+
+.figure_widget_results {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.figure_widget_new_publication {
+  padding: 1em;
+  width: 20em;
+}
