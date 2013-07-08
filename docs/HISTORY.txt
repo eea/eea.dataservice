@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+7.1-dev - (unreleased)
+----------------------
+
 7.0 - (2013-07-08)
 ------------------
 * Feature: added functional test covering the categories function found within
