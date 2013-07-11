@@ -9,17 +9,19 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Feature: added logic so DataFileLink works under EEAFigures
+  [ghicaale refs #14690]
 
 7.0 - (2013-07-08)
 ------------------
 * Feature: added functional test covering the categories function found within
-  EEAFigureFiles through the testing of 'getCategoryName', 
+  EEAFigureFiles through the testing of 'getCategoryName',
   'getSingleEEAFigureFile' and 'getEEAFigureFiles'
   [ichimdav fixes #14712]
 
 6.9 - (2013-06-17)
 ------------------
-* Bug fix: restored ability to display EEAFigureFiles as categories lost in 
+* Bug fix: restored ability to display EEAFigureFiles as categories lost in
   ticket #14699
   [ichimdav refs #14712]
 * Bug fix: fix a bug with figure view when dealing with multiple

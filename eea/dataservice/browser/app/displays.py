@@ -177,8 +177,11 @@ class GetCategoryName(object):
         self.request = request
 
     def __call__(self, cat_code):
-        vocab = _categories_vocabulary(self, self.request)
-        return getattr(vocab, cat_code).Title()
+        try:
+            vocab = _categories_vocabulary(self, self.request)
+            return getattr(vocab, cat_code).Title()
+        except AttributeError:
+            return 'Category name'
 
 
 class DatasetBasedOn(object):
@@ -641,7 +644,7 @@ class GetEEAFigureFiles(object):
     def children(self):
         """ EEAFigure children property
         """
-        return self.context.objectValues('EEAFigureFile')
+        return self.context.objectValues(['EEAFigureFile', 'ATLink'])
 
     def figures(self):
         """ Figures
@@ -675,9 +678,16 @@ class GetEEAFigureFiles(object):
         for doc in self.children:
             if doc == singlefigure:
                 continue
-            categ = doc.getCategory()
-            res.setdefault(categ, [])
-            res[categ].append(doc)
+
+            if doc.portal_type == 'DataFileLink':
+                # DataFileLink mapped under 'Documents'
+                categ = 'docu'
+                res.setdefault(categ, [])
+                res[categ].append(doc)
+            else:
+                categ = doc.getCategory()
+                res.setdefault(categ, [])
+                res[categ].append(doc)
 
         for categ, doc in res.items():
             yield categ, doc
