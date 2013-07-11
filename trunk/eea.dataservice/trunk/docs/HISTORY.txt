@@ -7,8 +7,8 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-7.1-dev - (unreleased)
-----------------------
+7.1 - (2013-07-11)
+------------------
 * Feature: added logic so DataFileLink works under EEAFigures
   [ghicaale refs #14690]
 
