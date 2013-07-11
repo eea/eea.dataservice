@@ -17,7 +17,8 @@ from zope.component import queryAdapter, getUtility
 
 
 def handle_eeafigure_state_change(figure, event):
-    """Handler for EEAFigure workflow state change"""
+    """ Handler for EEAFigure workflow state change
+    """
 
     #reindex all Assessments and IndicatorFactSheets that point to this figure
     adapter = queryAdapter(figure, IRelations)
@@ -34,7 +35,7 @@ def handle_eeafigure_state_change(figure, event):
         obj.reindexObject()
 
 def reindex_filetype(obj, event):
-    """ Reindex datatable and dataset parents filetype index onn DataFile change
+    """ Reindex datatable and dataset parents filetype index on DataFile change
     """
     parent = utils.parent(obj)
     if IDatatable.providedBy(parent):
@@ -45,9 +46,8 @@ def reindex_filetype(obj, event):
         parent.reindexObject(idxs=['filetype'])
 
 def handle_eeafigurefile_modified(obj, event):
-    """Handles creation or editing of EEAFigureFile
-
-    Creates a new plone.app.async job that converts the file
+    """ Handles creation or editing of EEAFigureFile
+        Creates a new plone.app.async job that converts the file
     """
     if obj.REQUEST.form.get('file_file'):
         async = getUtility(IAsyncService)
@@ -58,7 +58,7 @@ def handle_eeafigurefile_modified(obj, event):
                  "wait a few minutes", type="INFO")
 
 def handle_eeafigure_versioned(obj, event):
-    """Handles versioning of eeafigure
+    """ Handles versioning of EEAFigureFile
     """
     copy = event.object
     copy.setDataSource("")

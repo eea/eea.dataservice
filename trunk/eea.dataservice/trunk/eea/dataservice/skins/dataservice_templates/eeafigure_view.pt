@@ -37,9 +37,8 @@
                     categ python:child[0];
                     categ_name python:categView(categ);
                     entry_macro here/eeafigure_albumentry/macros/entry;">
-                    <h3 tal:content="categ_name" tal:attributes="
-                                                                id string:fancy-$categ;
-                                                                title categ_name;"/>
+                    <h3 tal:content="categ_name" tal:attributes="id string:fancy-$categ;
+                                                                 title categ_name;"/>
                     <tal:comment replace="nothing">
                         TODO: use me or remove me
                         <!-- NEW MACRO FOR DAVIZ -->
@@ -142,6 +141,7 @@
                     </tal:block>
                 </div>
             </div>
+
         </div>
     </tal:figurefiles>
 

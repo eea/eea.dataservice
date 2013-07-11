@@ -45,19 +45,19 @@ class ImageViewFigure(BrowserView):
         """ Display?
         """
         if not self.img:
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return False
         res = self.img.display(scalename)
-        setSecurityManager(self.oldSecurityManager) 
+        setSecurityManager(self.oldSecurityManager)
         return res
 
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
             res = self.img(scalename)
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return res
 
-        setSecurityManager(self.oldSecurityManager) 
+        setSecurityManager(self.oldSecurityManager)
         raise NotFound(self.request, scalename)
 
 
@@ -72,7 +72,7 @@ class ImageViewFigureFile(BrowserView):
         self.oldSecurityManager = getSecurityManager()
         newSecurityManager(request, SpecialUsers.system)
 
-        images = sorted(context.objectValues("ATBlob"), 
+        images = sorted(context.objectValues("ATBlob"),
                         lambda a,b:cmp(b.getId(), a.getId()))
 
         # Get *.zoom.png
@@ -103,24 +103,24 @@ class ImageViewFigureFile(BrowserView):
         """
         if scalename == 'original':
             res = bool(self.original)
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return res
         try:
             res = self.img.display(scalename)
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return res
         except Exception, err:
             logger.exception(err)
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return False
 
     def __call__(self, scalename='thumb'):
         if self.display(scalename):
             if scalename == 'original':
-                setSecurityManager(self.oldSecurityManager) 
+                setSecurityManager(self.oldSecurityManager)
                 return self.original
             res = self.img(scalename)
-            setSecurityManager(self.oldSecurityManager) 
+            setSecurityManager(self.oldSecurityManager)
             return res
-        setSecurityManager(self.oldSecurityManager) 
+        setSecurityManager(self.oldSecurityManager)
         raise NotFound(self.request, scalename)
