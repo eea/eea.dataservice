@@ -9,6 +9,8 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Change: added dependency to eea.indicators, needed for portlets.Readiness
+  [szabozo0 refs #14323]
 
 7.1 - (2013-07-11)
 ------------------
