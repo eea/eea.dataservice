@@ -7,6 +7,9 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
+7.3-dev - (unreleased)
+----------------------
+
 7.2 - (2013-08-09)
 ------------------
 * Change: added dependency to eea.indicators, needed for portlets.Readiness
