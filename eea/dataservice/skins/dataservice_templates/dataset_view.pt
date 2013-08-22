@@ -376,9 +376,7 @@
                 <!-- Source -->
                 <tal:block metal:define-macro="source"
                            define="field python:context.getField('dataSource');
-                       vocab python:field.Vocabulary(context);
-                       values python:field.getAccessor(context)();
-                       value python:context.displayValue(vocab, values);
+                                   value python:field.getAccessor(context)();
                         ">
 
                     <dt tal:condition="python:value"

@@ -9,6 +9,8 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed unicode decode error when disaplying the data source.
+  [ghicaale refs #16277]
 
 7.2 - (2013-08-09)
 ------------------
