@@ -68,13 +68,6 @@
       />
 
   <browser:page
-      name="formatTempCoverage"
-      class=".app.displays.FormatTempCoverage"
-      for="*"
-      permission="zope2.View"
-      />
-
-  <browser:page
       name="getCountries"
       class=".app.displays.GetCountries"
       for="*"

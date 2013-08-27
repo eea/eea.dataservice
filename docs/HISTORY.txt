@@ -9,6 +9,9 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Change: Moved temporalCoverage field/widget helpers to eea.forms in order
+  to easily be reused by other packages like eea.soercontent
+  [voineali refs #14900]
 * Bug fix: Fixed unicode decode error when disaplying the data source.
   [ghicaale refs #16277]
 
