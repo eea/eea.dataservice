@@ -53,7 +53,7 @@ class Widget(CheckboxWidget):
             else:
                 tmp_value.append(code)
 
-        query[index] = {'query': tmp_value, 'operator': 'and'}
+        query[index] = {'query': tmp_value, 'operator': self.operator}
         return query
 
     def portal_vocabulary(self):
@@ -106,7 +106,7 @@ class Widget(CheckboxWidget):
                 gr_value = getCountriesByGroupView(value)
                 rset = apply_index({
                     index_id: gr_value,
-                    index_id +'_operator': 'and',
+                    index_id +'_operator': self.operator,
                 })
             else:
                 rset = apply_index({

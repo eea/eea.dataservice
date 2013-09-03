@@ -9,6 +9,9 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Bug fix: Removed hardcoded AND operator within geocoverage
+  facetednavigation widget
+  [voineali refs #16624]
 * Change: Moved temporalCoverage field/widget helpers to eea.forms in order
   to easily be reused by other packages like eea.soercontent
   [voineali refs #14900]
