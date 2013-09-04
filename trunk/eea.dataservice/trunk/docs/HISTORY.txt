@@ -9,6 +9,9 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Feature: Handle "match all/any" option for anonymous users within geocoverage
+  custom faceted widget
+  [voineali refs #16624]
 * Bug fix: Removed hardcoded AND operator within geocoverage
   facetednavigation widget
   [voineali refs #16624]

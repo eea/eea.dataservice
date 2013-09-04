@@ -53,7 +53,12 @@ class Widget(CheckboxWidget):
             else:
                 tmp_value.append(code)
 
-        query[index] = {'query': tmp_value, 'operator': self.operator}
+        if getattr(self, 'operator_visible', False):
+            operator = form.get(self.data.getId() + '-operator', self.operator)
+        else:
+            operator = self.operator
+        query[index] = {'query': tmp_value, 'operator': operator}
+
         return query
 
     def portal_vocabulary(self):
