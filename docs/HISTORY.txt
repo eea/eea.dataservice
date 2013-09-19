@@ -7,8 +7,8 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-7.4-dev - (unreleased)
-----------------------
+7.4 - (2013-09-19)
+------------------
 * Bug fix: optimised facetnav widget which filter for last version not to take minutes
   to compute the results as we now have all objects versionable.
   [ghicaale refs #16772]
