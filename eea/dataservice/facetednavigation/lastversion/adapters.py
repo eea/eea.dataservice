@@ -16,34 +16,27 @@ class WidgetFilterBrains(object):
         """ Filter brains
         """
         last_versions = {}
-        brains = [brain for brain in brains]
-        for brain in brains:
-            version_id = getattr(brain, 'getVersionId', '')
-            if version_id:
-                effective_date = (
-                    getattr(brain, 'EffectiveDate', None) or
-                    getattr(brain, 'CreationDate', None) or
-                    DateTime(1970)
-                )
-                if len(version_id):
-                    if last_versions.has_key(version_id):
-                        current_date = (
-                            getattr(last_versions[version_id],
-                                    'EffectiveDate', None) or
-                            getattr(last_versions[version_id],
-                                    'CreationDate', None) or
-                            DateTime(1970)
-                        )
-                        if current_date < effective_date:
-                            last_versions[version_id] = brain
-                    else:
-                        last_versions[version_id] = brain
+        seventies = DateTime(1970)
 
-        versions = [k.data_record_id_ for k in last_versions.values()]
         for brain in brains:
             version_id = getattr(brain, 'getVersionId', '')
-            if version_id:
-                if brain.data_record_id_ in versions:
-                    yield brain
+            effective_date = (
+                getattr(brain, 'EffectiveDate', None) or
+                getattr(brain, 'CreationDate', None) or
+                seventies
+            )
+
+            if last_versions.has_key(version_id):
+                current_date = (
+                    getattr(last_versions[version_id],
+                            'EffectiveDate', None) or
+                    getattr(last_versions[version_id],
+                            'CreationDate', None) or
+                    seventies
+                )
+                if current_date < effective_date:
+                    last_versions[version_id] = brain
             else:
-                yield brain
+                last_versions[version_id] = brain
+
+        return last_versions.values()
