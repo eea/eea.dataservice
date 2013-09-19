@@ -9,6 +9,9 @@ Changelog
 
 7.4-dev - (unreleased)
 ----------------------
+* Bug fix: optimised facetnav widget which filter for last version not to take minutes
+  to compute the results as we now have all objects versionable.
+  [ghicaale refs #16773]
 
 7.3 - (2013-09-06)
 ------------------
