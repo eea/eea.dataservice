@@ -9,6 +9,8 @@ Changelog
 
 7.5-dev - (unreleased)
 ----------------------
+* Bug fix: fixed sorting for show last version facetnav widget
+  [ghicaale refs #16784]
 
 7.4 - (2013-09-19)
 ------------------
