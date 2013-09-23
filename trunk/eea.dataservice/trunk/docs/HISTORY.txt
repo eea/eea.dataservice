@@ -7,8 +7,8 @@ Changelog
 [Tiberiu Ichim - tiberiu at eaudeweb.ro]
 [David Ichim - david.ichim at eaudeweb.ro]
 
-7.5-dev - (unreleased)
-----------------------
+7.5 - (2013-09-23)
+------------------
 * Bug fix: fixed sorting for show last version facetnav widget
   [ghicaale refs #16784]
 
