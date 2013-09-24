@@ -146,7 +146,7 @@ def generateUniqueTitles(data):
         title = orig_title
         while title in seen_titles:
             n += 1
-            title = '%s (%d)' % (orig_title, n)
+            title = u'%s (%d)' % (orig_title, n)
         seen_titles.add(title)
         data_unique_titles[url] = title
     return data_unique_titles
@@ -170,8 +170,15 @@ class Organisations(object):
         cat = getToolByName(context, 'portal_catalog')
         res = cat.searchResults({'portal_type': 'Organisation'})
         for brain in res:
-            unique_org.setdefault(brain.getUrl,
-                                  brain.Title and brain.Title.strip())
+            title = brain.Title.strip()
+            if isinstance(title, str):
+                try:
+                    title = title.decode('utf-8')
+                except Exception, err:
+                    logger.exception(err)
+                    title = brain.getId
+
+            unique_org.setdefault(brain.getUrl, title)
 
         unique_org = generateUniqueTitles(unique_org)
 
