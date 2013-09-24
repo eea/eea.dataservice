@@ -48,7 +48,7 @@ Verify if organisation vocabulary contains correct data.
     >>> from zope.component import getUtility
     >>> voc = getUtility(IVocabularyFactory, 'Organisations')
     >>> [(term.title, term.value) for term in voc(org1)]
-    [('Organisation 1', 'http://organisation.url')]
+    [(u'Organisation 1', 'http://organisation.url')]
 
 Lets add a Dataset.
 
