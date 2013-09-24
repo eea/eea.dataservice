@@ -9,6 +9,8 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed Organisation's vocabulary for organisations with non-ascii title
+  [voineali refs #16804]
 
 7.5 - (2013-09-23)
 ------------------
