@@ -9,6 +9,9 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+* Change: Added portal_url definition to the tooltip macro in order for it to 
+  be used by templates that are not dataset_view
+  [ichimdav #16719]
 * Bug fix: Fixed Organisation's vocabulary for organisations with non-ascii title
   [voineali refs #16804]
 
