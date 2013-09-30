@@ -1,7 +1,7 @@
 """ Version widget
 """
 from zope.interface import implements
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from eea.facetednavigation.widgets.widget import Widget as AbstractWidget
 
 from eea.dataservice.facetednavigation.lastversion.interfaces import (

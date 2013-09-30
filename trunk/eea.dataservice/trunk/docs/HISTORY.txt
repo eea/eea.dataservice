@@ -9,6 +9,8 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+* Change: updated zope imports with the versions that require minimum Plone 4.1
+  [ichimdav refs #15651]
 * Change: Added portal_url definition to the tooltip macro in order for it to 
   be used by templates that are not dataset_view
   [ichimdav #16719]
