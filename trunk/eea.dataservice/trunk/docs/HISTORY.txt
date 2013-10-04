@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.6-dev - (unreleased)
-----------------------
+7.6 - (2013-10-04)
+------------------
 * Change: updated zope imports with the versions that require minimum Plone 4.1
   [ichimdav refs #15651]
 * Change: Added portal_url definition to the tooltip macro in order for it to
