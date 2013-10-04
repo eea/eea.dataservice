@@ -1,17 +1,11 @@
 Changelog
 =========
-[Alexandru Ghica - alec.ghica at eaudeweb.ro]
-[Alin Voinea - alin.voinea at eaudeweb.ro]
-[Antonio De Marinis - Antonio.DeMarinis at eea.europa.eu]
-[Christian-Xavier Prosperini - Christian.Prosperini at eea.europa.eu]
-[Tiberiu Ichim - tiberiu at eaudeweb.ro]
-[David Ichim - david.ichim at eaudeweb.ro]
 
 7.6-dev - (unreleased)
 ----------------------
 * Change: updated zope imports with the versions that require minimum Plone 4.1
   [ichimdav refs #15651]
-* Change: Added portal_url definition to the tooltip macro in order for it to 
+* Change: Added portal_url definition to the tooltip macro in order for it to
   be used by templates that are not dataset_view
   [ichimdav #16719]
 * Bug fix: Fixed Organisation's vocabulary for organisations with non-ascii title
