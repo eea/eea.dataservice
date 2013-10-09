@@ -3,6 +3,8 @@ Changelog
 
 7.7-dev - (unreleased)
 ----------------------
+* Feature: Added quick-upload portlets upgrade step
+  [tiberich #16997]
 * Bug fix: also implement Products.ATContentTypes.interfaces.IFileContent for the
   EEAFigureFile and DataFile objects
   [tiberich #16997]
