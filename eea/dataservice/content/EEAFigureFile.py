@@ -5,6 +5,7 @@ from Products.Archetypes.atapi import Schema, StringField, StringWidget
 from Products.Archetypes.atapi import SelectionWidget, FileWidget
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.ATContentTypes.interfaces import IFileContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from plone.app.blob.field import BlobField
 from eea.dataservice.interfaces import IEEAFigureFile
@@ -57,7 +58,7 @@ eeafigurefile_schema = ATFolderSchema.copy() + schema.copy()
 class EEAFigureFile(ATFolder):
     """ EEAFigureFile Content Type
     """
-    implements(IEEAFigureFile)
+    implements(IEEAFigureFile, IFileContent)
     archetype_name = portal_type = meta_type = 'EEAFigureFile'
     allowed_content_types = [
         'ATImage', 'File', 'Folder', 'DataFile', 'DataTable']

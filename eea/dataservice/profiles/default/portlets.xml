@@ -9,4 +9,20 @@
         name="readiness"
         />
 
+    <assignment name="quick-upload" category="content_type" key="DataTable"
+        manager="plone.rightcolumn"
+        type="collective.quickupload.QuickUploadPortlet" visible="True">
+        <property name="header">Quick upload</property>
+        <property name="upload_media_type"/>
+        <property name="upload_portal_type">DataFile</property>
+    </assignment>
+
+    <assignment name="quick-upload" category="content_type" key="EEAFigure"
+        manager="plone.rightcolumn"
+        type="collective.quickupload.QuickUploadPortlet" visible="True">
+        <property name="header">Quick upload</property>
+        <property name="upload_media_type"/>
+        <property name="upload_portal_type">EEAFigureFile</property>
+    </assignment>
+
 </portlets>

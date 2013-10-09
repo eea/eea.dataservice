@@ -1,14 +1,15 @@
 """ Data File content type
 """
+from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.ATContentTypes.interfaces import IFileContent
 from Products.Archetypes.atapi import FileWidget, StringWidget
 from Products.Archetypes.atapi import Schema, StringField
+from Products.CMFCore.permissions import View
 from Products.validation import V_REQUIRED
 from eea.dataservice.interfaces import IDatafile
 from plone.app.blob.field import BlobField
-from AccessControl import ClassSecurityInfo
-from Products.CMFCore.permissions import View
 from zope.interface import implements
 
 schema = Schema((
@@ -45,7 +46,7 @@ Datafile_schema = ATFolderSchema.copy() + \
 class DataFile(ATFolder):
     """ Dataset External File Content Type
     """
-    implements(IDatafile)
+    implements(IDatafile, IFileContent)
     archetype_name = portal_type = meta_type = 'DataFile'
     _at_rename_after_creation = True
     schema = Datafile_schema
