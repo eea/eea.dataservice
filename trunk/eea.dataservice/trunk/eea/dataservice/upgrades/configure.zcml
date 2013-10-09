@@ -26,5 +26,17 @@
                 />
 
     </genericsetup:upgradeSteps>
+    
+    <genericsetup:upgradeSteps
+            source="*"
+            destination="7.6"
+            profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+                title="Configure DataTable and EEAFigure portlets"
+                import_steps="portlets"
+                />
+
+    </genericsetup:upgradeSteps>
 
 </configure>
