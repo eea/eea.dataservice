@@ -28,6 +28,7 @@ class EEAFixture(PloneSandboxLayer):
 
         z2.installProduct(app, 'Products.ATVocabularyManager')
         z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
+        z2.installProduct(app, 'collective.quickupload')
         z2.installProduct(app, 'eea.dataservice')
 
     def tearDownZope(self, app):
@@ -35,6 +36,7 @@ class EEAFixture(PloneSandboxLayer):
         """
         z2.uninstallProduct(app, 'Products.ATVocabularyManager')
         z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
+        z2.uninstallProduct(app, 'collective.quickupload')
         z2.uninstallProduct(app, 'eea.dataservice')
 
     def setUpPloneSite(self, portal):

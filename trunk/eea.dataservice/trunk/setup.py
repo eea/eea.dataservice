@@ -44,6 +44,7 @@ setup(name=name,
           'five.intid',
           'plone.app.async',
           'eea.indicators',
+          'collective.quickupload',
       ],
       extras_require={
           'test': ['plone.app.testing',]
