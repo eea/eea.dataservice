@@ -3,6 +3,9 @@ Changelog
 
 7.7-dev - (unreleased)
 ----------------------
+* Bug fix: also implement Products.ATContentTypes.interfaces.IFileContent for the
+  EEAFigureFile and DataFile objects
+  [tiberich #16997]
 
 7.6 - (2013-10-04)
 ------------------
