@@ -1,0 +1,50 @@
+Mimetypes
+=========
+This package register new mimetypes, let's see if they are registered correctly
+
+Set up
+------
+    >>> from StringIO import StringIO
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import preparefile
+    >>> from plone.app.blob.utils import guessMimetype
+
+    >>> portal = layer['portal']
+    >>> registry = portal.mimetypes_registry
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+
+Database mimetypes
+------------------
+
+    >>> registry.lookupExtension('accdb')
+    <mimetype application/vnd.ms-access>
+
+    >>> registry.lookupExtension('fp7')
+    <mimetype application/x-filemaker>
+
+    >>> registry.lookup('application/x-udl')
+    (<mimetype application/x-udl>,)
+
+    >>> guessMimetype(StringIO('database'), filename="a.db.fp7.apr")
+    'application/vnd.lotus-approach'
+
+
+Geographic mimetypes
+--------------------
+
+    >>> registry.lookupExtension('kml')
+    <mimetype application/vnd.google-earth.kml+xml>
+
+    >>> registry.lookupExtension('shp')
+    <mimetype application/x-qgis>
+
+    >>> registry.lookupExtension('geotiff')
+    <mimetype image/geotiff>
+
+    >>> guessMimetype(StringIO('TIFF'), filename="a.kml.geotiff")
+    'image/geotiff'
+
+    >>> guessMimetype(StringIO('SHP'), filename="a.kml.geotiff.shp")
+    'application/x-qgis'
