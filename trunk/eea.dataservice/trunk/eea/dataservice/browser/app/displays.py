@@ -412,7 +412,9 @@ class GetCountriesByGroup(object):
 
 
 class GetDataFiles(object):
-    """ Return DataFile objects """
+    """ Return DataFile objects sorted by the position of the objects within
+        their parent
+    """
 
     def __init__(self, context, request):
         self.context = context
@@ -433,7 +435,9 @@ class GetDataFiles(object):
 
 
 class GetDataFileLinks(object):
-    """ Return DataFileLinks objects. These are links to external files. """
+    """ Return DataFileLinks objects. These are links to external files
+        sorted by the position of the objects within their parent
+    """
 
     def __init__(self, context, request):
         self.context = context
@@ -454,7 +458,9 @@ class GetDataFileLinks(object):
 
 
 class GetTablesByCategory(object):
-    """ Return categories and related files """
+    """ Return categories and related files sorted by the position of the
+        objects within their parent
+    """
 
     def __init__(self, context, request):
         self.context = context
