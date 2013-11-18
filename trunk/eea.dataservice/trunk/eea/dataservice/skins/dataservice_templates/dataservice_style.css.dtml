@@ -12,11 +12,21 @@
 .table-definition-map {
     margin: 0.5em 0 0 0; }
 
+.geographical-coverage .table-definition-map,
+.temporal-coverage-content {
+    font-weight:normal;
+    margin-left: 1.7em;
+}
+
 .table-definition-body {
     display: none; }
 
 .table-records {
     font-style: italic; }
+
+.temporal-coverage {
+    margin-top: 1em;
+}
 
 .metadata-container {
     margin-left: 0; }
@@ -59,35 +69,35 @@
 
 /* Quality widget (cms) */
 .quality-widget label {
-  font-weight: normal;
-  vertical-align: middle;
+    font-weight: normal;
+    vertical-align: middle;
 }
 
 .quality-widget select {
-  width: 120px;
+    width: 120px;
 }
 
 .quality-widget table {
-  border: 1px solid black;
-  border-collapse: collapse;
-  float: left;
-  margin-right: 1em;
-  margin-top: 3px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    float: left;
+    margin-right: 1em;
+    margin-top: 3px;
 }
 
 .quality-widget table td {
-  border: 1px solid black;
-  background-color: red;
+    border: 1px solid black;
+    background-color: red;
 }
 
 /* Convert all figures */
 .convert-all-figures dt {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 
 .convert-all-figures dd {
-  margin-bottom: 0;
-  margin-left: 0.2em;
+    margin-bottom: 0;
+    margin-left: 0.2em;
 }
 
 /* Download figure on album view */
@@ -101,10 +111,10 @@
     padding: 0px 10px;
     text-align: center;
     -webkit-box-shadow: 1px 1px 2px #BFBFBF;
-       -moz-box-shadow: 1px 1px 2px #BFBFBF;
-        -ms-box-shadow: 1px 1px 2px #BFBFBF;
-         -o-box-shadow: 1px 1px 2px #BFBFBF;
-            box-shadow: 1px 1px 2px #BFBFBF;
+    -moz-box-shadow: 1px 1px 2px #BFBFBF;
+    -ms-box-shadow: 1px 1px 2px #BFBFBF;
+    -o-box-shadow: 1px 1px 2px #BFBFBF;
+    box-shadow: 1px 1px 2px #BFBFBF;
 }
 
 .figuresPhotoAlbumEntry:hover {
@@ -137,31 +147,31 @@
 }
 
 .figuresByLine {
-  margin-left: 2em;
-  width: 91px;
-  font-weight: normal;
-  color: #bbbbbb;
+    margin-left: 2em;
+    width: 91px;
+    font-weight: normal;
+    color: #bbbbbb;
 }
 
 /* Organisations overview */
 #portlet-organisations-overview {
-  margin-bottom: 0.5em;
-  padding-right: 0.1em;
+    margin-bottom: 0.5em;
+    padding-right: 0.1em;
 }
 
 #portlet-organisations-overview legend {
-  padding: 2px;
-  font-weight: bold;
-  font-size: 90%;
+    padding: 2px;
+    font-weight: bold;
+    font-size: 90%;
 }
 
 #organisations-status {
-  background-color: #ccc;
-  padding-left: 0.2em;
+    background-color: #ccc;
+    padding-left: 0.2em;
 }
 
 #organisations-loading {
- display: none;
+    display: none;
 }
 
 /* A small css fix for IE8
