@@ -239,7 +239,8 @@
                    <div id="geotags">
 
                        <dt
-                           tal:define='tooltip python:context.translate("Geographical coverage", domain="eea")'>
+                       tal:define='tooltip python:context.translate("Geographical coverage", domain="eea")' 
+                          metal:define-slot="geotags-listing-title">
                            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
                            <span i18n:translate="">Geographical coverage:</span>
                        </dt>
@@ -517,7 +518,7 @@
 
     <metal:geotagsMap define-macro="geotags-map">
         <tal:showMap
-                define="hideMap python:False; modal python:False">
+                define="hideMap python:False;">
             <metal:field2
                     use-macro="python:context.widget('location', mode='view')">
                 <dt metal:fill-slot="location-listing" />
@@ -526,6 +527,7 @@
 
         <script>
             jQuery(function($){
+                debugger;
                 var $geotags = $("#geotags");
                 var $eea_location_listing = $(".eea-location-listing");
                 if(!$eea_location_listing.length) {
@@ -534,11 +536,13 @@
 
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
                     // append eeaEsriMap to geotags div for datasets and eeafigure
+                    debugger;
                     if($geotags.length) {
                         $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
                     }
                     // show div with map when clicking on a geotag
                     $eea_location_listing.find('a').click(function() {
+                        debugger;
                         if ($geotags.find('.table-definition-body').is(':hidden')) {
                             $geotags.find('.table-definition-show').click();
                         }
