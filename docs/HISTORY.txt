@@ -3,6 +3,9 @@ Changelog
 
 7.9-dev - (unreleased)
 ----------------------
+* Feature: added ITemporalCoverageAdapter which is an adapter than can be
+  overriden in order to return a temporalCoverage value
+  [ichimdav refs #16719 and #17306]
 * Feature: added styling for the geographical and temporal viewlets
   [ichimdav refs #16719]
 
