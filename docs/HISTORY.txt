@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.9-dev - (unreleased)
-----------------------
+7.9 - (2013-11-20)
+------------------
 * Feature: added ITemporalCoverageAdapter which is an adapter than can be
   overriden in order to return a temporalCoverage value
   [ichimdav refs #16719 and #17306]
