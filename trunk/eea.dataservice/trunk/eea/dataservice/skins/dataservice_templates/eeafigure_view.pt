@@ -14,9 +14,6 @@
 
 <div metal:fill-slot="content-core">
 
-    <!-- Versions -->
-    <metal:versions use-macro="here/portlet_versions/macros/versions" />
-
     <!-- EEAFigureFiles -->
     <tal:figurefiles define="
         categView nocall:context/@@getCategoryName;

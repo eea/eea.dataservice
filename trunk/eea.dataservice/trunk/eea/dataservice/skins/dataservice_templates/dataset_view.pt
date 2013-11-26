@@ -10,11 +10,6 @@
   datasetVersionId context/id;
 ">
 
-    <!-- Versions -->
-    <metal:versions use-macro="here/portlet_versions/macros/versions">
-    </metal:versions>
-
-
     <!-- Tables -->
     <div class="paginate">
     <tal:tables define="tablesData context/@@getTablesByCategory;
