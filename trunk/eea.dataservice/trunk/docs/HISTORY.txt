@@ -3,8 +3,8 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
-* removed versions macro; now using viewlet
- [simiamih refs #17321]
+* Change: removed versions macro; now using viewlet
+  [simiamih refs #17321]
 
 7.9 - (2013-11-20)
 ------------------
