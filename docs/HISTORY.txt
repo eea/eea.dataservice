@@ -3,6 +3,9 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Change: moved the ITemporalCoverageAdapter from eea.dataservice into
+  Products.EEAContentTypes
+  [ichimdav refs #17588]
 * Change: removed versions macro; now using viewlet
   [simiamih refs #17321]
 
