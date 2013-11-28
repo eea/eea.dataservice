@@ -1,2 +1,0 @@
-""" eea.dataservice adapters
-"""

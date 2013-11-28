@@ -2,7 +2,6 @@
 """
 from zope.interface import Interface
 
-from .adapters.interfaces import ITemporalCoverageAdapter
 
 class IDatasetEnhanced(Interface):
     """ Marker interface for datasets.
@@ -59,7 +58,3 @@ class IEEAFigureFile(Interface):
 class IWorkingList(Interface):
     """ Marker interface for ATTopic
     """
-
-__all__ = [
-    ITemporalCoverageAdapter.__name__
-]
