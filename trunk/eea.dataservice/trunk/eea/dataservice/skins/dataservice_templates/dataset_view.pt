@@ -248,7 +248,7 @@
                        </div>
 
                        <tal:geotagsListing
-                               define="hideMap python:True; modal python:False">
+                               define="hideMap python:True; modal python:False;">
                            <metal:field use-macro="python:context.widget('location', mode='view')">
 
                                <tal:geotags-title metal:fill-slot="geotags" />
@@ -530,7 +530,7 @@
 
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
                     // append eeaEsriMap to geotags div for datasets and eeafigure
-                    if($geotags.length) {
+                    if($geotags.length && !$geotags.is(':hidden')) {
                         $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
                     }
                     // show div with map when clicking on a geotag

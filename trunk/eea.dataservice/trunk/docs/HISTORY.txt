@@ -3,6 +3,8 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Bug fix: do not move the geotags map if the geotag div is hidden 
+  [ichimdav refs #17618]
 * Change: moved the ITemporalCoverageAdapter from eea.dataservice into
   Products.EEAContentTypes
   [ichimdav refs #17588]
