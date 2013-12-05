@@ -530,7 +530,10 @@
 
                 $('body').bind('EEAGeotags.MapLoaded', function(ev) {
                     // append eeaEsriMap to geotags div for datasets and eeafigure
-                    if($geotags.length && $geotags.is(":visible")) {
+                    // we check if display style is empty since the geotags can
+                    // be hidden from the metadata parent tag which is hidden by the
+                    // tabs js
+                    if($geotags.length && $geotags[0].style.display == "") {
                         $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
                     }
                     // show div with map when clicking on a geotag
