@@ -3,6 +3,13 @@ Changelog
 
 8.0-dev - (unreleased)
 ----------------------
+* Bug fix: correctly move the geographicalCoverage within the metadata tab
+  for EEAFigure and Data
+  [ichimdav refs #17663]
+* Feature: added a possibility to define the map layer that should be used
+  when using the view macro of the location widget. See example within 
+  eea.geotags.pt
+  [ichimdav refs #17618]
 * Bug fix: do not move the geotags map if the geotag div is hidden 
   [ichimdav refs #17618]
 * Change: moved the ITemporalCoverageAdapter from eea.dataservice into
