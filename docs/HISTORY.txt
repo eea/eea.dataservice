@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.1-dev - (unreleased)
+----------------------
+
 8.0 - (2013-12-10)
 ------------------
 * Bug fix: correctly move the geographicalCoverage within the metadata tab
