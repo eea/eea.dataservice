@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.0-dev - (unreleased)
-----------------------
+8.0 - (2013-12-10)
+------------------
 * Bug fix: correctly move the geographicalCoverage within the metadata tab
   for EEAFigure and Data
   [ichimdav refs #17663]
