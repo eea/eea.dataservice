@@ -138,7 +138,7 @@
                            condition="value"
                            on-error="nothing">
                     <dt tal:define='tooltip python:context.translate("Reporting obligations", domain="eea")'>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Reporting obligations (ROD)</span>
                     </dt>
 
@@ -163,7 +163,7 @@
                 <tal:block define="value context/getExternalRelations"
                            condition="value">
                     <dt tal:define='tooltip python:context.translate("Related websites", domain="eea")'>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Related websites</span>
                     </dt>
                     <dd>
@@ -205,17 +205,8 @@
                 </tal:block>
 
                 <!-- Temporal coverage -->
-                <tal:block metal:define-macro="temp-coverage"
-                           define="field python:context.getField('temporalCoverage');
-                       value python:field.getAccessor(context)()"
-                           condition="value">
-                    <span id="temporal_dynamic" i18n:translate="">Dynamic</span>
-                    <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                        <span i18n:translate="">Temporal coverage:</span>
-                    </dt>
-                    <dd tal:content="context/@@formatTempCoverage" id="tempCoverage" />
-                </tal:block>
+                <tal:temporalCoverage
+                    metal:use-macro="context/temporal_macros/macros/temporal-coverage-data" />
 
                 <!-- Last upload -->
                 <tal:block metal:define-macro="last-upload"
@@ -223,41 +214,15 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Last upload:</span>
                     </dt>
                     <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)">Last upload</dd>
                 </tal:block>
 
                 <!-- Geotags -->
-                <tal:block metal:define-macro="geotags-listing">
-                   <div id="geotags">
 
-                       <dt
-                       tal:define='tooltip python:context.translate("Geographical coverage", domain="eea")' 
-                          metal:define-slot="geotags-listing-title">
-                           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-                           <span i18n:translate="">Geographical coverage:</span>
-                       </dt>
-                       <p class="table-definition-map">
-                           <span class="table-definition-show">[+]</span>
-                           <span i18n:translate="">Show Map</span>
-                       </p>
-                       <div class="table-definition-body">
-
-                       </div>
-
-                       <tal:geotagsListing
-                               define="hideMap python:True; modal python:False;">
-                           <metal:field use-macro="python:context.widget('location', mode='view')">
-
-                               <tal:geotags-title metal:fill-slot="geotags" />
-
-                           </metal:field>
-                       </tal:geotagsListing>
-
-                </div>
-                </tal:block>
+                <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />
 
                 <!-- Geographic accuracy -->
                 <tal:block metal:define-macro="geo-accuracy"
@@ -265,7 +230,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt style="clear: left">
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Geographic accuracy:</span>
                     </dt>
                     <dd tal:content="structure value">Geographic accuracy</dd>
@@ -280,7 +245,7 @@
                            facetId facetId"
                                condition="value">
                         <dt style="clear: left">
-                            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                            <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                             <span i18n:translate="">Tags:</span>
                         </dt>
                         <dd>
@@ -300,7 +265,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt style="clear: left">
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Scale of the data set:</span>
                     </dt>
                     <dd><span>1:</span><tal:scale content="structure value" /></dd>
@@ -312,7 +277,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt id="dataset_rights">
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Rights:</span>
                     </dt>
                     <dd tal:content="structure python:value.replace('\n', ' &lt;br /&gt; ')" />
@@ -324,7 +289,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Disclaimer:</span>
                     </dt>
                     <dd tal:content="structure value">Disclaimer</dd>
@@ -336,7 +301,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Methodology:</span>
                     </dt>
                     <dd tal:content="structure value">Methodology</dd>
@@ -348,7 +313,7 @@
                        value python:field.getAccessor(context)()"
                            condition="value">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Units:</span>
                     </dt>
                     <dd tal:content="structure value">Units</dd>
@@ -363,7 +328,7 @@
                        value python:context.displayValue(vocab, values)"
                            condition="value">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Coordinate reference system:</span>
                     </dt>
                     <dd tal:content="structure value">Coordinate reference system</dd>
@@ -377,7 +342,7 @@
 
                     <dt tal:condition="python:value"
                         tal:define="tooltip string:Data sources used to produce this resource.">
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Data sources</span>
                     </dt>
 
@@ -392,7 +357,7 @@
                        urls python:field.getAccessor(context)()"
                            condition="urls">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Owners:</span>
                     </dt>
                     <tal:block repeat="url urls">
@@ -413,7 +378,7 @@
                        urls python:field.getAccessor(context)()"
                            condition="urls">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Processors:</span>
                     </dt>
                     <tal:block repeat="url urls">
@@ -457,7 +422,7 @@
                            define="field python:context.getField('eeaManagementPlan');
                        value python:field.getAccessor(context)()">
                     <dt>
-                        <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">EEA management plan code:</span>
                     </dt>
                     <dd tal:condition="python:value != ('', '')">
@@ -476,7 +441,7 @@
                            value python:field.getAccessor(context)()"
                                condition="value">
                         <dt>
-                            <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                            <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                             <span i18n:translate="">Contact references at EEA:</span>
                         </dt>
                         <dd tal:content="structure python:value.replace('\r\n', '&lt;br /&gt;')">Contact persons for EEA</dd>
@@ -511,41 +476,7 @@
 
     <div class="visualClear">&nbsp;</div>
 
-    <metal:geotagsMap define-macro="geotags-map">
-        <tal:showMap
-                define="hideMap python:False;">
-            <metal:field2
-                    use-macro="python:context.widget('location', mode='view')">
-                <dt metal:fill-slot="location-listing" />
-            </metal:field2>
-        </tal:showMap>
-
-        <script>
-            jQuery(function($){
-                var $geotags = $("#geotags");
-                var $eea_location_listing = $(".eea-location-listing");
-                if(!$eea_location_listing.length) {
-                    $geotags.hide();
-                }
-
-                $('body').bind('EEAGeotags.MapLoaded', function(ev) {
-                    // append eeaEsriMap to geotags div for datasets and eeafigure
-                    // we check if display style is empty since the geotags can
-                    // be hidden from the metadata parent tag which is hidden by the
-                    // tabs js
-                    if($geotags.length && $geotags[0].style.display == "") {
-                        $("#eeaEsriMap").appendTo($geotags.find('.table-definition-body'));
-                    }
-                    // show div with map when clicking on a geotag
-                    $eea_location_listing.find('a').click(function() {
-                        if ($geotags.find('.table-definition-body').is(':hidden')) {
-                            $geotags.find('.table-definition-show').click();
-                        }
-                    });
-                });
-            });
-        </script>
-    </metal:geotagsMap>
+    <metal:related use-macro="here/geotags_macros/macros/geotags-map" />
 </div>
 </body>
 </html>
