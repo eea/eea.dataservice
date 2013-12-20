@@ -3,6 +3,9 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Change: removed the temporalCoverage field from the dataservice schema
+  allowing the schemaextender from Products.EEAContentTypes to add the field
+  [ichimdav refs #17611]
 
 8.0 - (2013-12-10)
 ------------------
