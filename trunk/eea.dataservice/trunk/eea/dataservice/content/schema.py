@@ -35,6 +35,11 @@ class DataMixin(object):
 
         if brains:
             return brains[0]
+    
+    def getTemporalCoverage(self):
+        """ temporalCoverage Field accessor
+        """
+        return self.getField('temporalCoverage').getAccessor(self)()
 
     def getKeywords(self):
         """ Keywords
@@ -210,26 +215,6 @@ dataservice_base_schema = Schema((
             description="The technical producer or processor of the resource.",
             label_msgid='dataservice_label_processor',
             description_msgid='dataservice_help_processor',
-            i18n_domain='eea',
-        )
-    ),
-
-    LinesField(
-        name='temporalCoverage',
-        languageIndependent=True,
-        required=True,
-        multiValued=1,
-        vocabulary_factory=u"Temporal coverage",
-        widget=MultiSelectionWidget(
-            macro="temporal_widget",
-            helper_js=("temporal_widget.js",),
-            size=15,
-            label="Temporal coverage",
-            description=("The temporal scope of the content of the data "
-                         "resource. Temporal coverage will typically include "
-                         "a set of years or time ranges."),
-            label_msgid='dataservice_label_coverage',
-            description_msgid='dataservice_help_coverage',
             i18n_domain='eea',
         )
     ),
