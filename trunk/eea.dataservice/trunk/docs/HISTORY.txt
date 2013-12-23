@@ -3,6 +3,9 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Bug fix: check for truthiness of version_id when attempting to last version
+  of an object for the Faceted Navigation WidgetFilter
+  [ichimdav refs #17812]
 * Change: removed the temporalCoverage field from the dataservice schema
   allowing the schemaextender from Products.EEAContentTypes to add the field
   [ichimdav refs #17611]

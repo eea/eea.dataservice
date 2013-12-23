@@ -21,12 +21,15 @@ class WidgetFilterBrains(object):
 
         for i, brain in enumerate(brains):
             version_id = getattr(brain, 'getVersionId', '')
+            # #17812 the brain can be a discussion object which
+            # returns Missing.Value when retrieving the getVersionId
+            if not version_id:
+                continue
             effective_date = (
                 getattr(brain, 'EffectiveDate', None) or
                 getattr(brain, 'CreationDate', None) or
                 seventies
             )
-
             if last_versions.has_key(version_id):
                 current_date = (
                     getattr(last_versions[version_id][0],
