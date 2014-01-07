@@ -3,6 +3,8 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Change: removed version pin of eea.themecentre from the plone4 buildout
+  [ichimdav]
 * Bug fix: check for truthiness of version_id when attempting to last version
   of an object for the Faceted Navigation WidgetFilter
   [ichimdav refs #17812]
