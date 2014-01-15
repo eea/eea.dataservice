@@ -1,7 +1,7 @@
 """ Safely import themes
 """
 try:
-    from Products.EEAContentTypes.content import ThemeTaggable
+    from eea.themecentre.content import ThemeTaggable
     ThemeTaggable = ThemeTaggable.ThemeTaggable
 except ImportError:
     class ThemeTaggable(object):
