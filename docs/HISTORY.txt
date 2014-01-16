@@ -3,6 +3,9 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Bug fix: reference temporal-coverage macros from eea.forms instead of
+  eea.dataservice
+  [ichimdav refs #16719]
 * Change: removed version pin of eea.themecentre from the plone4 buildout
   [ichimdav]
 * Bug fix: check for truthiness of version_id when attempting to last version
