@@ -3,6 +3,9 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Bug fix: reference geotags macros from eea.forms instead of
+  eea.dataservice
+  [ichimdav refs #16719]
 * Bug fix: reference temporal-coverage macros from eea.forms instead of
   eea.dataservice
   [ichimdav refs #16719]
