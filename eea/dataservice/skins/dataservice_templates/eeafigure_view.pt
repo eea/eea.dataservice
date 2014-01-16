@@ -114,7 +114,7 @@
                         <metal:related
                                 use-macro="here/dataset_view/macros/tags" />
                     </tal:tags>
-                    <metal:related use-macro="here/dataset_view/macros/geotags-listing" />
+                    <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />
                     <metal:related use-macro="here/dataset_view/macros/methodology" />
                     <metal:related use-macro="here/dataset_view/macros/units" />
                     <metal:related use-macro="here/dataset_view/macros/rights" />
@@ -144,7 +144,7 @@
 
     <metal:related use-macro="here/dataset_view/macros/more-info" />
 
-    <metal:geotags use-macro="context/dataset_view/macros/geotags-map" />
+    <metal:geotags use-macro="context/geotags_macros/macros/geotags-map" />
 </div>
 
 </body>
