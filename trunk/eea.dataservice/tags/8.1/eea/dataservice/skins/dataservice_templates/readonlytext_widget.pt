@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea">
+  <head><title></title></head>
+  <body>
+
+    <!-- Selection Widgets -->
+
+    <metal:view_macro define-macro="view"
+                      tal:define="value python:accessor();"
+                      tal:replace="structure value" />
+
+    <metal:define define-macro="edit" tal:define="value accessor;">
+      <tal:cond condition="value">
+          <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+            <metal:fill fill-slot="widget_body">
+                <div tal:content="structure value" 
+                     style="border:1px solid #8CACBB; padding:3px; background-color:#EEE" />
+            </metal:fill>
+          </metal:use>
+      </tal:cond>
+    </metal:define>
+
+    <div metal:define-macro="search">
+    </div>
+
+    <metal:hidden_macro define-macro="hidden">
+    </metal:hidden_macro>
+
+  </body>
+</html>
+
+
