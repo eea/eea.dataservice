@@ -3,6 +3,8 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
+* Bug fix: cleaned references of tooltip macro being loaded from dataset_view
+  [ichimdav refs #18197]
 
 8.1 - (2014-01-22)
 ------------------

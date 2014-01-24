@@ -131,7 +131,7 @@
                           value python:context.displayValue(vocab, values)"
                              condition="value">
                       <dt>
-                          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+                          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                           <span i18n:translate="">Figure type:</span>
                       </dt>
                       <dd tal:content="structure value">Figure type</dd>
