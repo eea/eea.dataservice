@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:t="http://themes.eea.europa.eu/ns/1.0/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dctype="http://purl.org/dc/dcmitype/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:ds="http://dataservice.eea.europa.eu/xmldataservice/xml/dublincore/sdes.xml#"
+  xmlns:rod="http://rod.eionet.europa.eu/schema.rdf#"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal">
+
+<tal:datasets define="brains python:here.portal_catalog(**{'portal_type': 'Data', 'show_inactive': True})">
+  <tal:data repeat="brain brains">
+    <dctype:Dataset tal:define="
+      doc python:brain.getObject();
+      uid doc/UID"
+      tal:attributes="rdf:about string:urn:uuid:${uid}">
+      <dc:identifier tal:content="uid" />
+      <dc:title tal:content="doc/title_or_id" />
+      <dc:description tal:define="description python:brain.Description.strip()"
+        tal:condition="description"
+        tal:content="structure python:'&lt;![CDATA[' + description + ']]&gt;'" />
+      <dc:link tal:content="doc/absolute_url" />
+      <dc:contributor>EEA</dc:contributor>
+      <dc:publisher>EEA</dc:publisher>
+      <dc:relation>dataset</dc:relation>
+      <dc:date tal:define="
+        date brain/EffectiveDate;
+        date python:date.replace(' ', 'T')"
+        tal:content="date" tal:condition="python:date != 'None'" />
+      <dc:rights tal:define="
+        state python:brain.review_state;
+        right python:state == 'published' and 'public' or 'internal'"
+        tal:content="right" />
+      <tal:version define="
+        versions doc/@@getVersions;
+        version python:[key for key, value in versions.items() if value.UID() == uid];
+        version python:version and version[0] or 1;
+        max_nb python:versions and max(versions.keys()) or 1;
+        max_vers python:versions.get(max_nb, doc);
+        last python:max_vers.UID();
+        lastflag python:last == uid;">
+        <ds:version tal:content="string:${version}.00" />
+        <ds:latestversion tal:content="last" />
+        <ds:latestversionflag tal:content="lastflag" />
+      </tal:version>
+      <tal:owners tal:define="
+        field python:doc.getField('dataOwner');
+        urls python:field.getAccessor(doc)();
+        owners python:[doc.getOrganisationName(url) for url in urls];
+        owners python:[owner.Title for owner in owners if owner];
+        owners python:owners or ('European Environment Agency',)">
+        <tal:owner repeat="owner owners">
+          <dc:owner tal:content="owner" />
+        </tal:owner>
+      </tal:owners>
+      <tal:coverage tal:define="
+        field python:doc.getField('geographicCoverage');
+        value python:field.getAccessor(doc)();">
+        <tal:country repeat="country value">
+          <dc:coverage tal:content="python:country.upper()" />
+        </tal:country>
+      </tal:coverage>
+      <dc:source tal:define="
+        field python:doc.getField('dataSource');
+        source python:field.getAccessor(doc)();"
+        tal:content="structure python:'&lt;![CDATA[' + source + ']]&gt;'" />
+      <ds:coverage tal:content="doc/@@formatTempCoverage" />
+      <ds:relatedGID tal:content="doc/@@getLatestVersionLink" />
+      <ds:unit tal:define="
+        field python:doc.getField('units');
+        value python:field.getAccessor(doc)()"
+        tal:condition="value"
+        tal:content="value" />
+      <tal:themes define="
+        field python:doc.getField('themes');
+        themes python:field.getAccessor(doc)();">
+        <tal:theme repeat="theme themes">
+          <t:theme tal:content="theme" />
+        </tal:theme>
+      </tal:themes>
+      <tal:obligations tal:define="
+        obligations python:doc.getReportingObligations();">
+        <tal:obligation repeat="obligation obligations">
+          <rod:obligation tal:attributes="
+            rdf:resource string:http://rod.eionet.europa.eu/obligations/${obligation}"/>
+        </tal:obligation>
+      </tal:obligations>
+    </dctype:Dataset>
+  </tal:data>
+</tal:datasets>
+</rdf:RDF>

@@ -1,0 +1,151 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<head>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript"
+          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
+    </metal:javascript>
+</head>
+
+<body>
+
+<div metal:fill-slot="content-core">
+
+    <!-- EEAFigureFiles -->
+    <tal:figurefiles define="
+        categView nocall:context/@@getCategoryName;
+        singlefile context/@@getSingleEEAFigureFile;
+        figurefiles context/@@getEEAFigureFiles">
+
+        <div tal:condition="singlefile" class="map-singlefile">
+            <tal:fancybox replace="structure singlefile/@@fancybox.html" />
+        </div>
+
+        <div class="paginate">
+            <tal:figures metal:define-macro="figures-album"
+                         tal:repeat="child figurefiles">
+                <tal:child define="
+                    Batch python:modules['Products.CMFPlone'].Batch;
+                    b_start python:request.get('b_start', 0);
+                    folderContents python:Batch(child[1], 150, int(b_start), orphan=1);
+                    categ python:child[0];
+                    categ_name python:categView(categ);
+                    entry_macro here/eeafigure_albumentry/macros/entry;">
+                    <h3 tal:content="categ_name" tal:attributes="id string:fancy-$categ;
+                                                                 title categ_name;"/>
+                    <tal:comment replace="nothing">
+                        TODO: use me or remove me
+                        <!-- NEW MACRO FOR DAVIZ -->
+                        <!-- metal:figures use-macro="here/atct_album_view/macros/listing" / -->
+                    </tal:comment>
+                    <div class="map-photo-album">
+                        <tal:listingmacro tal:define="
+                            entry_macro entry_macro | here/atct_albumentry/macros/entry;
+                            folderContents folderContents|nothing">
+                            <tal:folderContents condition="folderContents" tal:define="batch folderContents">
+                                <div metal:use-macro="here/batch_macros/macros/navigation" />
+                                <tal:images tal:repeat="brain folderContents">
+                                    <tal:entry tal:define="
+                                        obj brain/getObject | nocall:brain;
+                                        obj_title python:obj.pretty_title_or_id();
+                                        desc_or_title python:brain.Description or obj_title;
+                                        urlview obj/@@url;
+                                        listing_url obj/absolute_url;
+                                        is_video python:brain.restrictedTraverse('@@plone_interface_info').provides('eea.mediacentre.interfaces.IVideo');
+                                        ">
+
+                                        <tal:comment replace="nothing">
+                                            TODO: use me or remove me
+                                            <!-- a class="moreLink" tal:attributes="href string:${obj/absolute_url}/"
+                                            tal:condition="exists: obj/@@daviz-view.html"
+                                            i18n:translate="">View and interact online</a -->
+                                        </tal:comment>
+
+                                        <tal:block condition="not:exists: obj/@@daviz-view.html">
+                                            <metal:entry use-macro="entry_macro" />
+                                        </tal:block>
+                                        <tal:block condition="exists: obj/@@daviz-view.html"
+                                                   define="suffix string:;
+                                                           bgimg string:background-image: url(/valentine-imagescales/daviz/image_thumb)">
+                                            <metal:entry use-macro="entry_macro" />
+                                        </tal:block>
+
+                                        <tal:comment replace="nothing">
+                                            TODO: ichimdav see if this code will still be useful, I have
+                                            added it in a tal comment to avoid it being added to the html
+                                            document adding unnecessary file size
+                                            <!-- div tal:condition="not:exists:obj/@@daviz-view.html" tal:define="
+                                            css python:brain.is_folderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry'"
+                                            tal:attributes="class css">
+                                            <a tal:attributes="
+                                            href string:${obj/absolute_url};
+                                            class python:test(is_video, 'video-fancybox', '');
+                                            title desc_or_title">
+                                            <span class="photoAlbumEntryWrapper">
+                                            <img style="border: none" tal:attributes="
+                                            title desc_or_title;
+                                            alt obj/pretty_title_or_id;
+                                            src string:${obj/absolute_url}/image_thumb"/>
+                                            </span>
+                                            <span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" />
+                                            </a>
+                                            </div -->
+                                        </tal:comment>
+
+                                    </tal:entry>
+                                </tal:images>
+                                <div metal:use-macro="here/batch_macros/macros/navigation" />
+                            </tal:folderContents>
+                        </tal:listingmacro>
+                    </div>
+                    <!-- END NEW MACRO FOR DAVIZ -->
+                </tal:child>
+            </tal:figures>
+            <h3 i18n:translate="metadata">Metadata</h3>
+            <div class="metadata-container">
+                <div>
+                    <!-- META DATA -->
+                    <metal:related use-macro="here/dataset_view/macros/last-upload" />
+                    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage-data">Temporal Coverage widget view</tal:temporalCoverage>
+                    <tal:tags define="facetId string:c9">
+                        <metal:related
+                                use-macro="here/dataset_view/macros/tags" />
+                    </tal:tags>
+                    <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />
+                    <metal:related use-macro="here/dataset_view/macros/methodology" />
+                    <metal:related use-macro="here/dataset_view/macros/units" />
+                    <metal:related use-macro="here/dataset_view/macros/rights" />
+                    <metal:related use-macro="here/dataset_view/macros/owners" />
+                    <metal:related use-macro="here/dataset_view/macros/processors" />
+                    <metal:related use-macro="here/dataset_view/macros/eea-mp-code" />
+                    <metal:related use-macro="here/dataset_view/macros/eea-contact-reference" />
+                    <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+
+                    <!-- Figure type -->
+                    <tal:block define="field python:context.getField('figureType');
+                          vocab python:field.Vocabulary(context);
+                          values python:field.getAccessor(context)();
+                          value python:context.displayValue(vocab, values)"
+                             condition="value">
+                      <dt>
+                          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
+                          <span i18n:translate="">Figure type:</span>
+                      </dt>
+                      <dd tal:content="structure value">Figure type</dd>
+                    </tal:block>
+                </div>
+            </div>
+
+        </div>
+    </tal:figurefiles>
+
+    <metal:related use-macro="here/dataset_view/macros/more-info" />
+
+    <metal:geotags use-macro="context/geotags_macros/macros/geotags-map" />
+</div>
+
+</body>
+</html>
