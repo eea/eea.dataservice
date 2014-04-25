@@ -37,8 +37,10 @@
   <adapter factory=".catalog.getFileType" name="filetype" />
   <adapter factory=".catalog.getDatatableFileTypes" name="filetype" />
   <adapter factory=".catalog.getDatasetFileTypes" name="filetype" />
+  <!--?<adapter factory=".catalog.getGeographicCoverage" name="getGeographicCoverage" />-->
 
-  <utility
+
+    <utility
     factory=".vocabulary.Organisations"
     name="Organisations"
     />

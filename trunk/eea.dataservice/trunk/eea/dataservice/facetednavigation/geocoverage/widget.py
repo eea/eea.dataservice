@@ -24,11 +24,13 @@ class Widget(CheckboxWidget):
     def query(self, form):
         """ Get value from form and return a catalog dict query
         """
+
         query = {}
         index = self.data.get('index', '')
         index = index.encode('utf-8', 'replace')
         if not index:
             return query
+
 
         if self.hidden:
             value = self.default
@@ -37,7 +39,6 @@ class Widget(CheckboxWidget):
 
         if not value:
             return query
-
         countryGroups = getMultiAdapter(
             (self.context, self.request), name=u'getCountryGroups')()
         getCountriesByGroupView = getMultiAdapter(
@@ -59,6 +60,8 @@ class Widget(CheckboxWidget):
             operator = self.operator
         query[index] = {'query': tmp_value, 'operator': operator}
 
+        # if value == ["EEA33"]:
+        #     import pdb; pdb.set_trace()
         return query
 
     def portal_vocabulary(self):

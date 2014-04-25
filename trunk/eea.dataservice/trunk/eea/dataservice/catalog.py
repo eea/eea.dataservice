@@ -4,11 +4,12 @@ from tempfile import NamedTemporaryFile
 from zipfile import ZipFile
 from rarfile import RarFile
 from StringIO import StringIO
+from zope.component import getMultiAdapter
 from zope.interface import Interface
 from plone.indexer import indexer
 from plone.app.blob.utils import guessMimetype
 from eea.dataservice.config import FILE_FIELDS
-from eea.dataservice.interfaces import IDataset, IDatatable
+from eea.dataservice.interfaces import IDataset, IDatatable, IEEAFigure
 from Products.CMFCore.utils import getToolByName
 
 @indexer(Interface)
@@ -134,3 +135,41 @@ def getRarMimeTypes(blobfile):
             if not mimetype:
                 continue
             yield mimetype
+
+
+@indexer(IEEAFigure)
+def getGeographicCoverage(obj):
+    """
+    :param obj: Object to be indexed
+    :return:  List with value of the location field
+    """
+    return _location(obj)
+
+@indexer(IDataset)
+def getGeographicCoverage(obj):
+    """
+    :param obj: Object to be indexed
+    :return:  List with value of the location field
+    """
+    return _location(obj)
+
+
+def _location(obj):
+    """
+    :param obj: Object to be indexed
+    :return:  List with value of the location field
+    """
+
+    countries_view = getMultiAdapter((obj, obj.REQUEST), name=u'getCountries')()
+
+    field = obj.getField('location')
+    values = field.getAccessor(obj)()
+    matches = []
+    for value in values:
+        match = value in countries_view
+        if match:
+            matches.append(match)
+
+    return matches
+
+
