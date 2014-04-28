@@ -138,7 +138,7 @@ def getRarMimeTypes(blobfile):
 
 
 @indexer(IEEAFigure)
-def getGeographicCoverage(obj):
+def getEEAFigureGeographicCoverage(obj):
     """
     :param obj: Object to be indexed
     :return:  List with value of the location field
@@ -146,7 +146,7 @@ def getGeographicCoverage(obj):
     return _location(obj)
 
 @indexer(IDataset)
-def getGeographicCoverage(obj):
+def getDataGeographicCoverage(obj):
     """
     :param obj: Object to be indexed
     :return:  List with value of the location field
@@ -160,16 +160,16 @@ def _location(obj):
     :return:  List with value of the location field
     """
 
-    countries_view = getMultiAdapter((obj, obj.REQUEST), name=u'getCountries')()
-
+    countries_view = getMultiAdapter((obj, obj.REQUEST),
+                                     name=u'getGeotagsCountries')()
+    countries_view = [i[0].encode('utf-8') for i in countries_view]
     field = obj.getField('location')
     values = field.getAccessor(obj)()
     matches = []
     for value in values:
         match = value in countries_view
         if match:
-            matches.append(match)
-
+            matches.append(value)
     return matches
 
 

@@ -37,7 +37,8 @@
   <adapter factory=".catalog.getFileType" name="filetype" />
   <adapter factory=".catalog.getDatatableFileTypes" name="filetype" />
   <adapter factory=".catalog.getDatasetFileTypes" name="filetype" />
-  <!--?<adapter factory=".catalog.getGeographicCoverage" name="getGeographicCoverage" />-->
+  <adapter factory=".catalog.getDataGeographicCoverage" name="getGeographicCoverage" />
+  <adapter factory=".catalog.getEEAFigureGeographicCoverage" name="getGeographicCoverage" />
 
 
     <utility
