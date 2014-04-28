@@ -42,7 +42,7 @@ class Widget(CheckboxWidget):
         countryGroups = getMultiAdapter(
             (self.context, self.request), name=u'getCountryGroups')()
         getCountriesByGroupView = getMultiAdapter(
-            (self.context, self.request), name=u'getCountriesByGroup')
+            (self.context, self.request), name=u'getCountriesByGroupAsGeotags')
 
         if not isinstance(value, list):
             value = [value]
@@ -60,8 +60,6 @@ class Widget(CheckboxWidget):
             operator = self.operator
         query[index] = {'query': tmp_value, 'operator': operator}
 
-        # if value == ["EEA33"]:
-        #     import pdb; pdb.set_trace()
         return query
 
     def portal_vocabulary(self):
@@ -72,11 +70,10 @@ class Widget(CheckboxWidget):
         countryGroupsView = getMultiAdapter(
             (self.context, self.request), name=u'getCountryGroups')
         countriesView = getMultiAdapter(
-            (self.context, self.request), name=u'getCountries')
+            (self.context, self.request), name=u'getGeotagsCountries')
 
         terms.extend(countryGroupsView().items())
         terms.extend(countriesView())
-
         return terms
 
     def count(self, brains):
