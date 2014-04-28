@@ -75,6 +75,13 @@
       />
 
   <browser:page
+      name="getGeotagsCountries"
+      class=".app.displays.GetGeotagsCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="getCountryGroups"
       class=".app.displays.GetCountryGroups"
       for="*"
@@ -91,6 +98,13 @@
   <browser:page
       name="getCountriesByGroup"
       class=".app.displays.GetCountriesByGroup"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountriesByGroupAsGeotags"
+      class=".app.displays.GetCountriesByGroupAsGeotags"
       for="*"
       permission="zope2.View"
       />

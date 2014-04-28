@@ -373,6 +373,21 @@ class GetCountries(object):
         return sorted(res, key=operator.itemgetter(1))
 
 
+class GetGeotagsCountries(object):
+    """ Countries where the key and title  represent the country name
+            as used by the location field
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        countries = _getCountryInfo(self.context)['countries']
+        res = [(countries[key], countries[key]) for key in countries.keys()]
+        return sorted(res, key=operator.itemgetter(1))
+
+
 class GetCountryGroupsData(object):
     """ Country Groups Data
     """
@@ -410,6 +425,28 @@ class GetCountriesByGroup(object):
                 break
         return res
 
+
+class GetCountriesByGroupAsGeotags(object):
+    """ Countries by group with the country name set as
+             key and value
+    """
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, group_id=''):
+        res = []
+        terms = _country_terms(self)
+        util = getUtility(ICountryAvailability)
+        countries = util.getCountries()
+        for key in terms.keys():
+            if terms[key][0] == group_id:
+                for c_key in terms[key][1].keys():
+                    res.append(countries.get(terms[key][1][c_key][0])['name']
+                               .encode('utf-8'))
+                break
+        return res
 
 class GetDataFiles(object):
     """ Return DataFile objects sorted by the position of the objects within
