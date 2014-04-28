@@ -39,4 +39,16 @@
 
     </genericsetup:upgradeSteps>
 
+      <genericsetup:upgradeSteps
+            source="7.6"
+            destination="8.3"
+            profile="eea.dataservice:default">
+
+         <genericsetup:upgradeStep
+                title="Reindex Data and EEAFigure getGeographic index"
+                handler=".evolve83.reindex_geo_coverage"
+                />
+
+    </genericsetup:upgradeSteps>
+
 </configure>
