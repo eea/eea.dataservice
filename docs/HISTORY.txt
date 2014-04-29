@@ -3,13 +3,11 @@ Changelog
 
 8.3-dev - (unreleased)
 ----------------------
-* Upgrade step: Within "Plone > Site setup > Add-ons" click on
-  upgrade button available for eea.dataservice
-  [ichimdav #19367]
-
-* Change: Data and EEAFigure now have an indexer that indexes the values of
- the location field
- [ichimdav refs #19367]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button available for eea.dataservice
+    - RUN with www8 as a LAST step since it reindexes 7000 objects
+    - [ichimdav #19367]
+* Change: Data and EEAFigure now have an indexer that indexes the values of the location field
+  [ichimdav refs #19367]
 
 8.2 - (2014-02-03)
 ------------------
@@ -1080,4 +1078,5 @@ Changelog
 -----------------
 * Initial release
   [ghicaale]
+
 

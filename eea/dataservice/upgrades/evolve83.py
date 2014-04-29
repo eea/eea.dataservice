@@ -5,7 +5,7 @@ import logging
 from Products.CMFCore.utils import getToolByName
 import transaction
 
-logger = logging.getLogger('eea.soercontent')
+logger = logging.getLogger(__name__)
 
 
 def reindex_geo_coverage(context):
@@ -19,6 +19,8 @@ def reindex_geo_coverage(context):
     logger.info('Reindexing %s Data and EEAFigures...', total)
     count = 0
     for brain in brains:
+        if not brain.location:
+            continue
         logger.info('Reindexing %s', brain.getURL())
         try:
             doc = brain.getObject()
