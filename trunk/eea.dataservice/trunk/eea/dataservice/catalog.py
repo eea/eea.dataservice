@@ -8,6 +8,7 @@ from zope.component import getMultiAdapter
 from zope.interface import Interface
 from plone.indexer import indexer
 from plone.app.blob.utils import guessMimetype
+from eea.cache import cache
 from eea.dataservice.config import FILE_FIELDS
 from eea.dataservice.interfaces import IDataset, IDatatable, IEEAFigure
 from Products.CMFCore.utils import getToolByName
@@ -160,16 +161,22 @@ def _location(obj):
     :return:  List with value of the location field
     """
 
-    countries_view = getMultiAdapter((obj, obj.REQUEST),
-                                     name=u'getGeotagsCountries')()
-    countries_view = [i[0].encode('utf-8') for i in countries_view]
     field = obj.getField('location')
     values = field.getAccessor(obj)()
     matches = []
+    european_countries = _european_countries(obj)
     for value in values:
-        match = value in countries_view
+        match = value in european_countries
         if match:
             matches.append(value)
     return matches
 
 
+@cache(lambda method, self: "1")
+def _european_countries(obj):
+    """  cached value of european countries
+    """
+    countries_view = getMultiAdapter((obj, obj.REQUEST),
+                                     name=u'getGeotagsCountries')()
+    countries_view = [i[0].encode('utf-8') for i in countries_view]
+    return countries_view
