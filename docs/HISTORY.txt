@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3-dev - (unreleased)
-----------------------
+8.3 - (2014-05-13)
+------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
   available for eea.dataservice
     - RUN with www8 as a LAST step since it reindexes 7000 objects
@@ -1080,5 +1080,4 @@ Changelog
 -----------------
 * Initial release
   [ghicaale]
-
 
