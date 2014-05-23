@@ -3,6 +3,8 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Bug fix: Fix Eps to PNG converter
+  [voineali refs #19830]
 
 8.3 - (2014-05-13)
 ------------------

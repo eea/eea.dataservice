@@ -149,13 +149,13 @@ class EpsImageFile(PILEpsImageFile):
                         # Note: The DSC spec says that BoundingBox
                         # fields should be integers, but some drivers
                         # put floating point values there anyway.
-                        box = [int(float(x)) for x in str.split(v)]
+                        box = [int(float(x)) for x in v.split()]
                         self.size = box[2] - box[0], box[3] - box[1]
                         offset = 0
                         self.tile = [("eps", (0, 0) + self.size, offset,
                                       (length, box))]
                     except Exception, err:
-                        logger.debug(err)
+                        logger.exception(err)
             else:
 
                 m = field.match(s)
