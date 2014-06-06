@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.5-dev - (unreleased)
+----------------------
+
 8.4 - (2014-06-06)
 ------------------
 * Bug fix: Fix Eps to PNG converter
