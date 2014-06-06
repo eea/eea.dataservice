@@ -84,7 +84,6 @@ Check the conversion of another EPS format and test if old converted images were
     >>> ff1['source_image2.eps.zoom.png']
     <ATImage at ...>
 
-
 Try to download the image with index_html method.
 
     >>> ff1['source_image2.eps.zoom.png'].index_html(portal.REQUEST, portal.REQUEST.response)
