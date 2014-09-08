@@ -18,9 +18,11 @@ class EEAFixture(PloneSandboxLayer):
         import eea.dataservice
         import eea.workflow
         import Products.EEAContentTypes
+        import Products.EEAPloneAdmin
         self.loadZCML(package=eea.dataservice)
         self.loadZCML(package=eea.workflow)
         self.loadZCML(package=Products.EEAContentTypes)
+        self.loadZCML(package=Products.EEAPloneAdmin)
 
         try:
             import eea.rdfmarshaller
