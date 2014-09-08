@@ -27,9 +27,9 @@ class TestWorkflowEvents(unittest.TestCase):
             wftool.setDefaultChain("simple_publication_workflow")
             wftool.setChainForPortalTypes(('EEAFigure',),
                                           'simple_publication_workflow')
-            if not hasattr(portal, 'sandbox'):
-                portal.invokeFactory('Folder', 'sandbox')
-            sandbox = portal['sandbox']
+            if not hasattr(portal, 'sandbox1'):
+                portal.invokeFactory('Folder', 'sandbox1')
+            sandbox = portal['sandbox1']
             sandbox.invokeFactory('EEAFigure', 'test1')
             figure = sandbox.objectValues()[0]
             figure.invokeFactory('EEAFigureFile', 'figurefile-test')
