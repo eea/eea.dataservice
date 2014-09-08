@@ -49,4 +49,5 @@ def test_suite():
     """
     suite = TestSuite()
     suite.addTest(makeSuite(TestWorkflowEvents))
+    return suite
 
