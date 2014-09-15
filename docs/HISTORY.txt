@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.5-dev - (unreleased)
-----------------------
+8.5 - (2014-09-15)
+------------------
 * Feature: added doctest for the workflow change event where EEAFigureFile
   objects get the same EffectiveDate from their parent EEAFigures
   [ichimdav refs #20827]
