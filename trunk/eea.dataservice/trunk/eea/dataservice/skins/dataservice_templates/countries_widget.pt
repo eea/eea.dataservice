@@ -20,7 +20,7 @@
         <tal:ifLabel metal:fill-slot="widget_body_label_prefix">
             <label class="formQuestion"
                    tal:attributes="for python:fieldName">
-                <span tal:replace="python:widget.Label(here)" 
+                <span tal:replace="python:widget.Label(here)"
                       i18n:translate="" />
                 <span class="required"
                       tal:condition="field/required"
@@ -67,7 +67,7 @@
           </span>
 
           <p>
-            <input type='checkbox' id="geographical_btn"  /> <span i18n:translate="">Dynamic Geographical Coverage</span>
+            <input type='checkbox' id="geographical_btn"  /> <span i18n:translate="">Dynamic Geographic Coverage</span>
           </p>
           <!-- Country groups -->
           <select multiple="multiple"
@@ -96,9 +96,9 @@
                   tal:define="coutries here/@@getCountries"
                   class="countries-widget-select">
 
-                  <option id="dynamic_geographical" i18n:translate="" 
+                  <option id="dynamic_geographical" i18n:translate=""
                             tal:attributes="value string:Dynamic;
-                            selected python:test('Dynamic' in value, 'selected', None);" 
+                            selected python:test('Dynamic' in value, 'selected', None);"
                             i18n:attributes="value">Dynamic</option>
 
               <option tal:repeat="item coutries"

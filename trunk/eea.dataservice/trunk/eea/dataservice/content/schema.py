@@ -35,7 +35,7 @@ class DataMixin(object):
 
         if brains:
             return brains[0]
-    
+
     def getTemporalCoverage(self):
         """ temporalCoverage Field accessor
         """
@@ -141,9 +141,12 @@ dataservice_base_schema = Schema((
             helper_js=("countries_widget.js",),
             helper_css=("countries_widget.css",),
             size=15,
-            label="Geographical coverage",
-            description=("The geographical extent of the content of "
-                         "the data resource."),
+            label="Geographic coverage",
+            description=("Type in here the exact geographic names/places "
+                "that are covered by the data. Add Countries names only if "
+                "the data displayed is really about the entire country. "
+                "Example of locations/places are lakes, rivers, cities, "
+                "marine areas, glaciers, bioregions like alpine region etc."),
             label_msgid='dataservice_label_geographic',
             description_msgid='dataservice_help_geographic',
             i18n_domain='eea',

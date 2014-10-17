@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: fixed CSS and wording for "Dynamic geotags Coverage"
   [ghicaale refs #21458]
+* Change: updated eea.geotags field labels
+  [ghicaale refs #21458]
 
 8.5 - (2014-09-15)
 ------------------
