@@ -72,11 +72,14 @@ function setWidgetSync() {
   });
 }
 
-// add Dynamic Geotags checkbox on geotags widget in Data and EEAFigure edit form
+// add Dynamic Geographic checkbox on geotags widget in Data and EEAFigure edit form
 // TODO: #9423 move this code in a geotags related file
 function setDynamicGeotags() {
-    jQuery("<p><input type='checkbox' id='dynamic_geotags' />" +
-            "<span id='dynamic_geotags_span'>Dynamic Geotags Coverage</span></p>")
+    jQuery("<p>" +
+           "<label id='dynamic_geotags_span'>" +
+           "<input type='checkbox' id='dynamic_geotags' />" +
+           "&nbsp;Dynamic Geographic Coverage" +
+           "</label></p>")
         .insertAfter('#location_help');
     jQuery('<span class="formHelp" id="dynamic_geotags_help">' +
             'Warning: Saving the document with this option will remove any previously set geotags</span>')
@@ -87,7 +90,7 @@ function setDynamicGeotags() {
         if(jQuery(this).is(":checked")) {
             location_edit.attr('disabled', true);
         }
-        else { 
+        else {
             location_edit.attr('disabled', false);
         }
     });
@@ -96,7 +99,7 @@ function setDynamicGeotags() {
         if(dynamic_geotags.is(':checked')) {
             jQuery('#location-geopreview').prev().text(
                 '{"type": "FeatureCollection", "features": [{"geometry":' +
-                    '{"type": "Point", "coordinates": [0, 0]}, "type": "Feature",' + 
+                    '{"type": "Point", "coordinates": [0, 0]}, "type": "Feature",' +
                 '"bbox": [], "properties": {"description": "", "tags": "area",' +
                     '"country": null, "center": [0, 0], "other": {"name": "Dynamic",' +
                         '"geonameId": 6295630, "toponymName": "Dynamic",' +
