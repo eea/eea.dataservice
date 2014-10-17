@@ -82,7 +82,7 @@ function setDynamicGeotags() {
            "</label></p>")
         .insertAfter('#location_help');
     jQuery('<span class="formHelp" id="dynamic_geotags_help">' +
-            'Warning: Saving the document with this option will remove any previously set geotags</span>')
+            'Warning: Saving the document with this option will remove any previously set geographic coverage tags</span>')
         .insertAfter("#dynamic_geotags_span");
     var location_edit = jQuery("#location-edit"),
         dynamic_geotags = jQuery("#dynamic_geotags");
