@@ -3,6 +3,8 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Bug fix: fixed CSS and wording for "Dynamic geotags Coverage"
+  [ghicaale refs #21458]
 
 8.5 - (2014-09-15)
 ------------------

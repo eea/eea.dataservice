@@ -17,3 +17,7 @@ option:disabled, input:disabled {
     background: beige;
     color: #DDD !important;
 }
+
+#dynamic_geotags_span {
+    font-weight: normal;
+}
