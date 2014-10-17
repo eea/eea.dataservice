@@ -247,7 +247,7 @@ class Obligations(object):
         return SimpleVocabulary(items)
 
 
-# Geographical coverage vocabulary
+# Geographic coverage vocabulary
 COUNTRIES_DICTIONARY_ID = 'european_countries'
 
 def getCountriesDictionary():

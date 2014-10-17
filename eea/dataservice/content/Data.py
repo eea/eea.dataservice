@@ -106,18 +106,20 @@ schema = Schema((
     GeotagsLinesField('location',
         schemata='categorization',
         required=True,
-        # required_for_published = True,
         widget=GeotagsWidget(
-            label='Geotags',
-            description="Geotags: multiple geographical locations related"\
-                    " to this content."
+            label='Geographic coverage',
+            description="Type in here the exact geographic names/places "\
+                "that are covered by the data. Add Countries names only "\
+                "if the data displayed is really about the entire country. "\
+                "Example of locations/places are lakes, rivers, cities, "\
+                "marine areas, glaciers, bioregions like alpine region etc."
         )
     ),
 ),)
 
 dataset_schema = dataservice_schema.copy() + schema.copy()
 
-# 8523 no longer require at all the geographical coverage
+# 8523 no longer require at all the geographic coverage
 dataset_schema['geographicCoverage'].required = False
 
 # 8523; hide geographicCoverage field since we migrated data to geotags
