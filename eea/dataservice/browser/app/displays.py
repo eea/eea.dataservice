@@ -462,7 +462,6 @@ class GetDataFiles(object):
         brains = cat.searchResults({
             'portal_type': ['DataFile'],
             'path': '/'.join(self.context.getPhysicalPath()),
-            'review_state': 'published',
             'sort_on': 'getObjPositionInParent'})
         if not brains:
             return False
@@ -485,7 +484,6 @@ class GetDataFileLinks(object):
         brains = cat.searchResults({
             'portal_type': ['DataFileLink'],
             'path': '/'.join(self.context.getPhysicalPath()),
-            'review_state': 'published',
             'sort_on': 'getObjPositionInParent'})
         if not brains:
             return False
@@ -510,7 +508,6 @@ class GetTablesByCategory(object):
             'portal_type': ['DataTable'],
             'path': '/'.join(self.context.getPhysicalPath()),
             'sort_on': 'getObjPositionInParent',
-            'review_state': 'published'
         })
 
         # Get DataTable files

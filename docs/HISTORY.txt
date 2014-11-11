@@ -3,6 +3,8 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Bug fix: Removed hard-coded review_state=published while listing data tables
+  [voineali refs #21515]
 * Bug fix: fixed CSS and wording for "Dynamic geotags Coverage"
   [ghicaale refs #21458]
 * Change: updated eea.geotags field labels
