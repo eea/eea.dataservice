@@ -3,6 +3,8 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Feature: Added possibility to suppress sending emails on workflow change
+  [voineali refs #21851]
 * Bug fix: Removed hard-coded review_state=published while listing data tables
   [voineali refs #21515]
 * Bug fix: fixed CSS and wording for "Dynamic geotags Coverage"
