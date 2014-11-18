@@ -459,10 +459,12 @@ class GetDataFiles(object):
 
     def __call__(self):
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({
-            'portal_type': ['DataFile'],
-            'path': '/'.join(self.context.getPhysicalPath()),
-            'sort_on': 'getObjPositionInParent'})
+        brains = cat(
+            portal_type=['DataFile'],
+            path='/'.join(self.context.getPhysicalPath()),
+            sort_on='getObjPositionInParent',
+            show_inactive=True
+        )
         if not brains:
             return False
         res = [brain.getObject() for brain in brains]
@@ -481,10 +483,12 @@ class GetDataFileLinks(object):
 
     def __call__(self):
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({
-            'portal_type': ['DataFileLink'],
-            'path': '/'.join(self.context.getPhysicalPath()),
-            'sort_on': 'getObjPositionInParent'})
+        brains = cat(
+            portal_type=['DataFileLink'],
+            path='/'.join(self.context.getPhysicalPath()),
+            sort_on='getObjPositionInParent',
+            show_inactive=True
+        )
         if not brains:
             return False
         res = [brain.getObject() for brain in brains]
@@ -504,11 +508,12 @@ class GetTablesByCategory(object):
     def __call__(self):
         res = {}
         cat = getToolByName(self.context, 'portal_catalog')
-        brains = cat.searchResults({
-            'portal_type': ['DataTable'],
-            'path': '/'.join(self.context.getPhysicalPath()),
-            'sort_on': 'getObjPositionInParent',
-        })
+        brains = cat(
+            portal_type=['DataTable'],
+            path='/'.join(self.context.getPhysicalPath()),
+            sort_on='getObjPositionInParent',
+            show_inactive=True
+        )
 
         # Get DataTable files
         for brain in brains:
