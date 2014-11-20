@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.6-dev - (unreleased)
-----------------------
+8.6 - (2014-11-20)
+------------------
 * Feature: Added possibility to suppress sending emails on workflow change
   [voineali refs #21851]
 * Bug fix: Removed hard-coded review_state=published while listing data tables
