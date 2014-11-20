@@ -1,0 +1,42 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+
+<div metal:define-macro="portlet"
+     id="portlet-organisations-overview"
+     i18n:domain="eea"
+     tal:omit-tag=""
+     tal:condition="not:context/@@plone_portal_state/anonymous">
+
+<dl class="portlet portlet-rss">
+
+    <dt class="portletHeader" i18n:translate="">Organisations control panel</dt>
+
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=duplicate-organisations"
+         title="" i18n:translate="">
+        Detect duplicates</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-quick-overview"
+         title="" i18n:translate="">
+        Transfer relations</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-wrong-title"
+         title="" i18n:translate="">
+        Organisations with wrong title</a>
+    </dt>
+    <dt class="portletItem">
+      <a tal:attributes="href string:${context/absolute_url}/organisations_overview?action=organisations-with-no-reference"
+         title="" i18n:translate="">
+        Organisations not in use</a>
+    </dt>
+
+</dl>
+
+</div>
+
+</body>
+</html>
