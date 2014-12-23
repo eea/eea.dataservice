@@ -3,6 +3,9 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Change: removed map view location calls from eea.dataservice now that acgis
+  map is no longer available within eea.geotags
+  [ichimdav]
 
 8.6 - (2014-11-20)
 ------------------

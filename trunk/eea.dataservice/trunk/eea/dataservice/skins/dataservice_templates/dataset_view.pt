@@ -345,7 +345,6 @@
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Data sources</span>
                     </dt>
-
                     <dd tal:content="structure value"
                         tal:condition="python: value">source</dd>
 
