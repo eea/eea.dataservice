@@ -16,12 +16,12 @@
                         categories python:tablesData[0];
                         categView nocall:context/@@getCategoryName;
                         data python:tablesData[1]"
-                repeat="categ categories">
+                repeat="categ categories" tal:condition="categories">
         <tal:table condition="python:data.has_key(categ)">
         <h3 tal:define="categ_name python:categView(categ);"
             tal:content="categ_name" />
             <div>
-                <tal:block repeat="table python:data[categ]">
+                <tal:block repeat="table python:data[categ]" tal:condition="python:data[categ]">
                     <div>
                         <h5 class="datatable-title" tal:content="table/title" />
                         <p tal:condition="table/Description"
@@ -46,7 +46,7 @@
                             datafilelinks table/@@getDataFileLinks;
                             survey here/@@survey_support|nothing;
                             survey survey/enabled|nothing;">
-                            <tal:block repeat="file datafiles">
+                            <tal:block repeat="file datafiles" tal:condition="datafiles">
                                 <li tal:define="
                         field python:file.getFile();
                         icon field/getBestIcon | nothing;
@@ -81,7 +81,7 @@
                                 </li>
                             </tal:block>
 
-                            <tal:block repeat="file datafilelinks">
+                            <tal:block condition="datafilelinks" repeat="file datafilelinks">
                                 <li tal:define="filePath string:/data-and-maps/data/ga-downloads/$lastVersion/${datasetVersionId}/${file/id};">
                                     <strong><span i18n:translate=""
                                                   tal:content="file/Title">Data link</span>
@@ -144,7 +144,7 @@
 
                     <dd>
                         <ul tal:define="data python:view()">
-                            <li tal:repeat="ob_nr value">
+                            <li tal:repeat="ob_nr value" tal:condition="value">
                                 <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
                                ob_title python:data.get(int(ob_nr), ob_url)"
                                    tal:attributes="href ob_url;
@@ -168,7 +168,7 @@
                     </dt>
                     <dd>
                         <ul>
-                            <tal:block repeat="url value">
+                            <tal:block repeat="url value" tal:condition="value">
                                 <li tal:condition="python:url.find('http:',0,5)>-1" >
                                     <a tal:attributes="href url; title url"
                                        tal:content="url" />
@@ -187,7 +187,7 @@
                            condition="python:parents or derived">
                     <dt i18n:translate="">Relation:</dt>
                     <tal:block condition="parents">
-                        <dd tal:repeat="par parents">
+                        <dd tal:repeat="par parents" tal:condition="parents">
                             <span i18n:translate="">Parent data set:</span>&nbsp;
                             <a tal:attributes="href par/absolute_url;
                                    title par/title_or_id"
@@ -195,7 +195,7 @@
                         </dd>
                     </tal:block>
                     <tal:block condition="derived">
-                        <dd tal:repeat="der derived">
+                        <dd tal:repeat="der derived" tal:condition="derived">
                             <span i18n:translate="">Derived data set:</span>&nbsp;
                             <a tal:attributes="href der/absolute_url;
                                    title der/title_or_id"
@@ -249,7 +249,7 @@
                             <span i18n:translate="">Tags:</span>
                         </dt>
                         <dd>
-                            <tal:tags repeat="tag value">
+                            <tal:tags repeat="tag value" tal:condition="value">
                                 <a tal:attributes="title tag;
                                        href string:$portal_url/data-and-maps/tags#c5=all&amp;c0=5&amp;b_start=0&amp;${facetId}=${tag};"
                                    tal:content="tag" />
@@ -359,7 +359,7 @@
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Owners:</span>
                     </dt>
-                    <tal:block repeat="url urls">
+                    <tal:block repeat="url urls" tal:condition="urls">
                         <tal:block define="value python:context.getOrganisationName(url)"
                                    condition="value">
                             <dd>
@@ -380,7 +380,7 @@
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Processors:</span>
                     </dt>
-                    <tal:block repeat="url urls">
+                    <tal:block repeat="url urls" tal:condition="urls">
                         <tal:block define="value python:context.getOrganisationName(url)"
                                    condition="value">
                             <dd>

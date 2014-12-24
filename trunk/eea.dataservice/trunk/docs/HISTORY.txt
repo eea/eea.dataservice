@@ -3,6 +3,8 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed dataset_view within Chameleon
+  [voineali refs #22307]
 * Change: removed map view location calls from eea.dataservice now that acgis
   map is no longer available within eea.geotags
   [ichimdav]
