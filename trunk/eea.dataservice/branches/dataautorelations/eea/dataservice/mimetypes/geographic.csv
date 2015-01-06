@@ -1,0 +1,9 @@
+application/x-dem,DEM,"USGS DEM file format",application.png
+application/x-e00,E00,"ARC/INFO interchange file format",application.png
+image/geotiff,GeoTIFF,"Geographically located raster data",application.png
+application/x-gpx,GPX,"XML-based interchange format",application.png
+application/x-mxd,MXD,"ESRI ArcGIS project file",application.png
+application/x-qgis,SHP,"ESRI shapefile",application.png
+application/x-tab,TAB,"MapInfo Table file format",application.png
+application/x-dted,DTED,"Digital Terrain Elevation Data",application.png
+application/vnd.google-earth.kml+xml,KML,"Keyhole Markup Language",application.png
