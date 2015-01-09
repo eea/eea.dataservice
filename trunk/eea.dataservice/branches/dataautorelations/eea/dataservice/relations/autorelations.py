@@ -23,15 +23,15 @@ class LatestAssessments(object):
         for obj in categ[1]:
             if obj.portal_type in ['DavizVisualization', 'EEAFigure']:
                 objrview = obj.unrestrictedTraverse('@@eea.relations.macro')
-                ofrels = objrview.forward()
+                # ofrels = objrview.forward()
                 obwrels = objrview.backward()
-                for ocateg in ofrels:
-                    for obj in ocateg[1]:
-                        if obj.portal_type == "Assessment":
-                            assessments.append(obj)
+                # for ocateg in ofrels:
+                #     for obj in ocateg[1]:
+                #         if obj.portal_type == "Assessment":
+                #             assessments.append(obj)
                 for ocateg in obwrels:
                     for obj in ocateg[1]:
-                        if obj.portal_type == "Assessment":
+                        if obj.portal_type in ["Assessment", "AssessmentPart"]:
                             assessments.append(obj)
 
     def __call__(self, **kwargs):
