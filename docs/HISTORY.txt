@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.8-dev - (unreleased)
+----------------------
+
 8.7 - (2015-01-22)
 ------------------
 * Bug fix: Fixed dataset_view within Chameleon
