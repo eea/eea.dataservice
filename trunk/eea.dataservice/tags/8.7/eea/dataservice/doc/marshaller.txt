@@ -1,0 +1,16 @@
+Test for the managementplan field adapter
+=========================================
+
+We have a special field adapter that extracts values from the codes field:
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> id = portal.invokeFactory("Data", 'd1')
+    >>> spec = portal[id]
+    >>> spec.setEeaManagementPlan(('2010', ''))
+    >>> rdf = spec.unrestrictedTraverse("@@rdf")()
+    >>> '<data:eeaManagementPlan xml:lang="en">2010</data:eeaManagementPlan>' in rdf
+    True
+
