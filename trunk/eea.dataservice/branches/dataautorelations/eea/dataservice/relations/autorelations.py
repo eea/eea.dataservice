@@ -62,5 +62,5 @@ class LatestAssessments(object):
         :return: Boolean indicating if visitor is an anonymous user or not
         :rtype: bool
         """
-        mtool = getToolByName(self, 'portal_membership')
+        mtool = getToolByName(self.context, 'portal_membership')
         return bool(mtool.isAnonymousUser())
