@@ -1,6 +1,6 @@
 """Autorelations for eea.dataservice"""
 
-# from zope.component import getMultiAdapter
+from Products.CMFCore.utils import getToolByName
 
 
 class LatestAssessments(object):
@@ -10,29 +10,34 @@ class LatestAssessments(object):
         """Constructor"""
         self.context = context
         self.request = getattr(self.context, 'REQUEST', None)
+        self.wftool = getToolByName(context, 'portal_workflow')
 
-    def find_assessments(self, categ, assessments):
+    def related_assessments(self, relation, is_anon=False):
         """
-        :param categ:
-        :type categ:
-        :param assessments:
-        :type assessments:
-        :return:
-        :rtype:
+        :param relation: Tuple ('relation_name', ['relation']
+        :type relation: tuple
+        :param is_anon: Boolean indicating whether we have an anon user
+        :type is_anon: bool
+        :return: List of related Assessments
+        :rtype: list
         """
-        for obj in categ[1]:
+        alist = []
+        for obj in relation[1]:
             if obj.portal_type in ['DavizVisualization', 'EEAFigure']:
                 objrview = obj.unrestrictedTraverse('@@eea.relations.macro')
-                # ofrels = objrview.forward()
                 obwrels = objrview.backward()
-                # for ocateg in ofrels:
-                #     for obj in ocateg[1]:
-                #         if obj.portal_type == "Assessment":
-                #             assessments.append(obj)
-                for ocateg in obwrels:
-                    for obj in ocateg[1]:
-                        if obj.portal_type in ["Assessment", "AssessmentPart"]:
-                            assessments.append(obj)
+                for backrel in obwrels:
+                    for back_obj in backrel[1]:
+                        if back_obj.portal_type in ["Assessment",
+                                                    "AssessmentPart"]:
+                            if is_anon:
+                                state = self.wftool.getInfoFor(back_obj,
+                                                               'review_state', '')
+                                if state == "published":
+                                    alist.append(back_obj)
+                            else:
+                                alist.append(back_obj)
+        return alist
 
     def __call__(self, **kwargs):
         """ Return all the related data sets from the assessments figures.
@@ -41,10 +46,21 @@ class LatestAssessments(object):
         fwrels = rview.forward()
         bwrels = rview.backward()
         assessments = []
-        for categ in fwrels:
-            self.find_assessments(categ, assessments)
-        for categ in bwrels:
-            self.find_assessments(categ, assessments)
+        is_anon = self.is_anon_user()
+        for relation in fwrels:
+            assessments.extend(self.related_assessments(relation,
+                                                        is_anon=is_anon))
+        for relation in bwrels:
+            assessments.extend(self.related_assessments(relation,
+                                                        is_anon=is_anon))
         if assessments:
             return [('Produced Indicators', assessments)]
         return {}
+
+    def is_anon_user(self):
+        """
+        :return: Boolean indicating if visitor is an anonymous user or not
+        :rtype: bool
+        """
+        mtool = getToolByName(self, 'portal_membership')
+        return bool(mtool.isAnonymousUser())
