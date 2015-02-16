@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.9.dev0 - (unreleased)
+-----------------------
+
 8.8 - (2015-02-16)
 ------------------
 * Feature: added an Auto relation from Assessment and AssessmentPart to a
