@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.8-dev - (unreleased)
-----------------------
+8.8 - (2015-02-16)
+------------------
 * Feature: added an Auto relation from Assessment and AssessmentPart to a
   Data portal_type if there is a DavizVisualization or EEAFigure in the middle
   [ichimdav refs #21173]
