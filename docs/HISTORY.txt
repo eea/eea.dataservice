@@ -3,6 +3,8 @@ Changelog
 
 9.0.dev0 - (unreleased)
 -----------------------
+* Bugfix: Fixed mimetype in rdf export for files, including files inside zip
+  [szabozo0 refs #20674]
 
 8.9 - (2015-03-17)
 ------------------
