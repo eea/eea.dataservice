@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+  lang="en-US"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+<metal:main_macro define-macro="content-core">
+
+  <metal:mainservices use-macro="here/atct_album_view/macros/listing" />
+  <h2 i18n:translate="">Top content</h2>
+  <metal:topcontent use-macro="here/portlet_mainfigures/macros/portlet" />
+  <metal:topcontent use-macro="here/portlet_maindatasets/macros/portlet" />
+  <metal:topcontent use-macro="here/portlet_dataviewers/macros/portlet" />
+
+</metal:main_macro>
+</div>
+
+</body>
+</html>
