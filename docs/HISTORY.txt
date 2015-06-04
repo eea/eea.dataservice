@@ -3,6 +3,10 @@ Changelog
 
 9.1.dev0 - (unreleased)
 -----------------------
+* Change: removed sendWorkflowEmail method calling as well as the
+  frontpage_workflow_scripts module because the functionality can be
+  triggered with content rules
+  [ichimdav refs #22596]
 
 9.0 - (2015-04-28)
 ------------------
