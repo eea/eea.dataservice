@@ -3,6 +3,9 @@ Changelog
 
 9.1.dev0 - (unreleased)
 -----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [ichimdav #22596]
 * Change: removed sendWorkflowEmail method calling as well as the
   frontpage_workflow_scripts module because the functionality can be
   triggered with content rules

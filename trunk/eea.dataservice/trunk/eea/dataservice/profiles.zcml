@@ -28,4 +28,12 @@
     handler="eea.dataservice.setuphandlers.installMimeTypes"
     />
 
+    <genericsetup:registerProfile
+        name="upgrade91"
+        title="EEA Dataservice 9.1 upgrade"
+        directory="profiles/upgrades/to_91"
+        description="Extension profile for EEA Dataservice."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
