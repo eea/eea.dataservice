@@ -550,7 +550,7 @@ class GetOrganisationSnippet(object):
                 location = brain.location
                 if not location:
                     view = 'none'
-                elif type(location) == tuple:
+                elif isinstance(location, tuple):
                     location = location[0]
                 res = ORGANISATION_SNIPPET % {
                     'title': brain.Title,

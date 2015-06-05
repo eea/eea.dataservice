@@ -76,7 +76,7 @@ class LinkChecker(BrowserView):
         except Exception:
             return 110
 
-    def __call__(self, urls = None):
+    def __call__(self, urls=None):
         if urls is None:
             urls = []
         report = {}

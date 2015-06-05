@@ -93,7 +93,7 @@ class MoveOrganisationReferences(BrowserView):
             res = cat.searchResults(query)
             if res:
                 tt_ob = res[0].getObject()
-
+        tot = 0
         if tf_ob and tt_ob:
             related_objects = self.get_related_objects(tf_ob.getUrl(), cat)
             old_ref = tf_ob.getUrl()
@@ -141,13 +141,12 @@ class MoveOrganisationReferences(BrowserView):
                         assessment.reindexObject()
 
                 transaction.commit()
-                info('committed transaction %s of total %s' % \
-                     (count,tot))
+                info('committed transaction %s of total %s', count, tot)
 
         msg = '%s references transferred from "%s" to "%s"' % \
-                  (tot, tf_ob.Title(), tt_ob.Title())
+              (tot, tf_ob.Title(), tt_ob.Title())
         info(msg)
         IStatusMessage(self.request).addStatusMessage(msg,
-                                                               type='info')
+                                                      type='info')
         return self.request.RESPONSE.redirect(self.context.absolute_url() +
                 '/organisations_overview?action=organisations-quick-overview')

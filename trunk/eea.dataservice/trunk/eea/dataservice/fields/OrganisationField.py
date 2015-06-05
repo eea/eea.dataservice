@@ -3,8 +3,8 @@
 
 from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes.Field import decode #, encode
-from Products.Archetypes.atapi import StringField # ,ObjectField
+from Products.Archetypes.Field import decode  # , encode
+from Products.Archetypes.atapi import StringField  # ,ObjectField
 
 
 class OrganisationField(StringField):
@@ -16,8 +16,8 @@ class OrganisationField(StringField):
         """
 
         fname = self.getName()
-        
-        if not getattr(self, 'raw', False): # Remove acquisition wrappers
+
+        if not getattr(self, 'raw', False):  # Remove acquisition wrappers
             value = decode(aq_base(value), instance, **kwargs)
 
         new_value = value
@@ -30,18 +30,18 @@ class OrganisationField(StringField):
         if new_value != old_value:
             kwargs['field'] = self
             self.getStorage(instance).set(self.getName(), instance, new_value,
-                                                                    **kwargs)
+                                          **kwargs)
 
             if not old_value:
                 return
 
-            #ZZZ: doing this in field set code is weird, should
-            #have been done by definining a new event
-            #this would have avoided hardcoding field here
+            # ZZZ: doing this in field set code is weird, should
+            # have been done by definining a new event
+            # this would have avoided hardcoding field here
 
             # Update organisation URL to depedencies
-            fields = {'dataOwner':'getDataOwner', 
-                      'processor':'getProcessor'}
+            fields = {'dataOwner': 'getDataOwner',
+                      'processor': 'getProcessor'}
 
             cat = getToolByName(instance, 'portal_catalog')
 
@@ -53,7 +53,7 @@ class OrganisationField(StringField):
                     if not field:
                         continue
 
-                    val = [new_value]   #we're dealing with LinesField fields
+                    val = [new_value]  # we're dealing with LinesField fields
 
                     fvalue = field.getAccessor(obj)()
                     if isinstance(fvalue, (list, tuple)):
@@ -63,4 +63,3 @@ class OrganisationField(StringField):
                     mutator(val)
 
                     obj.reindexObject()
-

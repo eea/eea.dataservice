@@ -18,11 +18,12 @@ to_migrate = [
 '/www/SITE/data-and-maps/figures/benzene-2010-annual-limit-value-2',
 ]
 
-def info_related_items(self, **kw):
+
+def info_related_items(self):
     """ Migration related items """
     catalog = getToolByName(self, "portal_catalog")
     query = {'Language': 'all',
-             'portal_type': ['EEAFigure',]}
+             'portal_type': ['EEAFigure']}
 
     count = 0
     brains = catalog(**query)
@@ -34,13 +35,13 @@ def info_related_items(self, **kw):
         rel_prod = obj.getRelatedProducts()
         rel_item = obj.getRelatedItems()
         for k in rel_prod:
-            if not k in rel_item:
+            if k not in rel_item:
                 logger.info('Exception: %s', obj.absolute_url())
                 logger.info(rel_item)
                 logger.info(rel_prod)
                 break
 
-        if not (count % 20):
+        if not count % 20:
             transaction.commit()
             logger.info('Another 20 processed')
 
@@ -48,14 +49,15 @@ def info_related_items(self, **kw):
     logger.info('Done info')
     return "Done"
 
-def move_related_items(self, **kw):
+
+def move_related_items(self):
     """ Copy values from relatedProducts field to relatedItems
         field for EEAFigure and Data objects
     """
     catalog = getToolByName(self, "portal_catalog")
     query = {'Language': 'all',
-             #'portal_type': ['Data', 'EEAFigure'],
-             'path': to_migrate,}
+             # 'portal_type': ['Data', 'EEAFigure'],
+             'path': to_migrate}
 
     count = 0
     brains = catalog(**query)
@@ -71,14 +73,15 @@ def move_related_items(self, **kw):
             obj.setRelatedItems(rel)
             logger.info('Relations merged: %s', obj.absolute_url())
 
-        if not (count % 20):
+        if not count % 20:
             transaction.commit()
 
     transaction.commit()
     logger.info('Done moving data from relatedProducts to relatedItems')
     return "Done"
 
-def migrate_relations(self, **kw):
+
+def migrate_relations(self):
     """ Script used to migrate/fix relations for Data objects
         once relatedProducts field is deprecated
     """
@@ -106,7 +109,7 @@ def migrate_relations(self, **kw):
                 rel.setRelatedItems(fig_rel)
 
         obj.setRelatedItems(relations)
-        if not (count % 20):
+        if not count % 20:
             transaction.commit()
 
     transaction.commit()

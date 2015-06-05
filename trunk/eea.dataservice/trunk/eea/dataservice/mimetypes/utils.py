@@ -29,7 +29,7 @@ def register_mimetypes(registry, mimetypes):
             continue
 
         try:
-            mto =  registry.lookup(mt)
+            mto = registry.lookup(mt)
         except MimeTypeException:
             # malformed MIME type
             continue

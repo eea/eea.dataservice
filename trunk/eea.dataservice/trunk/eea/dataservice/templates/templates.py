@@ -7,6 +7,7 @@ from Products.Five import BrowserView
 TEMPLATE_CONTAINER = 'templates'
 TEMPLATE_TYPES = ['EEAFigure', 'Data']
 
+
 def getTemplatesPath(context):
     """ Get template path
     """
@@ -14,6 +15,7 @@ def getTemplatesPath(context):
     phy_path.extend(context.getPhysicalPath()[:-1])
     phy_path.extend([TEMPLATE_CONTAINER])
     return '/'.join(phy_path)
+
 
 class GetTemplates(object):
     """ Apply selected template metadata to a EEA Figure
@@ -26,8 +28,9 @@ class GetTemplates(object):
     def __call__(self):
         path = getTemplatesPath(self.context)
         cat = getToolByName(self.context, 'portal_catalog', None)
-        return cat(portal_type = TEMPLATE_TYPES,
-                   path = path)
+        return cat(portal_type=TEMPLATE_TYPES,
+                   path=path)
+
 
 class SelectTemplate(BrowserView):
     """ Select template view
@@ -35,6 +38,7 @@ class SelectTemplate(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
 
 class ApplyTemplate(object):
     """ Apply selected template metadata to a EEA Figure
@@ -48,9 +52,9 @@ class ApplyTemplate(object):
         if template:
             path = getTemplatesPath(self.context)
             cat = getToolByName(self.context, 'portal_catalog', None)
-            res = cat(portal_type = TEMPLATE_TYPES,
-                      path = path,
-                      getId = template)
+            res = cat(portal_type=TEMPLATE_TYPES,
+                      path=path,
+                      getId=template)
             tpl_ob = res[0].getObject()
 
             for field_name in tpl_ob.schema.keys():

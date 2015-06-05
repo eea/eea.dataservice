@@ -5,13 +5,14 @@ from Products.Archetypes.Widget import TypesWidget
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from eea.dataservice import interfaces
 
+
 class FigureTypeWidget(TypesWidget):
     """ Figure Type Widget
     """
     _properties = TypesWidget._properties.copy()
     _properties.update({
-        'format': "flex", # possible values: flex, select, radio
-        'macro' : "widgets/selection",
+        'format': "flex",  # possible values: flex, select, radio
+        'macro': "widgets/selection",
         })
 
     security = ClassSecurityInfo()
@@ -21,14 +22,14 @@ class FigureTypeWidget(TypesWidget):
         """
         return "SelectionWidget"
 
-    security.declarePublic('render_own_label') 
-    def render_own_label(self): 
+    @security.public
+    def render_own_label(self):
         """ #5331 we need to implement our own render_own_label otherwise
         the selection widget loads the label and description twice
-        """ 
+        """
         return True
 
-    security.declarePublic('process_form')
+    @security.public
     def process_form(self, instance, field, form, empty_marker=None,
                      emptyReturnsMarker=False, validating=True):
         """Basic impl for form processing in a widget"""
@@ -38,13 +39,16 @@ class FigureTypeWidget(TypesWidget):
 
         if old_value == 'map':
             directlyProvides(instance,
-                directlyProvidedBy(instance)-interfaces.IEEAFigureMap)
+                             directlyProvidedBy(instance) -
+                             interfaces.IEEAFigureMap)
         elif old_value == 'graph':
             directlyProvides(instance,
-                directlyProvidedBy(instance)-interfaces.IEEAFigureGraph)
+                             directlyProvidedBy(instance) -
+                             interfaces.IEEAFigureGraph)
         elif old_value == 'table':
             directlyProvides(instance,
-                directlyProvidedBy(instance)-interfaces.IEEAFigureTable)
+                             directlyProvidedBy(instance) -
+                             interfaces.IEEAFigureTable)
 
         if value == 'map':
             alsoProvides(instance, interfaces.IEEAFigureMap)

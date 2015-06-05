@@ -33,8 +33,8 @@ class FigureObjectReadiness(ObjectReadiness):
     """ Object readiness state info for Figures
     """
     checks = {
-        'published':[(
-            lambda o:not bool(set(('Data','ExternalDataSpec')).intersection(
+        'published': [(
+            lambda o: not bool(set(('Data', 'ExternalDataSpec')).intersection(
                 set([x.portal_type for x in o.getRelatedItems()]))),
             'At least one references to a data source is required'
         )]

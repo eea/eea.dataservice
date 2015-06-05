@@ -16,21 +16,21 @@ schema = Schema((
     BlobField('file',
               required=False,
               primary=True,
-              validators = (('checkFileMaxSize', V_REQUIRED), ),
+              validators=(('checkFileMaxSize', V_REQUIRED), ),
               widget=FileWidget(
-                        description=("Select the file to be added by "
-                                       "clicking the 'Browse' button."),
-                        description_msgid="help_file",
-                        label="File",
-                        label_msgid="label_file",
-                        i18n_domain="plone",
-                        show_content_type=False,)),
+                  description=("Select the file to be added by "
+                               "clicking the 'Browse' button."),
+                  description_msgid="help_file",
+                  label="File",
+                  label_msgid="label_file",
+                  i18n_domain="plone",
+                  show_content_type=False,)),
 
     StringField(
         name='shortId',
         widget=StringWidget(
             label="Short ID",
-            visible= -1,
+            visible=-1,
             description=("Short ID description."),
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
