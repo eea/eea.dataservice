@@ -12,30 +12,29 @@ from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from Products.validation import V_REQUIRED
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.permissions import View
 
 # Schema
 schema = Schema((
     BlobField('file',
               required=False,
               primary=True,
-              validators = (('checkFileMaxSize', V_REQUIRED), ),
+              validators=(('checkFileMaxSize', V_REQUIRED), ),
               widget=FileWidget(
-                        description=("Select the file to be added by "
-                                       "clicking the 'Browse' button."),
-                        description_msgid="help_file",
-                        label="File",
-                        label_msgid="label_file",
-                        i18n_domain="plone",
-                        show_content_type=False,)),
+                  description=("Select the file to be added by "
+                               "clicking the 'Browse' button."),
+                  description_msgid="help_file",
+                  label="File",
+                  label_msgid="label_file",
+                  i18n_domain="plone",
+                  show_content_type=False,)),
     StringField(
         name='category',
         default='edse',
         vocabulary=NamedVocabulary(CATEGORIES_DICTIONARY_ID),
         widget=SelectionWidget(
-            format="select", # possible values: flex, select, radio
+            format="select",  # possible values: flex, select, radio
             label="Category",
-            description=("Category description."),
+            description="Category description.",
             label_msgid='dataservice_label_category',
             description_msgid='dataservice_help_category',
             i18n_domain='eea',
@@ -45,8 +44,8 @@ schema = Schema((
         name='shortId',
         widget=StringWidget(
             label="Short ID",
-            visible= -1,
-            description=("Short ID description."),
+            visible=-1,
+            description="Short ID description.",
             label_msgid='dataservice_label_shortid',
             description_msgid='dataservice_help_shortid',
             i18n_domain='eea',
@@ -55,6 +54,8 @@ schema = Schema((
 ),)
 
 eeafigurefile_schema = ATFolderSchema.copy() + schema.copy()
+
+
 class EEAFigureFile(ATFolder):
     """ EEAFigureFile Content Type
     """
@@ -67,7 +68,7 @@ class EEAFigureFile(ATFolder):
 
     security = ClassSecurityInfo()
 
-    security.declareProtected(View, 'get_size')
+    @security.protected
     def get_size(self):
         """ ZMI / Plone get size method
         """
@@ -76,13 +77,13 @@ class EEAFigureFile(ATFolder):
             return 0
         return f.get_size(self) or 0
 
-    security.declareProtected(View, 'size')
+    @security.protected
     def size(self):
         """ Get size
         """
         return self.get_size()
 
-    security.declareProtected(View, 'download')
+    @security.protected
     def download(self, REQUEST=None, RESPONSE=None):
         """ Download the file
         """

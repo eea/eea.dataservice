@@ -41,11 +41,12 @@ eeafigure_schema['dataSource'].widget.description = """Please
 
 eeafigure_schema['geographicCoverage'].required = False
 eeafigure_schema['geographicCoverage'].widget.visible = \
-                            {'view':'invisible', 'edit':'invisible'}
+    {'view': 'invisible', 'edit': 'invisible'}
 
 # Set position on form
 eeafigure_schema.moveField('figureType', pos=3)
 eeafigure_schema.moveField('dataSource', after="units")
+
 
 class EEAFigure(DataMixin, ATFolder, ThemeTaggable):
     """ EEAFigure Content Type

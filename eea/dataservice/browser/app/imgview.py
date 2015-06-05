@@ -73,7 +73,7 @@ class ImageViewFigureFile(BrowserView):
         newSecurityManager(request, SpecialUsers.system)
 
         images = sorted(context.objectValues("ATBlob"),
-                        lambda a,b:cmp(b.getId(), a.getId()))
+                        lambda a, b: cmp(b.getId(), a.getId()))
 
         # Get *.zoom.png
         children = [zimg for zimg in images

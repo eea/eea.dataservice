@@ -7,9 +7,10 @@ from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.userfeedback.interfaces import (
-                            ISurvey, ISurveySupport, ISurveyView )
+    ISurvey, ISurveySupport, ISurveyView)
 
 ANNO_KEY = 'EEAUserFeedback-DISABLED'
+
 
 class SurveyPublicSupport(BrowserView):
     """ Public survey support
@@ -28,9 +29,11 @@ class SurveyPublicSupport(BrowserView):
         """
         return False
 
+
 class SurveySupport(SurveyPublicSupport):
     """ Survey support
     """
+
     @property
     def disabled(self):
         """ Can enable
@@ -49,10 +52,12 @@ class SurveySupport(SurveyPublicSupport):
             return False
         return True
 
+
 class Survey(BrowserView):
     """ Survey form and support
     """
     implements(ISurvey)
+
     #
     # Private interface
     #
@@ -70,12 +75,13 @@ class Survey(BrowserView):
         """ Versions
         """
         api = getMultiAdapter((self.context, self.request),
-                                   name=u'getVersions')
+                              name=u'getVersions')
         if not api:
             raise StopIteration
         versions = api.versions()
         for version in versions:
             yield version
+
     #
     # Public interface
     #
@@ -96,10 +102,12 @@ class Survey(BrowserView):
             anno[ANNO_KEY] = True
         return self._redirect('EEAUserFeedback disabled')
 
+
 class SurveyView(BrowserView):
     """ Survey view
     """
     implements(ISurveyView)
+
     def vocabulary(self, name):
         """ Vocabulary
         """
