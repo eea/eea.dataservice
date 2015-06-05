@@ -51,4 +51,16 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+        source="8.3"
+        destination="9.1"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+            title="Import all steps from eea.dataservice 9.1 profile with eea_data_workflow changes"
+            import_profile="eea.dataservice:upgrade91"
+            />
+
+    </genericsetup:upgradeSteps>
+
 </configure>
