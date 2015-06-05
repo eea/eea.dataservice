@@ -68,7 +68,7 @@ class EEAFigureFile(ATFolder):
 
     security = ClassSecurityInfo()
 
-    @security.protected
+    @security.protected('get_size')
     def get_size(self):
         """ ZMI / Plone get size method
         """
@@ -77,13 +77,13 @@ class EEAFigureFile(ATFolder):
             return 0
         return f.get_size(self) or 0
 
-    @security.protected
+    @security.protected('size')
     def size(self):
         """ Get size
         """
         return self.get_size()
 
-    @security.protected
+    @security.protected('download')
     def download(self, REQUEST=None, RESPONSE=None):
         """ Download the file
         """
