@@ -1,0 +1,117 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <include package="Products.ATVocabularyManager" />
+  <include package="Products.CMFPlacefulWorkflow" />
+
+  <!-- Dependencies -->
+  <include package="eea.forms" />
+  <include package="eea.vocab" />
+  <include package="eea.jquery" />
+  <include package="eea.versions" />
+
+  <include file="skins.zcml" />
+  <include file="profiles.zcml" />
+
+  <include package=".userfeedback" />
+  <include package=".browser" />
+  <include package=".converter" />
+  <include package=".templates" />
+  <include package=".google" />
+  <include package=".relations" />
+  <include package=".widgets" />
+  <include package=".facetednavigation" />
+  <include package=".updates" />
+  <include package=".organisations" />
+
+  <class class="eea.dataservice.content.EEAFigure.EEAFigure">
+      <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+  </class>
+
+  <class class="eea.dataservice.content.Data.Data">
+      <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+  </class>
+
+  <adapter factory=".catalog.getFileName" name="filename" />
+  <adapter factory=".catalog.getFileType" name="filetype" />
+  <adapter factory=".catalog.getDatatableFileTypes" name="filetype" />
+  <adapter factory=".catalog.getDatasetFileTypes" name="filetype" />
+  <adapter factory=".catalog.getDataGeographicCoverage" name="getGeographicCoverage" />
+  <adapter factory=".catalog.getEEAFigureGeographicCoverage" name="getGeographicCoverage" />
+
+
+    <utility
+    factory=".vocabulary.Organisations"
+    name="Organisations"
+    />
+
+  <utility
+    factory=".vocabulary.FigureTypes"
+    name="Figure types"
+    />
+
+  <utility
+    factory=".vocabulary.Obligations"
+    name="Obligations"
+    />
+
+  <utility
+    factory=".vocabulary.MainKeywords"
+    name="Main keywords"
+    />
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigure
+      Products.CMFCore.interfaces.IActionSucceededEvent"
+    handler=".events.handle_eeafigure_state_change"/>
+
+  <subscriber
+    for="eea.dataservice.interfaces.IDatafile
+      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".events.reindex_filetype" />
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".events.handle_eeafigurefile_modified"/>
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".events.handle_eeafigurefile_modified"/>
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigureFile
+      zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".events.eeafigurefile_local_policy" />
+
+  <subscriber
+    for="eea.dataservice.interfaces.IEEAFigure
+         eea.versions.interfaces.IVersionCreatedEvent"
+    handler=".events.handle_eeafigure_versioned"/>
+
+  <configure zcml:condition="installed eea.rdfmarshaller">
+    <adapter factory=".marshaller.ManagementPlanField2Surf" />
+    <adapter factory=".marshaller.TemporalCoverageField2Surf" name="temporalCoverage" />
+    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+        for="eea.dataservice.interfaces.IDatafile"
+        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+        for="eea.dataservice.interfaces.IEEAFigureFile"
+        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+        for="Products.ATContentTypes.interfaces.IATImage"
+        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+        for="Products.ATContentTypes.interfaces.IATFile"
+        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+        for="Products.EEAContentTypes.content.interfaces.IFlashAnimation"
+        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  </configure>
+
+  <include package=".upgrades" />
+
+</configure>

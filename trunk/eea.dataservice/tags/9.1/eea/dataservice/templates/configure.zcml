@@ -1,0 +1,37 @@
+<configure xmlns="http://namespaces.zope.org/browser"
+           xmlns:zope="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea">
+
+  <zope:class class="eea.dataservice.content.EEAFigure.EEAFigure">
+    <implements interface="eea.dataservice.templates.interfaces.IProvideTemplates" />
+  </zope:class>
+
+  <zope:class class="eea.dataservice.content.Data.Data">
+    <implements interface="eea.dataservice.templates.interfaces.IProvideTemplates" />
+  </zope:class>
+
+  <browser:page
+      for="*"
+      name="getTemplates"
+      permission="cmf.ModifyPortalContent"
+      class=".templates.GetTemplates"
+      />
+
+  <browser:page
+      for="eea.dataservice.templates.interfaces.IProvideTemplates"
+      name="applyTemplate"
+      permission="cmf.ModifyPortalContent"
+      class=".templates.ApplyTemplate"
+      />
+
+  <browser:page
+      for="eea.dataservice.templates.interfaces.IProvideTemplates"
+      template="select_template.pt"
+      name="selectTemplate"
+      permission="cmf.ModifyPortalContent"
+      class=".templates.SelectTemplate"
+      />
+
+</configure>

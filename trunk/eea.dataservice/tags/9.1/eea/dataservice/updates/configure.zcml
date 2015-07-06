@@ -1,0 +1,10 @@
+<configure
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+  <browser:page for="*"
+    name="migration_link_checker"
+    class=".validators.LinkChecker"
+    permission="cmf.ModifyPortalContent" />
+
+</configure>
