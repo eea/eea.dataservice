@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.2.dev0 - (unreleased)
------------------------
+9.2 - (2015-07-28)
+------------------
 * Bugfix: pylint compile
   [lucas refs #27245]
 
