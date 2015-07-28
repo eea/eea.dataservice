@@ -3,6 +3,8 @@ Changelog
 
 9.2.dev0 - (unreleased)
 -----------------------
+* Bugfix: pylint compile
+  [lucas refs #27245]
 
 9.1 - (2015-07-06)
 ------------------

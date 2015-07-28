@@ -96,7 +96,7 @@ class EpsImageFile(PILEpsImageFile):
     def _open(self):
         """ Open
         """
-        # FIXME: should check the first 512 bytes to see if this
+        # FIX ME: should check the first 512 bytes to see if this
         # really is necessary (platform-dependent, though...)
 
         fp = PSFile(self.fp)
@@ -119,7 +119,7 @@ class EpsImageFile(PILEpsImageFile):
         box = None
 
         self.mode = "RGB"
-        self.size = 1, 1 # FIXME: huh?
+        self.size = 1, 1 # FIX ME: huh?
 
         #
         # Load EPS header

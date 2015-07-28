@@ -73,7 +73,7 @@ QLD_DICTIONARY[QLD_DICTIONARY_ID] = (
 )
 
 # Quick link vocabulary for maps and graphs
-#TODO: replace in the XML dump the keyword
+# TO DO: replace in the XML dump the keyword
 #      "State of the environment report No 1/2007"
 #      with "State of the environment report No 1 from 2007", as we cant add a
 #      vocabulary with an ID containing / character
