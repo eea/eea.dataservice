@@ -42,7 +42,7 @@ class TopDatasets(BrowserView):
             return res
         return {}
 
-    #XXX Cache
+    # Cache
     def __call__(self, **kwargs):
         if self.request:
             kwargs.update(self.request.form)
