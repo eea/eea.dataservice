@@ -6,10 +6,10 @@
     tal:content="string:/data-and-maps/figures/ga-downloads/$lastVersion/$thisVersionId" />
 
   <div class="figures-fancyimage">
-    <a tal:attributes="href string:${context/absolute_url}/image_original">
+    <a tal:attributes="href string:${context/absolute_url}/image_large">
       <img tal:attributes="
         title string:${context/title_or_id};
-        alt string:${context/absolute_url}/image_original;
+        alt string:${context/absolute_url}/image_large;
         src string:${context/absolute_url}/image_large;"
         class="eea-image-width-control"/>
     </a>

@@ -3,6 +3,8 @@ Changelog
 
 9.3.dev0 - (unreleased)
 -----------------------
+* Bugfix: Fix download permssion on EEAFigureFile
+  [lucas, refs #27617]
 
 9.2 - (2015-07-28)
 ------------------
