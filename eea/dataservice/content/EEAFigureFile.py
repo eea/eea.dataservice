@@ -12,6 +12,7 @@ from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
 from Products.validation import V_REQUIRED
 from AccessControl import ClassSecurityInfo
+from Products.CMFCore.permissions import View
 
 # Schema
 schema = Schema((
@@ -77,13 +78,13 @@ class EEAFigureFile(ATFolder):
             return 0
         return f.get_size(self) or 0
 
-    @security.protected('size')
+    @security.protected(View)
     def size(self):
         """ Get size
         """
         return self.get_size()
 
-    @security.protected('download')
+    @security.protected(View)
     def download(self, REQUEST=None, RESPONSE=None):
         """ Download the file
         """
