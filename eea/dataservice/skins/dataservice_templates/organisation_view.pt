@@ -76,6 +76,25 @@
                 <span i18n:translate="">figures</span>
                 ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&amp;b_start=0&amp;c17=${context/org_url}" i18n:translate="">see more</a> )
             </p>
+
+            <!-- Data visualization -->
+            <tal:block tal:condition="ovisualization">
+                <h5 i18n:translate="" >Mentioned as data source for:</h5>
+                <ul tal:define="wftool here/portal_workflow">
+                    <li tal:repeat="daviz ovisualization">
+                        <tal:block
+                            define="
+                                review_state daviz/review_state;
+                                title_state python:wftool.getTitleForStateOnType(review_state, 'DavizVisualization')
+                            ">
+                            <a tal:attributes="href daviz/getUrl; title daviz/Title"
+                               tal:content="daviz/Title"/>&nbsp;
+                            <span tal:condition="not:isAnon">( <tal:block tal:replace="title_state" /> )</span>
+                        </tal:block>
+                    </li>
+                </ul>
+            </tal:block>
+            
         </fieldset>
     </tal:block>
 
