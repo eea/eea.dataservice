@@ -3,7 +3,9 @@ Changelog
 
 9.4.dev0 - (unreleased)
 -----------------------
-
+* Feature: Add link to DaViz Visualisation on Organisation view
+  [lucas, refs #27622]
+  
 9.3 - (2015-07-30)
 ------------------
 * Bugfix: Fix download permssion on EEAFigureFile

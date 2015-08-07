@@ -87,14 +87,14 @@
                                 review_state daviz/review_state;
                                 title_state python:wftool.getTitleForStateOnType(review_state, 'DavizVisualization')
                             ">
-                            <a tal:attributes="href daviz/getUrl; title daviz/Title"
+                            <a tal:attributes="href daviz/getURL; title daviz/Title"
                                tal:content="daviz/Title"/>&nbsp;
                             <span tal:condition="not:isAnon">( <tal:block tal:replace="title_state" /> )</span>
                         </tal:block>
                     </li>
                 </ul>
             </tal:block>
-            
+
         </fieldset>
     </tal:block>
 
