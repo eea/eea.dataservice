@@ -3,6 +3,9 @@ Changelog
 
 9.4.dev0 - (unreleased)
 -----------------------
+* Change: Title is now used as the label of DataFiles found within Data
+  instead of the field name
+  [ichimdav refs #27927]
 * Feature: Add link to DaViz Visualisation on Organisation view
   [lucas, refs #27622]
   

@@ -51,13 +51,14 @@
                         field python:file.getFile();
                         icon field/getBestIcon | nothing;
                         filename field/filename | nothing;
+                        filetitle file/Title;
                         size field/get_size;
                         filePath string:/data-and-maps/data/ga-downloads/$lastVersion/${datasetVersionId}/${filename};">
 
                                     <strong>
                                         <img tal:condition="icon" src=""
                                              tal:attributes="src string:${context/portal_url}/$icon"/>
-                                        <span tal:content="filename" />
+                                        <span tal:content="filetitle" />
                                     </strong>
 
                                     <span tal:content="python:'(' + file.lookupMime(field.getContentType()) + ')'" />
