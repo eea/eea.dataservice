@@ -1,14 +1,14 @@
 Changelog
 =========
 
-9.4.dev0 - (unreleased)
------------------------
+9.4 - (2015-08-18)
+------------------
 * Change: Title is now used as the label of DataFiles found within Data
   instead of the field name
   [ichimdav refs #27927]
 * Feature: Add link to DaViz Visualisation on Organisation view
   [lucas, refs #27622]
-  
+
 9.3 - (2015-07-30)
 ------------------
 * Bugfix: Fix download permssion on EEAFigureFile
