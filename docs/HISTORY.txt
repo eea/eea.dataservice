@@ -3,6 +3,8 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
+* Bugfix: Pillow 2.9.0 implemented eps patch, then it is not be needed and removed
+  [lucas, refs #21636]
 
 9.4 - (2015-08-18)
 ------------------
