@@ -5,6 +5,8 @@ Changelog
 -----------------------
 * Bugfix: Pillow 2.9.0 implemented eps patch, then it is not be needed and removed
   [lucas, refs #21636]
+* Change: cleaned dataservice_styles.css of uneeded styles
+  [ichimdav refs #27220]
 
 9.4 - (2015-08-18)
 ------------------
