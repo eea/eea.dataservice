@@ -63,7 +63,7 @@ Lets test if converted images contain converted formats.
 
     >>> img_zoom = ff1._getOb('source_image.eps.zoom.png')
     >>> img_zoom.getObjSize()
-    '1... MB'
+    '89.0 KB'
 
 Lets check if thumbs were created.
 
