@@ -3,7 +3,7 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
-* Bugfix: Pillow 2.9.0 implemented eps patch, then it is not be needed and removed
+* Bugfix: Pillow 2.9.0 implemented eps patch, then it is not be needed and removed. Pin Pillow into version.cfg buildout
   [lucas, refs #21636]
 * Change: cleaned dataservice_styles.css of uneeded styles
   [ichimdav refs #27220]
