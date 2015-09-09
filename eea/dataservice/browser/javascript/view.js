@@ -6,7 +6,7 @@
 * eg: http://eea.europa.eu/publications/national-adaptation-policy-processes#tab-figures-used
 * */
 
-var Figures = {version: '1.0.0'};
+var Figures = {version: '1.1.0'};
 
 Figures.fancybox = null;
 
@@ -59,13 +59,17 @@ Figures.Load = function(){
 };
 
 jQuery(function($) {
+    /*
+     * Show 'Dynamic' instead of -1 for dynamic temporal coverage for Data
+     * eg: http://eea.europa.eu/data/european-red-lists-4
+     * */
     var tempCoverage = $("#tempCoverage"),
         temporalDynamicText = $("#temporal_dynamic").text(),
         tempCoverageText = tempCoverage.text();
     if(tempCoverage && tempCoverageText === "-1") {
         tempCoverage.text(temporalDynamicText);
     }
-    /* #27220 load the functionality only if we have relatedItems since we only use
+    /* #27220 load the figure fancybox transform only if we have relatedItems since we only use
        this functionality there */
     if ($("#relatedItems").length) {
         Figures.load();
