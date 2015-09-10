@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.5.dev0 - (unreleased)
------------------------
+9.5 - (2015-09-10)
+------------------
 * Change: cleaned dataservice.view.js of leftover jqzoom code and added basic info
   about the intent of the file and it's external dependency
   [ichimdav refs #27220]
