@@ -1,0 +1,36 @@
+<metal:entry define-macro="entry" tal:define="
+css python:brain.isPrincipiaFolderish and 'photoAlbumEntry photoAlbumFolder' or 'photoAlbumEntry';
+display obj/@@imgview/display|nothing;">
+<tal:entry condition="display">
+<metal:entry use-macro="here/atct_albumentry/macros/entry" />
+</tal:entry>
+<div tal:condition="not:display" class="figuresPhotoAlbumEntry">
+    <div class="photoAlbumEntryWrapper" tal:define="
+        field obj/getFile | nothing;
+        size field/get_size | nothing;
+        icon field/getBestIcon | nothing;"
+        tal:condition="not:display">
+
+        <a tal:define="suffix suffix | python:size and '/at_download/file' or ''"
+            tal:attributes="
+            href string:$listing_url$suffix;
+            title desc_or_title">
+            <div  class="figuresByLine" tal:attributes="
+                style bgimg|string:background-image: url($listing_url/image_thumb)">
+                <tal:isdaviz  condition="not:exists: obj/@@daviz-view.html">
+                <tal:size tal:condition="size" tal:define="
+                displaySize nocall:here/@@displaySize;
+                size python:size and displaySize(size);
+                ctype python:size and obj.lookupMime(field.getContentType());">
+                <img tal:condition="icon"
+                tal:attributes="src string:${context/portal_url}/$icon"/>
+                <span tal:content="ctype" /><br />
+                    <span tal:content="size" />
+                        </tal:size>
+                        </tal:isdaviz>
+                    </div>
+                <span class="figuresPhotoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" />
+                </a>
+            </div>
+        </div>
+        </metal:entry>
