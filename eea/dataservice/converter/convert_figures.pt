@@ -11,11 +11,11 @@
 <body>
 
 <div metal:fill-slot="content-core"
-     tal:define="convert python:request.get('convert', None);
+     tal:define="flg_convert python:request.get('convert', None);
                  figures python:request.get('figures', None)">
  <h1 i18n:translate="">Convert figures</h1>
 
- <div tal:condition="convert">
+ <div tal:condition="flg_convert">
    <ul id="figures-to-convert">
      <tal:figures repeat="figure figures">
        <li tal:define="figure_ob python:context[figure];
@@ -34,7 +34,7 @@
  </div>
 
  <form name="frmConvert" method="put" id="convert-all"
-       tal:condition="not:convert"
+       tal:condition="not:flg_convert"
        tal:attributes="action string:${context/absolute_url}/@@convertFigures">
 
   <p class="documentDescription" i18n:translate="">
