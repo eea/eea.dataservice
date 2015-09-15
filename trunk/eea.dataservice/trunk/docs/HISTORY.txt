@@ -3,6 +3,8 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+* Bugfix: Fixed error on the @@convertFigures view.
+  [chiridra refs #28806]
 
 9.5 - (2015-09-10)
 ------------------
