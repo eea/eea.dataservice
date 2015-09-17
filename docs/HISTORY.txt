@@ -5,6 +5,8 @@ Changelog
 -----------------------
 * Bugfix: Fixed error on the @@convertFigures view.
   [chiridra refs #28806]
+* Bug fix: Pillow 2.9.0 implemented eps patch but has a resolution issue. Re-added a patch'
+  [lucas refs #28893]
 
 9.5 - (2015-09-10)
 ------------------
