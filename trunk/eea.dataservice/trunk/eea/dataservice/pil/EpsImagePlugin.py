@@ -96,24 +96,23 @@ class EpsImageFile(PILEpsImageFile):
     def _open(self):
         """ Open
         """
-        # FIX ME: should check the first 512 bytes to see if this
-        # really is necessary (platform-dependent, though...)
 
-        fp = PSFile(self.fp)
+        (length, offset) = self._find_offset(self.fp)
 
-        # HEAD
-        s = fp.read(512)
-        if s[:4] == "%!PS":
-            offset = 0
-            fp.seek(0, 2)
-            length = fp.tell()
-        elif i32(s) == 0xC6D3D0C5L:
-            offset = i32(s[4:])
-            length = i32(s[8:])
-            fp.seek(offset)
-        else:
-            raise SyntaxError, "not an EPS file"
+        # Rewrap the open file pointer in something that will
+        # convert line endings and decode to latin-1.
+        try:
+            if bytes is str:
+                # Python2, no encoding conversion necessary
+                fp = open(self.fp.name, "Ur")
+            else:
+                # Python3, can use bare open command.
+                fp = open(self.fp.name, "Ur", encoding='latin-1')
+        except:
+            # Expect this for bytesio/stringio
+            fp = PSFile(self.fp)
 
+        # go to offset - start of "%!PS"
         fp.seek(offset)
 
         box = None
