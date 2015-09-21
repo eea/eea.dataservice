@@ -15,6 +15,8 @@ Override PIL EPS plugin to:
 By default PIL EPS plugin opens .eps files at a lower resolution. Fix this by
 adding dpi param to save function.
 """
+# pylint: disable=W0702
+
 import logging
 from PIL import Image
 from PIL.EpsImagePlugin import EpsImageFile as PILEpsImageFile
@@ -27,8 +29,8 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
     """Render an image using Ghostscript"""
 
     # Unpack decoder tile
-    decoder, tile, offset, data = tile[0]
-    length, bbox = data
+    tile, data = tile[0]
+    bbox = data
 
     import os
     import subprocess
@@ -105,6 +107,7 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
 
     if gs_windows_binary is not None:
         if not gs_windows_binary:
+            # pylint: disable=E0602
             raise WindowsError('Unable to locate Ghostscript on paths')
         command[0] = gs_windows_binary
 
@@ -135,6 +138,7 @@ class EpsImageFile(PILEpsImageFile):
         """ Load
         """
         # Load EPS via Ghostscript
+        # pylint: disable=E0203
         if not self.tile:
             return
 
