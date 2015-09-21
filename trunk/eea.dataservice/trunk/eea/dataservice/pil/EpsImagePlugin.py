@@ -131,6 +131,7 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
 
     return im
 
+
 class EpsImageFile(PILEpsImageFile):
     """EPS File Parser for the Python Imaging Library"""
 
