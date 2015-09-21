@@ -10,19 +10,15 @@ Override PIL EPS plugin to:
   using Adobe Freehand. We will keep this commented as at the moment we dont
   have any usecase.
 
-  from PIL.EpsImagePlugin import EpsImageFile, PSFile, i32, field
-  split = re.compile(r"^%[%!\\w]([^:]*):[ \t]*(.*)[ \t]*$")
-
 - Support bigger resolution
 
 By default PIL EPS plugin opens .eps files at a lower resolution. Fix this by
 adding dpi param to save function.
 """
 import logging
-import re
 from PIL import Image
 from PIL.EpsImagePlugin import EpsImageFile as PILEpsImageFile
-from PIL.EpsImagePlugin import PSFile, i32, split, field, gs_windows_binary
+from PIL.EpsImagePlugin import gs_windows_binary
 
 logger = logging.getLogger('eea.dataservice.pil.EpsImagePlugin')
 
@@ -143,8 +139,9 @@ class EpsImageFile(PILEpsImageFile):
             return
 
         dpi = getattr(self, 'dpi', None)
-        self.im = Ghostscript(self.tile, self.size, self.fp,
-            scale=scale, dpi=dpi)
+        self.im = Ghostscript(
+            self.tile, self.size, self.fp, scale=scale, dpi=dpi
+        )
         self.mode = self.im.mode
         self.size = self.im.size
         self.tile = []
