@@ -69,9 +69,5 @@ jQuery(function($) {
     if(tempCoverage && tempCoverageText === "-1") {
         tempCoverage.text(temporalDynamicText);
     }
-    /* #27220 load the figure fancybox transform only if we have relatedItems since we only use
-       this functionality there */
-    if ($("#relatedItems").length) {
-        Figures.Load();
-    }
+
 });
