@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+  <object name="dataservice_templates"
+    meta_type="Filesystem Directory View"
+    directory="eea.dataservice:skins/dataservice_templates"/>
+
+  <skin-path name="*">
+    <layer insert-after="custom" name="dataservice_templates"/>
+  </skin-path>
+</object>
