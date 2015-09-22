@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.7.dev0 - (unreleased)
+-----------------------
+
 9.6 - (2015-09-22)
 ------------------
 * Bugfix: removed initialization of Figure.Load which is directly loaded when needed
