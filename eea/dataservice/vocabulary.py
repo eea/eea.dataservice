@@ -2,6 +2,7 @@
 """
 import logging
 import operator
+import socket
 import xmlrpclib
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
@@ -30,6 +31,8 @@ class MainKeywords(object):
         words = words[-words_length:]
         words = [SimpleTerm(w[0], w[0], w[0]) for w in words]
         return SimpleVocabulary(words)
+
+SOCKET_TIMEOUT = 2.0  # in seconds
 
 # Coordinate reference system
 REFERENCE_DICTIONARY_ID = 'reference_system'
@@ -209,8 +212,10 @@ def _obligations():
     logger.log(logging.INFO, 'called obligations ROD server')
     res = {}
     try:
+        socket.setdefaulttimeout(SOCKET_TIMEOUT) #set the timeout
         server = xmlrpclib.Server(ROD_SERVER)
         result = server.WebRODService.getActivities()
+        socket.setdefaulttimeout(None)  #sets the default back
     except Exception, err:
         logger.exception(err)
         result = []
