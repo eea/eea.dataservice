@@ -2,7 +2,6 @@
 """
 import logging
 import operator
-import socket
 import eventlet
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
