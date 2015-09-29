@@ -45,6 +45,7 @@ setup(name=name,
           'plone.app.async',
           'eea.indicators',
           'collective.quickupload',
+          'eventlet',
       ],
       extras_require={
           'test': ['plone.app.testing',]

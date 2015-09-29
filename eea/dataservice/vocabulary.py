@@ -3,12 +3,12 @@
 import logging
 import operator
 import socket
-import xmlrpclib
+import eventlet
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
-from eea.dataservice.config import ROD_SERVER
+from eea.dataservice.config import ROD_SERVER, SOCKET_TIMEOUT
 from plone.memoize import request as cacherequest
 
 from eea.cache import cache as eeacache
@@ -32,7 +32,6 @@ class MainKeywords(object):
         words = [SimpleTerm(w[0], w[0], w[0]) for w in words]
         return SimpleVocabulary(words)
 
-SOCKET_TIMEOUT = 2.0  # in seconds
 
 # Coordinate reference system
 REFERENCE_DICTIONARY_ID = 'reference_system'
@@ -211,14 +210,15 @@ def _obligations():
     """
     logger.log(logging.INFO, 'called obligations ROD server')
     res = {}
-    try:
-        socket.setdefaulttimeout(SOCKET_TIMEOUT) #set the timeout
-        server = xmlrpclib.Server(ROD_SERVER)
-        result = server.WebRODService.getActivities()
-        socket.setdefaulttimeout(None)  #sets the default back
-    except Exception, err:
-        logger.exception(err)
-        result = []
+    xmlrpclib = eventlet.import_patched('xmlrpclib')
+
+    with eventlet.timeout.Timeout(SOCKET_TIMEOUT):
+        try:
+            server = xmlrpclib.Server(ROD_SERVER)
+            result = server.WebRODService.getActivities()
+        except Exception, err:
+            logger.exception(err)
+            result = []
 
     for obligation in result:
         key = int(obligation['PK_RA_ID'])

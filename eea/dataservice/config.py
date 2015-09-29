@@ -10,6 +10,7 @@ COPYRIGHTS = u'(c) Copyrights - EEA (European Environment Agency)'
 
 #Obligations vocabulary
 ROD_SERVER = 'http://rod.eionet.europa.eu/rpcrouter'
+SOCKET_TIMEOUT = 5.0  # in seconds
 
 #
 FILE_FIELDS = ['file', 'image', 'blob']
