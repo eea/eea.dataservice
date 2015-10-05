@@ -1,12 +1,12 @@
 Changelog
 =========
 
-9.7.dev0 - (unreleased)
------------------------
+9.7 - (2015-10-05)
+------------------
 * Bugfix: set socket timeout to prevent hanging out connection on xmlrpc calling
 * Bugfix: greenening xmlrpclib to prevent hanging out connection
   [lucas refs #29063]
-  
+
 9.6 - (2015-09-22)
 ------------------
 * Bugfix: removed initialization of Figure.Load which is directly loaded when needed
