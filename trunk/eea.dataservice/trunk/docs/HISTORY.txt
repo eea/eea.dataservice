@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.8.dev0 - (unreleased)
+-----------------------
+
 9.7 - (2015-10-05)
 ------------------
 * Bugfix: set socket timeout to prevent hanging out connection on xmlrpc calling
