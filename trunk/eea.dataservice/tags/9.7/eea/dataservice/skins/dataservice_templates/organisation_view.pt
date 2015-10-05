@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+
+    <!-- Statistics -->
+    <tal:block define="data context/@@organisationStatistics;
+                       odatasets python:data['owners'][0];
+                       ofigures python:data['owners'][1];
+                       oexternal python:data['owners'][2];
+                       ovisualization python:data['owners'][3];
+                       oassessments python:data['owners'][4];
+                       ospecifications python:data['owners'][5];
+                       pdatasets python:data['processor'][0];
+                       pfigures python:data['processor'][1];
+                       isAnon python: here.portal_membership.isAnonymousUser();">
+
+
+        <div class="organization-info">
+             <!-- URL -->
+            <tal:block define="field python:context.getField('organisationUrl');
+                               value python:field.getAccessor(context)()"
+                      condition="value">
+                <dt i18n:translate="">URL</dt>
+                <dd><a tal:attributes="href value" title="" href="" tal:content="value" /></dd>
+            </tal:block>
+
+            <!-- Data policy -->
+            <tal:block define="field python:context.getField('data_policy');
+                               value python:field.getAccessor(context)()"
+                      condition="value">
+                <dt i18n:translate="">Data policy</dt>
+                <dd tal:content="structure value" />
+            </tal:block>
+
+            <!-- Address -->
+            <tal:block define="field python:context.getField('location');
+                               value python:field.getAccessor(context)()"
+                      condition="value">
+                <dt i18n:translate="">Location</dt>
+                        <tal:hideMap tal:define="events python:True">
+                            <metal:field use-macro="python:context.widget('location', mode='view')">
+                                <metal:geo fill-slot="geotags"></metal:geo>
+                            </metal:field>
+                        </tal:hideMap>
+                <tal:hideMap define="hideMap python:False;">
+                   <!-- Map -->
+                   <dt i18n:translate="">Map location</dt>
+                   <metal:field use-macro="python:context.widget('location', mode='view')">
+                        <metal:location fill-slot="location-listing"></metal:location>
+                    </metal:field>
+                </tal:hideMap>
+            </tal:block>
+        </div>
+
+        <div class="organisation-statistics"
+                  tal:condition="python:len(odatasets) or len(ofigures) or len(oexternal) or
+                                        len(pdatasets) or len(pfigures) or len(oassessments) or
+                                        len(ospecifications)">
+
+          <h2 i18n:translate="">Contribution</h2>
+
+          <p tal:condition="not:isAnon" class="portalMessage info"
+             i18n:translate="">
+              Note that for authenticated users the info below include the unpublished content.
+          </p>
+
+            <!-- Owner -->
+            <h3 class="organisation-header-top"
+                tal:condition="python:len(odatasets) or len(ofigures)"
+                i18n:translate="">Owner of:</h3>
+            <p tal:condition="odatasets">
+                <tal:rows content="python:len(odatasets)" />
+                <span i18n:translate="">datasets</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&amp;b_start=0&amp;c15=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+            <p tal:condition="ofigures">
+                <tal:rows content="python:len(ofigures)" />
+                <span i18n:translate="">figures</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&amp;b_start=0&amp;c6=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+            <p tal:condition="oexternal">
+                <tal:rows content="python:len(oexternal)" />
+                <span i18n:translate="">external data specs</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data/external#c0=10&amp;b_start=0&amp;c8=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+            <p tal:condition="oassessments">
+                <tal:rows content="python:len(oassessments)" />
+                <span i18n:translate="">indicator assessments</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/indicators#c7=all&amp;c5=&amp;c0=10&amp;b_start=0&amp;c12=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+            <p tal:condition="python:not isAnon and ospecifications">
+                <tal:rows content="python:len(ospecifications)" />
+                <span i18n:translate="">indicator specification</span>
+            </p>
+
+            <!-- Processor -->
+            <h3 i18n:translate=""
+                tal:condition="python:len(pdatasets) or len(pfigures)">Processor of:</h3>
+            <p tal:condition="pdatasets">
+                <tal:rows content="python:len(pdatasets)" />
+                <span i18n:translate="">datasets</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/data#c5=all&amp;b_start=0&amp;c16=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+            <p tal:condition="pfigures">
+                <tal:rows content="python:len(pfigures)" />
+                <span i18n:translate="">figures</span>
+                ( <a href="" title="" tal:attributes="href string:$portal_url/data-and-maps/figures#c15=all&amp;b_start=0&amp;c17=${context/org_url}" i18n:translate="">see more</a> )
+            </p>
+
+            <!-- Data visualization -->
+            <tal:block tal:condition="ovisualization">
+                <h3 i18n:translate="" >Mentioned as data source for <tal:rows content="python:len(ovisualization)" /> <span i18n:translate="">data visualizations</span>:</h3>
+                <tal:block define="visualizations python:ovisualization[:10]">
+                    <metal:block define-macro="daviz-listing">
+                        <ul tal:define="wftool here/portal_workflow">
+                            <li tal:repeat="daviz visualizations">
+                                <a tal:attributes="href daviz/getURL; title daviz/Title"
+                                   tal:content="daviz/Title"/>&nbsp;
+                                <span tal:condition="not:isAnon">( <tal:block
+                                    define="review_state daviz/review_state;
+                                            title_state python:wftool.getTitleForStateOnType(review_state, 'DavizVisualization')"
+                                    replace="title_state" /> )</span>
+                            </li>
+                        </ul>
+                    </metal:block>
+                </tal:block>
+                <tal:block condition="python:len(ovisualization) > 10" define="visualizations python:ovisualization[10:]">
+                    <p>( <a class="btn btn-primary" role="button" data-toggle="collapse" href="#visualization-collapse" aria-expanded="false" aria-controls="visualization-collapse">see more</a> )</p>
+                    <div class="collapse" id="visualization-collapse">
+                        <metal:block use-macro="context/organisation_view/macros/daviz-listing"/>
+                    </div>
+                </tal:block>
+            </tal:block>
+
+        </div>
+    </tal:block>
+
+</div>
+
+</body>
+</html>

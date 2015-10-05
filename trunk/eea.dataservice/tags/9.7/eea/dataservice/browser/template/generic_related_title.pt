@@ -1,0 +1,1 @@
+<a href="" tal:attributes="href context/absolute_url" tal:content="context/Title">Obj Title</a>
