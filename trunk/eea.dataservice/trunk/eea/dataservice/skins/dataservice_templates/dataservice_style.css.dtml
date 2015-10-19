@@ -84,7 +84,6 @@
 }
 
 /* Download figure on album view */
-
 .figuresPhotoAlbumEntry {
     border: 1px solid #DFDFDF;
     background-color: #FFFFFF;
@@ -98,11 +97,20 @@
     -ms-box-shadow: 1px 1px 2px #BFBFBF;
     -o-box-shadow: 1px 1px 2px #BFBFBF;
     box-shadow: 1px 1px 2px #BFBFBF;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .figuresPhotoAlbumEntry:hover {
-    background: #FBFBFB;
+    box-shadow: 0 2px 3px #ACACAC;
 }
+
+/* #13639 don't limit height of figure album entries */
+.figuresPhotoAlbumEntry .photoAlbumEntryWrapper {
+    max-height: 100%;
+    width: 100%;
+}
+
 
 .figuresPhotoAlbumEntry img {
     border: 1px solid #ccc;
@@ -113,7 +121,6 @@
 .figuresPhotoAlbumEntryTitle {
     display: block;
     overflow: hidden;
-    width: 128px;
     height: 3.6em;
     margin-top: 0.4em;
     font-weight: bold;
@@ -123,14 +130,12 @@
 .figuresPhotoAlbumEntry a {
     display: block;
     text-decoration: none;
-    font-size: & dtml-fontSmallSize;;
-    width: 130px;
+    font-size: &dtml-fontSmallSize;;
     margin: 16px auto 0px;
     overflow: hidden;
 }
 
 .figuresByLine {
-    margin-left: 2em;
     width: 91px;
     font-weight: normal;
     color: #bbbbbb;
