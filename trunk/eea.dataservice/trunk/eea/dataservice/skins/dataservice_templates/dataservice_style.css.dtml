@@ -136,7 +136,6 @@
 }
 
 .figuresByLine {
-    width: 91px;
     font-weight: normal;
     color: #bbbbbb;
 }
