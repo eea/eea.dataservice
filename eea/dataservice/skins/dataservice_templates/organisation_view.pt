@@ -47,7 +47,7 @@
                                 <metal:geo fill-slot="geotags"></metal:geo>
                             </metal:field>
                         </tal:hideMap>
-                <tal:hideMap define="hideMap python:False;">
+                <tal:hideMap define="hideMap python:False;" condition="hideMap">
                    <!-- Map -->
                    <dt i18n:translate="">Map location</dt>
                    <metal:field use-macro="python:context.widget('location', mode='view')">
