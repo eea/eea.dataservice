@@ -3,6 +3,9 @@ Changelog
 
 9.8.dev0 - (unreleased)
 -----------------------
+* BugFix: fix organization view
+* Upgrade step: Added indexer method 'getDataOwner' for DataVisulization; Bulk reindex is needed for DavizVisualization content type on getDataOwner index
+  [lucas refs #27622]
 * Bug fix: fix clipping of title for figuresPhotoAlbumEntry photoAlbumEntryWrapper
   [ichimdav refs #28967]
 
