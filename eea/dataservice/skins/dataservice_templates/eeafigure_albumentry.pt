@@ -21,8 +21,10 @@ display obj/@@imgview/display|nothing;">
                 displaySize nocall:here/@@displaySize;
                 size python:size and displaySize(size);
                 ctype python:size and obj.lookupMime(field.getContentType());">
-                <img tal:condition="icon"
-                tal:attributes="src string:${context/portal_url}/$icon"/>
+                <tal:icons tal:condition="icon">
+                    <span tal:define="icon_type python:icon.split('.')[0].split('/')[-1]"
+                          tal:attributes="class string:eea-icon eea-icon-block eea-icon-3x eea-icon-${icon_type};"></span>
+                </tal:icons>
                 <span tal:content="ctype" /><br />
                     <span tal:content="size" />
                         </tal:size>
