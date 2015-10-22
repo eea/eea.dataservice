@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_factory">
+ <factorytypes>
+  <type portal_type="Data"/>
+  <type portal_type="DataFile"/>
+  <type portal_type="DataTable"/>
+  <type portal_type="EEAFigure"/>
+  <type portal_type="EEAFigureFile"/>
+  <type portal_type="Organisation"/>
+  <type portal_type="DataFileLink"/>
+ </factorytypes>
+</object>
