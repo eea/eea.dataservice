@@ -68,8 +68,7 @@
                                             <metal:entry use-macro="entry_macro" />
                                         </tal:block>
                                         <tal:block condition="exists: obj/@@daviz-view.html"
-                                                   define="suffix string:;
-                                                           bgimg string:background-image: url(/valentine-imagescales/daviz/image_thumb)">
+                                                   define="suffix string:;">
                                             <metal:entry use-macro="entry_macro" />
                                         </tal:block>
 

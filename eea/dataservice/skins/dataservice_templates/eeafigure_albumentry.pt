@@ -15,8 +15,7 @@ display obj/@@imgview/display|nothing;">
             tal:attributes="
             href string:$listing_url$suffix;
             title desc_or_title">
-            <div  class="figuresByLine" tal:attributes="
-                style bgimg|string:background-image: url($listing_url/image_thumb)">
+            <div  class="figuresByLine">
                 <tal:isdaviz  condition="not:exists: obj/@@daviz-view.html">
                 <tal:size tal:condition="size" tal:define="
                 displaySize nocall:here/@@displaySize;
