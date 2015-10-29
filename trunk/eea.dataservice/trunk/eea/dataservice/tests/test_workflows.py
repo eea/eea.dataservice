@@ -1,8 +1,7 @@
 """ Test workflow events
 """
 from eea.dataservice.tests.base import EEAFIXTURE
-from unittest import TestSuite, makeSuite
-import unittest2 as unittest
+from unittest import TestSuite, makeSuite, TestCase
 
 from plone.app.testing import TEST_USER_NAME, TEST_USER_ID
 from plone.app.testing import login
@@ -10,7 +9,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import ploneSite
 
 
-class TestWorkflowEvents(unittest.TestCase):
+class TestWorkflowEvents(TestCase):
     """ Tests the workflow events triggers
     """
     layer = EEAFIXTURE
