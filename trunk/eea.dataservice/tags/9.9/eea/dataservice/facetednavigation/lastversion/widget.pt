@@ -1,0 +1,12 @@
+<div class="faceted-widget faceted-dataservice-widget" style="display: none" tal:define="
+  wid python:view.data.getId();
+  hidden python:view.hidden;
+  css string:faceted-widget faceted-dataservice-widget;
+  css python:hidden and css + ' faceted-widget-hidden' or css;"
+  tal:attributes="id string:${wid}_widget; class css">
+
+<fieldset class="widget-fieldset faceted-dataservice">
+  <legend  tal:content="python:view.data.get('title', '')">Text Widget</legend>
+  <p i18n:translate="">This widget will force display only of latest versions of the datasets.</p>
+</fieldset>
+</div>

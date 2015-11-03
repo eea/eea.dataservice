@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="eeafigurefile_image_workflow" meta_type="WorkflowPolicy">
+ <property name="title">EEAFigureFile image workflow</property>
+ <bindings>
+  <default>
+   <bound-workflow workflow_id="eeafigurefile_image_workflow"/>
+  </default>
+  <type type_id="Image">
+   <bound-workflow workflow_id="(Default)"/>
+  </type>
+ </bindings>
+</object>

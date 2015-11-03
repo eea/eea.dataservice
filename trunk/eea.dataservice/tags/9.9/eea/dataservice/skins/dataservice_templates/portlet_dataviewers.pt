@@ -1,0 +1,47 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="eea">
+<body>
+
+<div metal:define-macro="portlet"
+     i18n:domain="eea"
+     tal:omit-tag=""
+     tal:define="view context/@@getDataViewers;">
+
+<dl class="portlet portlet-rss">
+
+    <dt class="portletHeader" i18n:translate="">Data viewers</dt>
+    <dt class="portletItem" tal:repeat="viewer view">
+        <span 
+            tal:define="item_description viewer/Description;
+                        item_url viewer/absolute_url;">
+            <span class="figure-left">
+             <span class="figure">
+               <a tal:attributes="href item_url;
+                                  title string:$item_description;">
+                  <img tal:attributes="src string:$item_url/image_thumb;" />
+                </a>
+             </span>
+            </span>
+
+            <a href="#" tal:attributes="href item_url;
+                                        title string:$item_description;">
+                <span tal:replace="viewer/Title">
+                  Item Title
+                </span>
+            </a>
+        </span>
+    </dt>
+    <dd class="portletFooter">
+        <a href="http://www.eea.europa.eu/data-and-maps/data/data-viewers" 
+           title="More interactive data viewers"
+           i18n:attributes="title" 
+           class="moreLink">
+            <span i18n:translate="">More data viewers</span>
+        </a>
+    </dd>
+</dl>
+
+</div>
+</body>
+</html>
