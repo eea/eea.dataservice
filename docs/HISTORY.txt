@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.9.dev0 - (unreleased)
------------------------
+9.9 - (2015-11-03)
+------------------
 * Change: eeafigure_file.pt now use fontawesome classes for filetype icons
   [ichimdav refs #28967]
 
