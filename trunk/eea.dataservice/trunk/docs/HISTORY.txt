@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.0.dev0 - (unreleased)
-------------------------
+10.0 - (2015-11-16)
+-------------------
 * Feature: edit ds_resolveuid to call via python code
   [lucas refs #30065]
 
