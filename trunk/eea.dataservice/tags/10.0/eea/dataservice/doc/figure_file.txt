@@ -1,0 +1,160 @@
+Overview
+========
+
+Lets use the sandbox.
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import loadblobfile
+    >>> from Products.CMFCore.utils import getToolByName
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb('sandbox')
+
+Lets add a EEAFigure.
+
+    >>> _ = sandbox.invokeFactory('EEAFigure', 'f1')
+    >>> f1 = sandbox.f1
+
+Now, lets add a EEAFigureFile.
+
+    >>> form = {
+    ...   'title': 'EEAFigureFile 1',
+    ...   'description': 'EEAFigureFile description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'category': 'adin',
+    ... }
+    >>> _ = f1.invokeFactory('EEAFigureFile', 'ff1', **form)
+    >>> ff1 = f1.ff1
+
+Check see if properties applied.
+
+    >>> ff1.Title()
+    'EEAFigureFile 1'
+    >>> ff1.Description()
+    'EEAFigureFile description 1'
+    >>> ff1.getEffectiveDate()
+    DateTime('2008/11/11...')
+
+Lets upload a source image.
+
+    >>> loadblobfile(ff1, 'source_image.eps')
+    'File uploaded.'
+    >>> ff1.getFile().filename
+    'source_image.eps'
+    >>> ff1.getFile().getBestIcon()
+    'ps.png'
+    >>> print ff1.getFile().get_size()
+    5054507
+    >>> ff1.getFile().getContentType()
+    'application/postscript'
+
+Lets convert the EEAFigureFile above.
+
+    >>> from eea.dataservice.converter.converter import Convertor
+    >>> print Convertor(ff1).run(cronjob=1, purge=True)
+    0
+    >>> ff1['source_image.eps.zoom.png']
+    <ATImage at ...>
+
+Lets test if converted images contain converted formats.
+
+    >>> img_zoom = ff1._getOb('source_image.eps.zoom.png')
+    >>> img_zoom.getObjSize()
+    '1... MB'
+
+Lets check if thumbs were created.
+
+    >>> thumb = img_zoom.unrestrictedTraverse('image_thumb')
+    >>> thumb
+    <ImageScale at ...>
+    >>> thumb.getObjSize().upper()
+    '1... KB'
+
+Check the conversion of another EPS format and test if old converted images were deleted.
+
+    >>> loadblobfile(ff1, 'source_image2.eps')
+    'File uploaded.'
+    >>> print Convertor(ff1).run(cronjob=1, purge=True)
+    0
+    >>> len(ff1.objectValues('ATBlob'))
+    1
+    >>> ff1['source_image2.eps.zoom.png']
+    <ATImage at ...>
+
+Try to download the image with index_html method.
+
+    >>> ff1['source_image2.eps.zoom.png'].index_html(portal.REQUEST, portal.REQUEST.response)
+    <plone.app.blob.iterators.BlobStreamIterator object at ...>
+
+Check if EEAFigureFile has its local workflow policy set.
+
+    >>> ppw = getToolByName(ff1, 'portal_placeful_workflow')
+    >>> config = ppw.getWorkflowPolicyConfig(ff1)
+    >>> config
+    <WorkflowPolicyConfig at ...>
+    >>> config.getPolicyBelowId()
+    'eeafigurefile_image_workflow'
+
+
+Categories tests
+================
+
+Lets check the category feature of EEAFigureFile's.
+For that lets another EEAFigureFile with a different category from the ff1.
+
+    >>> form = {
+    ...   'title': 'EEAFigureFile 2',
+    ...   'description': 'EEAFigureFile description 2',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'category': 'docu',
+    ... }
+    >>> _ = f1.invokeFactory('EEAFigureFile', 'ff2', **form)
+    >>> ff2 = f1.ff2
+
+    >>> loadblobfile(ff2, 'sample.pdf')
+    'File uploaded.'
+
+Now lets check the categories assigned for the two figure files.
+
+    >>> ff1.getCategory()
+    'adin'
+    >>> ff2.getCategory()
+    'docu'
+
+Checking singlefile logic
+-------------------------
+
+'getSingleEEAFigureFile' returns true only if we have one image file added to
+our Figure file through the use of EEAFigureFile's.
+
+Since we've uploaded a EEAFigureFile with a file in the form of a eps calling
+'singlefigure' method should return the EEAFigureFile 'ff1'.
+
+    >>> singlefile = f1.restrictedTraverse('@@getSingleEEAFigureFile')
+    >>> singlefile.singlefigure()
+    <EEAFigureFile at /plone/sandbox/f1/ff1>
+
+
+Getting categories of figures found inside our EEAFigure
+--------------------------------------------------------
+
+Now that we've checked the single file image we can check the categories and
+their corresponding objects.
+
+    >>> categoryView = f1.restrictedTraverse('@@getCategoryName')
+    >>> figureFiles = f1.restrictedTraverse('@@getEEAFigureFiles')()
+    >>> figures = list(figureFiles)
+    >>> categories_ids = [figure[0] for figure in figures]
+    >>> categories_ids
+    ['docu']
+    >>> categories = [categoryView(figure[0]) for figure in figures]
+    >>> categories
+    ['Documents']
+
+As we can see from the test we do not get the 'Additional information' category
+since that is found within the EEAFigureFile which has the eps uploaded and
+therefore is being returned from the 'getSingleEEAFigureFile', while our second
+EEAFigureFile is present in the test from above.

@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea">
+  <head><title></title></head>
+  <body>
+
+    <metal:view_macro define-macro="view" tal:replace="structure accessor" />
+
+    <metal:define metal:define-macro="edit">
+      <metal:use metal:use-macro="field_macro | here/widgets/field/macros/edit">
+        <metal:fill fill-slot="widget_body">
+          <span style="font-family:Verdana; margin-right: 2px; font-size: 1.2em">1:</span>
+          <input type="text"
+               name=""
+               value=""
+               size="30"
+               tal:attributes="name fieldName;
+               id fieldName;
+               value value;
+               size widget/size;
+               maxlength widget/maxlength|nothing"
+               />
+        </metal:fill>
+      </metal:use>
+    </metal:define>
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="here/widgets/integer/macros/edit">
+      </div>
+    </div>
+
+  </body>
+
+</html>
+

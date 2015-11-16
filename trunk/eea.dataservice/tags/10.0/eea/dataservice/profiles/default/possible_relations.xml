@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_relations" meta_type="EEARelationsTool">
+
+    <object name="eea-figure-eea-data" meta_type="EEAPossibleRelation">
+        <property name="from">eea-figure</property>
+        <property name="to">eea-data</property>
+        <property name="title">EEA Figure -&gt; EEA Data</property>
+        <property name="forward_label">Related EEA Products</property>
+        <property name="backward_label"></property>
+        <property name="description"></property>
+        <property name="required">False</property>
+        <property name="required_for"/>
+    </object>
+
+    <object name="publication" meta_type="EEARelationsContentType">
+        <property name="title">Publication</property>
+        <property name="ct_type">Report</property>
+        <property name="ct_interface"></property>
+        <criteria>
+            <criterion name="c0">
+                <property name="widget">text</property>
+                <property name="title">Search on title</property>
+                <property name="position">top</property>
+                <property name="section">default</property>
+                <property name="hidden">0</property>
+                <property name="index">Title</property>
+                <property name="default"></property>
+            </criterion>
+            <criterion name="c1">
+                <property name="widget">alphabetic</property>
+                <property name="title">Title starts with</property>
+                <property name="position">left</property>
+                <property name="section">default</property>
+                <property name="hidden">0</property>
+                <property name="index">Title</property>
+                <property name="count">0</property>
+                <property name="hidezerocount">0</property>
+                <property name="default"></property>
+            </criterion>
+            <criterion name="c2">
+                <property name="widget">criteria</property>
+                <property name="title">Current search</property>
+                <property name="position">left</property>
+                <property name="section">default</property>
+                <property name="hidden">0</property>
+            </criterion>
+            <criterion name="c3">
+                <property name="widget">resultsperpage</property>
+                <property name="title">Results per page</property>
+                <property name="position">left</property>
+                <property name="section">default</property>
+                <property name="hidden">1</property>
+                <property name="start">1</property>
+                <property name="end">10</property>
+                <property name="step">1</property>
+                <property name="default">5</property>
+            </criterion>
+            <criterion name="c4">
+                <property name="widget">sorting</property>
+                <property name="title">Sort on</property>
+                <property name="position">left</property>
+                <property name="section">default</property>
+                <property name="hidden">1</property>
+                <property name="vocabulary"></property>
+                <property name="default">effective(reverse)</property>
+            </criterion>
+        </criteria>
+    </object>
+
+    <object name="eea-figure-publication" meta_type="EEAPossibleRelation">
+        <property name="from">eea-figure</property>
+        <property name="to">publication</property>
+        <property name="title">EEA Figure -&gt; Publication</property>
+        <property name="forward_label">Related EEA Products</property>
+        <property name="backward_label"></property>
+        <property name="description"></property>
+        <property name="required">False</property>
+        <property name="required_for"/>
+    </object>
+</object>

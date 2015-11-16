@@ -1,0 +1,44 @@
+<div id="figures-fancyimage" tal:define="
+  parent context/getParentNode;
+  lastVersion parent/@@getVersions/versionId;
+  thisVersionId parent/id;">
+  <span id="google-analytics" style="display: none"
+    tal:content="string:/data-and-maps/figures/ga-downloads/$lastVersion/$thisVersionId" />
+
+  <div class="figures-fancyimage">
+    <a tal:attributes="href string:${context/absolute_url}/image_large">
+      <img tal:attributes="
+        title string:${context/title_or_id};
+        alt string:${context/absolute_url}/image_large;
+        src string:${context/absolute_url}/image_large;"
+        class="eea-image-width-control"/>
+    </a>
+  </div>
+
+    <h4 i18n:translate="">Download</h4>
+    <ul class="figures-download-links">
+      <li tal:repeat="item python:view.vocabulary">
+        <a tal:define="
+          uid python:item[0];
+          title python:item[1];
+          size python:item[2]"
+          tal:attributes="href string:${context/absolute_url}/$uid/at_download/image"
+          class="google-analytics">
+          <span i18n:translate="" tal:content="uid" />
+          <span tal:content="string:($size)" />
+        </a>
+      </li>
+      <li>
+        <a tal:attributes="href string:${context/absolute_url}/at_download/file"
+           tal:define="size python:context.getFile().get_size();
+                       mimetype python:context.getFile().getContentType()"
+           class="google-analytics">
+          <span i18n:translate="">Original file </span>
+          <span tal:content="mimetype">mimetype</span>
+          (<span tal:define="displaySize nocall:context/displaySize"
+                tal:content="python:displaySize(size)" />)
+        </a>
+      </li>
+    </ul>
+
+</div>
