@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.5.dev0 - (unreleased)
+------------------------
+
 10.4 - (2015-11-18)
 -------------------
 * Bug fix: fixed upgrade script added in 10.2 for the EEAFigureFile that do not
