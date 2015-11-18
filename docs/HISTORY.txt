@@ -3,6 +3,9 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed upgrade script added in 10.2 for the EEAFigureFile that do not
+  have the _convertjob attribute
+  [ichimdav refs #30695]
 
 10.3 - (2015-11-18)
 -------------------
