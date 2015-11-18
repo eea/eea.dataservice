@@ -264,8 +264,6 @@ class QueueConvert(BrowserView):
     def __call__(self):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, self.context)
-        if getattr(self.context '_convertjob'):
-            del(self.context._convertjob)
         anno = IAnnotations(self.context)
         anno['convert_figure_job'] = job
         return "OK"

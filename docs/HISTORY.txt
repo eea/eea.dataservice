@@ -3,6 +3,9 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [ichimdav refs #30695]
 
 10.1 - (2015-11-18)
 -------------------

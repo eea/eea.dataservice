@@ -63,4 +63,16 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+        source="9.1"
+        destination="10.2"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeStep
+            title="Remove completed async jobs from EEAFigureFile"
+            handler=".evolve102.cleanup_convert_figure_jobs"
+        />
+
+    </genericsetup:upgradeSteps>
+
 </configure>
