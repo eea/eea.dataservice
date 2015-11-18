@@ -3,6 +3,9 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed creation of versions and import of EEAFigure
+  when EEAFigureFile had an async job attached to them
+  [ichimdav refs #30695]
 
 10.0 - (2015-11-16)
 -------------------
