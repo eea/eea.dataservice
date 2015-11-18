@@ -1,0 +1,134 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+<metal:javascript fill-slot="javascript_head_slot">
+  <script tal:attributes="src string:$portal_url/++resource++eea.dataservice.organisations.js"
+    type="text/javascript"></script>
+</metal:javascript>
+
+<body>
+
+<div metal:fill-slot="content-core" tal:define="
+  action python:request.get('action', '');
+  portal context/@@plone_portal_state/portal;"
+  tal:condition="python:not portal.portal_membership.isAnonymousUser()">
+
+<h1 i18n:translate="">Organisations control panel</h1>
+
+<tal:block condition="python:action == 'organisations-quick-overview'">
+  <tal:quickOverview define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+  <h2 id="organisations-quick-overview" i18n:translate="">Quick overview</h2>
+  <p i18n:translate="">Below is the full list of organisations.</p>
+  <p id="organisations-status">
+     <img id="organisations-loading"
+          tal:attributes="src string:${context/absolute_url}/ajax-loader-small.gif" />
+     <tal:block i18n:translate="">URLs status checked:</tal:block>
+     <strong id="org-status-checked"
+                                  tal:content="python:'0/'+str(len(organisations))"></strong>
+  </p>
+  <form action="@@moveOrganisationReferences"
+        method="get" name="quick-overview-form" id="quick-overview-form"
+        tal:attributes="action string:${context/absolute_url}/@@moveOrganisationReferences">
+  <input type="button" value="Check URLs status" i18n:attributes="value" onclick="javascript:check_organisations_urls(this)" />
+  <input type="submit" value="Transfer references" i18n:attributes="value" />
+
+  <ul id="organisations-container">
+    <tal:organisations repeat="org organisations">
+    <li tal:define="org_id python:org.getId.replace('.', '-');
+                    org_uid org/getId"
+        tal:attributes="id org_id">
+      <a tal:attributes="href string:${org/getURL};
+                         title org/Title"
+         tal:content="org/Title" /><br />
+      <strong i18n:translate="">organisation URL:</strong>
+        <span tal:attributes="id string:${org_id}-url" tal:content="org/getUrl" /><br />
+      <strong i18n:translate="">Google search</strong><strong>:</strong>
+      <a target="_blank"
+         title="Google search"
+         i18n:attributes="title"
+         tal:attributes="href python:'http://www.google.ro/search?q=%s&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t' % org.Title.replace(' ', '+')"
+         i18n:translate="">see more ...</a><br />
+      <div id="status-container"
+           tal:attributes="id string:${org_id}-status-container">
+        <strong i18n:translate="">URL status:</strong>
+        <em tal:attributes="id string:${org_id}-loading" i18n:translate="">NOT CHECKED</em>
+      </div>
+      <input type="radio" name="transfer_from" title="Transfer from"
+             i18n:attributes="title" 
+             value="" id="transfer-from"
+             tal:attributes="id string:transfer-from-${org_id};
+                             value org_uid" />
+      <label for="transfer-from" title="Transfer from" i18n:attributes="title"
+             tal:attributes="for string:transfer-from-${org_id}" i18n:translate="">Transfer from</label>
+      <input type="radio" name="transfer_to" title="Transfer to"
+             i18n:attributes="title"
+             value="" id="transfer-to"
+             tal:attributes="id string:transfer-to-${org_id};
+                             value org_uid" />
+      <label for="transfer-to" title="Transfer to" i18n:attributes="title"
+             tal:attributes="for string:transfer-to-${org_id}" i18n:translate="">Transfer to</label>
+    </li>
+    </tal:organisations>
+  </ul>
+
+  </form>
+  </tal:quickOverview>
+</tal:block>
+
+<tal:block condition="python:action == 'duplicate-organisations'">
+  <h2 i18n:translate="">Duplicate organisations</h2>
+  <p></p>
+  <ul tal:define="urls python:context.organisations_overview_data(info='duplicates')"
+      tal:condition="urls">
+    <tal:block repeat="org_url python:urls.keys()">
+    <li tal:define="organisations python:urls[org_url]"
+        tal:condition="python:len(organisations) > 1">
+      <a tal:attributes="href org_url" tal:content="org_url" /><br />
+      <ul>
+        <li tal:repeat="org organisations">
+          <a tal:attributes="href string:${org/getURL};
+                             title org/Title"
+             tal:content="org/Title" /><br />
+          <strong i18n:translate="" /><br />
+        </li>
+      </ul>
+    </li>
+    </tal:block>
+  </ul>
+</tal:block>
+
+<tal:block condition="python:action == 'organisations-with-wrong-title'">
+  <h2 i18n:translate="">Organisations with wrong title</h2>
+  <p i18n:translate="">Below is a list of organisations with wrong title, either empty or containing an URL instead of a title.</p>
+  <ul tal:define="organisations python:context.getFolderContents(contentFilter={'portal_type':'Organisation', 'sort_on':'getUrl'})">
+    <tal:block repeat="org organisations">
+    <li tal:condition="python:org.Title == '' or org.Title.startswith('http://') or org.Title.startswith('www')">
+      <a tal:attributes="href string:${org/getURL};
+                         title org/Title"
+         tal:content="org/Title" /><br />
+      <strong i18n:translate="" /><br />
+      <strong i18n:translate="" /><br />
+    </li>
+    </tal:block>
+  </ul>
+</tal:block>
+
+<tal:block condition="python:action == 'organisations-with-no-reference'">
+  <h2 i18n:translate="">Organisations with no reference</h2>
+  <p i18n:translate="">Below is a list of organisations on which no content is pointing at.</p>
+  <ul tal:define="organisations python:context.organisations_overview_data(info='references')"
+      tal:condition="organisations">
+    <li tal:repeat="org organisations">
+      <a tal:attributes="href org/getURL;
+                         title org/Title"
+         tal:content="org/Title" />
+    </li>
+  </ul>
+</tal:block>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="eea">
+
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="4.0"
+    profile="eea.dataservice:default">
+
+    <genericsetup:upgradeDepends
+      title="Import all steps from eea.dataservice profile"
+      import_profile="eea.dataservice:default"
+      />
+
+  </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+            source="*"
+            destination="6.3"
+            profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+                title="Import all steps from eea.dataservice jsregistry profile"
+                import_steps="jsregistry"
+                />
+
+    </genericsetup:upgradeSteps>
+    
+    <genericsetup:upgradeSteps
+            source="*"
+            destination="7.6"
+            profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+                title="Configure DataTable and EEAFigure portlets"
+                import_steps="portlets"
+                />
+
+    </genericsetup:upgradeSteps>
+
+      <genericsetup:upgradeSteps
+            source="7.6"
+            destination="8.3"
+            profile="eea.dataservice:default">
+
+         <genericsetup:upgradeStep
+                title="Reindex Data and EEAFigure getGeographic index"
+                handler=".evolve83.reindex_geo_coverage"
+                />
+
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+        source="8.3"
+        destination="9.1"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+            title="Import all steps from eea.dataservice 9.1 profile with eea_data_workflow changes"
+            import_profile="eea.dataservice:upgrade91"
+            />
+
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+        source="9.1"
+        destination="10.2"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeStep
+            title="Remove completed async jobs from EEAFigureFile"
+            handler=".evolve102.cleanup_convert_figure_jobs"
+        />
+
+    </genericsetup:upgradeSteps>
+
+</configure>
