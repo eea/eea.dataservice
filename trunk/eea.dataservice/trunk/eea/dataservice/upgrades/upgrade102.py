@@ -15,7 +15,6 @@ def cleanup_convert_figure_jobs(context):
     brains = ctool.unrestrictedSearchResults(
         portal_type=['EEAFigureFile'])
 
-    total = len(brains)
     logger.info('Removing async jobs', total)
     count = 0
     for brain in brains:
@@ -28,8 +27,8 @@ def cleanup_convert_figure_jobs(context):
             logger.info('Removing async for %s', brain.getURL())
             count += 1
             if count % 100 == 0:
-                logger.info('INFO: Transaction committed to zodb (%s/%s)',
-                            count, total)
+                logger.info('INFO: Transaction committed to zodb %s',
+                            count)
                 transaction.commit()
         except Exception, err:
             logger.warn('Couldn\'t remove async for %s', brain.getURL())
@@ -37,4 +36,4 @@ def cleanup_convert_figure_jobs(context):
             continue
 
     logger.info('EEAFigureFile async removal... DONE')
-    return 'Done cleaning %s EEAFigureFile' % total
+    return 'Done cleaning %s EEAFigureFile' % count
