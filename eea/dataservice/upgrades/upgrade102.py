@@ -19,13 +19,13 @@ def cleanup_convert_figure_jobs(context):
     logger.info('Removing async jobs', total)
     count = 0
     for brain in brains:
-        if not brain.location:
-            continue
-        logger.info('Removing async for %s', brain.getURL())
         try:
             doc = brain.getObject()
-            if getattr(doc, '_convertjob'):
+            if getattr(doc, '_convertjob', None):
                 del(doc._convertjob)
+            else:
+                continue
+            logger.info('Removing async for %s', brain.getURL())
             count += 1
             if count % 100 == 0:
                 logger.info('INFO: Transaction committed to zodb (%s/%s)',
