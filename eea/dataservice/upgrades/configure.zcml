@@ -70,7 +70,7 @@
 
         <genericsetup:upgradeStep
             title="Remove completed async jobs from EEAFigureFile"
-            handler=".evolve102.cleanup_convert_figure_jobs"
+            handler=".upgrade102.cleanup_convert_figure_jobs"
         />
 
     </genericsetup:upgradeSteps>
