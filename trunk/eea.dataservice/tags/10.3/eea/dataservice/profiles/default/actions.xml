@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n" name="portal_actions">
+  <object name="object_buttons">
+    <object name="dataset_to_external" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Migrate Data to ExternalDataSpec</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@migrateToExternal</property>
+      <property name="icon_expr">string:$portal_url/book_next.png</property>
+      <property name="available_expr">python:object.portal_type == 'Data'</property>
+      <property name="permissions">
+        <element value="Manage Portal"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="dataset_disbale_feedback" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Disable user feedback</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@survey/disable</property>
+      <property name="available_expr">object/@@survey_support/enabled</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="dataset_enable_feedback" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Enable user feedback</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@survey/enable</property>
+      <property name="available_expr">object/@@survey_support/disabled</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="eeafigurefile_convert" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Convert figure</property>
+      <property name="description" i18n:translate="">Convert figure to predefined formats and resolutions</property>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@convertFigure</property>
+      <property name="available_expr">python:object.portal_type == 'EEAFigureFile'</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="eeafigure_convert" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Convert all figures</property>
+      <property name="description" i18n:translate="">Convert all figures to predefined formats and resolutions</property>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@convertFigures</property>
+      <property name="available_expr">python:object.portal_type == 'EEAFigure'</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+    <object name="copy_from_template" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Copy from template</property>
+      <property name="description" i18n:translate="">Copy common metadata from a template</property>
+      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@selectTemplate</property>
+      <property name="available_expr">python:'eea.dataservice.templates.interfaces.IProvideTemplates' in object.restrictedTraverse('@@get_interfaces')()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+  <object name="object">
+    <object name="working_list" meta_type="CMF Action" i18n:domain="eea">
+      <property name="title" i18n:translate="">Working list</property>
+      <property name="description" i18n:translate="">Working list</property>
+      <property name="url_expr">string:${object_url}/folder_contents</property>
+      <property name="available_expr">python:'eea.dataservice.interfaces.IWorkingList' in object.restrictedTraverse('@@get_interfaces')()</property>
+      <property name="permissions">
+        <element value="Modify portal content"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+</object>

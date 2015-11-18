@@ -1,0 +1,202 @@
+Overview
+========
+
+Lets use the sandbox.
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+    >>> from eea.dataservice.tests.utils import loadblobfile
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb('sandbox')
+
+Lets add an Organisation.
+    >>> _ = sandbox.invokeFactory('Organisation', 'org1')
+    >>> org1 = sandbox.org1
+    >>> form = {
+    ...   'title': 'Organisation 1',
+    ...   'description': 'Organisation description 1',
+    ...   'organisationUrl': 'http://organisation.url',
+    ...   'location': 'Denmark, Copenhagen',
+    ...   'data_policy': 'Some policy',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ... }
+    >>> org1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applied.
+
+    >>> org1.Title()
+    'Organisation 1'
+    >>> org1.Description()
+    'Organisation description 1'
+    >>> org1.getUrl()
+    'http://organisation.url'
+    >>> org1.getData_policy()
+    'Some policy'
+    >>> org1.getEffectiveDate()
+    DateTime('2008/11/11...')
+
+Verify if organisation vocabulary contains correct data.
+
+    >>> from zope.schema.interfaces import IVocabularyFactory
+    >>> from zope.component import getUtility
+    >>> voc = getUtility(IVocabularyFactory, 'Organisations')
+    >>> [(term.title, term.value) for term in voc(org1)]
+    [(u'Organisation 1', 'http://organisation.url')]
+
+Lets add a Dataset.
+
+    >>> _ = sandbox.invokeFactory('Data', 'data1')
+    >>> data1 = sandbox.data1
+    >>> form = {
+    ...   'title': 'Data 1',
+    ...   'description': 'Organisation description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ...   'geographicCoverage': ['ro', 'it', 'dk'],
+    ...   'eeaManagementPlan': (2010, ''),
+    ...   'lastUpload': '11/11/2008',
+    ...   'lastUpload_year': '2008',
+    ...   'lastUpload_month': '11',
+    ...   'lastUpload_day': '11',
+    ...   'scale': '1000000',
+    ...   'dataOwner': 'http://organisation.url',
+    ...   'processor': 'http://organisation.url',
+    ...   'temporalCoverage': ['2008', '2009'],
+    ...   'disclaimer': 'Some disclaimer',
+    ...   'contact': 'Some contact',
+    ...   'geoAccuracy': 'Geographic accuracy',
+    ...   'referenceSystem': '3035',
+    ...   'dataSource': 'Data source',
+    ...   'moreInfo': 'More info',
+    ...   'methodology': 'Methodology',
+    ...   'units': 'units',
+    ...   'shortId': '1111',
+    ... }
+    >>> data1.processForm(values=form, data=1, metadata=1)
+
+Our dataset should provide IDataset interface.
+
+    >>> from eea.dataservice.interfaces import IDataset
+    >>> IDataset.providedBy(data1)
+    True
+
+Check see if properties applied.
+
+    >>> data1.Title()
+    'Data 1'
+    >>> data1.Description()
+    'Organisation description 1'
+    >>> data1.getEffectiveDate()
+    DateTime('2008/11/11...')
+    >>> data1.getGeographicCoverage()
+    ('ro', 'it', 'dk')
+    >>> data1.lastUpload
+    DateTime('2008/11/11...')
+    >>> data1.getScale()
+    1000000
+    >>> data1.getDataOwner()
+    ('http://organisation.url',)
+    >>> data1.getProcessor()
+    ('http://organisation.url',)
+    >>> data1.getTemporalCoverage()
+    ('2008', '2009')
+    >>> data1.getDisclaimer()
+    'Some disclaimer'
+    >>> data1.getContact()
+    'Some contact'
+    >>> data1.getGeoAccuracy()
+    'Geographic accuracy'
+    >>> data1.getReferenceSystem()
+    '3035'
+    >>> data1.getDataSource()
+    '<p>Data source</p>'
+    >>> data1.getMoreInfo()
+    '<p>More info</p>'
+    >>> data1.getMethodology()
+    '<p>Methodology</p>'
+    >>> data1.getUnits()
+    '<p>units</p>'
+    >>> data1.getShortId()
+    '1111'
+
+Lets add a DataTable under the above Dataset.
+
+    >>> _ = data1.invokeFactory('DataTable', 'dt1')
+    >>> dt1 = data1.dt1
+    >>> form = {
+    ...   'title': 'DataTable 1',
+    ...   'description': 'DataTable description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ...   'category': 'rod',
+    ...   'records': '38000',
+    ...   'tableDefinition': 'A table definition.',
+    ... }
+    >>> dt1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applied.
+
+    >>> dt1.Title()
+    'DataTable 1'
+    >>> dt1.Description()
+    'DataTable description 1'
+    >>> dt1.getEffectiveDate()
+    DateTime('2008/11/11...')
+    >>> dt1.getCategory()
+    'rod'
+    >>> dt1.getRecords()
+    '38000'
+    >>> dt1.getTableDefinition()
+    '<p>A table definition.</p>'
+
+Lets add a DataFile under the above DataTable.
+
+    >>> _ = dt1.invokeFactory('DataFile', 'df1')
+    >>> df1 = dt1.df1
+    >>> form = {
+    ...   'title': 'DataFile 1',
+    ...   'description': 'DataFile description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ...   'shortId': '2222',
+    ... }
+    >>> df1.processForm(values=form, data=1, metadata=1)
+
+Check see if properties applied.
+
+    >>> df1.Title()
+    'DataFile 1'
+    >>> df1.Description()
+    'DataFile description 1'
+    >>> df1.getEffectiveDate()
+    DateTime('2008/11/11...')
+    >>> df1.getShortId()
+    '2222'
+
+Lets upload a file
+
+    >>> loadblobfile(df1, 'sample.pdf')
+    'File uploaded.'
+    >>> df1.getFile().filename
+    'sample.pdf'
+    >>> df1.getFile().getBestIcon()
+    'pdf.png'
+    >>> print df1.getFile().get_size()
+    7981
+    >>> df1.getFile().getContentType()
+    'application/pdf'
+    >>> df1.file
+    <plone.app.blob.field.BlobWrapper object at ...>
