@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.2.dev0 - (unreleased)
+------------------------
+
 10.1 - (2015-11-18)
 -------------------
 * Bug fix: fixed creation of versions and import of EEAFigure
