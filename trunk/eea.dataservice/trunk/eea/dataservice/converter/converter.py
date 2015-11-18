@@ -255,6 +255,7 @@ def task_convert_figure(figure,):
     result = c.run(cronjob=1)
     return result
 
+from zope.annotation import IAnnotations
 
 class QueueConvert(BrowserView):
     """Use plone.async to queue a task to convert this Image object
@@ -263,7 +264,8 @@ class QueueConvert(BrowserView):
     def __call__(self):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, self.context)
-        self.context._convertjob = job
+        anno = IAnnotations(self.context)
+        anno['convert_figure_job'] = job
         return "OK"
 
 
@@ -272,7 +274,8 @@ class GetJobStatus(BrowserView):
     """
 
     def __call__(self):
-        job = getattr(self.context, '_convertjob', None)
+        anno = IAnnotations(self.context)
+        job = anno.get('convert_figure_job')
         if not job:
             return "nojob"
         else:
@@ -281,4 +284,10 @@ class GetJobStatus(BrowserView):
             if status == 'completed-status' and \
                 (isinstance(result, zc.twist.Failure) or result == 1):
                 status = 'error-status'
+            # 30695 remove actual job after it is completed in order
+            # to avoid object import error when making a new version
+            # or when importing the object after being exported
+            if status == 'completed-status':
+                anno['convert_figure_job'] = \
+                    {'status': 'completed-status', 'result': 0}
             return status

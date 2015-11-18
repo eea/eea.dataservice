@@ -14,7 +14,7 @@ from eea.dataservice.interfaces import IDataset, IDatatable
 from eea.dataservice.relations import IRelations
 from plone.app.async.interfaces import IAsyncService
 from zope.component import queryAdapter, getUtility
-
+from zope.annotation import IAnnotations
 
 def handle_eeafigure_state_change(figure, event):
     """ Handler for EEAFigure workflow state change
@@ -45,6 +45,8 @@ def reindex_filetype(obj, event):
     if IDataset.providedBy(parent):
         parent.reindexObject(idxs=['filetype'])
 
+
+
 def handle_eeafigurefile_modified(obj, event):
     """ Handles creation or editing of EEAFigureFile
         Creates a new plone.app.async job that converts the file
@@ -52,7 +54,8 @@ def handle_eeafigurefile_modified(obj, event):
     if obj.REQUEST.form.get('file_file'):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, obj)
-        obj._convertjob = job
+        anno = IAnnotations(obj)
+        anno['convert_figure_job'] = job
         IStatusMessage(obj.REQUEST).add(
                  "Figure will be automatically converted, please "
                  "wait a few minutes", type="INFO")
