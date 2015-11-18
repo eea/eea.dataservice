@@ -1,0 +1,12 @@
+<select name="reference-system-select"
+        class="kupu-tb-styles"
+        style="background-color:#ccc">
+
+  <option value=""></option>
+  <option value="ETRS89" tal:content="string:ETRS89"></option>
+  <option value="ETRS" tal:content="string:ETRS"></option>
+  <option value="Lambert" tal:content="string:Lambert Azimutal"></option>
+  <option value="ALBERS" tal:content="string:ALBERS"></option>
+  <option value="WGS" tal:content="string:WGS"></option>
+
+</select>

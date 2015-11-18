@@ -1,0 +1,7 @@
+<tal:def 
+    tal:define="field python:context.getField('provider_url'); value python:field.getAccessor(context)(); organisation python:context.getOrganisationByUrl(value);" 
+>
+  <a tal:content="context/Title" 
+    tal:attributes="href context/absolute_url;">External Data Spec</a>
+<tal:block i18n:translate="">provided by</tal:block>&nbsp;<strong tal:content="python:organisation.Title" tal:condition="python:str(organisation) !='None'">EEA</strong>
+</tal:def>

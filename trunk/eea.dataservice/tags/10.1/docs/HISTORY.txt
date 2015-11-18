@@ -1,0 +1,1211 @@
+Changelog
+=========
+
+10.1 - (2015-11-18)
+-------------------
+* Bug fix: fixed creation of versions and import of EEAFigure
+  when EEAFigureFile had an async job attached to them
+  [ichimdav refs #30695]
+
+10.0 - (2015-11-16)
+-------------------
+* Feature: edit ds_resolveuid to call via python code
+  [lucas refs #30065]
+
+9.9 - (2015-11-03)
+------------------
+* Change: eeafigure_file.pt now use fontawesome classes for filetype icons
+  [ichimdav refs #28967]
+
+9.8 - (2015-10-22)
+------------------
+* BugFix: fix organization view
+* Upgrade step: Added indexer method 'getDataOwner' for DataVisulization; Bulk reindex is needed for DavizVisualization content type on getDataOwner index
+  [lucas refs #27622]
+* Bug fix: fix clipping of title for figuresPhotoAlbumEntry photoAlbumEntryWrapper
+  [ichimdav refs #28967]
+
+9.7 - (2015-10-05)
+------------------
+* Bugfix: set socket timeout to prevent hanging out connection on xmlrpc calling
+* Bugfix: greenening xmlrpclib to prevent hanging out connection
+  [lucas refs #29063]
+
+9.6 - (2015-09-22)
+------------------
+* Bugfix: removed initialization of Figure.Load which is directly loaded when needed
+  by eeafigure_view and eeafigurefile_view
+  [ichimdav refs #28953]
+* Bugfix: Fixed error on the @@convertFigures view.
+  [chiridra refs #28806]
+* Bug fix: Pillow 2.9.0 implemented eps patch but has a resolution issue. Re-added a patch'
+           Fix patch to work with pillow 2.9.0
+  [lucas refs #28893]
+
+9.5 - (2015-09-10)
+------------------
+* Change: cleaned dataservice.view.js of leftover jqzoom code and added basic info
+  about the intent of the file and it's external dependency
+  [ichimdav refs #27220]
+* Bugfix: Pillow 2.9.0 implemented eps patch, then it is not be needed and removed. Pin Pillow into version.cfg buildout
+  [lucas, refs #21636]
+* Change: cleaned dataservice_styles.css of uneeded styles
+  [ichimdav refs #27220]
+
+9.4 - (2015-08-18)
+------------------
+* Change: Title is now used as the label of DataFiles found within Data
+  instead of the field name
+  [ichimdav refs #27927]
+* Feature: Add link to DaViz Visualisation on Organisation view
+  [lucas, refs #27622]
+
+9.3 - (2015-07-30)
+------------------
+* Bugfix: Fix download permssion on EEAFigureFile
+  [lucas, refs #27617]
+
+9.2 - (2015-07-28)
+------------------
+* Bugfix: pylint compile
+  [lucas refs #27245]
+
+9.1 - (2015-07-06)
+------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [ichimdav #22596]
+* Change: removed sendWorkflowEmail method calling as well as the
+  frontpage_workflow_scripts module because the functionality can be
+  triggered with content rules
+  [ichimdav refs #22596]
+
+9.0 - (2015-04-28)
+------------------
+* Bugfix: Fixed mimetype in rdf export for files, including files inside zip
+  [szabozo0 refs #20674]
+
+8.9 - (2015-03-17)
+------------------
+* Change: Switched to curl in the jenkins build install script
+  [olimpiurob refs #22402]
+* Change: Changed fetch url for jenkins build install script to the install 
+  script from the main EEA CPB repository
+  [olimpiurob refs #22402]
+
+8.8 - (2015-02-16)
+------------------
+* Feature: added an Auto relation from Assessment and AssessmentPart to a
+  Data portal_type if there is a DavizVisualization or EEAFigure in the middle
+  [ichimdav refs #21173]
+
+8.7 - (2015-01-22)
+------------------
+* Bug fix: Fixed dataset_view within Chameleon
+  [voineali refs #22307]
+* Change: removed map view location calls from eea.dataservice now that acgis
+  map is no longer available within eea.geotags
+  [ichimdav]
+
+8.6 - (2014-11-20)
+------------------
+* Feature: Added possibility to suppress sending emails on workflow change
+  [voineali refs #21851]
+* Bug fix: Removed hard-coded review_state=published while listing data tables
+  [voineali refs #21515]
+* Bug fix: fixed CSS and wording for "Dynamic geotags Coverage"
+  [ghicaale refs #21458]
+* Change: updated eea.geotags field labels
+  [ghicaale refs #21458]
+
+8.5 - (2014-09-15)
+------------------
+* Feature: added doctest for the workflow change event where EEAFigureFile
+  objects get the same EffectiveDate from their parent EEAFigures
+  [ichimdav refs #20827]
+
+8.4 - (2014-06-06)
+------------------
+* Bug fix: Fix Eps to PNG converter
+  [voineali refs #19830]
+
+8.3 - (2014-05-13)
+------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+    - RUN with www8 as a LAST step since it reindexes 7000 objects
+    - [ichimdav #19367]
+* Change: Data and EEAFigure now have an indexer that indexes the values of the
+  location field if the value is part of the european countries vocabulary
+  [ichimdav refs #19367]
+
+8.2 - (2014-02-03)
+------------------
+* Bug fix: cleaned references of tooltip macro being loaded from dataset_view
+  [ichimdav refs #18197]
+
+8.1 - (2014-01-22)
+------------------
+* Bug fix: reference geotags macros from eea.forms instead of
+  eea.dataservice
+  [ichimdav refs #16719]
+* Bug fix: reference temporal-coverage macros from eea.forms instead of
+  eea.dataservice
+  [ichimdav refs #16719]
+* Change: removed version pin of eea.themecentre from the plone4 buildout
+  [ichimdav]
+* Bug fix: check for truthiness of version_id when attempting to last version
+  of an object for the Faceted Navigation WidgetFilter
+  [ichimdav refs #17812]
+* Change: removed the temporalCoverage field from the dataservice schema
+  allowing the schemaextender from Products.EEAContentTypes to add the field
+  [ichimdav refs #17611]
+
+8.0 - (2013-12-10)
+------------------
+* Bug fix: correctly move the geographicalCoverage within the metadata tab
+  for EEAFigure and Data
+  [ichimdav refs #17663]
+* Feature: added a possibility to define the map layer that should be used
+  when using the view macro of the location widget. See example within
+  eea.geotags.pt
+  [ichimdav refs #17618]
+* Bug fix: do not move the geotags map if the geotag div is hidden
+  [ichimdav refs #17618]
+* Change: moved the ITemporalCoverageAdapter from eea.dataservice into
+  Products.EEAContentTypes
+  [ichimdav refs #17588]
+* Change: removed versions macro; now using viewlet
+  [simiamih refs #17321]
+
+7.9 - (2013-11-20)
+------------------
+* Feature: added ITemporalCoverageAdapter which is an adapter than can be
+  overriden in order to return a temporalCoverage value
+  [ichimdav refs #16719 and #17306]
+* Feature: added styling for the geographical and temporal viewlets
+  [ichimdav refs #16719]
+
+7.8 - (2013-11-01)
+------------------
+* Change: sort by getObjPositionInParent the Data Files within dataset_view
+  [ichimdav refs #17335]
+
+7.7 - (2013-10-22)
+------------------
+* Feature: Added quick-upload portlets upgrade step
+  [tiberich #16997]
+* Bug fix: also implement Products.ATContentTypes.interfaces.IFileContent for the
+  EEAFigureFile and DataFile objects
+  [tiberich #16997]
+
+7.6 - (2013-10-04)
+------------------
+* Change: updated zope imports with the versions that require minimum Plone 4.1
+  [ichimdav refs #15651]
+* Change: Added portal_url definition to the tooltip macro in order for it to
+  be used by templates that are not dataset_view
+  [ichimdav #16719]
+* Bug fix: Fixed Organisation's vocabulary for organisations with non-ascii title
+  [voineali refs #16804]
+
+7.5 - (2013-09-23)
+------------------
+* Bug fix: fixed sorting for show last version facetnav widget
+  [ghicaale refs #16784]
+
+7.4 - (2013-09-19)
+------------------
+* Bug fix: optimised facetnav widget which filter for last version not to take minutes
+  to compute the results as we now have all objects versionable.
+  [ghicaale refs #16772]
+
+7.3 - (2013-09-06)
+------------------
+* Feature: Handle "match all/any" option for anonymous users within geocoverage
+  custom faceted widget
+  [voineali refs #16624]
+* Bug fix: Removed hardcoded AND operator within geocoverage
+  facetednavigation widget
+  [voineali refs #16624]
+* Change: Moved temporalCoverage field/widget helpers to eea.forms in order
+  to easily be reused by other packages like eea.soercontent
+  [voineali refs #14900]
+* Bug fix: Fixed unicode decode error when disaplying the data source.
+  [ghicaale refs #16277]
+
+7.2 - (2013-08-09)
+------------------
+* Change: added dependency to eea.indicators, needed for portlets.Readiness
+  [szabozo0 refs #14323]
+
+7.1 - (2013-07-11)
+------------------
+* Feature: added logic so DataFileLink works under EEAFigures
+  [ghicaale refs #14690]
+
+7.0 - (2013-07-08)
+------------------
+* Feature: added functional test covering the categories function found within
+  EEAFigureFiles through the testing of 'getCategoryName',
+  'getSingleEEAFigureFile' and 'getEEAFigureFiles'
+  [ichimdav fixes #14712]
+
+6.9 - (2013-06-17)
+------------------
+* Bug fix: restored ability to display EEAFigureFiles as categories lost in
+  ticket #14699
+  [ichimdav refs #14712]
+* Bug fix: fix a bug with figure view when dealing with multiple
+  figure files
+  [tiberich #14699]
+* Feature: added /download, /size and /get_size methods for DataFile and EEAFigureFile
+  to have same API as Image/File like objects. Now DataFile and EEAFigureFile will
+  display size in listings like /folder_contents and size will be index in ZCatalog.
+  [ghicaale refs #14735]
+
+6.8 - (2013-05-29)
+------------------
+* Bug fix: fixed list of external data sets from a data provider
+  [ghicaale refs #14600]
+* Bug fix: fixed hidden filename for converted files for maps and graphs
+  [ghicaale refs #14648]
+* Bug fix: fixed zero size for converted files for maps and graphs
+  [ghicaale refs #14648]
+* Bug fix: use objectValues('EEAFigureFile') when getting figuresfiles for
+  figure display
+  [tiberich #14669]
+
+6.7 - (2013-05-20)
+------------------
+* Bug fix: fixed issue where fancybox no longer worked on figures because of
+  images coming from cdn
+  [ichimdav #14382]
+* Change: directly implement IVersionEnhanced for IEEAFigure and IDataset
+  objects; they would get that interface imediately upon
+  creation/modification, anyway. Changes to be compatible with latest
+  eea.versions
+  [tiberich #14008]
+* Bug fix: change tests to avoid using the plone.async job to convert images
+  and use the converter directly. This fixes tests in the -plone4 flavour on
+  jenkins
+  [tiberich]
+
+6.6 - (2013-04-17)
+------------------
+* Change: use esri map for showing geotags instead of geographical Coverage
+  and it's corresponding map
+  [ichimdav #8523]
+* Change: hid geographicalCoverage field from view or editing since data is
+  migrated to geotags
+  [ichimdav #8523]
+
+6.5 - (2013-03-15)
+------------------
+* Feature: added content rule for Data and EEAFigure which warns user when
+  geographicalCoverage is set to dynamic but not on location and vice versa
+  [ichimdav #13985]
+
+6.4 - (2013-02-27)
+------------------
+* Bug fix: disable required for publish code for Data ContentType for Temporal
+  Coverage, location and Geographical Coverage since it has the dynamic entry
+  [ichimdav #13985]
+
+6.3 - (2013-02-25)
+------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.dataservice
+  [ichimdav #13868]
+* Bug fix: added dataset_view.js and eea.dataservice.survey.js to
+  jsregistry and added upgrade step to load them inside portal_javascript
+  [ichimdav #13868]
+* Bug fix: remove hardcoded Montenegro, Serbia, Kosovo countries
+  [tiberich #10255]
+* Bug fix: Removed useless 'tal' in tal:comment tag. Because it raised an
+  error with i18ndude.
+  [prospchr refs #13827]
+* Bug fix: Corrected wrong i18n attributes.
+  [prospchr refs #13827]
+
+6.2 - (2013-02-04)
+------------------
+* Bug fix: removed showInfo function from country_widget.js which is not needed
+  anymore after the changes in ticket 10249
+  [ichimdav #13677]
+* Change: cached methods in order to improve page load of datasets and
+  indicators, see ticket number for details
+  [ichimdav #13677]
+
+6.1 - (2013-01-28)
+------------------
+* Change: cached results of ROD SERVER calling for 24H
+  [ichimdav #13677]
+
+6.0 - (2013-01-24)
+------------------
+* Bug fix: fix figure display for anonymous
+  [tiberich #9976]
+
+5.9 - (2013-01-23)
+------------------
+* Feature: grouped features and datasets categories as tabs with jquery
+  pagination
+  [ichimdav #13639]
+* Bug fix: display title and file size information for non image
+  photoAlbumEntry albums
+  [ichimdav #13639]
+* Change: removed extra visualClear div to avoid pagination count differences
+  for figure files
+  [ichimdav #13639]
+
+5.8 - (2013-01-15)
+------------------
+* Change: check if url contains data-and-maps/figures for photoAlbumEntry
+  when changing it's href to append fancybox.html since now we have relations
+  that are also with photoAlbumEntry class
+  [ichimdav #6892]
+* Change: use new interactive data viewer interface which include daviz
+  for portlet "Data viewers" displayed on data-and-maps/data page.
+  [demarant]
+* Change:  moved the olderVersions to the portalMessage div that displays the
+  old versions link for eea.dataservice templates
+  [ichimdav #10182]
+* Feature: Show geographical coverage via standard EEA tooltip. List all
+  countries instead of groups (as many users do not know them). Housekeeping.
+  [demarant fixes #10249]
+* Bug fix: fixed dynamic entry appearing when there was -1 in the date range
+  [ichimdav #10242]
+* Change: removed publicationBasedOn browserView since it's logic duplicates
+  that of relations
+  [ichimdav #10182]
+* Bug fix: added missing label information for Data's MultiSelectWidget
+  [ichimdav #10215]
+* Bug fix: fix display of thumbs for figures when the figurefiles are in draft
+  [tiberich #10186]
+* Change: EEAFigureFiles no longer have a workflow
+  [tiberich #9976]
+* Feature: Extended dataset view to list also File type, since in few cases we
+  have old-style daviz coverted files which are stored in a dataset. From now
+  on only pure Daviz Visualisation are allowed as sub-objects.
+  [demarant]
+* Bug fix: fixed migration script for relations
+  [ghicaale refs #10212]
+* Change: removed "source" macro from EEAFigure view as DataSource field
+  is deprecated for this content type, data sources should be referenced via
+  relatedItems
+  [ghicaale refs #10212]
+* Upgrade step:
+    * go to /@@types-controlpanel?type_id=EEAFigureFile
+    * Change workflow to "No Workflow"
+    * Click "Apply Changes". The request should be finished in less then 5 minutes
+    * [tiberich refs #9976]
+
+5.7 - (2012-11-29)
+------------------
+* Bug fix: fixed figure.txt test for plone4 buildouts by passing upper to the
+  returned object size
+  [ichimdav]
+* Cleanup: removed all references of "relatedProducts"
+  [ghicaale refs #6773]
+* Bug fix: fix temporalCoverage rdf value adapter for cases when the value is
+  an empty tuple
+  [tiberich #10130]
+
+5.6 - (2012-11-22)
+------------------
+* Change: removed map_canvas related code added in egg 1.0, which was suppose
+  to bring a map preview in the geographical Coverage widget but was never
+  completed
+  [ichimdav]
+* Change: added location field directly on the schema in order for it to be
+  only required_for_publish
+  [ichimdav #9423]
+* Feature: added 'dynamic' entry option for Temporal, Geographical coverage
+  and Geotags on Data and EEAFigure for situation where you don't know ahead
+  of time these values
+  [ichimdav #5438 #9423]
+* Bug fix: conform to eea.rdfmarshaller API changes
+  [tiberich #3981]
+* Change: merged values from relatedProducts field to relatedItems
+  field for EEAFigure and Data objects.
+  [ghicaale refs #6773]
+* Upgrade step:
+    - Create an external method with:
+        - module name: eea.dataservice.move_related_items
+        - function name: move_related_items
+    - Execute it
+    - Create an external method with:
+        - module name: eea.dataservice.move_related_items
+        - function name: migrate_relations
+    - Execute it
+    - [ghicaale refs #6773]
+* Upgrade step:
+    - Go under /www/portal_relations/@@badrelations.html
+      and see/fix the remaining wrong relations for EEAFigures and Data
+    - [ghicaale refs #6773]
+* Upgrade step:
+    - This step must be done last, once all the above are done
+    - Add in portal_skins/custom the following templates:
+        - dataset_view.pt: comment/delete logic from <metal:related-products>
+        - eeafigure_view.pt: comment/delete logic from <tal:related>
+    - Remove and svn commit any reference to "relatedProducts" from:
+        - eea.dataservice/content/Data.py
+        - eea.dataservice/content/EEAFigure.py
+        - eea.dataservice/browser/app/utils.py
+        - eea.dataservice/browser/app/display.py
+        - etc
+    - [ghicaale refs #6773]
+
+5.5 - (2012-10-04)
+------------------
+* Feature: dataOwner field under DavizVisualization content type
+  is now moved then references are moved between two Organisations.
+  DavizVisualization statistics are now listed under Organisation
+  view only for authenticated users.
+  [ghicaale fixes #5485]
+* Upgrade step:
+   - under www/portal_actions/object/working_list change url expression to:
+   - string:${object_url}/folder_contents
+   - [ichimdav #5533]
+* Bug fix; provide Working List action also for new Collections
+  [ichimdav #5533]
+
+5.4 - (2012-09-27)
+------------------
+* Bug fix: don't fail on assessment view if Organisation is missing;
+  Instead, insert its owner.
+  [tiberich #5544]
+* Change: use IVideo when checking for videos
+  [ichimdav #5480]
+* Feature: Added logging when running move references on organisation.
+  [demarant refs #5485]
+* Bug fix: Cleanup zope.app.content.interfaces.IContentType dependency
+  [voineali]
+* Feature: Added test to cover local workflow policy of EEAFigureFiles
+  [ghicaale refs #5499]
+* Cleanup: Removed all references to ImageFS
+  [ghicaale refs #5499]
+* Change: Update references to eea.depiction (formerly valentine.imagescales)
+  [voineali refs #5497]
+* Feature: Added subscriber to add on all EEAFigureFiles on add/edit the
+  local workflow policy for Images
+  [ghicaale refs #5499]
+* Upgrade step:
+    - under /www/portal_types/EEAFigureFile/manage_propertiesForm remove ImageFS
+      from the 'Allowed content types' list
+    - under /www/@@caching-controlpanel remove ImageFS from:
+       - "Caching proxies" -> Content types to purge
+       - "Caching operations" -> Ruleset -> "Content files and images"
+    - under /www/portal_factory/manage_portal_factory_types uncheck "ImageFS"
+    - under /www/portal_tinymce/@@tinymce-controlpanel -> "Image Objects" remove "ImageFS"
+    - under /www/portal_tinymce/@@tinymce-controlpanel -> "Linkable Objects" remove "ImageFS"
+    - under /www/portal_properties/navtree_properties/manage_propertiesForm -> "metaTypesNotToList"
+      remove ImageFS
+    - under /www/portal_types/manage_main delete imageFS
+    - under /www/portal_workflow/manage_main delete eea_imagefs_workflow
+    - [ghicaale refs #5499]
+
+5.3 - (2012-08-29)
+------------------
+* Bug fix: Fixed display of Provider relations on Organisation statistics
+  [ghicaale refs #5485]
+* Bug fix: Assessments are now also reindex when relations are transfer from
+  an Organisation to another. Till now only parent Specifications were reindexed
+  ending the Assessments indexed to the original Organisation.
+  [ghicaale refs #5485]
+* Feature: Indicator Specifications are now listed under Organisations statistics
+  [ghicaale refs #5485]
+* Feature: Update logic to work with Image in parallel with ImageFS,
+  not to have missing thumbs for EEAFigureFiles till migration
+  from ImageFS to Image is done
+  [ghicaale refs #4190]
+* Bug fix: check if widget has already loaded for the given context
+  to avoid table duplication for MultiSelectWidget
+  [ichimdav fixes #5336]
+* Bug fix: fixed URL for sparql.
+  [demarant fixes #5408]
+
+5.2 - (2012-07-17)
+------------------
+* Bug fix: use getFolderContents instead of objectValues to avoid
+  Unauthorized for anonymous when contained link is not published
+  [tiberich]
+
+5.1 - (2012-07-13)
+------------------
+* Feature: use eea.relations widget for relatedItems if available for Data
+  contenttype
+  [ichimdav #4705]
+* Change: removed publishing date from templates since this is part of
+  the document_byline.
+  [demarant]
+* Bug fix: Fix case when the data table view was asking for login, when certain
+  files where not published, now just skip those files.
+  [demarant]
+* Bug fix: Fixed case when "Data source" was not shown. Improved tooltip by
+  having text on the right, it was not readable on small screen width.
+  Use another tooltip text for deprecated source description (used on in edit).
+  [demarant refs #4982]
+* Bug fix: implemented render_own_label method in order to prevent label
+  and description for FigureTypeWidget from appearing twice
+  [ichimdav #5331]
+* Bug fix: readded fix for label of MultiSelectWidget done in ticket #4927
+  that got removed in ticket #5072
+  [ichimdav #5331]
+* Feature: template changes to show Sparql inside EEA Dataservice.
+  This allow us to register linked open dataset from semantic.eea.europa.eu or
+  any other rdf store.
+  Generic data set metadata is available following the isPartOf relations.
+  [demarant fixes #5102]
+* Feature: added DataFileLink content type to eea.dataservice profile
+  [ghicaale]
+* Cleanup: removed code related to jqzoom from eea.dataservice
+  [ichimdav #5323]
+* Bug fix and cleanup: check if organisation url has changed when setting organisationField
+  [ichimdav, tiberich refs #5312]
+* Upgrade Step: from www/portal_view_customizations/manage_main remove
+  eea.indicators.content.interfaces.iexternaldataspec-related_title
+  [ichimdav #5305]
+* Bug fix: check if organisation exists before asking for title on
+  external_datasource
+  [ichimdav #5305]
+* Change: Removed unused and cumbersome zoom functionality on figures
+  made figure larger instead. improved the fancybox title and style.
+  [demarant refs #5323 fixes #4631]
+* Bug fix: use max file size validator for ImageFS, DataFile and EEAFigureFile
+  [tiberich refs #5259]
+* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate keys in .zpt
+  [prospchr refs #5162]
+
+5.0 - (2012-06-20)
+------------------
+* Feature: list DataFileLink in templates, these are links to
+  external files, e.g. large files on other servers.
+  [demarant fixes #5291 refs #5255]
+
+4.15 - (2012-06-14)
+-------------------
+* Bug fix: force convertion to RGB when converting a figure, because PNG files
+  only support RGB
+  [tiberich refs #5113]
+
+4.14 - (2012-06-12)
+-------------------
+* no changes
+
+4.13 - (2012-06-12)
+-------------------
+* Feature: Also support RAR files for zCatalog 'filetype' index
+  [voineali fixes #5253]
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
+* Bug fix: check View permission when showing relatedProducts in dataset_view
+  [tiberich #5221]
+* Bug fix: empty dataSource field on EEAFigure versioning
+  [tiberich #5114]
+* Feature: added mimetype as dcterms:format tags in @@rdf for content types
+  that are file
+  [tiberich #5127]
+* Change: removed dependency on eea.locationwidget as we no longer store a
+  custom location field
+  [ichimdav #4788]
+* Change: removed customized location field from Organisation in favor of
+  the default plone location which uses geotags widget
+  [ichimdav #4788]
+* Upgrade step: run /www/@@checkFiguresConvertion on serviceWWW
+  Running it will take about 20-30 minutes (might be faster) and can be done
+  at the end of the servers upgrade
+  [tiberich #5113]
+* Feature: use plone.app.async to put conversion of figures in a queue.
+  The conversion will only run in a dedicated zope instance (serviceWWW)
+  [tiberich #5113]
+* Feature: automatically queue a convert job for EEAFigureFile that
+  change their file
+  [tiberich #5113]
+* Bug fix: skip converting figure file if id sufix is a data file (doc, pdf,
+  etc)
+  [tiberich #5113]
+* Bug fix: fix converting of ImageFS files when they have invalid ids
+* [tiberich #5113]
+* Bug fix: fixed display of non EU countries for geographical coverage
+  [ichimdav #5136]
+* Bug fix: reverted previous change on latest version facetednavigation widget
+  as generate slowness and errors for anonymous access
+  [ghicaale refs #4859]
+
+4.12 - (2012-04-27)
+-------------------
+* Bug fix: remove debugging prints from temporal coverage widget
+  [tiberich #5106]
+
+4.11 - (2012-04-26)
+-------------------
+* Bug fix: optimize load times for figure view
+  [tiberich #5106]
+* Feature: Added OrganisationsWidget and MultiOrganisationsWidget in order
+  to be reused outside eea.dataservice
+  [voineali refs #5072]
+* Bug fix: link to external data source object, as there is more info about
+* Bug fix: fix loading times for eeafigure edit page
+  [tiberich #5106]
+* Bug fix: link to external data source object, as there is more info about
+  the dataset. Also reformatted the display of data sources information.
+  [demarant fixes #5066]
+* Bug fix: Fixed 'Last Version' facetednavigation widget to show only the
+  latest versions of documents. This implicitly fixes the faceted
+  counting issue.
+  [voineali #4859]
+* Feature: show images when figure is in public draft, in accordance with
+  the indicator assessment, where the figures are also shown when assessment is
+  in public draft/visible with direct link.
+  [demarant fixes #5039]
+* Feature: show readiness portlet for EEAFigures
+  [tiberich #5065]
+* Bug fix: Show as read-only and move dataSource field after relatedProducts;
+  put relatedProducts in default schemata; make dataSource field optional
+  [tiberich #5066]
+* Bug fix: Only show dataSource value in figure view if there are not related
+  ExternalDataSpec or Data
+  [tiberich #5066]
+* Upgrade step: modifications to eea_data_workflow
+    - [tiberich #5065]
+    - In portal_workflow > eea_data_workflow > Scripts, add a new External Method:
+      Script id: fake_transition, module name: eea.workflow.workflow_scripts,
+      function: fake_transition
+    - Go to portal_workflow > eea_data_workflow/transitions/publish/manage_properties
+      Set the following expression in the Guard expression:
+      python:path('here/@@get_readiness').is_ready_for('published')
+    - Add a new transition in eea_data_workflow, called fake_publish, with data:
+      Title: Pre-publish check
+      Destination state: (Remain in state)
+      Trigger type: initiated by user action
+      Script (before): fake_transition
+      Script (after): None
+      Roles: Manager; Reviewer
+      Guard Expression: python:not path('here/@@get_readiness').is_ready_for('published')
+      Display name: Publish
+      Category: workflow
+    - Add the fake_publish transition as a possible transition to the following states
+      (everywhere the "publish" transition is also available):
+      content_pending, published_eionet, visible
+    - In portal_skins/manage_main, move the eea_workflow_template skin layer
+      above linguaflow_templates for the EEADesignCMS and EEADesign2006 skins
+    - To check if the workflow works as desired, go to a figure that doesn't have the
+      relatedProducts set and see if the id of the Publish action is fake_publish (look
+      in the URL)
+
+4.10 - (2012-04-03)
+-------------------
+* Bug fix: Fixed faceted "show only last version" widget to fallback on
+  "CreationDate" if "EffectiveDate" is not set
+  [voineali #5068]
+
+4.9 - (2012-03-30)
+------------------
+* Feature: mapped 'xk' country code for Kosovo
+  [ghicaale #2829]
+* Change: hide field otherSources from edit
+  [tiberich #4982]
+* Change: init SelectAutocompleteWidget on document.ready
+  [tiberich #4982]
+* Bug fix: fixed EEAFigure view due to unauthorized error
+  [tiberich #4982]
+
+4.8 - (2012-03-05)
+------------------
+* Change: relabeled relatedProducts field; hide otherSources from edit
+  [tiberich #4982]
+* Change: also use relatedProducts to get information for Sources
+  [tiberich #4982]
+* Bug fix: Moved 'Temporal coverage' vocabulary to eea.vocab as it's also used
+  by eea.reports
+  [voineali]
+* Bug fix: changed style of album listing for figure files if image is missing
+  to that of the normal album listing
+  [ichimdav #4941]
+
+4.7 - (2012-02-06)
+------------------
+* Bug fix: show label for organisation widget
+  [tiberich #4927]
+* Bug fix: show an empty option as first line in organisation select widget
+  [tiberich #4927]
+* Upgrade step: reindex all External Data Spec objects
+  [ghicaale #4485]
+* Feature: Under organisations view also count external data spec and
+  indicator assessment relations
+  [ghicaale #4659, #3474]
+* Feature: Count only last version under organisation view relations
+  [ghicaale #4485]
+* Change: "Migrate Data to ExternalDataSpec" action is now available for "Content Manager" role
+  [ghicaale]
+* Change: Corrected metadata description tooltip for owner.
+  [demarant]
+
+4.6 - (2011-12-15)
+------------------
+* Bug fix: Enabled relations for eea figure
+  [voineali #4785]
+
+4.5 - (2011-12-02)
+------------------
+* Bug fix: added widget labels and descriptions for countries widget,
+  organisations widget and temporal coverage; They are hidden by default by
+  Plone 4 because they are MultiSelectWidget
+  [tiberich #4809]
+* Bug fix: fix problem with duplicated figure type label in figure edit
+  [tiberich #4809]
+
+4.4 - (2011-11-28)
+------------------
+* Bug fix: Required themes and subject is handled by EEAContentTypes
+  [voineali #4694]
+
+4.3 - (2011-11-24)
+------------------
+* Change: Allow registered browser_views to be customized by portal_view_customizations by making them inherit
+  from BrowserView instead of object
+  [ichimdav #4783]
+* Bug fix: fixed organisations edit widget
+  [tiberich #4775]
+
+4.2 - (2011-11-22)
+------------------
+* Bug fix: Switch value and title for organisations widget
+  [tiberich #4745]
+* Optimization: Strip titles of first/last whitespace for Organisations vocab
+  [tiberich #4745]
+
+4.1 - (2011-11-18)
+------------------
+* Rerelease broken egg
+
+4.0 - (2011-11-18)
+------------------
+* TODO: Fix more link on portlet_dataviewers
+* Change: Migrated eeafigure_albumentry, eeafigure_view, portlet_dataviewers from custom
+  [szabozo0 #4161]
+* Bugfix: Reduced the length of Obligation titles in vocabulary in order to
+  fix covered fields
+  [szabozo0 #4661]
+* Feature: Added filetype index in order to be able to search Files, Dataset,
+  DataFiles by mime-type
+  [voineali #2754]
+* Bug fix: use eea.relations widget for Related EEA Products for EEAFigure
+  [tiberich 4628]
+* Feature: removed "Geographic quality" field and related logic
+  [ghicaale #4601]
+* Bugfix: Fixed the ROD, to display the previously applied selection
+  [szabozo0 #4607]
+* TODO: Convert all figures JS
+* Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+  with other JS frameworks
+  [szabozo0 #4542]
+* Bug fix: Completed the default template for the EEAFigureFile by calling the
+  fancybox view.
+  [demarant #4522]
+* Bugfix: Fixed wrong date formats
+  [szabozo0 #4510]
+* Change: removed the old themes portlet, now part of the main template as viewlet
+  [demarant].
+* Bugfix: Fixed file type on album view for EEAFigure
+  [szabozo0 #4446]
+* Bugfix: Fixed Geographical Coverage
+  [szabozo0 #4423]
+* Change: Enabled themecentre using macros
+  [szabozo0 #4423]
+* Change: Moved ManagementPlan Field and Widget to eea.forms
+  [szabozo0 #4423]
+* Feature: Fixed all pylint, pyflakes warnings
+  [voineali #4302]
+* Feature: Added upgrade steps
+  [voineali #4392]
+* Feature: Plone 4.0.4 compatible
+  [voineali $4302]
+
+1.37-dev - (unreleased)
+-----------------------
+* Bug fix: Fixed Google Analytics for datafiles download
+  [voineali #4317]
+
+1.36 - (2011-05-20)
+-------------------
+* Feature: Support DaViz enabled files in dataset and datatable view
+  [voineali #4270]
+
+1.35 - (2011-04-08)
+-------------------
+* Feature: added managementplan formlib widget
+  [tiberich #4215]
+
+1.34 - (2011-04-04)
+-------------------
+* Bug fix: fixed creation of imagefs that I broke during cleanup
+  [ichimdav #4239]
+
+1.33 - (2011-03-25)
+-------------------
+* Cleanup: Removed portal_migration scripts as portal_migration is deprecated.
+  Please check that all migration scripts where run before upgrading to this
+  version
+  [voineali #4139]
+* Change: clean-up of pyflakes high and normal compiler errors
+  [ichimdav #4141]
+* Change: clean-up of pylint high and normal violations
+  [ichimdav #4140]
+* Bug fix: join year and code in @@rdf view for management plan field
+  [tiberich #4119]
+
+1.32 - (2011-03-08)
+-------------------
+* Change: moved "management_plan_code_validator" validator under
+  Products.EEAContentTypes package as was used before being registered
+  [ghicaale #4174]
+* Bug fix: Fixed organisations portlet JS for IE
+  [ghicaale #3575]
+* Change: make code required and enable validator for figures refs #4174
+  [demarant]
+
+1.31 - (2011-03-02)
+-------------------
+* Feature: added functionality to transfer references from one organisation
+  to another
+  [ghicaale #3575]
+* Change: URLs status is now triggered by the user (not in automatic). Some
+  cosmetics on listing display
+  [ghicaale #3575]
+
+1.30 - (2011-02-10)
+-------------------
+* Bug fix: Set default view for EEAFigureFile to eeafigurefile_view
+  [voineali #4125]
+* Change: Better progress status of URLs checked by linkchecker
+  [ghicaale #3575]
+
+1.29 - (2011-02-03)
+-------------------
+* Feature: Added progress status of URLs checked by linkchecker
+  [ghicaale #3575]
+* Bug fix: Catch "OverflowError" while converting images
+  [ghicaale]
+
+1.28 - (2011-02-01)
+-------------------
+* Feature: Added "organisations overview" portlet in order to simplify the
+  management of duplicates and wrong metadata on organisations
+  [ghicaale #3575]
+* Bug fix: Fixed display of location on organisations view when location
+  has no value
+  [ghicaale #3575]
+* Bug fix: Fixed organisation URL validator to consider URLs ending
+  with '/' equal
+  [ghicaale #3575]
+
+1.27 - (2011-01-24)
+-------------------
+* Bug fix: Fixed large size for EEA Figures converted images
+  [voineali #4051]
+* Bug fix: Fixed test breakage caused by changes in eea.versions
+  [tiberich #4000]
+* Change: Use permalinks macro from eea.versions
+  [tiberich #3552]
+
+1.26 - (2011-01-24)
+-------------------
+* Disable remaining soer_bulk_import modules as version 1.25 is broken
+  [voineali]
+
+1.25 - (2011-01-21)
+-------------------
+* Disabled temporary soer bulk import file, it gives >660 pylint violations.
+  It can be renamed when needed again.
+  [demarant]
+
+1.24 - (2011-01-13)
+-------------------
+* Bug fix: Copied 'Fix low resolution images for EEA Figure Files' script
+  from eea.dataservicemigration package as it was never ran on production
+  and eea.dataservicemigration package is no longer available in
+  EEA buildout
+  [voineali ##3595]
+* Bug fix: Fixed Organisation vocabulary not to crash when duplicate titles
+  were found. Now duplicate titles are listed as MyTitle, MyTitle (1), etc
+  [ghicaale #4036]
+* Update: Bulk import of SOER figures - first batch
+  [ghicaale #3987]
+
+1.23 - (2011-01-05)
+-------------------
+* Change: Activated annual management plan validator for datasets
+  [ghicaale #4023]
+
+1.22 - (2010-12-21)
+-------------------
+* Bug fix: Implemented correct annual management plan validator, fixes #4019
+  [demarant]
+* Change: Fixed intendation in Data.py
+  [ghicaale]
+
+1.21 - (2010-12-13)
+-------------------
+* Bug fix: Fixed jslint warnings
+  [voineali #3821]
+
+1.20 - (2010-11-12)
+-------------------
+* Change: Added cache metadata to images
+  [ghicaale #3667]
+
+1.19 - (2010-11-04)
+-------------------
+* Change: Make STARTING_YEAR 1750 instead of 1850
+  [tiberich ]
+
+1.18 - (2010-11-04)
+-------------------
+* Change: Reindent code
+  [ghicaale]
+* Bug fix: Don't reverse years in @@formatTempCoverage if not needed
+  [tiberich #3813]
+
+1.17 - (2010-11-02)
+-----------------------
+* Bug fix: Fixed usage of isVersionEnhanced instead of hasVersions
+  [ghicaale #3278]
+
+1.16 - (2010-10-29)
+-----------------------
+* API Change: Use isVersionEnhanced instead of hasVersions
+  [tiberich #3278]
+
+1.15 - (2010-09-06)
+-------------------
+* Feature: Reindex backreferencing Assessments and IndicatorFactSheets when a
+  EEAFigure changes
+  [tiberich #3475]
+* Change: Copyright info is now more explicit when it falls to EEA standard
+  re-use policy.
+  [demarant #3580]
+* Feature: Added "Migrate Data to ExternalDataSpec" action, available to
+  Portal Managers
+  [ghicaale #3213]
+* Feature: Added multiautocommpleteselect and selectautocomplete widgets,
+  to be used in the Organisations widget
+  [tiberich #3530]
+
+1.14 - (2010-07-01)
+-------------------
+* Feature: Make use of eea.versions package.
+  [ghicaale #3462]
+* Bug fix: Fixed "assign version to" action
+  [ghicaale #2883]
+
+1.13 - (2010-06-17)
+-------------------
+* Bug fix: Fixed versions inclusion in release 1.12
+  [voineali #3455]
+
+1.12 - (2010-06-16)
+-------------------
+* Feature: Implemented "assign version to" functionality
+  [ghicaale #2883]
+* Change: XML dump of datasets and figures are now using catalog to do the query
+  [ghicaale]
+
+1.11 - (2010-05-07)
+-------------------
+* Change: Adjusted template to use the new atct_album_view listing macro
+  [voineali #3305]
+* Bug fix: Broken thumbnails for EEAFigures
+  [voineali #3311]
+* Bug fix: Maps&Graphs fancy box returns an error
+  [voineali #3240]
+* Bug fix: On IMS, thumb image from dataservice is now acquired regardless
+  of EEAFigure state.
+  [ghicaale #3018]
+
+1.10 - (2010-03-26)
+-------------------
+* Bug fix: Get all visible figures in AllMapsAndGraphs_dump.xml
+  [voineali #2833]
+* Bug fix: Typo in 'Last upload' tooltip, replaced 'conicide' with 'coincide'
+  [ghicaale]
+* Bug fix: Only datasets appear now under 'Derived data set' and
+  under 'Parent data set'
+  [ghicaale #3174]
+* Bug fix: Layout issue on fancybox with long notes
+  [voineali #3156]
+* Bug fix: Error on datasets view when ROD ( http://rod.eionet.europa.eu/obligations )
+  server is not responding
+  [ghicaale #3161]
+
+1.9 - (2010-03-16)
+------------------
+* Feature: Update faceted lastversion widget to use IWidgetFilterBrains adapter instead
+  of after_query method
+  [voineali #3141]
+* Change: 'Table' removed from the list of 'Figure type', now only 'Map'
+  and 'Graph' are available as a choice.
+  [ghicaale #3140]
+* Bug fix: Most recent map version not found in thematic search
+  [voineali #3101]
+* Change: Safely define macro tooltip in dataset_view.pt
+  [voineali]
+
+1.8 - (2010-03-08)
+------------------
+* Change: Added a macro for tooltip display. Tooltip is now shown only if
+  there is information available.
+  [ghicaale #2389]
+* Bug fix: Size is displayed 0 kB if lower than 1 Mb
+  [voineali]
+* Bug fix: now on IMS EEAFigureFiles in any state appear.
+  [ghicaale #3018]
+* Feature: Explicit tooltip icons added in front of each metadata label.
+  [ghicaale #2986]
+* Bug fix: Title value is replaced with ['', ''] when using next/previous buttons
+  in EEAFigure edit form
+  [voineali #3018]
+* Change: Now uses jquery.fancybox 1.3.0 which is included in portal_javascript
+  [thuliper #3031]
+* Bug fix: Removed duplicate listing of "Permalink to latest version" from figures view.
+  [ghicaale]
+* Bug fix: Fixed display list of publications from relation widget search results.
+  [ghicaale #3018]
+* Feature: Refactor figure view template to show fancybox inline if there is only one
+  figure file. Also added support to use figure fancybox outside EEAFigure
+  context
+  [voineali #2924]
+* Bug fix: Fixed when receiving '404 Not Found' upon redireting via permalinks to a dataset
+  not published.
+  [ghicaale #3030]
+
+1.7 - (2010-02-24)
+------------------
+* Change: The search after publications from relation widget is now based
+  on publication title instead of eeaid. Multiple results are now
+  shown after each search.
+  [ghicaale #2910]
+* Bug fix: Fixed that only DataTables and DataFiles that are in public state
+  are visible on index page. On organisations index statistics are
+  counting now only published figures and datasets.
+  [ghicaale #2997]
+* Bug fix: Fixed label of 'This dataset is derived from' being aquired by other
+  content types that uses 'relatedItems' field.
+  [ghicaale #3001]
+
+1.6 - (2010-02-15)
+------------------
+* Change: Better path for google analytics stats on downloads of files
+  [demarant #2977]
+* Change: Changed order of metadata on data and figure fields.
+  [demarant. #2389]
+
+1.5 - (2010-01-18)
+------------------
+* Feature: Added new style classes for messages on new or old version
+  [demarant. #2389]
+* Feature: Added an organisation URL validator in order to have only
+  unique URLs poiting from organisations.
+  [ghicaale #2914]
+* Bug fix: No more duplicates in organisation vocabulary even if there are
+  more then one organisation with same url.
+  [ghicaale #2914]
+* Feature: Batch on album view for datasets and figures is now customisable.
+  [ghicaale #2908]
+* Bug fix: get also the backreference for 'Related Products'.
+  [ghicaale #2890]
+* Feature: Figure convertions asyncronus.
+  [ghicaale #2895]
+* Feature: Download figure if no thumb on atct_album_view.
+  [ghicaale #2897]
+
+1.4 - (2010-01-04)
+------------------
+* Feature: ImageFS workflow added.
+  [ghicaale]
+* Feature: Add 'Skip' button on survey page.
+  [voineali #2891]
+* Change: Updated text for data survey, it is not an agreement.
+  [demarant #2814]
+* Feature: DataTables sorted alphabetically under a category.
+  [ghicaale #2888]
+* Bug fix: Files are now listed if file size equal zero but size
+  information if hiden.
+  [ghicaale #2889]
+* Bug fix: Organisation view use now correct macros.
+  [ghicaale #2886]
+* Feature: Tags for datasets and figures are now clickable.
+  [ghicaale #2863]
+* Bug fix: and minus for data table expand.
+  [ghicaale #2886]
+* Bug fix: to low/high resolution for zoom images
+  [voineali #2877]
+* Feature: ImageFS are using now eea_imagefs_workflow so no need
+  to change state during convert map.
+  [ghicaale]
+* Bug fix: Only published relations are displayed [ghicaale #2876]
+* Change: Link of owners and processors are pointing to related organisation,
+  no more externals links.
+  [ghicaale]
+* Change: Organisation view labels updated.
+  [ghicaale]
+* Change: Data viewers listing on datasets view showing thumb and real
+  actual link to the viewer.
+  [ghicaale #2852]
+* Bug fix: Fixed that 'installVocabularies' import step is only run if
+  we are in eea.dataservice profile.
+  [ghicaale]
+* Change: Categories sort order of datasets based on order of vocabulary items order
+  on 'categories' vocabulary. DataFiles are now sorted based on filename.
+  [ghicaale #2858]
+* Bug fix: Fixed download IDs to be unique so survey can differentiate between them.
+  [ghicaale #2860]
+* Change: Transaction savapoint added as convertion process can take some time to be
+  finnished if several EPS files are converted during same action.
+  [ghicaale #2850]
+* Change: More logging added to "Convert figure" and "Convert all figures"
+  [ghicaale #2819]
+
+1.3 - (2009-12-04)
+------------------
+* Feature: "Last upload" and "Publish date" formated with toLocalizedTime
+  [ghicaale #2819]
+* Feature: Added empty value for years list on management plan code field
+  [ghicaale #2819]
+* Bug fix: Fixed broken "GetCountryGroups" view
+  [ghicaale #2800]
+
+1.2 - (2009-11-27)
+------------------
+* Bug fix: Fixed broken link from publications, now pointing to dataservice 2.0 objects
+  [ghicaale #2823]
+* Bug fix: Fixed vocabulary for datasets quick links
+  [ghicaale #2828]
+* Bug fix: Organisation view now display statistics about related owners and processors
+  [ghicaale #2815]
+* Change: Workflow updated to fix thumbnail view of EEAFigure when in state of "Published EIONET"
+  [ghicaale]
+* Bug fix: Fixed external url or interactive data viewers in portlet_dataviewers.pt
+  [ghicaale]
+* Bug fix: Fixed second zoom on large figures
+  [voineali #2808]
+* Bug fix: Display only the latest version available in versions box
+  [voineali #2798]
+* Bug fix: Fix custom faceted geocoverage widget counting and optimize query and count
+  methods
+  [voineali #2800]
+
+1.1 - (2009-11-18)
+------------------
+* Feature: Hide empty files on views
+  [ghicaale]
+* Bug fix: Fixed link to latest version on EEAFigure view template
+  [ghicaale]
+
+1.0 -(2009-11-10)
+-----------------
+* Initial release
+  [ghicaale]
+
