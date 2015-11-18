@@ -279,8 +279,12 @@ class GetJobStatus(BrowserView):
         if not job:
             return "nojob"
         else:
-            status = job.status
-            result = job.result
+            if isinstance(job, dict):
+                status = job['status']
+                result = job['result']
+            else:
+                status = job.status
+                result = job.result
             if status == 'completed-status' and \
                 (isinstance(result, zc.twist.Failure) or result == 1):
                 status = 'error-status'

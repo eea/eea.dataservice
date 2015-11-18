@@ -3,6 +3,9 @@ Changelog
 
 10.3.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed a potential issue when calling GetJobStatus which assumed that
+  result and status can be called as attribute
+  [ichimdav refs #30695]
 
 10.2 - (2015-11-18)
 -------------------
