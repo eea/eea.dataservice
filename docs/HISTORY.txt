@@ -3,6 +3,9 @@ Changelog
 
 10.5.dev0 - (unreleased)
 ------------------------
+* Bug fix: removed leftover total variable call from the upgrade script defined
+  in 10.2
+  [ichimdav refs #30695]
 
 10.4 - (2015-11-18)
 -------------------

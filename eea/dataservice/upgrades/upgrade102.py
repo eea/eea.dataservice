@@ -15,7 +15,7 @@ def cleanup_convert_figure_jobs(context):
     brains = ctool.unrestrictedSearchResults(
         portal_type=['EEAFigureFile'])
 
-    logger.info('Removing async jobs', total)
+    logger.info('Removing async jobs')
     count = 0
     for brain in brains:
         try:
