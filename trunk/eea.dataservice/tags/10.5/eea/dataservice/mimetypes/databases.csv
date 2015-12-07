@@ -1,0 +1,35 @@
+application/x-udl,UDL,"Universal Data Link",application.png
+application/x-sdb,SDB,"StarOffice's StarBase",application.png
+application/x-rin,RIN,"Sage Retrieve 4GL index file",application.png
+application/x-rel,REL,"Sage Retrieve 4GL data file",application.png
+application/x-prc,PRC,"Palm OS resource database",application.png
+application/x-pdx,PDX,"Corel Paradox database management",application.png
+application/x-pdi,PDI,"Portable Database Image",application.png
+application/x-nv2,NV2,"QW Page NewViews object oriented accounting database",application.png
+application/x-ntf,NTF,"Lotus Notes database design template",application.png
+application/x-ms-wmdb,WMDB,"Windows Media Database",application.png
+application/x-kexic,KEXIC,"Shortcut to a Kexi database on a server",application.png
+application/x-kexi,KEXI,"Kexi database",application.png
+application/x-gdb,GDB,"Borland InterBase Databases",application.png
+application/x-filemaker,"FP,FP3,FP5,FP7","FileMaker Pro",application.png
+application/x-fdb,FDB,"Firebird Databases, Navision Database",application.png
+application/x-ess,ESS,"EGT SmartSense",application.png
+application/x-egt,EGT,"EGT Universal Document",application.png
+application/x-eap,EAP,"Enterprise Architect Project",application.png
+application/x-database,DB,"Paradox, SQLite",application.png
+application/x-daf,DAF,"Digital Anchor data",application.png
+application/x-chml,CHML,"Krasbit Technologies Encrypted database",application.png
+application/x-box,BOX,"Lotus Notes Post Office mail routing database",application.png
+application/x-adt,"ADT,ADS","Sybase Advantage Database Server",application.png
+application/vnd.ms-works,WDB,"Microsoft Works Database",application.png
+application/vnd.ms-access,ADP,"Microsoft Access project",application.png
+application/vnd.ms-access,LDB,"Temporary database",application.png
+application/vnd.ms-access,MDE,"Compiled Microsoft Database",application.png
+application/vnd.ms-access,MDF,"Microsoft SQL Server Database",application.png
+application/vnd.lotus-database,NSF,"Lotus Notes database",application.png
+application/vnd.lotus-conf,NCF,"Lotus Notes configuration file",application.png
+application/vnd.lotus-approach,APR,"Lotus Approach data entry & reports",application.png
+application/oracle,ORA,"Oracle tablespace",application.png
+application/mysql-table,MYD,"MySQL MyISAM table data",application.png
+application/mysql-index,MYI,"MySQL MyISAM table index",application.png
+application/msaccess,ACCDB,"Microsoft Database",application.png

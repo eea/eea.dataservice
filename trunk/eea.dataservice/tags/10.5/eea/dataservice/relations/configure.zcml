@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="eea">
+
+    <adapter for="eea.dataservice.interfaces.IDataset"
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.LatestAssessments"/>
+
+
+</configure>

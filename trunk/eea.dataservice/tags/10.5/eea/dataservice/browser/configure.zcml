@@ -1,0 +1,288 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+  <browser:page
+      name="organisationStatistics"
+      class=".app.displays.OrganisationStatistics"
+      for="..interfaces.IOrganisation"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="displaySize"
+      class=".app.displays.DisplaySize"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getimg"
+      class=".app.ims.GetIMSimage"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCategoryName"
+      class=".app.displays.GetCategoryName"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDerivedFrom"
+      class=".app.displays.DatasetDerivedFrom"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getBasedOn"
+      class=".app.displays.DatasetBasedOn"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getObligations"
+      class=".app.displays.Obligations"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getMainDatasets"
+      class=".app.displays.MainDatasets"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataViewers"
+      class=".app.displays.DataViewers"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountries"
+      class=".app.displays.GetCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getGeotagsCountries"
+      class=".app.displays.GetGeotagsCountries"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountryGroups"
+      class=".app.displays.GetCountryGroups"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataForRedirect"
+      class=".app.displays.GetDataForRedirect"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountriesByGroup"
+      class=".app.displays.GetCountriesByGroup"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountriesByGroupAsGeotags"
+      class=".app.displays.GetCountriesByGroupAsGeotags"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getCountryGroupsData"
+      class=".app.displays.GetCountryGroupsData"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataFiles"
+      class=".app.displays.GetDataFiles"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getDataFileLinks"
+      class=".app.displays.GetDataFileLinks"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getTablesByCategory"
+      class=".app.displays.GetTablesByCategory"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getOrganisationSnippet"
+      class=".app.displays.GetOrganisationSnippet"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getGeographicalCoverageMap"
+      class=".app.displays.GeographicalCoverageMap"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getReferenceSystemKupu"
+      template="template/reference_system.pt"
+      class=".app.displays.GetReferenceSystemKupu"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getQualityDisplay"
+      class=".app.displays.GetQualityDisplay"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="getReferenceSystemTemplate"
+      template="template/reference_system_templates.pt"
+      class=".app.displays.GetReferenceSystemTemplate"
+      for="*"
+      permission="zope2.View"
+      />
+
+  <browser:page
+    name="getSingleEEAFigureFile"
+    class=".app.displays.GetEEAFigureFiles"
+    attribute="singlefigure"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="getEEAFigureFiles"
+    class=".app.displays.GetEEAFigureFiles"
+    attribute="categories"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="getMainFigures"
+    class=".app.displays.MainFigures"
+    for="*"
+    permission="zope2.View"
+    />
+
+  <class class="Products.ATContentTypes.content.topic.ATTopic">
+    <implements interface="..interfaces.IWorkingList" />
+  </class>
+
+  <configure zcml:condition="installed plone.app.collection">
+    <class class="plone.app.collection.collection.Collection">
+        <implements interface="..interfaces.IWorkingList" />
+    </class>
+  </configure>
+
+  <browser:page
+    for="..interfaces.IEEAFigureFile"
+    name="fancybox.html"
+    class=".app.fancybox.FancyBox"
+    template="template/fancybox.pt"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="..interfaces.IEEAFigure"
+    name="fancybox.html"
+    class=".app.fancybox.ContainerFancyBox"
+    template="template/containerfancybox.pt"
+    permission="zope.Public"
+    />
+
+  <browser:resource
+    name="eea.dataservice.view.js"
+    file="javascript/view.js"
+   />
+
+  <browser:resource
+    name="eea.dataservice.view.css"
+    file="stylesheet/view.css"
+   />
+
+  <browser:page
+    for="eea.dataservice.interfaces.IDataset"
+    name="migrateToExternal"
+    permission="cmf.ModifyPortalContent"
+    class=".app.migrate.MigrateDatasetsToExternalDatasets"
+    />
+
+  <!-- EEA Image Scales -->
+  <configure zcml:condition="installed eea.depiction">
+    <browser:page
+      for="..interfaces.IEEAFigureFile"
+      name="imgview"
+      class=".app.imgview.ImageViewFigureFile"
+      permission="zope.Public"
+      allowed_interface="eea.depiction.browser.interfaces.IImageView"
+      />
+
+    <browser:page
+      for="..interfaces.IEEAFigure"
+      name="imgview"
+      class=".app.imgview.ImageViewFigure"
+      permission="zope.Public"
+      allowed_interface="eea.depiction.browser.interfaces.IImageView"
+      />
+  </configure>
+
+    <browser:page
+      for="zope.interface.Interface"
+      name="related_title"
+      template="template/generic_related_title.pt"
+      permission="zope.Public"
+      />
+
+    <browser:page
+      for="..interfaces.IDataset"
+      name="related_title"
+      template="template/data_related_title.pt"
+      permission="zope.Public"
+      />
+
+  <configure zcml:condition="installed eea.indicators">
+    <browser:page
+      for="eea.indicators.content.interfaces.IExternalDataSpec"
+      name="related_title"
+      template="template/externaldataspec_related_title.pt"
+      permission="zope.Public"
+      />
+  </configure>
+
+  <adapter factory=".app.ims.FigureObjectReadiness"
+        for="eea.dataservice.interfaces.IEEAFigure" />
+
+</configure>
