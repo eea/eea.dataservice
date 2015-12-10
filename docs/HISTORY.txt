@@ -3,6 +3,10 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Change: remove older converted images only if their name are no longer found
+  within the parent EEAFigureFile id otherwise the original converted Images
+  are only modified in place
+  [ichimdav refs #31062]
 
 10.5 - (2015-12-07)
 -------------------
