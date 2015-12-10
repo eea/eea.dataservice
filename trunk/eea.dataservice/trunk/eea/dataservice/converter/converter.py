@@ -102,11 +102,6 @@ class Convertor(object):
         """
         err = 0
 
-        # Delete (if neccesary) old converted images
-        if purge:
-            for cid in self.context.objectIds('ATBlob'):
-                self.context.manage_delObjects([cid])
-
         # Create converted images
         normalizer = queryUtility(IFileNameNormalizer)
         field = self.context.getField('file')
@@ -158,6 +153,12 @@ class Convertor(object):
                 im_ob = getattr(self.context, im_id)
                 im_ob.setImage(file_data)
                 im_ob.reindexObject()
+
+            # Delete (if neccesary) old converted images
+            if purge:
+                for cid in self.context.objectIds('ATBlob'):
+                    if accessor.filename not in cid:
+                        self.context.manage_delObjects([cid])
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1
