@@ -1,0 +1,67 @@
+=======================
+Top 5 data sets portlet
+=======================
+This product provide a portlet for top downloaded data sets.
+
+Setup eea.google
+----------------
+This portlet uses eea.google package to gather data from google analytics. Let's
+setup this package:
+
+  1. Go to Site Setup -> Add / Remove products and install
+     eea.google (Google Tool) package;
+  2. A new action called 'Google connections manager' is available in the left
+     portlet, click on it;
+  3. Create a new Google Analytics connection;
+  4. Click on the new Google Analytics connection you've just created;
+  5. Register your connection with Google;
+  6. Create a new 'Google Analytics Report':
+
+      **Title:**       Top datasets
+
+      **Table id:**    <Select the one that contains your datasets statistics>
+
+      **Metrics:**     pageviews
+
+      **Dimensions:**  pagePath
+
+      **Start date:**  2009-09-01
+
+      **End date:**    2010-12-31
+
+      **Filters:**     pagePath=@data/ga-downloads
+
+      **Sort:**        -ga:pageviews
+
+      **Start index:** 1
+
+      **Max results:** 5
+
+  7. Now you should have an XML with your Google Analytics statistics. See more
+     about this fields at:
+
+      http://code.google.com/apis/analytics/docs/gdata/gdataExplorer.html
+
+
+Setup portlet
+-------------
+
+  1. Within ZMI navigate to the folder where you need this portlet
+     (e.g. www/SITE/data/manage_main);
+  2. Add property:
+
+      **id:**     google_analytics_report
+
+      **type:**   string
+
+      **value:**  portal_google/analytics/top-datasets (relative path to your Google Analytics Report)
+
+  3. Add property:
+
+      **id:**     right_slots
+
+      **type:**   lines
+
+      **value:**  here/portlet_topdatasets/macros/portlet
+
+  4. Click on view tab to see your new portlet.
