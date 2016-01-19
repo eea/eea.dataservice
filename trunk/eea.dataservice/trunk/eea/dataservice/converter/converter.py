@@ -2,6 +2,11 @@
 """
 
 from PIL import Image
+
+from AccessControl import getSecurityManager
+from AccessControl import SpecialUsers
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
@@ -156,9 +161,14 @@ class Convertor(object):
 
             # Delete (if neccesary) old converted images
             if purge:
+                # 68012 use system user instead of context user as it might
+                # not have permission to otherwise delete the leftover images
+                oldSecurityManager = getSecurityManager()
+                newSecurityManager(None, SpecialUsers.system)
                 for cid in self.context.objectIds('ATBlob'):
                     if accessor.filename not in cid:
                         self.context.manage_delObjects([cid])
+                setSecurityManager(oldSecurityManager)
         else:
             logger.exception('Empty accessor: %s', accessor)
             err = 1
