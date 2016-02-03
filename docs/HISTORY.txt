@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.8.dev0 - (unreleased)
+------------------------
+
 10.7 - (2016-02-03)
 -------------------
 * Bug fix: prevent conversion error due to permission if there is a need to
