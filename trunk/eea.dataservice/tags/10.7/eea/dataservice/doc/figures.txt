@@ -1,0 +1,114 @@
+Overview
+========
+
+Lets use the sandbox.
+
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> from plone.app.testing import setRoles
+
+    >>> portal = layer['portal']
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    >>> _ = portal.invokeFactory('Folder', 'sandbox')
+    >>> sandbox = portal._getOb('sandbox')
+
+Lets add a EEAFigure.
+
+    >>> fid = sandbox.invokeFactory('EEAFigure', 'figure-first')
+    >>> figure1 = sandbox._getOb(fid)
+    >>> form = {
+    ...   'title': 'Figure first',
+    ...   'description': 'Figure description 1',
+    ...   'effectiveDate': '11/11/2008',
+    ...   'effectiveDate_year': '2008',
+    ...   'effectiveDate_month': '11',
+    ...   'effectiveDate_day': '11',
+    ...   'figureType': 'map',
+    ...   'temporalCoverage': ['2008', '2009'],
+    ...   'processor': 'http://organisation.url',
+    ...   'eeaManagementPlan': (2010, ''),
+    ...   'dataOwner': 'http://organisation.url',
+    ...   'lastUpload': '11/11/2008',
+    ...   'lastUpload_year': '2008',
+    ...   'lastUpload_month': '11',
+    ...   'lastUpload_day': '11',
+    ...   'geographicCoverage': ['ro', 'it', 'dk'],
+    ...   'contact': 'Some contact',
+    ...   'moreInfo': 'More info',
+    ...   'units': 'units',
+    ...   'methodology': 'Methodology',
+    ...   'dataSource': 'Data source',
+    ... }
+    >>> figure1.processForm(values=form, data=1, metadata=1)
+
+Our EEA figure should provide IEEAFigure interface.
+
+    >>> from eea.dataservice.interfaces import IEEAFigure
+    >>> IEEAFigure.providedBy(figure1)
+    True
+
+Our EEA figure should provide IEEAFigureMap interface.
+
+    >>> from eea.dataservice.interfaces import IEEAFigureMap
+    >>> IEEAFigureMap.providedBy(figure1)
+    True
+
+Check see if properties applied.
+
+    >>> figure1.Title()
+    'Figure first'
+    >>> figure1.Description()
+    'Figure description 1'
+    >>> figure1.getEffectiveDate()
+    DateTime('2008/11/11...')
+    >>> figure1.getFigureType()
+    'map'
+    >>> figure1.getTemporalCoverage()
+    ('2008', '2009')
+    >>> figure1.getProcessor()
+    ('http://organisation.url',)
+    >>> figure1.getDataOwner()
+    ('http://organisation.url',)
+    >>> figure1.lastUpload
+    DateTime('2008/11/11...')
+    >>> figure1.getGeographicCoverage()
+    ('ro', 'it', 'dk')
+    >>> figure1.getContact()
+    'Some contact'
+    >>> figure1.getMoreInfo()
+    '<p>More info</p>'
+    >>> figure1.getUnits()
+    '<p>units</p>'
+    >>> figure1.getMethodology()
+    '<p>Methodology</p>'
+    >>> figure1.getDataSource()
+    '<p>Data source</p>'
+
+Now lets create a new version of the above EEA figure.
+
+    >>> createVersionView = figure1.unrestrictedTraverse('@@createVersion')
+    >>> vertmp = createVersionView()
+    >>> dataVer = sandbox._getOb('figure-first-1')
+
+Lets verify if properties were copied on the new version.
+
+    >>> dataVer.Title() == figure1.Title()
+    True
+    >>> dataVer.getContact() == figure1.getContact()
+    True
+
+DataSource is not copied over to the new version:
+
+    >>> dataVer.getDataSource() != figure1.getDataSource()
+    True
+
+Effective date of the new version object shouldn't be set.
+
+    >>> dataVer.getEffectiveDate() == None
+    True
+
+Both objects should have the same version ID.
+
+    >>> from eea.versions.interfaces import IVersionControl
+    >>> IVersionControl(dataVer).getVersionId() == IVersionControl(figure1).getVersionId()
+    True
