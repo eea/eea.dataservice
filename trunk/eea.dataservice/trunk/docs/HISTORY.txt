@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.7.dev0 - (unreleased)
-------------------------
+10.7 - (2016-02-03)
+-------------------
 * Bug fix: prevent conversion error due to permission if there is a need to
   delete the images that should no longer be there such as in the cases where
   another figure is replacing the current figure
