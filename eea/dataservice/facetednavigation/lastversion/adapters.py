@@ -18,7 +18,6 @@ class WidgetFilterBrains(object):
         """
         last_versions = {}
         seventies = DateTime(1970)
-
         for i, brain in enumerate(brains):
             version_id = getattr(brain, 'getVersionId', '')
             # #17812 the brain can be a discussion object which
@@ -38,7 +37,12 @@ class WidgetFilterBrains(object):
                             'CreationDate', None) or
                     seventies
                 )
-                if current_date < effective_date:
+                # 69328 compare DateTime objects instead of 'None' strings
+                effective = DateTime(effective_date) if effective_date and \
+                                effective_date != 'None' else DateTime(1000)
+                current = DateTime(current_date) if current_date and \
+                                current_date != 'None' else DateTime(1000)
+                if current < effective:
                     last_versions[version_id] = (brain, i)
             else:
                 last_versions[version_id] = (brain, i)
