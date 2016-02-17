@@ -3,7 +3,7 @@ Changelog
 
 10.8.dev0 - (unreleased)
 ------------------------
-* Bug fix: fixed faceted filter for showing the lastest version of given object
+* Bug fix: fixed faceted filter for showing the latest version of given object
   [ichimdav refs #69328]
 
 10.7 - (2016-02-03)
