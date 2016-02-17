@@ -39,7 +39,8 @@ class WidgetFilterBrains(object):
                 )
                 # 69328 compare DateTime objects instead of 'None' strings
                 effective = DateTime(effective_date) if effective_date and \
-                                effective_date != 'None' else DateTime(1000)
+                                effective_date != 'None' else \
+                    DateTime(getattr(brain, 'CreationDate', 1000))
                 current = DateTime(current_date) if current_date and \
                                 current_date != 'None' else DateTime(1000)
                 if current < effective:
