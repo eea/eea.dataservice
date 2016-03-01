@@ -1,0 +1,164 @@
+/* <dtml-with base_properties> (do not remove this :) */
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
+/* EEAFigure and Data (index) */
+#content .metadata-container dd {
+    margin-left: 3em;
+}
+
+.table-definition-show {
+    cursor: pointer;
+    color: green;
+}
+
+.temporal-coverage {
+    margin-top: 1em;
+}
+
+.temporal-coverage-content {
+    font-weight: normal;
+    margin-left: 1.7em;
+}
+
+.table-definition-body {
+    display: none;
+}
+
+.table-records {
+    font-style: italic;
+}
+
+.metadata-container {
+    margin-left: 0;
+}
+
+.datatable-title {
+    margin: 1.67em 0 0;
+}
+
+/* Organisation (index) */
+.organisation-statistics {
+    padding: 0.2em;
+    margin-bottom: 1em;
+}
+
+.organisation-statistics legend {
+    padding: 2px;
+    font-weight: bold;
+}
+
+.organisation-header-top {
+    margin-top: 0.5em;
+}
+
+.organisation-statistics h5 {
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    padding-left: 2px;
+}
+
+.organisation-statistics p {
+    margin-left: 1em;
+}
+
+/* Quality view (index) */
+.quality-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    float: left;
+    margin-right: 1em;
+}
+
+.quality-table td {
+    border: 1px solid black;
+}
+
+/* Convert all figures */
+.convert-all-figures dt {
+    background-color: #ccc;
+}
+
+.convert-all-figures dd {
+    margin-bottom: 0;
+    margin-left: 0.2em;
+}
+
+/* Download figure on album view */
+.figuresPhotoAlbumEntry {
+    border: 1px solid #DFDFDF;
+    background-color: #FFFFFF;
+    float: left;
+    width: 128px;
+    margin: 0 5px 5px 0;
+    padding: 0 10px;
+    text-align: center;
+    -webkit-box-shadow: 1px 1px 2px #BFBFBF;
+    -moz-box-shadow: 1px 1px 2px #BFBFBF;
+    -ms-box-shadow: 1px 1px 2px #BFBFBF;
+    -o-box-shadow: 1px 1px 2px #BFBFBF;
+    box-shadow: 1px 1px 2px #BFBFBF;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.figuresPhotoAlbumEntry:hover {
+    box-shadow: 0 2px 3px #ACACAC;
+}
+
+/* #13639 don't limit height of figure album entries */
+.figuresPhotoAlbumEntry .photoAlbumEntryWrapper {
+    max-height: 100%;
+    width: 100%;
+}
+
+
+.figuresPhotoAlbumEntry img {
+    border: 1px solid #ccc;
+    display: block;
+    margin: 0 auto;
+}
+
+.figuresPhotoAlbumEntryTitle {
+    display: block;
+    overflow: hidden;
+    height: 3.6em;
+    margin-top: 0.4em;
+    font-weight: bold;
+    color: #76797C;
+}
+
+.figuresPhotoAlbumEntry a {
+    display: block;
+    text-decoration: none;
+    font-size: &dtml-fontSmallSize;;
+    margin: 16px auto 0px;
+    overflow: hidden;
+}
+
+.figuresByLine {
+    font-weight: normal;
+    color: #bbbbbb;
+}
+
+/* Organisations overview */
+#portlet-organisations-overview {
+    margin-bottom: 0.5em;
+    padding-right: 0.1em;
+}
+
+#portlet-organisations-overview legend {
+    padding: 2px;
+    font-weight: bold;
+    font-size: 90%;
+}
+
+#organisations-status {
+    background-color: #ccc;
+    padding-left: 0.2em;
+}
+
+#organisations-loading {
+    display: none;
+}
+
+/* </dtml-with> */
