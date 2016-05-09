@@ -134,10 +134,10 @@ class DisplaySize(object):
     def __call__(self, size=0):
         size = float(size)
         if size >= 1000:
-            size = size / 1024
+            size /= 1024
             ftype = 'KB'
             if size >= 1000:
-                size = size / 1024
+                size /= 1024
                 ftype = 'MB'
             res = '%s %s' % ('%4.2f' % size, ftype)
         else:
@@ -623,9 +623,9 @@ class GetQualityDisplay(object):
 
         for k in range(int(value)):
             template_style[k][1] = 'LightGreen'
-        template_style = dict(template_style)
-        template_style['label'] = label
-        return QUALITY_TEMPLATE % template_style
+        template_style_dict = dict(template_style)
+        template_style_dict['label'] = label
+        return QUALITY_TEMPLATE % template_style_dict
 
 
 class GetEEAFigureFiles(object):

@@ -110,24 +110,24 @@ class MoveOrganisationReferences(BrowserView):
                         references = list(references)
                         references.remove(old_ref)
                         references.append(new_ref)
-                        references = tuple(references)
-                        obj.setDataOwner(references)
+                        references_tpl = tuple(references)
+                        obj.setDataOwner(references_tpl)
 
                     references = obj.getProcessor()
                     if old_ref in references:
                         references = list(references)
                         references.remove(old_ref)
                         references.append(new_ref)
-                        references = tuple(references)
-                        obj.setProcessor(references)
+                        references_tpl = tuple(references)
+                        obj.setProcessor(references_tpl)
                 elif ptype == 'Specification':
                     references = obj.getOwnership()
                     if old_ref in references:
                         references = list(references)
                         references.remove(old_ref)
                         references.append(new_ref)
-                        references = tuple(references)
-                        obj.setOwnership(references)
+                        references_tpl = tuple(references)
+                        obj.setOwnership(references_tpl)
                 elif ptype == 'ExternalDataSpec':
                     if old_ref == obj.getProvider_url():
                         obj.setProvider_url(new_ref)

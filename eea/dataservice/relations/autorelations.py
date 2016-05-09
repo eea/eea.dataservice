@@ -32,7 +32,8 @@ class LatestAssessments(object):
                                                     "AssessmentPart"]:
                             if is_anon:
                                 state = self.wftool.getInfoFor(back_obj,
-                                                               'review_state', '')
+                                                               'review_state',
+                                                               '')
                                 if state == "published":
                                     alist.append(back_obj)
                             else:

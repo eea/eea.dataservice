@@ -52,7 +52,7 @@ class ReferenceWidgetController(BrowserView):
 
         title = kwargs.get('title', None)
         if not title:
-            res = {}
+            res = []
         else:
             res = self._search(title)
         return json.dumps(res)
