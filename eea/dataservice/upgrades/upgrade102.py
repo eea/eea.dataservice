@@ -21,7 +21,7 @@ def cleanup_convert_figure_jobs(context):
         try:
             doc = brain.getObject()
             if getattr(doc, '_convertjob', None):
-                del(doc._convertjob)
+                del doc._convertjob
             else:
                 continue
             logger.info('Removing async for %s', brain.getURL())

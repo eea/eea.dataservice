@@ -1,28 +1,31 @@
 """ Map Converter
 """
 
-from PIL import Image
-
-from AccessControl import getSecurityManager
+import logging
 from AccessControl import SpecialUsers
+from AccessControl import getSecurityManager
+from PIL import Image
+from cStringIO import StringIO
+
+import zc.twist
+
+import transaction
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import setSecurityManager
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from cStringIO import StringIO
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
 from plone.app.async.interfaces import IAsyncService
 from plone.i18n.normalizer.interfaces import IFileNameNormalizer
+from zope.annotation import IAnnotations
 from zope.component import getUtility
 from zope.component import queryUtility
-import logging
-import transaction
-import zc.twist
 
 logger = logging.getLogger('eea.dataservice.converter')
 log = logger.info
+
 
 class Convertor(object):
     """Convert an Image to a usable image file
@@ -266,7 +269,6 @@ def task_convert_figure(figure,):
     result = c.run(cronjob=1)
     return result
 
-from zope.annotation import IAnnotations
 
 class QueueConvert(BrowserView):
     """Use plone.async to queue a task to convert this Image object

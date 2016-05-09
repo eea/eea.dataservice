@@ -1,29 +1,33 @@
 """ Doc tests
 """
 import doctest
+import logging
 import unittest
+
+try:
+    import eea.rdfmarshaller as has_marshaller
+except ImportError:
+    has_marshaller = False
+    logger = logging.getLogger("eea.dataservice")
+    logger.warning("Could not find eea.rdfmarshaller package")
+
 from eea.dataservice.tests.base import FUNCTIONAL_TESTING
 from plone.testing import layered
-import logging
 
-logger = logging.getLogger("eea.dataservice")
+
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
 
-HAS_Marshaller = False
-try:
-    import eea.rdfmarshaller as HAS_Marshaller
-except ImportError:
-    logger.warning("Could not find eea.rdfmarshaller package")
+
 
 def test_suite():
     """ Suite
     """
     suite = unittest.TestSuite()
 
-    if HAS_Marshaller:
+    if has_marshaller:
         suite.addTests([
             layered(
                 doctest.DocFileSuite(
