@@ -3,6 +3,10 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
+* Feature: added EEA Permalink Mapping SimpleItem used for mapping old
+  permalink to the new permalink in order to allow datasets to have
+  a version Mapping and keep backward compatibility
+  [ichimd-david refs #72521]
 
 10.9 - (2016-05-19)
 -------------------

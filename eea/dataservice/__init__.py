@@ -11,6 +11,7 @@ pil.register()
 # Register custom content
 from eea.dataservice import content
 content.register()
+from eea.dataservice.content.Permalink import initialize as perma_initialize
 
 def initialize(context):
     """ Initialize product (called by zope2)
@@ -19,7 +20,7 @@ def initialize(context):
     content_types, constructors, ftis = process_types(
         listTypes(PROJECTNAME),
         PROJECTNAME)
-
+    perma_initialize(context)
     cmfutils.ContentInit(
         PROJECTNAME + ' Content',
         content_types=content_types,
