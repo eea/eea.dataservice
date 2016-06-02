@@ -13,7 +13,6 @@ from AccessControl import Unauthorized
 
 request = context.REQUEST
 response = request.RESPONSE
-
 if not uuid:
     try:
         uuid = traverse_subpath.pop(0)
@@ -28,6 +27,12 @@ if not obj:
         obj = hook(uuid)
     if not obj:
         # Redirects for version UID
+        portal = context.restrictedTraverse('plone_portal_state').portal()
+        permalink_folder = portal.get('eea_permalink_objects')
+        if permalink_folder:
+            value = permalink_folder.get(uuid)
+            if value:
+                uuid = value.versionId
         query = {'getVersionId': uuid,
                  'show_inactive': True,
                  'sort_on': 'effective'}
