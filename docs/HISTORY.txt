@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.0.dev0 - (unreleased)
-------------------------
+11.0 - (2016-06-02)
+-------------------
 * Feature: added EEA Permalink Mapping SimpleItem used for mapping old
   permalink to the new permalink in order to allow datasets to have
   a version Mapping and keep backward compatibility
