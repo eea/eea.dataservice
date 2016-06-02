@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.1.dev0 - (unreleased)
-------------------------
+11.1 - (2016-06-02)
+-------------------
 * Feature: added EEA Permalink Mapping object used for preserving
   permalinking of datasets links after upgrade of versioning to the
   version mapping
