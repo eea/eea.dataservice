@@ -3,6 +3,8 @@ Changelog
 
 11.2.dev0 - (unreleased)
 ------------------------
+* Bug fix: Plone search returning NOT latest version
+  [lucas refs #75032]
 
 11.1 - (2016-06-02)
 -------------------
