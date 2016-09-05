@@ -3,6 +3,13 @@ Changelog
 
 11.3.dev0 - (unreleased)
 ------------------------
+* Bug fix: store only job id instead of the actual job even within
+  annotations as aparrently this still breaks versioning
+  [ichim-david and alec refs #75074]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [ichimdav refs #75074]
+
 
 11.2 - (2016-09-05)
 -------------------

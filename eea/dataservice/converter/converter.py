@@ -278,7 +278,7 @@ class QueueConvert(BrowserView):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, self.context)
         anno = IAnnotations(self.context)
-        anno['convert_figure_job'] = job
+        anno['convert_figure_job'] = job._p_oid
         return "OK"
 
 
@@ -288,7 +288,8 @@ class GetJobStatus(BrowserView):
 
     def __call__(self):
         anno = IAnnotations(self.context)
-        job = anno.get('convert_figure_job')
+        job_oid = anno.get('convert_figure_job')
+        job = self.getAsyncJob(job_oid)
         if not job:
             return "nojob"
         else:
@@ -308,3 +309,30 @@ class GetJobStatus(BrowserView):
                 anno['convert_figure_job'] = \
                     {'status': 'completed-status', 'result': 0}
             return status
+
+    def getAsyncJob(self, oid):
+        """ return async job
+        """
+        service = getUtility(IAsyncService)
+        queue = service.getQueues()['']
+
+        for job in queue:
+            # job queued
+            if job._p_oid == oid:
+                return job
+        for da in queue.dispatchers.values():
+            for agent in da.values():
+                for job in agent:
+                    # job active
+                    if job._p_oid == oid:
+                        return job
+                for job in agent.completed:
+                    if isinstance(job.result, Failure):
+                        # job dead
+                        if job._p_oid == oid:
+                            return job
+                    else:
+                        # job completed
+                        if job._p_oid == oid:
+                            return job
+        return None

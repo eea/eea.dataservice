@@ -157,7 +157,6 @@ class GetDataForRedirect(object):
     def __call__(self, query=None):
         if query is None:
             query = {}
-        res = []
         cat = getToolByName(self.context, 'portal_catalog')
         res = cat(**query)
         if not res:

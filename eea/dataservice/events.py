@@ -55,10 +55,10 @@ def handle_eeafigurefile_modified(obj, event):
         async = getUtility(IAsyncService)
         job = async.queueJob(task_convert_figure, obj)
         anno = IAnnotations(obj)
-        anno['convert_figure_job'] = job
+        anno['convert_figure_job'] = job._p_oid
         IStatusMessage(obj.REQUEST).add(
-                 "Figure will be automatically converted, please "
-                 "wait a few minutes", type="INFO")
+            "Figure will be automatically converted, please "
+            "wait a few minutes", type="INFO")
 
 def handle_eeafigure_versioned(obj, event):
     """ Handles versioning of EEAFigureFile
