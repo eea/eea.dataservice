@@ -14,11 +14,13 @@ class WidgetFilterBrains(object):
 
     def __init__(self, context):
         self.widget = context
-    
+
     @property
     def catalog(self):
+        """ Catalog
+        """
         return getToolByName(self.widget, 'portal_catalog')
-    
+
     def __call__(self, brains, form):
         """ Filter brains
         """
@@ -30,17 +32,17 @@ class WidgetFilterBrains(object):
             # returns Missing.Value when retrieving the getVersionId
             if not version_id:
                 continue
-            
+
             # #75032 the search returns for some brains the lower version,
             # because for the higher version some search criteria are missed.
             # to fix, for all brains we need to run a new query by version_id
             # to have the latest version of these
-            
+
             if version_id in last_versions:
                 continue
-            
+
             versions = self.catalog(getVersionId=version_id)
-            
+
             for brain in versions:
                 effective_date = (
                     getattr(brain, 'EffectiveDate', None) or
