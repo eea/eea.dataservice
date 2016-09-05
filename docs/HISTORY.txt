@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.2.dev0 - (unreleased)
-------------------------
+11.2 - (2016-09-05)
+-------------------
 * Bug fix: Plone search returning NOT latest version
   [lucas refs #75032]
 
