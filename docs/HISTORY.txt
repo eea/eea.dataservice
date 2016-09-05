@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.4.dev0 - (unreleased)
+------------------------
+
 11.3 - (2016-09-05)
 -------------------
 * Bug fix: store only job id instead of the actual job even within
