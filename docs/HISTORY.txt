@@ -3,6 +3,8 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Bug fix: fix isinstance check for zc.twisted.Failure
+  [ichim-david refs #75480 and #75074]
 
 11.3 - (2016-09-05)
 -------------------

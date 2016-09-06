@@ -327,7 +327,7 @@ class GetJobStatus(BrowserView):
                     if job._p_oid == oid:
                         return job
                 for job in agent.completed:
-                    if isinstance(job.result, Failure):
+                    if isinstance(job.result, zc.twist.Failure):
                         # job dead
                         if job._p_oid == oid:
                             return job
