@@ -3,6 +3,10 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Change: removed hardcoded inline style of selectautocomplete_widget in
+  order to avoid having the dataset provider select span over the edit
+  content area
+  [ichim-david]
 * Bug fix: fix isinstance check for zc.twisted.Failure
   [ichim-david refs #75480 and #75074]
 

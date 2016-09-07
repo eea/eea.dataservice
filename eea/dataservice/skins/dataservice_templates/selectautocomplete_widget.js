@@ -87,7 +87,7 @@ SelectAutocompleteWidget.prototype.build_widget = function(){
     var parent = select.parent();
 
     parent.append(jQuery(
-        "<div style='width:650px; text-align:right' class='selectautocomplete_widget'>" +
+        "<div style='text-align:right' class='selectautocomplete_widget'>" +
         "<div class='info'>Showing <span class='x'>x</span> of <span class='y'>y</span>. Choose one.</div>" +
         "<select style='width:100%; text-align:left' class='available_choices' />" +
         "<div class='filter'>Filter: <input type='text' class='filter_box' style='width:300px' />&nbsp;" +
