@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.5.dev0 - (unreleased)
+------------------------
+
 11.4 - (2016-09-13)
 -------------------
 * Change: add versionId also as title for eea_permalink_objects
