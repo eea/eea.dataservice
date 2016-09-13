@@ -3,6 +3,8 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Change: add versionId also as title for eea_permalink_objects
+  [ichim-david refs #76165]
 * Change: removed hardcoded inline style of selectautocomplete_widget in
   order to avoid having the dataset provider select span over the edit
   content area

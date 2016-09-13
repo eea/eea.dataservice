@@ -32,6 +32,7 @@ class PermalinkMapping(SimpleItem):
         super(PermalinkMapping, self).__init__()
         self._setId(p_id)
         self.versionId = versionId
+        self.title = versionId
 
 
 def zmi_addPermalinkMapping(parent, id, versionId, REQUEST=None):
