@@ -3,6 +3,9 @@ Changelog
 
 11.5.dev0 - (unreleased)
 ------------------------
+* Feature: permalink feature is now generic, ds_resolveuid can be
+  called now from any context
+  [alecghica refs #76194]
 
 11.4 - (2016-09-13)
 -------------------
