@@ -396,25 +396,6 @@
 
             <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
 
-            <div tal:replace="nothing">
-                <!--<metal:basicmeta define-macro="basicmeta">-->
-                <!--[> GID (persistent link)  <]-->
-                <!--<dt i18n:translate="">Permalink to this version</dt>-->
-                <!--<dd tal:define="uid context/UID">-->
-                <!--<a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${uid};-->
-                <!--title uid"-->
-                <!--tal:content="uid" />-->
-                <!--</dd>-->
-                <!--[> permalink to latest version <]-->
-                <!--<dt i18n:translate="">Permalink to latest version</dt>-->
-                <!--<dd>-->
-                <!--<a tal:attributes="href string:${context/aq_parent/absolute_url}/ds_resolveuid/${lastVersion};-->
-                <!--title lastVersion"-->
-                <!--tal:content="lastVersion" />-->
-                <!--</dd>-->
-                <!--</metal:basicmeta>-->
-            </div>
-
             <dl>
                 <!-- EEA management plan code -->
                 <tal:block metal:define-macro="eea-mp-code"
