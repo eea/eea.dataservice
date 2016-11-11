@@ -1,3 +1,11 @@
+## Script (Python) "resolveuid"
+##title=Retrieve an object using its UID
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=uuid='',redirect=True
 # (reference_url is supposed to do the same thing, but is broken)
 from Products.CMFCore.utils import getToolByName
 from Products.PythonScripts.standard import html_quote
@@ -5,6 +13,7 @@ from AccessControl import Unauthorized
 
 request = context.REQUEST
 response = request.RESPONSE
+
 if not uuid:
     try:
         uuid = traverse_subpath.pop(0)
@@ -61,7 +70,6 @@ def redirectBasedOnShortId(context, redirect):
         if len(res) > 0:
             target = context.absolute_url() + '/' + res[0].getId
             if not redirect:
-                # return find url
                 return target
             return response.redirect(target, lock=1)
 
@@ -69,10 +77,8 @@ def redirectNotFound(redirect):
     """ Redirect not found
     """
     if not redirect:
-        # return None if not found
         return None
 
-    # Redirects for Not Found
     return response.notFoundError(
         'The link you followed appears to be broken!')
 
@@ -89,11 +95,9 @@ def redirectBasedOnObjectUID(obj, redirect):
         target += '?' + request.QUERY_STRING
     
     if not redirect:
-        # return find url
         return target
     
     return response.redirect(target, status=301)
-
 
 if not obj:
     hook = getattr(context, 'kupu_resolveuid_hook', None)

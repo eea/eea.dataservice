@@ -394,7 +394,7 @@
                 </tal:block>
             </dl>
 
-            <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+            <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
 
             <dl>
                 <!-- EEA management plan code -->
