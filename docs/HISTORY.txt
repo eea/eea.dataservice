@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.5.dev0 - (unreleased)
-------------------------
+11.5 - (2016-11-14)
+-------------------
 * Feature: permalinks logic moved under eea.versions package
   [alecghica refs #76194]
 * Feature: permalink feature is now generic, ds_resolveuid can be
