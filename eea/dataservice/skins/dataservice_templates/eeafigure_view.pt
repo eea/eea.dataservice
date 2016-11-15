@@ -121,7 +121,6 @@
                     <metal:related use-macro="here/dataset_view/macros/processors" />
                     <metal:related use-macro="here/dataset_view/macros/eea-mp-code" />
                     <metal:related use-macro="here/dataset_view/macros/eea-contact-reference" />
-                    <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
 
                     <!-- Figure type -->
                     <tal:block define="field python:context.getField('figureType');

@@ -3,6 +3,8 @@ Changelog
 
 11.6.dev0 - (unreleased)
 ------------------------
+* Change: cleanup permalink macros
+  [alecghica refs #76194]
 
 11.5 - (2016-11-14)
 -------------------
