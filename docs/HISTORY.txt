@@ -3,6 +3,9 @@ Changelog
 
 11.7.dev0 - (unreleased)
 ------------------------
+* Bug fix: last version adapter now takes into consideration
+  that version_id might be of wrong format
+  [ichim-david refs #75388]
 
 11.6 - (2016-11-21)
 -------------------
