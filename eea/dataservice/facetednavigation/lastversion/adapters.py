@@ -36,8 +36,8 @@ class WidgetFilterBrains(object):
             if not version_id:
                 continue
 
-            if not isinstance(version_id, str):
-                logging.warning('%s has a wrong version_id', item.getURL())
+            if not isinstance(version_id, basestring):
+                logger.warning('%s has a wrong version_id', item.getURL())
             # #75032 the search returns for some brains the lower version,
             # because for the higher version some search criteria are missed.
             # to fix, for all brains we need to run a new query by version_id
