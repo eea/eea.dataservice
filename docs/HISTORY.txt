@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.8.dev0 - (unreleased)
+------------------------
+
 11.7 - (2016-12-19)
 -------------------
 * Bug fix: last version adapter now takes into consideration
