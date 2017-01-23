@@ -224,9 +224,9 @@ def _obligations():
         title = formatTitle(obligation['TITLE'])
         try:
             title = title.decode('utf-8')
-        except Exception, err:
+        except UnicodeEncodeError, err:
+            logger.warning("Obligation title found as unicode: %s" % title)
             logger.exception(err)
-            continue
         res[key] = title
     return res
 

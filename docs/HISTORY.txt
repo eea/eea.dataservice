@@ -3,6 +3,8 @@ Changelog
 
 11.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed obligations vocabulary encoding issues
+  [alecghica refs #80208]
 
 11.7 - (2016-12-19)
 -------------------

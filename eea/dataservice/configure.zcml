@@ -42,7 +42,7 @@
   <adapter factory=".catalog.getEEAFigureGeographicCoverage" name="getGeographicCoverage" />
 
 
-    <utility
+  <utility
     factory=".vocabulary.Organisations"
     name="Organisations"
     />
