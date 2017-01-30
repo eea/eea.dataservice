@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.8.dev0 - (unreleased)
-------------------------
+11.8 - (2017-01-30)
+-------------------
 * Bug fix: fixed obligations vocabulary encoding issues
   [alecghica refs #80208]
 
