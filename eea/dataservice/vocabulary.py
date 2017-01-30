@@ -225,7 +225,7 @@ def _obligations():
         try:
             title = title.decode('utf-8')
         except UnicodeEncodeError, err:
-            logger.warning("Obligation title found as unicode: %s" % title)
+            logger.warning("Obligation title found as unicode: %s", title)
             logger.exception(err)
         res[key] = title
     return res
