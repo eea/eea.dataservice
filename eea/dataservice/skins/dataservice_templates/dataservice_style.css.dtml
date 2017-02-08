@@ -15,11 +15,6 @@
     margin-top: 1em;
 }
 
-.temporal-coverage-content {
-    font-weight: normal;
-    margin-left: 1.7em;
-}
-
 .table-definition-body {
     display: none;
 }

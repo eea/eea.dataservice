@@ -57,17 +57,3 @@ Figures.Load = function(){
     var context = jQuery('#region-content');
     Figures.fancybox = new Figures.PhotoAlbum(context);
 };
-
-jQuery(function($) {
-    /*
-     * Show 'Dynamic' instead of -1 for dynamic temporal coverage for Data
-     * eg: http://eea.europa.eu/data/european-red-lists-4
-     * */
-    var tempCoverage = $("#tempCoverage"),
-        temporalDynamicText = $("#temporal_dynamic").text(),
-        tempCoverageText = tempCoverage.text();
-    if(tempCoverage && tempCoverageText === "-1") {
-        tempCoverage.text(temporalDynamicText);
-    }
-
-});
