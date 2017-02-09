@@ -227,9 +227,9 @@
 
                 <!-- Geographic accuracy -->
                 <tal:block metal:define-macro="geo-accuracy"
-                           define="field python:context.getField('geoAccuracy');
-                       value python:field.getAccessor(context)()"
-                           condition="value">
+                      define="field python:context.getField('geoAccuracy');
+                              value python:field.getAccessor(context)()"
+                      condition="value">
                     <dt style="clear: left">
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Geographic accuracy:</span>
@@ -239,26 +239,26 @@
 
 
                 <!-- Tags -->
-                <tal:block define="facetId string:c9">
-                    <tal:block metal:define-macro="tags"
-                               define="field python:context.getField('subject');
-                           value python:field.getAccessor(context)();
-                           facetId facetId"
-                               condition="value">
-                        <dt style="clear: left">
-                            <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
-                            <span i18n:translate="">Tags:</span>
-                        </dt>
-                        <dd>
-                            <tal:tags repeat="tag value" tal:condition="value">
-                                <a tal:attributes="title tag;
-                                       href string:$portal_url/data-and-maps/tags#c5=all&amp;c0=5&amp;b_start=0&amp;${facetId}=${tag};"
-                                   tal:content="tag" />
-                                <tal:block condition="not:repeat/tag/end"> | </tal:block>
-                            </tal:tags>
-                        </dd>
-                    </tal:block>
-                </tal:block>
+                <tal:tags metal:define-macro="tags"
+                          define="field python:context.getField('subject');
+                                  value python:field.getAccessor(context)()"
+                          condition="value">
+                    <dt style="clear: left">
+                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
+                        <span i18n:translate="">Tags:</span>
+                    </dt>
+                    <div id="category" class="documentByLine">
+                        <tal:keywords repeat="tag value" tal:condition="value">
+                            <span>
+                                <a class="link-category" rel="tag"
+                                   tal:attributes="title tag;
+                                                   href string:$portal_url/@@search?Subject%3Alist=${tag};"
+                                   tal:content="tag"></a>
+                                <span class="separator" tal:condition="not:repeat/tag/end">,</span>
+                            </span>
+                        </tal:keywords>
+                    </div>
+                </tal:tags>
 
                 <!-- Scale of the data set -->
                 <tal:block metal:define-macro="scale-of-data"
