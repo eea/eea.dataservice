@@ -3,6 +3,8 @@ Changelog
 
 11.9.dev0 - (unreleased)
 ------------------------
+* Cleanup: Remove `getProcessor` metadata from portal_catalog
+  [voineali refs #80119]
 * Feature: geotags, temporal coverage and themes display 
   alligned with tags style
   [alecghica refs #81054]

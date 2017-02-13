@@ -28,7 +28,6 @@
   <indexed_attr value="getUrl"/>
  </index>
  <column value="getDataOwner"/>
- <column value="getProcessor"/>
  <column value="getShortId"/>
  <column value="getVersionId"/>
  <column value="getGeographicCoverage"/>
