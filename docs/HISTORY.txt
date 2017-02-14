@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.9.dev0 - (unreleased)
-------------------------
+11.9 - (2017-02-14)
+-------------------
 * Cleanup: Remove `getProcessor` metadata from portal_catalog
   [voineali refs #80119]
 * Feature: geotags, temporal coverage and themes display 
