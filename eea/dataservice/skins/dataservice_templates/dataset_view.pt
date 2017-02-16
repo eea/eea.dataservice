@@ -239,10 +239,10 @@
 
 
                 <!-- Tags -->
-                <tal:tags metal:define-macro="tags"
-                          define="field python:context.getField('subject');
-                                  value python:field.getAccessor(context)()"
-                          condition="value">
+                <div metal:define-macro="tags" id="keywords-tags"
+                          tal:define="field python:context.getField('subject');
+                                      value python:field.getAccessor(context)()"
+                          tal:condition="value">
                     <dt style="clear: left">
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Tags:</span>
@@ -258,7 +258,7 @@
                             </span>
                         </tal:keywords>
                     </div>
-                </tal:tags>
+                </div>
 
                 <!-- Scale of the data set -->
                 <tal:block metal:define-macro="scale-of-data"

@@ -3,12 +3,14 @@ Changelog
 
 12.0.dev0 - (unreleased)
 ------------------------
+* Feature: Remove `Tags` section within PDF export
+  [avoinea refs #81054]
 
 11.9 - (2017-02-14)
 -------------------
 * Cleanup: Remove `getProcessor` metadata from portal_catalog
   [voineali refs #80119]
-* Feature: geotags, temporal coverage and themes display 
+* Feature: geotags, temporal coverage and themes display
   alligned with tags style
   [alecghica refs #81054]
 
@@ -211,7 +213,7 @@ Changelog
 ------------------
 * Change: Switched to curl in the jenkins build install script
   [olimpiurob refs #22402]
-* Change: Changed fetch url for jenkins build install script to the install 
+* Change: Changed fetch url for jenkins build install script to the install
   script from the main EEA CPB repository
   [olimpiurob refs #22402]
 
