@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.0.dev0 - (unreleased)
-------------------------
+12.0 - (2017-02-21)
+-------------------
 * Feature: Remove `Tags` section within PDF export
   [avoinea refs #81054]
 
