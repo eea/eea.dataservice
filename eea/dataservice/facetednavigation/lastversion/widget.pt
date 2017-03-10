@@ -7,6 +7,6 @@
 
 <fieldset class="widget-fieldset faceted-dataservice">
   <legend  tal:content="python:view.data.get('title', '')">Text Widget</legend>
-  <p i18n:translate="">This widget will force display only of latest versions of the datasets.</p>
+  <p i18n:translate="">This widget will enforce results to display only the most recent version that match the search criteria.</p>
 </fieldset>
 </div>

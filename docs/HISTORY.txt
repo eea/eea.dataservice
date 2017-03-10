@@ -3,6 +3,12 @@ Changelog
 
 12.1.dev0 - (unreleased)
 ------------------------
+* Change: Latest version widget returns the MOST recent version
+  of the object that MATCH the search criteria.
+  [avoinea refs #83219]
+* Bug fix: Fix faceted performance regression introduced
+  by latest version widget in ticket #75032
+  [avoinea refs #83219]
 
 12.0 - (2017-02-21)
 -------------------
