@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.2.dev0 - (unreleased)
+------------------------
+
 12.1 - (2017-03-20)
 -------------------
 * Change: Latest version widget returns the MOST recent version
