@@ -8,4 +8,3 @@ def register():
     """ Register PIL Plugins
     """
     Image.register_open(EpsImageFile.format, EpsImageFile, _accept)
-

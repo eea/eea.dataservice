@@ -7,12 +7,12 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.interfaces import IFileContent
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.validation import V_REQUIRED
+from Products.CMFCore.permissions import View
 from plone.app.blob.field import BlobField
 from eea.dataservice.interfaces import IEEAFigureFile
 from eea.dataservice.vocabulary import CATEGORIES_DICTIONARY_ID
-from Products.validation import V_REQUIRED
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.permissions import View
 
 # Schema
 schema = Schema((

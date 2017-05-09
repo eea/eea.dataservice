@@ -1,10 +1,10 @@
 """ Base test cases
 """
+import logging
 from plone.testing import z2
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
-import logging
 
 logger = logging.getLogger('eea.dataservice.tests')
 

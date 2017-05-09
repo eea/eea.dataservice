@@ -4,13 +4,12 @@ import logging
 import operator
 import eventlet
 from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
+from Products.CMFCore.utils import getToolByName
 from eea.dataservice.config import ROD_SERVER, SOCKET_TIMEOUT
-from plone.memoize import request as cacherequest
-
 from eea.cache import cache as eeacache
+from plone.memoize import request as cacherequest
 
 logger = logging.getLogger('eea.dataservice.vocabulary')
 

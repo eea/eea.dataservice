@@ -3,9 +3,9 @@
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from zope.component import queryUtility, getMultiAdapter
+from zope.schema.interfaces import IVocabularyFactory
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.schema.interfaces import IVocabularyFactory
 from eea.dataservice.userfeedback.interfaces import (
     ISurvey, ISurveySupport, ISurveyView)
 

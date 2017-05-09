@@ -1,6 +1,7 @@
 """ Imagescale adapters
 """
 
+import logging
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
@@ -11,7 +12,6 @@ from eea.depiction.browser.interfaces import IImageView
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.interfaces import NotFound
-import logging
 
 
 logger = logging.getLogger("eea.dataservice")

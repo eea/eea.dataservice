@@ -2,8 +2,8 @@
 """
 from tempfile import NamedTemporaryFile
 from zipfile import ZipFile
-from rarfile import RarFile
 from StringIO import StringIO
+from rarfile import RarFile
 from zope.component import getMultiAdapter
 from zope.interface import Interface
 from plone.indexer import indexer

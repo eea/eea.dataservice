@@ -14,4 +14,3 @@ class IReferenceWidgetController(Interface):
     def add(title, eeaid='', **kwargs):
         """ Add publication with given title. Returns a string message.
         """
-

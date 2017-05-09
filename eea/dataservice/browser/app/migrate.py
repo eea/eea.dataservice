@@ -2,11 +2,11 @@
 """
 import logging
 from zope.component import queryAdapter
-from Products.Five import BrowserView
 from zope.component import getMultiAdapter
+from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
-from eea.dataservice.relations import IRelations
 from Products.statusmessages.interfaces import IStatusMessage
+from eea.dataservice.relations import IRelations
 
 # Logging
 logger = logging.getLogger('eea.indicators')

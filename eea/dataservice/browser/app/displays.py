@@ -6,6 +6,7 @@ from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from plone.i18n.locales.interfaces import ICountryAvailability
+from plone.memoize import request as cacherequest
 from DateTime import DateTime
 from eea.dataservice.relations import IRelations
 from eea.dataservice.vocabulary import (
@@ -15,7 +16,6 @@ from eea.dataservice.vocabulary import (
 from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS_KEY
 from eea.dataservice.vocabulary import _obligations
 from eea.versions.interfaces import IGetVersions
-from plone.memoize import request as cacherequest
 
 
 try:

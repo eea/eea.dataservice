@@ -12,14 +12,14 @@ from Products.Archetypes.atapi import StringWidget, StringField
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.validation.interfaces.IValidator import IValidator
+from Products.validation import validation
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.dataservice.vocabulary import COUNTRIES_DICTIONARY_ID
 from eea.dataservice.content.themes import IThemeTagging
 from eea.dataservice.widgets import MultiOrganisationsWidget
-from Products.validation.interfaces.IValidator import IValidator
-from Products.validation import validation
 
 class DataMixin(object):
     """ Common data methods

@@ -2,16 +2,16 @@
 """
 
 import logging
+from cStringIO import StringIO
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
 from PIL import Image
-from cStringIO import StringIO
 
 import zc.twist
 
 import transaction
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import setSecurityManager
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView

@@ -4,9 +4,9 @@ from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringWidget
 from Products.Archetypes.atapi import TextField, TextAreaWidget
 from Products.CMFCore import permissions
-from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
+from AccessControl import ClassSecurityInfo
 from eea.dataservice.interfaces import IOrganisation
 from eea.dataservice.fields.OrganisationField import OrganisationField
 

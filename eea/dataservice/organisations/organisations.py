@@ -1,13 +1,13 @@
 """ Utilities for organisations control panel portlet
 """
 
+import logging
 import transaction
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 
 # Logging
-import logging
 logger = logging.getLogger('eea.dataservice.organisations')
 info = logger.info
 info_exception = logger.exception
