@@ -2,7 +2,6 @@
 """
 import operator
 import json
-from zope.component import queryMultiAdapter, queryAdapter, getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from plone.i18n.locales.interfaces import ICountryAvailability
@@ -17,7 +16,6 @@ from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS_KEY
 from eea.dataservice.vocabulary import _obligations
 from eea.versions.interfaces import IGetVersions
 
-
 try:
     from eea.reports import interfaces as ireport
 
@@ -27,6 +25,8 @@ except ImportError:
 
     class IReportContainerEnhanced(Interface):
         """ eea.reports is not present """
+
+from zope.component import queryMultiAdapter, queryAdapter, getUtility
 
 
 class OrganisationStatistics(object):
@@ -46,7 +46,7 @@ class OrganisationStatistics(object):
             version_id = getattr(brain, 'getVersionId', '')
             if version_id:
                 effective_date = getattr(brain, 'EffectiveDate', DateTime(1970))
-                if len(version_id):
+                if version_id:
                     if last_versions.has_key(version_id):
                         current_date = getattr(
                             last_versions[version_id], 'EffectiveDate',
@@ -368,7 +368,7 @@ class GetCountries(object):
 
     def __call__(self):
         countries = _getCountryInfo(self.context)['countries']
-        res = [(key, countries[key]) for key in countries.keys()]
+        res = [(key, countries[key]) for key in countries]
         return sorted(res, key=operator.itemgetter(1))
 
 
@@ -383,7 +383,7 @@ class GetGeotagsCountries(object):
 
     def __call__(self):
         countries = _getCountryInfo(self.context)['countries']
-        res = [(countries[key], countries[key]) for key in countries.keys()]
+        res = [(countries[key], countries[key]) for key in countries]
         return sorted(res, key=operator.itemgetter(1))
 
 

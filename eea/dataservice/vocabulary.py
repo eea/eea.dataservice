@@ -260,7 +260,7 @@ def getCountriesDictionary():
 
     #european countries
     data = getCountries()
-    for key in data.keys():
+    for key in data:
         res[(key.lower(), data[key])] = {}
 
     # country groups

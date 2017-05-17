@@ -45,7 +45,7 @@ def installVocabularies(context):
         createHierarchicalVocabs(atvm, hierarchicalVocab)
 
         countries = getCountriesDictionary()
-        for term in countries.keys():
+        for term in countries:
             vocab = atvm[COUNTRIES_DICTIONARY_ID]
             vocab.invokeFactory('TreeVocabularyTerm', term[0], title=term[1])
             for subterm in countries[term].keys():

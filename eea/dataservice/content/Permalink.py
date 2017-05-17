@@ -35,11 +35,11 @@ class PermalinkMapping(SimpleItem):
         self.title = versionId
 
 
-def zmi_addPermalinkMapping(parent, id, versionId, REQUEST=None):
+def zmi_addPermalinkMapping(parent, ob_id, versionId, REQUEST=None):
     """ Create a new PermalinkMapping obj """
 
-    ob = PermalinkMapping(id, versionId)
-    parent._setObject(id, ob)
+    ob = PermalinkMapping(ob_id, versionId)
+    parent._setObject(ob_id, ob)
     if REQUEST is not None:
         REQUEST.RESPONSE.redirect(
             parent.absolute_url() + '/manage_workspace')

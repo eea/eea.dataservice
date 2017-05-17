@@ -116,7 +116,7 @@ class UniqueOrganisationUrlValidator(object):
         brains = cat.searchResults({'portal_type': 'Organisation',
                                     'getUrl': value})
 
-        if len(brains):
+        if brains:
             for brain in brains:
                 org_ob = brain.getObject()
                 if kwargs['instance'].UID() != org_ob.UID():

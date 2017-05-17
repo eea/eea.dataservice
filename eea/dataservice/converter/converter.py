@@ -217,7 +217,7 @@ class CheckFiguresConvertion(object):
     def __call__(self, info=0):
         msg = ''
         ctool = getToolByName(self.context, 'portal_catalog')
-        res = ctool.searchResults({'portal_type' : 'EEAFigureFile',
+        res = ctool.searchResults({'portal_type': 'EEAFigureFile',
                                    'show_inactive': True})
 
         notConverted = []
@@ -231,7 +231,7 @@ class CheckFiguresConvertion(object):
                    "from which %s are not converted."
                    "\r\n" % (str(len(res)), str(len(notConverted))))
 
-            if len(notConverted):
+            if notConverted:
                 msg += '\r\nNot converted EEAFigureFile(s):\r\n'
             for ff_ob in notConverted:
                 msg += '%s\r\n' % ff_ob.absolute_url()
@@ -275,8 +275,8 @@ class QueueConvert(BrowserView):
     """
 
     def __call__(self):
-        async = getUtility(IAsyncService)
-        job = async.queueJob(task_convert_figure, self.context)
+        async_service = getUtility(IAsyncService)
+        job = async_service.queueJob(task_convert_figure, self.context)
         anno = IAnnotations(self.context)
         anno['convert_figure_job'] = job._p_oid
         return "OK"
@@ -300,7 +300,7 @@ class GetJobStatus(BrowserView):
                 status = job.status
                 result = job.result
             if status == 'completed-status' and \
-                (isinstance(result, zc.twist.Failure) or result == 1):
+                    (isinstance(result, zc.twist.Failure) or result == 1):
                 status = 'error-status'
             # 30695 remove actual job after it is completed in order
             # to avoid object import error when making a new version

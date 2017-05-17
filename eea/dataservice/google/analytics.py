@@ -7,6 +7,7 @@ from Products.CMFCore.utils import getToolByName
 
 logger = logging.getLogger('eea.dataservice.google')
 
+
 class TopDatasets(BrowserView):
     """ Get top datasets downloads
     """
@@ -69,8 +70,8 @@ class TopDatasets(BrowserView):
             path = dimensions.get('ga:pagePath', '')
             path = path.split('?')[0]
             version_id = path.split('/')[-1]
-            key = ('ga:pageviews' in metrics.keys()) \
-                and 'ga:pageviews' or metrics.keys()[0]
+            key = 'ga:pageviews' if 'ga:pageviews' in metrics.keys() else \
+                metrics.keys()[0]
             views = metrics.get(key)
             try:
                 views = int(views)
@@ -79,7 +80,7 @@ class TopDatasets(BrowserView):
                 views = 0
 
             exists = [index for index, d in enumerate(res)
-                        if d.get('version') == version_id]
+                      if d.get('version') == version_id]
             if exists:
                 d = res[exists[0]]
                 d['views'] = d['views'] + views

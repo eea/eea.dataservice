@@ -33,7 +33,7 @@ class ImageViewFigure(BrowserView):
         eeafile = None
         for obj in objs:
             children = obj.objectValues("ATBlob")
-            if not len(children):
+            if not children:
                 continue
 
             eeafile = obj

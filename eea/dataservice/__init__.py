@@ -6,12 +6,13 @@ from eea.dataservice.config import PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION
 
 # Register PIL plugins
 from eea.dataservice import pil
-pil.register()
-
-# Register custom content
 from eea.dataservice import content
-content.register()
 from eea.dataservice.content.Permalink import initialize as perma_initialize
+
+pil.register()
+# Register custom content
+content.register()
+
 
 def initialize(context):
     """ Initialize product (called by zope2)

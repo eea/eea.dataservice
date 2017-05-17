@@ -52,8 +52,8 @@ def handle_eeafigurefile_modified(obj, event):
         Creates a new plone.app.async job that converts the file
     """
     if obj.REQUEST.form.get('file_file'):
-        async = getUtility(IAsyncService)
-        job = async.queueJob(task_convert_figure, obj)
+        async_service = getUtility(IAsyncService)
+        job = async_service.queueJob(task_convert_figure, obj)
         anno = IAnnotations(obj)
         anno['convert_figure_job'] = job._p_oid
         IStatusMessage(obj.REQUEST).add(

@@ -2,8 +2,8 @@
 """
 import doctest
 import unittest
-from eea.dataservice.tests.base import FUNCTIONAL_TESTING
 from plone.testing import layered
+from eea.dataservice.tests.base import FUNCTIONAL_TESTING
 
 try:
     from eea.facetednavigation import interfaces
