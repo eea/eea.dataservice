@@ -17,10 +17,9 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from eea.dataservice.vocabulary import CONVERSIONS_DICTIONARY_ID
-from plone.app.async.interfaces import IAsyncService
+from eea.dataservice.async import IAsyncService
 from plone.i18n.normalizer.interfaces import IFileNameNormalizer
 from zope.annotation import IAnnotations
-from zope.component import getUtility
 from zope.component import queryUtility
 
 logger = logging.getLogger('eea.dataservice.converter')
@@ -275,8 +274,16 @@ class QueueConvert(BrowserView):
     """
 
     def __call__(self):
-        async_service = getUtility(IAsyncService)
-        job = async_service.queueJob(task_convert_figure, self.context)
+        async_service = queryUtility(IAsyncService)
+        if async_service is None:
+            return "Failed. plone.app.async not installed!"
+
+        async_queue = async_service.getQueues()['']
+        job = async_service.queueJobInQueue(
+            async_queue, ('data',),
+            task_convert_figure,
+            self.context
+        )
         anno = IAnnotations(self.context)
         anno['convert_figure_job'] = job._p_oid
         return "OK"
@@ -313,9 +320,11 @@ class GetJobStatus(BrowserView):
     def getAsyncJob(self, oid):
         """ return async job
         """
-        service = getUtility(IAsyncService)
-        queue = service.getQueues()['']
+        service = queryUtility(IAsyncService)
+        if not service:
+            return None
 
+        queue = service.getQueues()['']
         for job in queue:
             # job queued
             if job._p_oid == oid:

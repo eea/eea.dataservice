@@ -16,6 +16,7 @@
   <include file="profiles.zcml" />
 
   <include package=".userfeedback" />
+  <include package=".async" />
   <include package=".browser" />
   <include package=".converter" />
   <include package=".templates" />

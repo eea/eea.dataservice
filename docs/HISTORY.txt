@@ -3,6 +3,10 @@ Changelog
 
 12.4.dev0 - (unreleased)
 ------------------------
+* Change: Add dedicated async quota for Data Service jobs
+  [avoinea refs #84915]
+* Change: Remove hard-dependency on plone.app.async
+  [avoinea refs #84915]
 * Change: fixed PyLint warnings and errors
   [valipod refs #84949]
 

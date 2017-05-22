@@ -1,6 +1,7 @@
 """ New events
 """
-
+from zope.annotation import IAnnotations
+from zope.component import queryAdapter, queryUtility
 from AccessControl import SpecialUsers
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
@@ -12,9 +13,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from eea.dataservice.converter.converter import task_convert_figure
 from eea.dataservice.interfaces import IDataset, IDatatable
 from eea.dataservice.relations import IRelations
-from plone.app.async.interfaces import IAsyncService
-from zope.component import queryAdapter, getUtility
-from zope.annotation import IAnnotations
+from eea.dataservice.async import IAsyncService
+
 
 def handle_eeafigure_state_change(figure, event):
     """ Handler for EEAFigure workflow state change
@@ -52,8 +52,19 @@ def handle_eeafigurefile_modified(obj, event):
         Creates a new plone.app.async job that converts the file
     """
     if obj.REQUEST.form.get('file_file'):
-        async_service = getUtility(IAsyncService)
-        job = async_service.queueJob(task_convert_figure, obj)
+        async_service = queryUtility(IAsyncService)
+        if async_service is None:
+            IStatusMessage(obj.REQUEST).add(
+                "Can't convert figure. plone.app.async not installed!",
+                type="WARN")
+            return
+
+        async_queue = async_service.getQueues()['']
+        job = async_service.queueJobInQueue(
+            async_queue, ('data',),
+            task_convert_figure,
+            obj
+        )
         anno = IAnnotations(obj)
         anno['convert_figure_job'] = job._p_oid
         IStatusMessage(obj.REQUEST).add(
