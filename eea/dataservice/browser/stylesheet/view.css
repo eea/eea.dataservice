@@ -120,3 +120,7 @@ img.eea-image-width-control {
   text-align: center;
   padding-bottom: 1em;
 }
+
+.figures-download-links > li {
+   display: list-item;
+}
