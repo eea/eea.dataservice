@@ -50,7 +50,7 @@ class WidgetFilterBrains(object):
             if not isinstance(vid, basestring):
                 logger.warn('%s has a wrong version_id: %s',
                     brain.getURL(), vid)
-            
+
             if vid not in latest:
                 latest[vid] = brain
                 continue
