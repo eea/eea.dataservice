@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.6.dev0 - (unreleased)
+------------------------
+
 12.5 - (2017-06-06)
 -------------------
 * Change: take into consideration the fact that WidgetFilterBrains might
