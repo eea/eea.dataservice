@@ -3,6 +3,8 @@ Changelog
 
 12.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed failing tests due to depiction changes
+  [zoltan_andras refs #81209]
 
 12.5 - (2017-06-06)
 -------------------
