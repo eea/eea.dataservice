@@ -17,10 +17,12 @@ class EEAFixture(PloneSandboxLayer):
         """
         import eea.dataservice
         import eea.workflow
+        import eea.depiction
         import Products.EEAContentTypes
         import Products.EEAPloneAdmin
         self.loadZCML(package=eea.dataservice)
         self.loadZCML(package=eea.workflow)
+        self.loadZCML(package=eea.depiction)
         self.loadZCML(package=Products.EEAContentTypes)
         self.loadZCML(package=Products.EEAPloneAdmin)
 
@@ -34,6 +36,7 @@ class EEAFixture(PloneSandboxLayer):
         z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
         z2.installProduct(app, 'collective.quickupload')
         z2.installProduct(app, 'eea.dataservice')
+        z2.installProduct(app, 'eea.depiction')
 
     def tearDownZope(self, app):
         """ Uninstall Zope
@@ -42,11 +45,13 @@ class EEAFixture(PloneSandboxLayer):
         z2.uninstallProduct(app, 'Products.CMFPlacefulWorkflow')
         z2.uninstallProduct(app, 'collective.quickupload')
         z2.uninstallProduct(app, 'eea.dataservice')
+        z2.uninstallProduct(app, 'eea.depiction')
 
     def setUpPloneSite(self, portal):
         """ Setup Plone
         """
         applyProfile(portal, 'eea.dataservice:default')
+        applyProfile(portal, 'eea.depiction:default')
 
 EEAFIXTURE = EEAFixture()
 FUNCTIONAL_TESTING = FunctionalTesting(bases=(EEAFIXTURE,),
