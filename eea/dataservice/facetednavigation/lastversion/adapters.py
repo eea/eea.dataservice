@@ -54,17 +54,26 @@ class WidgetFilterBrains(object):
             if vid not in latest:
                 latest[vid] = brain
                 continue
+            brain_effective = brain.effective.asdatetime()
+            # 85555 check if we have a timezone info as we cannot
+            # compare timezone aware dates and timezone unaware dates
+            if brain_effective.tzinfo:
+                brain_effective = brain_effective.replace(tzinfo=None)
+            brain_created = brain.created.asdatetime()
+            if brain_created.tzinfo:
+                brain_created = brain_created.replace(tzinfo=None)
 
-            brain_date = max(
-                brain.effective.asdatetime(),
-                brain.created.asdatetime()
-            )
+            brain_date = max(brain_effective, brain_created)
 
             last = latest[vid]
-            last_date = max(
-                last.effective.asdatetime(),
-                last.created.asdatetime()
-            )
+            last_effective = last.effective.asdatetime()
+            if last_effective.tzinfo:
+                last_effective = last_effective.replace(tzinfo=None)
+            last_created = last.created.asdatetime()
+            if last_created.tzinfo:
+                last_created = last_created.replace(tzinfo=None)
+
+            last_date = max(last_effective, last_created)
 
             if last_date < brain_date:
                 latest[vid] = brain
