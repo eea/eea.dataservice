@@ -20,9 +20,10 @@
       <li tal:repeat="item python:view.vocabulary">
         <a tal:define="
           uid python:item[0];
+          hrefuid python:uid.replace(' ', '%20');
           title python:item[1];
           size python:item[2]"
-          tal:attributes="href string:${context/absolute_url}/$uid/at_download/image"
+          tal:attributes="href string:${context/absolute_url}/$hrefuid/at_download/image"
           class="google-analytics">
           <span i18n:translate="" tal:content="uid" />
           <span tal:content="string:($size)" />

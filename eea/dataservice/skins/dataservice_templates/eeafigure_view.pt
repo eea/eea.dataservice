@@ -105,7 +105,7 @@
             </tal:figures>
             <h3 i18n:translate="metadata">Metadata</h3>
             <div class="metadata-container">
-                <div>
+                <dl>
                     <!-- META DATA -->
                     <metal:related use-macro="here/dataset_view/macros/last-upload" />
                     <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage-data">Temporal Coverage widget view</tal:temporalCoverage>
@@ -134,7 +134,7 @@
                       </dt>
                       <dd tal:content="structure value">Figure type</dd>
                     </tal:block>
-                </div>
+                </dl>
             </div>
 
         </div>

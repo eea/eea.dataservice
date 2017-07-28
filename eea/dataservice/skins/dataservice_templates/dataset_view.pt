@@ -57,7 +57,8 @@
 
                                     <strong>
                                         <img tal:condition="icon" src=""
-                                             tal:attributes="src string:${context/portal_url}/$icon"/>
+                                             tal:attributes="src string:${context/portal_url}/$icon;
+                                                             alt filetitle"/>
                                         <span tal:content="filetitle" />
                                     </strong>
 
@@ -132,54 +133,54 @@
         <h3 i18n:translate="metadata">Metadata</h3>
         <!-- Metadata -->
         <div class="metadata-container">
-            <metal:related-rod define-macro="related-rod">
-                <!-- Reporting obligation(s) (ROD) -->
-                <tal:block define="value context/getReportingObligations;
-                       view nocall:context/@@getObligations"
-                           condition="value"
-                           on-error="nothing">
-                    <dt tal:define='tooltip python:context.translate("Reporting obligations", domain="eea")'>
-                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
-                        <span i18n:translate="">Reporting obligations (ROD)</span>
-                    </dt>
-
-                    <dd>
-                        <ul tal:define="data python:view()">
-                            <li tal:repeat="ob_nr value" tal:condition="value">
-                                <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
-                               ob_title python:data.get(int(ob_nr), ob_url)"
-                                   tal:attributes="href ob_url;
-                                   title ob_title"
-                                   tal:content="ob_title"/>
-                            </li>
-                        </ul>
-                    </dd>
-
-
-                </tal:block>
-            </metal:related-rod>
-
-            <metal:related-externals define-macro="related-externals">
-                <!-- Related website(s)/service(s) -->
-                <tal:block define="value context/getExternalRelations"
-                           condition="value">
-                    <dt tal:define='tooltip python:context.translate("Related websites", domain="eea")'>
-                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
-                        <span i18n:translate="">Related websites</span>
-                    </dt>
-                    <dd>
-                        <ul>
-                            <tal:block repeat="url value" tal:condition="value">
-                                <li tal:condition="python:url.find('http:',0,5)>-1" >
-                                    <a tal:attributes="href url; title url"
-                                       tal:content="url" />
-                                </li>
-                            </tal:block>
-                        </ul>
-                    </dd>
-                </tal:block>
-            </metal:related-externals>
             <dl>
+                <metal:related-rod define-macro="related-rod">
+                    <!-- Reporting obligation(s) (ROD) -->
+                    <tal:block define="value context/getReportingObligations;
+                           view nocall:context/@@getObligations"
+                               condition="value"
+                               on-error="nothing">
+                        <dt tal:define='tooltip python:context.translate("Reporting obligations", domain="eea")'>
+                            <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
+                            <span i18n:translate="">Reporting obligations (ROD)</span>
+                        </dt>
+
+                        <dd>
+                            <ul tal:define="data python:view()">
+                                <li tal:repeat="ob_nr value" tal:condition="value">
+                                    <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
+                                   ob_title python:data.get(int(ob_nr), ob_url)"
+                                       tal:attributes="href ob_url;
+                                       title ob_title"
+                                       tal:content="ob_title"/>
+                                </li>
+                            </ul>
+                        </dd>
+
+
+                    </tal:block>
+                </metal:related-rod>
+
+                <metal:related-externals define-macro="related-externals">
+                    <!-- Related website(s)/service(s) -->
+                    <tal:block define="value context/getExternalRelations"
+                               condition="value">
+                        <dt tal:define='tooltip python:context.translate("Related websites", domain="eea")'>
+                            <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
+                            <span i18n:translate="">Related websites</span>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <tal:block repeat="url value" tal:condition="value">
+                                    <li tal:condition="python:url.find('http:',0,5)>-1" >
+                                        <a tal:attributes="href url; title url"
+                                           tal:content="url" />
+                                    </li>
+                                </tal:block>
+                            </ul>
+                        </dd>
+                    </tal:block>
+                </metal:related-externals>
 
                 <!-- Relation: parent data sets and derived data sets -->
                 <tal:block metal:define-macro="parent-child-data"
@@ -239,26 +240,25 @@
 
 
                 <!-- Tags -->
-                <div metal:define-macro="tags" id="keywords-tags"
+                <tal:block metal:define-macro="tags"
                           tal:define="field python:context.getField('subject');
                                       value python:field.getAccessor(context)()"
                           tal:condition="value">
-                    <dt style="clear: left">
+                    <dt style="clear: left" id="keywords-tags">
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Tags:</span>
                     </dt>
-                    <div id="category" class="documentByLine">
+                    <dd class="documentByLine category">
                         <tal:keywords repeat="tag value" tal:condition="value">
                             <span>
                                 <a class="link-category" rel="tag"
-                                   tal:attributes="title tag;
-                                                   href string:$portal_url/@@search?Subject%3Alist=${tag};"
+                                   tal:attributes="title tag"
                                    tal:content="tag"></a>
                                 <span class="separator" tal:condition="not:repeat/tag/end">,</span>
                             </span>
                         </tal:keywords>
-                    </div>
-                </div>
+                    </dd>
+                </tal:block>
 
                 <!-- Scale of the data set -->
                 <tal:block metal:define-macro="scale-of-data"
@@ -392,9 +392,7 @@
                         </tal:block>
                     </tal:block>
                 </tal:block>
-            </dl>
 
-            <dl>
                 <!-- EEA management plan code -->
                 <tal:block metal:define-macro="eea-mp-code"
                            tal:condition="not: context/@@plone_portal_state/anonymous"
