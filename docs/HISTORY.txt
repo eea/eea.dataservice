@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.8.dev0 - (unreleased)
+------------------------
+
 12.7 - (2017-08-16)
 -------------------
 * Bug fix W3C compliance modifications
