@@ -18,25 +18,23 @@ class EEAFixture(PloneSandboxLayer):
         import eea.dataservice
         import eea.workflow
         import eea.depiction
+        import eea.rdfmarshaller
         import Products.EEAContentTypes
         import Products.EEAPloneAdmin
+
         self.loadZCML(package=eea.dataservice)
         self.loadZCML(package=eea.workflow)
         self.loadZCML(package=eea.depiction)
+        self.loadZCML(package=eea.rdfmarshaller)
         self.loadZCML(package=Products.EEAContentTypes)
         self.loadZCML(package=Products.EEAPloneAdmin)
-
-        try:
-            import eea.rdfmarshaller
-            self.loadZCML(package=eea.rdfmarshaller)
-        except ImportError:
-            logger.debug("Disabling tests that depend on eea.rdfmarshaller")
 
         z2.installProduct(app, 'Products.ATVocabularyManager')
         z2.installProduct(app, 'Products.CMFPlacefulWorkflow')
         z2.installProduct(app, 'collective.quickupload')
         z2.installProduct(app, 'eea.dataservice')
         z2.installProduct(app, 'eea.depiction')
+        z2.installProduct(app, 'eea.rdfmarshaller')
 
     def tearDownZope(self, app):
         """ Uninstall Zope
@@ -46,12 +44,15 @@ class EEAFixture(PloneSandboxLayer):
         z2.uninstallProduct(app, 'collective.quickupload')
         z2.uninstallProduct(app, 'eea.dataservice')
         z2.uninstallProduct(app, 'eea.depiction')
+        z2.uninstallProduct(app, 'eea.rdfmarshaller')
+
 
     def setUpPloneSite(self, portal):
         """ Setup Plone
         """
         applyProfile(portal, 'eea.dataservice:default')
         applyProfile(portal, 'eea.depiction:default')
+        applyProfile(portal, 'eea.rdfmarshaller:default')
 
 EEAFIXTURE = EEAFixture()
 FUNCTIONAL_TESTING = FunctionalTesting(bases=(EEAFIXTURE,),

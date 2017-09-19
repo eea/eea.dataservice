@@ -93,25 +93,23 @@
          eea.versions.interfaces.IVersionCreatedEvent"
     handler=".events.handle_eeafigure_versioned"/>
 
-  <configure zcml:condition="installed eea.rdfmarshaller">
-    <adapter factory=".marshaller.ManagementPlanField2Surf" />
-    <adapter factory=".marshaller.TemporalCoverageField2Surf" name="temporalCoverage" />
-    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
-        for="eea.dataservice.interfaces.IDatafile"
-        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
-        for="eea.dataservice.interfaces.IEEAFigureFile"
-        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
-        for="Products.ATContentTypes.interfaces.IATImage"
-        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
-        for="Products.ATContentTypes.interfaces.IATFile"
-        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-    <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
-        for="Products.EEAContentTypes.content.interfaces.IFlashAnimation"
-        provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
-  </configure>
+  <adapter factory=".marshaller.ManagementPlanField2Surf" />
+  <adapter factory=".marshaller.TemporalCoverageField2Surf" name="temporalCoverage" />
+  <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+      for="eea.dataservice.interfaces.IDatafile"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+      for="eea.dataservice.interfaces.IEEAFigureFile"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+      for="Products.ATContentTypes.interfaces.IATImage"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+      for="Products.ATContentTypes.interfaces.IATFile"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  <subscriber factory=".marshaller.ExtraMimetype2SurfModifier"
+      for="Products.EEAContentTypes.content.interfaces.IFlashAnimation"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
 
   <include package=".upgrades" />
 

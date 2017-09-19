@@ -51,11 +51,14 @@ setup(name=name,
           'eea.geotags',
           'five.intid',
           'eea.indicators',
+          'eea.rdfmarshaller',
           'collective.quickupload',
           'eventlet',
       ],
       extras_require={
-          'test': ['plone.app.testing',]
+          'test': [
+              'plone.app.testing',
+          ]
       },
       entry_points="""
       # -*- Entry points: -*-
