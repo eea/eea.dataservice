@@ -130,7 +130,7 @@
                     </metal:block>
                 </tal:block>
                 <tal:block condition="python:len(ovisualization) > 10" define="visualizations python:ovisualization[10:]">
-                    <p>( <a class="btn btn-primary" role="button" data-toggle="collapse" href="#visualization-collapse" aria-expanded="false" aria-controls="visualization-collapse">see more</a> )</p>
+                    <p>( <a class="btn btn-primary" role="button" data-toggle="collapse" href="#visualization-collapse" aria-expanded="false" aria-controls="visualization-collapse" i18n:translate="">see more</a> )</p>
                     <div class="collapse" id="visualization-collapse">
                         <metal:block use-macro="context/organisation_view/macros/daviz-listing"/>
                     </div>

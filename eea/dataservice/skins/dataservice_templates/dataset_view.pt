@@ -406,7 +406,7 @@
                         <span i18n:translate="">year:</span>&nbsp;<tal:block content="python:value[0]" />,
                         <span i18n:translate="">code:</span>&nbsp;<tal:block content="python:value[1]" />
                     </dd>
-                    <dd tal:condition="python:value == ('', '')">
+                    <dd tal:condition="python:value == ('', '')" i18n:translate="">
                         unplanned as usual :D
                     </dd>
                 </tal:block>

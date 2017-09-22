@@ -2,25 +2,26 @@
 <span tal:replace="structure python:here.manage_form_title(here, here, form_title='Add Permalink Mapping')" />
 
 <p class="form-help">
-    Please fill the form below and click <strong>Add</strong>.
+    <tal:p i18n:translate="">Please fill the form below and click</tal:p>
+    <strong i18n:translate="">Add</strong>.
 </p>
 
 <form action="zmi_addPermalinkMapping" method="post">
     <table border="0" cellspacing="0" cellpadding="2" width="100%">
 
         <tr>
-            <td class="form-label">Id</td>
+            <td class="form-label" i18n:translate="">Id</td>
             <td><input type="text" name="ob_id" size="30"/></td>
         </tr>
 
         <tr>
-            <td class="form-label">Version Id</td>
+            <td class="form-label" i18n:translate="">Version Id</td>
             <td><input type="text" name="versionId:utf8:ustring" size="50"/></td>
         </tr>
 
         <tr>
             <td></td>
-            <td><input type="submit" value="Add"/></td>
+            <td><input type="submit" value="Add" i18n:attributes="value"/></td>
         </tr>
 
     </table>
