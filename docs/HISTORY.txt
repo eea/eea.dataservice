@@ -3,6 +3,8 @@ Changelog
 
 12.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: Fixed deprecated dataSource field blocking EEAFigure edit.
+  [avoinea refs #89850]
 
 12.7 - (2017-08-16)
 -------------------
@@ -17,7 +19,7 @@ Changelog
 12.5 - (2017-06-06)
 -------------------
 * Change: take into consideration the fact that WidgetFilterBrains might
-  receive a datetime with timezone information attached in which case we 
+  receive a datetime with timezone information attached in which case we
   need to get rid of it when comparing to a datetime without a timezone
   [ichim-david refs #85555]
 
