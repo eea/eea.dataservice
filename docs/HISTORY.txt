@@ -3,7 +3,7 @@ Changelog
 
 12.8.dev0 - (unreleased)
 ------------------------
-* Bug fix: Fixed deprecated dataSource field blocking EEAFigure edit.
+* Bug fix: Fixed deprecated 'dataSource' field blocking EEAFigure edit.
   [avoinea refs #89850]
 
 12.7 - (2017-08-16)
