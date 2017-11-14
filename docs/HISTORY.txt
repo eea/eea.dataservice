@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.9.dev0 - (unreleased)
+------------------------
+
 12.8 - (2017-11-14)
 -------------------
 * Bug fix: Fixed deprecated 'dataSource' field blocking EEAFigure edit.
