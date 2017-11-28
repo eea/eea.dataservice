@@ -3,6 +3,8 @@ Changelog
 
 12.9.dev0 - (unreleased)
 ------------------------
+* Change: Update tests to work with latest EEAContentTypes
+  [avoinea refs #89955]
 
 12.8 - (2017-11-14)
 -------------------
