@@ -7,7 +7,7 @@
     <include package="eea.facetednavigation" file="meta.zcml" />
     <include package="eea.facetednavigation" file="configure.zcml" />
     <include package="eea.dataservice.facetednavigation.lastversion" />
-    <include package="eea.dataservice.facetednavigation.geocoverage" />
+    <!--include package="eea.dataservice.facetednavigation.geocoverage" /-->
   </configure>
 
 </configure>
