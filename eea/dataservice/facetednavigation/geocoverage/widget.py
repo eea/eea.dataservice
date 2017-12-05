@@ -4,22 +4,29 @@ import logging
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from BTrees.IIBTree import weightedIntersection, IISet
-from eea.facetednavigation.widgets.checkbox.widget import (
-    Widget as CheckboxWidget,
-    EditSchema as CheckboxSchema,
+from eea.facetednavigation.widgets.checkbox.widget import Widget as CWidget
+from eea.dataservice.facetednavigation.geocoverage.interfaces import (
+  DefaultSchemata,
+  LayoutSchemata,
+  DisplaySchemata,
+  CountableSchemata,
 )
-from eea.facetednavigation.widgets.widget import CommonEditSchema
 
-logger = logging.getLogger('eea.dataservice.facetednavigation.geocoverage')
-GeoSchema = CommonEditSchema + CheckboxSchema.copy()
-GeoSchema['vocabulary'].widget.visible = -1
 
-class Widget(CheckboxWidget):
+logger = logging.getLogger('eea.dataservice')
+
+
+class Widget(CWidget):
     """ Geographical coverage widget
     """
     widget_type = 'geocoverage'
     widget_label = 'European countries'
-    edit_schema = GeoSchema
+    groups = (
+        DefaultSchemata,
+        LayoutSchemata,
+        CountableSchemata,
+        DisplaySchemata
+    )
 
     def query(self, form):
         """ Get value from form and return a catalog dict query
