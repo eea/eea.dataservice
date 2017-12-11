@@ -16,6 +16,7 @@ class EEAFixture(PloneSandboxLayer):
         """ Setup Zope
         """
         import eea.dataservice
+        import eea.dataservice.tests
         import eea.workflow
         import eea.depiction
         import eea.rdfmarshaller
@@ -23,6 +24,7 @@ class EEAFixture(PloneSandboxLayer):
         import Products.EEAPloneAdmin
 
         self.loadZCML(package=eea.dataservice)
+        self.loadZCML(package=eea.dataservice.tests, name="testing.zcml")
         self.loadZCML(package=eea.workflow)
         self.loadZCML(package=eea.depiction)
         self.loadZCML(package=eea.rdfmarshaller)
@@ -51,6 +53,7 @@ class EEAFixture(PloneSandboxLayer):
         """ Setup Plone
         """
         applyProfile(portal, 'eea.dataservice:default')
+        applyProfile(portal, 'eea.dataservice.tests:testfixture')
         applyProfile(portal, 'eea.depiction:default')
         applyProfile(portal, 'eea.rdfmarshaller:default')
 

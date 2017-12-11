@@ -1,8 +1,12 @@
 ===============
 EEA Dataservice
 ===============
+.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/develop/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/develop/display/redirect
+  :alt: Develop
 .. image:: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/master/badge/icon
   :target: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/master/display/redirect
+  :alt: Master
 
 EEA Dataservice
 
