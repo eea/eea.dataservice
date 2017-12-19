@@ -3,7 +3,7 @@ Changelog
 
 13.0 - (2017-12-19)
 -------------------
-* Bug fix: fixed package structure
+* Bug fix: fixed package structure and Jenkinsfile
   [alecghica refs #90819]
 
 12.9 - (2017-12-12)
