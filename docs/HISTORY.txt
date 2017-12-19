@@ -1,8 +1,10 @@
 Changelog
 =========
 
-13.0.dev0 - (unreleased)
-------------------------
+13.0 - (2017-12-19)
+-------------------
+* Bug fix: fixed package structure
+  [alecghica refs #90819]
 
 12.9 - (2017-12-12)
 -------------------
