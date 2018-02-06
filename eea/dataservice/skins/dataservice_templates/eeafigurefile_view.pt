@@ -5,10 +5,6 @@
 
 
 <head>
-    <metal:javascript fill-slot="javascript_head_slot">
-        <script type="text/javascript"
-          tal:content="string:jQuery(document).ready(Figures.Load);"></script>
-    </metal:javascript>
 </head>
 
 <body>

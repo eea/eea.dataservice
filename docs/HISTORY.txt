@@ -3,6 +3,9 @@ Changelog
 
 13.0 - (2017-12-19)
 -------------------
+* Change: removed dataservice_view.js from portal_javascripts
+  as we no longer show fancybox popups for eeafigure and eeafigurefile
+  [ichim-david refs #91577]
 * Bug fix: fixed package structure and Jenkinsfile
   [alecghica refs #90819]
 
