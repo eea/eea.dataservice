@@ -1,6 +1,6 @@
 Changelog
 =========
-13.1 - (unreleased)
+13.1 - (2018-03-14)
 -------------------
 * Change: load jqueryui within dataset_view used by the survey dialog
   [ichim-david refs #91577]
