@@ -1,5 +1,12 @@
 Changelog
 =========
+13.1 - (2018-03-14)
+-------------------
+* Change: load jqueryui within dataset_view used by the survey dialog
+  [ichim-david refs #91577]
+* Change: removed dataservice_view.js from portal_javascripts
+  as we no longer show fancybox popups for eeafigure and eeafigurefile
+  [ichim-david refs #91577]
 
 13.0 - (2017-12-19)
 -------------------
