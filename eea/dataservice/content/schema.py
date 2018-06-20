@@ -74,7 +74,7 @@ class DataMixin(object):
                     "re-use of content on the EEA website for commercial or "
                     "non-commercial purposes is permitted free of charge, "
                     "provided that the source is acknowledged "
-                    "(http://www.eea.europa.eu/legal/copyright). "
+                    "(https://www.eea.europa.eu/legal/copyright). "
                     "%s" % copyrightholders)
 
     def getThemeVocabs(self):

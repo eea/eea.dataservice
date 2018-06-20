@@ -1,5 +1,11 @@
 Changelog
 =========
+
+13.2-dev0 - (unreleased)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 13.1 - (2018-03-14)
 -------------------
 * Change: load jqueryui within dataset_view used by the survey dialog

@@ -33,7 +33,7 @@
         </span>
     </dt>
     <dd class="portletFooter">
-        <a href="http://www.eea.europa.eu/data-and-maps/data/data-viewers" 
+        <a href="https://www.eea.europa.eu/data-and-maps/data/data-viewers" 
            title="More interactive data viewers"
            i18n:attributes="title" 
            class="moreLink">
