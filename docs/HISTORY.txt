@@ -1,5 +1,11 @@
 Changelog
 =========
+
+13.2 - (2018-06-20)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 13.1 - (2018-03-14)
 -------------------
 * Change: load jqueryui within dataset_view used by the survey dialog
@@ -1019,7 +1025,7 @@ Changelog
 * Feature: Plone 4.0.4 compatible
   [voineali $4302]
 
-1.37-dev - (unreleased)
+1.37 - (2018-06-20)
 -----------------------
 * Bug fix: Fixed Google Analytics for datafiles download
   [voineali #4317]

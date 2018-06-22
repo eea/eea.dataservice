@@ -1,11 +1,11 @@
 ===============
 EEA Dataservice
 ===============
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/develop/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/develop/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.dataservice/develop
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/develop/display/redirect
   :alt: Develop
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/master/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.dataservice/master
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.dataservice/job/master/display/redirect
   :alt: Master
 
 EEA Dataservice
@@ -43,4 +43,4 @@ Funding
 
 EEA_ - European Environment Agency (EU)
 
-.. _EEA: http://www.eea.europa.eu/
+.. _EEA: https://www.eea.europa.eu/
