@@ -3,6 +3,8 @@ Changelog
 
 13.3-dev0 - (unreleased)
 ---------------------
+* Change: use warning instead of exception for expected behaviour
+  [alecghica refs #97089]
 
 13.2 - (2018-06-20)
 ---------------------
