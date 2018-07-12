@@ -1,7 +1,7 @@
 Changelog
 =========
 
-13.3-dev0 - (unreleased)
+13.3 - (2018-07-12)
 ---------------------
 * Change: use warning instead of exception for expected behaviour
   [alecghica refs #97089]
