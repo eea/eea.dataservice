@@ -1,6 +1,11 @@
 Changelog
 =========
 
+13.3 - (2018-07-12)
+---------------------
+* Change: use warning instead of exception for expected behaviour
+  [alecghica refs #97089]
+
 13.2 - (2018-06-20)
 ---------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
@@ -1409,4 +1414,3 @@ Changelog
 -----------------
 * Initial release
   [ghicaale]
-
