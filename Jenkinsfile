@@ -5,6 +5,7 @@ pipeline {
         GIT_NAME = "eea.dataservice"
     }
 
+  stages {
     stage('Code') {
       steps {
         parallel(
@@ -36,7 +37,6 @@ pipeline {
       }
     }
 
-  stages {
     stage('Tests') {
       steps {
         parallel(
@@ -55,7 +55,6 @@ pipeline {
         )
       }
     }
-
 
     stage('Cosmetics') {
       steps {
