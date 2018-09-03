@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
- <version>11.3</version>
+ <version>13.4</version>
  <dependencies>
   <dependency>profile-eea.forms:default</dependency>
   <dependency>profile-Products.ATVocabularyManager:default</dependency>

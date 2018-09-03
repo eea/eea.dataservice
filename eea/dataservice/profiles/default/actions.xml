@@ -12,26 +12,6 @@
       </property>
       <property name="visible">True</property>
     </object>
-    <object name="dataset_disbale_feedback" meta_type="CMF Action" i18n:domain="eea">
-      <property name="title" i18n:translate="">Disable user feedback</property>
-      <property name="description" i18n:translate=""/>
-      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@survey/disable</property>
-      <property name="available_expr">object/@@survey_support/enabled</property>
-      <property name="permissions">
-        <element value="Modify portal content"/>
-      </property>
-      <property name="visible">True</property>
-    </object>
-    <object name="dataset_enable_feedback" meta_type="CMF Action" i18n:domain="eea">
-      <property name="title" i18n:translate="">Enable user feedback</property>
-      <property name="description" i18n:translate=""/>
-      <property name="url_expr">string:${globals_view/getCurrentObjectUrl}/@@survey/enable</property>
-      <property name="available_expr">object/@@survey_support/disabled</property>
-      <property name="permissions">
-        <element value="Modify portal content"/>
-      </property>
-      <property name="visible">True</property>
-    </object>
     <object name="eeafigurefile_convert" meta_type="CMF Action" i18n:domain="eea">
       <property name="title" i18n:translate="">Convert figure</property>
       <property name="description" i18n:translate="">Convert figure to predefined formats and resolutions</property>

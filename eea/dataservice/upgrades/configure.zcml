@@ -26,7 +26,7 @@
                 />
 
     </genericsetup:upgradeSteps>
-    
+
     <genericsetup:upgradeSteps
             source="*"
             destination="7.6"
@@ -84,6 +84,19 @@
             title="Remove completed async jobs from EEAFigureFile"
             handler=".upgrade102.cleanup_convert_figure_jobs"
         />
+
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+        source="11.3"
+        destination="13.4"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeDepends
+            title="Import all steps from eea.dataservice 13.4"
+            description="Remove userfeedback survey"
+            import_profile="eea.dataservice:upgrade134"
+            />
 
     </genericsetup:upgradeSteps>
 

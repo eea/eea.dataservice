@@ -48,9 +48,7 @@
                             </tal:block>
 
                             <ul tal:define="datafiles table/@@getDataFiles;
-                                    datafilelinks table/@@getDataFileLinks;
-                                            survey here/@@survey_support|nothing;
-                                                    survey survey/enabled|nothing;">
+                                            datafilelinks table/@@getDataFileLinks;">
                                 <tal:block repeat="file datafiles" tal:condition="datafiles">
                                     <li tal:define="
                                             field python:file.getFile();
@@ -73,8 +71,7 @@
                                                  tal:define="displaySize nocall:context/displaySize"
                                                  tal:content="python:displaySize(size)"
                                                  tal:condition="size">0Kb</span>
-                                        <a tal:attributes="
-                                                class python:survey and 'feedback-survey google-analytics' or 'google-analytics';
+                                        <a class="google-analytics" tal:attributes="
                                                 id file/UID;
                                                 href string:${file/absolute_url}/at_download/file;">
                                             <span i18n:translate="">Download file</span>
@@ -93,10 +90,10 @@
                                         <strong><span i18n:translate=""
                                                  tal:content="file/Title">Data link</span>
                                         </strong><br />
-                                        <a tal:attributes="href string:${file/remoteUrl};
-                                                class python:survey and 'feedback-survey google-analytics' or 'google-analytics';
-                                                id file/UID;"
-                                                 i18n:translate="">Download file</a>
+                                        <a class="google-analytics" tal:attributes="
+                                                  href string:${file/remoteUrl};
+                                                  id file/UID;"
+                                                  i18n:translate="">Download file</a>
                                         <span style="display: none"
                                               class="google-analytics-path"
                                                  tal:content="filePath" />
