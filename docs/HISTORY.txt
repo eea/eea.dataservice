@@ -3,6 +3,9 @@ Changelog
 
 13.4-dev0 - (unreleased)
 ---------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [avoinea refs #98047]
 * Change: Drop users' feedback survey on Dataset download
   [avoinea refs #98047]
 
