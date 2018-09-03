@@ -5,26 +5,6 @@ pipeline {
         GIT_NAME = "eea.dataservice"
     }
 
-  stages {
-    stage('Tests') {
-      steps {
-        parallel(
-
-          "WWW": {
-            node(label: 'docker') {
-              sh '''docker run -i --rm --name="$BUILD_TAG-www" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/www-devel /debug.sh bin/test -v -vv -s $GIT_NAME'''
-            }
-          },
-
-          "Plone4": {
-            node(label: 'docker') {
-              sh '''docker run -i --rm --name="$BUILD_TAG-plone4" -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/plone-test:4 -v -vv -s $GIT_NAME'''
-            }
-          }
-        )
-      }
-    }
-
     stage('Code') {
       steps {
         parallel(
@@ -55,6 +35,27 @@ pipeline {
         )
       }
     }
+
+  stages {
+    stage('Tests') {
+      steps {
+        parallel(
+
+          "WWW": {
+            node(label: 'docker') {
+              sh '''docker run -i --rm --name="$BUILD_TAG-www" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/www-devel /debug.sh bin/test -v -vv -s $GIT_NAME'''
+            }
+          },
+
+          "Plone4": {
+            node(label: 'docker') {
+              sh '''docker run -i --rm --name="$BUILD_TAG-plone4" -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/plone-test:4 -v -vv -s $GIT_NAME'''
+            }
+          }
+        )
+      }
+    }
+
 
     stage('Cosmetics') {
       steps {
