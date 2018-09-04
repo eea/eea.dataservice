@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n" name="portal_actions">
+  <object name="object_buttons">
+    <object name="dataset_disbale_feedback" remove="True" />
+    <object name="dataset_enable_feedback" remove="True" />
+  </object>
+</object>

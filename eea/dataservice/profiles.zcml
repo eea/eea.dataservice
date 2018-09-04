@@ -36,4 +36,12 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="upgrade134"
+        title="EEA Dataservice 13.4 upgrade"
+        directory="profiles/upgrades/to_134"
+        description="Extension profile for EEA Dataservice."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>

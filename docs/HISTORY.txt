@@ -1,6 +1,14 @@
 Changelog
 =========
 
+13.4 - (2018-09-03)
+---------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [avoinea refs #98047]
+* Change: Drop users' feedback survey on Dataset download
+  [avoinea refs #98047]
+
 13.3 - (2018-07-12)
 ---------------------
 * Change: use warning instead of exception for expected behaviour
