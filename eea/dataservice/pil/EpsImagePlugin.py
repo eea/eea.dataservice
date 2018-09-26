@@ -85,13 +85,15 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
                    "-q",                         # quiet mode
                    "-g%dx%d" % size,             # set output geometry (pixels)
                    "-r%fx%f" % res,              # set input DPI (dots per inch)
-                   "-dNOPAUSE -dSAFER",          # don't pause between pages,
-                                                 # safe mode
+                   "-dBATCH",                    # exit after processing
+                   "-dNOPAUSE",                  # don't pause between pages,
+                   "-dSAFER",                    # safe mode
                    "-sDEVICE=ppmraw",            # ppm driver
                    "-sOutputFile=%s" % outfile,  # output file
                    "-c", "%d %d translate" % (-bbox[0], -bbox[1]),
                                                  # adjust for image origin
                    "-f", infile,                 # input file
+                   "-c", "showpage",             # showpage (see: https://bugs.ghostscript.com/show_bug.cgi?id=698272)
                    ]
     else:
         command = ["gs",
@@ -112,23 +114,20 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
 
     # push data through ghostscript
     try:
-        gs = subprocess.Popen(command, stdin=subprocess.PIPE,
-                              stdout=subprocess.PIPE)
-        gs.stdin.close()
-        status = gs.wait()
-        if status:
-            raise IOError("gs failed (status %d)" % status)
-        im = Image.core.open_ppm(outfile)
+        with open(os.devnull, 'w+b') as devnull:
+            subprocess.check_call(command, stdin=devnull, stdout=devnull)
+        im = Image.open(outfile)
+        im.load()
     finally:
         try:
             os.unlink(outfile)
             if infile_temp:
                 os.unlink(infile_temp)
-
-        except Exception:
+        except OSError:
             pass
 
-    return im
+    return im.im.copy()
+
 
 
 class EpsImageFile(PILEpsImageFile):
