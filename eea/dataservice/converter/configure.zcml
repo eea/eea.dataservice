@@ -63,4 +63,12 @@
       file="convert_figures.js"
      />
 
+  <!-- uncommit only for testing -->
+  <!--browser:page
+      for="*"
+      name="convertAllEsps"
+      class=".converter.ConvertAllEsps"
+      permission="zope2.View"
+      /-->
+
 </configure>

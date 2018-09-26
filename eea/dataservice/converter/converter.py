@@ -345,3 +345,33 @@ class GetJobStatus(BrowserView):
                         if job._p_oid == oid:
                             return job
         return None
+
+
+class ConvertAllEsps(BrowserView):
+    """ just for testing
+        convert all esp Figure Files
+        to enable it, uncomment the browser page in configure.zcml
+    """
+
+    def __call__(self):
+        from Products.CMFCore.utils import getToolByName
+        ctool = getToolByName(self.context, 'portal_catalog')
+        brains = ctool.unrestrictedSearchResults(
+            portal_type=['EEAFigureFile'])
+        cnt = 0
+        log("INFO Figure files: %s", len(brains))
+        len_b = len(brains)
+        for brain in brains:
+            doc = brain.getObject()
+            ctype = doc.file.getContentType()
+            if ctype == 'application/postscript':
+                queue_call = doc.restrictedTraverse('queueConvert', None)
+                if queue_call:
+                    #import pdb; pdb.set_trace()
+                    log("INFO queue esp: %s/%s %s" %(len_b, cnt, doc.absolute_url()))
+                    cnt += 1
+                    queue_call()
+                    #only convert the first 100 eps files
+                    #if cnt == 10: 
+                    #    return "OK"
+        return "OK"
