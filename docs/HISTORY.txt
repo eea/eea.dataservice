@@ -3,6 +3,8 @@ Changelog
 
 13.5-dev0 - (unreleased)
 ---------------------
+* Change: Fixed EPS convertor for Pillow 4.3.0
+  [szabozo0 refs #98502]
 
 13.4 - (2018-09-03)
 ---------------------
