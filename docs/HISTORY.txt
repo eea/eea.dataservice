@@ -1,6 +1,9 @@
 Changelog
 =========
 
+13.6-dev0 - (unreleased)
+---------------------
+
 13.5 - (2018-10-02)
 ---------------------
 * Change: Fixed EPS convertor for Pillow 4.3.0
