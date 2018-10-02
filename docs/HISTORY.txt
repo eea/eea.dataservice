@@ -1,6 +1,11 @@
 Changelog
 =========
 
+13.5 - (2018-10-02)
+---------------------
+* Change: Fixed EPS convertor for Pillow 4.3.0
+  [szabozo0 refs #98502]
+
 13.4 - (2018-09-03)
 ---------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
