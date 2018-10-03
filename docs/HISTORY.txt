@@ -3,6 +3,8 @@ Changelog
 
 13.6-dev0 - (unreleased)
 ---------------------
+* Feature: Added support for Matomo analytics
+  [avoinea refs #98857]
 
 13.5 - (2018-10-02)
 ---------------------

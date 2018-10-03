@@ -30,6 +30,11 @@ DataService.Google = {
     if(window.ga){
       ga('send', 'pageview', path);
     }
+    /* Call Matomo Analytics page traker */
+    if(window._paq){
+      _paq.push(['setCustomUrl', path]);
+      _paq.push(['trackPageView']);
+    }
     window.location = next;
     return false;
   }
