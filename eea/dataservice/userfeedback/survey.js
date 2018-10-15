@@ -1,5 +1,8 @@
 var DataService = {'version': '1.0.0'};
 
+// Matomo support
+var _paq = _paq || [];
+
 DataService.Google = {
   initialize: function(context){
     this.context = context ? jQuery('#' + context) : jQuery('#region-content');
@@ -31,10 +34,9 @@ DataService.Google = {
       ga('send', 'pageview', path);
     }
     /* Call Matomo Analytics page traker */
-    if(window._paq){
-      _paq.push(['setCustomUrl', path]);
-      _paq.push(['trackPageView']);
-    }
+    _paq.push(['setCustomUrl', path]);
+    _paq.push(['trackPageView']);
+
     window.location = next;
     return false;
   }
