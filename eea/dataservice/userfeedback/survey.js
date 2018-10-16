@@ -16,6 +16,7 @@ DataService.Google = {
     this.links.each(function(){
       var link = jQuery(this);
       link.click(function(){
+        link.addClass("piwik_download");
         return js_context.track(this, '', link.attr('href'));
       });
     });

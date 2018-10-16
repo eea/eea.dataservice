@@ -3,6 +3,8 @@ Changelog
 
 13.6 - (2018-10-03)
 ---------------------
+* Feature: Added support for Matomo downloads
+  [avoinea refs #98864]
 * Feature: Added support for Matomo analytics events
   [avoinea refs #98857]
 
