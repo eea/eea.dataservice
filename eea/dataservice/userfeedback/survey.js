@@ -1,5 +1,8 @@
 var DataService = {'version': '1.0.0'};
 
+// Matomo support
+var _paq = _paq || [];
+
 DataService.Google = {
   initialize: function(context){
     this.context = context ? jQuery('#' + context) : jQuery('#region-content');
@@ -12,6 +15,7 @@ DataService.Google = {
     var js_context = this;
     this.links.each(function(){
       var link = jQuery(this);
+      link.addClass("piwik_download");
       link.click(function(){
         return js_context.track(this, '', link.attr('href'));
       });
@@ -30,6 +34,10 @@ DataService.Google = {
     if(window.ga){
       ga('send', 'pageview', path);
     }
+    /* Call Matomo Analytics page traker */
+    _paq.push(['setCustomUrl', path]);
+    _paq.push(['trackPageView']);
+
     window.location = next;
     return false;
   }
