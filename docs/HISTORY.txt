@@ -1,7 +1,7 @@
 Changelog
 =========
 
-13.7-dev0 - (unreleased)
+13.7 - (2018-12-03)
 ---------------------
 * Bug fix: Fixed reporting obligation field in Data is not showing records
   [avoinea refs #100588]
