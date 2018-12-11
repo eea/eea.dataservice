@@ -5,12 +5,12 @@ from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
 from Products.Archetypes.atapi import IntegerField, IntegerWidget
-from Products.Archetypes.atapi import MultiSelectionWidget
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from eea.dataservice.content.themes import ThemeTaggable
 from eea.dataservice.interfaces import IDataset
 from eea.dataservice.content.schema import dataservice_schema, DataMixin
+from eea.dataservice.widgets import MultiOrganisationsWidget
 from eea.dataservice.vocabulary import REFERENCE_DICTIONARY_ID
 from eea.geotags.field import GeotagsLinesField
 from eea.geotags.widget import GeotagsWidget
@@ -82,15 +82,16 @@ schema = Schema((
             i18n_domain="eea",
         ),
     ),
+    
 
     LinesField(
         schemata="categorization",
         name='reportingObligations',
         languageIndependent=True,
         multiValued=1,
+        required=True,
         vocabulary_factory=u"Obligations",
-        widget=MultiSelectionWidget(
-            macro="obligations_widget",
+        widget=MultiOrganisationsWidget(
             label="Environmental reporting obligations (ROD)",
             description=("The environmental reporting obligations used to "
                          "optain the data. Reporting obligations are "
