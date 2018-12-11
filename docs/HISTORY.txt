@@ -1,7 +1,7 @@
 Changelog
 =========
 
-13.8-dev0 - (unreleased)
+13.8 - (2018-12-11)
 ------------------------
 * Change: reportingObligations is now required and introduced a "Not applicable"
   option in case there isn't a ROD to choose
