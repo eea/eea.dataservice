@@ -3,6 +3,9 @@ Changelog
 
 13.9-dev0 - (unreleased)
 ---------------------
+* Change: organisation vocabulary is now reversed sorted in order to have newest
+  organisations first
+  [ichim-david refs #100699]
 
 13.8 - (2018-12-11)
 ------------------------
