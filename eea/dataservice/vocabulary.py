@@ -246,7 +246,7 @@ class Obligations(object):
         items.sort()
         items = [SimpleTerm(str(key), str(key), value)
                  for key, value in items]
-        items.insert(0, SimpleTerm(str(1), str(1), "Not applicable"))
+        items.insert(0, SimpleTerm(str(0), str(0), "Not applicable"))
         return SimpleVocabulary(items)
 
 
