@@ -243,7 +243,7 @@ class Obligations(object):
         res = _obligations()
 
         items = res.items()
-        items.sort()
+        items.sort(reverse=True)
         items = [SimpleTerm(str(key), str(key), value)
                  for key, value in items]
         items.insert(0, SimpleTerm(str(0), str(0), "Not applicable"))
