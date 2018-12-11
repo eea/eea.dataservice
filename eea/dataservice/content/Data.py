@@ -5,7 +5,6 @@ from zope.interface import implements
 from Products.Archetypes.atapi import Schema, StringField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, TextField, LinesField
 from Products.Archetypes.atapi import IntegerField, IntegerWidget
-from Products.Archetypes.atapi import MultiSelectionWidget
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from eea.dataservice.content.themes import ThemeTaggable
