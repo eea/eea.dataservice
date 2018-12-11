@@ -2,7 +2,12 @@ Changelog
 =========
 
 13.8-dev0 - (unreleased)
----------------------
+------------------------
+* Change: reportingObligations is now required and introduced a "Not applicable"
+  option in case there isn't a ROD to choose
+  [ichim-david refs #100699]
+* Change: reportingObligations field is now using the OrganisationsWidget
+  [ichim-david refs #100699]
 
 13.7 - (2018-12-03)
 ---------------------

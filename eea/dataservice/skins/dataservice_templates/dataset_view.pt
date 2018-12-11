@@ -151,9 +151,7 @@
                             <ul tal:define="data python:view()">
                                 <li tal:repeat="ob_nr value" tal:condition="value">
                                     <span tal:condition="python: int(ob_nr) == 0"
-                                          tal:define="ob_title python:'Not applicable'"
-                                             tal:attributes="title ob_title"
-                                             tal:content="ob_title" />
+                                          i18n:translate="">Not applicable</span>
                                     <a tal:define="ob_url string:http://rod.eionet.europa.eu/obligations/$ob_nr;
                                             ob_title python:data.get(int(ob_nr), ob_url)"
                                              tal:attributes="href ob_url;
