@@ -5,6 +5,8 @@ from Products.CMFCore.utils import getToolByName
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
 from zope.publisher.interfaces import NotFound
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as VPT
+import json
 
 class GetIMSimage(object):
     """ Get image to be displayed on IMS portal
@@ -39,3 +41,38 @@ class FigureObjectReadiness(ObjectReadiness):
             'At least one references to a data source is required'
         )]
     }
+
+
+
+class GetLegislationDatasets(object):
+    """ Get all datasets sorted by legislation
+    """
+    
+    template = VPT('../template/legislation_datasets_overview.pt')
+    __call__ = template
+    
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def get_datasets(self):
+        """ Return datasets sorted by legislation
+        """
+        view = self.context.restrictedTraverse('all-datasets/daviz.json')()
+        values = json.loads(view)
+        datasets = values['items']
+        results = {}
+        data_links = []
+        for data in datasets:
+            legislation_title = data['instrument_label']
+            legislation_url = data['instrument']
+            key = (legislation_title, legislation_url)
+            if key not in results:
+                results[key] = []
+            data_url = data['dataset']
+            # avoid dataset duplicated since query returns same datasets with
+            # several rod objects
+            if data_url not in data_links:
+                data_links.append(data_url)
+                results[key].append(data)
+        return results 
