@@ -1,7 +1,7 @@
 Changelog
 =========
 
-14.0-dev0 - (unreleased)
+14.0 - (2019-01-11)
 ------------------------
 * Feature: added @@datasets_overview browserView which displays datasets listed
   by legislation
