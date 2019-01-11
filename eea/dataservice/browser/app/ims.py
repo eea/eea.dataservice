@@ -63,16 +63,19 @@ class GetLegislationDatasets(object):
         datasets = values['items']
         results = {}
         data_links = []
+        legislation_titles = {}
         for data in datasets:
             legislation_title = data['instrument_label']
             legislation_url = data['instrument']
             key = (legislation_title, legislation_url)
             if key not in results:
                 results[key] = []
+                legislation_titles[legislation_title] = []
+
             data_url = data['dataset']
             # avoid dataset duplicated since query returns same datasets with
             # several rod objects
-            if data_url not in data_links:
-                data_links.append(data_url)
+            if not data_url in legislation_titles[legislation_title]:
                 results[key].append(data)
+                legislation_titles[legislation_title].append(data_url)
         return results 
