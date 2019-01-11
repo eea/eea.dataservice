@@ -62,7 +62,6 @@ class GetLegislationDatasets(object):
         values = json.loads(view)
         datasets = values['items']
         results = {}
-        data_links = []
         legislation_titles = {}
         for data in datasets:
             legislation_title = data['instrument_label']
