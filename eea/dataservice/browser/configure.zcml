@@ -239,6 +239,14 @@
     permission="cmf.ModifyPortalContent"
     class=".app.migrate.MigrateDatasetsToExternalDatasets"
     />
+    
+    <browser:page
+      for="zope.interface.Interface"
+      name="datasets_overview"
+      class=".app.ims.GetLegislationDatasets"
+      template="template/legislation_datasets_overview.pt"
+      permission="cmf.ModifyPortalContent"
+      />
 
   <!-- EEA Image Scales -->
   <configure zcml:condition="installed eea.depiction">

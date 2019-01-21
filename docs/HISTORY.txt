@@ -1,6 +1,14 @@
 Changelog
 =========
 
+14.0 - (2019-01-11)
+------------------------
+* Bug fix: Fix Figure convert for files with space in name
+  [avoinea refs #101483]
+* Feature: added @@datasets_overview browserView which displays datasets listed
+  by legislation
+  [ichim-david refs #100700]
+
 13.9 - (2018-12-11)
 ---------------------
 * Change: organisation vocabulary is now reversed sorted in order to have newest
