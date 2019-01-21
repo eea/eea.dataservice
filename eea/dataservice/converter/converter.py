@@ -114,23 +114,22 @@ class Convertor(object):
         field = self.context.getField('file')
         accessor = field.getAccessor(self.context)()
         if accessor:
+            filename = normalizer.normalize(accessor.filename)
+            filename = filename.replace(' ', '-')
+
             for fmt in self.getFormats():
                 img_format, img_dpi = fmt.split('-')
-                if not self.is_image(accessor.filename):
+                if not self.is_image(filename):
                     err = 1
                     continue
 
                 if img_dpi == 'default':
-                    im_id = '.'.join((
-                        accessor.filename, img_format[:3].lower()))
+                    im_id = '.'.join((filename, img_format[:3].lower()))
                 elif img_format == 'ZOOM':
-                    im_id = '.'.join((accessor.filename, 'zoom.png'))
+                    im_id = '.'.join((filename, 'zoom.png'))
                 else:
-                    im_id = '.'.join((
-                        accessor.filename, img_dpi + 'dpi',
+                    im_id = '.'.join((filename, img_dpi + 'dpi',
                         img_format[:3].lower()))
-
-                im_id = normalizer.normalize(im_id)
 
                 outfile = StringIO()
                 try:
@@ -168,7 +167,7 @@ class Convertor(object):
                 oldSecurityManager = getSecurityManager()
                 newSecurityManager(None, SpecialUsers.system)
                 for cid in self.context.objectIds('ATBlob'):
-                    if accessor.filename not in cid:
+                    if filename not in cid:
                         self.context.manage_delObjects([cid])
                 setSecurityManager(oldSecurityManager)
         else:
