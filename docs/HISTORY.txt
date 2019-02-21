@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.2 - (2019-02-21)
+---------------------
+* Feature: enhancements to the @@datasets_overview page
+  [alecghica refs #102273]
+
 14.1 - (2019-01-28)
 ---------------------
 * Jenkins: Add sonarqube step

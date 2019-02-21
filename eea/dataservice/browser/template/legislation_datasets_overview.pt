@@ -7,6 +7,13 @@
     <metal:slot fill-slot="head_slot">
       <title i18n:translate="">Datasets legislation overview</title>
     </metal:slot>
+    <metal:jsslot fill-slot="javascript_head_slot">
+        <script type="text/javascript"
+                 tal:content="string:jQuery(document).ready(function(evt){
+                    $('.sort_by_default').click();
+                    $('.sort_by_default').click();
+                });"></script>
+    </metal:jsslot>
   </head>
   <body>
     <div metal:fill-slot="main">
@@ -21,39 +28,43 @@
       <div tal:define="setcodes view/get_datasets">
         <div tal:repeat="set python:sorted(setcodes.keys())">
             <tal:defines tal:define="legislation python:set">
+  <a href="" tal:attributes="href python:legislation[1]" style="display:contents">
+    <h2 tal:content="python:legislation[0] or 'No ROD'" />
+  </a>
+  <p tal:content="python:legislation[2]" />
+
+  <table class="listing">
+    <thead>
+      <tr>
+        <th i18n:translate="">Dataset</th>
+        <th i18n:translate="">Obligation</th>
+        <th i18n:translate="" class="sort_by_default">Publishing date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tal:rep tal:repeat="entry python:setcodes[set]">
+        <tal:defs tal:define="
+          codeset python:entry">
+          <tr>
+            <td>
               <a href=""
-                tal:attributes="href python:legislation[1]">
-                <h2 tal:define="title python:legislation[0]" tal:content="python:title or 'No ROD'"/>
-                </a>
-          <table class="listing">
-            <thead>
-              <tr>
-                <th i18n:translate="">Dataset</th>
-                <th i18n:translate="">Obligation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tal:rep tal:repeat="entry python:setcodes[set]">
-                <tal:defs tal:define="
-                  codeset python:entry">
-                  <tr>
-                    <td>
-                      <a href=""
-                        tal:attributes="href entry/dataset"
-                        tal:content="entry/dataset">Spec title</a>
-                    </td>
-                    <td>
-                      <a href="" class="obligation"
-                        tal:attributes="href entry/obligation"
-                        tal:content="entry/obligation_title">Spec title</a>
-                    </td>
-                    
-                  </tr>
-                </tal:defs>
-              </tal:rep>
-            </tbody>
-          </table>
-          </tal:defines>
+                tal:attributes="href entry/dataset"
+                tal:content="entry/dataset">Spec title</a>
+            </td>
+            <td>
+              <a href="" class="obligation"
+                tal:attributes="href entry/obligation"
+                tal:content="entry/obligation_title">Spec title</a>
+            </td>
+            <td>
+              <span tal:content="entry/publishing_date">Publishing date</span>
+            </td>
+          </tr>
+        </tal:defs>
+      </tal:rep>
+    </tbody>
+  </table>
+            </tal:defines>
         </div>
       </div>
       <script>
