@@ -3,6 +3,8 @@ Changelog
 
 14.2-dev0 - (unreleased)
 ---------------------
+* Feature: enhancements to the @@datasets_overview page
+  [alecghica refs #102273]
 
 14.1 - (2019-01-28)
 ---------------------

@@ -3,6 +3,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from eea.workflow.readiness import ObjectReadiness
+from eea.versions.interfaces import IGetVersions
 from zope.component import getMultiAdapter
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as VPT
@@ -64,17 +65,37 @@ class GetLegislationDatasets(object):
         results = {}
         legislation_titles = {}
         for data in datasets:
-            legislation_title = data['instrument_label']
+            legislation_label = data['instrument_label']
             legislation_url = data['instrument']
-            key = (legislation_title, legislation_url)
+            legislation_title = data['instrument_title']
+            key = (legislation_label, legislation_url, legislation_title)
             if key not in results:
                 results[key] = []
-                legislation_titles[legislation_title] = []
+                legislation_titles[legislation_label] = []
 
+            # get dataset latest version only
             data_url = data['dataset']
+            data_url_short = str(data_url.split('http://www.eea.europa.eu/')[1])
+            data_obj = self.context.unrestrictedTraverse(data_url_short, None)
+            if data_obj:
+                api = IGetVersions(data_obj)
+                latest_version = api.latest_version()
+                latest_version_url = latest_version.absolute_url()
+                data_url = latest_version_url
+                data['dataset'] = latest_version_url
+
+                field = latest_version.getField('lastUpload')
+                if field:
+                    data['publishing_date'] = field.getAccessor(latest_version)()
+                else:
+                    data['publishing_date'] = latest_version.getEffectiveDate() or latest_version.creation_date
+
+            else:
+                continue
+
             # avoid dataset duplicated since query returns same datasets with
             # several rod objects
-            if not data_url in legislation_titles[legislation_title]:
+            if not data_url in legislation_titles[legislation_label]:
                 results[key].append(data)
-                legislation_titles[legislation_title].append(data_url)
+                legislation_titles[legislation_label].append(data_url)
         return results 
