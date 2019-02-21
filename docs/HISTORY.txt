@@ -1,6 +1,9 @@
 Changelog
 =========
 
+14.3-dev0 - (unreleased)
+---------------------
+
 14.2 - (2019-02-21)
 ---------------------
 * Feature: enhancements to the @@datasets_overview page
