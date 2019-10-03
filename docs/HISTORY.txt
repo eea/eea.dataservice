@@ -402,8 +402,8 @@ Changelog
 ------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
   available for eea.dataservice
-    - RUN with www8 as a LAST step since it reindexes 7000 objects
-    - [ichimdav #19367]
+  - RUN with www8 as a LAST step since it reindexes 7000 objects
+  [ichimdav #19367]
 * Change: Data and EEAFigure now have an indexer that indexes the values of the
   location field if the value is part of the european countries vocabulary
   [ichimdav refs #19367]
