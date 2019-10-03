@@ -84,12 +84,13 @@ class GetLegislationDatasets(object):
                 data_url = latest_version_url
                 data['dataset'] = latest_version_url
 
-                field = latest_version.getField('lastUpload')
-                if field:
-                    data['publishing_date'] = field.getAccessor(latest_version)()
-                else:
-                    data['publishing_date'] = latest_version.getEffectiveDate() or latest_version.creation_date
 
+                date = latest_version.getEffectiveDate() or latest_version.creation_date
+                if not date:
+                    field = latest_version.getField('lastUpload')
+                    if field:
+                        date = field.getAccessor(latest_version)()
+                data['publishing_date'] = date
             else:
                 continue
 
