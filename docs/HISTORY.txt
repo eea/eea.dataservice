@@ -1,13 +1,19 @@
 Changelog
 =========
 
+14.3 - (2019-10-03)
+--------------------------
+* Change: Modified the @@datasets_overview page to use effective/creation date
+  instead of lastUpload
+  [iulianpetchesi refs #102731]
+
 14.2 - (2019-02-21)
----------------------
+--------------------------
 * Feature: enhancements to the @@datasets_overview page
   [alecghica refs #102273]
 
 14.1 - (2019-01-28)
----------------------
+--------------------------
 * Jenkins: Add sonarqube step
   [avoinea refs #101552]
 
@@ -20,7 +26,7 @@ Changelog
   [ichim-david refs #100700]
 
 13.9 - (2018-12-11)
----------------------
+--------------------------
 * Change: organisation vocabulary is now reversed sorted in order to have newest
   organisations first
   [ichim-david refs #100699]
@@ -34,24 +40,24 @@ Changelog
   [ichim-david refs #100699]
 
 13.7 - (2018-12-03)
----------------------
+--------------------------
 * Bug fix: Fixed reporting obligation field in Data is not showing records
   [avoinea refs #100588]
 
 13.6 - (2018-10-03)
----------------------
+--------------------------
 * Feature: Added support for Matomo downloads
   [avoinea refs #98864]
 * Feature: Added support for Matomo analytics events
   [avoinea refs #98857]
 
 13.5 - (2018-10-02)
----------------------
+--------------------------
 * Change: Fixed EPS convertor for Pillow 4.3.0
   [szabozo0 refs #98502]
 
 13.4 - (2018-09-03)
----------------------
+--------------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
   available for eea.dataservice
   [avoinea refs #98047]
@@ -59,12 +65,12 @@ Changelog
   [avoinea refs #98047]
 
 13.3 - (2018-07-12)
----------------------
+--------------------------
 * Change: use warning instead of exception for expected behaviour
   [alecghica refs #97089]
 
 13.2 - (2018-06-20)
----------------------
+--------------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 
@@ -302,7 +308,7 @@ Changelog
 * Bugfix: Fixed error on the @@convertFigures view.
   [chiridra refs #28806]
 * Bug fix: Pillow 2.9.0 implemented eps patch but has a resolution issue. Re-added a patch'
-           Fix patch to work with pillow 2.9.0
+  Fix patch to work with pillow 2.9.0
   [lucas refs #28893]
 
 9.5 - (2015-09-10)
@@ -396,8 +402,8 @@ Changelog
 ------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
   available for eea.dataservice
-    - RUN with www8 as a LAST step since it reindexes 7000 objects
-    - [ichimdav #19367]
+  - RUN with www8 as a LAST step since it reindexes 7000 objects
+  [ichimdav #19367]
 * Change: Data and EEAFigure now have an indexer that indexes the values of the
   location field if the value is part of the european countries vocabulary
   [ichimdav refs #19367]
