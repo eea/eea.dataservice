@@ -61,7 +61,7 @@ class ImageViewFigure(BrowserView):
         return self.img(scalename)
 
 
-class ImageViewFigureFile(atfolder.FolderImageView):
+class ImageViewFigureFile(BrowserView):
     """ Get cover image from folder contents
     """
     implements(IImageView)
@@ -112,7 +112,8 @@ class ImageViewFigureFile(atfolder.FolderImageView):
                 self._img = queryMultiAdapter((
                     self.original, self.request), name=u'imgview')
             else:
-                self._img = super(ImageViewFigureFile, self).img
+                self._img = atfolder.FolderImageView(
+                    self.context, self.request)
         return self._img
 
     def display(self, scalename='thumb'):
