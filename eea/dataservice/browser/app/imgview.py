@@ -36,9 +36,6 @@ class ImageViewFigure(BrowserView):
             }
 
             ctool = getToolByName(self.context, 'portal_catalog')
-            if 'Language' in ctool.indexes():
-                query['Language'] = 'all'
-
             brains = ctool.unrestrictedSearchResults(**query)
             for idx, brain in enumerate(brains):
                 doc = brain.getObject()
@@ -86,9 +83,6 @@ class ImageViewFigureFile(BrowserView):
             }
 
             ctool = getToolByName(self.context, 'portal_catalog')
-            if 'Language' in ctool.indexes():
-                query['Language'] = 'all'
-
             brains = ctool.unrestrictedSearchResults(**query)
 
             # Get *.zoom.png
