@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.4 - (2019-10-10)
+---------------------------
+* Bug fix: Optimize imgview adapters by moving code from __init__
+  [avoinea refs #109515]
+
 14.3 - (2019-10-03)
 --------------------------
 * Change: Modified the @@datasets_overview page to use effective/creation date
