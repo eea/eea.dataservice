@@ -3,6 +3,8 @@ Changelog
 
 14.5-dev0 - (unreleased)
 ---------------------------
+* Feature: the field 'Last upload' is now hidden
+  [alecghica refs #102731]
 
 14.4 - (2019-10-10)
 ---------------------------

@@ -216,17 +216,17 @@
                 <tal:temporalCoverage
                          metal:use-macro="context/temporal_macros/macros/temporal-coverage-data" />
 
-                <!-- Last upload -->
-                <tal:block metal:define-macro="last-upload"
+                <!-- Last upload, hidden due to #102731 -->
+                <!-- tal:block metal:define-macro="last-upload"
                         define="field python:context.getField('lastUpload');
-                       value python:field.getAccessor(context)()"
+                                value python:field.getAccessor(context)()"
                         condition="value">
                     <dt>
                         <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
                         <span i18n:translate="">Last upload:</span>
                     </dt>
                     <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)">Last upload</dd>
-                </tal:block>
+                </tal:block -->
 
                 <!-- Geotags -->
 

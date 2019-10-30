@@ -177,6 +177,7 @@ dataservice_base_schema = Schema((
         default=DateTime(),
         imports="from DateTime import DateTime",
         widget=CalendarWidget(
+            visible={ "edit": "invisible", "view": "invisible"},
             show_hm=False,
             label="Last upload",
             description=("Date when the data resource was last uploaded in "
