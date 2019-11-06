@@ -3,6 +3,8 @@ Changelog
 
 14.6-dev0 - (unreleased)
 ---------------------------
+* Bug fix: Fix imgview adapter for EEAFigure when first FigureFile doesn't have Image children
+  [avoinea refs #109515]
 
 14.5 - (2019-10-30)
 ---------------------------
