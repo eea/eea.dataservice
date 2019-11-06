@@ -40,9 +40,11 @@ class ImageViewFigure(BrowserView):
             for idx, brain in enumerate(brains):
                 doc = brain.getObject()
                 imgview = queryMultiAdapter((doc, self.request), name=u'imgview')
-                if imgview.img:
+
+                if imgview.img and getattr(imgview, 'original', None):
                     self._img = imgview
                     break
+
         return self._img
 
     def display(self, scalename='thumb'):
