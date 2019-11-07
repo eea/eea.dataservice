@@ -103,7 +103,8 @@
             <div class="metadata-container">
                 <dl>
                     <!-- META DATA -->
-                    <metal:related use-macro="here/dataset_view/macros/last-upload" />
+                    <!-- Last upload, hidden due to #102731 -->
+                    <!-- metal:related use-macro="here/dataset_view/macros/last-upload" / -->
                     <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage-data">Temporal Coverage widget view</tal:temporalCoverage>
                     <tal:tags define="facetId string:c9">
                         <metal:related

@@ -3,6 +3,8 @@ Changelog
 
 14.7-dev0 - (unreleased)
 ---------------------------
+* Bug fix: the field 'Last upload' is now hidden on EEAFigure view
+  [alecghica refs #102731]
 
 14.6 - (2019-11-06)
 ---------------------------
