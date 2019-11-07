@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.7 - (2019-11-07)
+---------------------------
+* Bug fix: the field 'Last upload' is now hidden on EEAFigure view
+  [alecghica refs #102731]
+
 14.6 - (2019-11-06)
 ---------------------------
 * Bug fix: Fix imgview adapter for EEAFigure when first FigureFile doesn't have Image children
