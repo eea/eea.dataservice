@@ -1,6 +1,9 @@
 Changelog
 =========
 
+14.8-dev0 - (unreleased)
+---------------------------
+
 14.7 - (2019-11-07)
 ---------------------------
 * Bug fix: the field 'Last upload' is now hidden on EEAFigure view
