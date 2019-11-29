@@ -3,7 +3,6 @@
 
 import logging
 import transaction
-from plone.api.content import get_state
 from Products.CMFCore.utils import getToolByName
 
 logger = logging.getLogger(__name__)
