@@ -3,6 +3,9 @@ Changelog
 
 14.8-dev0 - (unreleased)
 ---------------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [iulianpetchesi refs #110739]
 
 14.7 - (2019-11-07)
 ---------------------------
