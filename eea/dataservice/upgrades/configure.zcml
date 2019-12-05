@@ -100,4 +100,16 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+        source="13.4"
+        destination="14.8"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeStep
+            title="Publish datasets content"
+            handler=".upgrade148.publish_datasets_content"
+        />
+
+    </genericsetup:upgradeSteps>
+
 </configure>

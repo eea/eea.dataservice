@@ -1,6 +1,12 @@
 Changelog
 =========
 
+14.8 - (2019-11-29)
+---------------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [iulianpetchesi refs #110739]
+
 14.7 - (2019-11-07)
 ---------------------------
 * Bug fix: the field 'Last upload' is now hidden on EEAFigure view
