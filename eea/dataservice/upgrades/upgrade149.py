@@ -1,4 +1,4 @@
-"""  Upgrade steps to version 14.8
+"""  Upgrade steps to version 14.9
 """
 
 import logging
@@ -49,7 +49,7 @@ def migrate_ftp_datafilelinks(context):
 
             resp = requests.get(
                 get_share_url % path, headers={"OCS-APIRequest": "true"},
-                auth=('eeaadmin', 'DJ1O1XbOIU')
+                auth=(cmshare_user, cmshare_pw)
             )
             xml = xmltodict.parse(resp.content)
 
@@ -70,7 +70,7 @@ def migrate_ftp_datafilelinks(context):
                 # create share link
                 res = requests.post(
                     create_share_url % path, headers={"OCS-APIRequest": "true"},
-                    auth=('eeaadmin', 'DJ1O1XbOIU')
+                    auth=(cmshare_user, cmshare_pw)
                 )
 
                 if res.status_code == 200:
