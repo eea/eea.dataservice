@@ -112,4 +112,16 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+        source="14.8"
+        destination="14.9"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeStep
+            title="Add CMShare url to DataFileLinks"
+            handler=".upgrade149.migrate_ftp_datafilelinks"
+        />
+
+    </genericsetup:upgradeSteps>
+
 </configure>

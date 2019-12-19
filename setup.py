@@ -55,6 +55,7 @@ setup(name=name,
           'eea.rdfmarshaller',
           'collective.quickupload',
           'eventlet',
+          'xmltodict',
       ],
       extras_require={
           'test': [
