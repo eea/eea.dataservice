@@ -46,6 +46,9 @@ def migrate_ftp_datafilelinks(context):
             path = urlparse.urlparse(obj.remoteUrl).path
             path = path.replace('/www/', '/eea-data-service/').encode('utf-8')
 
+            if not path.startswith('/eea-data-service/'):
+                path = '/eea-data-service' + path
+
             resp = requests.get(
                 get_share_url % path, headers={"OCS-APIRequest": "true"},
                 auth=(cmshare_user, cmshare_pw)
