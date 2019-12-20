@@ -6,7 +6,6 @@ import requests
 import transaction
 import urlparse
 import xmltodict
-from zope.component.hooks import getSite
 from Products.CMFCore.utils import getToolByName
 
 logger = logging.getLogger(__name__)
@@ -81,6 +80,8 @@ def migrate_ftp_datafilelinks(context):
                 else:
                     logger.error("Failed to create sharable link for %s" \
                                 % brain.getURL())
+                    reason = xmltodict.parse(res.content)['ocs']['meta']
+                    logger.error("Response: %s" % reason['message'])
 
             if changed and url is not None:
                 obj.remoteUrl = url + '/download'
