@@ -1,6 +1,12 @@
 Changelog
 =========
 
+14.9 - (2019-12-20)
+---------------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
+  available for eea.dataservice
+  [iulianpetchesi refs #110427]
+
 14.8 - (2019-11-29)
 ---------------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
