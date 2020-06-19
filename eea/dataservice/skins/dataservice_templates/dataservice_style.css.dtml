@@ -11,10 +11,6 @@
     color: green;
 }
 
-.temporal-coverage {
-    margin-top: 1em;
-}
-
 .table-definition-body {
     display: none;
 }
