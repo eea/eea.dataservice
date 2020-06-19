@@ -1,7 +1,7 @@
 Changelog
 =========
 
-15.0-dev0 - (unreleased)
+15.0 - (2020-06-19)
 ---------------------------
 * Change: cleaned temporal coverage css override
   [ichim-david refs #117295]
