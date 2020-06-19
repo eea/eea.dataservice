@@ -1,6 +1,9 @@
 Changelog
 =========
 
+15.1-dev0 - (unreleased)
+---------------------------
+
 15.0 - (2020-06-19)
 ---------------------------
 * Change: cleaned temporal coverage css override
