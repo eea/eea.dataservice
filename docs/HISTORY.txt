@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.0 - (2020-06-19)
+---------------------------
+* Change: cleaned temporal coverage css override
+  [ichim-david refs #117295]
+
 14.9 - (2019-12-20)
 ---------------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on upgrade button
