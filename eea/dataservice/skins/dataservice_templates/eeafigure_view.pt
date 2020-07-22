@@ -105,12 +105,12 @@
                     <!-- META DATA -->
                     <!-- Last upload, hidden due to #102731 -->
                     <!-- metal:related use-macro="here/dataset_view/macros/last-upload" / -->
-                    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage-data">Temporal Coverage widget view</tal:temporalCoverage>
-                    <tal:tags define="facetId string:c9">
-                        <metal:related
-                                use-macro="here/dataset_view/macros/tags" />
-                    </tal:tags>
-                    <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />
+<!--?                    <tal:temporalCoverage metal:use-macro="context/temporal_macros/macros/temporal-coverage-data">Temporal Coverage widget view</tal:temporalCoverage>-->
+<!--?                    <tal:tags define="facetId string:c9">-->
+<!--?                        <metal:related-->
+<!--?                                use-macro="here/dataset_view/macros/tags" />-->
+<!--?                    </tal:tags>-->
+<!--?                    <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />-->
                     <metal:related use-macro="here/dataset_view/macros/methodology" />
                     <metal:related use-macro="here/dataset_view/macros/units" />
                     <metal:related use-macro="here/dataset_view/macros/rights" />
