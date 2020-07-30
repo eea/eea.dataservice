@@ -2,6 +2,10 @@
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
 
 /* EEAFigure and Data (index) */
+#content .metadata-container dd {
+    margin-left: 3em;
+}
+
 .table-definition-show {
     cursor: pointer;
     color: green;
