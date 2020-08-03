@@ -447,7 +447,7 @@
 
     <div class="visualClear">&nbsp;</div>
 
-    <metal:related use-macro="here/geotags_macros/macros/geotags-map" />
+
 </div>
 </body>
 </html>

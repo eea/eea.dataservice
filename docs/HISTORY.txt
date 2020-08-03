@@ -3,6 +3,10 @@ Changelog
 
 15.1-dev0 - (unreleased)
 ---------------------------
+* Change: cleaned temporal coverage and geographical_coverage macros from
+  figure and dataset view, they now show up from the generic viewlets in place
+  with other metadata
+  [ichim-david refs #119540]
 
 15.0 - (2020-06-19)
 ---------------------------
