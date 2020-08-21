@@ -212,10 +212,6 @@
                     </tal:block>
                 </tal:block>
 
-                <!-- Temporal coverage -->
-                <tal:temporalCoverage
-                         metal:use-macro="context/temporal_macros/macros/temporal-coverage-data" />
-
                 <!-- Last upload, hidden due to #102731 -->
                 <!-- tal:block metal:define-macro="last-upload"
                         define="field python:context.getField('lastUpload');
@@ -228,10 +224,6 @@
                     <dd tal:content="python:toLocalizedTime(value, long_format=0, translate=False)">Last upload</dd>
                 </tal:block -->
 
-                <!-- Geotags -->
-
-                <metal:related use-macro="here/geotags_macros/macros/geotags-listing" />
-
                 <!-- Geographic accuracy -->
                 <tal:block metal:define-macro="geo-accuracy"
                         define="field python:context.getField('geoAccuracy');
@@ -242,28 +234,6 @@
                         <span i18n:translate="">Geographic accuracy:</span>
                     </dt>
                     <dd tal:content="structure value">Geographic accuracy</dd>
-                </tal:block>
-
-
-                <!-- Tags -->
-                <tal:block metal:define-macro="tags"
-                         tal:define="field python:context.getField('subject');
-                                value python:field.getAccessor(context)()"
-                         tal:condition="value">
-                    <dt style="clear: left" id="keywords-tags">
-                        <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
-                        <span i18n:translate="">Tags:</span>
-                    </dt>
-                    <dd class="documentByLine category">
-                        <tal:keywords repeat="tag value" tal:condition="value">
-                            <span>
-                                <a class="link-category" rel="tag"
-                                         tal:attributes="title tag"
-                                         tal:content="tag"></a>
-                                <span class="separator" tal:condition="not:repeat/tag/end">,</span>
-                            </span>
-                        </tal:keywords>
-                    </dd>
                 </tal:block>
 
                 <!-- Scale of the data set -->
