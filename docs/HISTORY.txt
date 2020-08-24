@@ -1,6 +1,15 @@
 Changelog
 =========
 
+15.1 - (2020-08-03)
+---------------------------
+* Change: cleaned temporal coverage and geographical_coverage macros from
+  figure and dataset view, they now show up from the generic viewlets in place
+  with other metadata
+  [ichim-david refs #119540]
+* Change: added upgrade script to cleanup geographicCoverage field values
+  [alecghica refs #117948]
+
 15.0 - (2020-06-19)
 ---------------------------
 * Change: cleaned temporal coverage css override

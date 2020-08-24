@@ -124,4 +124,16 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+        source="14.9"
+        destination="15.0"
+        profile="eea.dataservice:default">
+
+        <genericsetup:upgradeStep
+            title="Cleanup geographicCoverage field values"
+            handler=".upgrade150.cleanup_geographicCoverage"
+        />
+
+    </genericsetup:upgradeSteps>
+
 </configure>

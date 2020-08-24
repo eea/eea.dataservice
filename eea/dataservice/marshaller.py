@@ -39,17 +39,16 @@ class TemporalCoverageField2Surf(ATField2Surf):
 
 
 class ExtraMimetype2SurfModifier(object):
-    """Modifier for content types that want to publish info about
+    """ Modifier for content types that want to publish info about
     their file mimetypes
     """
-
     implements(ISurfResourceModifier)
 
     def __init__(self, context):
         self.context = context
 
     def run(self, resource, *args, **kwds):
-        """change the rdf resource
+        """ Change the rdf resource
         """
         catalog = getToolByName(self.context, "portal_catalog")
         indexer = getMultiAdapter((self.context, catalog), name="filetype")
