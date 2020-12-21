@@ -90,6 +90,8 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
                    "-dSAFER",                    # safe mode
                    "-sDEVICE=ppmraw",            # ppm driver
                    "-sOutputFile=%s" % outfile,  # output file
+                   "-dTextAlphaBits=4",          # antialliasing
+                   "-dGraphicsAlphaBits=4",      # antialliasing
                    "-c", "%d %d translate" % (-bbox[0], -bbox[1]),
                                                  # adjust for image origin
                    "-f", infile,                 # input file
@@ -103,6 +105,8 @@ def Ghostscript(tile, size, fp, scale=1, dpi=None):
                    "-dNOPAUSE -dSAFER",         # don't pause between pages
                    "-sDEVICE=ppmraw",           # ppm driver
                    "-sOutputFile=%s" % outfile, # output file
+                   "-dTextAlphaBits=4",         # antialliasing
+                   "-dGraphicsAlphaBits=4",     # antialliasing
                    "-f", infile,                # input file
                    "- >/dev/null 2>/dev/null"]
 
