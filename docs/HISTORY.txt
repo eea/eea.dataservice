@@ -3,6 +3,8 @@ Changelog
 
 15.2-dev0 - (unreleased)
 ---------------------------
+* Bug fix: Added antialliasing configuration for Ghostscript
+  [szabozo0 refs #120336]
 
 15.1 - (2020-08-03)
 ---------------------------
