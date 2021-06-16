@@ -1,0 +1,15 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <!-- Multi Data source adapters -->
+  <adapter
+    for="eea.dataservice.interfaces.IEEAFigure"
+    provides="eea.app.visualization.interfaces.IMultiDataProvenance"
+    factory=".source.EEAFigureMultiDataProvenance"
+    zcml:condition="installed eea.app.visualization"
+    />
+
+</configure>

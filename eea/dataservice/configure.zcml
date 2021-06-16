@@ -19,6 +19,7 @@
   <include package=".async" />
   <include package=".browser" />
   <include package=".converter" />
+  <include package=".data" />
   <include package=".templates" />
   <include package=".google" />
   <include package=".relations" />
