@@ -3,6 +3,9 @@ Changelog
 
 15.3-dev0 - (unreleased)
 ---------------------------
+* Feature: implemented EEAFigure provenance multi adapter
+  in order to retrieve provenance data from ExternalDataSpec relations
+  [ichim-david refs #130851]
 
 15.2 - (2020-12-21)
 ---------------------------
