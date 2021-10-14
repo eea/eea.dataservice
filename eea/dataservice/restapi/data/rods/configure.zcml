@@ -1,0 +1,18 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.restapi"  />
+
+  <!-- Reporting obligations (ROD) -->
+  <plone:service
+    method="GET"
+    name="@rods"
+    for="Products.CMFCore.interfaces.IContentish"
+    factory=".get.Get"
+    permission="zope2.View"
+    />
+
+  <adapter factory=".get.ROD" name="rods" />
+
+</configure>
