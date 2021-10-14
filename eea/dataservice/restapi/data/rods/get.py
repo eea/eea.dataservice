@@ -1,14 +1,12 @@
 """ RestAPI GET enpoints
 """
-from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.services import Service
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from zope.component import adapter, getUtility
-from zope.interface import Interface, implementer
+from zope.component import getUtility
+from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from zope.schema.interfaces import IVocabularyFactory
-from eea.dataservice.interfaces import IEEAFigure
 
 
 class ROD(object):
@@ -54,7 +52,7 @@ class BackRefsROD(ROD):
     """ Get data provenances
     """
     def __call__(self, expand=False):
-        result = super(EEAFigureROD, self).__call__(expand)
+        result = super(BackRefsROD, self).__call__(expand)
 
         if not expand:
             return result
@@ -65,7 +63,7 @@ class BackRefsROD(ROD):
         getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
         existing = set()
         for ref in getBRefs('relatesTo'):
-            if getattr(ref, 'portal_type', None) is not 'Data':
+            if getattr(ref, 'portal_type', None) != 'Data':
                 continue
 
             rods = ROD(ref, self.request).__call__(expand=True)
