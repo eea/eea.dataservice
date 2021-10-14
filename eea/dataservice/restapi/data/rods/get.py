@@ -8,10 +8,9 @@ from zope.component import adapter, getUtility
 from zope.interface import Interface, implementer
 from zope.publisher.interfaces import IPublishTraverse
 from zope.schema.interfaces import IVocabularyFactory
+from eea.dataservice.interfaces import IEEAFigure
 
 
-@implementer(IExpandableElement)
-@adapter(Interface, Interface)
 class ROD(object):
     """ Get data provenances
     """
@@ -51,6 +50,35 @@ class ROD(object):
         return result
 
 
+class BackRefsROD(ROD):
+    """ Get data provenances
+    """
+    def __call__(self, expand=False):
+        result = super(EEAFigureROD, self).__call__(expand)
+
+        if not expand:
+            return result
+
+        if IPloneSiteRoot.providedBy(self.context):
+            return result
+
+        getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
+        existing = set()
+        for ref in getBRefs('relatesTo'):
+            if getattr(ref, 'portal_type', None) is not 'Data':
+                continue
+
+            rods = ROD(ref, self.request).__call__(expand=True)
+            for rod in rods.get('rods', {}).get('items', []):
+                name = rod.get('name', '')
+                if name in existing:
+                    continue
+
+                result['rods']['items'].append(rod)
+                existing.add(name)
+        return result
+
+
 @implementer(IPublishTraverse)
 class Get(Service):
     """GET"""
@@ -58,4 +86,14 @@ class Get(Service):
     def reply(self):
         """Reply"""
         info = ROD(self.context, self.request)
+        return info(expand=True)["rods"]
+
+
+@implementer(IPublishTraverse)
+class GetBackRefs(Service):
+    """GET"""
+
+    def reply(self):
+        """Reply"""
+        info = BackRefsROD(self.context, self.request)
         return info(expand=True)["rods"]
