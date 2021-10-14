@@ -1,0 +1,57 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <include package="plone.restapi"  />
+
+  <adapter
+    for="zope.interface.Interface zope.interface.Interface"
+    provides="plone.restapi.interfaces.IExpandableElement"
+    factory=".get.ROD"
+    name="rods" />
+
+  <adapter
+    for="eea.dataservice.interfaces.IEEAFigure zope.interface.Interface"
+    provides="plone.restapi.interfaces.IExpandableElement"
+    factory=".get.BackRefsROD"
+    name="rods" />
+
+  <!-- Generic Reporting obligations (ROD) -->
+  <plone:service
+    method="GET"
+    name="@rods"
+    for="Products.CMFCore.interfaces.IContentish"
+    factory=".get.Get"
+    permission="zope2.View"
+    />
+
+  <!-- EEAFigure Reporting obligations (ROD) -->
+  <plone:service
+    method="GET"
+    name="@rods"
+    for="eea.dataservice.interfaces.IEEAFigure"
+    factory=".get.GetBackRefs"
+    permission="zope2.View"
+    />
+
+  <!-- Daviz Reporting obligations (ROD) -->
+  <configure zcml:condition="installed eea.app.visualization">
+
+    <adapter
+      for="eea.app.visualization.subtypes.interfaces.IVisualizationEnabled zope.interface.Interface"
+      provides="plone.restapi.interfaces.IExpandableElement"
+      factory=".get.BackRefsROD"
+      name="rods" />
+
+    <plone:service
+      method="GET"
+      name="@rods"
+      for="eea.app.visualization.subtypes.interfaces.IVisualizationEnabled"
+      factory=".get.GetBackRefs"
+      permission="zope2.View"
+      />
+
+  </configure>
+
+</configure>
