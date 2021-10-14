@@ -36,6 +36,8 @@ class ROD(object):
         voc = getUtility(IVocabularyFactory, 'Obligations')
         for term in voc(self.context):
             name = term.value
+            if not name or name == '0':
+                continue
             title = term.title
             if name in rods:
                 rod = {
