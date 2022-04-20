@@ -1,6 +1,9 @@
 Changelog
 =========
 
+15.6-dev0 - (unreleased)
+---------------------------
+
 15.5 - (2022-04-20)
 ---------------------------
 * Cleanup: Move MultiDataProvenance code to eea.app.visualisation
