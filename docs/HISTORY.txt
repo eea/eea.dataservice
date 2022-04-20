@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.5 - (2022-04-20)
+---------------------------
+* Cleanup: Move MultiDataProvenance code to eea.app.visualisation
+  [avoinea refs #130851]
+
 15.4 - (2021-10-14)
 ---------------------------
 * Feature: RestAPI for Data Reporting obligations
