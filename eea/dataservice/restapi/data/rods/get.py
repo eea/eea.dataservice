@@ -53,6 +53,18 @@ class ROD(object):
 class RelatedItemsROD(ROD):
     """ Get data provenances
     """
+    def refs(self):
+        """ Get all references: related items and back references
+        """
+        getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
+        for ref in getBRefs('relatesTo'):
+            yield ref
+
+        getRelatedItems = getattr(
+            self.context, 'getRelatedItems', lambda x: [])
+        for ref in getRelatedItems():
+            yield ref
+
     def __call__(self, expand=False):
         result = super(RelatedItemsROD, self).__call__(expand)
 
@@ -63,12 +75,7 @@ class RelatedItemsROD(ROD):
             return result
 
         existing = set()
-        getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
-        getRelatedItems = getattr(
-            self.context, 'getRelatedItems', lambda x: [])
-        refs = [ref for ref in getBRefs('relatesTo')].extend(
-            getRelatedItems())
-        for ref in refs:
+        for ref in self.refs():
             if getattr(ref, 'portal_type', None) not in [
                 'Data', 'ExternalDataSpec']:
                 continue
