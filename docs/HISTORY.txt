@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.6 - (2022-05-11)
+---------------------------
+* Feature: Get RODs from relatedItems and backRefs Data and ExternalDataSpec
+  [avoinea refs #144026]
+
 15.5 - (2022-04-20)
 ---------------------------
 * Cleanup: Move MultiDataProvenance code to eea.app.visualisation

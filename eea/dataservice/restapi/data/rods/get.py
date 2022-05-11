@@ -50,11 +50,23 @@ class ROD(object):
         return result
 
 
-class BackRefsROD(ROD):
+class RelatedItemsROD(ROD):
     """ Get data provenances
     """
+    def refs(self):
+        """ Get all references: related items and back references
+        """
+        getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
+        for ref in getBRefs('relatesTo'):
+            yield ref
+
+        getRelatedItems = getattr(
+            self.context, 'getRelatedItems', lambda x: [])
+        for ref in getRelatedItems():
+            yield ref
+
     def __call__(self, expand=False):
-        result = super(BackRefsROD, self).__call__(expand)
+        result = super(RelatedItemsROD, self).__call__(expand)
 
         if not expand:
             return result
@@ -62,10 +74,10 @@ class BackRefsROD(ROD):
         if IPloneSiteRoot.providedBy(self.context):
             return result
 
-        getBRefs = getattr(self.context, 'getBRefs', lambda x: [])
         existing = set()
-        for ref in getBRefs('relatesTo'):
-            if getattr(ref, 'portal_type', None) != 'Data':
+        for ref in self.refs():
+            if getattr(ref, 'portal_type', None) not in [
+                'Data', 'ExternalDataSpec']:
                 continue
 
             rods = ROD(ref, self.request).__call__(expand=True)
@@ -90,10 +102,10 @@ class Get(Service):
 
 
 @implementer(IPublishTraverse)
-class GetBackRefs(Service):
+class GetRelatedItems(Service):
     """GET"""
 
     def reply(self):
         """Reply"""
-        info = BackRefsROD(self.context, self.request)
+        info = RelatedItemsROD(self.context, self.request)
         return info(expand=True)["rods"]

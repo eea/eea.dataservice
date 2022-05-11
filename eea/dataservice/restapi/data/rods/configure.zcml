@@ -14,7 +14,7 @@
   <adapter
     for="eea.dataservice.interfaces.IEEAFigure zope.interface.Interface"
     provides="plone.restapi.interfaces.IExpandableElement"
-    factory=".get.BackRefsROD"
+    factory=".get.RelatedItemsROD"
     name="rods" />
 
   <!-- Generic Reporting obligations (ROD) -->
@@ -31,7 +31,7 @@
     method="GET"
     name="@rods"
     for="eea.dataservice.interfaces.IEEAFigure"
-    factory=".get.GetBackRefs"
+    factory=".get.GetRelatedItems"
     permission="zope2.View"
     />
 
@@ -41,14 +41,14 @@
     <adapter
       for="eea.app.visualization.subtypes.interfaces.IVisualizationEnabled zope.interface.Interface"
       provides="plone.restapi.interfaces.IExpandableElement"
-      factory=".get.BackRefsROD"
+      factory=".get.RelatedItemsROD"
       name="rods" />
 
     <plone:service
       method="GET"
       name="@rods"
       for="eea.app.visualization.subtypes.interfaces.IVisualizationEnabled"
-      factory=".get.GetBackRefs"
+      factory=".get.GetRelatedItems"
       permission="zope2.View"
       />
 
