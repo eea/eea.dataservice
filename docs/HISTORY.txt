@@ -3,6 +3,8 @@ Changelog
 
 15.6-dev0 - (unreleased)
 ---------------------------
+* Feature: Get RODs from relatedItems and backRefs Data and ExternalDataSpec
+  [avoinea refs #144026]
 
 15.5 - (2022-04-20)
 ---------------------------
