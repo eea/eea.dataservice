@@ -6,8 +6,7 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from zope.schema.interfaces import IVocabularyFactory
-
+from eea.dataservice.interfaces import IReportingObligations
 
 class ROD(object):
     """ Get data provenances
@@ -33,18 +32,27 @@ class ROD(object):
         if not rods:
             return result
 
-        voc = getUtility(IVocabularyFactory, 'Obligations')
-        for term in voc(self.context):
-            name = term.value
+        obligations = getUtility(IReportingObligations)
+        for name, term in obligations().items():
+            name = str(name)
             if not name or name == '0':
                 continue
-            title = term.title
+
+            title = term.get('title')
+            link = "https://rod.eionet.europa.eu/obligations/%s" % name
+
+            source_title = term.get('source_title', title)
+            source_name = term.get("source_id", name)
+            source_link = "https://rod.eionet.europa.eu/instruments/%s" % source_name
+
             if name in rods:
                 rod = {
+                    "name": name,
                     "title": json_compatible(title),
-                    "link": json_compatible(
-                        "https://rod.eionet.europa.eu/obligations/%s" % name),
-                    "name": name
+                    "link": json_compatible(link),
+                    "source_name": json_compatible(source_name),
+                    "source_title": json_compatible(source_title),
+                    "source_link": json_compatible(source_link),
                 }
                 result['rods']['items'].append(rod)
         return result
