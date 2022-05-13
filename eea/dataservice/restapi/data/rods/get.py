@@ -34,6 +34,7 @@ class ROD(object):
 
         obligations = getUtility(IReportingObligations)
         for name, term in obligations().items():
+            name = str(name)
             if not name or name == '0':
                 continue
 
