@@ -12,7 +12,7 @@ from eea.dataservice.vocabulary import (
     QUALITY_DICTIONARY_ID,
     COUNTRIES_DICTIONARY_ID,
     CATEGORIES_DICTIONARY_ID)
-from eea.dataservice.vocabulary import eeacache, MEMCACHED_CACHE_SECONDS_KEY
+from eea.cache import cache as eeacache
 from eea.dataservice.vocabulary import _obligations
 from eea.versions.interfaces import IGetVersions
 
@@ -27,6 +27,9 @@ except ImportError:
         """ eea.reports is not present """
 
 from zope.component import queryMultiAdapter, queryAdapter, getUtility
+
+
+MEMCACHED_CACHE_SECONDS_KEY = 86400 # 1 day
 
 
 class OrganisationStatistics(object):
@@ -316,7 +319,7 @@ def _categories_vocabulary(self, request):
     return atvm[CATEGORIES_DICTIONARY_ID]
 
 
-@eeacache(lambda * args: MEMCACHED_CACHE_SECONDS_KEY)
+@eeacache(lambda *args: MEMCACHED_CACHE_SECONDS_KEY)
 def _getCountryInfo(context):
     """ Country Info
     """
