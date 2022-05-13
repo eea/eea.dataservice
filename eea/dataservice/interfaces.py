@@ -58,3 +58,8 @@ class IEEAFigureFile(Interface):
 class IWorkingList(Interface):
     """ Marker interface for ATTopic
     """
+
+
+class IReportingObligations(Interface):
+    """ Reporting obligations utility
+    """
