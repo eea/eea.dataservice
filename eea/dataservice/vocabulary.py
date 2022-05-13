@@ -240,9 +240,12 @@ def _obligations():
     :return: cached results of Environmental reporting obligations server for
     24H cached in memcached
     """
-    rod = queryUtility(IReportingObligations)
     res = {}
-    for key, value in rod():
+    rod = queryUtility(IReportingObligations)
+    if not rod:
+        return res
+
+    for key, value in rod().items():
         res[key] = value.get('title')
     return res
 
