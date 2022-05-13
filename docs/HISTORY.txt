@@ -3,6 +3,8 @@ Changelog
 
 15.7-dev0 - (unreleased)
 ---------------------------
+* Feature: Expose ROD's source id and title via RestAPI
+  [avoinea refs #144851]
 
 15.6 - (2022-05-11)
 ---------------------------

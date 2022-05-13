@@ -3,21 +3,24 @@
 import logging
 import operator
 import eventlet
-from zope.interface import implements
+from zope.interface import implementer
+from zope.component import queryUtility
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.schema.interfaces import IVocabularyFactory
 from Products.CMFCore.utils import getToolByName
 from eea.dataservice.config import ROD_SERVER, SOCKET_TIMEOUT
+from eea.dataservice.interfaces import IReportingObligations
 from eea.cache import cache as eeacache
 from plone.memoize import request as cacherequest
 
 logger = logging.getLogger('eea.dataservice.vocabulary')
 
+
 # Main keywords vocabulary
+@implementer(IVocabularyFactory)
 class MainKeywords(object):
     """ Main keywords vocabulary
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context=None):
         words_length = 30
@@ -109,10 +112,10 @@ CATEGORIES_DICTIONARY[CATEGORIES_DICTIONARY_ID] = (
 )
 
 # Figures type vocabulary
+@implementer(IVocabularyFactory)
 class FigureTypes(object):
     """ Figure types vocabulary
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context=None):
         items = [
@@ -152,10 +155,10 @@ def generateUniqueTitles(data):
     return data_unique_titles
 
 
+@implementer(IVocabularyFactory)
 class Organisations(object):
     """ Organisations
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         if hasattr(context, 'context'):
@@ -174,7 +177,7 @@ class Organisations(object):
             if isinstance(title, str):
                 try:
                     title = title.decode('utf-8')
-                except Exception, err:
+                except Exception as err:
                     logger.exception(err)
                     title = brain.getId
 
@@ -199,41 +202,55 @@ def formatTitle(title):
     return res
 
 
-MEMCACHED_CACHE_SECONDS_KEY = 86400 # 1 day
-@eeacache(lambda *args: MEMCACHED_CACHE_SECONDS_KEY)
+@implementer(IReportingObligations)
+class ReportingObligations(object):
+
+    @eeacache(lambda *args: 'rod', lifetime=86400)
+    def __call__(self):
+        logger.info('Called obligations ROD server')
+        res = {}
+        xmlrpclib = eventlet.import_patched('xmlrpclib')
+
+        with eventlet.timeout.Timeout(SOCKET_TIMEOUT):
+            try:
+                server = xmlrpclib.Server(ROD_SERVER)
+                result = server.WebRODService.getActivities()
+            except Exception as err:
+                logger.exception(err)
+                result = []
+
+        for obligation in result:
+            key = int(obligation.get('PK_RA_ID'))
+            title = formatTitle(obligation.get('TITLE'))
+            try:
+                title = title.decode('utf-8')
+            except UnicodeEncodeError as err:
+                logger.warning(
+                    "Obligation title found as unicode: %s. %s", title, err)
+            res[key] = {
+                "title": title,
+                "source_title": obligation.get("SOURCE_TITLE", title),
+                "source_id": obligation.get("PK_SOURCE_ID", key)
+            }
+        return res
+
+
 def _obligations():
     """
     :return: cached results of Environmental reporting obligations server for
     24H cached in memcached
     """
-    logger.log(logging.INFO, 'called obligations ROD server')
+    rod = queryUtility(IReportingObligations)
     res = {}
-    xmlrpclib = eventlet.import_patched('xmlrpclib')
-
-    with eventlet.timeout.Timeout(SOCKET_TIMEOUT):
-        try:
-            server = xmlrpclib.Server(ROD_SERVER)
-            result = server.WebRODService.getActivities()
-        except Exception, err:
-            logger.exception(err)
-            result = []
-
-    for obligation in result:
-        key = int(obligation['PK_RA_ID'])
-        title = formatTitle(obligation['TITLE'])
-        try:
-            title = title.decode('utf-8')
-        except UnicodeEncodeError, err:
-            logger.warning("Obligation title found as unicode: %s", title)
-            logger.warning(err)
-        res[key] = title
+    for key, value in rod():
+        res[key] = value.get('title')
     return res
 
 
+@implementer(IVocabularyFactory)
 class Obligations(object):
     """ Obligations
     """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         if hasattr(context, 'context'):
