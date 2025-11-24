@@ -1,4 +1,4 @@
-""" Installer
+""" Installer 
 """
 import os
 from os.path import join
